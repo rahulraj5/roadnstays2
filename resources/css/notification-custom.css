@@ -1,0 +1,46 @@
+/* body {
+    margin: 20px auto;
+    font-family: 'Lato';
+    font-weight: 300;
+    width: 600px;
+    text-align: center;
+  }
+  
+  button {
+    background: cornflowerblue;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: 'Lato';
+    margin: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  button:hover {
+    background: orange;
+  } */
+
+  /* .swal2-title { */
+    /* margin: 0px; */
+    /* font-size: 16px; */
+    /* font-size: 13px; */
+    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+    margin-bottom: 28px; */
+  /* } */
+  
+  /* .swal2-title {
+    font-size: 15px !important;
+  } */
+
+  .error {
+    color: red !important;
+    font-weight: 450 !important;
+  }
+
+  .swal2-popup.swal2-toast .swal2-icon.swal2-info, .swal2-popup.swal2-toast .swal2-icon.swal2-warning { 
+    font-size: 12px;
+    line-height: 32px;
+  }
