@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
         ],
 
+        'servicepro' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -77,6 +82,11 @@ return [
 
     'providers' => [
         'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+
+        'servicepro' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],

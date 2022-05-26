@@ -37,29 +37,44 @@ Route::group(['prefix' => '/'], function(){
     Route::group(['middleware' => 'guest'], function(){
         // Route::get('/login','App\Http\Controllers\HomeController@login')->name('user.login');	
         Route::post('loginPost', 'App\Http\Controllers\HomeController@postLogin'); 
+        Route::post('signup', 'App\Http\Controllers\HomeController@signup'); 
     });
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/dashboard','App\Http\Controllers\HomeController@dashboard')->name('user.dashboard');
         Route::any('/profile', 'App\Http\Controllers\HomeController@profile');
+        Route::post('updateProfileImage', 'App\Http\Controllers\HomeController@updateProImg'); 
         Route::any('/changePassword', 'App\Http\Controllers\HomeController@change_password');
         // Route::any('/logout', 'App\Http\Controllers\HomeController@userLogout');	
         Route::any('/logout', 'App\Http\Controllers\HomeController@userLogout')->name('user.logout');	
     });
 });
 
-
-Route::group(['prefix' => 'vendor'], function(){
-    Route::group(['middleware' => 'vendor.guest'], function(){
-        Route::get('/login','App\Http\Controllers\VendorController@login')->name('vendor.login');	
-        Route::post('/loginPost', 'App\Http\Controllers\VendorController@postLogin'); 
+// Route::get('/dashboards','App\Http\Controllers\HomeController@serviceProDashboard')->name('servicepro.dashboard');
+Route::group(['prefix' => 'servicepro'], function(){
+    Route::group(['middleware' => 'servicepro.guest'], function(){
+        Route::get('/login','App\Http\Controllers\HomeController@serviceProLogin')->name('servicepro.login');	
+        Route::post('/loginPost', 'App\Http\Controllers\HomeController@serviceProPostLogin'); 
     });
-    Route::group(['middleware' => 'vendor.auth'], function(){
-        Route::get('/dashboard','App\Http\Controllers\VendorController@dashboard')->name('vendor.dashboard');
-        Route::any('/profile', 'App\Http\Controllers\VendorController@profile');
-        Route::any('/changePassword', 'App\Http\Controllers\VendorController@change_password');
-        Route::any('/logout', 'App\Http\Controllers\VendorController@vendorLogout')->name('vendor.logout');	
+    Route::group(['middleware' => 'servicepro.auth'], function(){
+        Route::get('/dashboard','App\Http\Controllers\HomeController@serviceProDashboard')->name('servicepro.dashboard');
+        // Route::any('/profile', 'App\Http\Controllers\HomeController@profile');
+        // Route::any('/changePassword', 'App\Http\Controllers\HomeController@change_password');
+        Route::any('/logout', 'App\Http\Controllers\HomeController@serviceProLogout')->name('servicepro.logout');	
     });
 });
+
+// Route::group(['prefix' => 'vendor'], function(){
+//     Route::group(['middleware' => 'vendor.guest'], function(){
+//         Route::get('/login','App\Http\Controllers\VendorController@login')->name('vendor.login');	
+//         Route::post('/loginPost', 'App\Http\Controllers\VendorController@postLogin'); 
+//     });
+//     Route::group(['middleware' => 'vendor.auth'], function(){
+//         Route::get('/dashboard','App\Http\Controllers\VendorController@dashboard')->name('vendor.dashboard');
+//         Route::any('/profile', 'App\Http\Controllers\VendorController@profile');
+//         Route::any('/changePassword', 'App\Http\Controllers\VendorController@change_password');
+//         Route::any('/logout', 'App\Http\Controllers\VendorController@vendorLogout')->name('vendor.logout');	
+//     });
+// });
 
 Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => 'admin.guest'], function(){

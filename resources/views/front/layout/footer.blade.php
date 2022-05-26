@@ -24,6 +24,7 @@
           <div class="col-lg-3 col-md-3 footer-links">
             <h4>Explore</h4>
             <ul>
+              <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signup">Service Provider Login</a></li>
               <li> <a href="#">Weather</a></li>
               <li> <a href="#">Packages</a></li>
               <li> <a href="#">Blogs</a></li>
@@ -61,7 +62,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="copyright">
-            &copy; Copyright <strong><span>RoadNstays</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>RoadNstays</span></strong>. All Rights Reserved {{Auth::getDefaultDriver()}}
           </div>
         </div>
         <div class="col-md-6">
@@ -77,27 +78,26 @@
       </div>
   </footer>
 
-
-  <!-- Modal -->
+  <!-- Modal user login -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <!-- <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Login/Signup</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
+        </div> -->
         <div class="modal-body">
           <div id="LoginForm">
             <div class="container">
               <div class="login-form">
                 <div class="main-div">
+                  
                   <div class="panel">
-                    <div class="tab-login">
-                      <h2>User login </h2>
-                      <h2>Vendore login </h2>
-                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                     <h2 class="user-lo">User Login</h2>
                     <p>Please enter your email and password</p>
                   </div>
@@ -110,10 +110,94 @@
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
                     <div class="forgot">
-                      <a href="#" data-toggle="modal" data-target="#exampleModal-signup" class="signup-bar">Sign Up</a>
-                      <a href="#">Forgot password?</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-signup" class="signup-bar" id="signup">Sign Up</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#forgotpass" id="forgot">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal user signup-->
+  <div class="modal fade" id="exampleModal-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div id="LoginForm">
+          <div class="container">
+            <div class="login-form">
+              <div class="main-div">
+                <div class="panel">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h2 class="user-lo">Sign Up</h2>
+                  <p>Please enter details:</p>
+                </div>
+                <form id="userSignup_form" method="POST">
+                    @csrf
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Full name">
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" name="phone_no" id="phone_no" min="0" placeholder="Mobile number">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" name="semail" id="semail" placeholder="Email Address">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control" name="spassword" id="spassword" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control" name="sconfirm_password" id="sconfirm_password" placeholder="Confirm password">
+                  </div>
+                  <div class="input-group">
+                    <div class="checkbox">
+                      <label class="login-tc">
+                        <input id="login-remember" type="checkbox" name="remember" value="1"> By proceeding,
+                        you agree to roadnstays Privacy Policy, User Agreement and T&Cs
+                      </label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- forgotpass -->
+  <div class="modal fade" id="forgotpass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div id="LoginForm">
+            <div class="container">
+              <div class="login-form">
+                <div class="main-div">
+                  <div class="panel">
+                    <!-- <div class="tab-login">
+                                    <h2>User login  </h2>
+                                     <h2>Vendore login  </h2>
+                                    </div> -->
+                    <div class="forget-cirlcel">
+                      <i class='bx bxs-low-vision'></i>
+                    </div>
+                    <h2 class="user-lo">Forgot Password?</h2>
+                    <p>You can reset your password here.</p>
+                  </div>
+                  <form id="userFrogetPass">
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Reset password</button>
                   </form>
                 </div>
               </div>
@@ -123,3 +207,28 @@
       </div>
     </div>
   </div>
+
+<script type="text/javascript">
+  $("#signup").click(function () {
+      $("#exampleModal").modal('hide');
+      $("#forgotpass").modal('hide');
+      $("#exampleModal-signup").modal('show');
+  });
+  $("#forgot").click(function () {
+      $("#exampleModal").modal('hide');
+      $("#exampleModal-signup").modal('hide');
+      $("#forgotpass").modal('show');
+  });
+  // $("#vendorSignup").click(function () {
+  //     $("#vendorModal-signin").modal('hide');
+  //     $("#vendorForgotPass").modal('hide');
+  //     $("#vendorModal-signup").modal('show');
+  // });
+  // $("#vendorForgot").click(function () {
+  //     $("#vendorModal-signin").modal('hide');
+  //     $("#vendorModal-signup").modal('hide');
+  //     $("#vendorForgotPass").modal('show');
+  // });
+
+  // $('label.error').addClass('error_label');
+</script>

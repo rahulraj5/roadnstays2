@@ -38,7 +38,25 @@
   .error {
     color: red !important;
     font-weight: 450 !important;
+    font-size: 12px !important;
   }
+
+  /* .login-form label.error{
+    text-align: left !important;
+  } */
+
+  /* .error_label{
+    text-align: left !important;
+  } */
+
+  /* label.error {
+    text-align: left !important;
+  } */
+
+  /* .login-form label.error
+  {
+    text-align: left !important;
+  } */
 
   .swal2-popup.swal2-toast .swal2-icon.swal2-info, .swal2-popup.swal2-toast .swal2-icon.swal2-warning { 
     font-size: 12px;

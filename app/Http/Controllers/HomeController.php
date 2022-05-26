@@ -30,25 +30,57 @@ class HomeController extends Controller
         return view('front/index');
     }
 
-    // public function login()
-    // {
-    //     return view('auth.login');
-    // }
+    public function signup(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
+        $checkUserEmail = DB::table('users')->where('email', $request->semail)->first(); 
+        if (empty($checkUserEmail)) 
+        {
+            $user = new User;
+            $user->first_name = $request->name;
+            $user->email = $request->semail;
+            $user->contact_number = $request->phone_no;
+            $user->password = bcrypt($request->spassword);
+            $user->user_type = "normal_user";
+            $user->role_id = 2;
+            $addUser = $user->save();
+            if ($addUser) 
+            {
+                Auth::guard("web")->login($user);
+                return response()->json(['status' => 'success','msg' => 'User Created Successfully']);
+            }
+        }else{
+            return response()->json(['status' => 'error','msg' => 'The email has already been taken']);
+        }
+    }
 
     public function postLogin(Request $request)
     {
         $user_obj = User::where('email', '=', $request->email)->first();
         // echo "<pre>";print_r($user_obj->id);die;
-        if (!empty($user_obj->id) and $user_obj->role_id == 2) {
-            $credentials = $request->only('email', 'password');
-            // auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])
-            if (Auth::attempt($credentials)) {
-            // if (auth()->guard('admin')->attempt($credentials)) {
-                // $user = auth()->guard('admin')->user();
-                // echo "$user";
-                return response()->json(['status' => 'success','msg' => 'Login Successfully.']);
-            } else {
-                return response()->json(['status' => 'error','msg' => 'Invalid Credential.']);
+        // if (!empty($user_obj->id) and $user_obj->role_id == 2) {
+        if (!empty($user_obj->id)) {
+
+            if($user_obj->role_id == 2){
+                $credentials = $request->only('email', 'password');
+                if (Auth::attempt($credentials)) {
+                    return response()->json(['status' => 'success' ,'role' => 'user','msg' => 'Login Successfully.']);
+                } else {
+                    return response()->json(['status' => 'error', 'msg' => 'Invalid Credential.']);
+                }
+            }else if($user_obj->role_id == 4){
+                $credentials = $request->only('email', 'password');
+                // auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])
+                // if (Auth::attempt($credentials)) {
+                if (auth()->guard('servicepro')->attempt($credentials)) {
+                    // $user = auth()->guard('servicepro')->user();
+                    // echo "$user";
+                    return response()->json(['status' => 'success','role' => 'vendor' ,'msg' => 'Login Successfully.']);
+                } else {
+                    return response()->json(['status' => 'error','msg' => 'Invalid Credential.']);
+                }
+            }else{
+                return response()->json(['status' => 'error','msg' => 'Something get Wrong.']);
             }
         }else{
             return response()->json(['status' => 'error','msg' => 'Email address not registered.']);
@@ -83,18 +115,15 @@ class HomeController extends Controller
 
     // public function create(array $data)
     // {
-    //   return Admin::create([
+    //   return User::create([
     //     'name' => $data['name'],
     //     'email' => $data['email'],
     //     'password' => Hash::make($data['password'])
     //   ]);
     // }
-
-
     
     public function profile(Request $request)
     {
-        // dd($request->all());
         if(!empty($request->id))
         {
             $updata = DB::table('users')->where('id', $request->id)->update(['name' => $request->name]);
@@ -111,9 +140,30 @@ class HomeController extends Controller
         return view('front/profile')->with($data);
     }
 
+    public function updateProImg(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        if($user_id){
+            if($request->hasFile('imageFile'))
+            {
+                $image_name = $request->file('imageFile')->getClientOriginalName();
+                $filename = pathinfo($image_name,PATHINFO_FILENAME);
+                $image_ext = $request->file('imageFile')->getClientOriginalExtension();
+                $fileNameToStore = $filename.'-'.time().'.'.$image_ext;
+                $path = base_path() . '/public/uploads/profile_img/';
+                $request->file('imageFile')->move($path, $fileNameToStore);
+                
+            }else{
+                $fileNameToStore = 'user.jpg';
+            }
+            DB::table('users')->where('id', $user_id)->update(['profile_pic' => $fileNameToStore]);
+            return response()->json(['status' => 'success', 'msg' => 'Profile Image Updated']);
+            // echo "Profile Image Updated Successfully";
+        }
+    }
+
     public function change_password(Request $request)
     {
-        // dd($request->all());
         // echo "<pre>";print_r(Auth::user());die;
         $data = $request->all(); 
         
@@ -148,8 +198,21 @@ class HomeController extends Controller
 
     public function userLogout()
     {
-        // Auth::guard('user')->logout();
+        // Auth::guard('web')->logout();
         Auth::logout();
+        return redirect()->route('home');
+    }
+
+
+    public function serviceProDashboard(Request $request)
+    {
+        return view('service_provider.dashboard');
+    }
+
+    public function serviceProLogout()
+    {
+        Auth::guard('servicepro')->logout();
+        // Auth::logout();
         return redirect()->route('home');
     }
 }

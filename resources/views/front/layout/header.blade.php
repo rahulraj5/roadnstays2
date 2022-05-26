@@ -35,13 +35,17 @@
 
       </ul>
     </nav>
-
     @if(Auth::check())
-    <!-- Auth::check() -->
-    <!-- Auth::gaurd('user') -->
-    <a href="{{ route('user.logout') }}" class="get-started-btn">Logout</a>
+      @if(Auth::user()->user_type == "normal_user")
+        <!-- Auth::check() -->
+        <!-- Auth::gaurd('user') -->
+        <a href="{{ route('user.logout') }}" class="get-started-btn">Logout </a>
+      @elseif(Auth::user()->user_type == "service_provider")
+        <a href="{{ route('servicepro.logout') }}" class="get-started-btn">Logout </a>
+      @else
+      @endif
     @else
-    <a href="" data-toggle="modal" data-target="#exampleModal" class="get-started-btn">SIGN UP</a>
+      <a href="" data-toggle="modal" data-target="#exampleModal" class="get-started-btn">SIGN UP</a>
     @endif
   </div>
 </header>
