@@ -32,36 +32,39 @@ class ServiceproviderController extends Controller
 
     public function submit_serv_provider(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'fname' => 'required',
-            'lname' => 'required',
-            'email' => 'required|unique:users,email',
-            'user_country' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password',
-            'contact_number' => 'required|numeric|unique:users,contact_number',
-        ]);
-        if ($validator->fails()) {
-            // session::flash('error', 'Validation error.');
-            // return redirect('/admin/customer_management')->withErrors($validator)->withInput(); 
-            return response()->json(['status' => 'error', 'msg' => 'Please Fill required filed']);
+        $fname = $request->fname;
+        $email = $request->email;
+        $user_country = $request->user_country;
+        $user_city = $request->city;
+        $address = $request->address;
+        $password = $request->password;
+        $contact_number = $request->contact_number;
+        // $validator = Validator::make($request->all(), [
+        //     'fname' => 'required',
+        //     'lname' => 'required',
+        //     'email' => 'required|unique:users,email',
+        //     'user_country' => 'required',
+        //     'city' => 'required',
+        //     'address' => 'required',
+        //     'password' => 'required',
+        //     'confirm_password' => 'required|same:password',
+        //     'contact_number' => 'required|numeric|unique:users,contact_number',
+        // ]);
+        // if ($validator->fails()) {
+        //     // session::flash('error', 'Validation error.');
+        //     // return redirect('/admin/customer_management')->withErrors($validator)->withInput(); 
+        //     return response()->json(['status' => 'error', 'msg' => 'Please Fill required filed']);
+        // }
+        $checkUser = DB::table('users')->where('email', $email)->first();
+        if ($checkUser) {
+            return response()->json(['status' => 'error', 'msg' => 'Email is already Registered.']);
         } else {
             $vrfn_code = Helper::generateRandomString(6);
-            $fname = $request->fname;
-            $lname = $request->lname;
-            $email = $request->email;
-            $user_country = $request->user_country;
-            $user_city = $request->city;
-            $address = $request->address;
-            $password = $request->password;
-            $contact_number = $request->contact_number;
             
             $obj = new User;
             $obj->user_type = "service_provider";
             $obj->first_name = $fname;
-            $obj->last_name = $lname;
+            // $obj->last_name = $lname;
             $obj->email = $email;
             $obj->user_country = $user_country;
             $obj->user_city = $user_city;
@@ -119,7 +122,10 @@ class ServiceproviderController extends Controller
     	$userData = User::where('id', $user_id)->first();
     
         $userData->first_name = $fname;
-    	$userData->last_name = $lname;
+    	// $userData->last_name = $lname;
+        if($request->password){
+            $userData->password = bcrypt($request->password);
+        }
         $userData->email = $email;
         $userData->user_country = $user_country;
         $userData->user_city = $city;

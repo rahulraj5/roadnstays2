@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: #b1d78c;
+  background: #c6ff90f2;
   transition: all 0.5s;
   z-index: 997;
   padding: 6px 0;
@@ -45,8 +45,9 @@ color: #898989;
 }
 
 #header.header-scrolled {
-  padding: 12px 0;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+    background-color: #98d55d;
 }
 
 #header .logo {
@@ -194,7 +195,7 @@ color: #126c62;
   position: relative;
   color: #000;
   transition: 0.3s;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -308,8 +309,8 @@ color: #126c62;
 .mobile-nav-toggle {
   position: fixed;
   top: 23px;
-  right: 15px;
-  z-index: 1050;
+  right: 4px;
+  z-index: 9999;
   border: 0;
   background: none;
   font-size: 24px;
@@ -339,7 +340,9 @@ color: #126c62;
   border-radius: 10px;
   padding: 10px 0;
 }
-
+.modal{
+z-index: 9999;
+}
 .mobile-nav * {
   margin: 0;
   padding: 0;
@@ -420,6 +423,7 @@ color: #126c62;
   background-color: rgba(4, 12, 21, 0.8);
   overflow: hidden;
   position: relative;
+  top: -25px;
 }
 
 #hero .carousel, #hero .carousel-inner, #hero .carousel-item, #hero .carousel-item::before {
@@ -675,10 +679,7 @@ color: #126c62;
   color: #aaaaaa;
   font-family: 'Montserrat', sans-serif;
 }
-.section-title-slider {
 
-
-}
 .section-title-slider h2::after {
   content: "";
   width: 120px;
@@ -2520,9 +2521,7 @@ display: none;
     text-align: center;
     transition: 0.5s;
 }
-.footer-newsletter a i:hover {
 
-}
 .banner-search input {
     height: 60px;
 }
@@ -2648,7 +2647,7 @@ width: 65%;
 .forgot a {
   color: #126c62;
   font-size: 14px;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   font-weight: bold;
 }
 .login-form  .btn.btn-primary {
@@ -2682,9 +2681,7 @@ width: 65%;
     cursor: pointer;
     transition: 0.5s;
 }
-.tab-login h2:hover {
 
-  }
 .forgot {
     text-align: left;
     margin-bottom: 30px;
@@ -3084,13 +3081,13 @@ color: #12a594;
 }
 .city-nam {
     color: #898989;
-    font-size: 18px;
+    font-size: 16px;
 }
 .testimonials .testimonial-item p {
     /* font-style: italic; */
     margin: 5px auto 5px auto;
-    font-size: 17px;
-    line-height: 19px;
+    font-size: 16px;
+    line-height: 23px;
 }
 .grid-pric1 {
     float: left;
@@ -3588,4 +3585,44 @@ box-shadow: 0 3px 30px 0 rgb(131 131 131 / 50%);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+/* 31 may updated responsive above 767px */
+@media screen and (max-width:1023px) and (min-width:768px){
+
+  .truely-dedicated{
+    height: auto!important;
+  }
+  .truely-dedicated .row{
+display: block!important;
+  }
+.exprience-heading{
+  max-width: 100%;
+}
+#hero p {
+  padding: 14px 35px;
+}
+.card.booking-slot {
+  width: 100%;
+}
+.booking-type .form-control-lo-event {
+  width: auto;
+
+}
+.price-text-d {
+  margin-bottom: 25px;
+}
+.family-group {
+  padding: 24px!important;
+}
+.testimonials .testimonial-item{
+  display: grid;
+}
+.world-class-feature {
+  height: 150px;
+}
+.testimonials .testimonial-item, .offer-tex .testimonial-item{
+  height:auto;
+}
 }

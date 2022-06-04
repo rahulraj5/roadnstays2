@@ -60,6 +60,11 @@ return [
             'driver' => 'session',
             'provider' => 'vendor',
         ],
+
+        'scout' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         
     ],
 
@@ -99,6 +104,11 @@ return [
         'vendor' => [
             'driver' => 'eloquent',
             'model' => App\Models\Vendor::class,
+        ],
+
+        'scout' => [
+            'driver' => 'eloquent',
+            'table' => App\Models\Scout::class,
         ],
 
         // 'users' => [

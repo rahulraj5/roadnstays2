@@ -53,7 +53,7 @@
             </ul> -->
           </li>
 
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
@@ -62,19 +62,19 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="{{ url('/customer_chat') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Private Space</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a href="{{ url('/scout_chat') }}" class="nav-link">
+                <a href="{{ url('/admin/hotelList') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Hotel Rooms</p>
+                  <p>Hotels</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="{{ url('/customer_chat') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tour Booking</p>
@@ -85,9 +85,51 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Event </p>
                 </a>
+              </li> -->
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>
+                Hotel Services
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelAndStays_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hotel & Stays</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelAmenity_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Amenities</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelService_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Services</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelRoomType_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Room Type </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelSpaceType_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Space type </p>
+                </a>
               </li>
             </ul>
-          </li> -->
+          </li>
 
           <li class="nav-item">
             <a href="{{ url('/admin/scoutList') }}" class="nav-link">
@@ -232,6 +274,11 @@
               </li>
             </ul>
           </li> -->
+
+
+
+
+          <!-- old html -->
 
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">

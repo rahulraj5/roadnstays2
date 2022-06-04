@@ -19,16 +19,16 @@ class Authenticate extends Middleware
         }
     }
 
-    protected function authenticate($request, array $guards)
-    {
+    // protected function authenticate($request, array $guards)
+    // {
         
-        if ($this->auth->guard('servicepro')->check()) {
-            return $this->auth->shouldUse('servicepro');
-        }else{
-            return $this->auth->shouldUse('web');
-        }
+    //     if ($this->auth->guard('servicepro')->check()) {
+    //         return $this->auth->shouldUse('servicepro');
+    //     }else{
+    //         return $this->auth->shouldUse('web');
+    //     }
         
 
-        $this->unauthenticated($request, ['web']);
-    }
+    //     $this->unauthenticated($request, ['web']);
+    // }
 }

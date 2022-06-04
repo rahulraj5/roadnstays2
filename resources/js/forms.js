@@ -138,9 +138,9 @@ $("#customerAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,
@@ -199,9 +199,9 @@ $("#customerUpdateAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,
@@ -262,9 +262,9 @@ $("#scoutAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,
@@ -323,9 +323,9 @@ $("#scoutUpdateAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,
@@ -386,9 +386,9 @@ $("#servProAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,
@@ -447,9 +447,9 @@ $("#servProUpdateAdmin_form").validate({
     fname: {
         required: true,
     },
-    lname: {
-      required: true,
-    },
+    // lname: {
+    //   required: true,
+    // },
     email: {
       required: true,
       email:true,

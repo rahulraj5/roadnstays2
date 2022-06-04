@@ -35,6 +35,8 @@
 
       </ul>
     </nav>
+
+
     @if(Auth::check())
       @if(Auth::user()->user_type == "normal_user")
         <!-- Auth::check() -->
@@ -47,5 +49,7 @@
     @else
       <a href="" data-toggle="modal" data-target="#exampleModal" class="get-started-btn">SIGN UP</a>
     @endif
+
+    
   </div>
 </header>

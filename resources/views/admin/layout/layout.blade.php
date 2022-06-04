@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="{{ asset('resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+   <!-- BS Stepper -->
+   <link rel="stylesheet" href="{{ asset('resources/plugins/bs-stepper/css/bs-stepper.min.css')}}">
   <!-- JQVMap -->
   <link rel="stylesheet" href="{{ asset('resources/plugins/jqvmap/jqvmap.min.css')}}">
   <!-- Theme style -->
@@ -23,8 +25,7 @@
   <link rel="stylesheet" href="{{ asset('resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('resources/plugins/daterangepicker/daterangepicker.css')}}">
-  <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}">
+
 
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
@@ -99,10 +100,15 @@
    </script>
    <!-- Bootstrap 4 -->
    <script src="{{ asset('resources/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+   <!-- BS-Stepper -->
+   <script src="{{ asset('resources/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+   <!-- bs-custom-file-input -->
+   <script src="{{ asset('resources/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
    <!-- ChartJS -->
-   <script src="{{ asset('resources/plugins/chart.js/Chart.min.js')}}"></script>
+   <!-- <script src="{{ asset('resources/plugins/chart.js/Chart.min.js')}}"></script> -->
    <!-- Sparkline -->
-   <script src="{{ asset('resources/plugins/sparklines/sparkline.js')}}"></script>
+   <!-- <script src="{{ asset('resources/plugins/sparklines/sparkline.js')}}"></script> -->
    <!-- JQVMap -->
    <script src="{{ asset('resources/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
    <script src="{{ asset('resources/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
@@ -113,8 +119,7 @@
    <script src="{{ asset('resources/plugins/daterangepicker/daterangepicker.js')}}"></script>
    <!-- Tempusdominus Bootstrap 4 -->
    <script src="{{ asset('resources/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-   <!-- Summernote -->
-   <script src="{{ asset('resources/plugins/summernote/summernote-bs4.min.js')}}"></script>
+
    <!-- overlayScrollbars -->
    <script src="{{ asset('resources/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
    <!-- AdminLTE App -->
@@ -153,6 +158,8 @@
    <script src="{{ asset('resources/js/raone/jquery.form.js') }}"></script>
 
    <script src="{{ asset('resources/js/forms.js') }}"></script>
+
+
 
    @yield('current_page_js')
 

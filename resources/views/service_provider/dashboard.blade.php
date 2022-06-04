@@ -48,6 +48,7 @@
 @section('content')
 
 <main id="main">
+
     <section class="user-section" style="padding-top: 100px; background-color: #f6f6f6;">
         <div class="container-fluid">
             <div class="row">
@@ -108,8 +109,7 @@
                     <div class="table-space">
                         <header id="header-vendor" class="fixed-top-vendor">
                             <div class="container d-flex align-items-center justify-content-between">
-                                <h3 class="dashbord-text"> Private space Management</h3>
-
+                                <h3 class="dashbord-text"> Dashboard</h3>
                                 <nav class=" vendor-nav d-lg-block">
                                     <ul>
                                         <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a>
@@ -117,7 +117,7 @@
                                         <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li>
                                         <li class="drop-down"><a href="#"><i class='bx bxs-user-circle'></i></a>
                                             <ul>
-                                                <li><a href="#">View profile</a></li>
+                                                <li><a href="{{ url('/servicepro/profile') }}">View profile</a></li>
                                                 <li><a href="#">Drop Down </a></li>
                                                 <li><a href="#">Drop Down 3</a></li>
 
@@ -125,8 +125,6 @@
                                         </li>
                                     </ul>
                                 </nav>
-
-
                             </div>
                         </header>
 
@@ -142,9 +140,7 @@
                                             <i class='bx bx-book-content'></i>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="col-md-3">
@@ -174,7 +170,9 @@
                                             <i class='bx bx-star'></i>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
 
                             <div class="col-md-3">
@@ -188,7 +186,39 @@
                                             <i class='bx bx-buildings'></i>
                                         </div>
                                     </div>
+
                                 </div>
+
+
+
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-striped mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th>Firstname</th>
+                                            <th>Lastname</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>john@example.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mary</td>
+                                            <td>Moe</td>
+                                            <td>mary@example.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>July</td>
+                                            <td>Dooley</td>
+                                            <td>july@example.com</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -196,6 +226,10 @@
             </div>
         </div>
     </section>
+
+
+
+
 </main>
 <!-- End #main -->
 

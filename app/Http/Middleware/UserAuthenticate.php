@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class Authenticate extends Middleware
+class UserAuthenticate extends Middleware
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.
@@ -24,11 +24,9 @@ class Authenticate extends Middleware
         
         if ($this->auth->guard('servicepro')->check()) {
             return $this->auth->shouldUse('servicepro');
-        }else{
-            return $this->auth->shouldUse('web');
         }
         
 
-        $this->unauthenticated($request, ['web']);
+        $this->unauthenticated($request, ['servicepro']);
     }
 }

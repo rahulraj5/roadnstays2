@@ -92,6 +92,39 @@
     $(".mobile-nav, .mobile-nav-toggle").hide();
   }
 
+  // Smooth scroll for the navigation menu and links with .scrollto classes
+  var scrolltoOffset = $('#header-vendor').outerHeight() - 17;
+  $(document).on('click', '.vendor-nav a, .mobile-nav a, .scrollto', function(e) {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      if (target.length) {
+        e.preventDefault();
+
+        var scrollto = target.offset().top - scrolltoOffset;
+
+        if ($(this).attr("href") == '#header-vendor') {
+          scrollto = 0;
+        }
+
+        $('html, body').animate({
+          scrollTop: scrollto
+        }, 1500, 'easeInOutExpo');
+
+        if ($(this).parents('.vendor-nav, .mobile-nav').length) {
+          $('.vendor-nav .active, .mobile-nav .active').removeClass('active');
+          $(this).closest('li').addClass('active');
+        }
+
+        if ($('body').hasClass('mobile-nav-active')) {
+          $('body').removeClass('mobile-nav-active');
+          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+          $('.mobile-nav-overly').fadeOut();
+        }
+        return false;
+      }
+    }
+  });
+
   // Navigation active state on scroll
   var nav_sections = $('section');
   var main_nav = $('.nav-menu, #mobile-nav');
@@ -169,9 +202,10 @@
     autoplay: true,
     dots: true,
     loop: true,
+    responsiveClass: true,
     responsive: {
       0: {
-        items: 3
+        items: 1
       },
       768: {
         items: 3
@@ -188,7 +222,7 @@
     loop: true,
     responsive: {
       0: {
-        items: 3
+        items: 1
       },
       768: {
         items: 3
@@ -203,9 +237,10 @@
     autoplay: true,
     dots: true,
     loop: true,
+    responsiveClass: true,
     responsive: {
       0: {
-        items: 3
+        items: 1
       },
       768: {
         items: 3
@@ -220,9 +255,10 @@
     autoplay: true,
     dots: false,
     loop: true,
+    responsiveClass: true,
      responsive: {
       0: {
-        items: 2
+        items: 1
       },
       768: {
         items: 2

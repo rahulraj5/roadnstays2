@@ -8,21 +8,21 @@ use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\User;
-use App\Models\Vendor;
+use App\Models\Scout;
 use DB;
 use Session;
 
-class VendorController extends Controller
+class ScoutController extends Controller
 {
     public function login()
     {
-        return view('vendor.login');
+        return view('scout.login');
     }
 
     // public function postLogin(Request $request)
     // {
     //     echo "<pre>";print_r($request->all());die;
-    //     return view('vendor.login');
+    //     return view('scout.login');
     // }
 
     public function postLogin(Request $request)
@@ -31,16 +31,16 @@ class VendorController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        // echo "<pre>";print_r((Auth::guard('vendor')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])));die;
+        // echo "<pre>";print_r((Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])));die;
         
-        if(Auth::guard('vendor')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
+        if(Auth::guard('users')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
             // echo "<pre>";print_r('inside');die;
-            // $userName = Auth::guard('vendor')->user()->name;
+            // $userName = Auth::guard('scout')->user()->name;
             // echo "<pre>";print_r($userName);die;
-            // return redirect()->route('vendor.dashboard');
+            // return redirect()->route('scout.dashboard');
             return response()->json(['status' => 'success', 'msg' => 'Login Successfully']);
         }else{
-            // $userName = Auth::guard('vendor')->user()->name;
+            // $userName = Auth::guard('scout')->user()->name;
             // echo "<pre>";print_r($userName);die;
             // session()->flash('error', 'Incorrect Credential');
             // return back()->with($request->only('email'));
@@ -51,7 +51,7 @@ class VendorController extends Controller
 
     public function dashboard()
     {
-        return view('vendor.dashboard');
+        return view('scout.dashboard');
 
         // if(Auth::check()){
         //     return view('admin.dashboard');
@@ -65,7 +65,7 @@ class VendorController extends Controller
         // dd($request->all());
         if(!empty($request->id))
         {
-            $updata = DB::table('vendors')->where('id', $request->id)->update(['name' => $request->name]);
+            $updata = DB::table('users')->where('id', $request->id)->update(['name' => $request->name]);
             if(!empty($updata))
             {
                 return response()->json(['status' => 'success', 'msg' => 'Profile Updated Successfully']);
@@ -74,9 +74,9 @@ class VendorController extends Controller
             }
         }
 
-        $data['profile_detail'] = DB::table('vendors')->get();
+        $data['profile_detail'] = DB::table('Scout')->get();
         // echo "<pre>";print_r($profile_detail);die;
-        return view('vendor/profile')->with($data);
+        return view('scout/profile')->with($data);
     }
 
     public function change_password(Request $request)
@@ -85,7 +85,7 @@ class VendorController extends Controller
         // echo "<pre>";print_r(Auth::user());die;
         $data = $request->all(); 
         
-        $user_obj = Vendor::where('id', '=', 1)->first();
+        $user_obj = Scout::where('id', '=', 1)->first();
         if(!empty($data)){
               
             if (!empty($user_obj->id) and $user_obj->id == 1) {
@@ -101,7 +101,7 @@ class VendorController extends Controller
                     $user_id = $user_obj->id;
                     $password = bcrypt($request->input('new_password'));
                     // echo "<pre>";print_r($request->input('new_password'));die; 
-                    $checkda = DB::update('update vendors set password = ? where id = 1',[$password]);
+                    $checkda = DB::update('update users set password = ? where id = 1',[$password]);
                     if($checkda){
                         // echo "<pre>";print_r($checkda);die;
                     }else{
@@ -111,12 +111,12 @@ class VendorController extends Controller
                 }
             }
         }    
-        return view('vendor/change_password');
+        return view('scout/change_password');
     }
 
-    public function vendorLogout()
+    public function scoutLogout()
     {
-        Auth::guard('vendor')->logout();
-        return redirect()->route('vendor.login');
+        Auth::guard('scout')->logout();
+        return redirect()->route('scout.login');
     }
 }
