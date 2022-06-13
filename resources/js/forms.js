@@ -609,15 +609,7 @@ $("#changePasswordSerPro_form").validate({
   }
 });
 
-
-
-
-
-
-
-
-
-
+ 
 $('#register_form').validate({ // initialize the plugin
   rules: {
     user_type: {
@@ -744,207 +736,85 @@ $('#resetPassword_form').validate({
 });
 
 
-$('#newsForm').validate({
+$('#roomAdmin_form').validate({
   // initialize the plugin
   rules: {
-    news: {
+    hotel_name: {
       required: true
     },
-    description: {
+    room_type: {
       required: true
     },
-    image: {
-      required: true
-    }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/submitNews',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/newsList"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-$('#newsEditForm').validate({
-  // initialize the plugin
-  rules: {
-    news: {
+    room_name: {
       required: true
     },
-    description: {
-      required: true
-    },
-    // image: {
-    //   required: true
-    // }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/updateNews',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/newsList"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-$('#addCouponForm').validate({
-  // initialize the plugin
-  rules: {
-    business_id: {
-      required: true
-    },
-    start_date: {
-      required: true
-    },
-    end_date: {
-      required: true
-    },
-    coupon_code: {
-      required: true
-    }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/submitCoupon',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/showCoupons"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-$('#updateCouponForm').validate({
-  // initialize the plugin
-  rules: {
-    news: {
-      required: true
-    },
-    description: {
-      required: true
-    },
-    // image: {
-    //   required: true
-    // }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/updateCoupon',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/showCoupons"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-$('#addJobForm').validate({
-  // initialize the plugin
-  rules: {
-    job_title: {
-      required: true
-    },
-    organization_name: {
-      required: true
-    },
-    job_description: {
-      required: true
-    },
-    qualification: {
-      required: true
-    },
-    experience: {
-      required: true
-    },
-    contact_info : {
+    max_adults: {
       required: true,
-      digits: true,
-      minlength: 10,
-      maxlength: 10
+      number:true,
     },
-    position_vacant: {
+    max_childern: {
       required: true,
-      digits: true,
-      min: 0
+      number:true,
     },
-    job_type: {
-      required: true
+    number_of_rooms: {
+      required: true,
+      number:true,
     },
-    company_address: {
-      required: true
+    price_per_night: {
+      required: true,
+      number:true,
     },
-    post_city : {
-      required: true
+    price_per_night_7d: {
+      required: true,
+      number:true,
     },
-    post_country: {
-      required: true
+    price_per_night_30d: {
+      required: true,
+      number:true,
     },
-    start_date: {
-      required: true
+    cleaning_fee: {
+      required: true,
+      number:true,
     },
-    end_date: {
-      required: true
+    city_fee: {
+      required: true,
+      number:true,
     },
-    job_image: {
-      required: true
+    extra_guest_per_night: {
+      required: true,
+      number:true,
+    },
+    type_of_price: {
+      required: true,
+    },
+    bed_type: {
+      required: true,
+    },
+    private_bathroom: {
+      required: true,
+    },
+    private_entrance: {
+      required: true,
+    },
+    family_friendly: {
+      required: true,
+    },
+    description: {
+      required: true,
+    },
+    notes: {
+      required: true,
+    },
+    optional_services: {
+      required: true,
+    },
+    outdoor_facilities: {
+      required: true,
+    },
+    extra_people: {
+      required: true,
     }
+    
   },
   submitHandler: function(form) {
     // form.submit();
@@ -953,14 +823,14 @@ $('#addJobForm').validate({
     var formData = $(form).serialize();
     $(form).ajaxSubmit({
       type: 'POST',
-      url: site_url + '/business_owner/submit_job',
+      url: site_url + '/admin/submitroom',
       data: formData,
       success: function (response) {
         // console.log(response);
         if (response.status == 'success') {
           // $("#newsForm")[0].reset();
           success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/job_list"},1000);
+          setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
         } else {
           error_noti(response.msg);
         }
@@ -970,48 +840,86 @@ $('#addJobForm').validate({
   }
 });
 
-$('#updateJobForm').validate({
+
+$('#updateroomAdmin_form').validate({
   // initialize the plugin
   rules: {
-    job_title: {
+    hotel_name: {
       required: true
     },
-    organization_name: {
+    room_type: {
       required: true
     },
-    job_description: {
+    room_name: {
       required: true
     },
-    qualification: {
-      required: true
+    max_adults: {
+      required: true,
+      number:true,
     },
-    experience: {
-      required: true
+    max_childern: {
+      required: true,
+      number:true,
     },
-    contact_info : {
-      required: true
+    number_of_rooms: {
+      required: true,
+      number:true,
     },
-    position_vacant: {
-      required: true
+    price_per_night: {
+      required: true,
+      number:true,
     },
-    job_type: {
-      required: true
+    price_per_night_7d: {
+      required: true,
+      number:true,
     },
-    company_address: {
-      required: true
+    price_per_night_30d: {
+      required: true,
+      number:true,
     },
-    post_city : {
-      required: true
+    cleaning_fee: {
+      required: true,
+      number:true,
     },
-    post_country: {
-      required: true
+    city_fee: {
+      required: true,
+      number:true,
     },
-    start_date: {
-      required: true
+    extra_guest_per_night: {
+      required: true,
+      number:true,
     },
-    end_date: {
-      required: true
+    type_of_price: {
+      required: true,
+    },
+    bed_type: {
+      required: true,
+    },
+    private_bathroom: {
+      required: true,
+    },
+    private_entrance: {
+      required: true,
+    },
+    family_friendly: {
+      required: true,
+    },
+    description: {
+      required: true,
+    },
+    notes: {
+      required: true,
+    },
+    optional_services: {
+      required: true,
+    },
+    outdoor_facilities: {
+      required: true,
+    },
+    extra_people: {
+      required: true,
     }
+    
   },
   submitHandler: function(form) {
     // form.submit();
@@ -1020,14 +928,14 @@ $('#updateJobForm').validate({
     var formData = $(form).serialize();
     $(form).ajaxSubmit({
       type: 'POST',
-      url: site_url + '/business_owner/update_job',
+      url: site_url + '/admin/updateRoom',
       data: formData,
       success: function (response) {
         // console.log(response);
         if (response.status == 'success') {
           // $("#newsForm")[0].reset();
           success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/job_list"},1000);
+          setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
         } else {
           error_noti(response.msg);
         }
@@ -1036,226 +944,3 @@ $('#updateJobForm').validate({
     });
   }
 });
-
-
-$('#addOfferForm').validate({
-  // initialize the plugin
-  rules: {
-    business_id: {
-      required: true
-    },
-    start_date: {
-      required: true
-    },
-    end_date: {
-      required: true
-    },
-    offer_image: {
-      required: true
-    }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/submit_offer',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/offerlists"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-$('#updateOfferForm').validate({
-  // initialize the plugin
-  rules: {
-    business_id: {
-      required: true
-    },
-    start_date: {
-      required: true
-    },
-    end_date: {
-      required: true
-    },
-    // offer_image: {
-    //   required: true
-    // }
-  },
-  submitHandler: function(form) {
-    // form.submit();
-    var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
-    $(form).ajaxSubmit({
-      type: 'POST',
-      url: site_url + '/business_owner/update_offer',
-      data: formData,
-      success: function (response) {
-        // console.log(response);
-        if (response.status == 'success') {
-          // $("#newsForm")[0].reset();
-          success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/business_owner/offerlists"},1000);
-        } else {
-          error_noti(response.msg);
-        }
-
-      }
-    });
-  }
-});
-
-
-
-// $('#addbissListingForm').validate({
-//   // initialize the plugin
-//   rules: {
-//     rules: {
-//       title: {
-//         required: true
-//       },
-//       category_id: {
-//         required: true
-//       },
-//       sub_cat_id: {
-//         required: true
-//       },
-//       description: {
-//         required: true
-//       },
-//       email: {
-//         required: true
-//       },
-//       mobile : {
-//         required: true
-//       },
-//       business_logo: {
-//         required: true
-//       },
-//       business_image1: {
-//         required: true
-//       },
-//       // company_address: {
-//       //   required: true
-//       // },
-//       // post_city : {
-//       //   required: true
-//       // },
-//       // post_country: {
-//       //   required: true
-//       // },
-//       features_ads: {
-//         required: true
-//       },
-//       // status: {
-//       //   required: true
-//       // }
-//     },
-//   submitHandler: function(form) {
-//     // form.submit();
-//     var site_url = $("#baseUrl").val();
-//     // alert(site_url);
-//     var formData = $(form).serialize();
-//     $(form).ajaxSubmit({
-//       type: 'POST',
-//       url: site_url + '/business_owner/submit_bussiness_listing',
-//       data: formData,
-//       success: function (response) {
-//         console.log(response);
-//         if (response.status == 'success') {
-//           // $("#newsForm")[0].reset();
-//           success_noti(response.msg);
-//           // setTimeout(function(){window.location.href=site_url+"/business_owner/offerlists"},1000);
-//         } else {
-//           error_noti(response.msg);
-//         }
-
-//       }
-//     });
-//   }
-// });
-
-// $('#updatebissListingForm').validate({
-//   // initialize the plugin
-//   rules: {
-//     job_title: {
-//       required: true
-//     },
-//     organization_name: {
-//       required: true
-//     },
-//     job_description: {
-//       required: true
-//     },
-//     qualification: {
-//       required: true
-//     },
-//     experience: {
-//       required: true
-//     },
-//     contact_info : {
-//       required: true
-//     },
-//     position_vacant: {
-//       required: true
-//     },
-//     job_type: {
-//       required: true
-//     },
-//     company_address: {
-//       required: true
-//     },
-//     post_city : {
-//       required: true
-//     },
-//     post_country: {
-//       required: true
-//     },
-//     start_date: {
-//       required: true
-//     },
-//     end_date: {
-//       required: true
-//     }
-//   },
-//   submitHandler: function(form) {
-//     // form.submit();
-//     var site_url = $("#baseUrl").val();
-//     // alert(site_url);
-//     var formData = $(form).serialize();
-//     $(form).ajaxSubmit({
-//       type: 'POST',
-//       url: site_url + '/business_owner/update_offer',
-//       data: formData,
-//       success: function (response) {
-//         // console.log(response);
-//         if (response.status == 'success') {
-//           // $("#newsForm")[0].reset();
-//           success_noti(response.msg);
-//           setTimeout(function(){window.location.href=site_url+"/business_owner/offerlists"},1000);
-//         } else {
-//           error_noti(response.msg);
-//         }
-
-//       }
-//     });
-//   }
-// });
-
-
-
-
-

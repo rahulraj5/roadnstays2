@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'checkHeader'], function () {
 	Route::post('login', 'Api\ApiLoginController@login');
 });
+
+Route::post('register', 'Api\ApiLoginController@register');
+Route::post('login', 'Api\ApiLoginController@loginUser');

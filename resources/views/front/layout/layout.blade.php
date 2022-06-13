@@ -31,6 +31,7 @@
    <link href = "{{ asset('resources/assets/vendor/aos/aos.css')}}" rel="stylesheet">
 
    <link href = "{{ asset('resources/assets/css/style.css')}}" rel="stylesheet">
+   <link href = "{{ asset('resources/assets/css/responsive.css')}}" rel="stylesheet">
 
   <!-- Daterange picker -->
   <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/daterangepicker/daterangepicker.css')}}"> -->

@@ -2,9 +2,14 @@
 @section('title', 'User - Profile')
 
 @section('current_page_css')
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
 @endsection
 
 @section('current_page_js')
+<!-- Select2 -->
+<script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
   $("#addhotelAmenities_form").validate({
     debug: false,
@@ -88,12 +93,6 @@
                 @csrf
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Amenity Name</label>
-                      <input type="text" class="form-control" name="hotelAmenityName" id="hotelAmenityName" placeholder="Enter Name">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
                     <!-- <div class="form-group"> -->
                       <!-- <label>Amenity Type</label> -->
                       <div class="form-group">
@@ -109,6 +108,14 @@
                       </div>
                     <!-- </div> -->
                   </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Amenity Name</label>
+                      <input type="text" class="form-control" name="hotelAmenityName" id="hotelAmenityName" placeholder="Enter Name">
+                    </div>
+                  </div>
+
+                 
                   <div class="col-12">
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
                   </div>

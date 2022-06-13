@@ -39,6 +39,51 @@ class HomeController extends Controller
         return view('front/base_from');
     }
 
+    public function checkout()
+    {
+        return view('front/hotel/checkout');
+    }
+
+    public function confirm_booking()
+    {
+        return view('front/hotel/confirm_booking');
+    }
+
+    public function all_rooms()
+    {
+        return view('front/hotel/all_rooms');
+    }
+
+    public function events()
+    {
+        return view('front/hotel/events');
+    }
+
+    public function tour()
+    {
+        return view('front/tour/tour');
+    }   
+
+    public function packages()
+    {
+        return view('front/packages/packages');
+    }  
+
+    public function one()
+    {
+        return view('front/tour/one');
+    } 
+
+    public function two()
+    {
+        return view('front/tour/two');
+    } 
+
+    public function three()
+    {
+        return view('front/tour/three');
+    } 
+
     public function signup(Request $request)
     {
         // echo "<pre>";print_r($request->all());die;
@@ -297,10 +342,14 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    public function hotel_details(Request $request)
+    {
+        return view('front.hotel.hotel_details');
+    }
 
     public function serviceProDashboard(Request $request)
     {
-        return view('service_provider.dashboard');
+        return view('vendor.dashboard');
     }
 
     public function serviceProLogout()

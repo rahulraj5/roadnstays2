@@ -51,12 +51,14 @@ class HotelAmenityController extends Controller
         // dd($request->all());
         $hotelAmenityName = $request->hotelAmenityName;
         $hotelAmenity_type_id = $request->hotelAmenity_type_id;
+        // $other_featured_id = json_encode($request->otherFeaturedId); 
         $amenity_type_name = DB::table('amenities_type')->where('id',$hotelAmenity_type_id)->value('name');
 
         $amenity_type_sym = str_replace(' ', '_', $amenity_type_name);
 
         $data = DB::table('H2_Amenities')->insert(['amenity_name' => trim($hotelAmenityName),
                                                     'amenity_type' => $hotelAmenity_type_id,
+                                                    // 'room_other_featured_id' => $other_featured_id,
                                                     'amenity_type_name' => trim($amenity_type_name),
                                                     'amenity_type_sym' => $amenity_type_sym]);
         if ($data) {
@@ -118,19 +120,13 @@ class HotelAmenityController extends Controller
     }
 
     public function deleteHotelAmenity(Request $request) {
-        $user_id = $request->user_id;
-        $frame_info = DB::table('users')->where('id',$user_id)->first();
-        if($frame_info->user_type == 'normal_user')
-        {   
-            $res = DB::table('users')->where('id', '=', $user_id)->delete();
-
-        }
-        else{
-            $res = DB::table('users')->where('id', '=', $user_id)->delete();
-        }
+        $amenity_id = $request->amenity_id;
+        
+        $res = DB::table('H2_Amenities')->where('amenity_id', '=', $amenity_id)->delete();
+       
 
         if ($res) {
-            return json_encode(array('status' => 'success','msg' => 'User has been deleted successfully!'));
+            return json_encode(array('status' => 'success','msg' => 'deleted successfully!'));
         } else {
             return json_encode(array('status' => 'error','msg' => 'Some internal issue occured.'));
         }

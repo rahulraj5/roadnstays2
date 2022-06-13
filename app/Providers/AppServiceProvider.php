@@ -11,6 +11,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    // protected $namespace = 'App\\Http\\Middleware';
     public function register()
     {
         //

@@ -1,0 +1,417 @@
+
+
+#image-gallery .modal-footer{
+    display: block;
+      padding: 2px;
+      position: absolute;
+      width:100%
+  }
+
+  .botm-left #show-previous-image{
+    position: relative;
+    top: 230px;
+    left:0!important;
+  
+  }
+  .botm-left #show-next-image{
+    position: relative;
+    top: 230px;
+    right:0!important;
+  
+  }
+   /* .........................13 june css........................... */
+
+.hero-event{
+    background:url('../img/traveltip1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 300px;
+    position: relative;
+
+}
+.hero-event h1{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 85px;
+    text-transform: capitalize;
+    font-weight: 900;
+    padding: 30px 20px;
+    background:url('../img/traveltip1.png');
+    background-size: contain;
+    background-position: center;
+    box-shadow: 2px 2px 6px 0 rgb(31 38 135 / 37%);
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+}
+.filter-row h6{
+    background: aliceblue;
+    padding: 25px 13px;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border-left: 5px solid #98d55d;
+}
+
+.filter-row ul{
+    list-style: none;
+    padding-left: 0;
+}
+.filter-row ul li{
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.filter-row ul  input[type="checkbox"]{
+    width: 18px;
+    height: 17px;
+    margin-right: 10px;
+    accent-color: #98d55d;
+}
+.filter-row{
+padding: 50px 0;
+}
+.category{
+       background: aliceblue;
+        padding: 30px 15px;
+        margin: 20px 0;
+        
+
+}
+.category p{
+    padding: 10px 0;
+    font-weight: 900;
+    line-height: 25px;
+    letter-spacing: 1px;
+}
+.event-box-1 .box img{
+    width:100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.event-box-1 .box{
+    
+    background: aliceblue;
+    padding: 18px 15px 12px 15px;
+    margin: 0 8px 12px 8px;
+    max-width: 31.333333%!important;
+}
+.event-box-1 .text{
+    font-size: 21px;
+    padding: 10px 3px;
+    font-weight: 700;
+    color: #126c62;
+}
+.event-box-1 .date-2{
+    font-size: 12px;
+    padding: 5px 0;
+}
+.event-box-1 .location{
+    font-size: 12px;
+    padding: 5px 0;
+}
+.event-box-1 .time{
+    font-size: 12px;
+    padding: 5px 0;
+}
+.event-box-1 button{
+    float: right;
+    border: none;
+    background: #91938f;
+    padding: 3px 15px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------------------10 june responsive work below 768px -------------------------------------*/
+
+@media screen and (max-width:767px){
+    .outersec>.left-col,
+  .outersec>.right-col {
+      height: 100%;
+      display:block;
+      margin-right: 0px;
+      vertical-align: top;
+  }
+  
+  .amitn p{
+      padding-bottom: 20px;;
+  }
+  .testimonials .owl-nav, .testimonials .owl-dots {
+    margin-top: 20px;
+    text-align: center;
+}
+  .left-facility ul {
+    display: flex;
+    padding: 0 0 0 10px;
+    flex-wrap: wrap;
+  }
+  .inner ul li {
+    padding: 3px 1px;
+  }
+  .reserv-room {
+    margin-right: 20px!important;
+  }
+  .thbn-hotel .img-thumbnail {
+    width: 100%;
+  }
+  #main .user-section{
+    padding-top: 50px!important;
+  }
+  .amienti {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+  .room-box {
+    height: 127vw;
+  }
+  .botm-left #show-next-image {
+    position: relative;
+    top: 230px;
+  }
+  body{
+    overflow-x: auto;
+  }
+  #footer .footer-top .footer-links ul li {
+    padding: 10px 0;
+  
+  }
+  .amitn p{
+      padding-bottom: 20px!important;
+  }
+  .rom-avio ul{
+    margin-bottom: 3px;
+  }
+  .revie-box {
+    display: block;
+  }
+  .page-detail-sid {
+    height: auto;
+    width: 100%;
+    padding-top: 20px;
+}
+.page-detail-sid img{
+    width: 100%;
+    border-radius: 10px;
+}
+.date1 {
+    width: 28%;
+}
+.bank-bar .nav-tabs:not(.nav-tabs-neutral)>.nav-item>.nav-link.active {
+    box-shadow: inherit;
+    background: #d1d7dc;
+    color: #126c62;
+    padding: 5px 10px;
+}
+.runs-andpay {
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    background: #dcdcdc;
+    padding: 20px 10px;
+    box-shadow: 2px 2px 8px #dcdcdc;
+    border-radius: 5px;
+}
+.date2 {
+    width: auto;
+}
+.room-praci h5 {
+    font-size: 18px;
+    color: #000;
+    line-height: 28px;
+}
+.page-detail p {
+    padding: 4px;
+    font-size: 14px;
+    line-height: 23px;
+}
+.room-praci ul{    
+    list-style: square;
+}
+.room-praci ul li{    
+    margin:5px 0;
+}
+.bankpay h4 {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.image-section img {
+    width: 100%;
+}
+.revie-box-boxi p{
+    line-height: 26px;
+    padding: 13px;
+}
+.revie-box-boxi ul li{    
+    margin:5px 0;
+}
+.price-left {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px;
+    border-bottom: 1px dashed #e7e6e6;
+    align-items: center;
+    margin-bottom: 15px;
+    
+}
+ul.brekfasr {
+    list-style: none;
+    display: block;
+    margin-bottom: 10px;
+    padding: 2px 24px;
+}
+.form-group {
+    padding-right: 0;
+}
+.form-control {
+    border: 1px solid #a2a6a9;
+
+}
+.image-section:before {
+    content: '';
+    position: absolute;
+    width: 95.5%;
+    height: 31%;
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    top: 3px;
+}
+.image-section {
+    overflow: hidden;
+    border-radius: 4px;
+    height: auto;
+}
+  }
+
+  
+  
+  /* -----------------------------------10 june responsive work below 1024px -------------------------------------*/
+  @media  screen and (max-width:1023px) and (min-width:767px) {
+
+    .revie-box-boxi p{
+        line-height: 26px;
+        padding: 13px;
+    }
+    .page-detail-sid {
+        height: auto;
+        width: 100%;
+        padding-top: 20px;
+    }
+    .revie-box-boxi ul li{    
+        margin:5px 0;
+    }
+    ul.brekfasr {
+        justify-content: space-between;
+    }
+    .room-praci ul li{    
+        margin:5px 0;
+    }
+    .room-box {
+        height: 75vw;
+    }
+    .reserv-room {
+        margin-right: 20px!important;
+      }
+    .testimonials.testnm .testimonial-item{
+        height:auto;
+    }
+    
+    .explor-area{
+        padding-top: 20px;
+
+    }
+    .amienti {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+
+    .ravelr-avilab .col-md-2{
+        max-width: fit-content!important;
+    }
+    .cleaning-head .safty{
+        max-width: 50%!important;
+    }
+    .cleaning-head .safty{ 
+        flex: auto!important;  
+    }
+    .rom-avio  .safty{
+        max-width: 50%;
+        flex: auto!important; 
+    }
+    .col-md-9{
+       
+        flex: auto!important;
+        max-width: 100%;
+        padding-bottom: 20px;;
+    }
+    .col-md-3{
+       
+        flex: auto!important;
+        max-width: 100%;
+    }
+    .outersec>.left-col, .outersec>.right-col {
+        height: 100%;
+        display: inline-block;
+        margin-right: 0px;
+        vertical-align: top;
+    }
+    .ravelr-avilab .pr-0{
+        max-width: 32%!important;
+    }
+    #footer .footer-links{
+        max-width: 25%!important;
+    }
+    .botm-left #show-previous-image {
+        position: relative;
+        top: 300px;
+        left: 0!important;
+    }
+    .botm-left #show-next-image {
+        position: relative;
+        top: 300px;
+        right: 0!important;
+    }
+    .image-section img {
+        width: 100%;
+    }
+    .image-section {
+        height: auto;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+    .image-section:before {
+        content: '';
+        position: absolute;
+        width: 97.5%;
+        height: 48.6%;
+        background: rgba(0,0,0,0.3);
+        border-radius: 6px;
+        top: 3px;
+    }
+    .form-control {
+        border: 1px solid #a2a6a9;
+    
+    }
+  }

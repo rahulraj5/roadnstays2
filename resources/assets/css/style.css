@@ -3327,7 +3327,7 @@ color: #12a594;
 
   .sidebar.fliph li a .nav-label,.sidebar.fliph li a .nav-label+span{ display:none;transition: all 0.5s  ease-in-out}
   .sidebar.fliph {
-    width: 42px;transition: all 0.5s  ease-in-out;
+    transition: all 0.5s  ease-in-out;
    
 }
   
@@ -3523,7 +3523,7 @@ padding: 10px;
 }
 .table-space{
   background-color: #FFF;
-  height: 450px;
+  /* height: 450px; */
   box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
 }
 
@@ -3625,4 +3625,891 @@ display: block!important;
 .testimonials .testimonial-item, .offer-tex .testimonial-item{
   height:auto;
 }
+}
+
+.portfolio-menu{
+  text-align:center;
+}
+.portfolio-menu ul li{
+  display:inline-block;
+  margin:0;
+  list-style:none;
+  padding:10px 15px;
+  cursor:pointer;
+  -webkit-transition:all 05s ease;
+  -moz-transition:all 05s ease;
+  -ms-transition:all 05s ease;
+  -o-transition:all 05s ease;
+  transition:all .5s ease;
+}
+
+.portfolio-item{
+  /*width:100%;*/
+}
+.portfolio-item .item{
+  /*width:303px;*/
+  float:left;
+  margin-bottom:10px;
+}
+
+
+.left-facility ul {
+display: flex;
+    justify-content: start;
+    list-style: none;
+    padding: 0px;
+    float: left;
+}
+
+
+.inner ul li {
+    margin-right: 30px;
+    font-weight: bold;
+}
+.outersec {
+    width: 100%;
+    padding: 15px 0;
+    height: 100%;
+}
+
+.outersec>.left-col,
+.outersec>.right-col {
+    height: 100%;
+    display: inline-block;
+    margin-right: -4px;
+    vertical-align: top;
+}
+
+.outersec>.left-col>.inner,
+.outersec>.right-col>.inner {
+    width: 100%;
+    overflow: hidden;
+}
+.outersec>.right-col>.inner {
+    height: 100%;
+}
+
+.outersec>.right-col {
+    width: 250px;
+    border-left: 1px solid #444;
+    padding: 0 15px;
+    right: 0;
+}
+
+.outersec>.right-col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.outersec>.right-col ul>li>a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    width: 100%;
+    background-color: #efefef;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.outersec>.right-col ul>li.active a,
+.outersec>.right-col ul>li>a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.outersec>.right-col ul>li:last-child>a {
+    margin-bottom: 0;
+}
+
+.outersec>.left-col {
+   /* width: calc(100% - 250px);*/
+    padding: 0 0px;
+}
+
+.outersec>.left-col .heading {
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 10px;
+    /* border: 1px solid #126c62; */
+    background-color: #ededed;
+    color: #126c62;
+    /*margin-top: 17px;*/
+    margin-bottom: 13px;
+}
+.bekfas{
+  font-size: 14px !important;
+}
+
+.outersec>.left-col .heading.active {
+    background-color: #FFF;
+    color: #126c62;
+    border-bottom: 1px solid #126c62;
+}
+.reserv-room {
+    /* margin-right: auto !important; */
+    border: 1px solid #126c62;
+    padding: 6px 13px;
+    background: #126c62;
+    color: #FFF;
+    float: right;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.reserv-room:hover {
+  border: 1px solid #126c62;
+  color: #126c62;
+  background-color: #FFF;
+
+  }
+.amitn p{
+  font-size: 14px;
+}
+.data {
+    padding: 20px;
+}
+.al-rom {
+
+}
+.ravelr-avilab {
+    margin-bottom: 10px;
+    padding: 5px 21px;
+}
+.ravelr-avilab label{
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+.ravelr-avilab .btn-primary{
+    background: #126c62;
+    border: 1px solid #126c62;
+}
+.ravelr-avilab input {
+    height: 38px;
+    font-size: 13px;
+    outline: none;
+}
+.ravelr-avilab .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%);
+}
+.phone-c {
+    font-size: 18px;
+    font-weight: 500;
+    color: #126c62;
+    display: flex;
+    align-items: center;
+}
+.phone-c i {
+    font-size: 22px;
+}
+.tag-info p{
+  margin-top: 10px;
+}
+.tag-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 13px;
+}
+.ami-pol h5{
+  margin-bottom: 0px;
+ text-align: center;
+ font-size: 14px;
+}
+.ami-pol i {
+    font-size: 27px;
+    border: 1px solid #126c62;
+    color: #126c62;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 7px;
+}
+.botm-rersurv {
+    float: left;
+    margin-bottom: auto;
+    padding: 7px;
+}
+
+.ami-pol {
+    display: block;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 14px;
+    margin-right: 16px;
+    text-align: center;
+    justify-content: center;
+    width: 12%;
+}
+.safty ul li h4 {
+    font-size: 20px;
+    color: #000;
+}
+.rom-avio ul li {
+    margin-right: 3px;
+     margin-bottom: 3px !important;
+
+}
+.amienti{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+h5.bx-tg {
+    color: #ccc;
+    font-size: 18px;
+    margin-top: 1px;
+}
+.amint-with-map{
+  display: flex;
+}
+.map-bar p {
+    font-size: 12px;
+    line-height: 16px;
+}
+.explor-area h5 {
+    font-size: 18px;
+    margin-top: 6px;
+}
+.explor-area ul {
+  list-style: none;
+  padding: 0px;
+}
+.explor-area ul li {
+display: flex;
+justify-content: space-between;
+margin-right: 0;
+  }
+
+.explor-area ul li p {
+    font-size: 13px;
+    color: #202020;
+    font-weight: normal;
+    font-weight: 500;
+    margin-bottom: 0px;
+    line-height: 24px;
+}
+
+.explor-area ul li span {
+    font-size: 12px;
+    color: #545454;
+    font-weight: normal;
+}
+
+.cleaning-head h3 {
+    font-size: 20px;
+    color: #202020;
+    margin-bottom: 11px;
+}
+.safty ul{
+  list-style: none;
+  padding:0px; 
+}
+.safty ul li {
+    list-style: none;
+    font-weight: 400;
+    margin-bottom: 11px;
+    font-size: 15px;
+}
+.img-he {
+    height: 150px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px 8px 0px 0px;
+    overflow: hidden;
+}
+.img-he img {
+    width: 100%;
+    max-height: 100%;
+}
+  .safty ul li i{
+font-size: 23px;
+  }
+.room-box {
+    height: 489px;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    box-shadow: 3px 4px 8px #d9d9d9;
+}
+.room-box h6 {
+    padding: 5px 8px;
+    float: left;
+    font-weight: 500;
+    color: #161616;
+    font-size: 15px;
+   /* height: 52px;*/
+    line-height: 19px;
+}
+.testimonials.testnm .testimonial-item {
+    box-sizing: content-box;
+    /* padding: 30px 30px 30px 60px; */
+    margin: 1px 15px;
+    height: 350px;
+    /* box-shadow: 0px 0px 20px 0px rgb(11 35 65 / 10%); */
+    position: relative;
+    background: #fff0;
+}
+.safty-yu ul {
+    list-style: none;
+    padding: 7px;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.botm-rersurv h6 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    color: #126c62;
+    margin-bottom: 0;
+    padding: 0 !important;
+}
+.botm-rersurv small{
+    font-size: 13px;
+    margin-left: 6px;
+}
+.btn-rebn {
+    display: flex;
+    justify-content: space-between;
+    float: left;
+    width: 100%;
+    align-items: center;
+}
+.resvi-botm {
+    background: #126c62;
+    color: #FFF;
+    padding: 3px 8px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    align-items: center;
+    border-radius: 6px;
+    transition: 0.5s;
+    border: 1px solid #126c62;
+
+}
+.resvi-botm:hover {
+color: #126c62;
+background: #FFF;
+border: 1px solid #126c62;
+}
+.safty-yu ul li {
+    list-style: none;
+    font-weight: 400;
+    margin-bottom: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.safty-yu ul li i {
+    font-size: 21px;
+    margin-right: 6px;
+    /* margin-top: -4px; */
+}
+
+#image-gallery .modal-footer{
+  display: block;
+      padding: 2px;
+}
+
+.thbn-hotel .thumb {
+    /* margin-top: 15px; */
+    /* margin-bottom: 15px; */
+    padding: 0;
+}
+
+.thbn-hotel .img-thumbnail {
+    padding: 0px; 
+    background-color: #fff;
+    border: 0px solid #FFF !important;
+    border-radius: 0 !important;
+    max-width: 100%;
+    height: auto;
+}
+.botm-left button {
+    padding: 0px 5px;
+    background: #126c62;
+    font-size: 24px;
+    color: #FFF;
+}
+
+.radiotextsty {
+  color: #A5A4BF;
+  font-size: 18px;
+}
+
+.customradio {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.customradio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border-radius: 50%;
+  border:1px solid #BEBEBE;
+}
+
+/* On mouse-over, add a grey background color */
+.customradio:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the radio button is checked, add a blue background */
+.customradio input:checked ~ .checkmark {
+  background-color: white;
+  border:1px solid #BEBEBE;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.customradio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.customradio .checkmark:after {
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #A3A0FB;
+}
+
+
+/*******radio*********/
+.extras-add h5{
+  font-size: 16px;
+}
+.extras-add{
+    float: left;
+    width: 100%;
+    display: block;
+    padding: 10px;
+}
+
+.extras-add .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    border-radius: 0% !important;
+    background-color: #eee;
+}
+.container-raio {
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-raio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container-raio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-raio input:checked ~ .checkmark {
+  background-color: #126c62;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-raio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-raio .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.rgh{
+  font-size: 12px;
+}
+
+.header-div {
+    background-color: #ffffff;
+    margin-bottom: 14px;
+    float: left;
+    width: 100%;
+    
+}
+.header-div-room {
+    background-color: #ffffff;
+    margin-bottom: 14px;
+    float: left;
+    width: 100%;
+    padding: 3px 100px;
+}
+.revie-box {
+    /* border-radius: 10px; */
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    border-bottom: 1px dashed #ccc;
+    /* background: #FFF; */
+}
+.infobox {
+    min-height: 350px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    float: left;
+    width: 100%;
+    box-shadow: 2px 2px 6px 2px #e7e7e7;
+}
+.bankpay h5 {
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+}
+.bank-bar img {
+    width: 169px !important;
+    border: 1px solid #f6f6f6;
+}
+.bankpay i {
+    font-size: 25px;
+    color: #126c62;
+    margin-right: 3px;
+}
+.bank-bar label {
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+.bank-bar{
+  padding: 10px;
+}
+.bankpay {
+    background: #FFF;
+    padding: 19px;
+    border-radius: 10px;
+    float: left;
+    width: 100%;
+    box-shadow: 2px 2px 6px 2px #e7e7e78c;
+}
+.paynow-btn {
+    /* margin: auto; */
+    background: #126c62;
+    color: #FFF;
+    padding: 6px 62px;
+    font-size: 17px;
+    border-radius: 6px;
+    margin-top: 10px;
+    /* float: left; */
+    transition: 0.5s;
+    border: 1px solid #126c62;
+}
+.paynow-btn:hover {
+color: #126c62; 
+background: #FFF;
+border: 1px solid #126c62;
+
+
+  }
+
+.runs-andpay {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 12px;
+    background: #f6f6f6;
+    padding: 6px 10px;
+}
+.date1{
+  width: 20%;
+}
+.date2{
+  width: 35%;
+}
+.date3 i {
+    font-size: 31px;
+    color: #126c62;
+}
+.date3 {
+    width: 20%;
+    text-align: center;
+}
+.date2 h6 {
+    font-size: 18px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    color: #4c4c4c;
+    font-weight: bold;
+}
+.date1 h3 {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 0;
+    padding: 0;
+}
+.date3 i{
+  font-size: 25px;
+}
+.date1 span {
+    font-size: 12px;
+}
+.rew-heding h3 {
+    font-size: 21px;
+    background: #FFF;
+    padding: 10px;
+}
+.price-bkp h4 {
+    font-size: 17px;
+    padding: 11px 13px;
+    border-bottom: 1px solid #e3e3e3;
+    background: #126c62;
+    color: #FFF;
+}
+.done-payment {
+    background: #FFF;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+.room-praci h4{
+	font-size: 18px;
+}
+.page-detail span{
+	    color: #f7980a;
+}
+.revie-box-boxi {
+    background: #FFF;
+    min-height: 266px;
+    border-radius: 6px;
+    padding: 2px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 6px 2px #e7e7e78c;
+}
+.revie-box-boxi ul {
+    list-style: none;
+    padding: 0px 16px;
+}
+.rmn {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 5px !important;
+    float: left;
+}
+.image-section {
+    height: 150px;
+    overflow: hidden;
+    border-radius: 4px;
+
+}
+.revie-box-boxi ul li b{
+	font-size: 15px;
+}
+.image-section:before {
+    content: '';
+    position: absolute;
+    width: 94%;
+    height: 9.1%;
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    top: 3px;
+}
+.image-section p{
+    position: absolute;
+    top: 109px;
+    color: #FFF;
+    font-weight: 500;
+}
+.image-section img{
+
+	}
+.price-left h5 {
+    font-size: 15px;
+}
+.bank-bar .form-group {
+    margin-bottom: 7px;
+}
+.price-left h5 b {
+color: #126c62;
+  }
+  .price-left h6 b {
+color: #126c62;
+  }
+.room-praci h5 {
+    font-size: 16px;
+    color: #000;
+}
+.room-praci {
+    padding: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 7px;
+    margin-top: 19px;
+}
+.price-left {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px dashed #e7e6e6;
+    align-items: center;
+    margin-bottom: 14px;
+}
+.page-detail-sid{
+    height: 103px;
+    width: 107px;
+    overflow: hidden;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.citi-omr {
+    font-size: 23px;
+    color: #000;
+}
+.page-detail p {
+    padding: 4px;
+    font-size: 14px;
+}
+
+.bank-bar .nav-tabs:not(.nav-tabs-neutral)>.nav-item>.nav-link.active {
+    box-shadow: inherit;
+    background: #f6f6f6;
+    color: #126c62;
+}
+ul.brekfasr {
+    list-style: none;
+    display: flex;
+    margin-bottom: 3px;
+    padding: 2px 24px;
+}
+ul.brekfasr li {
+    color: #069181;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-right: 12px;
+}
+ul.brekfasr li i {
+color: #069181;
+font-size: 24px;
+	}
+.bank-bar .nav-tabs>.nav-item>.nav-link.active {
+    background-color: #FFF;
+    /* border-radius: 30px; */
+    color: #126c62;
+}
+.bankpay h4 {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+}
+.bankpay h4 b{
+margin-right: 10px;
+}
+
+.bank-bar .nav-tabs>.nav-item>.nav-link {
+    color: #888888;
+    margin: 0;
+    margin-right: 5px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    /* border-radius: 30px; */
+    font-size: 15px;
+    padding: 4px 5px;
+    line-height: 1.5;
+}
+
+.bank-bar .nav-tabs {
+    border: 0;
+    padding: 1px 1px;
+}
+
+.bank-bar .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #126c62;
+    outline: 0;
+    box-shadow: none;
+}
+.bankinfo h3 {
+    font-size: 16px;
+}
+.bankinfo p {
+    padding: 0px;
+    font-size: 15px;
+}
+.bank-bar ul.nav-tabs li {
+    /*border: 1px solid #c2e9e5;*/
+    margin-right: 6px;
+    /*padding: 1px 12px;*/
 }

@@ -1,2 +1,22 @@
 [30-May-2022 13:23:01 UTC] PHP Warning:  fopen(a.txt): failed to open stream: No such file or directory in /home3/votivelaravel/public_html/roadNstays/mail.php on line 13
 [30-May-2022 13:23:01 UTC] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in /home3/votivelaravel/public_html/roadNstays/mail.php on line 17
+[06-Jun-2022 05:58:34 UTC] PHP Warning:  file_get_contents(/tmp/adminer.version): failed to open stream: Permission denied in /home3/votivelaravel/public_html/roadNstays/adminer.php on line 526
+[07-Jun-2022 10:12:31 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:12:31 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:13:05 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:13:05 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:22:51 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:22:51 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:23:29 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:23:29 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:26:14 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:26:14 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:31:37 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:31:37 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:36:01 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:36:01 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:37:17 UTC] PHP Warning:  The use statement with non-compound name 'HomeController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 4
+[07-Jun-2022 10:37:17 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 6
+[07-Jun-2022 10:38:50 UTC] PHP Warning:  The use statement with non-compound name 'ScoutController' has no effect in /home3/votivelaravel/public_html/roadNstays/routes/web.php on line 5
+[13-Jun-2022 08:18:24 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\API\ApiLoginController::login() in /home3/votivelaravel/public_html/roadNstays/app/Http/Controllers/Api/ApiLoginController.php on line 465
+[13-Jun-2022 08:20:27 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\API\ApiLoginController::login() in /home3/votivelaravel/public_html/roadNstays/app/Http/Controllers/Api/ApiLoginController.php on line 465

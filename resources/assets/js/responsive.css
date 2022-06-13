@@ -1,0 +1,122 @@
+
+
+#image-gallery .modal-footer{
+    display: block;
+      padding: 2px;
+      position: absolute;
+  }
+
+  .botm-left #show-previous-image{
+    position: relative;
+    top: 230px;
+    left:0!important;
+  
+  }
+  .botm-left #show-next-image{
+    position: relative;
+    top: 230px;
+    left: 43.8vw;
+  
+  }
+
+
+
+
+
+/* -----------------------------------10 june responsive work below 768px -------------------------------------*/
+
+@media screen and (max-width:767px){
+    .outersec>.left-col,
+  .outersec>.right-col {
+      height: 100%;
+      display:block;
+      margin-right: 0px;
+      vertical-align: top;
+  }
+  .left-facility ul {
+    display: flex;
+    padding: 0 0 0 10px;
+    flex-wrap: wrap;
+  }
+  .inner ul li {
+    padding: 6px 1px;
+  }
+  .reserv-room {
+    margin-right: 20px!important;
+  }
+  .thbn-hotel .img-thumbnail {
+    width: 100%;
+  }
+  #main .user-section{
+    padding-top: 50px!important;
+  }
+  .amienti {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+  .room-box {
+    height: 132vw;
+  }
+  .botm-left #show-next-image {
+    position: relative;
+    top: 230px;
+    left: 73.5vw;
+  }
+  body{
+    overflow-x: auto;
+  }
+  #footer .footer-top .footer-links ul li {
+    padding: 10px 0;
+  
+  }
+  }
+  
+  
+  /* -----------------------------------10 june responsive work below 1024px -------------------------------------*/
+  @media  screen and (max-width:1023px) and (min-width:767px) {
+    
+    .room-box {
+        height: 75vw;
+    }
+    .reserv-room {
+        margin-right: 20px!important;
+      }
+    .testimonials.testnm .testimonial-item{
+        height:auto;
+    }
+    /* .outersec > .row{
+        display:block!important;
+    } */
+    .outersec .row .col-md-3{
+        max-width: 100%;
+        padding-top: 20px;
+    }
+    .outersec .row .col-md-9{
+        max-width: 100%;  
+    }
+    .explor-area{
+        padding-top: 20px;
+
+    }
+    .amienti {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+
+    .ravelr-avilab .col-md-2{
+        max-width: fit-content!important;
+    }
+    .cleaning-head .safty{
+        max-width: 100%;
+    }
+    .rom-avio{
+        display: flex!important;
+    }
+    .rom-avio .safty{
+        max-width: 50%;
+    }
+  }

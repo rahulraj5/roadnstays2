@@ -1,13 +1,9 @@
 <?php
+ 
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ScoutController;
-use App\Http\Controllers\Scout\ScoutUserController;
-use Illuminate\Support\Facades\Mail;
+Auth::routes();
 
-Route::get('/clear', function () {
+	Route::get('/clear', function () {
     $exitCode = Artisan::call('view:clear', []);   
           return '<h1>cache cleared</h1>';
     });
@@ -52,123 +48,178 @@ Route::fallback(function () {
 });
 
 
-Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/baseForm', [App\Http\Controllers\HomeController::class, 'baseForm'])->name('baseForm');
 
-Route::post('/updateProfile', 'App\Http\Controllers\HomeController@updateProfile');
-Route::post('/updateProfileImage', 'App\Http\Controllers\HomeController@updateProImg'); 
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/user/loginPost', 'App\Http\Controllers\HomeController@postLogin'); 
-Route::post('/user/signup', 'App\Http\Controllers\HomeController@signup'); 
-Route::post('/servicepro/loginPost', 'App\Http\Controllers\HomeController@serviceProPostLogin');
-Route::post('/servicepro/signup', 'App\Http\Controllers\HomeController@vendorSignup');  
+Route::get('/baseForm', 'HomeController@baseForm');
 
-Route::post('forgotPassword_action','App\Http\Controllers\HomeController@forgotPassword_action');
+Route::post('/updateProfile', 'HomeController@updateProfile');
+Route::post('/updateProfileImage', 'HomeController@updateProImg'); 
+
+Route::post('/user/loginPost', 'HomeController@postLogin'); 
+Route::post('/user/signup', 'HomeController@signup'); 
+Route::post('/servicepro/loginPost', 'HomeController@serviceProPostLogin');
+Route::post('/servicepro/signup', 'HomeController@vendorSignup');  
+
+Route::post('forgotPassword_action','HomeController@forgotPassword_action');
+
+Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
+
+Route::get('/checkout','HomeController@checkout')->name('user.checkout');
+
+Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confirm_booking');
+Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
+Route::get('/events','HomeController@events')->name('user.events');
+Route::get('/tour','HomeController@tour')->name('user.tour');
+Route::get('/packages','HomeController@packages')->name('user.packages');
+// Route::get('/two','HomeController@two')->name('user.two');
+// Route::get('/three','HomeController@three')->name('user.three');
 
 // user route start here
 Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function () {
-    Route::get('user/profile','App\Http\Controllers\HomeController@userProfile')->name('user.profile');
-    Route::any('user/changePassword', 'App\Http\Controllers\HomeController@change_password');
-    // Route::any('user/logout', 'App\Http\Controllers\HomeController@userLogout');	
-    Route::any('user/logout', 'App\Http\Controllers\HomeController@userLogout')->name('user.logout');
+    Route::get('user/profile','HomeController@userProfile')->name('user.profile');
+    Route::any('user/changePassword', 'HomeController@change_password');
+    // Route::any('user/logout', 'HomeController@userLogout');	
+    Route::any('user/logout', 'HomeController@userLogout')->name('user.logout');
+
+    // Route::get('user/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
 });	
 
 // vendor route start here
 Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function () {
-    Route::get('servicepro/dashboard','App\Http\Controllers\HomeController@serviceProDashboard')->name('servicepro.dashboard');
-    Route::any('servicepro/profile', 'App\Http\Controllers\HomeController@serviceProProfile');
-    // Route::any('servicepro/changePassword', 'App\Http\Controllers\HomeController@change_password');
-    Route::any('servicepro/logout', 'App\Http\Controllers\HomeController@serviceProLogout')->name('servicepro.logout');	
+    Route::get('servicepro/dashboard','HomeController@serviceProDashboard')->name('servicepro.dashboard');
+    Route::any('servicepro/profile', 'HomeController@serviceProProfile');
+    // Route::any('servicepro/changePassword', 'HomeController@change_password');
+    Route::any('servicepro/logout', 'HomeController@serviceProLogout')->name('servicepro.logout');	
+
+
+    Route::get('servicepro/hotelList', 'Vendor\VendorController@hotel_list');
+    Route::get('servicepro/viewHotelRooms/{id}', 'Vendor\RoomController@hotel_rooms_list');
+    Route::get('servicepro/addroom/{id}', 'Vendor\RoomController@add_room');
+    Route::any('servicepro/addHotel', 'Vendor\VendorController@add_hotel');
+    Route::post('servicepro/submitHotel', 'Vendor\VendorController@submit_hotel');
+    Route::get('servicepro/addHotelTest', 'Vendor\VendorController@add_hotel_test');
+    Route::any('servicepro/submitHotelTest', 'Vendor\VendorController@submit_hotel_test');
+    Route::any('servicepro/submitHotelPolicy', 'Vendor\VendorController@submit_hotel_policy');
+    Route::any('servicepro/submitHotelFacilityService', 'Vendor\VendorController@submit_hotel_facility_service');
+    Route::get('servicepro/editHotel/{id}', 'Vendor\VendorController@edit_hotel');
+    Route::any('servicepro/updateHotel', 'Vendor\VendorController@update_hotel');
+    Route::get('servicepro/changeHotelStatus', 'Vendor\VendorController@change_hotel_status');
+    Route::any('servicepro/deleteHotel', 'Vendor\VendorController@delete_hotel');
 });	
 
 
 Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => 'admin.guest'], function(){
-        Route::get('/login','App\Http\Controllers\AdminController@login')->name('admin.login');	
-        Route::get('/','App\Http\Controllers\AdminController@login')->name('admin.login');	
-        Route::post('/loginPost', 'App\Http\Controllers\AdminController@authenticate'); 
+        Route::get('/login','AdminController@login')->name('admin.login');	
+        Route::get('/','AdminController@login')->name('admin.login');	
+        Route::post('/loginPost', 'AdminController@authenticate'); 
     });
     Route::group(['middleware' => 'admin.auth'], function(){
-        Route::get('/dashboard','App\Http\Controllers\AdminController@dashboard')->name('admin.dashboard');
-        Route::any('/profile', 'App\Http\Controllers\AdminController@profile');
-        Route::any('/changePassword', 'App\Http\Controllers\AdminController@change_password');
-        Route::any('/logout', 'App\Http\Controllers\AdminController@logout')->name('admin.logout');	
+        Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
+        Route::any('/profile', 'AdminController@profile');
+        Route::any('/changePassword', 'AdminController@change_password');
+        Route::any('/logout', 'AdminController@logout')->name('admin.logout');	
 
-        Route::get('/customer_management', 'App\Http\Controllers\CustomerController@index');
-        Route::get('/add_customer', 'App\Http\Controllers\CustomerController@add_customer');
-        Route::any('/add_customer_action', 'App\Http\Controllers\CustomerController@add_customer_action');
-        Route::get('/edit_customer/{id}', 'App\Http\Controllers\CustomerController@edit_customer');
-        Route::any('/customer_update', 'App\Http\Controllers\CustomerController@customer_update');
-        Route::get('/change_user_status', 'App\Http\Controllers\CustomerController@change_user_status');
-        Route::any('/deletecustomer', 'App\Http\Controllers\CustomerController@deletecustomer');
+        Route::get('/customer_management', 'CustomerController@index');
+        Route::get('/add_customer', 'CustomerController@add_customer');
+        Route::any('/add_customer_action', 'CustomerController@add_customer_action');
+        Route::get('/edit_customer/{id}', 'CustomerController@edit_customer');
+        Route::any('/customer_update', 'CustomerController@customer_update');
+        Route::get('/change_user_status', 'CustomerController@change_user_status');
+        Route::any('/deletecustomer', 'CustomerController@deletecustomer');
 
-        Route::get('/scoutList', 'App\Http\Controllers\ScoutController@scout_list');
-        Route::get('/addScout', 'App\Http\Controllers\ScoutController@add_scout');
-        Route::any('/submitScout', 'App\Http\Controllers\ScoutController@submit_scout');
-        Route::get('/editScout/{id}', 'App\Http\Controllers\ScoutController@edit_scout');
-        Route::any('/updateScout', 'App\Http\Controllers\ScoutController@update_scout');
-        Route::get('/changeScoutStatus', 'App\Http\Controllers\ScoutController@change_scout_status');
-        Route::any('/deleteScout', 'App\Http\Controllers\ScoutController@delete_scout');
+        Route::get('/scoutList', 'ScoutController@scout_list');
+        Route::get('/addScout', 'ScoutController@add_scout');
+        Route::any('/submitScout', 'ScoutController@submit_scout');
+        Route::get('/editScout/{id}', 'ScoutController@edit_scout');
+        Route::any('/updateScout', 'ScoutController@update_scout');
+        Route::get('/changeScoutStatus', 'ScoutController@change_scout_status');
+        Route::any('/deleteScout', 'ScoutController@delete_scout');
 
-        Route::get('/serviceProviderList', 'App\Http\Controllers\ServiceproviderController@service_provider_list');
-        Route::get('/addServiceProvider', 'App\Http\Controllers\ServiceproviderController@add_serv_provider');
-        Route::any('/submitServiceProvider', 'App\Http\Controllers\ServiceproviderController@submit_serv_provider');
-        Route::get('/editServiceProvider/{id}', 'App\Http\Controllers\ServiceproviderController@edit_serv_provider');
-        Route::any('/updateServiceProvider', 'App\Http\Controllers\ServiceproviderController@update_serv_provider');
-        Route::get('/change_serv_provider_status', 'App\Http\Controllers\ServiceproviderController@change_serv_provider_status');
-        Route::any('/deleteServiceProvider', 'App\Http\Controllers\ServiceproviderController@delete_serv_provider');
+        Route::get('/serviceProviderList', 'ServiceproviderController@service_provider_list');
+        Route::get('/addServiceProvider', 'ServiceproviderController@add_serv_provider');
+        Route::any('/submitServiceProvider', 'ServiceproviderController@submit_serv_provider');
+        Route::get('/editServiceProvider/{id}', 'ServiceproviderController@edit_serv_provider');
+        Route::any('/updateServiceProvider', 'ServiceproviderController@update_serv_provider');
+        Route::get('/change_serv_provider_status', 'ServiceproviderController@change_serv_provider_status');
+        Route::any('/deleteServiceProvider', 'ServiceproviderController@delete_serv_provider');
 
-        Route::get('/hotelList', 'App\Http\Controllers\Admin\HotelController@hotel_list');
-        Route::get('/addHotel', 'App\Http\Controllers\Admin\HotelController@add_hotel');
-        Route::any('/submitHotel', 'App\Http\Controllers\Admin\HotelController@submit_hotel');
-        Route::any('/submitHotelPolicy', 'App\Http\Controllers\Admin\HotelController@submit_hotel_policy');
-        Route::any('/submitHotelFacilityService', 'App\Http\Controllers\Admin\HotelController@submit_hotel_facility_service');
-        Route::get('/editHotel/{id}', 'App\Http\Controllers\Admin\HotelController@edit_hotel');
-        Route::any('/updateHotel', 'App\Http\Controllers\Admin\HotelController@update_hotel');
-        Route::get('/changeHotelStatus', 'App\Http\Controllers\Admin\HotelController@change_hotel_status');
-        Route::any('/deleteHotel', 'App\Http\Controllers\Admin\HotelController@delete_hotel');
+        Route::get('/roomlist', 'Admin\RoomController@room_list');
+        Route::get('/addroom', 'Admin\RoomController@add_room');
+        Route::any('/submitroom', 'Admin\RoomController@submit_room');
+        Route::get('/changeRoomStatus', 'Admin\RoomController@change_room_status');
+        Route::get('/deleteRoom', 'Admin\RoomController@delete_room');
+        Route::get('/editRoom/{id}', 'Admin\RoomController@edit_room');
+        Route::any('/updateRoom', 'Admin\RoomController@update_room');
+        Route::any('/viewRoom/{id}', 'Admin\RoomController@view_room');
+        Route::get('/changeRoomTypeStatus', 'Admin\RoomController@change_room_type_status');
+        Route::get('/room_type_categories', 'Admin\RoomController@room_type_categories');
+        Route::post('/room_name', 'Admin\RoomController@room_name');
 
-        Route::get('/hotelAndStays_list', 'App\Http\Controllers\Admin\HotelnStaysController@hotelAndStays_list');
-        Route::get('/addHotelAndStays', 'App\Http\Controllers\Admin\HotelnStaysController@addHotelAndStays');
-        Route::any('/submitHotelAndStays', 'App\Http\Controllers\Admin\HotelnStaysController@submitHotelAndStays');
-        Route::get('/editHotelAndStays/{id}', 'App\Http\Controllers\Admin\HotelnStaysController@editHotelAndStays');
-        Route::any('/updateHotelAndStays', 'App\Http\Controllers\Admin\HotelnStaysController@updateHotelAndStays');
-        Route::get('/changeHotelAndStaysStatus', 'App\Http\Controllers\Admin\HotelnStaysController@changeHotelAndStaysStatus');
-        Route::any('/deleteHotelAndStays', 'App\Http\Controllers\Admin\HotelnStaysController@deleteHotelAndStays');
+        Route::get('/hotelList', 'Admin\HotelController@hotel_list');
+        Route::get('/addHotel', 'Admin\HotelController@add_hotel');
+        Route::any('/submitHotel', 'Admin\HotelController@submit_hotel');
+        Route::get('/addHotelTest', 'Admin\HotelController@add_hotel_test'); 
+        Route::get('/hotel_types', 'Admin\HotelController@hotel_types');
 
-        Route::get('/hotelAmenity_list', 'App\Http\Controllers\Admin\HotelAmenityController@hotelAmenity_list');
-        Route::get('/addHotelAmenity', 'App\Http\Controllers\Admin\HotelAmenityController@addHotelAmenity');
-        Route::any('/submitHotelAmenity', 'App\Http\Controllers\Admin\HotelAmenityController@submitHotelAmenity');
-        Route::get('/editHotelAmenity/{id}', 'App\Http\Controllers\Admin\HotelAmenityController@editHotelAmenity');
-        Route::any('/updateHotelAmenity', 'App\Http\Controllers\Admin\HotelAmenityController@updateHotelAmenity');
-        Route::get('/changeHotelAmenityStatus', 'App\Http\Controllers\Admin\HotelAmenityController@changeHotelAmenityStatus');
-        Route::any('/deleteHotelAmenity', 'App\Http\Controllers\Admin\HotelAmenityController@deleteHotelAmenity');
+        Route::any('/submitHotelTest', 'Admin\HotelController@submit_hotel_test');
+        Route::any('/submitHotelPolicy', 'Admin\HotelController@submit_hotel_policy');
+        Route::any('/submitHotelFacilityService', 'Admin\HotelController@submit_hotel_facility_service');
+        Route::get('/editHotel/{id}', 'Admin\HotelController@edit_hotel');
+        Route::any('/updateHotel', 'Admin\HotelController@update_hotel');
+        Route::get('/viewHotel/{id}', 'Admin\HotelController@view_hotel');
+        Route::get('/changeHotelStatus', 'Admin\HotelController@change_hotel_status');
+        Route::any('/deleteHotel', 'Admin\HotelController@delete_hotel');
 
-        Route::get('/hotelService_list', 'App\Http\Controllers\Admin\HotelServiceController@hotelService_list');
-        Route::get('/addHotelService', 'App\Http\Controllers\Admin\HotelServiceController@addHotelService');
-        Route::any('/submitHotelService', 'App\Http\Controllers\Admin\HotelServiceController@submitHotelService');
-        Route::get('/editHotelService/{id}', 'App\Http\Controllers\Admin\HotelServiceController@editHotelService');
-        Route::any('/updateHotelService', 'App\Http\Controllers\Admin\HotelServiceController@updateHotelService');
-        Route::get('/changeHotelServiceStatus', 'App\Http\Controllers\Admin\HotelServiceController@changeHotelServiceStatus');
-        Route::any('/deleteHotelService', 'App\Http\Controllers\Admin\HotelServiceController@deleteHotelService');
+        Route::get('/viewHotelRooms/{id}', 'Admin\HotelController@hotel_rooms_list');
 
-        Route::get('/hotelRoomType_list', 'App\Http\Controllers\Admin\HotelRoomtypeController@hotelRoomType_list');
-        Route::get('/addHotelRoomType', 'App\Http\Controllers\Admin\HotelRoomtypeController@addHotelRoomType');
-        Route::any('/submitHotelRoomType', 'App\Http\Controllers\Admin\HotelRoomtypeController@submitHotelRoomType');
-        Route::get('/editHotelRoomType/{id}', 'App\Http\Controllers\Admin\HotelRoomtypeController@editHotelRoomType');
-        Route::any('/updateHotelRoomType', 'App\Http\Controllers\Admin\HotelRoomtypeController@updateHotelRoomType');
-        Route::get('/changeHotelRoomTypeStatus', 'App\Http\Controllers\Admin\HotelRoomtypeController@changeHotelRoomTypeStatus');
-        Route::any('/deleteHotelRoomType', 'App\Http\Controllers\Admin\HotelRoomtypeController@deleteHotelRoomType');
+        Route::get('/hotelAndStays_list', 'Admin\HotelnStaysController@hotelAndStays_list');
+        Route::get('/addHotelAndStays', 'Admin\HotelnStaysController@addHotelAndStays');
+        Route::any('/submitHotelAndStays', 'Admin\HotelnStaysController@submitHotelAndStays');
+        Route::get('/editHotelAndStays/{id}', 'Admin\HotelnStaysController@editHotelAndStays');
+        Route::any('/updateHotelAndStays', 'Admin\HotelnStaysController@updateHotelAndStays');
+        Route::get('/changeHotelAndStaysStatus', 'Admin\HotelnStaysController@changeHotelAndStaysStatus');
+        Route::any('/deleteHotelAndStays', 'Admin\HotelnStaysController@deleteHotelAndStays');
 
-        Route::get('/hotelSpaceType_list', 'App\Http\Controllers\Admin\HotelSpacetypeController@hotelSpaceType_list');
-        Route::get('/addHotelSpacetype', 'App\Http\Controllers\Admin\HotelSpacetypeController@addHotelSpacetype');
-        Route::any('/submitHotelSpacetype', 'App\Http\Controllers\Admin\HotelSpacetypeController@submitHotelSpacetype');
-        Route::get('/editHotelSpacetype/{id}', 'App\Http\Controllers\Admin\HotelSpacetypeController@editHotelSpacetype');
-        Route::any('/updateHotelSpacetype', 'App\Http\Controllers\Admin\HotelSpacetypeController@updateHotelSpacetype');
-        Route::get('/changeHotelSpacetypeStatus', 'App\Http\Controllers\Admin\HotelSpacetypeController@changeHotelSpacetypeStatus');
-        Route::any('/deleteHotelSpacetype', 'App\Http\Controllers\Admin\HotelSpacetypeController@deleteHotelSpacetype');
+        Route::get('/hotelAmenity_list', 'Admin\HotelAmenityController@hotelAmenity_list');
+        
+        Route::get('/addHotelAmenity', 'Admin\HotelAmenityController@addHotelAmenity');
+        
+        Route::any('/submitHotelAmenity', 'Admin\HotelAmenityController@submitHotelAmenity');
+
+        Route::get('/editHotelAmenity/{id}', 'Admin\HotelAmenityController@editHotelAmenity');
+
+        Route::any('/updateHotelAmenity', 'Admin\HotelAmenityController@updateHotelAmenity');
+        
+        Route::get('/changeHotelAmenityStatus', 'Admin\HotelAmenityController@changeHotelAmenityStatus');
+        
+        Route::any('/deleteHotelAmenity', 'Admin\HotelAmenityController@deleteHotelAmenity');
+
+        Route::get('/hotelService_list', 'Admin\HotelServiceController@hotelService_list');
+        Route::get('/addHotelService', 'Admin\HotelServiceController@addHotelService');
+        Route::any('/submitHotelService', 'Admin\HotelServiceController@submitHotelService');
+        Route::get('/editHotelService/{id}', 'Admin\HotelServiceController@editHotelService');
+        Route::any('/updateHotelService', 'Admin\HotelServiceController@updateHotelService');
+        Route::get('/changeHotelServiceStatus', 'Admin\HotelServiceController@changeHotelServiceStatus');
+        Route::any('/deleteHotelService', 'Admin\HotelServiceController@deleteHotelService');
+
+        Route::get('/hotelRoomType_list', 'Admin\HotelRoomtypeController@hotelRoomType_list');
+        Route::get('/addHotelRoomType', 'Admin\HotelRoomtypeController@addHotelRoomType');
+        Route::any('/submitHotelRoomType', 'Admin\HotelRoomtypeController@submitHotelRoomType');
+        Route::get('/editHotelRoomType/{id}', 'Admin\HotelRoomtypeController@editHotelRoomType');
+        Route::any('/updateHotelRoomType', 'Admin\HotelRoomtypeController@updateHotelRoomType');
+        Route::get('/changeHotelRoomTypeStatus', 'Admin\HotelRoomtypeController@changeHotelRoomTypeStatus');
+        Route::any('/deleteHotelRoomType', 'Admin\HotelRoomtypeController@deleteHotelRoomType');
+
+        Route::get('/hotelSpaceType_list', 'Admin\HotelSpacetypeController@hotelSpaceType_list');
+        Route::get('/addHotelSpacetype', 'Admin\HotelSpacetypeController@addHotelSpacetype');
+        Route::any('/submitHotelSpacetype', 'Admin\HotelSpacetypeController@submitHotelSpacetype');
+        Route::get('/editHotelSpacetype/{id}', 'Admin\HotelSpacetypeController@editHotelSpacetype');
+        Route::any('/updateHotelSpacetype', 'Admin\HotelSpacetypeController@updateHotelSpacetype');
+        Route::get('/changeHotelSpacetypeStatus', 'Admin\HotelSpacetypeController@changeHotelSpacetypeStatus');
+        Route::any('/deleteHotelSpacetype', 'Admin\HotelSpacetypeController@deleteHotelSpacetype');
     });
 });
 
@@ -179,10 +230,10 @@ Route::group(['prefix' => 'scout'], function(){
         Route::post('/loginPost', [ScoutUserController::class, 'postLogin']);	
     });
     Route::group(['middleware' => 'scout.auth'], function(){
-        Route::get('/dashboard','App\Http\Controllers\Scout\ScoutUserController@dashboard')->name('scout.dashboard');
-        Route::any('/profile', 'App\Http\Controllers\Scout\ScoutUserController@profile');
-        Route::any('/changePassword', 'App\Http\Controllers\Scout\ScoutUserController@change_password');
-        Route::any('/logout', 'App\Http\Controllers\Scout\ScoutUserController@scoutLogout')->name('scout.logout');	
+        Route::get('/dashboard','Scout\ScoutUserController@dashboard')->name('scout.dashboard');
+        Route::any('/profile', 'Scout\ScoutUserController@profile');
+        Route::any('/changePassword', 'Scout\ScoutUserController@change_password');
+        Route::any('/logout', 'Scout\ScoutUserController@scoutLogout')->name('scout.logout');	
     });
 });
 

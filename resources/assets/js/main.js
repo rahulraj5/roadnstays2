@@ -251,6 +251,23 @@
     }
   });
 
+   $(".roombook").owlCarousel({
+    autoplay: true,
+    dots: true,
+    loop: true,
+    responsive: {
+      0: {
+        items: 3
+      },
+      768: {
+        items: 2
+      },
+      900: {
+        items: 2
+      }
+    }
+  });
+
     $(".offer-tex").owlCarousel({
     autoplay: true,
     dots: false,

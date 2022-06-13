@@ -8,6 +8,11 @@
 
 @section('current_page_css')
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <style>
@@ -22,197 +27,80 @@
 
 @section('current_page_js')
 
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+  <!-- DataTables  & Plugins -->
+  <script src="{{ asset('resources/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/jszip/jszip.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/pdfmake/pdfmake.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/pdfmake/vfs_fonts.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script type="text/javascript">
-
- function delete_user(user_id){
-
-    $.ajaxSetup({
-
-      headers: {
-
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-      }
-
-    });
-
-    $.ajax({
-
-     type: 'POST',
-
-     url: "<?php echo url('/admin/deletecustomer'); ?>",
-
-     enctype: 'multipart/form-data',
-
-     data:{user_id:user_id,'_token':'<?php echo csrf_token(); ?>'},
-
-     beforeSend:function(){
-
-       return confirm("Are you sure you want to delete this user?");
-
-     },
-
-     success: function(resultData) { 
-
-      //  console.log(resultData);
-
-       var obj = JSON.parse(resultData);
-
-       console.log(resultData);
-
-       if (obj.status == 'success') {
-
-        //  setTimeout(function() {
-
-        //   $('#success_message').fadeOut("slow");
-
-        // }, 2000 );
-
-        // $("#row" + user_id).remove();
-
-        // success_noti(results.success);
-
-       } 
-
-     },
-
-     error: function(errorData) {
-
-      console.log(errorData);
-
-      alert('Please refresh page and try again!');
-
-    }
-
-  });
-
-}
-
-</script>
-
-
-
-<script type="text/javascript">
-
   function deleteConfirmation(id) {
-
     toastDelete.fire({
-
     }).then(function(e) {
-
       if (e.value === true) {
-
           // alert(id);
-
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
         $.ajax({
-
           type: 'POST',
-
           url: "{{url('/admin/deleteHotel')}}",
-
           data: {
-
             hotel_id: id,
-
             _token: CSRF_TOKEN
-
           },
-
           dataType: 'JSON',
-
           success: function(results) {
-
             $("#row" + id).remove();
-
             // console.log(results);
-
             success_noti(results.msg);
-
           }
-
         });
-
       } else {
-
         e.dismiss;
-
       }
-
     }, function(dismiss) {
-
       return false;
-
     })
-
   }
-
 </script>
-
 <script>
-
   $('.toggle-class').on('change', function() {
-
     var status = $(this).prop('checked') == true ? 1 : 0; 
-
-    var user_id = $(this).data('id');
-
+    var hotel_id = $(this).data('id');
     // alert(status);
-
     // alert(user_id);
-
     $.ajax({
-
       type: "GET",
-
       dataType: "json",
-
-      url: "<?php echo url('/admin/change_user_status'); ?>",
-
-      data: {'status': status, 'user_id': user_id},
-
+      url: "<?php echo url('/admin/changeHotelStatus'); ?>",
+      data: {'status': status, 'hotel_id': hotel_id},
       success: function(data){
-
         success_noti(data.success);
-
         // console.log(data);
-
         // $('#success_message').fadeIn().html(data.success);
-
-        // setTimeout(function() {
-
-        //   $('#success_message').fadeOut("slow");
-
-        // }, 2000 );
-
+        // setTimeout(function() { $('#success_message').fadeOut("slow"); }, 2000 );
       },
-
       error: function(errorData) {
-
         console.log(errorData);
-
         alert('Please refresh page and try again!');
-
       }
-
     });
-
   })
-
 </script>
 
 @endsection
 
-
-
-
-
 @section('content')
-
-
 
     <!-- Content Wrapper. Contains page content -->
 
@@ -304,7 +192,7 @@
 
                                             <th>Contact Number</th>
 
-                                            <!-- <th>Address</th> -->
+                                            <th>Rooms</th>
 
                                             <!-- <th>City</th> -->
 
@@ -335,6 +223,7 @@
                                                     <td>{{ $arr->property_contact_name }}</td>
 
                                                     <td>{{ $arr->property_contact_num }}</td>
+                                                    <td><a href="{{url('/admin/viewHotelRooms')}}/{{$arr->hotel_id}}" class="btn btn-default btn-sm"><i class="fas fa-list"></i>  View</a></td>
 
                                                     <td class="project-state">
 
@@ -346,7 +235,7 @@
 
                                                         <div class="btn-group btn-group-sm">
 
-                                                            <!-- <a href="#" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a> -->
+                                                            <a href="{{url('/admin/viewHotel')}}/{{$arr->hotel_id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
 
                                                             <a href="{{url('/admin/editHotel')}}/{{$arr->hotel_id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
