@@ -165,22 +165,62 @@
   });
 
   // Testimonials carousel (uses the Owl Carousel library)
-  $(".testimonials-carousel").owlCarousel({
-    autoplay: true,
+  // $(".testimonials-carousel").owlCarousel({
+  //   autoplay: true,
+  //   dots: true,
+  //   loop: true,
+  //   responsive: {
+  //     200: {
+  //       items: 1
+  //     },
+  //     768: {
+  //       items: 1
+  //     },
+  //     900: {
+  //       items: 1
+  //     }
+  //   }
+  // });
+
+  $('.testimonials-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
     dots: true,
-    loop: true,
-    responsive: {
-      200: {
-        items: 1
-      },
-      768: {
-        items: 1
-      },
-      900: {
-        items: 3
-      }
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
     }
-  });
+  })
+
+  $('.roomdetails').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    dots: true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+  })
+
+
+
+
 
   // Porfolio isotope and filter
   $(window).on('load', function() {
@@ -227,3 +267,5 @@
   });
 
 })(jQuery);
+
+

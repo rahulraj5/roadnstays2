@@ -8,6 +8,38 @@
     background-color: #5f666c !important;
   }
 </style>
+<style type="text/css">
+  input[type="file"] {
+    display: block;
+  }
+
+  .imageThumb {
+    max-height: 75px;
+    border: 2px solid;
+    padding: 1px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .pip {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+  }
+
+  .remove {
+    display: block;
+    background: #444;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .remove:hover {
+    background: white;
+    color: black;
+  }
+</style>
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
@@ -60,6 +92,40 @@
     //  format: 'hh:mm:ss a'
     //  format: 'HH:mm'
     format: 'LT'
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.File && window.FileList && window.FileReader) {
+      $("#hotelGallery").on("change", function(e) {
+        var files = e.target.files,
+          filesLength = files.length;
+        for (var i = 0; i < filesLength; i++) {
+          var f = files[i]
+          var fileReader = new FileReader();
+          fileReader.onload = (function(e) {
+            var file = e.target;
+            $("<span class=\"pip\">" +
+              "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+              "<br/><span class=\"remove\">Remove image</span>" +
+              "</span>").insertAfter("#hotelGalleryPreview");
+            $(".remove").click(function() {
+              $(this).parent(".pip").remove();
+            });
+          });
+          fileReader.readAsDataURL(f);
+        }
+      });
+    } else {
+      alert("Your browser doesn't support to File API")
+    }
+  });
+</script>
+
+<script>
+  $(".remove").click(function() {
+    $(this).parent(".pip").remove();
   });
 </script>
 
@@ -275,6 +341,71 @@
   // });
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addServButton = $('.add_service_button'); 
+    var servWrapper = $('.field_wrapper_service'); 
+    var x = 0; 
+
+    $(addServButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(servWrapper).on('click', '.remove_serv_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_button'); 
+    var wrapper = $('.field_wrapper'); 
+    var x = 0; 
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+
+<script type="text/javascript">
+    function initialize() {
+        var input = document.getElementById('hotel_address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+          var place = autocomplete.getPlace();
+          console.log(place);
+          document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+          document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+          document.getElementById('neighb_area').value = place.vicinity;
+          for (let i = 0; i < place.address_components.length; i++) {
+            if(place.address_components[i].types[0]=="administrative_area_level_2"){
+              document.getElementById('hotel_city').value = place.address_components[i].long_name;
+            }
+          }
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize); 
+</script>
 @endsection
 
 @section('content')
@@ -396,6 +527,29 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="customFile">Hotel Gallery</label>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="hotelGallery" name="hotelGallery[]" multiple>
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="d-flex flex-wrap">
+                              @php $hotel_gallery = DB::table('hotel_gallery')->orderby('id', 'ASC')->where('hotel_id', $hotel_info->hotel_id)->get(); @endphp
+                              @foreach($hotel_gallery as $image)
+                              <div class="image-gridiv" id="hotelGalleryPreview">
+                                <img src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
+                              </div>
+                              @endforeach
+                            </div>
+                          </div>
+
+
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="customFile">Hotel Video</label>
@@ -414,21 +568,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Hotel Gallery</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="hotelGallery" name="hotelGallery">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                @if((!empty($hotel_info->hotel_gallery)))
-                                <div class="col-md-12">
-                                  <img class="mt-2" style="width: 200px; height: 150px;" src="{{url('/')}}/public/uploads/hotel_gallery/{{$hotel_info->hotel_gallery}}">
-                                </div>
-                                @endif
-                              </div>
-                            </div>
 
-                          </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
@@ -708,14 +848,14 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}">
+                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}" readonly>
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}">
+                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}" readonly>
                             </div>
                           </div>
 
@@ -796,61 +936,116 @@
                             </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Extra price</h4>
+                              <h4>Extra Price</h4>
                               </p>
                             </div>
                           </div>
+                          <div class="col-md-12 field_wrapper">
+                            <div class="form-group" id="extra">
+                              <label>Extra Price</label>
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name</label>
-                              <input type="text" class="form-control" name="extra_price_name" id="extra_price_name" placeholder="Enter " value="{{(!empty($hotel_info->extra_price_name) ? $hotel_info->extra_price_name : '')}}">
+                              @if(count($hotel_extra_price) > 0)
+
+                                @foreach ($hotel_extra_price as $key=>$value)
+                        
+                                <div class="row form-group">
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" />
+                                  </div>
+                                  @if($key == 0)
+                                  <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                                  @else
+                                  <span><a href="javascript:void(0);" class="remove_button" title="Add field">Remove</a></span>
+                                  @endif
+                                </div>
+                                
+                                @endforeach
+
+                              @else 
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                              </div>
+
+                              @endif
+
+
+
                             </div>
                           </div>
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Price</label>
-                              <input type="text" class="form-control" name="extra_price" id="extra_price" placeholder="Enter " value="{{(!empty($hotel_info->extra_price) ? $hotel_info->extra_price : '')}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Type</label>
-                              <input type="text" class="form-control" name="extra_price_type" id="extra_price_type" placeholder="Enter " value="{{(!empty($hotel_info->extra_price_type) ? $hotel_info->extra_price_type : '')}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Service fee</h4>
+                              <h4>Service Fee</h4>
                               </p>
                             </div>
                           </div>
+                          <div class="col-md-12 field_wrapper_service">
+                            <div class="form-group" id="service_div">
+                              <label>Service Fee</label>
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name</label>
-                              <input type="text" class="form-control" name="service_fee_name" id="service_fee_name" placeholder="Enter " value="{{(!empty($hotel_info->service_fee_name) ? $hotel_info->service_fee_name : '')}}">
-                            </div>
-                          </div>
+                              @if(count($hotel_service_fee) > 0)
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Price</label>
-                              <input type="text" class="form-control" name="service_fee" id="service_fee" placeholder="Enter " value="{{(!empty($hotel_info->service_fee) ? $hotel_info->service_fee : '')}}">
-                            </div>
-                          </div>
+                                @foreach ($hotel_service_fee as $key=>$value)
+                        
+                                <div class="row form-group">
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->serv_fee_name }}" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->serv_fee_price }}" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->serv_fee_type }}" />
+                                  </div>
+                                  @if($key == 0)
+                                  <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                                  @else
+                                  <span><a href="javascript:void(0);" class="remove_serv_button" title="Add field">Remove</a></span>
+                                  @endif
+                                </div>
+                                
+                                @endforeach
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Type</label>
-                              <input type="text" class="form-control" name="service_fee_type" id="service_fee_type" placeholder="Enter " value="{{(!empty($hotel_info->service_fee_type) ? $hotel_info->service_fee_type : '')}}">
+                              @else
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][name]" placeholder="Enter Name" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                              </div>
+
+                              @endif
+
+                              
+
+
                             </div>
                           </div>
 
@@ -901,166 +1096,54 @@
                             </div>
                           </div>
 
+                          @foreach ($amenity_type as $value)
+                          @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
+
+                          @if($amenity_count > 0)
+                          @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Room Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service1[]" id="entertain_service1" data-placeholder="Select Room Amenities" style="width: 100%;">
-                                <!-- <option value="">Select Room Amenities</option> -->
-                                @php $entertain_service = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',1)->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->room_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
+                                    <!-- <option value="">Select Room Amenities</option> -->
+                                    @foreach ($amenities as $amenity)
+                                    <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) { echo 'selected'; } ?>>{{ $amenity->amenity_name }}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
                           </div>
+                          @endif
+
+                          @endforeach
 
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Bathroom Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service2[]" id="extra_service2" data-placeholder="Select Bathroom Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',2)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->bathroom_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                              <div class="tab-custom-content">
+                                  <p class="lead mb-0">
+                                  <h4>Services</h4>
+                                  </p>
+                              </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Media and Technology</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service3[]" id="extra_service3" data-placeholder="Select Media and Technology Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',3)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->media_tech_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @foreach ($service_type as $value)
+                          @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
 
+                          @if($hotel_services_count > 0)
+                          @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Food & drink</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service4[]" id="extra_service4" data-placeholder="Select Food & drink Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',4)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->food_drink_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
+                                      <!-- <option value="">Select Room Amenities</option> -->
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Outdoor and view</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service5[]" id="extra_service5" data-placeholder="Select Outdoor and view Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',5)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->outdoor_view_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                                      @foreach ($services as $service)
+                                      <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) { echo 'selected'; } ?>>{{ $service->service_name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
                           </div>
+                          @endif
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Accessibility</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service6[]" id="extra_service6" data-placeholder="Select Accessibility Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',6)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->accessibility_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service7[]" id="extra_service7" data-placeholder="Select Entertainment and family services Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',7)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->entertain_family_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service8[]" id="extra_service8" data-placeholder="Select Services & extras Amenities" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',8)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->extra_service_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Services</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service[]" id="entertain_service" style="width: 100%;">
-                                <!-- <option value="">Select Entertainment and family services</option> -->
-                                @php $entertain_service = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Entertainment_n_Family')->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->id }}" <?php if (in_array($value->id, json_decode($hotel_info->entertain_family_service, true))) {
-                                                                    echo 'selected';
-                                                                  } ?>>{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & Extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service[]" id="extra_service" style="width: 100%;">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php
-                                $leads = json_decode($hotel_info->extra_service, true);
-                                @endphp
-                                @php $extra_services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Services_n_Extras')->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->id }}" <?php if (in_array($value->id, json_decode($hotel_info->extra_service, true))) {
-                                                                    echo 'selected';
-                                                                  } ?>>{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @endforeach
 
                           <!-- checking for the other option added start here -->
 
@@ -1093,8 +1176,10 @@
                               <!-- </div> -->
                             </div>
 
-                            <div class="<? if ($hotel_info->parking_option == 0) { echo 'd-none'; } ?>" id="parking_free_div">
-                              <div class="col-md-12 <? if ($hotel_info->parking_option != 2) { echo 'd-none'; } ?>" id="parking_price_div">
+                            <div class="<? if ($hotel_info->parking_option == 0) {echo 'd-none';} ?>" id="parking_free_div">
+                              <div class="col-md-12 <? if ($hotel_info->parking_option != 2) {
+                                                      echo 'd-none';
+                                                    } ?>" id="parking_price_div">
                                 <label>How much does parking cost?</label>
                                 <div class="row">
                                   <div class="form-group">
@@ -1202,8 +1287,10 @@
                                 </div>
                               </div>
                             </div>
-                            
-                            <div class="col-sm-6 <? if ($hotel_info->breakfast_availability == 0) { echo 'd-none'; } ?>" id="breakfast_price_inclusion_div">
+
+                            <div class="col-sm-6 <? if ($hotel_info->breakfast_availability == 0) {
+                                                    echo 'd-none';
+                                                  } ?>" id="breakfast_price_inclusion_div">
                               <label>Is breakfast included in the price ?</label>
                               <div class="row">
                                 <div class="col-sm-6">
@@ -1223,7 +1310,9 @@
                                   </div>
                                 </div>
 
-                                <div class="col-sm-6 <? if ($hotel_info->breakfast_price_inclusion == 0) { echo 'd-none'; } ?>" id="breakfast_cost_div">
+                                <div class="col-sm-6 <? if ($hotel_info->breakfast_price_inclusion == 0) {
+                                                        echo 'd-none';
+                                                      } ?>" id="breakfast_cost_div">
                                   <div class="form-group">
                                     <!-- <label>Select all that apply</label> -->
                                     <label>Breakfast Price</label>
@@ -1231,7 +1320,9 @@
                                   </div>
                                 </div>
 
-                                <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) { echo 'd-none'; } ?>" id="breakfast_price_type_div">
+                                <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
+                                                        echo 'd-none';
+                                                      } ?>" id="breakfast_price_type_div">
                                   <div class="form-group">
                                     <!-- <label>Select all that apply</label> -->
                                     <label>What kind of breakfast is available?</label>
@@ -1241,7 +1332,7 @@
                                       @foreach ($breakfast_type as $value)
                                       <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
                                       @endforeach
-                                      
+
                                     </select>
                                   </div>
                                 </div>

@@ -74,27 +74,22 @@ class HotelnStaysController extends Controller
 
     public function changeHotelAndStaysStatus(Request $request)
     {
-    	$user = User::find($request->user_id);
-    	$user->status = $request->status;
-    	$user->save();
-
-    	return response()->json(['success'=>'User status change successfully.']);
+        $id = $request->user_id;
+        if(!empty($id)) { 
+            DB::table('H1_Hotel_and_other_Stays')
+            ->where('id', $id)
+            ->update([
+                'status' => $request->status
+            ]);
+        }    
+    	return response()->json(['success'=>'status change successfully.']);
     }
 
     public function deleteHotelAndStays(Request $request) {
-        $user_id = $request->user_id;
-        $frame_info = DB::table('users')->where('id',$user_id)->first();
-        if($frame_info->user_type == 'normal_user')
-        {   
-            $res = DB::table('users')->where('id', '=', $user_id)->delete();
-
-        }
-        else{
-            $res = DB::table('users')->where('id', '=', $user_id)->delete();
-        }
-
+        $id = $request->user_id;
+        $res = DB::table('H1_Hotel_and_other_Stays')->where('id', '=', $id)->delete();
         if ($res) {
-            return json_encode(array('status' => 'success','msg' => 'User has been deleted successfully!'));
+            return json_encode(array('status' => 'success','msg' => 'deleted successfully!'));
         } else {
             return json_encode(array('status' => 'error','msg' => 'Some internal issue occured.'));
         }

@@ -21,11 +21,11 @@
 
 <main id="main">
     <section  class="event-sec" >
-        <div class="container">
-<div class="row hero-event">
-    <h1>Events We organised</h1>
-</div>
-        </div>
+    <div class="img-banner">
+        <img src="https://votivelaravel.in/roadNstays/resources/assets/img/h1.jpg" alt="">
+        <div class="bannner-text"><h1>Live Events with Harris</h1>
+        <p>New York</p></div>
+    </div>
 
 <div class="container-fluid">
 <div class="row filter-row">
@@ -80,6 +80,21 @@
                 <li><input type="checkbox" name="Festivals" id="">Festivals</li>
             </ul>
         </div>
+        <div class="category category-4">
+            <p>Date</p>
+            <input type="date" name="" id="" placeholder="select a date">
+           
+        </div>
+        <div class="category category-5">
+            <p>Event Venue</p>
+            <ul>
+                <li><input type="checkbox" name="" id="">Delhi</li>
+                <li><input type="checkbox" name="" id="">islamabad</li>
+                <li><input type="checkbox" name="" id="">Dubai</li>
+                <li><input type="checkbox" name="" id="">Pakistan</li>
+                <li><input type="checkbox" name="" id="">peshawar</li> 
+            </ul>
+        </div>
 
 
 
@@ -90,105 +105,197 @@
         <h1>Recent events</h1>
         <div class="row event-box-1">
         <div class="col-md-4 box">
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2"><i class="fa-solid fa-calendar"></i>08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h1.jpg" alt=""><i class='bx bx-heart'  id="heart" ></i></div>
             
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
+            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+            
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+            <button>Buy Ticket</button>
             
         </div>
         <div class="col-md-4 box">
-            
-                <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+           <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/h2.jpg" alt=""><i class='bx bx-heart'  id="heart" ></i></div>
            
-            <div class="time">08:00am - 11:00am</div>
+        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
             <button>free</button>
             
         </div>
         <div class="col-md-4 box">
             
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
             
-            <div class="time">08:00am - 11:00am</div>
+            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+            
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
             <button>free</button>
             
        </div>
-        <div class="col-md-4 box">
+      
+       <div class="row event-box-1">
+
+       <div class="col-md-4 box">
             
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
+            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h3.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+            
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
           
-            <div class="time">08:00am - 11:00am</div>
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+            <button>Buy Ticket</button>
+            
+        </div>
+        <div class="col-md-4 box">
+           
+            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h4.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+            
+            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+            
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
             <button>free</button>
             
         </div>
         <div class="col-md-4 box">
            
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
+            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h5.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+            
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+            <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+            <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
             
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
-            
+            <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+            <button>Buy Ticket</button>
+           
         </div>
+       </div>
+        
+
+       <h1>Wedding</h1>
+
+        <div class="row event-box-1">
         <div class="col-md-4 box">
            
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
-            
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h6.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
            
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>Buy Ticket</button>
+           
+       </div>
+       <div class="col-md-4 box">
+          
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h7.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>free</button>
+           
+       </div>
+       <div class="col-md-4 box">
+          
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h8.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>Buy Ticket</button>
+          
+       </div>
         </div>
 
-       
-
+        <h1>Business Conclave</h1>
+        <div class="row event-box-1">
         <div class="col-md-4 box">
-            
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
+           
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/art.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>free</button>
+           
+       </div>
+       <div class="col-md-4 box">
           
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
-            
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h9.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>Buy Ticket</button>
+           
+       </div>
+       <div class="col-md-4 box">
+          
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h10.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>free</button>
+          
+       </div>
         </div>
+
+        <h1>Live Concert</h1>
+        <div class="row event-box-1">
         <div class="col-md-4 box">
            
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
-            
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
-            
-        </div>
-        <div class="col-md-4 box">
+          <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/a1.png" alt=""><i class='bx bx-heart'  id="heart"></i></div>
            
-            <img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt="">
-            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-            <div class="date-2">08 May 2022 - 22 september 2022</div>
-            <div class="location">NEW DELHI</div>
-            
-            <div class="time">08:00am - 11:00am</div>
-            <button>free</button>
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>free</button>
            
+       </div>
+       <div class="col-md-4 box">
+          
+          <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/h1.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>free</button>
+           
+       </div>
+       <div class="col-md-4 box">
+          
+           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h3.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
+           
+           <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+           <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
+           <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
+           
+           <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
+           <button>Buy Ticket</button>
+          
+       </div>
         </div>
         
         </div>

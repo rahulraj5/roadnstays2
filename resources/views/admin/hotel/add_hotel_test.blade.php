@@ -68,7 +68,6 @@
 @endsection
 
 
-
 @section('current_page_js')
 
 <!-- Select2 -->
@@ -170,7 +169,7 @@
           // filesize: 20971520, 
         },
         hotelVideo: {
-          required: true,
+          // required: true,
           accept: "video/*"
         },
         cat_listed_room_type: {
@@ -205,6 +204,28 @@
         min_day_stays: {
           required: true,
           number: true,
+        },
+        hotel_latitude: {
+          number: true,
+        },
+        hotel_longitude: {
+          number: true,
+        },
+        // attraction_distance: {
+        //   required: true,
+        // },
+        stay_price: {
+          required: true,
+          number: true,
+        },
+        extra_price: {
+          number: true,
+        },
+        service_fee: {
+          number: true,
+        },
+        property_type: {
+          required: true,
         },
 
       },
@@ -306,6 +327,7 @@
       var site_url = $("#baseUrl").val();
       // alert(site_url);
       var formData = $(form).serialize();
+      $('#step_btn1').prop('disabled', true); 
       // alert(formData);
       $(form).ajaxSubmit({
         type: 'POST',
@@ -329,6 +351,50 @@
         }
       });
     }
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addServButton = $('.add_service_button'); 
+    var servWrapper = $('.field_wrapper_service'); 
+    var x = 0; 
+
+    $(addServButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(servWrapper).on('click', '.remove_serv_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_button'); 
+    var wrapper = $('.field_wrapper'); 
+    var x = 0; 
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
   });
 </script>
 
@@ -365,6 +431,29 @@
     // $("#breakfast_price_type_div").removeClass('d-none');
     $("#breakfast_cost_div").removeClass('d-none');
   });
+
+  
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+
+<script type="text/javascript">
+   function initialize() {
+       var input = document.getElementById('hotel_address');
+       var autocomplete = new google.maps.places.Autocomplete(input);
+       google.maps.event.addListener(autocomplete, 'place_changed', function () {
+          var place = autocomplete.getPlace();
+          console.log(place);
+          document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+          document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+          document.getElementById('neighb_area').value = place.vicinity;
+          for (let i = 0; i < place.address_components.length; i++) {
+            if(place.address_components[i].types[0]=="administrative_area_level_2"){
+              document.getElementById('hotel_city').value = place.address_components[i].long_name;
+            }
+          }
+       });
+   }
+   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
 @endsection
@@ -645,7 +734,7 @@
 
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Hotel Notes</label>
+                              <label>Hotel Notes Policy</label>
                               <textarea id="summernote1" name="hotel_notes"></textarea>
                             </div>
                           </div>
@@ -789,14 +878,14 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter ">
+                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " readonly>
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter ">
+                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " readonly>
                             </div>
                           </div>
 
@@ -837,28 +926,28 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Name</label>
-                              <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Content</label>
-                              <input type="text" class="form-control" name="attraction_content" id="attraction_content" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="attraction_content" id="attraction_content" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Distance</label>
-                              <input type="text" class="form-control" name="attraction_distance" id="attraction_distance" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="attraction_distance" id="attraction_distance" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Type</label>
-                              <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter ">
                             </div>
                           </div>
 
@@ -873,65 +962,57 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Price ( min. Price of the Room )</label>
-                              <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter ">
                             </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Extra price</h4>
+                              <h4>Extra Price</h4>
                               </p>
                             </div>
                           </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name</label>
-                              <input type="text" class="form-control" name="extra_price_name" id="extra_price_name" placeholder="Enter " required="required">
+                          <div class="col-md-12 field_wrapper">
+                            <div class="form-group" id="extra">
+                              <label>Extra Price</label>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                              </div>
                             </div>
                           </div>
 
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Price</label>
-                              <input type="text" class="form-control" name="extra_price" id="extra_price" placeholder="Enter " required="required">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Type</label>
-                              <input type="text" class="form-control" name="extra_price_type" id="extra_price_type" placeholder="Enter " required="required">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Service fee</h4>
+                              <h4>Service Fee</h4>
                               </p>
                             </div>
                           </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name</label>
-                              <input type="text" class="form-control" name="service_fee_name" id="service_fee_name" placeholder="Enter " required="required">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Price</label>
-                              <input type="text" class="form-control" name="service_fee" id="service_fee" placeholder="Enter " required="required">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Type</label>
-                              <input type="text" class="form-control" name="service_fee_type" id="service_fee_type" placeholder="Enter " required="required">
+                          <div class="col-md-12 field_wrapper_service">
+                            <div class="form-group" id="service_div">
+                              <label>Service Fee</label>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][name]" placeholder="Enter Name" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                              </div>
                             </div>
                           </div>
 
@@ -947,7 +1028,7 @@
                             <div class="form-group">
                               <label>Property Type</label>
                               <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;" required="required">
-                                <!-- <option value="">Select Property Type</option> -->
+                                <option value="">Select Property Type</option>
                                 @foreach ($properties as $prop)
                                 <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
                                 @endforeach
@@ -982,109 +1063,26 @@
                             </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Room Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service1[]" id="entertain_service1" data-placeholder="Select Room Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Select Room Amenities</option> -->
-                                @php $entertain_service = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',1)->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @foreach ($amenity_type as $value)
+                          @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
 
+                          @if($amenity_count > 0)
+                          @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Bathroom Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service2[]" id="extra_service2" data-placeholder="Select Bathroom Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',2)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
+                                      <!-- <option value="">Select Room Amenities</option> -->
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Media and Technology</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service3[]" id="extra_service3" data-placeholder="Select Media and Technology Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',3)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                                      @foreach ($amenities as $amenity)
+                                      <option value="{{ $amenity->amenity_id }}">{{ $amenity->amenity_name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
                           </div>
+                          @endif
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Food & drink</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service4[]" id="extra_service4" data-placeholder="Select Food & drink Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',4)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Outdoor and view</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service5[]" id="extra_service5" data-placeholder="Select Outdoor and view Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',5)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Accessibility</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service6[]" id="extra_service6" data-placeholder="Select Accessibility Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',6)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service7[]" id="extra_service7" data-placeholder="Select Entertainment and family services Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',7)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service8[]" id="extra_service8" data-placeholder="Select Services & extras Amenities" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',8)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @endforeach
 
                           <div class="col-md-12">
                             <div class="tab-custom-content">
@@ -1093,32 +1091,27 @@
                               </p>
                             </div>
                           </div>
+                          
+                          @foreach ($service_type as $value)
+                          @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
 
+                          @if($hotel_services_count > 0)
+                          @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service[]" id="entertain_service" style="width: 100%;" required="required">
-                                <!-- <option value="">Select Entertainment and family services</option> -->
-                                @php $entertain_service = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Entertainment_n_Family')->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->id }}">{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
+                                      <!-- <option value="">Select Room Amenities</option> -->
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & Extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service[]" id="extra_service" style="width: 100%;" required="required">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Services_n_Extras')->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->id }}">{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                                      @foreach ($services as $service)
+                                      <option value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
                           </div>
+                          @endif
+
+                          @endforeach
 
 
                           <!-- checking for the other option added start here -->
@@ -1313,7 +1306,7 @@
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
-                            <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button" onclick="$(this).prop('disabled',true)">Submit</button>
+                            <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
                           </div>
                         </div>
 

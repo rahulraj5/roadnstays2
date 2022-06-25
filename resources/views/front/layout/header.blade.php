@@ -8,30 +8,30 @@
 
     <nav class="nav-menu d-none d-lg-block">
       <ul>
-         <li class="drop-down"><a href="">Services</a>
+         <!-- <li class="drop-down"><a href="">Services</a>
           <ul>
             <li><a href="#">Drop Down 1</a></li>
             <li class="drop-down"><a href="#">Deep Drop Down</a>
-           <!--    <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
-              </ul> -->
+            <ul>
+              <li><a href="#">Deep Drop Down 1</a></li>
+              <li><a href="#">Deep Drop Down 2</a></li>
+              <li><a href="#">Deep Drop Down 3</a></li>
+              <li><a href="#">Deep Drop Down 4</a></li>
+              <li><a href="#">Deep Drop Down 5</a></li>
+            </ul>
             </li>
             <li><a href="#">Booking</a></li>
             <li><a href="#">Drop Down 3</a></li>
             <li><a href="#">Drop Down 4</a></li>
           </ul>
-        </li>
-        <li><a href="#">Booking</a></li>
-        <li><a href="#">Stays</a></li>
+        </li> -->
+        <!-- <li><a href="#">Booking</a></li> -->
+        <!-- <li><a href="#">Space</a></li> -->
+        <li><a href="{{ url('/hotelList') }}">Hotel</a></li>
+        <li><a href="{{ url("/tour") }}">Tour</a></li>
         <li><a href="#">Event</a></li>
-         <li><a href="#">Packages</a></li>
+        <li><a href="#">Packages</a></li>
         <li><a href="#">Weather</a></li>
-        <li><a href="#">Hotel</a></li>
-        <li><a href="#">Tour</a></li>
 
       </ul>
     </nav>

@@ -9,6 +9,56 @@
     var today = new Date().toISOString().split('T')[0];
     $('.min_date').attr('min', today);
 </script>
+
+<script type="text/javascript">
+      var placeSearch, autocomplete;
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+        (document.getElementById('autocomplete')), {
+          types: ['geocode']
+        });
+      autocomplete.addListener('place_changed', function() {
+        fillInAddress(autocomplete, "");
+      });
+
+    }
+
+    function fillInAddress(autocomplete, unique) {
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+        if (!!document.getElementById(component + unique)) {
+          document.getElementById(component + unique).value = '';
+          document.getElementById(component + unique).disabled = false;
+        }
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+          var val = place.address_components[i][componentForm[addressType]];
+          document.getElementById(addressType + unique).value = val;
+        }
+      }
+    }
+    google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }
+</script>
 @endsection
 
 @section('content')
@@ -77,7 +127,7 @@
                                         <h4> Event</h4>
                                         <div class="d-flex justify-content-center align-self-center">
                                             <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
-                                                <input type="location" name="location" placeholder="Destination" class="locatin-fil"></span>
+                                                <input type="location" name="location" placeholder="Destination" class="locatin-fil" id="autocomplete"></span>
                                             <input type="submit" value="Find" class="btn btn-primary-event pull-right">
                                         </div>
                                         <div class="event-avlabel">

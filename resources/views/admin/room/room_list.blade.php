@@ -63,6 +63,7 @@
             $("#row" + id).remove();
             // console.log(results);
             success_noti(results.msg);
+            setTimeout(function() { window.location.reload() }, 1000);
           }
         });
       } else {
@@ -187,10 +188,11 @@
                                             <th>Title</th>
 
                                             <th>Price</th>
+                                            <th>Rooms Quantity</th>
 
-                                            <th>Notes</th>
+                                            <!-- <th>Notes</th>
 
-                                            <th>Details</th>
+                                            <th>Details</th> -->
 
                                             <th>Status</th>
 
@@ -216,9 +218,9 @@
 
                                                     <td>{{ $arr->price_per_night }}</td>
 
-                                                    <td>{{ $arr->notes }}</td>
+                                                    <td>{{ $arr->number_of_rooms }}</td>
 
-                                                    <td>{{ $arr->description }}</td>
+                                                    <!-- <td>{{ $arr->description }}</td> -->
 
                                                     <td class="project-state">
 

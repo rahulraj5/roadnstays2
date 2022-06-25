@@ -8,17 +8,18 @@
 
 @section('current_page_css')
 
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <style>
-
-  .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
-
+  .slow .toggle-group {
+    transition: left 0.7s;
+    -webkit-transition: left 0.7s;
+  }
 </style>
 
 @endsection
@@ -28,28 +29,27 @@
 @section('current_page_js')
 
 
-  <!-- DataTables  & Plugins -->
-  <script src="{{ asset('resources/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/jszip/jszip.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/pdfmake/pdfmake.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/pdfmake/vfs_fonts.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-  <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('resources/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
-  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script type="text/javascript">
   function deleteConfirmation(id) {
-    toastDelete.fire({
-    }).then(function(e) {
+    toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
-          // alert(id);
+        // alert(id);
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
@@ -75,7 +75,7 @@
 </script>
 <script>
   $('.toggle-class').on('change', function() {
-    var status = $(this).prop('checked') == true ? 1 : 0; 
+    var status = $(this).prop('checked') == true ? 1 : 0;
     var id = $(this).data('id');
     // alert(status);
     // alert(user_id);
@@ -83,8 +83,11 @@
       type: "GET",
       dataType: "json",
       url: "<?php echo url('/admin/changeRoomTypeStatus'); ?>",
-      data: {'status': status, 'id': id},
-      success: function(data){
+      data: {
+        'status': status,
+        'id': id
+      },
+      success: function(data) {
         success_noti(data.success);
         // console.log(data);
         // $('#success_message').fadeIn().html(data.success);
@@ -102,69 +105,67 @@
 
 @section('content')
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
 
-    <div class="content-wrapper">
+<div class="content-wrapper">
 
-        <!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) -->
 
-        <section class="content-header">
+  <section class="content-header">
 
-            <div class="container-fluid">
+    <div class="container-fluid">
 
-                <div class="row mb-2">
+      <div class="row mb-2">
 
-                    <div class="col-sm-6">
+        <div class="col-sm-6">
 
-                        <h1>Room Types List</h1>
+          <h1>Room Types List</h1>
 
-                    </div>
+        </div>
 
-                    <div class="col-sm-6">
+        <div class="col-sm-6">
 
-                        <ol class="breadcrumb float-sm-right">
+          <ol class="breadcrumb float-sm-right">
 
-                            <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
 
-                            <li class="breadcrumb-item active">Room Types List</li>
+            <li class="breadcrumb-item active">Room Types List</li>
 
-                        </ol>
+          </ol>
 
-                    </div>
+        </div>
 
-                </div>
+      </div>
 
-            </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -->
 
-        </section>
-
-
-
-        <!-- Main content -->
-
-        <section class="content">
-
-            <div class="container-fluid">
-
-                <div class="row">
-
-                    <div class="col-12">
-
-                        <div class="row">
-
-                            <div class="col-md-11"></div>
-
-                            <div class="col-md-1"><a href="{{ url('/admin/addRoomType') }}"
-
-                                    class="btn btn-block btn-dark">Add</a></div>
-
-                        </div>
+  </section>
 
 
 
-                        <div class="card">
+  <!-- Main content -->
 
-                            <!-- <div class="card-header">
+  <section class="content">
+
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <div class="col-12">
+
+          <div class="row">
+
+            <div class="col-md-11"></div>
+
+            <!-- <div class="col-md-1"><a href="{{ url('/admin/addRoomType') }}" class="btn btn-block btn-dark">Add</a></div> -->
+
+          </div>
+
+
+
+          <div class="card">
+
+            <!-- <div class="card-header">
 
                                     <h3 class="card-title">DataTable</h3>
 
@@ -172,117 +173,116 @@
 
 
 
-                            <!-- /.card-header -->
+            <!-- /.card-header -->
 
-                            <div class="card-body">
+            <div class="card-body">
 
-                                <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped">
 
-                                    <thead>
+                <thead>
 
-                                        <tr>
+                  <tr>
 
-                                            <th>SNo.</th>
+                    <th>SNo.</th>
 
-                                            <th>Title</th>
+                    <th>Title</th>
 
-                                            <th>Details</th>
+                    <th>Details</th>
 
-                                            <th>Status</th>
+                    <th>Status</th>
 
-                                            <th>Action</th>
+                    <th>Action</th>
 
-                                        </tr>
+                  </tr>
 
-                                    </thead>
+                </thead>
 
-                                    <tbody>
+                <tbody>
 
-                                        @if (!$room_type_categories->isEmpty())
+                  @if (!$room_type_categories->isEmpty())
 
-                                            <?php $i = 1; ?>
+                  <?php $i = 1; ?>
 
-                                            @foreach ($room_type_categories as $arr)
+                  @foreach ($room_type_categories as $arr)
 
-                                                <tr id="row{{ $arr->id }}">
+                  <tr id="row{{ $arr->id }}">
 
-                                                    <td>{{ $i }}</td>
+                    <td>{{ $i }}</td>
 
-                                                    <td>{{ $arr->title }}</td>
+                    <td>{{ $arr->title }}</td>
 
-                                                    <td>{{ $arr->details }}</td>
+                    <td>{{ $arr->details }}</td>
 
-                                                    <td class="project-state">
+                    <td class="project-state">
 
-                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}>
+                      <input type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}>
 
-                                                    </td>
+                    </td>
 
-                                                    <td class="text-right py-0 align-middle">
+                    <td class="text-right py-0 align-middle">
 
-                                                        <div class="btn-group btn-group-sm">
+                      <div class="btn-group btn-group-sm">
 
-                                                            <!-- <a href="#" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a> -->
+                        <!-- <a href="#" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a> -->
 
-                                                            <a href="{{url('/admin/editHotel')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash" alt="user" title="user"></i></a>
 
+                        <!-- onclick="deleteConfirmation('<?php echo $arr->id; ?>');" -->
 
-
-                                                            <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
+                        <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
 
                                                             <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
 
-                                                        </div>
+                      </div>
 
-                                                    </td>
-
-                                                    
-
-                                                </tr>
-
-                                                <?php $i++; ?>
-
-                                            @endforeach
+                    </td>
 
 
 
-                                        @endif
+                  </tr>
 
-                                    </tbody>
+                  <?php $i++; ?>
 
-                                </table>
+                  @endforeach
 
-                            </div>
 
-                            <!-- /.card-body -->
 
-                        </div>
+                  @endif
 
-                        <!-- /.card -->
+                </tbody>
 
-                    </div>
-
-                    <!-- /.col -->
-
-                </div>
-
-                <!-- /.row -->
+              </table>
 
             </div>
 
-            <!-- /.container-fluid -->
+            <!-- /.card-body -->
 
-        </section>
+          </div>
 
-        <!-- /.content -->
+          <!-- /.card -->
+
+        </div>
+
+        <!-- /.col -->
+
+      </div>
+
+      <!-- /.row -->
 
     </div>
 
-    <!-- /.content-wrapper -->
+    <!-- /.container-fluid -->
+
+  </section>
+
+  <!-- /.content -->
+
+</div>
+
+<!-- /.content-wrapper -->
 
 
 
 @endsection
-

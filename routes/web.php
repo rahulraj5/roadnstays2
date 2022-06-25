@@ -64,14 +64,20 @@ Route::post('/servicepro/signup', 'HomeController@vendorSignup');
 
 Route::post('forgotPassword_action','HomeController@forgotPassword_action');
 
+Route::get('/hotelDetails/{id}','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
+Route::get('/roomdetails','HomeController@room_details')->name('user.room_details');
+Route::get('/hotelList','HomeController@hotel_list')->name('user.hotel_list');
 
 Route::get('/checkout','HomeController@checkout')->name('user.checkout');
 
 Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confirm_booking');
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
+Route::post('/room_details_ajax','HomeController@room_details_ajax')->name('user.room_details_ajax');
 Route::get('/events','HomeController@events')->name('user.events');
+Route::get('/event_details','HomeController@event_details')->name('user.event_details');
 Route::get('/tour','HomeController@tour')->name('user.tour');
+Route::get('/tour_details','HomeController@tour_details')->name('user.tour_details');
 Route::get('/packages','HomeController@packages')->name('user.packages');
 // Route::get('/two','HomeController@two')->name('user.two');
 // Route::get('/three','HomeController@three')->name('user.three');
@@ -95,8 +101,7 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
 
 
     Route::get('servicepro/hotelList', 'Vendor\VendorController@hotel_list');
-    Route::get('servicepro/viewHotelRooms/{id}', 'Vendor\RoomController@hotel_rooms_list');
-    Route::get('servicepro/addroom/{id}', 'Vendor\RoomController@add_room');
+    Route::get('servicepro/viewHotel/{id}', 'Vendor\VendorController@view_hotel');
     Route::any('servicepro/addHotel', 'Vendor\VendorController@add_hotel');
     Route::post('servicepro/submitHotel', 'Vendor\VendorController@submit_hotel');
     Route::get('servicepro/addHotelTest', 'Vendor\VendorController@add_hotel_test');
@@ -107,6 +112,16 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/updateHotel', 'Vendor\VendorController@update_hotel');
     Route::get('servicepro/changeHotelStatus', 'Vendor\VendorController@change_hotel_status');
     Route::any('servicepro/deleteHotel', 'Vendor\VendorController@delete_hotel');
+
+    Route::get('servicepro/viewHotelRooms/{id}', 'Vendor\RoomController@hotel_rooms_list');
+    Route::get('servicepro/addroom/{id}', 'Vendor\RoomController@add_room');
+    Route::any('servicepro/submitroom', 'Vendor\RoomController@submit_room');
+    Route::get('servicepro/changeRoomStatus', 'Vendor\RoomController@change_room_status');
+    Route::post('servicepro/deleteRoom', 'Vendor\RoomController@delete_room');
+    Route::get('servicepro/editRoom/{id}', 'Vendor\RoomController@edit_room');
+    Route::any('servicepro/updateRoom', 'Vendor\RoomController@update_room');
+    Route::any('servicepro/viewRoom/{id}', 'Vendor\RoomController@view_room');
+    Route::post('servicepro/room_name', 'Vendor\RoomController@room_name');
 });	
 
 
@@ -148,10 +163,12 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::get('/roomlist', 'Admin\RoomController@room_list');
         Route::get('/addroom', 'Admin\RoomController@add_room');
+        Route::get('/addroomtest', 'Admin\RoomController@add_room_test');
         Route::any('/submitroom', 'Admin\RoomController@submit_room');
         Route::get('/changeRoomStatus', 'Admin\RoomController@change_room_status');
-        Route::get('/deleteRoom', 'Admin\RoomController@delete_room');
+        Route::post('/deleteRoom', 'Admin\RoomController@delete_room');
         Route::get('/editRoom/{id}', 'Admin\RoomController@edit_room');
+        Route::get('/editRoomtest/{id}', 'Admin\RoomController@edit_room_test');
         Route::any('/updateRoom', 'Admin\RoomController@update_room');
         Route::any('/viewRoom/{id}', 'Admin\RoomController@view_room');
         Route::get('/changeRoomTypeStatus', 'Admin\RoomController@change_room_type_status');
@@ -184,18 +201,21 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/deleteHotelAndStays', 'Admin\HotelnStaysController@deleteHotelAndStays');
 
         Route::get('/hotelAmenity_list', 'Admin\HotelAmenityController@hotelAmenity_list');
-        
         Route::get('/addHotelAmenity', 'Admin\HotelAmenityController@addHotelAmenity');
-        
         Route::any('/submitHotelAmenity', 'Admin\HotelAmenityController@submitHotelAmenity');
-
         Route::get('/editHotelAmenity/{id}', 'Admin\HotelAmenityController@editHotelAmenity');
-
         Route::any('/updateHotelAmenity', 'Admin\HotelAmenityController@updateHotelAmenity');
-        
         Route::get('/changeHotelAmenityStatus', 'Admin\HotelAmenityController@changeHotelAmenityStatus');
-        
         Route::any('/deleteHotelAmenity', 'Admin\HotelAmenityController@deleteHotelAmenity');
+
+        Route::get('/hotelAmenityType_list', 'Admin\HotelAmenityController@hotelAmenityType_list');
+        Route::get('/addHotelAmenityType', 'Admin\HotelAmenityController@addHotelAmenityType');
+        Route::any('/submitHotelAmenityType', 'Admin\HotelAmenityController@submitHotelAmenityType');
+        Route::get('/editHotelAmenityType/{id}', 'Admin\HotelAmenityController@editHotelAmenityType');
+        Route::any('/updateHotelAmenityType', 'Admin\HotelAmenityController@updateHotelAmenityType');
+        Route::get('/viewHotelAmenityList/{id}', 'Admin\HotelAmenityController@view_hotel_amenity_list');
+        Route::get('/changeHotelAmenityTypeStatus', 'Admin\HotelAmenityController@changeHotelAmenityTypeStatus');
+        Route::any('/deleteHotelAmenityType', 'Admin\HotelAmenityController@deleteHotelAmenityType');
 
         Route::get('/hotelService_list', 'Admin\HotelServiceController@hotelService_list');
         Route::get('/addHotelService', 'Admin\HotelServiceController@addHotelService');
@@ -237,3 +257,12 @@ Route::group(['prefix' => 'scout'], function(){
     });
 });
 
+/* start web services api */
+
+Route::group(['middleware' => 'App\Http\Middleware\VerifyCsrfToken'], function () {
+
+Route::post('/ws/hotel_list','WsController@hotel_list')->middleware('CheckToken');
+Route::post('/ws/hotel_detail','WsController@hotel_details')->middleware('CheckToken');
+Route::post('/ws/room_detail','WsController@room_details')->middleware('CheckToken');
+
+}); 

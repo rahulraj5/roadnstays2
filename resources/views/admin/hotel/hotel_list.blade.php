@@ -63,6 +63,7 @@
             $("#row" + id).remove();
             // console.log(results);
             success_noti(results.msg);
+            setTimeout(function() { window.location.reload() }, 1000);
           }
         });
       } else {

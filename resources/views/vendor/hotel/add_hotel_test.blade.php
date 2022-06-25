@@ -5,6 +5,46 @@
     .active .bs-stepper-circle {
         background-color: #126c62 !important;
     }
+
+    .d-none {
+        display: none;
+    }
+
+    .d-bloc {
+        display: block;
+    }
+</style>
+<style type="text/css">
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .remove:hover {
+        background: white;
+        color: black;
+    }
 </style>
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
@@ -72,47 +112,35 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        if (window.File && window.FileList && window.FileReader) {
+            $("#hotelGallery").on("change", function(e) {
+                var files = e.target.files,
+                    filesLength = files.length;
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i]
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function(e) {
+                        var file = e.target;
+                        $("<span class=\"pip\">" +
+                            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                            "<br/><span class=\"remove\">Remove image</span>" +
+                            "</span>").insertAfter("#hotelGalleryPreview");
+                        $(".remove").click(function() {
+                            $(this).parent(".pip").remove();
+                        });
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+        } else {
+            alert("Your browser doesn't support to File API")
+        }
+    });
+</script>
+
 <script>
-    // $('#step_btn1').click(function() {
-    //     $("#addHotelVen_form").validate({
-    //         debug: false,
-    //         rules: {
-    //             hotelName: {
-    //                 required: true,
-    //             },
-    //             summernote: {
-    //                 required: true,
-    //             },
-    //         },
-    //         submitHandler: function(form) {
-    //             var site_url = $("#baseUrl").val();
-    //             // alert(site_url);
-    //             var formData = $(form).serialize();
-    //             $(form).ajaxSubmit({
-    //                 type: 'POST',
-    //                 url: "{{url('/servicepro/submitHotel')}}",
-    //                 data: formData,
-    //                 success: function(response) {
-    //                     // console.log(response);
-    //                     if (response.status == 'success') {
-    //                         // $("#register_form")[0].reset();
-    //                         success_noti(response.msg);
-    //                         setTimeout(function() {
-    //                             window.location.reload()
-    //                         }, 1000);
-    //                         //   setTimeout(function(){window.location.href=site_url+"/admin/hotelList"},1000);
-    //                     } else {
-    //                         error_noti(response.msg);
-    //                     }
-
-    //                 }
-    //             });
-    //             // event.preventDefault();
-    //         }
-    //     });
-    // });
-
-
     $(".slide.one .button").click(function() {
         // alert('sdfsd');
         var form = $("#addHotelVen_form");
@@ -124,15 +152,77 @@
                 summernote: {
                     required: true,
                 },
-            },
-            messages: {
-                hotelName: {
-                    required: "Please enter a Hotel Name"
+                "hotelGallery[]": {
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    // filesize: 20971520, 
                 },
-                summernote: {
-                    required: "Please provide a Hotel Content",
+                hotelVideo: {
+                    // required: true,
+                    accept: "video/*"
                 },
-                // terms: "Please accept our terms"
+                // cat_listed_room_type: {
+                //     required: true,
+                // },
+                hotel_rating: {
+                    required: true,
+                },
+                contact_name: {
+                    required: true,
+                },
+                contact_num: {
+                    required: true,
+                    number: true,
+                },
+                alternate_num: {
+                    number: true,
+                },
+                scout_id: {
+                    required: true,
+                },
+                checkin_time: {
+                    required: true,
+                },
+                checkout_time: {
+                    required: true,
+                },
+                min_day_before_book: {
+                    required: true,
+                    number: true,
+                },
+                min_day_stays: {
+                    required: true,
+                    number: true,
+                },
+                hotel_latitude: {
+                    number: true,
+                },
+                hotel_longitude: {
+                    number: true,
+                },
+                // attraction_distance: {
+                //     required: true,
+                // },
+                stay_price: {
+                    required: true,
+                    number: true,
+                },
+                extra_price: {
+                    number: true,
+                },
+                service_fee: {
+                    number: true,
+                },
+                property_type: {
+                    required: true,
+                },
+                // "amenity[]": {
+                //     required: true,
+                // },
+                // "services[]": {
+                //     required: true,
+                // },
+
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
@@ -207,908 +297,992 @@
         }
     });
 
-    $(".slide.three .button").click(function(){
+    $(".slide.three .button").click(function() {
         var form = $("#addHotelVen_form");
         form.validate({
-          rules: {
-            entertain_service1: {
-              required: true,
+            rules: {
+                entertain_service1: {
+                    required: true,
+                },
+                entertain_service2: {
+                    required: true,
+                },
             },
-            entertain_service2: {
-              required: true,
-            },
-          },
         });
-        if (form.valid() === true){  
+        if (form.valid() === true) {
             // var form = $("#addHotelVen_form");
             var site_url = $("#baseUrl").val();
             // alert(site_url);
             var formData = $(form).serialize();
-              // alert(formData);
+            $('#step_btn1').prop('disabled', true);
+            // alert(formData);
             $(form).ajaxSubmit({
                 type: 'POST',
                 url: "{{url('servicepro/submitHotel')}}",
                 data: formData,
                 success: function(response) {
-                // console.log(response);  
-                // alert('sd'); 
-                if (response.status == 'success') {
-                  // $("#register_form")[0].reset();
-                  success_noti(response.msg);
-                  // setTimeout(function() {
-                  //   window.location.reload()
-                  // }, 1000);
-                  setTimeout(function() {
-                    window.location.href = site_url + "/servicepro/hotelList"
-                  }, 1000);
-                } else {
-                  error_noti(response.msg);
-                }
-
+                    // console.log(response);  
+                    // alert('sd'); 
+                    if (response.status == 'success') {
+                        // $("#register_form")[0].reset();
+                        success_noti(response.msg);
+                        // setTimeout(function() {
+                        //   window.location.reload()
+                        // }, 1000);
+                        setTimeout(function() {
+                            window.location.href = site_url + "/servicepro/hotelList"
+                        }, 1000);
+                    } else {
+                        error_noti(response.msg);
+                    }
                 }
             });
             // event.preventDefault();
         }
     });
-
-    // $('#step_btn1').click(function() {
-    //     // alert('hello');
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     var site_url = $("#baseUrl").val();
-    //     var url = "{{url('/servicepro/submitHotel')}}";
-    //     var form = $("#addHotelVen_form");
-    //     // alert(url);
-    //     $.ajax({
-    //         enctype: 'multipart/form-data',
-    //         method: "POST",
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         url: url,
-    //         data: form.serialize(), // serializes the form's elements.
-    //         success: function(data) {
-    //             console.log(data);
-    //             // alert(data); // show response from the php script.
-    //         }
-    //     });
-
-    //     // var formData = $(form).serialize();
-
-    //     // $(form).ajaxSubmit({
-    //     //     type: 'POST',
-    //     //     url: "{{url('/servicepro/submitHotel')}}",
-    //     //     data: formData,
-    //     //     success: function (response) {
-    //     //     // console.log(response);
-    //     //     if (response.status == 'success') {
-    //     //         // $("#register_form")[0].reset();
-    //     //         success_noti(response.msg);
-    //     //         // setTimeout(function(){window.location.reload()},1000);
-    //     //         // setTimeout(function(){window.location.href=site_url+"/admin/hotelAmenity_list"},1000);
-    //     //     } else {
-    //     //         error_noti(response.msg);
-    //     //     }
-
-    //     //     }
-    //     // });
-    // });
-
-
-    // $('#step_btn1').click(function() {
-    //     alert('hello');
-    //     $("#addHotelVen_form").validate({
-    //         debug: false,
-    //         rules: {
-    //             entertain_service1: {
-    //             required: true,
-    //             },
-    //             entertain_service2: {
-    //                 required: true,
-    //             },
-    //         },
-    //         submitHandler: function (form) {
-    //         var site_url = $("#baseUrl").val();
-    //         var url = "{{url('/servicepro/submitHotel')}}";
-
-    //         alert(url);
-    //         var formData = $(form).serialize();
-    //         $(form).ajaxSubmit({
-    //             type: 'POST',
-    //             url: "{{url('/servicepro/submitHotel')}}",
-    //             data: formData,
-    //             success: function (response) {
-    //             // console.log(response);
-    //             if (response.status == 'success') {
-    //                 // $("#register_form")[0].reset();
-    //                 success_noti(response.msg);
-    //                 // setTimeout(function(){window.location.reload()},1000);
-    //                 // setTimeout(function(){window.location.href=site_url+"/admin/hotelAmenity_list"},1000);
-    //             } else {
-    //                 error_noti(response.msg);
-    //             }
-
-    //             }
-    //         });
-    //         // event.preventDefault();
-    //         }
-    //     });
-    // });    
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addServButton = $('.add_service_button'); 
+    var servWrapper = $('.field_wrapper_service'); 
+    var x = 0; 
 
+    $(addServButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(servWrapper).on('click', '.remove_serv_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_button'); 
+    var wrapper = $('.field_wrapper'); 
+    var x = 0; 
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++; 
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>'); 
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script>
+    $("#parking_option1").click(function() {
+        $("#parking_free_div").removeClass('d-none');
+        $("#parking_price_div").addClass('d-none');
+    });
+
+    $("#parking_option2").click(function() {
+        $("#parking_price_div").removeClass('d-none');
+        $("#parking_free_div").removeClass('d-none');
+    });
+
+    $("#parking_option3").click(function() {
+        $("#parking_free_div").addClass('d-none');
+    });
+
+    $("#breakfast_availability1").click(function() {
+        $("#breakfast_price_inclusion_div").removeClass('d-none');
+        $("#breakfast_price_type_div").removeClass('d-none');
+    });
+
+    $("#breakfast_availability2").click(function() {
+        $("#breakfast_price_inclusion_div").addClass('d-none');
+        $("#breakfast_price_type_div").addClass('d-none');
+    });
+
+    $("#breakfast_price_inclusion1").click(function() {
+        $("#breakfast_cost_div").addClass('d-none');
+    });
+
+    $("#breakfast_price_inclusion2").click(function() {
+        // $("#breakfast_price_type_div").removeClass('d-none');
+        $("#breakfast_cost_div").removeClass('d-none');
+    });
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+
+<script type="text/javascript">
+    function initialize() {
+        var input = document.getElementById('hotel_address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+            document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+            document.getElementById('neighb_area').value = place.vicinity;
+            for (let i = 0; i < place.address_components.length; i++) {
+                if(place.address_components[i].types[0]=="administrative_area_level_2"){
+                document.getElementById('hotel_city').value = place.address_components[i].long_name;
+                }
+            }
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 @endsection
 
 @section('content')
-<main id="main">
-    <section class="user-section" style="padding-top: 54px; background-color: #f6f6f6;">
-        <div class="container-fluid">
+
+
+
+
+<div class="col-md-9 pl-0">
+    <div class="table-space">
+        <header id="header-vendor" class="fixed-top-vendor">
+            <div class="container d-flex align-items-center justify-content-between">
+                <h3 class="dashbord-text"> Dashboard</h3>
+                <nav class=" vendor-nav d-lg-block">
+                    <ul>
+                        <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a>
+                        </li>
+                        <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li>
+                        <li class="drop-down"><a href="#"><i class='bx bxs-user-circle'></i></a>
+                            <ul>
+                                <li><a href="{{ url('/servicepro/profile') }}">View profile</a></li>
+                                <li><a href="#">Drop Down </a></li>
+                                <li><a href="#">Drop Down 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="row d-flex flex-wrap p-3">
+
+
             <div class="row">
-                <div class="col-md-3 pr-0">
-                    <div class="sidebar left ">
-                        <ul class="list-sidebar bg-defoult">
-                            <div class="vend-stays"> Road N Stays</div>
-                            <li> <a href="#" data-toggle="collapse" data-target="#hotels" class="collapsed active"> <i class='bx bx-buildings'></i> <span class="nav-label"> Hotel Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
-                                <ul class="sub-menu collapse" id="hotels">
-                                    <li class="active"><a href="{{ url('servicepro/hotelList') }}"><i class='bx bx-chevron-left'></i>Hotels List</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <i class='bx bx-space-bar'></i> <span class="nav-label"> Private space </span> <i class='bx bx-chevron-right pull-r'></i> </a>
-                                <ul class="sub-menu collapse" id="dashboard">
-                                    <li class="active"><a href="#"><i class='bx bx-chevron-left'></i>Add Private Space</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> List showing Privat space</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> Booking parivat space</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> Tabs & Accordions</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active"> <i class='bx bx-car'></i> <span class="nav-label">Tour Booking </span> <i class='bx bx-chevron-right pull-r'></i> </a>
-                                <ul class="sub-menu collapse" id="products">
-                                    <li class="active"><a href="#"> <i class='bx bx-chevron-left'></i> Add tour packages List</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> List showing tour packages</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> Tabs & Accordions</a></li>
-                                    <li><a href="#"><i class='bx bx-chevron-left'></i> Typography</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active"><i class='bx bx-calendar-event'></i> <span class="nav-label">Event Management </span><i class='bx bx-chevron-right pull-r'></i></a>
-                                <ul class="sub-menu collapse" id="tables">
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Static Tables</a></li>
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Data Tables</a></li>
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Foo Tables</a></li>
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> jqGrid</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#" data-toggle="collapse" data-target="#e-commerce" class="collapsed active"><i class="fa fa-shopping-cart"></i> <span class="nav-label">E-commerce</span><i class='bx bx-chevron-right pull-r'></i></a>
-                                <ul class="sub-menu collapse" id="e-commerce">
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Products grid</a></li>
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Products list</a></li>
-                                    <li><a href=""><i class='bx bx-chevron-left'></i> Product edit</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <!-- <div class="card-header">
+                                                            <h3 class="card-title">Hotel</h3>
+                                                        </div> -->
+                        <div class="card-body p-0">
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <!-- your steps here -->
+                                    <div class="step" data-target="#hotel-context-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="hotel-context-part" id="hotel-context-part-trigger">
+                                            <span class="bs-stepper-circle">1</span>
+                                            <span class="bs-stepper-label">Hotel Context</span>
+                                        </button>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="step" data-target="#hotel-policy-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
+                                            <span class="bs-stepper-circle">2</span>
+                                            <span class="bs-stepper-label">Hotel Policy</span>
+                                        </button>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="step" data-target="#facility-service-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
+                                            <span class="bs-stepper-circle">3</span>
+                                            <span class="bs-stepper-label">Facilities & Services</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="bs-stepper-content">
+                                    <!-- your steps content here -->
+                                    <form method="POST" id="addHotelVen_form" enctype="multipart/form-data">
+                                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
+                                        @csrf
+                                        <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
+                                            <!-- <form method="POST" id="addHotelContext_form"> -->
 
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#sidebar_bar').click(function() {
-                                $('.sidebar').toggleClass('fliph');
-                            });
-                        });
-                    </script>
-                </div>
+                                            <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
-                <div class="col-md-9 pl-0">
-                    <div class="table-space">
-                        <header id="header-vendor" class="fixed-top-vendor">
-                            <div class="container d-flex align-items-center justify-content-between">
-                                <h3 class="dashbord-text"> Dashboard</h3>
-                                <nav class=" vendor-nav d-lg-block">
-                                    <ul>
-                                        <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a>
-                                        </li>
-                                        <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li>
-                                        <li class="drop-down"><a href="#"><i class='bx bxs-user-circle'></i></a>
-                                            <ul>
-                                                <li><a href="{{ url('/servicepro/profile') }}">View profile</a></li>
-                                                <li><a href="#">Drop Down </a></li>
-                                                <li><a href="#">Drop Down 3</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </header>
+                                            <div class="row">
 
-                        <div class="row d-flex flex-wrap p-3">
+                                                <div class="col-md-12 mt-0">
+                                                    <!-- <div class="tab-custom-content mt-0"> -->
+                                                    <p class="lead mb-0">
+                                                    <h4>Hotel Context</h4>
+                                                    </p>
+                                                    <!-- </div> -->
+                                                </div>
 
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card card-default">
-                                        <!-- <div class="card-header">
-                                            <h3 class="card-title">Hotel</h3>
-                                        </div> -->
-                                        <div class="card-body p-0">
-                                            <div class="bs-stepper">
-                                                <div class="bs-stepper-header" role="tablist">
-                                                    <!-- your steps here -->
-                                                    <div class="step" data-target="#hotel-context-part">
-                                                        <button type="button" class="step-trigger" role="tab" aria-controls="hotel-context-part" id="hotel-context-part-trigger">
-                                                            <span class="bs-stepper-circle">1</span>
-                                                            <span class="bs-stepper-label">Hotel Context</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="line"></div>
-                                                    <div class="step" data-target="#hotel-policy-part">
-                                                        <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
-                                                            <span class="bs-stepper-circle">2</span>
-                                                            <span class="bs-stepper-label">Hotel Policy</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="line"></div>
-                                                    <div class="step" data-target="#facility-service-part">
-                                                        <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
-                                                            <span class="bs-stepper-circle">3</span>
-                                                            <span class="bs-stepper-label">Facilities & Services</span>
-                                                        </button>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Hotel Name</label>
+                                                        <input type="text" class="form-control" name="hotelName" id="hotelName" placeholder="Enter Name">
                                                     </div>
                                                 </div>
-                                                <div class="bs-stepper-content">
-                                                    <!-- your steps content here -->
-                                                    <form method="POST" id="addHotelVen_form" enctype="multipart/form-data">
-                                                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-                                                        @csrf
-                                                        <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
-                                                            <!-- <form method="POST" id="addHotelContext_form"> -->
 
-                                                            <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Hotel Content</label>
+                                                        <textarea id="summernote" name="summernote" required></textarea>
+                                                    </div>
+                                                </div>
 
-                                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="customFile">Hotel Gallery</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input" id="hotelGallery" name="hotelGallery[]" multiple>
+                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col" id="hotelGalleryPreview"></div>
+                                                </div>
 
-                                                                <div class="col-md-12 mt-0">
-                                                                    <!-- <div class="tab-custom-content mt-0"> -->
-                                                                    <!-- <p class="" style="margin-bottom: 0px;padding: 3px!important;"> -->
-                                                                    <h4>Hotel Context</h4>
-                                                                    <!-- </p> -->
-                                                                    <!-- </div> -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="customFile">Hotel Video</label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" name="hotelVideo" id="hotelVideo">
+                                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label>Where else your property listed?</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <!-- checkbox -->
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="where_property_listed1" name="where_property_listed" value="1">
+                                                                    <label for="where_property_listed1" class="custom-control-label">Yes</label>
                                                                 </div>
 
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Hotel Name</label>
-                                                                        <input type="text" class="form-control" name="hotelName" id="hotelName" placeholder="Enter Name" required="required">
-                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <!-- radio -->
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="where_property_listed2" name="where_property_listed" value="0" checked>
+                                                                    <label for="where_property_listed2" class="custom-control-label">No</label>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Hotel Content</label>
-                                                                        <textarea id="summernote" name="summernote" required></textarea>
-                                                                    </div>
+                                                <div class="col-md-6">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Select Hotel Rating</label>
+                                                        <select class="form-control" name="hotel_rating" id="hotel_rating">
+                                                            <option value="">Select Hotel Rating</option>
+                                                            <option value="1">1 Star</option>
+                                                            <option value="2">2 Star</option>
+                                                            <option value="3">3 Star</option>
+                                                            <option value="4">4 Star</option>
+                                                            <option value="5">5 Star</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-12 mt-0">
+                                                    <div class="tab-custom-content mt-0">
+                                                        <p class="lead mb-0">
+                                                        <h4>Contact Details for this Property</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Contact Name</label>
+                                                        <input type="text" class="form-control" name="contact_name" id="contact_name" placeholder="Enter Contact Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Contact Number</label>
+                                                        <input type="text" class="form-control" name="contact_num" id="contact_num" placeholder="Enter Contact Number">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Alternate Number</label>
+                                                        <input type="text" class="form-control" name="alternate_num" id="alternate_num" placeholder="Enter Alternate Number">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label>Do you own multiple hotels or are you part of property management company or group?</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <!-- checkbox -->
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel1" name="do_you_multiple_hotel" value="1">
+                                                                    <label for="do_you_multiple_hotel1" class="custom-control-label">Yes</label>
                                                                 </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="customFile">Hotel Video</label>
-                                                                        <div class="custom-file">
-                                                                            <input type="file" class="custom-file-input" name="hotelVideo" id="hotelVideo" required="required">
-                                                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <!-- radio -->
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel2" name="do_you_multiple_hotel" value="0" checked>
+                                                                    <label for="do_you_multiple_hotel2" class="custom-control-label">No</label>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="customFile">Hotel Gallery</label>
-                                                                        <div class="custom-file">
-                                                                            <input type="file" class="custom-file-input" id="hotelGallery" name="hotelGallery" required="required">
-                                                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="customFile">Document</label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document">
+                                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Scouts ID</label>
+                                                        <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
+                                                            <option value="">Select Scouts</option>
+                                                            @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                                                            @foreach ($scouts as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Category and Listed In/Room Type</label>
-                                                                        <select class="form-control select2bs4" name="cat_listed_room_type" id="cat_listed_room_type" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Select Category and Listed In/Room Type</option> -->
-                                                                            @foreach ($properties as $prop)
-                                                                            <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="col-sm-6">
-                                                                    <label>Where else your property listed?</label>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <!-- checkbox -->
-                                                                            <div class="form-group">
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="where_property_listed1" name="where_property_listed" value="1">
-                                                                                    <label for="where_property_listed1" class="custom-control-label">Yes</label>
-                                                                                </div>
 
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <!-- radio -->
-                                                                            <div class="form-group">
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="where_property_listed2" name="where_property_listed" value="0" checked>
-                                                                                    <label for="where_property_listed2" class="custom-control-label">No</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Hotel Notes</label>
+                                                        <textarea id="summernote1" name="hotel_notes"></textarea>
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <!-- select -->
-                                                                    <div class="form-group">
-                                                                        <label>Select Hotel Rating</label>
-                                                                        <select class="form-control" name="hotel_rating" id="hotel_rating" required="required">
-                                                                            <option value="1">1 Star</option>
-                                                                            <option value="2">2 Star</option>
-                                                                            <option value="3">3 Star</option>
-                                                                            <option value="4">4 Star</option>
-                                                                            <option value="5">5 Star</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-0">
-                                                                    <div class="tab-custom-content mt-0">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Contact Details for this Property</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Contact Name</label>
-                                                                        <input type="text" class="form-control" name="contact_name" id="contact_name" placeholder="Enter Contact Name" required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Contact Number</label>
-                                                                        <input type="text" class="form-control" name="contact_num" id="contact_num" placeholder="Enter Contact Number" required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Alternate Number</label>
-                                                                        <input type="text" class="form-control" name="alternate_num" id="alternate_num" placeholder="Enter Alternate Number">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-sm-6">
-                                                                    <label>Do you own multiple hotels or are you part of property management company or group?</label>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <!-- checkbox -->
-                                                                            <div class="form-group">
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel1" name="do_you_multiple_hotel" value="1">
-                                                                                    <label for="do_you_multiple_hotel1" class="custom-control-label">Yes</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <!-- radio -->
-                                                                            <div class="form-group">
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel2" name="do_you_multiple_hotel" value="0" checked>
-                                                                                    <label for="do_you_multiple_hotel2" class="custom-control-label">No</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="customFile">Document</label>
-                                                                        <div class="custom-file">
-                                                                            <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document" required="required">
-                                                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Scouts ID</label>
-                                                                        <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
-                                                                            <!-- <option value="">Select Scouts</option> -->
-                                                                            @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
-                                                                            @foreach ($scouts as $value)
-                                                                            <option value="{{ $value->id }}">{{ $value->first_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Hotel Notes</label>
-                                                                        <textarea id="summernote1" name="hotel_notes" required></textarea>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="customFile">Hotel Notes</label>
-                                                                        <div class="custom-file">
-                                                                            <input type="file" class="custom-file-input" id="hotel_notes" name="hotel_notes" required="required">
-                                                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                        </div>
+                                                                        <input type="text" class="form-control" name="scout_id" id="scout_id" placeholder="Enter Scouts ID">
                                                                     </div>
                                                                 </div> -->
 
 
+                                                <div class="col-md-12 mt-0">
+                                                    <div class="tab-custom-content mt-0">
+                                                        <p class="lead mb-0">
+                                                        <h4>Check In/out time</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-12 mt-0">
-                                                                    <div class="tab-custom-content mt-0">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Check In/out time</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- <div class="form-group"> -->
+                                                    <label>Time for Check in</label>
+                                                    <!-- <input type="text" class="form-control" name="scout_id" id="datetime" placeholder="Enter Scouts ID"> -->
+                                                    <div class="input-group date" id="mondatetimepicker31">
+                                                        <input type="text" class="form-control" id="checkin_time" name="checkin_time">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </div>
+                                                    <!-- </div> -->
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <!-- <div class="form-group"> -->
-                                                                    <label>Time for Check in</label>
-                                                                    <!-- <input type="text" class="form-control" name="scout_id" id="datetime" placeholder="Enter Scouts ID"> -->
-                                                                    <div class="input-group date" id="mondatetimepicker31">
-                                                                        <input type="text" class="form-control" id="checkin_time" name="checkin_time" value="" required="required">
-                                                                        <span class="input-group-addon">
-                                                                            <span class="glyphicon glyphicon-time"></span>
-                                                                        </span>
-                                                                    </div>
-                                                                    <!-- </div> -->
-                                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Time for Check out</label>
+                                                        <input type="text" class="form-control" name="checkout_time" id="checkout_time">
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Time for Check out</label>
-                                                                        <input type="text" class="form-control" name="checkout_time" id="checkout_time" required="required">
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Min day before booking</label>
+                                                        <input type="text" class="form-control" name="min_day_before_book" id="min_d_before_book" placeholder="Enter Min day before booking">
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Min day before booking</label>
-                                                                        <input type="text" class="form-control" name="min_day_before_book" id="min_d_before_book" placeholder="Enter Min day before booking" required="required">
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Min day stays</label>
+                                                        <input type="text" class="form-control" name="min_day_stays" id="min_day_stays" placeholder="Enter Min day stays">
+                                                    </div>
+                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Min day stays</label>
-                                                                        <input type="text" class="form-control" name="min_day_stays" id="min_day_stays" placeholder="Enter Min day stays" required="required">
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-12">
+                                                    <!-- <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> -->
+                                                    <!-- <button type="submit" id="step_btn1" class="btn btn-primary">Submit</button> -->
 
-                                                                <div class="col-12">
-                                                                    <a class="btn btn-primary btn-dark button">Next</a>
-                                                                    <!-- onclick="stepper.next()" -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
-
-                                                            <div class="row">
-
-                                                                <div class="col-sm-6">
-                                                                    <label>Booking Option</label>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <!-- checkbox -->
-                                                                            <div class="form-group">
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
-                                                                                    <label for="booking_option1" class="custom-control-label">Instant booking</label>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <!-- radio -->
-                                                                            <div class="form-group">
-
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked>
-                                                                                    <label for="booking_option2" class="custom-control-label">Approval based booking</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Locations</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Address</label>
-                                                                        <input type="text" class="form-control" name="hotel_address" id="hotel_address" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- <p>The geographic coordinate</p> -->
-
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label>Latitude</label>
-                                                                        <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter ">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <label>Longitude</label>
-                                                                        <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter ">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>City</label>
-                                                                        <input type="text" class="form-control" name="hotel_city" id="hotel_city" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Neighborhood / Area</label>
-                                                                        <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Country</label>
-                                                                        <select class="form-control select2bs4" name="hotel_country" id="hotel_country" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Select Country</option> -->
-                                                                            @foreach ($countries as $cont)
-                                                                            <option value="{{ $cont->id }}">{{ $cont->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Atrractions</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Name</label>
-                                                                        <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Content</label>
-                                                                        <input type="text" class="form-control" name="attraction_content" id="attraction_content" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Distance</label>
-                                                                        <input type="text" class="form-control" name="attraction_distance" id="attraction_distance" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Type</label>
-                                                                        <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Pricing</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Price ( min. Price of the Room )</label>
-                                                                        <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Extra price</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Name</label>
-                                                                        <input type="text" class="form-control" name="extra_price_name" id="extra_price_name" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Price</label>
-                                                                        <input type="text" class="form-control" name="extra_price" id="extra_price" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Type</label>
-                                                                        <input type="text" class="form-control" name="extra_price_type" id="extra_price_type" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Service fee</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Name</label>
-                                                                        <input type="text" class="form-control" name="service_fee_name" id="service_fee_name" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Price</label>
-                                                                        <input type="text" class="form-control" name="service_fee" id="service_fee" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Type</label>
-                                                                        <input type="text" class="form-control" name="service_fee_type" id="service_fee_type" placeholder="Enter " required="required">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Property Details</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Property Type</label>
-                                                                        <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Select Property Type</option> -->
-                                                                            @foreach ($properties as $prop)
-                                                                            <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-12">
-                                                                    <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                                                                    <a class="btn btn-primary btn-dark button">Next</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger">
-
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Facilities</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Room Amenities</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="entertain_service1[]" id="entertain_service1" data-placeholder="Select Room Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Select Room Amenities</option> -->
-                                                                            @php $entertain_service = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',1)->get(); @endphp
-                                                                            @foreach ($entertain_service as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Bathroom Amenities</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service2[]" id="extra_service2" data-placeholder="Select Bathroom Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',2)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Media and Technology</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service3[]" id="extra_service3" data-placeholder="Select Media and Technology Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',3)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Food & drink</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service4[]" id="extra_service4" data-placeholder="Select Food & drink Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',4)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Outdoor and view</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service5[]" id="extra_service5" data-placeholder="Select Outdoor and view Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',5)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Accessibility</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service6[]" id="extra_service6" data-placeholder="Select Accessibility Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',6)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Entertainment and family services</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service7[]" id="extra_service7" data-placeholder="Select Entertainment and family services Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',7)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Services & extras</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service8[]" id="extra_service8" data-placeholder="Select Services & extras Amenities" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',8)->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->amenity_id }}">{{ $value->amenity_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tab-custom-content">
-                                                                        <p class="lead mb-0">
-                                                                        <h4>Services</h4>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Entertainment and family services</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="entertain_service[]" id="entertain_service" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Select Entertainment and family services</option> -->
-                                                                            @php $entertain_service = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Entertainment_n_Family')->get(); @endphp
-                                                                            @foreach ($entertain_service as $value)
-                                                                            <option value="{{ $value->id }}">{{ $value->service_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Services & Extras</label>
-                                                                        <select class="form-control select2bs4" multiple="multiple" name="extra_service[]" id="extra_service" style="width: 100%;" required="required">
-                                                                            <!-- <option value="">Services & Extras</option> -->
-                                                                            @php $extra_services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Services_n_Extras')->get(); @endphp
-                                                                            @foreach ($extra_services as $value)
-                                                                            <option value="{{ $value->id }}">{{ $value->service_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-md-12">
-                                                                    <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                                                                    <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
-                                                                    <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- </form> -->
-
-                                                        </div>
-
-                                                    </form>
-
-
+                                                    <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Submit</button> -->
+                                                    <a class="btn btn-primary btn-dark button">Next</a>
+                                                    <!-- onclick="stepper.next()" -->
                                                 </div>
                                             </div>
+
+                                            <!-- </form> -->
+                                            <!-- <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
                                         </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                    <!-- /.card -->
+
+                                        <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
+                                            <!-- <form method="POST" id="addHotelPolicy_form"> -->
+                                            <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
+
+                                            <div class="row">
+                                                <!--<div class="col-sm-6">
+                                                    <label>Booking Option</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox">
+                                                            <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                                            <label for="customCheckbox1" class="custom-control-label">Instant booking</label>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            
+                                                            <div class="custom-control custom-checkbox">
+                                                            <input class="custom-control-input" type="checkbox" id="customCheckbox2">
+                                                            <label for="customCheckbox2" class="custom-control-label">Approval based booking</label>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+
+                                                <div class="col-sm-6">
+                                                    <label>Booking Option</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <!-- checkbox -->
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
+                                                                    <label for="booking_option1" class="custom-control-label">Instant booking</label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <!-- radio -->
+                                                            <div class="form-group">
+
+                                                                <div class="custom-control custom-radio">
+                                                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked>
+                                                                    <label for="booking_option2" class="custom-control-label">Approval based booking</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Locations</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <input type="text" class="form-control" name="hotel_address" id="hotel_address" placeholder="Enter " required="required">
+                                                    </div>
+                                                </div>
+
+                                                <!-- <p>The geographic coordinate</p> -->
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Latitude</label>
+                                                        <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" value="" readonly="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Longitude</label>
+                                                        <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" value="" readonly="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>City</label>
+                                                        <input type="text" class="form-control" name="hotel_city" id="hotel_city" placeholder="Enter " required="required">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Neighborhood / Area</label>
+                                                        <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Country</label>
+                                                        <select class="form-control select2bs4" name="hotel_country" id="hotel_country" style="width: 100%;" required="required">
+                                                            <!-- <option value="">Select Country</option> -->
+                                                            @foreach ($countries as $cont)
+                                                            <option value="{{ $cont->id }}">{{ $cont->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Atrractions</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Content</label>
+                                                        <input type="text" class="form-control" name="attraction_content" id="attraction_content" placeholder="Enter ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Distance</label>
+                                                        <input type="text" class="form-control" name="attraction_distance" id="attraction_distance" placeholder="Enter ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Type</label>
+                                                        <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Pricing</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Price ( min. Price of the Room )</label>
+                                                        <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter ">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 mt-0">
+                                                    <div class="tab-custom-content mt-0">
+                                                        <p class="lead mb-0">
+                                                        <h4>Extra Price</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 field_wrapper">
+                                                    <div class="form-group" id="extra">
+                                                        <label>Extra Price</label>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                                                            </div>
+                                                            <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 mt-0">
+                                                    <div class="tab-custom-content mt-0">
+                                                        <p class="lead mb-0">
+                                                        <h4>Service Fee</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 field_wrapper_service">
+                                                    <div class="form-group" id="service_div">
+                                                        <label>Service Fee</label>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="service[0][name]" placeholder="Enter Name" value="" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" />
+                                                            </div>
+                                                            <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Property Details</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Property Type</label>
+                                                        <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;" required="required">
+                                                            <option value="">Select Property Type</option>
+                                                            @foreach ($properties as $prop)
+                                                            <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-12">
+                                                    <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
+                                                    <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
+                                                    <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
+                                                    <a class="btn btn-primary btn-dark button">Next</a>
+                                                </div>
+                                            </div>
+
+                                            <!-- </form> -->
+                                            <!-- <button class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</button>
+                                                            <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
+                                        </div>
+
+                                        <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger">
+                                            <!-- <form method="POST" id="addHotelFacilityService_form">
+                                                            <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Facilities</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                @foreach ($amenity_type as $value)
+                                                @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
+
+                                                @if($amenity_count > 0)
+                                                @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>{{$value->name}}</label>
+                                                        <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
+                                                            <!-- <option value="">Select Room Amenities</option> -->
+
+                                                            @foreach ($amenities as $amenity)
+                                                            <option value="{{ $amenity->amenity_id }}">{{ $amenity->amenity_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @endif
+
+                                                @endforeach
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Services</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                @foreach ($service_type as $value)
+                                                @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
+
+                                                @if($hotel_services_count > 0)
+                                                @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>{{$value->name}}</label>
+                                                        <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
+                                                            <!-- <option value="">Select Room Amenities</option> -->
+
+                                                            @foreach ($services as $service)
+                                                            <option value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @endif
+
+                                                @endforeach
+
+                                                <!-- checking for the other option added start here -->
+
+                                                <div class="col-md-12">
+                                                    <div class="tab-custom-content">
+                                                        <p class="lead mb-0">
+                                                        <h4>Other</h4>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <label>Is parking available to guests?</label>
+                                                        <!-- <div class="row"> -->
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-radio">
+                                                                <input class="custom-control-input" type="radio" id="parking_option1" name="parking_option" value="1">
+                                                                <label for="parking_option1" class="custom-control-label">Yes, free</label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio">
+                                                                <input class="custom-control-input" type="radio" id="parking_option2" name="parking_option" value="2">
+                                                                <label for="parking_option2" class="custom-control-label">Yes, paid</label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio">
+                                                                <input class="custom-control-input" type="radio" id="parking_option3" name="parking_option" value="0" checked>
+                                                                <label for="parking_option3" class="custom-control-label">No</label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- </div> -->
+                                                    </div>
+
+                                                    <div class="d-none" id="parking_free_div">
+                                                        <div class="col-md-12 d-none" id="parking_price_div">
+                                                            <label>How much does parking cost?</label>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Price</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <select class="custom-select" name="payment_interval" id="payment_interval">
+                                                                                <option value="0">Per Hour</option>
+                                                                                <option value="1">Per Day</option>
+                                                                                <option value="2">Per Stay</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <!-- <div class="form-group">
+                                                                                <label>Select</label>
+                                                                                <select class="custom-select" name="payment_interval" id="payment_interval">
+                                                                                    <option value="hour">Per Hour</option>
+                                                                                    <option value="day">Per Day</option>
+                                                                                    <option value="stay">Per Stay</option>
+                                                                                </select>
+                                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label>Do they need to reserve a parking spot?</label>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_reserv_need1" name="parking_reserv_need" value="1">
+                                                                        <label for="parking_reserv_need1" class="custom-control-label">Reservation needed</label>
+                                                                    </div>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_reserv_need2" name="parking_reserv_need" value="0" checked>
+                                                                        <label for="parking_reserv_need2" class="custom-control-label">No reservation needed</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label>Where is the parking located?</label>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_locate1" name="parking_locate" value="1">
+                                                                        <label for="parking_locate1" class="custom-control-label">On site</label>
+                                                                    </div>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_locate2" name="parking_locate" value="0" checked>
+                                                                        <label for="parking_locate2" class="custom-control-label">Off site</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <label>What type of parking is it?</label>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_type1" name="parking_type" value="1">
+                                                                        <label for="parking_type1" class="custom-control-label">Private</label>
+                                                                    </div>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="parking_type2" name="parking_type" value="0" checked>
+                                                                        <label for="parking_type2" class="custom-control-label">Public</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="col-md-12">
+                                                                    <div class="tab-custom-content">
+                                                                    <p class="lead mb-0">
+                                                                    <h4>Breakfast</h4>
+                                                                    </p>
+                                                                    </div>
+                                                                </div> -->
+
+                                                <div class="col-md-12">
+                                                    <div class="col-sm-6">
+                                                        <label>Is breakfast available to guests?</label>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="breakfast_availability1" name="breakfast_availability" value="1">
+                                                                        <label for="breakfast_availability1" class="custom-control-label">Yes</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="breakfast_availability2" name="breakfast_availability" value="0" checked>
+                                                                        <label for="breakfast_availability2" class="custom-control-label">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 d-none" id="breakfast_price_inclusion_div">
+                                                        <label>Is breakfast included in the price ?</label>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="breakfast_price_inclusion1" name="breakfast_price_inclusion" value="0" checked>
+                                                                        <label for="breakfast_price_inclusion1" class="custom-control-label">Yes, it's included in the price</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input class="custom-control-input" type="radio" id="breakfast_price_inclusion2" name="breakfast_price_inclusion" value="1">
+                                                                        <label for="breakfast_price_inclusion2" class="custom-control-label">No, it's optional</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6 d-none" id="breakfast_cost_div">
+                                                                <div class="form-group">
+                                                                    <!-- <label>Select all that apply</label> -->
+                                                                    <label>Breakfast Price</label>
+                                                                    <input type="text" class="form-control" name="breakfast_cost" id="breakfast_cost" placeholder="Price">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 d-none" id="breakfast_price_type_div">
+                                                                <div class="form-group">
+                                                                    <!-- <label>Select all that apply</label> -->
+                                                                    <label>What kind of breakfast is available?</label>
+                                                                    <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;" required="required">
+                                                                        <!-- <option value="">Select Entertainment and family services</option> -->
+                                                                        @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
+                                                                        @foreach ($breakfast_type as $value)
+                                                                        <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- checking for the other option added end here -->
+
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
+                                                    <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
+                                                    <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- </form> -->
+
+                                        </div>
+
+                                    </form>
+
+
                                 </div>
                             </div>
-
                         </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</div>
+</div>
+</div>
+</section>
 </main>
 <!-- End #main -->
 @endsection

@@ -10,7 +10,7 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+<!-- <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"> -->
 
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
@@ -32,13 +32,13 @@
 <script src="{{ asset('resources/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<!-- <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/jszip/jszip.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/pdfmake/pdfmake.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/pdfmake/vfs_fonts.js')}}"></script>
 <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> -->
 
 
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -247,7 +247,7 @@
 
                     <div class="col-sm-6">
 
-                        <h1>Hotel And Stays List</h1>
+                        <h1>Amenity List</h1>
 
                     </div>
 
@@ -257,7 +257,7 @@
 
                             <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
 
-                            <li class="breadcrumb-item active">Hotel And Stays List</li>
+                            <li class="breadcrumb-item active">Amenity List</li>
 
                         </ol>
 

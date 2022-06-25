@@ -44,76 +44,6 @@
 
 <script type="text/javascript">
 
- function delete_user(user_id){
-
-    $.ajaxSetup({
-
-      headers: {
-
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-      }
-
-    });
-
-    $.ajax({
-
-     type: 'POST',
-
-     url: "<?php echo url('/admin/deletecustomerk'); ?>",
-
-     enctype: 'multipart/form-data',
-
-     data:{user_id:user_id,'_token':'<?php echo csrf_token(); ?>'},
-
-     beforeSend:function(){
-
-       return confirm("Are you sure you want to delete this user?");
-
-     },
-
-     success: function(resultData) { 
-
-      //  console.log(resultData);
-
-       var obj = JSON.parse(resultData);
-
-       console.log(resultData);
-
-       if (obj.status == 'success') {
-
-        //  setTimeout(function() {
-
-        //   $('#success_message').fadeOut("slow");
-
-        // }, 2000 );
-
-        // $("#row" + user_id).remove();
-
-        // success_noti(results.success);
-
-       } 
-
-     },
-
-     error: function(errorData) {
-
-      console.log(errorData);
-
-      alert('Please refresh page and try again!');
-
-    }
-
-  });
-
-}
-
-</script>
-
-
-
-<script type="text/javascript">
-
   function deleteConfirmation(id) {
 
     toastDelete.fire({
@@ -130,7 +60,7 @@
 
           type: 'POST',
 
-          url: "{{url('/admin/deletecustomer')}}",
+          url: "{{url('/admin/deleteHotelAndStays')}}",
 
           data: {
 
@@ -188,7 +118,7 @@
 
       dataType: "json",
 
-      url: "<?php echo url('/admin/change_userk_status'); ?>",
+      url: "<?php echo url('/admin/changeHotelAndStaysStatus'); ?>",
 
       data: {'status': status, 'user_id': user_id},
 
@@ -284,10 +214,10 @@
 
                             <div class="col-md-11"></div>
 
-                            <!-- <div class="col-md-1"><a href="{{ url('/admin/addHotelAndStays') }}"
+                            <div class="col-md-1"><a href="{{ url('/admin/addHotelAndStays') }}"
 
                                     class="btn btn-block btn-dark">Add</a>
-                            </div> -->
+                            </div>
 
                         </div>
 

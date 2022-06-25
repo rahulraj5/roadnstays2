@@ -22,6 +22,7 @@
    <link href="http://fonts.cdnfonts.com/css/requited-script-demo" rel="stylesheet">
 
    <link href = "{{ asset('resources/assets/vendor/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
    <link href = "{{ asset('resources/assets/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
@@ -31,7 +32,16 @@
    <link href = "{{ asset('resources/assets/vendor/aos/aos.css')}}" rel="stylesheet">
 
    <link href = "{{ asset('resources/assets/css/style.css')}}" rel="stylesheet">
+   <link href = "{{ asset('resources/assets/css/my-style.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/css/responsive.css')}}" rel="stylesheet">
+   <link href = "{{ asset('resources/assets/css/all.css')}}" rel="stylesheet">
+   <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+   
+ 
+  
+   
+
+    
 
   <!-- Daterange picker -->
   <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/daterangepicker/daterangepicker.css')}}"> -->
@@ -56,7 +66,7 @@
    <link href="{{ asset('resources/js/raone/jquery.min.js') }}" rel="stylesheet" />
    <link href="{{ asset('resources/js/raone/jquery-ui.min.js') }}" rel="stylesheet" /> -->
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
    @yield('current_page_css')
 
@@ -135,26 +145,26 @@
 </head>
 
 <body>
-      <input type="hidden" value="{{url('/')}}" id="baseUrl" name="baseUrl">
-      <input type="hidden" value="{{ csrf_token() }}" id="csrfToken" name="csrfToken">
+   <input type="hidden" value="{{url('/')}}" id="baseUrl" name="baseUrl">
+   <input type="hidden" value="{{ csrf_token() }}" id="csrfToken" name="csrfToken">
 
 
-      <!-- Navbar Header -->
+   <!-- Navbar Header -->
 
-      @include('front.layout.header')
+   @include('front.layout.header')
 
-      <!-- Main Sidebar Container -->         
+   <!-- Main Sidebar Container -->         
 
-      <!-- @include('front.layout.sidebar') -->
+   <!-- @include('front.layout.sidebar') -->
 
-      @yield('content')
+   @yield('content')
 
-      <!-- /.Footer -->
+   <!-- /.Footer -->
 
-      @include('front.layout.footer')
+   @include('front.layout.footer')
 
-     
-      <!-- ./wrapper -->
+  
+   <!-- ./wrapper -->
 
    <!-- jQuery -->
    <!-- <script type="text/javascript" src="{{ asset('resources/plugins/jquery/jquery.min.js')}}"></script> -->
@@ -163,6 +173,8 @@
    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
    <!-- Vendor JS Files -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
    <script src="{{ asset('resources/assets/vendor/jquery/jquery.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
@@ -186,9 +198,17 @@
    <script src="{{ asset('resources/js/raone/jquery.validate.min.js') }}"></script>
    <script src="{{ asset('resources/js/raone/jquery.form.js') }}"></script>
    <script src="{{ asset('resources/assets/js/forms.js') }}"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-   @yield('current_page_js')
-
-   </body>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+   </script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+   </script>
+   <!-- <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA=places&callback=initAutocomplete"></script> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+   @yield('current_page_js') 
+   
+</body>
 
 </html>

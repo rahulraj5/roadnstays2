@@ -248,7 +248,7 @@
                             </div>
                           </div>
 
-                          
+
 
                           <div class="col-md-12">
                             <div class="d-flex flex-wrap">
@@ -529,7 +529,7 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="0" @php if($hotel_info->booking_option == 0){echo 'checked';} @endphp>
+                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($hotel_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
@@ -750,125 +750,25 @@
                             </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Room Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service1[]" id="entertain_service1" data-placeholder="Select Room Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Select Room Amenities</option> -->
-                                @php $entertain_service = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',1)->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->room_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @foreach ($amenity_type as $value)
+                          @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
 
+                          @if($amenity_count > 0)
+                          @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Bathroom Amenities</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service2[]" id="extra_service2" data-placeholder="Select Bathroom Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',2)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->bathroom_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;" disabled="disabled">
+                                    <!-- <option value="">Select Room Amenities</option> -->
+                                    @foreach ($amenities as $amenity)
+                                    <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) { echo 'selected'; } ?>>{{ $amenity->amenity_name }}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
                           </div>
+                          @endif
 
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Media and Technology</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service3[]" id="extra_service3" data-placeholder="Select Media and Technology Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',3)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->media_tech_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Food & drink</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service4[]" id="extra_service4" data-placeholder="Select Food & drink Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',4)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->food_drink_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Outdoor and view</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service5[]" id="extra_service5" data-placeholder="Select Outdoor and view Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',5)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->outdoor_view_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Accessibility</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service6[]" id="extra_service6" data-placeholder="Select Accessibility Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',6)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->accessibility_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service7[]" id="extra_service7" data-placeholder="Select Entertainment and family services Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',7)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->entertain_family_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service8[]" id="extra_service8" data-placeholder="Select Services & extras Amenities" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php $extra_services = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',8)->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->amenity_id }}" <?php if (in_array($value->amenity_id, json_decode($hotel_info->extra_service_amenities, true))) {
-                                                                            echo 'selected';
-                                                                          } ?>>{{ $value->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
+                          @endforeach
 
                           <div class="col-md-12">
                             <div class="tab-custom-content">
@@ -878,38 +778,227 @@
                             </div>
                           </div>
 
+                          @foreach ($service_type as $value)
+                          @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
+
+                          @if($hotel_services_count > 0)
+                          @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Entertainment and family services</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="entertain_service[]" id="entertain_service" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Select Entertainment and family services</option> -->
-                                @php $entertain_service = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Entertainment_n_Family')->get(); @endphp
-                                @foreach ($entertain_service as $value)
-                                <option value="{{ $value->id }}" <?php if (in_array($value->id, json_decode($hotel_info->entertain_family_service, true))) {
-                                                                    echo 'selected';
-                                                                  } ?>>{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
+                              <div class="form-group">
+                                  <label>{{$value->name}}</label>
+                                  <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;" disabled="disabled">
+                                      <!-- <option value="">Select Room Amenities</option> -->
+
+                                      @foreach ($services as $service)
+                                      <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) { echo 'selected'; } ?>>{{ $service->service_name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                          @endif
+
+                          @endforeach
+
+                          <!-- checking for the other option added start here -->
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Other</h4>
+                              </p>
                             </div>
                           </div>
 
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Services & Extras</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="extra_service[]" id="extra_service" style="width: 100%;" disabled="disabled">
-                                <!-- <option value="">Services & Extras</option> -->
-                                @php
-                                $leads = json_decode($hotel_info->extra_service, true);
-                                @endphp
-                                @php $extra_services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type','Services_n_Extras')->get(); @endphp
-                                @foreach ($extra_services as $value)
-                                <option value="{{ $value->id }}" <?php if (in_array($value->id, json_decode($hotel_info->extra_service, true))) {
-                                                                    echo 'selected';
-                                                                  } ?>>{{ $value->service_name }}</option>
-                                @endforeach
-                              </select>
+                            <div class="col-md-6">
+                              <label>Is parking available to guests?</label>
+                              <!-- <div class="row"> -->
+                              <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                  <input class="custom-control-input" type="radio" id="parking_option1" name="parking_option" value="1" @php if($hotel_info->parking_option == 1){echo 'checked';} @endphp>
+                                  <label for="parking_option1" class="custom-control-label">Yes, free</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                  <input class="custom-control-input" type="radio" id="parking_option2" name="parking_option" value="2" @php if($hotel_info->parking_option == 2){echo 'checked';} @endphp>
+                                  <label for="parking_option2" class="custom-control-label">Yes, paid</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                  <input class="custom-control-input" type="radio" id="parking_option3" name="parking_option" value="0" @php if($hotel_info->parking_option == 0){echo 'checked';} @endphp>
+                                  <label for="parking_option3" class="custom-control-label">No</label>
+                                </div>
+                              </div>
+                              <!-- </div> -->
+                            </div>
+
+                            <div class="<? if ($hotel_info->parking_option == 0) {
+                                          echo 'd-none';
+                                        } ?>" id="parking_free_div">
+                              <div class="col-md-12 <? if ($hotel_info->parking_option != 2) {
+                                                      echo 'd-none';
+                                                    } ?>" id="parking_price_div">
+                                <label>How much does parking cost?</label>
+                                <div class="row">
+                                  <div class="form-group">
+                                    <label for="exampleInputPassword1">Price</label>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR" value="{{(!empty($hotel_info->parking_price) ? $hotel_info->parking_price : '')}}" readonly>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <select class="custom-select" name="payment_interval" id="payment_interval">
+                                          <option value="0" @php if($hotel_info->payment_interval == 0){echo 'checked';} @endphp>Per Hour</option>
+                                          <option value="1" @php if($hotel_info->payment_interval == 1){echo 'checked';} @endphp>Per Day</option>
+                                          <option value="2" @php if($hotel_info->payment_interval == 2){echo 'checked';} @endphp>Per Stay</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <!-- <div class="form-group">
+                                  <label>Select</label>
+                                  <select class="custom-select" name="payment_interval" id="payment_interval">
+                                    <option value="hour">Per Hour</option>
+                                    <option value="day">Per Day</option>
+                                    <option value="stay">Per Stay</option>
+                                  </select>
+                                </div> -->
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <label>Do they need to reserve a parking spot?</label>
+                                <div class="row">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_reserv_need1" name="parking_reserv_need" value="1" @php if($hotel_info->parking_reserv_need == 1){echo 'checked';} @endphp>
+                                      <label for="parking_reserv_need1" class="custom-control-label">Reservation needed</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_reserv_need2" name="parking_reserv_need" value="0" @php if($hotel_info->parking_reserv_need == 0){echo 'checked';} @endphp>
+                                      <label for="parking_reserv_need2" class="custom-control-label">No reservation needed</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <label>Where is the parking located?</label>
+                                <div class="row">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_locate1" name="parking_locate" value="1" @php if($hotel_info->parking_locate == 1){echo 'checked';} @endphp>
+                                      <label for="parking_locate1" class="custom-control-label">On site</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_locate2" name="parking_locate" value="0" @php if($hotel_info->parking_locate == 0){echo 'checked';} @endphp>
+                                      <label for="parking_locate2" class="custom-control-label">Off site</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-12">
+                                <label>What type of parking is it?</label>
+                                <div class="row">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_type1" name="parking_type" value="1" @php if($hotel_info->parking_type == 1){echo 'checked';} @endphp>
+                                      <label for="parking_type1" class="custom-control-label">Private</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="parking_type2" name="parking_type" value="0" @php if($hotel_info->parking_type == 0){echo 'checked';} @endphp>
+                                      <label for="parking_type2" class="custom-control-label">Public</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
+
+                          <!-- <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Breakfast</h4>
+                              </p>
+                            </div>
+                          </div> -->
+
+                          <div class="col-md-12">
+                            <div class="col-sm-6">
+                              <label>Is breakfast available to guests?</label>
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="breakfast_availability1" name="breakfast_availability" value="1" @php if($hotel_info->breakfast_availability == 1){echo 'checked';} @endphp>
+                                      <label for="breakfast_availability1" class="custom-control-label">Yes</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="breakfast_availability2" name="breakfast_availability" value="0" @php if($hotel_info->breakfast_availability == 0){echo 'checked';} @endphp>
+                                      <label for="breakfast_availability2" class="custom-control-label">No</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-sm-6 <? if ($hotel_info->breakfast_availability == 0) {
+                                                    echo 'd-none';
+                                                  } ?>" id="breakfast_price_inclusion_div">
+                              <label>Is breakfast included in the price ?</label>
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="breakfast_price_inclusion1" name="breakfast_price_inclusion" value="0" @php if($hotel_info->breakfast_price_inclusion == 0){echo 'checked';} @endphp>
+                                      <label for="breakfast_price_inclusion1" class="custom-control-label">Yes, it's included in the price</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="breakfast_price_inclusion2" name="breakfast_price_inclusion" value="1" @php if($hotel_info->breakfast_price_inclusion == 1){echo 'checked';} @endphp>
+                                      <label for="breakfast_price_inclusion2" class="custom-control-label">No, it's optional</label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-sm-6 <? if ($hotel_info->breakfast_price_inclusion == 0) {
+                                                        echo 'd-none';
+                                                      } ?>" id="breakfast_cost_div">
+                                  <div class="form-group">
+                                    <!-- <label>Select all that apply</label> -->
+                                    <label>Breakfast Price</label>
+                                    <input type="text" class="form-control" name="breakfast_cost" id="breakfast_cost" placeholder="Price" value="{{(!empty($hotel_info->breakfast_cost) ? $hotel_info->breakfast_cost : '')}}" readonly>
+                                  </div>
+                                </div>
+
+                                <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
+                                                        echo 'd-none';
+                                                      } ?>" id="breakfast_price_type_div">
+                                  <div class="form-group">
+                                    <!-- <label>Select all that apply</label> -->
+                                    <label>What kind of breakfast is available?</label>
+                                    <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;">
+                                      <!-- <option value="">Select Entertainment and family services</option> -->
+                                      @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
+                                      @foreach ($breakfast_type as $value)
+                                      <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
+                                      @endforeach
+
+                                    </select>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <!-- checking for the other option added end here -->
 
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>

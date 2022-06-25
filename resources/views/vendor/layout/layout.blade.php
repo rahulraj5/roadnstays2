@@ -50,6 +50,9 @@
 
    <!-- <link rel="stylesheet" href="{{url('/')}}/resources/css/custom.css"> -->
 
+     <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css">
 
    <link href="{{ asset('resources/css/notification-custom.css') }}" rel="stylesheet" />

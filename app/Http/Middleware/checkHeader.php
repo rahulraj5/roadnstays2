@@ -5,7 +5,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;  
 use Response;  
   
-class checkHeader  
+class CheckHeader  
 {  
     /** 
      * The Guard implementation. 
@@ -20,17 +20,22 @@ class checkHeader
      * @param  \Closure  $next 
      * @return mixed 
      */  
-    public function handle($request, Closure $next)  
-    {  
-        
-       /* if((empty($request->header('Content-Type'))) && (empty($request->header('Votive')))){  
-            return Response::json(array('error'=>'Please set custom header'));  
-        } */ 
-  
-        if($request->header('Votive') != '123456'){  
-            return Response::json(array('error'=>'wrong custom header'));  
-        }  
-  
-        return $next($request);  
-    }  
+    public function handle($request, Closure $next)
+    {
+         
+        $token = $request->header('roadNstays');
+        //echo $token; die;
+         
+        if ($token != '123456') {
+             $array = array(
+                'status'=>"false",
+                'message'=>'Invalid Authentication Key',
+             );
+
+             echo json_encode($array);die;
+             //return  die('Invalid token');
+        }
+
+        return $next($request);
+    }
 } 

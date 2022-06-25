@@ -61,6 +61,12 @@
                   <p>Amenities</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/hotelAmenityType_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Amenity Type</p>
+                </a>
+              </li>
              
             </ul>
           </li> 

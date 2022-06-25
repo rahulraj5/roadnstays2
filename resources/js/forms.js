@@ -739,52 +739,37 @@ $('#resetPassword_form').validate({
 $('#roomAdmin_form').validate({
   // initialize the plugin
   rules: {
-    hotel_name: {
-      required: true
-    },
     room_type: {
-      required: true
+      required: true,
     },
     room_name: {
-      required: true
+      required: true,
     },
     max_adults: {
       required: true,
-      number:true,
     },
     max_childern: {
       required: true,
-      number:true,
     },
     number_of_rooms: {
       required: true,
-      number:true,
     },
     price_per_night: {
       required: true,
-      number:true,
+    },
+    type_of_price: {
+      required: true,
+    },
+    tax_percentage: {
+      required: true,
     },
     price_per_night_7d: {
       required: true,
-      number:true,
     },
     price_per_night_30d: {
       required: true,
-      number:true,
     },
-    cleaning_fee: {
-      required: true,
-      number:true,
-    },
-    city_fee: {
-      required: true,
-      number:true,
-    },
-    extra_guest_per_night: {
-      required: true,
-      number:true,
-    },
-    type_of_price: {
+    room_size: {
       required: true,
     },
     bed_type: {
@@ -799,22 +784,12 @@ $('#roomAdmin_form').validate({
     family_friendly: {
       required: true,
     },
-    description: {
-      required: true,
-    },
-    notes: {
-      required: true,
-    },
-    optional_services: {
-      required: true,
-    },
     outdoor_facilities: {
       required: true,
     },
     extra_people: {
       required: true,
-    }
-    
+    },
   },
   submitHandler: function(form) {
     // form.submit();
@@ -877,14 +852,14 @@ $('#updateroomAdmin_form').validate({
       required: true,
       number:true,
     },
-    cleaning_fee: {
-      required: true,
-      number:true,
-    },
-    city_fee: {
-      required: true,
-      number:true,
-    },
+    // cleaning_fee: {
+    //   required: true,
+    //   number:true,
+    // },
+    // city_fee: {
+    //   required: true,
+    //   number:true,
+    // },
     extra_guest_per_night: {
       required: true,
       number:true,
@@ -908,12 +883,6 @@ $('#updateroomAdmin_form').validate({
       required: true,
     },
     notes: {
-      required: true,
-    },
-    optional_services: {
-      required: true,
-    },
-    outdoor_facilities: {
       required: true,
     },
     extra_people: {

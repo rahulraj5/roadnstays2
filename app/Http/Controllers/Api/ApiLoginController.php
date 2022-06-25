@@ -19,6 +19,8 @@ use App\Helpers\Helper;
 use Illuminate\Support\Facades\Auth;
 
 use Mail;
+
+use Hash;
  
 class ApiLoginController extends APIBaseController 
 {
@@ -37,520 +39,394 @@ class ApiLoginController extends APIBaseController
 		print_r($request->all());
 	}
 
-	public function register(Request $request)
+	public function register(Request $request) 
+  {
+      
 
-    {
+      $validator = Validator::make($request->all(), [
 
-        $validator = Validator::make($request->all(), [
+          'first_name' => 'required',
+          
+          'last_name' => 'required',
 
-            'name' => 'required',
+          'email' => 'required|unique:users,email',
 
-            'email' => 'required|unique:users,email',
+          'password' => 'required',
 
-            'password' => 'required',
+          'confirm_password' => 'required|same:password',
 
-            'confirm_password' => 'required|same:password',
+          'contact_number' => 'required|numeric|unique:users,contact_number',
+          
+          'device_id' => 'required',
+          
+          'device_type' => 'required',
+          
+          'device_token' => 'required',
+          
 
-            'contact_number' => 'required|numeric|unique:users,contact_number',
+      ]);
 
-        ]);
+      if ($validator->fails()) {
 
-        if ($validator->fails()) {
+          return $this->sendError($validator->messages()->first(), array(), 200);
 
-            return $this->sendError($validator->messages()->first(), array(), 200);
+      } else {
 
-        } else {
 
+          $name1 = '';
 
-            $name1 = '';
+          if ($request->hasFile('profile_image')) {
 
-            if ($request->hasFile('profile_image')) {
+              $image = $request->file('profile_image');
 
-                $image = $request->file('profile_image');
+              $name1 = time().'.'.$image->getClientOriginalExtension();
 
-                $name1 = time().'.'.$image->getClientOriginalExtension();
+              $destinationPath = public_path('/uploads/profile_image');         
 
-                $destinationPath = public_path('/uploads/profile_image');         
+              $imagePath = $destinationPath. '/'.  $name1;
 
-                $imagePath = $destinationPath. '/'.  $name1;
+              $image->move($destinationPath, $name1);
 
-                $image->move($destinationPath, $name1);
+          }
 
-            }
 
 
+          $referral_code = !empty($request->referral_code ? $request->referral_code : '');
 
-            $referral_code = !empty($request->referral_code ? $request->referral_code : '');
+        //   $device_id = !empty($request->device_id ? $request->device_id : '');
 
-            $device_id = !empty($request->device_id ? $request->device_id : '');
+        //   $device_token = !empty($request->device_token ? $request->device_token : '');
 
-            $device_token = !empty($request->device_token ? $request->device_token : '');
+        //   $device_type = !empty($request->device_type ? $request->device_type : '');
 
-            $device_type = !empty($request->device_type ? $request->device_type : '');
 
 
+          $vrfn_code = Helper::generateRandomString(6);
 
-            $vrfn_code = Helper::generateRandomString(6);
+          $first_name = $request->first_name;
+          
+          $last_name = $request->last_name;
 
-            $name = $request->name;
+          $email = $request->email;
 
-            $email = $request->email;
+          $password = $request->password;
 
-            $password = $request->password;
+          $contact_number = $request->contact_number;
+          
+         
 
-            $contact_number = $request->contact_number;
+        //   $name_arr = explode(' ', $name);
+          
+          $device_id = $request->device_id;
+          
+          $device_type = $request->device_type;
+          
+          $device_token = $request->device_token;
 
-            $name_arr = explode(' ', $name);
 
+          if(!empty($request->my_referral_code)){
+              $my_referral_code=$request->my_referral_code;
+          }else{
+              $my_referral_code="";
+          }
+          if(!empty($request->user_referral_id)){
+              $user_referral_id=$request->user_referral_id;
+          }else{
+              $user_referral_id="";
+          }
 
-            if(!empty($request->my_referral_code)){
-                $my_referral_code=$request->my_referral_code;
-            }else{
-                $my_referral_code="";
-            }
-            if(!empty($request->user_referral_id)){
-                $user_referral_id=$request->user_referral_id;
-            }else{
-                $user_referral_id="";
-            }
 
+          
+          $obj = new User;
 
+          $obj->user_type = "normal_user";
 
-            $obj = new User;
+          $obj->first_name = $first_name;
 
-            $obj->user_type = "normal_user";
+          $obj->last_name = $last_name;
 
-            $obj->first_name = (!empty($name_arr[0]) ? $name_arr[0] : '');
+          $obj->email = $email;
 
-            $obj->last_name = (!empty($name_arr[1]) ? $name_arr[1] : '');
+          $obj->contact_number = $contact_number;
 
-            $obj->email = $email;
+          $obj->password = bcrypt($password);
 
-            $obj->contact_number = $contact_number;
+          $obj->role_id = 2;
 
-            $obj->password = bcrypt($password);
+          $obj->device_id = $device_id;
 
-            $obj->role_id = 2;
+          $obj->device_token = $device_token;
 
-            $obj->device_id = $device_id;
+          $obj->device_type = $device_type;
 
-            $obj->device_token = $device_token;
+          $obj->profile_pic      = !empty($name1)? url('public/uploads/profile_image/').'/'.$name1 :url('resources/assets/images/blank_user.jpg');
 
-            $obj->device_type = $device_type;
+          $obj->is_verify_email = 1;
 
-            $obj->profile_pic      = !empty($name1)? url('public/uploads/profile_image/').'/'.$name1 :url('resources/assets/images/blank_user.jpg');
+          $obj->is_verify_contact = 0;
 
-            $obj->is_verify_email = 0;
+          $obj->user_referral_id = $user_referral_id;
 
-            $obj->is_verify_contact = 0;
+          $obj->wallet_balance = 0;
 
-            $obj->user_referral_id = $user_referral_id;
+          $obj->register_by = 'web';
 
-            $obj->wallet_balance = 0;
+          $obj->vrfn_code = $vrfn_code;
+          
+        //   $obj->device_id = $vrfn_code;
+          
+        //   $obj->device_type = $device_type;
+          
+        //   $obj->device_token = $device_token;
 
-            $obj->register_by = 'web';
+          $obj->status = 1;
 
-            $obj->vrfn_code = $vrfn_code;
+          $obj->created_at = date('Y-m-d H:i:s');
 
-            $obj->status = 1;
+          $obj->updated_at = date('Y-m-d H:i:s');
 
-            $obj->created_at = date('Y-m-d H:i:s');
+          $res = $obj->save();
 
-            $obj->updated_at = date('Y-m-d H:i:s');
+          $user_id = $obj->id;
 
-            $res = $obj->save();
+          if ($res) {
 
 
 
-            if ($res) {
+              $users = User::where('email','=',$email)->first();
 
+              $my_referral_code = Helper::my_simple_crypt($users->id,'e');
 
+              $users->my_referral_code = $my_referral_code;
 
-                $users = User::where('email','=',$email)->first();
+              $users->save();
 
-                $my_referral_code = Helper::my_simple_crypt($users->id,'e');
 
-                $users->my_referral_code = $my_referral_code;
 
-                $users->save();
+              if(!empty($request->my_referral_code)){
 
 
 
-                if(!empty($request->my_referral_code)){
+                  $referral_info = DB::table('users')->where('my_referral_code',$request->my_referral_code)->where('status',1)->first();
 
+                  $refferal_id = $referral_info->id;
 
 
-                    $referral_info = DB::table('users')->where('my_referral_code',$request->my_referral_code)->where('status',1)->first();
 
-                    $refferal_id = $referral_info->id;
+                  DB::table('my_referrals')->insert(
 
- 
+                      [
 
-                    DB::table('my_referrals')->insert(
+                        'user_id' =>  $users->id,
 
-                        [
+                        'referral_code' =>  $request->my_referral_code,
 
-                          'user_id' =>  $users->id,
+                        'refferal_id' => $refferal_id,
 
-                          'referral_code' =>  $request->my_referral_code,
+                        'amount' => 0,
 
-                          'refferal_id' => $refferal_id,
+                        'status' =>  1 ,
 
-                          'amount' => 0,
+                        'created_at' =>  date('Y-m-d H:i:s')
 
-                          'status' =>  1 ,
+                      ]
 
-                          'created_at' =>  date('Y-m-d H:i:s')
+                  );
 
-                        ]
+              }
 
-                    );
 
-                }
 
 
 
+              if ($_SERVER['SERVER_NAME'] != 'localhost') {
 
+                  
 
-                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                  $vrfn_url = url('/').'/email_verification/'.$vrfn_code.'_'.$users->id;
 
-                    
+                  $user_id = $users->id;     
 
-                    $vrfn_url = url('/').'/email_verification/'.$vrfn_code.'_'.$users->id;
+                  $fromEmail = Helper::getFromEmail();
 
+                  $inData['from_email'] = $fromEmail;
 
+                  $inData['email'] = $email;
 
-                    $fromEmail = Helper::getFromEmail();
 
-                    $inData['from_email'] = $fromEmail;
+                  $inData['body'] = '';  
 
-                    $inData['email'] = $email;
+                  
 
-                    /*$inData['body'] = "<table>
+                  // Mail::send([], [], function ($message) use ($inData) {
 
-                                        <thead>
+                  //     $message->from($inData['from_email'],'FRAMEiT');
 
-                                            <tr>
+                  //     $message->to($inData['email']);
 
-                                                <td>name</td>
+                  //     $message->subject('FRAMEiT - Verification');
 
-                                                <td>Link</td>
+                  //     $message->setBody($inData['body'], 'text/html');
 
-                                            </tr>
+                  // });
+                  $data = array('user_id'=>$user_id,'name'=>"User");
+                  Mail::send('email.signup_email_template', $data, function ($message) use ($inData) {
+                                  $message->from($inData['from_email'],'roadNstays');
+                                  $message->to($inData['email']);
+                                  $message->subject('roadNstays - User Signup');
+                              });
 
-                                        </thead>
 
-                                        <tbody>
 
-                                            <tr>
+              }
 
-                                                <td>".$name."</td>
+             $user_new_info = array(
+                            "user_id"=> $users->id,
+                            "user_type"=>$users->user_type,
+                            "first_name"=>$users->first_name,
+                            "last_name"=>$users->last_name,
+                            "email"=>$users->email,
+                            "contact_number"=>$users->contact_number,
+                            "role_id"=>$users->role_id,
+                            "is_verify_email"=>$users->is_verify_email,
+                            "is_verify_contact"=>$users->is_verify_contact,
+                            "my_referral_code"=>$users->my_referral_code,
+                            "user_referral_id"=>$users->user_referral_id,
+                            "wallet_balance"=>$users->wallet_balance,
+                            "profile_pic"=>$users->profile_pic,
+                            "device_id"=>$users->device_id,
+                            "device_token"=>$users->device_token,
+                            "device_type"=>$users->device_type
+                        );
 
-                                                <td><a href='".$vrfn_url."'>Verification Link</a></td>
 
-                                            </tr>
+              return $this->sendResponse($user_new_info, 'Account has been created successfully. Please check your email address and please do verify your account!');
 
-                                        </tbody>
+          } else {
 
-                                    </table>";*/
+              return $this->sendError('OOPs! Some internal issue occured.', array(), 200);
 
-                    $inData['body'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+          }
 
-                            <html xmlns="http://www.w3.org/1999/xhtml">
+      }   
 
-                            <head>
+  }
+  
+  public function changeStatus(Request $request){
+      $user_id = $request->user_id;
+      $verify_status = DB::update('update users set is_verify_email = 1 where id = ?',[$user_id]);
+      
+      return redirect('/');
+  }
+  
 
-                               <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  public function loginUser(Request $request) 
+  {
+      
+      $validator = Validator::make($request->all(), [
 
-                               <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          'email' => 'required|email',
 
-                               <title>Verify your FRAMEiT account</title>
+          'password' => 'required',
+          
+        //   'device_id' => 'required',
+          
+        //   'device_type' => 'required',
+          
+        //   'device_token' => 'required'
 
-                               <style type="text/css">img{max-width: 600px; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;}a img{border: none;}table{border-collapse: collapse !important;}#outlook a{padding:0;}.ReadMsgBody{width: 100%;}.ExternalClass{width: 100%;}.backgroundTable{margin: 0 auto; padding: 0; width: 100% !important;}table td{border-collapse: collapse;}.ExternalClass *{line-height: 115%;}.container-for-gmail-android{min-width: 600px;}/* General styling */ *{font-family: Helvetica, Arial, sans-serif;}body{-webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; margin: 0 !important; height: 100%; color: #676767;}td{font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #777777; text-align: center; line-height: 21px;}a{color: #676767; text-decoration: none !important;}.pull-left{text-align: left;}.pull-right{text-align: right;}.header-lg, .header-md, .header-sm{font-size: 32px; font-weight: 700; line-height: normal; padding: 35px 0 0; color: #4d4d4d;}.header-md{font-size: 24px;}.header-sm{padding: 5px 0; font-size: 18px; line-height: 1.3;}.content-padding{padding: 20px 0 30px;}.mobile-header-padding-right{width: 290px; text-align: right; padding-left: 10px;}.mobile-header-padding-left{width: 290px; text-align: left; padding-left: 10px;}.free-text{width: 100% !important; padding: 10px 60px 0px;}.block-rounded{border-radius: 5px; border: 1px solid #e5e5e5; vertical-align: top;}.button{padding: 55px 0 0;}.info-block{padding: 0 20px; width: 260px;}.mini-block-container{padding: 30px 50px; width: 500px;}.mini-block{background-color: #ffffff; width: 498px; border: 1px solid #cccccc; border-radius: 5px; padding: 60px 75px;}.block-rounded{width: 260px;}.info-img{width: 258px; border-radius: 5px 5px 0 0;}.force-width-img{width: 480px; height: 1px !important;}.force-width-full{width: 600px; height: 1px !important;}.user-img img{width: 82px; border-radius: 5px; border: 1px solid #cccccc;}.user-img{width: 92px; text-align: left;}.user-msg{width: 236px; font-size: 14px; text-align: left; font-style: italic;}.code-block{padding: 10px 0; border: 1px solid #cccccc; width: 20px; color: #4d4d4d; font-weight: bold; font-size: 18px;}.mini-img{padding: 5px; width: 140px;}.mini-img img{border-radius: 5px; width: 140px;}.mini-imgs{padding: 25px 0 30px;}.progress-bar{padding: 0 15px 0;}.step{vertical-align: top;}.step img{width: 109px; height: 78px;}.active{font-weight: bold;}</style>
+      ]);
 
-                               <style type="text/css" media="screen"> @import url(http://fonts.googleapis.com/css?family=Oxygen:400,700); </style>
+      if ($validator->fails()) {
 
-                               <style type="text/css" media="screen"> @media screen{/* Thanks Outlook 2013! */ *{font-family: "Oxygen", "Helvetica Neue", "Arial", "sans-serif" !important;}}</style>
+          return $this->sendError($validator->messages()->first(), array(), 200);
 
-                               <style type="text/css" media="only screen and (max-width: 480px)"> /* Mobile styles */ @media only screen and (max-width: 480px){table[class*="container-for-gmail-android"]{min-width: 290px !important; width: 100% !important;}table[class="w320"]{width: 320px !important;}td[class*="mobile-header-padding-left"]{width: 160px !important;}img[class="force-width-gmail"]{display: none !important; width: 0 !important; height: 0 !important;}td[class="mobile-block"]{display: block !important;}td[class="mini-img"], td[class="mini-img"] img{width: 150px !important;}td[class*="mobile-header-padding-left"]{width: 160px !important; padding-left: 0 !important;}td[class*="mobile-header-padding-right"]{width: 160px !important; padding-right: 0 !important;}td[class="header-lg"]{font-size: 24px !important; padding-bottom: 5px !important;}td[class="header-md"]{font-size: 18px !important; padding-bottom: 5px !important;}td[class="content-padding"]{padding: 5px 0 30px !important;}td[class="button"]{padding: 5px !important;}td[class*="free-text"]{padding: 10px 18px 30px !important;}img[class="force-width-img"], img[class="force-width-full"]{display: none !important;}td[class="info-block"]{display: block !important; width: 280px !important; padding-bottom: 40px !important;}td[class="info-img"], img[class="info-img"]{width: 278px !important;}td[class="mini-block-container"]{padding: 8px 20px !important; width: 280px !important;}td[class="mini-block"]{padding: 20px 0 !important;}td[class*="step"] img{width: 86px !important; height: 62px !important;}td[class="progress-bar"]{padding: 0 11px 25px;}td[class="user-img"]{display: block !important; text-align: center !important; width: 100% !important; padding-bottom: 10px;}td[class="user-msg"]{display: block !important; padding-bottom: 20px;}}</style>
+      } else {
+       
+        $user_obj = User::where('email','=',$request->email)->first();
 
-                            </head>
+        if (!empty($user_obj->id)) {
 
-                            <body bgcolor="#f7f7f7">
 
-                               <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
 
-                                  <tr>
+          $device_id = !empty($request->device_id) ? $request->device_id : '';
 
-                                     <td align="left" valign="top" width="100%">
+      $device_token = !empty($request->device_token) ? $request->device_token : '';
 
-                                        <center>
+      $device_type = !empty($request->device_type) ? $request->device_type : '';
 
-                                           <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff" style="background-color:#333;background: #333;">
 
-                                              <tr>
 
-                                                 <td width="100%" height="80" valign="top" style="text-align: center; vertical-align:middle;">
+          $credentials = array(
 
-                                                       <center>
+                'email' => $request->email,
 
-                                                          <table cellpadding="0" cellspacing="0" width="600" class="w320">
+                'password' => $request->password
 
-                                                             <tr>
-
-                                                                <td class="pull-left mobile-header-padding-left" style="vertical-align: middle;"> <a href="'.url('/').'"><img width="137" height="47" src="'.url("/").'/resources/front_assets/img/logo.png" alt="logo"></a> </td>
-
-                                                             </tr>
-
-                                                          </table>
-
-                                                       </center>
-
-                                                 </td>
-
-                                              </tr>
-
-                                           </table>
-
-                                        </center>
-
-                                     </td>
-
-                                  </tr>
-
-                                  <tr>
-
-                                     <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
-
-                                        <center>
-
-                                           <table cellspacing="0" cellpadding="0" width="600" class="w320">
-
-                                              <tr>
-
-                                                 <td class="header-lg"> Almost done! </td>
-
-                                              </tr>
-
-                                              <tr>
-
-                                                 <td class="free-text"> Click on the button below to verify your account. </td>
-
-                                              </tr>
-
-                                              <tr>
-
-                                                 <td class="mini-block-container">
-
-                                                    <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:separate !important;">
-
-                                                       <tr>
-
-                                                          <td class="mini-block">
-
-                                                             <table cellpadding="0" cellspacing="0" width="100%">
-
-                                                                <tr>
-
-                                                                   <td class="progress-bar">
-
-                                                                      <table cellpadding="0" cellspacing="0" width="100%"></table>
-
-                                                                   </td>
-
-                                                                </tr>
-
-                                                                <tr>
-
-                                                                   <td class="button">
-
-                                                                      <div> 
-
-                                                                         <a href="'.$vrfn_url.'" target="_blank" style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:Cabin, Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">
-
-                                                                            Click Here
-
-                                                                         </a>
-
-                                                                      </div>
-
-                                                                   </td>
-
-                                                                </tr>
-
-                                                             </table>
-
-                                                          </td>
-
-                                                       </tr>
-
-                                                    </table>
-
-                                                 </td>
-
-                                              </tr>
-
-                                           </table>
-
-                                        </center>
-
-                                     </td>
-
-                                  </tr>
-
-                                  <tr>
-
-                                     <td align="center" valign="top" width="100%" style="background-color: #f7f7f7; height: 100px;">
-
-                                        <center>
-
-                                           <table cellspacing="0" cellpadding="0" width="600" class="w320">
-
-                                              <tr>
-
-                                                 <td style="padding: 25px 0 25px">04-451-1555<br/>In5 Inovation Centre, Dubai Media City <br/>info@frameit.com <br/><strong>(C) 2020 Frame Hub Middle East FZ LLC. </strong><br/><br/></td>
-
-                                              </tr>
-
-                                           </table>
-
-                                        </center>
-
-                                     </td>
-
-                                  </tr>
-
-                               </table>
-
-                            </body>
-
-                            </html>';  
-
-                    
-
-                    Mail::send([], [], function ($message) use ($inData) {
-
-                        $message->from($inData['from_email'],'FRAMEiT');
-
-                        $message->to($inData['email']);
-
-                        $message->subject('FRAMEiT - Verification');
-
-                        $message->setBody($inData['body'], 'text/html');
-
-                    });
-
-
-
-                }
+            ); 
 
             
 
+            if (Auth::attempt($credentials)){
 
+              if (Auth::user()->role_id == 2) {
 
-                return $this->sendResponse(array(), 'Account has been created successfully. Please check your email address and please do verify your account!');
+                if (Auth::user()->is_verify_email == 1 || Auth::user()->is_verify_contact == 1) {
 
-            } else {
+                  if (Auth::user()->status == 1) {
 
-                return $this->sendError('OOPs! Some internal issue occured.', array(), 200);
-
-            }
-
-        } 
-
-        
-
-    }
-
-    public function loginUser(Request $request)
-
-    {
-
-        $validator = Validator::make($request->all(), [
-
-            'email' => 'required|email',
-
-            'password' => 'required'
-
-        ]);
-
-        if ($validator->fails()) {
-
-            return $this->sendError($validator->messages()->first(), array(), 200);
-
-        } else {
-
-          $user_obj = User::where('email','=',$request->email)->first();
-
-          if (!empty($user_obj->id)) {
+                    if(!empty($device_token)){
 
 
 
-            $device_id = !empty($request->device_id) ? $request->device_id : '';
+                      $device_credentials = array(
 
-        $device_token = !empty($request->device_token) ? $request->device_token : '';
+                          'device_id' => $request->device_id,
 
-        $device_type = !empty($request->device_type) ? $request->device_type : '';
+                          'device_token' => $request->device_token,
 
+                          'device_type' => $request->device_type
 
-
-            $credentials = array(
-
-                  'email' => $request->email,
-
-                  'password' => $request->password
-
-              ); 
-
-              
-
-              if (Auth::attempt($credentials)){
-
-                if (Auth::user()->role_id == 2) {
-
-                  if (Auth::user()->is_verify_email == 1 || Auth::user()->is_verify_contact == 1) {
-
-                    if (Auth::user()->status == 1) {
-
-                      if(!empty($device_token)){
+                      ); 
 
 
 
-                        $device_credentials = array(
-
-                            'device_id' => $request->device_id,
-
-                            'device_token' => $request->device_token,
-
-                            'device_type' => $request->device_type
-
-                        ); 
+                      $updateData = DB::table('users')->where('id',$user_obj->id )->update($device_credentials);
 
 
-
-                        $updateData = DB::table('users')->where('id',$user_obj->id )->update($device_credentials);
-
-
-
-                      }
-
-                      $user_info = Auth::user();
-
-                      return $this->sendResponse($user_info, 'You are logged In.!');
-
-                    } else {
-
-                      Auth::logout();
-
-                      return $this->sendError('Your account is inactive. Please contact with administration department.', array(), 200);
 
                     }
+
+                    $user_info = Auth::user();
+                    
+                    $user_new_info = array(
+                            "user_id"=> $user_info->id,
+                            "user_type"=>$user_info->user_type,
+                            "first_name"=>$user_info->first_name,
+                            "last_name"=>$user_info->last_name,
+                            "email"=>$user_info->email,
+                            "contact_number"=>$user_info->contact_number,
+                            "role_id"=>$user_info->role_id,
+                            "is_verify_email"=>$user_info->is_verify_email,
+                            "is_verify_contact"=>$user_info->is_verify_contact,
+                            "my_referral_code"=>$user_info->my_referral_code,
+                            "user_referral_id"=>$user_info->user_referral_id,
+                            "wallet_balance"=>$user_info->wallet_balance,
+                            "profile_pic"=>$user_info->profile_pic,
+                            "device_id"=>$user_info->device_id,
+                            "device_token"=>$user_info->device_token,
+                            "device_type"=>$user_info->device_type
+                        );
+                    
+                    
+
+                    return $this->sendResponse($user_new_info, 'You are logged In.!');
 
                   } else {
 
                     Auth::logout();
 
-                    return $this->sendError('Please do verify your account. After that you can do login!', array(), 200);
+                    return $this->sendError('Your account is inactive. Please contact with administration department.', array(), 200);
 
                   }
 
@@ -558,29 +434,579 @@ class ApiLoginController extends APIBaseController
 
                   Auth::logout();
 
-                  return $this->sendError('You have no authority to access in this section.', array(), 200);
+                  return $this->sendError('Please do verify your account. After that you can do login!', array(), 200);
 
                 }
 
-                
-
               } else {
 
-                return $this->sendError('Invalid Credential. Please check and try again.', array(), 200);
+                Auth::logout();
+
+                return $this->sendError('You have no authority to access in this section.', array(), 200);
 
               }
 
-          } else {
+              
 
-            return $this->sendError('Email address not registered.', array(), 200);
+            } else {
 
-          }
+              return $this->sendError('Invalid Credential. Please check and try again.', array(), 200);
 
-        } 
+            }
 
+        } else {
+
+          return $this->sendError('Email address not registered.', array(), 200);
+
+        }
+
+      }  
+  }
+  
+  public function forgot_password(Request $request)
+
+    {
         
 
+    	$validator = Validator::make($request->all(), [
+
+            'email' => 'required|email'
+
+        ]);
+
+        if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+
+        	$user_obj = User::where('email','=',$request->email)->first();
+
+        	if (!empty($user_obj->id)) {
+
+
+
+
+
+        		$user_id = $user_obj->id;
+
+	            $vrfn_code = Helper::generateRandomString(6);
+
+
+
+	            $obj_user = User::find($user_id);
+
+	            $obj_user->password = bcrypt($vrfn_code);
+
+	            $res = $obj_user->save(); 
+
+	            if ($res) {
+
+	                $data['url'] = url('/');
+
+	                $data['email'] = $user_obj->email;
+
+	                $data['password'] = $vrfn_code;
+
+	                $data['first_name'] = $user_obj->first_name;
+
+	                $data['last_name'] = $user_obj->last_name;
+	                
+	                $data['user_id'] = $user_obj->id;
+	                
+	                $data['otp'] = random_int(1000, 9999);
+
+
+
+	                $inData['email'] = $user_obj->email;
+
+                    DB::update('update users set otp = ? where email = ?',[$data['otp'],$data['email']]);    
+
+	                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+	                    $fromEmail = Helper::getFromEmail();
+
+	                    $inData['from_email']     =  $fromEmail;
+
+	                    $res1 = Mail::send('email.forget_password',$data, function ($message) use ($inData) {
+
+	                        $message->from($inData['from_email'],'roadNstays');
+
+	                        $message->to($inData['email']);
+
+	                        $message->subject('roadNstays - Forgot Password');
+
+	                    });
+	                    
+	                 
+
+
+	                }
+                    
+	                return $this->sendResponse(array(), 'The otp is sended on email. Please verify the OTP!');
+
+	            } else {
+
+	                return $this->sendError('Some internal issue occured. Please check and try again.', array(), 200);
+
+	            }
+
+
+
+        	} else {
+
+        		return $this->sendError('Email address not registered.', array(), 200);
+
+        	}
+
+        }
+
     }
+    
+    public function verifyOTP(Request $request){
+        $email = $request->email;
+        $otp = $request->otp;
+        
+        $validator = Validator::make($request->all(), [
+
+            'otp' => 'required'
+
+        ]);
+        
+        if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+            $user_obj = User::where('email','=',$email)->first();
+            if($user_obj->email == $email and $user_obj->otp == $otp){
+                return $this->sendResponse(array(), 'Your OTP is verified');
+            }else{
+                return $this->sendError('Incorrect OTP', array(), 200);
+            } 
+        }
+        
+        
+        
+        
+        
+    }
+    
+    public function resetPassword(Request $request){
+        
+        
+        $validator = Validator::make($request->all(), [
+
+            'new_password' => 'required',
+            'confirm_password' => 'required|same:new_password',
+
+        ]);
+
+        if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+            $email = $request->email;
+            $new_password = bcrypt($request->new_password);
+            $confirm_password = $request->confirm_password;
+            
+            $res = DB::update('update users set password = ? where email = ?',[$new_password,$email]);
+            
+            if($res){
+                return $this->sendResponse(array(), 'Your Password is updated successfully');
+            }else{
+                return $this->sendError('Some internal issue occured. Please check and try again.', array(), 200);
+            }
+            
+        
+        }
+        
+        
+        
+    }
+    
+    public function getProfile(Request $request){
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ]);
+        
+        
+        if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+            
+            $user_obj = User::where('id','=',$request->user_id)->first();
+            
+            $user_info = array(
+                "user_id"=> $request->user_id,
+                "user_type"=>$user_obj->user_type,
+                "first_name"=>$user_obj->first_name,
+                "last_name"=>$user_obj->last_name,
+                "email"=>$user_obj->email,
+                "contact_number"=>$user_obj->contact_number,
+                "profile_pic"=>$user_obj->profile_pic,
+            );
+            
+            return $this->sendResponse($user_info,"");
+        }
+        
+    }
+    
+    public function editProfile(Request $request){
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact_number' => 'required|numeric|unique:users,contact_number',
+        ]);
+        
+        $user_obj = User::where('id','=',$request->user_id)->first();
+        
+        if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+            $name1 = '';
+
+            if ($request->hasFile('profile_image')) {
+            
+              $image = $request->file('profile_image');
+            
+              $name1 = time().'.'.$image->getClientOriginalExtension();
+            
+              $destinationPath = public_path('/uploads/profile_image');         
+            
+              $imagePath = $destinationPath. '/'.  $name1;
+            
+              $image->move($destinationPath, $name1);
+            
+            }
+            $user_id = $request->user_id;
+            $first_name = $request->first_name;
+            $last_name = $request->last_name;
+            $contact_number = $request->contact_number;
+            $email = $request->email;
+            $profile_pic      = !empty($name1)? url('public/uploads/profile_image/').'/'.$name1 :$user_obj->profile_pic;
+            $created_at = date('Y-m-d H:i:s');
+            $updated_at = date('Y-m-d H:i:s');
+            $new_password = bcrypt($request->new_password);
+            
+            $res = DB::update('update users set first_name = ?,last_name=?,contact_number=?,profile_pic=? where id = ?',[$first_name,$last_name,$contact_number,$profile_pic,$user_id]);
+            
+            if($res){
+                return $this->sendResponse(array(),"Profile Updated Successfully");
+            }else{
+                return $this->sendError('Some internal issue occured. Please check and try again.', array(), 200);
+            }
+        }
+        
+    }
+    
+    public function changePassword(Request $request){
+      $validator = Validator::make($request->all(), [
+        'user_id' => 'required',
+        'old_password' => 'required',
+        'new_password' => 'required',
+        'confirm_password' => 'required|same:new_password',
+      ]);
+
+      if ($validator->fails()) {
+
+            return $this->sendError($validator->messages()->first(), array(), 200);
+
+        } else {
+           $user_obj = User::where('id','=',$request->user_id)->first();
+          if (!(Hash::check($request->old_password, $user_obj->password))) {
+            // The passwords matches
+            return $this->sendError('Your current password does not matches with the password you provided. Please try again.', array(), 200);
+            
+        }
+
+        if(strcmp($request->get('old_password'), $request->new_password) == 0){
+            //Current password and new password are same
+            return $this->sendError('New Password cannot be same as your current password. Please choose a different password.', array(), 200);
+            
+        }
+
+
+        //Change Password
+        
+        $user_obj->password = bcrypt($request->new_password);
+        $user_obj->save();
+
+        return $this->sendResponse(array(),"Password changed successfully !");
+
+
+
+        }
+    }
+ 
+  public function hotel_list(Request $request)
+  {   
+
+      $hotel_data = DB::table('hotels')->where(['hotel_status' => 1])->get();
+      $hoteldata=array();
+
+      //echo "<pre>";print_r($data);die;
+      foreach ($hotel_data as $key => $value) {
+          $gallary = DB::table('hotel_gallery')->where('hotel_id','=',$value->hotel_id)->get();
+
+          $Img=array();
+          $baseurl = url('/public/uploads/hotel_gallery/');
+          foreach ($gallary as $key => $IMG) {
+              $Img[] = array(
+                  'img_id'=>$IMG->id,
+                  'img_name'=>$baseurl.'/'.$IMG->image,
+                  'is_featured'=>$IMG->is_featured,
+                  'status'=>$IMG->status,
+              );
+          }
+
+          if($value->property_alternate_num){ $property_alternate_num = $value->property_alternate_num; }else{ $property_alternate_num = 0; }
+          if($value->hotel_latitude){ $hotel_latitude = $value->hotel_latitude; }else{ $hotel_latitude = 0; }
+          if($value->hotel_longitude){ $hotel_longitude = $value->hotel_longitude; }else{ $hotel_longitude = 0; }
+
+          $hoteldata[] = array(
+
+              'hotel_id'=> $value->hotel_id,
+              'hotel_user_id' => $value->hotel_user_id,
+              'hotel_name' => $value->hotel_name,
+              'hotel_content' => $value->hotel_content,
+              'property_contact_name' => $value->property_contact_name,
+              'property_contact_num' => $value->property_contact_num,
+              'property_alternate_num' => $property_alternate_num,
+              'cat_listed_room_type' => $value->cat_listed_room_type,
+              'hotel_rating' => $value->hotel_rating,
+              'checkin_time' => $value->checkin_time,
+              'checkout_time' => $value->checkout_time,
+              'stay_price' => $value->stay_price,
+              'hotel_address' => $value->hotel_address,
+              'hotel_city' => $value->hotel_city,
+              'hotel_country' => $value->hotel_country,
+              'hotel_latitude' => $hotel_latitude,
+              'hotel_longitude' => $hotel_longitude,
+              'gallary' => $Img
+          );
+      }
+      
+      $data['hotel_data'] = $hoteldata;
+
+      if(count($hoteldata)>0){
+  
+        $response['message'] = "Hotel List";
+        $response['status'] = 1;
+        $response['data'] = array('hotellist'=>$hoteldata);
+
+      }else{
+
+        $response['message'] = "No data found";
+        $response['status'] = 0;
+        $response['data'] = array('hotellist'=>$hoteldata);
+      }
+      
+
+      return $response; 
+  }
+
+  public function hotel_details(Request $request)
+  {
+
+      $hotelID = $request->id; 
+      $hotel_data = DB::table('hotels')->where('hotel_id','=',$hotelID)->where(['hotel_status' => 1])->get(); 
+      $hoteldata=array();
+
+      foreach ($hotel_data as $key => $value) {
+          $gallary = DB::table('hotel_gallery')->where('hotel_id','=',$value->hotel_id)->get();
+          $Img=array();
+          $baseurl = url('/public/uploads/hotel_gallery/');
+
+          foreach ($gallary as $key => $IMG) {
+              $Img[] = array(
+                  'img_id'=>$IMG->id,
+                  'img_name'=>$baseurl.'/'.$IMG->image,
+                  'is_featured'=>$IMG->is_featured,
+                  'status'=>$IMG->status,
+              );
+          }
+
+          if($value->property_alternate_num){ $property_alternate_num = $value->property_alternate_num; }else{ $property_alternate_num = 0; }
+
+          if($value->hotel_latitude){ $hotel_latitude = $value->hotel_latitude; }else{ $hotel_latitude = 0; }
+
+          if($value->hotel_longitude){ $hotel_longitude = $value->hotel_longitude; }else{ $hotel_longitude = 0; }
+
+          $hoteldata[] = array(
+
+              'hotel_id'=> $value->hotel_id,
+              'hotel_user_id' => $value->hotel_user_id,
+              'hotel_name' => $value->hotel_name,
+              'hotel_content' => $value->hotel_content,
+              'property_contact_name' => $value->property_contact_name,
+              'property_contact_num' => $value->property_contact_num,
+              'property_alternate_num' => $property_alternate_num,
+              'cat_listed_room_type' => $value->cat_listed_room_type,
+              'hotel_rating' => $value->hotel_rating,
+              'checkin_time' => $value->checkin_time,
+              'checkout_time' => $value->checkout_time,
+              'stay_price' => $value->stay_price,
+              'hotel_address' => $value->hotel_address,
+              'hotel_city' => $value->hotel_city,
+              'hotel_country' => $value->hotel_country,
+              'hotel_latitude' => $hotel_latitude,
+              'hotel_longitude' => $hotel_longitude,
+              'gallary' => $Img
+          );
+      }
+       
+      $hotel_amenities = DB::table('hotel_amenities')
+      //->join('hotel_amenities', 'hotels.hotel_id', '=', 'hotel_amenities.hotel_id')
+      ->join('H2_Amenities', 'hotel_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+      ->join('amenities_type', 'H2_Amenities.amenity_type', '=', 'amenities_type.id')
+      ->where('hotel_amenities.hotel_id', '=', $hotelID) 
+      ->where('hotel_amenities.status', '=', 1) 
+      ->get();
+      $hotelamenities = array();
+      foreach ($hotel_amenities as $key => $value) {
+          if($value->room_other_featured_id){ $room_other_featured_id = $value->room_other_featured_id; }else{ $room_other_featured_id = 0; } 
+          $hotelamenities[] = array(
+              'id'=> $value->id,
+              'hotel_id' => $value->hotel_id,
+              'amenity_id' => $value->amenity_id,
+              'status' => $value->status,
+              'created_at' => $value->created_at,
+              'amenity_name' => $value->amenity_name,
+              'amenity_icon' => $value->amenity_icon,
+              'amenity_type' => $value->amenity_type,
+              'amenity_type_name' => $value->amenity_type_name,
+              'amenity_type_sym' => $value->amenity_type_sym,
+              'room_other_featured_id' => $room_other_featured_id,
+              'name' => $value->name,
+              'amenity_name_type' => $value->amenity_name_type
+          ); 
+      }
+
+      $hotel_room_data = DB::table('room_list')
+      ->join('room_gallery', 'room_list.id', '=', 'room_gallery.room_id')
+      ->where('room_list.hotel_id', '=', $hotelID) 
+      ->where('room_list.status', '=', 1) 
+      ->get();  
+      $hotelroomdata = array();
+      foreach ($hotel_room_data as $key => $value) {          
+
+          $baseurl = url('/public/uploads/room_images/');
+          $roomimg = $baseurl.'/'.$value->image;
+
+          if($value->is_guest_allow){ $is_guest_allow = $value->is_guest_allow; }else{ $is_guest_allow = 0; }
+          if($value->cleaning_fee_type){ $cleaning_fee_type = $value->cleaning_fee_type; }else{ $cleaning_fee_type = 0; } 
+          $hotelroomdata[] = array( 
+              'id'=> $value->id,
+              'room_types_id' => $value->room_types_id,
+              'hotel_id' => $value->hotel_id,
+              'name' => $value->name,
+              'description' => $value->description,
+              'notes' => $value->notes,
+              'max_adults' => $value->max_adults,
+              'max_childern' => $value->max_childern,
+              'number_of_rooms' => $value->number_of_rooms,
+              'price_per_night' => $value->price_per_night,
+              'price_per_night_7d' => $value->price_per_night_7d,
+              'price_per_night_30d' => $value->price_per_night_30d,
+              'is_guest_allow' => $is_guest_allow,
+              'extra_guest_per_night'=> $value->extra_guest_per_night,
+              'type_of_price' => $value->type_of_price,
+              'cleaning_fee' => $value->cleaning_fee,
+              'cleaning_fee_type' => $cleaning_fee_type,
+              'city_fee' => $value->city_fee,
+              'bed_type' => $value->bed_type,
+              'private_bathroom' => $value->private_bathroom,
+              'private_entrance' => $value->private_entrance,
+              'optional_services' => $value->optional_services,
+              'family_friendly' => $value->family_friendly,
+              'outdoor_facilities'=> $value->outdoor_facilities,
+              'extra_people' => $value->extra_people,
+              'status' => $value->status,
+              'created_at' => $value->created_at,
+              'updated_at' => $value->updated_at,
+              'room_id' => $value->room_id,
+              'image' => $roomimg,
+              'is_featured' => $value->is_featured
+          );
+      }      
+
+      if(count($hoteldata)>0){ 
+      $response['message'] = "Hotel Detail";
+      $response['status'] = 1;
+      $response['data'] = array('hotel_detail'=>$hoteldata,'hotel_amenities'=>$hotelamenities,'room_detail'=>$hotelroomdata); 
+      }else{ 
+        $response['message'] = "No data found";
+        $response['status'] = 0;
+        $response['data'] = array('hotel_detail'=>'','room_detail'=>'');
+      }
+     
+      return $response; 
+  }
+
+  public function room_details(Request $request)
+  {
+
+      $hotel_data = DB::table('hotels')->where(['hotel_status' => 1])->get();
+      $hoteldata=array();
+
+      //echo "<pre>";print_r($data);die;
+      foreach ($hotel_data as $key => $value) {
+          $gallary = DB::table('hotel_gallery')->where('hotel_id','=',$value->hotel_id)->get();
+
+          $Img=array();
+          foreach ($gallary as $key => $IMG) {
+              $Img[] = array(
+                  'img_id'=>$IMG->id,
+                  'img_name'=>$IMG->image,
+                  'is_featured'=>$IMG->is_featured,
+                  'status'=>$IMG->status,
+              );
+          }
+
+          $hoteldata[] = array(
+
+              'hotel_id'=> $value->hotel_id,
+              'hotel_user_id' => $value->hotel_user_id,
+              'hotel_name' => $value->hotel_name,
+              'hotel_content' => $value->hotel_content,
+              'property_contact_name' => $value->property_contact_name,
+              'property_contact_num' => $value->property_contact_num,
+              'property_alternate_num' => $value->property_alternate_num,
+              'cat_listed_room_type' => $value->cat_listed_room_type,
+              'hotel_rating' => $value->hotel_rating,
+              'checkin_time' => $value->checkin_time,
+              'checkout_time' => $value->checkout_time,
+              'stay_price' => $value->stay_price,
+              'hotel_address' => $value->hotel_address,
+              'hotel_city' => $value->hotel_city,
+              'hotel_country' => $value->hotel_country,
+              'hotel_latitude' => $value->hotel_latitude,
+              'hotel_longitude' => $value->hotel_longitude,
+              'gallary' => $Img
+          );
+      }
+      
+      $data['hotel_data'] = $hoteldata;
+
+      if(count($hoteldata)>0){ 
+        $response['message'] = "Hotel List";
+        $response['status'] = 1;
+        $response['data'] = array('hotel-List'=>$hoteldata); 
+      }else{ 
+        $response['message'] = "No data found";
+        $response['status'] = 0;
+        $response['data'] = array('hotel-List'=>$hoteldata); 
+      } 
+      return $response; 
+  } 
+
 
 }
 

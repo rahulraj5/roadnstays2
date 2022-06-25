@@ -151,7 +151,7 @@
 
       <!-- Main Sidebar Container -->         
 
-      <!-- @include('front.layout.sidebar') -->
+      @include('vendor.layouts.sidebar')
 
       @yield('content')
 

@@ -132,4 +132,85 @@ class HotelAmenityController extends Controller
         }
 
     }
+
+
+
+
+
+
+
+
+
+    public function hotelAmenityType_list() 
+    {
+        $data['hotelAmenityType_list'] = DB::table('amenities_type')->orderby('id', 'DESC')->get();
+        return view('admin/hotel/services/hotelamenity_type_list')->with($data);
+    }
+
+    public function addHotelAmenityType(Request $request)
+    {
+        return view('admin/hotel/services/add_hotelamenity_type');
+    }
+
+    public function submitHotelAmenityType(Request $request)
+    {
+        $data = DB::table('amenities_type')->insert(['name' => trim($request->hotelAmenityTypeName)]);
+        if ($data) {
+            return response()->json(['status' => 'success', 'msg' => 'Item Added successfully.']);
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+        }
+    }
+
+    public function editHotelAmenityType(Request $request){
+    	$id = base64_decode($request->id);
+        $data['hotelAmenityType_info'] = DB::table('amenities_type')->where('id',$id)->first();
+    	return view('admin/hotel/services/edit_hotelamenity_type')->with($data) ;
+    }
+    
+    public function updateHotelAmenityType(Request $request)
+    {
+        $id = $request->id;
+    	$res = DB::table('amenities_type')->where('id', $id)->update([
+                                    'name' => $request->hotelAmenityTypeName,
+                                    ]);
+    	if($res){
+            return response()->json(['status' => 'success', 'msg' => 'updated successfully.']);
+    	}else{
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+    	} 
+    }
+
+    public function view_hotel_amenity_list($id)
+    {
+        // dd($data['hotelAmenityList']);
+        $data['hotelAmenityList'] = DB::table('H2_Amenities')->where('amenity_type',$id)->join('amenities_type', 'H2_Amenities.amenity_type', '=', 'amenities_type.id')->get(['H2_Amenities.*', 'amenities_type.name']);
+        // $data['hotelAmenityList'] = DB::table('H2_Amenities')->where('amenity_type',$id)->orderby('amenity_type_name', 'ASC')->get();
+        
+        return view('admin/hotel/services/view_hotelamenities_list')->with($data);
+    }
+
+    public function changeHotelAmenityTypeStatus(Request $request)
+    {
+        $hotel_id = $request->user_id;
+        if(!empty($hotel_id)) { 
+            DB::table('amenities_type')
+            ->where('id', $hotel_id)
+            ->update([
+                'status' => $request->status
+            ]);
+        }    
+    	return response()->json(['success'=>'status change successfully.']);
+    }
+
+    public function deleteHotelAmenityType(Request $request) {
+        $amenity_id = $request->amenity_id;
+        $res = DB::table('amenities_type')->where('id', '=', $amenity_id)->delete();
+        if ($res) {
+            return json_encode(array('status' => 'success','msg' => 'deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error','msg' => 'Some internal issue occured.'));
+        }
+
+    }
 }

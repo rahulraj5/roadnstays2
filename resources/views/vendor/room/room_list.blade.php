@@ -76,7 +76,7 @@
 <script>
   $('.toggle-class').on('change', function() {
     var status = $(this).prop('checked') == true ? 1 : 0;
-    var hotel_id = $(this).data('id');
+    var id = $(this).data('id');
     // alert(status);
     // alert(user_id);
     $.ajax({
@@ -85,7 +85,7 @@
       url: "<?php echo url('/servicepro/changeRoomStatus'); ?>",
       data: {
         'status': status,
-        'room_id': id
+        'id': id
       },
       success: function(data) {
         success_noti(data.success);
@@ -224,10 +224,11 @@
                             <th>Title</th>
 
                             <th>Price</th>
+                            <th>Number of Rooms</th>
 
-                            <th>Notes</th>
+                            <!-- <th>Notes</th>
 
-                            <th>Details</th>
+                            <th>Details</th> -->
 
                             <th>Status</th>
 
@@ -252,10 +253,11 @@
                                 <td>{{ $arr->name }}</td>
 
                                 <td>{{ $arr->price_per_night }}</td>
+                                <td>{{ $arr->number_of_rooms }}</td>
 
-                                <td>{{ $arr->notes }}</td>
+                                <!-- <td>{{ $arr->notes }}</td> -->
 
-                                <td>{{ $arr->description }}</td>
+                                <!-- <td>{{ $arr->description }}</td> -->
 
                                 <td class="project-state">
 
@@ -267,9 +269,9 @@
 
                                     <div class="btn-group btn-group-sm">
 
-                                      <a href="{{url('/servicepro/viewRoom')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bx-show"></i></a>
+                                      <a href="{{url('/servicepro/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bx-show"></i></a>
 
-                                      <a href="{{url('/servicepro/editRoom')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
+                                      <a href="{{url('/servicepro/editRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
 
                                       <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash" alt="user" title="user"></i></a>
 
