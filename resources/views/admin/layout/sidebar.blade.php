@@ -121,6 +121,33 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ url('/admin/booking_list') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Booking List
+              </p>
+            </a>
+          </li>
+
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hotel"></i>
+              <p>
+                Tour Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/tourList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tour List</p>
+                </a>
+              </li>
+            </ul>
+          </li>  -->
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

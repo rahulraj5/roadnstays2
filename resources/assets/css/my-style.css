@@ -80,12 +80,15 @@ a:hover {
     text-align: center;
 }
 .image-lists img {
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     width: 200px;
 	height: 255px;
 	-webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+.item-card2-card{
+    border-radius: 6px;
 }
 .image-lists {
     margin-bottom: 20px;
@@ -283,6 +286,13 @@ p.sub-txt {
     margin-left: 0px;
     margin-right: 0px;
     padding: 35px 15px 35px 15px;
+}
+.list-place .slick-slide > div {
+    margin: 0 6px;
+}
+.social-links {
+    text-align: center;
+    margin-top: 10px;
 }
 .wcu-info .icon-bar {
     display: inline-block;

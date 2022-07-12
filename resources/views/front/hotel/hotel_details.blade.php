@@ -1,4 +1,4 @@
-@extends('front.layout.layout')
+  @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
 @endsection
@@ -42,10 +42,10 @@
                            @else
                            <i class='bx bxs-star' ></i>
                            @endif </div>
-                  <div class="hero-btn">
+                  <!-- <div class="hero-btn">
                      <a class="selct-room" href="#">Select Room</a>
                      <a class="book-now" href="#">Book Now</a>
-                  </div>
+                  </div> -->
                </div>
             </div>
             @foreach($hotel_gallery as $gallery)
@@ -71,19 +71,19 @@
                      <a href="#1" class="navLink active">Overview</a>
                   </li>
                   <li>
-                     <a href="#2" class="navLink">Rooms</a>
+                     <a href="#2" class="navLink">Amenities</a>
                   </li>
                   <li>
-                     <a href="#3" class="navLink">Location</a>
+                     <a href="#3" class="navLink">Rooms </a>
                   </li>
                   <li>
-                     <a href="#4" class="navLink">Amenities</a>
+                     <a href="#4" class="navLink">Location</a>
                   </li>
                   <li>
                      <a href="#5" class="navLink">Reviews</a>
                   </li>
                   <li>
-                     <a href="#6" class="navLink">Policies</a>
+                     <a href="#6" class="navLink">Policies </a>
                   </li>
                </ul>
             </nav>
@@ -173,7 +173,7 @@
           <div class="romtype">
             <div class="dropdown">
               <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{$room['room_type']}}
+                <?php echo strtoupper($room['room_type']);?>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">Smart Room (Max. 2 adults) <br><small> Starting @ ₹2249</small></a>
@@ -208,6 +208,7 @@
                      <li><i class='bx bx-square'></i> {{$room['room_size']}} sq.ft</li>
                      <li><i class='bx bx-border-all'></i> ON View</li>
                      <li><i class='bx bx-bed'></i> {{$room['bed_type']}}</li>
+                     <li><i class='bx bxs-door-open'></i> {{$room['number_of_rooms']}} Rooms Qty</li>
                   </ul>
                   <!-- <a href="#" data-toggle="modal" data-target="#exampleModal" class="more-details"> MORE DETAILS </a> -->
                   <button class="btn btn-primary more-details" roomid="<?php echo $room['id'];  ?>">MORE DETAILS</button>
@@ -226,11 +227,17 @@
                  <br>
                  <del>PKR {{$room['price_per_night']}}</del><br>
                  <h5>PKR {{$room['price_per_night']}}</h5>
+                 @if($room['tax_percentage'] > 0)
                  <b>+PKR {{$room['tax_percentage']}} taxes & fees</b>
+                 @endif
+                 @if($room['cleaning_fee'] > 0)
                  <b>+PKR {{$room['cleaning_fee']}} Cleaning & fees</b>
+                 @endif
+                 @if($room['city_fee'] > 0)
                  <b>+PKR {{$room['city_fee']}} city & fees</b>
+                 @endif
               </div>
-              <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}" class="select-room mt-3">Room Book</a>
+              <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}&check_in={{$check_in}}&check_out={{$check_out}}" class="select-room mt-3">Room Book</a>
            </div>   
         </div>
       </div>   
@@ -323,7 +330,7 @@
 <!-- End #main -->
  
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <form>
       <div class="modal-content">
@@ -361,6 +368,7 @@
                      <li id="room_size"></li>
                      <li><i class='bx bx-border-all'></i> ON View</li>
                      <li id="bed_type"></li>
+                     <li id="room_qty"></li>
                   </ul>                  
                </div>
 
@@ -377,11 +385,11 @@
                      </div>
                   </div>
                   <div class="col-md-12 bed-room">
-                     <h3 id="room_title"> Twin/Double Room - 1 Bedroom - Classic </h3>
-                     <div class="tag-info">
+                     
+                     <!-- <div class="tag-info">
                         <h3 class="mt-4">Popular amenities</h3>
                         <div class="ami-pol-room">
-                          <!--  <div class="ami-pol-detail">
+                           <div class="ami-pol-detail">
                               <i class='bx bx-swim'></i> 
                               <h5>Pool</h5>
                            </div>
@@ -396,19 +404,19 @@
                            <div class="ami-pol-detail">
                               <i class='bx bx-wifi'></i>
                               <h5>Free wifi</h5>
-                           </div> -->
+                           </div>
                         </div>
-                     </div>
-                     <div class="all-detail-rom">
+                     </div> -->
+                     <!-- <div class="all-detail-rom">
                         <h3 class="mt-4">Room Amenities</h3>
                         <div class="rom-aminit">
                            <div class="check-makr">
                               <i class='bx bx-check-circle'></i> <span>Balcony </span>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                      <div class="all-detail-rom">
-                        <h3 class="mt-4 gust-rom">Popular with Guests</h3>
+                        <h3 class="mt-1 gust-rom">Room Amenities</h3>
                         <div class="rom-aminit row" id="amenity">
                            <div class="check-makr col-md-4">
                               <i class='bx bx-check-circle'></i> <span>Free Wi-Fi </span>
@@ -528,7 +536,7 @@
                            </div> -->
                            <div class="d-flex justify-content-between align-self-center align-items-center totalbefore">
                               <h4>Total before taxes <br><label id="total_amount">PKR 15,200</label></h4>
-                              <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}" class="resurve-btn-res"> Reserve</a>
+                              <!-- <a href="" class="resurve-btn-res"> Reserve</a> -->
                            </div>
                         </div>
                      </div>
@@ -744,18 +752,21 @@
                 $('#room_size').html('<i class="bx bx-square"></i>'+response.room_data.room_size+' sq.ft');
                 $('#bed_type').html('<i class="bx bx-bed"></i>'+response.room_data.bed_type);
                 
+                $('#room_qty').html('<i class="bx bxs-door-open"></i>'+response.room_data.number_of_rooms+ 'Rooms Qty');
 
                 $(response.room_gallery).each(function (i, item) {
 
                    if(i == 0){
-                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide active"><img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
+                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide active"><img class="d-block w-100" src="https://votivetechnologies.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
                    }else{
-                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide"><img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
+                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide"><img class="d-block w-100" src="https://votivetechnologies.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
                    }
                   
                 });
 
+                var booking_url = "{{url('checkout')}}?hotel_id=<?php echo $hotel_data->hotel_id?>&&room_id="+id;
 
+                $('.resurve-btn-res').attr('href', booking_url);
 
                 $(response.room_features).each(function (i, features) {
                   $('.ami-pol-room').append($('<div class="ami-pol-detail"><i class="bx bx-restaurant"></i><h5>'+features.name+'</h5></div>'));
@@ -765,7 +776,7 @@
                   $('#amenity').append($('<div class="check-makr col-md-4"><i class="bx bx-check-circle"></i><span>'+amenities.amenity_name+'</span></div>'));
                 });
 
-                $('#exampleModal').modal({backdrop: 'static', keyboard: true, show: true});
+                $('#exampleModal1').modal({backdrop: 'static', keyboard: true, show: true});
             }
           });
       });

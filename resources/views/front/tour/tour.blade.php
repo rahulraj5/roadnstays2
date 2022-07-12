@@ -88,8 +88,14 @@ $(document).ready(function() {
       itemsDesktopSmall : [979,3],
       loop:true,
       responsive: {
-        600: {
-          items: 3
+         0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:3
         }
       }
        
@@ -97,6 +103,9 @@ $(document).ready(function() {
   });
  
 });
+
+
+
 </script>
 
 @endsection
@@ -117,13 +126,13 @@ $(document).ready(function() {
 			</ol>
 		<div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/1200x320-Family.webp" alt="First slide">
+      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/1a.jpg" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/1200x320-August_new.webp" alt="Second slide">
+      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/2a.jpg" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/1200x320-Goa_new.jpg" alt="Third slide">
+      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/resources/assets/img/3a.jpg" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -151,8 +160,8 @@ $(document).ready(function() {
 
       <div class="row container-fluid">
     <div class="col-lg-12 grid-margin stretch-card">
-        <div class="listing-tour">
-            <div class="tour-body">
+        <div class="listing-tour"> 
+            <div class="tour-body" >
                 <div class="owl-carousel">
                     <div class="item">
                         <div class="card mb-0 item-card2-card">

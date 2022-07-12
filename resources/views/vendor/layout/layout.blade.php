@@ -150,18 +150,18 @@
 
       <!-- Navbar Header -->
 
-      @include('front.layout.header')
-
+      <!-- include('') -->
+      <!-- @front.layout.header -->
       <!-- Main Sidebar Container -->         
 
-      <!-- @include('front.layout.sidebar') -->
-
+      @include('vendor.layout.sidebar')
+      <!-- @front.layout.sidebar -->
       @yield('content')
 
       <!-- /.Footer -->
 
-      @include('front.layout.footer')
-
+      <!-- include('') -->
+      <!-- @front.layout.footer -->
      
       <!-- ./wrapper -->
 
@@ -172,6 +172,8 @@
    <!-- jQuery UI 1.11.4 -->
    <!-- <script type="text/javascript" src="{{ asset('resources/plugins/jquery-ui/jquery-ui.min.js')}}"></script> -->
    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
 
    <!-- Vendor JS Files -->
    <script src="{{ asset('resources/assets/vendor/jquery/jquery.min.js')}}"></script>
@@ -201,7 +203,7 @@
    <script src="{{ asset('resources/js/raone/jquery.validate.min.js') }}"></script>
    <script src="{{ asset('resources/js/raone/jquery.form.js') }}"></script>
    <script src="{{ asset('resources/assets/js/forms.js') }}"></script>
-
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
    @yield('current_page_js')
 
    </body>

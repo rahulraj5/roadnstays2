@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://votivelaravel.in/roadNstays/'),
+    'url' => env('APP_URL', 'https://votivetechnologies.in/roadNstays/'),
 
     'asset_url' => env('ASSET_URL', null),
 

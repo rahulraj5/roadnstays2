@@ -38,6 +38,12 @@
     color: black;
   }
 </style>
+<style>
+  /*.container-fluid {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }*/
+</style>
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
@@ -115,31 +121,11 @@
 @section('content')
 <!-- Main content -->
 
-<div class="col-md-9 pl-0">
-  <div class="table-space">
-    <header id="header-vendor" class="fixed-top-vendor">
-      <div class="container d-flex align-items-center justify-content-between">
-        <h3 class="dashbord-text"> Dashboard</h3>
-        <nav class=" vendor-nav d-lg-block">
-          <ul>
-            <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a>
-            </li>
-            <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li>
-            <li class="drop-down"><a href="#"><i class='bx bxs-user-circle'></i></a>
-              <ul>
-                <li><a href="{{ url('/servicepro/profile') }}">View profile</a></li>
-                <li><a href="#">Drop Down </a></li>
-                <li><a href="#">Drop Down 3</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+
 
     <div class="row d-flex flex-wrap p-3">
 
-      <div class="row">
+      <div class="row add_m01">
         <div class="col-md-12">
           <div class="card card-default">
             <!-- <div class="card-header">
@@ -453,7 +439,7 @@
                           <!-- <button type="submit" id="step_btn1" class="btn btn-primary">Submit</button> -->
 
                           <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Submit</button> -->
-                          <a class="btn btn-primary btn-dark" onclick="stepper.next()">Next</a>
+                          <a class="btn nxt-prcs btn-primary btn-dark" onclick="stepper.next()">Next</a>
                         </div>
                       </div>
 
@@ -735,15 +721,17 @@
                         @if($amenity_count > 0)
                         @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{$value->name}}</label>
-                                <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;" disabled="disabled">
-                                  <!-- <option value="">Select Room Amenities</option> -->
-                                  @foreach ($amenities as $amenity)
-                                  <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) { echo 'selected'; } ?>>{{ $amenity->amenity_name }}</option>
-                                  @endforeach
-                                </select>
-                            </div>
+                          <div class="form-group">
+                            <label>{{$value->name}}</label>
+                            <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;" disabled="disabled">
+                              <!-- <option value="">Select Room Amenities</option> -->
+                              @foreach ($amenities as $amenity)
+                              <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) {
+                                                                            echo 'selected';
+                                                                          } ?>>{{ $amenity->amenity_name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
                         </div>
                         @endif
 
@@ -763,16 +751,18 @@
                         @if($hotel_services_count > 0)
                         @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{$value->name}}</label>
-                                <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;" disabled="disabled">
-                                    <!-- <option value="">Select Room Amenities</option> -->
+                          <div class="form-group">
+                            <label>{{$value->name}}</label>
+                            <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;" disabled="disabled">
+                              <!-- <option value="">Select Room Amenities</option> -->
 
-                                    @foreach ($services as $service)
-                                    <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) { echo 'selected'; } ?>>{{ $service->service_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                              @foreach ($services as $service)
+                              <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) {
+                                                                    echo 'selected';
+                                                                  } ?>>{{ $service->service_name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
                         </div>
                         @endif
 

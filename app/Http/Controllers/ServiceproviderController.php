@@ -33,6 +33,7 @@ class ServiceproviderController extends Controller
     public function submit_serv_provider(Request $request)
     {
         $fname = $request->fname;
+        $lname = $request->lname;
         $email = $request->email;
         $user_country = $request->user_country;
         $user_city = $request->city;
@@ -64,7 +65,7 @@ class ServiceproviderController extends Controller
             $obj = new User;
             $obj->user_type = "service_provider";
             $obj->first_name = $fname;
-            // $obj->last_name = $lname;
+            $obj->last_name = $lname;
             $obj->email = $email;
             $obj->user_country = $user_country;
             $obj->user_city = $user_city;
@@ -110,21 +111,21 @@ class ServiceproviderController extends Controller
     
     public function update_serv_provider(Request $request){
 
-    	$fname = $request->input('fname') ;
-        $lname = $request->input('lname') ;
+    	$fname = $request->input('fnameup') ;
+        $lname = $request->input('lnameup') ;
         $user_id = $request->input('user_id') ;
-    	$email = $request->input('email') ;
-        $user_country = $request->input('user_country') ;
-        $city = $request->input('city') ;
-        $address = $request->input('address') ;
-    	$contact_number = $request->input('contact_number') ;
+    	$email = $request->input('emailup') ;
+        $user_country = $request->input('user_countryup') ;
+        $city = $request->input('cityup') ;
+        $address = $request->input('addressup') ;
+    	$contact_number = $request->input('contact_numberup') ;
 
     	$userData = User::where('id', $user_id)->first();
     
         $userData->first_name = $fname;
-    	// $userData->last_name = $lname;
-        if($request->password){
-            $userData->password = bcrypt($request->password);
+    	$userData->last_name = $lname;
+        if($request->passwordup){
+            $userData->password = bcrypt($request->passwordup);
         }
         $userData->email = $email;
         $userData->user_country = $user_country;

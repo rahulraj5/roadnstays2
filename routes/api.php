@@ -18,9 +18,13 @@ Route::group(['middleware' => 'CheckToken'], function () {
 Route::post('register', 'Api\ApiLoginController@register')->middleware('CheckToken');
 Route::post('login', 'Api\ApiLoginController@loginUser')->middleware('CheckToken');
 
-Route::post('/ws/hotel_list','Api\WsController@hotel_list')->middleware('CheckToken');
-Route::post('/ws/hotel_detail','Api\WsController@hotel_details')->middleware('CheckToken');
-Route::post('/ws/room_detail','Api\WsController@room_details')->middleware('CheckToken');
+Route::post('hotel_list','Api\WsController@hotel_list')->middleware('CheckToken');
+Route::post('hotel_detail','Api\WsController@hotel_details')->middleware('CheckToken');
+Route::post('room_detail','Api\WsController@room_details')->middleware('CheckToken');
+Route::post('hotel_type','Api\WsController@hotel_type')->middleware('CheckToken');
+Route::post('paypal_payment','Api\WsController@payment')->middleware('CheckToken');
+
+Route::post('hotel_list_test','Api\WsController@hotel_list_test')->middleware('CheckToken');
 
 Route::post('forget_password','Api\ApiLoginController@forgot_password')->middleware('CheckToken');
 Route::post('verify_otp','Api\ApiLoginController@verifyOTP')->middleware('CheckToken');

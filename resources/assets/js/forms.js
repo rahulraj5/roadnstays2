@@ -92,7 +92,13 @@ $("#userSignup_form").validate({
 
     },
 
-    name: {
+    firstname: {
+
+      required: true
+
+    },
+
+    lastname: {
 
       required: true
 
@@ -264,6 +270,12 @@ $("#vendorSignup_form").validate({
 
     },
 
+    vslname: {
+
+      required: true
+
+    },
+
     vsname: {
 
       required: true
@@ -354,6 +366,9 @@ $("#profileUpdate_form").validate({
   debug: false,
   rules: {
     puname: {
+      required: true
+    },
+    plname: {
       required: true
     },
     puemail: {

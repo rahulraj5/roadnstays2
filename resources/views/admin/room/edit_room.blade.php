@@ -37,6 +37,20 @@
     background: white;
     color: black;
   }
+
+  .removeImage {
+    display: block;
+    background: #2a7b72 !important;
+    border: 1px solid #126c62 !important;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .removeImage:hover {
+    background: #2a7b72 !important;
+    color: black;
+  }
 </style>
 @endsection
 @section('current_page_js')
@@ -79,6 +93,22 @@
   })
 </script>
 <script>
+    // $(document).ready(function() {
+    //     // Select2 Multiple
+    //     $('.select2bs4').select2({
+    //         theme: 'bootstrap4'
+    //     })
+    // });
+    $("select").on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+        
+        $element.detach();
+        $(this).append($element);
+        $(this).trigger("change");
+    });
+</script>
+<script>
   $("#allow_guest_in_room1").click(function() {
     $("#allow_guest_price_div").removeClass('d-none');
     $("#allow_guest_cap_div").removeClass('d-none');
@@ -101,7 +131,7 @@
     $(addButton).click(function() {
       if (x < maxField) {
         x++;
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
 
@@ -111,6 +141,41 @@
       x--;
     });
   });
+</script>
+
+<script>
+  function deleteConfirmation(Id) {
+    toastDelete.fire({
+    }).then(function(e) {
+      if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/admin/deleteRoomSingleImage')}}",
+          data: {'id': Id, _token: CSRF_TOKEN},
+          dataType: 'JSON',
+          success: function(data){
+            $("#remove_img_"+Id).parent('div').remove();
+            success_noti(data.msg);
+          },
+          error: function(errorData) {
+            console.log(errorData);
+            alert('Please refresh page and try again!');
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+  $(".removeImage").click(function() {
+    var Id=$(this).attr('id');
+    var hotel_id = $('#hotel_id').val();
+    deleteConfirmation(Id);
+  });
+
 </script>
 @endsection
 @section('content')
@@ -177,6 +242,7 @@
 
             <input type="hidden" name="room_id" id="room_id" value="{{$room_data->id}}">
             <input type="hidden" name="hotel_name" id="hotel_id" value="{{$room_data->hotel_id}}">
+            <input type="hidden" name="old_room_image" id="old_room_image" value="@if(!empty($room_data->hotel_id)){{ $room_data->image }}@endif" />
             <div class="row">
 
               <!-- <div class="col-md-6">
@@ -472,8 +538,19 @@
                       <div class="col-md-3">
                         <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
                       </div>
-                      <div class="col-md-3">
+                      <!-- <div class="col-md-3">
                         <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" />
+                      </div> -->
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
+                            <option value="">Select Price type</option>
+                            <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                            <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                            <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                            <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                          </select>
+                        </div>
                       </div>
                       @if($key == 0)
                       <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
@@ -493,8 +570,19 @@
                     <div class="col-md-3">
                       <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                       <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                    </div> -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                          <option value="">Select Price type</option>
+                          <option value="single_fee">Single fee</option>
+                          <option value="per_night">Per night</option>
+                          <option value="per_guest">Per guest</option>
+                          <option value="per_night_per_guest">Per night per guest</option>
+                          </select>
+                      </div>
                     </div>
                     <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                   </div>
@@ -533,7 +621,7 @@
                     <option value="Single bed" {{ $room_data->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
                     <option value="Double bed" {{ $room_data->bed_type == "Double bed" ? 'selected' : '' }}>Double bed</option>
                     <option value="Bunk bed" {{ $room_data->bed_type == "Bunk bed" ? 'selected' : '' }}>Bunk bed</option>
-                    <option value="Sofa bed" {{ $room_data->bed_type == "Sofa bed" ? 'selected' : '' }}>Sofa bed</option>
+                    <option value="Sofa" {{ $room_data->bed_type == "Sofa" ? 'selected' : '' }}>Sofa</option>
                     <option value="Futon Mat" {{ $room_data->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
                     <option value="Extra-Large double bed (Super - King size)" {{ $room_data->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
                   </select>
@@ -626,25 +714,41 @@
 
               </div>
 
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="field" align="left">
+                    <label>Upload room featured images</label>
+                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg"/>
+                  </div>
+                </div>
+              </div>
 
-              <!-- <div class="col-md-12">
-                            <div class="form-group">
-                              <div class="field" align="left">
-                                <label>Upload room images</label>
-                                <input type="file" id="files" name="imgupload[]" multiple />
-                                <?php foreach ($room_images as $key => $ad_image) { ?>
-                                  <span class="pip"><img class="imageThumb" src="{{url('public/uploads/room_images/')}}/{{$ad_image->image}}"><span class="remove">Remove image</span></span>
-                                <?php } ?>
+              @if((!empty($room_data->image)))
+              <div class="col-md-12">
+                <div class="d-flex flex-wrap">
+                  <div class="image-gridiv">
+                    <img src="{{url('public/uploads/room_images/')}}/{{$room_data->image}}">
+                  </div>
+                </div>
+              </div>
+              @endif
 
-                              </div>
-                            </div>
-                          </div>  -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="field" align="left">
+                    <label>Upload room gallery</label>
+                    <input type="file" id="files" name="imgupload[]" multiple />
+                  </div>
+                </div>
+              </div> 
 
               <div class="col-md-12">
                 <div class="d-flex flex-wrap">
                   @foreach($room_images as $image)
                   <div class="image-gridiv">
-                    <img src="{{url('public/uploads/room_images/')}}/{{$image->image}}">
+                    <span class="pip" id="remove_img_{{$image->id}}">
+                    <img class="imageThumb" src="{{url('public/uploads/room_images/')}}/{{$image->image}}">
+                    <br/><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
                   </div>
                   @endforeach
                 </div>
@@ -742,7 +846,7 @@
                   <label>Room description</label>
 
                   <!-- <input type="text" class="form-control" name="description" id="description" placeholder="Enter room description" value="{{$room_data->description}}"> -->
-                  <textarea id="summernote" name="description" required>{{$room_data->description}}</textarea>
+                  <textarea class="form-control" id="summernoteRemoved" name="description" required>{{$room_data->description}}</textarea>
 
                 </div>
 
@@ -755,7 +859,7 @@
                   <label>Notes</label>
 
                   <!-- <input type="text" class="form-control" name="notes" id="notes" placeholder="Enter notes" value="{{$room_data->notes}}" > -->
-                  <textarea id="summernote1" name="notes" required>{{$room_data->notes}}</textarea>
+                  <textarea class="form-control" id="summernote1Removed" name="notes" required>{{$room_data->notes}}</textarea>
 
                 </div>
 

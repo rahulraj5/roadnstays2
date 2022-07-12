@@ -26,6 +26,10 @@
 	      types: ['geocode']
 	    });
 	  autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      console.log(place);
+      document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+      document.getElementById('hotel_longitude').value = place.geometry.location.lng();
 	    fillInAddress(autocomplete, "");
 	  });
 
@@ -133,27 +137,32 @@
             
             <div class="hotel-type">
             <h3>Hotels in India, Asia</h3>
-            <form>
+            <form method="GET" action="{{url('hotelList')}}">
+              @csrf
                <div class="row">
-                  <div class="col-md-4 filter_01 pr-0 h-hotel ">
+                  <div class="col-md-4 filter_01 pr-0 h-hotel pl-0">
                  <!-- <p>Where To</p>  -->
                      <span class="span3 form-control-lo"><i class="bx bx-map"></i>
                      
-                     <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete">
+                     <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="" value="{{$location}}">
+                     <input type="hidden"  name="hotel_latitude" id="hotel_latitude" value="{{$hotel_latitude}}">
+                     <input type="hidden"  name="hotel_longitude" id="hotel_longitude" value="{{$hotel_longitude}}">
                  	</span>
                   </div>
 
                   <div class="col-md-2 filter_01 pr-0 ">
                   <!-- <p>Check_in</p> -->
-                  <input type="text" id="dt1" placeholder="Check-in">
+                  <input type="text" name="check_in" id="dt1" placeholder="Check-in" required="" value="{{date('d-M-y', strtotime($check_in))}}">
+                  <!-- <input type="text" name="check_in" id="dt1" placeholder="Check-in" required="" value="<?php echo date("d-M-y");?>"> -->
                   </div>
-                  <div class="col-md-2 filter_01 pr-0 pl-0">
+                  <div class="col-md-2 filter_01 pr-0">
                   <!-- <p>Check_out</p> -->
-                  <input type="text" id="dt2" placeholder="Check-Out">
+                   <input type="text" name="check_out" id="dt2" placeholder="Check-Out" required="" value="{{date('d-M-y', strtotime($check_out))}}">
+                   <!-- <input type="text" name="check_out" id="dt2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day"));?> "> -->
                   </div>
                   <div class="col-md-2 filter_01 pr-0 ">
                     <!-- <p>Person</p> -->
-                     <select class="h-siz">
+                     <select class="h-siz" name="person">
                         <option>1 Person </option>
                         <option>2 Person</option>
                         <option>3 Person</option>
@@ -189,16 +198,16 @@
                      <input type="checkbox" id="javascript">
                      <label for="javascript">All-inclusive plan available</label>
                   </div> -->
-                  <h6>Hotel-Details</h6>
+                  <h6>Filter</h6>
         <div class="category category-1">
         <p> budget (per night)</p>
         <ul>
-            <li><input type="checkbox" name="budget" id="">0 - 5000</li>
-            <li><input type="checkbox" name="budget" id="">5000-7500</li>
-            <li><input type="checkbox" name="budget" id="">7500 - 10000</li>
-            <li><input type="checkbox" name="budget" id="">10000 - 20000</li>
-            <li><input type="checkbox" name="budget" id="">20000 - 25000</li>
-            <li><input type="checkbox" name="budget" id="">Other</li>
+            <li><label><input type="checkbox" name="budget" id="">0 - 5000</label></li>
+            <li><label><input type="checkbox" name="budget" id="">5000-7500</label></li>
+            <li><label><input type="checkbox" name="budget" id="">7500 - 10000</label></li>
+            <li><label><input type="checkbox" name="budget" id="">10000 - 20000</label></li>
+            <li><label><input type="checkbox" name="budget" id="">20000 - 25000</label></li>
+            <li><label><input type="checkbox" name="budget" id="">Other</label></li>
             
         </ul>
         </div>
@@ -206,10 +215,10 @@
         <div class="category category-2">
             <p>Star Category</p>
             <ul>
-                <li><input type="checkbox" name="star" id="">5 star</li>
-                <li><input type="checkbox" name="star" id="">4 star</li>
-                <li><input type="checkbox" name="star" id="">3.5 star</li>
-                <li><input type="checkbox" name="star" id="">3 star</li>
+                <li><label><input type="checkbox" name="star" id="">5 star<label></li>
+                <li><label><input type="checkbox" name="star" id="">4 star<label></li>
+                <li><label><input type="checkbox" name="star" id="">3.5 star<label></li>
+                <li><label><input type="checkbox" name="star" id="">3 star<label></li>
                 
             </ul>
         </div>
@@ -217,13 +226,13 @@
         <div class="category category-3">
             <p>Room-Wise</p>
             <ul>
-                <li><input type="checkbox" name="Room-Wise" id="">Room-Wise</li>
-                <li><input type="checkbox" name="Room-Wise" id="">double Bedroom</li>
-                <li><input type="checkbox" name="Room-Wise" id="">Bedroom with suite</li>
-                <li><input type="checkbox" name="Room-Wise" id="">Suite</li>
-                <li><input type="checkbox" name="Room-Wise" id="">Hall</li>
-                <li><input type="checkbox" name="Room-Wise" id="">Hall with double room</li>
-                <li><input type="checkbox" name="Room-Wise" id="">Room with balcony</li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Room-Wise</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">double Bedroom</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Bedroom with suite</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Suite</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Hall</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Hall with double room</label></li>
+                <li><label><input type="checkbox" name="Room-Wise" id="">Room with balcony</label></li>
                 
                
             </ul>
@@ -232,10 +241,10 @@
         <div class="category category-4">
             <p>Meals</p>
             <ul>
-                <li><input type="checkbox" name="Meals" id="">Breakfast</li>
-                <li><input type="checkbox" name="Meals" id="">Lunch</li>
-                <li><input type="checkbox" name="Meals" id="">Dinner</li>
-                <li><input type="checkbox" name="Meals" id="">Breakfast with dinner</li>
+                <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
+                <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
+                <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
+                <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
                 
             </ul>
         </div>
@@ -247,11 +256,11 @@
         <div class="category category-5">
             <p>Property type</p>
             <ul>
-                <li><input type="checkbox" name="" id="">Hotels</li>
-                <li><input type="checkbox" name="" id="">Villa</li>
-                <li><input type="checkbox" name="" id="">Bed and breakfasts</li>
-                <li><input type="checkbox" name="" id="">Resorts</li>
-                <li><input type="checkbox" name="" id="">Country houses</li> 
+                <li><label><input type="checkbox" name="" id="">Hotels</label></li>
+                <li><label><input type="checkbox" name="" id="">Villa</label></li>
+                <li><label><input type="checkbox" name="" id="">Bed and breakfasts</label></li>
+                <li><label><input type="checkbox" name="" id="">Resorts</label></li>
+                <li><label><input type="checkbox" name="" id="">Country houses</label></li> 
             </ul>
         </div>
          </div>
@@ -259,13 +268,15 @@
       <div class="col-md-9 gird-event">
          <div class="row pt-3">
             <div class="col-md-12">
+              @if (!empty($hotel_data))
                <div class="col-md-12 pro-fund p-0">
-                  <h2>Goa: 847 Hotel found</h2>
+                  <h2>{{$location}}: {{$hotelcount}} Hotel found</h2>
                </div>
+
                @foreach($hotel_data as $hotel)
                <div class="event-br">
                   <div class="img-list-event">
-                     <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel['gallary'][0]['img_name']}}">
+                     <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel['hotel_gallery']}}">
                      <!-- <div class="ribbon"><span>POPULAR</span></div> -->
                   </div>
                   <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
@@ -276,7 +287,7 @@
 							<p><i class="bx bx-map"></i> {{$hotel['hotel_address']}},{{$hotel['hotel_city']}}</p>
 
 						</div>
-                  <a href="{{url('/hotelDetails')}}/{{base64_encode($hotel['hotel_id'])}}" class="book-btn" target="_blank">View Room</a>
+                  <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}" class="book-btn" target="_blank">View Room</a>
                   
 						<!-- <div class="review-count">
 							<div class="info_rev">
@@ -314,7 +325,7 @@
                            @else
                            <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
                            @endif
-						   <span class="rvw">26412 review</span>
+						             <span class="rvw">26412 review</span>
                         </div>
                         <b> {{$hotel['property_contact_name']}}</b>
                         <!-- <p class="p-0"> {{$hotel['hotel_content']}}.</p> -->
@@ -322,11 +333,15 @@
                      <div class="w-100">
                         <div class="time-event-bn">
                            <div class="botm-icom">
-                              <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
+                            @foreach($hotel['hotel_amenities'] as $amenities)
+                              <a href="#"><i class='bx bx-check'></i> <label>{{$amenities->amenity_name}}</label> </a>
+                            @endforeach  
+
+                              <!-- <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
                               <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
                               <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
                               <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                              <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
+                              <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a> -->
                            </div>
                            
                            
@@ -346,6 +361,9 @@
                   </div>
                </div>
                @endforeach
+               @else
+
+               @endif
                <!-- <div class="event-br">
                   <div class="img-list-event">
                      <img src="assets/img/pany.png">

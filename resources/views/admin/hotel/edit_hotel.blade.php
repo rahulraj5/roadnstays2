@@ -34,11 +34,43 @@
     text-align: center;
     cursor: pointer;
   }
-
   .remove:hover {
     background: white;
     color: black;
   }
+
+  .removeImage {
+    display: block;
+    background: #2a7b72 !important;
+    border: 1px solid #126c62 !important;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .removeImage:hover {
+    background: #2a7b72 !important;
+    color: black;
+  }
+  
+  a.add_service_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    position: relative;
+    top: 7px;
+  }
+  a.remove_serv_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+}
 </style>
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
@@ -124,9 +156,38 @@
 </script>
 
 <script>
-  $(".remove").click(function() {
-    $(this).parent(".pip").remove();
+  function deleteConfirmation(Id) {
+    toastDelete.fire({
+    }).then(function(e) {
+      if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/admin/deleteHotelSingleImage')}}",
+          data: {'id': Id, _token: CSRF_TOKEN},
+          dataType: 'JSON',
+          success: function(data){
+            $("#remove_img_"+Id).parent('div').remove();
+            success_noti(data.msg);
+          },
+          error: function(errorData) {
+            console.log(errorData);
+            alert('Please refresh page and try again!');
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+  $(".removeImage").click(function() {
+    var Id=$(this).attr('id');
+    var hotel_id = $('#hotel_id').val();
+    deleteConfirmation(Id);
   });
+
 </script>
 
 <script>
@@ -136,7 +197,17 @@
       theme: 'bootstrap4'
     })
   });
+
+  $("select").on("select2:select", function (evt) {
+    var element = evt.params.data.element;
+    var $element = $(element);
+    
+    $element.detach();
+    $(this).append($element);
+    $(this).trigger("change");
+  });
 </script>
+
 
 <script>
   $("#parking_option1").click(function() {
@@ -351,7 +422,7 @@
     $(addServButton).click(function() {
       if (x < maxField) {
         x++; 
-        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>'); 
+        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="service[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>');
       }
     });
 
@@ -373,7 +444,7 @@
     $(addButton).click(function() {
       if (x < maxField) {
         x++; 
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>'); 
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
 
@@ -385,7 +456,7 @@
   });
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>-->
 
 <script type="text/javascript">
     function initialize() {
@@ -418,6 +489,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
+          <a href="{{url('/admin/hotelList')}}"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>Edit Hotel</h1>
         </div>
         <div class="col-sm-6">
@@ -521,7 +593,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Hotel Content</label>
-                              <textarea id="summernote" name="summernote">{{(!empty($hotel_info-> hotel_content) ? $hotel_info-> hotel_content : '')}}</textarea>
+                              <textarea class="form-control" id="summernoteRemoved" name="summernote">{{(!empty($hotel_info-> hotel_content) ? $hotel_info-> hotel_content : '')}}</textarea>
                               <!-- Place <em>some</em> <u>text</u> <strong>here</strong> -->
                               <!-- </textarea> -->
                             </div>
@@ -543,12 +615,36 @@
                               @php $hotel_gallery = DB::table('hotel_gallery')->orderby('id', 'ASC')->where('hotel_id', $hotel_info->hotel_id)->get(); @endphp
                               @foreach($hotel_gallery as $image)
                               <div class="image-gridiv" id="hotelGalleryPreview">
-                                <img src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
+                                <span class="pip" id="remove_img_{{$image->id}}">
+                                <img class="imageThumb" src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
+                                <br/><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
                               </div>
                               @endforeach
                             </div>
                           </div>
 
+                          <div class="col-md-6">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="customFile">Hotel Featured/Main Image</label>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="hotelFeaturedImg" name="hotelFeaturedImg">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+
+                            @if((!empty($hotel_info->hotel_gallery)))
+                            <div class="col-md-12">
+                              <div class="d-flex flex-wrap">
+                                <div class="image-gridiv">
+                                  <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel_info->hotel_gallery}}">
+                                </div>
+                              </div>
+                            </div>
+                            @endif
+                          </div>
+                          
 
                           <div class="col-md-6">
                             <div class="form-group">
@@ -705,7 +801,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Hotel Notes</label>
-                              <textarea id="summernote1" name="hotel_notes">{{(!empty($hotel_info-> hotel_notes) ? $hotel_info-> hotel_notes : '')}}</textarea>
+                              <textarea class="form-control" id="summernote1Removed" name="hotel_notes">{{(!empty($hotel_info-> hotel_notes) ? $hotel_info-> hotel_notes : '')}}</textarea>
                               <!-- Place <em>some</em> <u>text</u> <strong>here</strong> -->
                               <!-- </textarea> -->
                             </div>
@@ -778,29 +874,42 @@
                         <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
                         <div class="row">
-                          <!--<div class="col-sm-6">
-                              <label>Booking Option</label>
-                              <div class="row">
-                                  <div class="col-sm-6">
-                                  <div class="form-group">
-                                      <div class="custom-control custom-checkbox">
-                                      <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                      <label for="customCheckbox1" class="custom-control-label">Instant booking</label>
-                                      </div>
-                                      
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Reservation/Payment mode</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <label>Reservation/Payment mode</label>
+                            <div class="row">
+                              <div class="col-sm-2">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($hotel_info->payment_mode == 1){echo 'checked';} @endphp>
+                                    <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                   </div>
-                                  </div>
-                                  <div class="col-sm-6">
-                                  <div class="form-group">
-                                      
-                                      <div class="custom-control custom-checkbox">
-                                      <input class="custom-control-input" type="checkbox" id="customCheckbox2">
-                                      <label for="customCheckbox2" class="custom-control-label">Approval based booking</label>
-                                      </div>
-                                  </div>
-                                  </div>
+                                </div>
                               </div>
-                          </div>-->
+                              <div class="col-sm-5">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($hotel_info->payment_mode == 2){echo 'checked';} @endphp>
+                                    <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($hotel_info->payment_mode == 0){echo 'checked';} @endphp>
+                                    <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                           <div class="col-sm-6">
                             <label>Booking Option</label>
@@ -820,7 +929,7 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($hotel_info->booking_option == 1){echo 'checked';} @endphp>
+                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($hotel_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
@@ -848,14 +957,14 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}" readonly>
+                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}" readonly>
+                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}">
                             </div>
                           </div>
 
@@ -958,8 +1067,19 @@
                                   <div class="col-md-3">
                                     <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
                                   </div>
-                                  <div class="col-md-3">
+                                  <!-- <div class="col-md-3">
                                     <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" />
+                                  </div> -->
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
+                                        <option value="">Select Price type</option>
+                                        <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                        <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                        <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                        <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                      </select>
+                                    </div>
                                   </div>
                                   @if($key == 0)
                                   <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
@@ -979,8 +1099,19 @@
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
                                 </div>
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                   <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                                </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee">Single fee</option>
+                                      <option value="per_night">Per night</option>
+                                      <option value="per_guest">Per guest</option>
+                                      <option value="per_night_per_guest">Per night per guest</option>
+                                    </select>
+                                  </div>
                                 </div>
                                 <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                               </div>
@@ -1014,8 +1145,19 @@
                                   <div class="col-md-3">
                                     <input type="text" class="form-control" name="service[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->serv_fee_price }}" />
                                   </div>
-                                  <div class="col-md-3">
+                                  <!-- <div class="col-md-3">
                                     <input type="text" class="form-control" name="service[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->serv_fee_type }}" />
+                                  </div> -->
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <select class="form-control select2bs4" name="service[@php echo $key; @endphp][type]" style="width: 100%;">
+                                        <option value="">Select Price type</option>
+                                        <option value="single_fee" {{ $value->serv_fee_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                        <option value="per_night" {{ $value->serv_fee_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                        <option value="per_guest" {{ $value->serv_fee_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                        <option value="per_night_per_guest" {{ $value->serv_fee_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                      </select>
+                                    </div>
                                   </div>
                                   @if($key == 0)
                                   <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
@@ -1035,8 +1177,19 @@
                                 <div class="col-md-3">
                                   <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" />
                                 </div>
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                   <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" />
+                                </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="service[0][type]" style="width: 100%;">
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee">Single fee</option>
+                                      <option value="per_night">Per night</option>
+                                      <option value="per_guest">Per guest</option>
+                                      <option value="per_night_per_guest">Per night per guest</option>
+                                    </select>
+                                  </div>
                                 </div>
                                 <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
                               </div>

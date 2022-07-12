@@ -26,32 +26,38 @@
 <div class="container-fluid">
 <div class="row filter-row">
     <div class="col-md-3">
-        <h6>Filter - Event Space</h6>
+        <h6 class="filter-text">Filter - Event Space</h6>
         <div class="category category-1">
         <p>Private event</p>
         <ul>
-            <li><input type="checkbox" name="Wedding" id="">Wedding</li>
-            <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
-            <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
-            <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
-            <li><input type="checkbox" name="Business'" id="">Business'</li>
-            <li><input type="checkbox" name="Schools" id="">Schools</li>
-            <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li>
+            <li> <label><input type="checkbox" name="Wedding" id="">Wedding </label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Birthday parties" id="">Birthday parties</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Schools" id="">Schools</label></li>
+            <li><label><input type="checkbox" name="Business'" id="">Business</label></li>
+            <li><label><input type="checkbox" name="Manufacturers" id="">Manufacturers</label></li>
         </ul>
         </div>
 
         <div class="category category-2">
-            <p>CORPORATE</p>
-            <ul>
-                <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
-                <li><input type="checkbox" name="Conferences" id="">Conferences</li>
-                <li><input type="checkbox" name="Networking events" id="">Networking events</li>
-                <li><input type="checkbox" name="Seminars" id="">Seminars</li>
-                <li><input type="checkbox" name="Product launches" id="">Product launches</li>
-                <li><input type="checkbox" name="Meetings" id="">Meetings</li>
-                <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
-                <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
-            </ul>
+  <p>CORPORATE</p>
+  <ul>
+      <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
+      <li><input type="checkbox" name="Conferences" id="">Conferences</li>
+      <li><input type="checkbox" name="Networking events" id="">Networking events</li>
+      <li><input type="checkbox" name="Seminars" id="">Seminars</li>
+      <li><input type="checkbox" name="Product launches" id="">Product launches</li>
+      <li><input type="checkbox" name="Meetings" id="">Meetings</li>
+      <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
+      <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
+  </ul>
         </div>
 
         <div class="category category-3">
@@ -173,12 +179,16 @@
             <button>Buy Ticket</button>
            
         </div>
+
+
        </div>
         
 
-       <h1>Wedding</h1>
 
         <div class="row event-box-1">
+          <div class="col-md-12">
+          <h1>Wedding</h1>
+         </div>
         <div class="col-md-4 box">
            
            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h6.jpg" alt=""></div>
@@ -215,8 +225,8 @@
           
        </div>
         </div>
-
-        <h1>Business Conclave</h1>
+<div class="col-md-12">
+        <h1>Business Conclave</h1></div>
         <div class="row event-box-1">
         <div class="col-md-4 box">
            
@@ -254,8 +264,8 @@
           
        </div>
         </div>
-
-        <h1>Live Concert</h1>
+<div class="col-md-12">
+        <h1>Live Concert</h1></div>
         <div class="row event-box-1">
         <div class="col-md-4 box">
            

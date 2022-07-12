@@ -84,6 +84,44 @@
     })
   </script>
 
+  <script type="text/javascript">
+    function copyConfirmation(id) {
+      toastCopy.fire({}).then(function(e) {
+        if (e.value === true) {
+          // alert(id);
+          var site_url = $("#baseUrl").val();
+          var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+          $.ajax({
+            type: 'POST',
+            url: "{{url('/admin/addCopyRoom')}}",
+            data: {
+              room_id: id,
+              _token: CSRF_TOKEN
+            },
+            dataType: 'JSON',
+            success: function(results) {
+              // $("#row" + id).remove();
+              // console.log(results);
+              if(results.status == 'success'){
+                success_noti(results.msg);
+                // success_noti(results.msg+results.roomID);
+                // setTimeout(function() {window.location.reload()}, 1000);
+                setTimeout(function() {window.location.href = site_url + "/admin/editCopyHotelRoom/" + results.new_room_id}, 2000);
+              }else{
+                error_noti(results.msg);
+                // error_noti(results.msg+' '+results.roomID);
+              }
+              
+            }
+          });
+        } else {
+          e.dismiss;
+        }
+      }, function(dismiss) {
+        return false;
+      })
+    }
+  </script>
 @endsection
 
 @section('content')
@@ -140,7 +178,7 @@
 
                             <div class="col-md-11"></div>
 
-                            <div class="col-md-1"><a href="{{ url('/admin/addroom') }}"
+                            <div class="col-md-1"><a href="{{ url('/admin/addroom') }}/{{ $hotel_id }}"
 
                                     class="btn btn-block btn-dark">Add</a></div>
 
@@ -170,13 +208,18 @@
 
                                             <th>SNo.</th>
 
-                                            <th>Title</th>
+                                            <th>Room Title</th>
+                                            <th>Room Type</th>
+                                            <th>Hotel Name</th>
 
                                             <th>Price</th>
+                                            <th>Rooms Quantity</th>
 
-                                            <th>Notes</th>
+                                            <!--<th>Notes</th>-->
 
-                                            <th>Details</th>
+                                            <!--<th>Details</th>-->
+
+                                            <th>Copy</th>
 
                                             <th>Status</th>
 
@@ -199,12 +242,19 @@
                                                     <td>{{ $i }}</td>
 
                                                     <td>{{ $arr->name }}</td>
+                                                    <td>{{ $arr->room_type_cat_title }}</td>
+                                                    <td>{{ $arr->hotel_name }}</td>
 
                                                     <td>{{ $arr->price_per_night }}</td>
+                                                    <td>{{ $arr->number_of_rooms }}</td>
 
-                                                    <td>{{ $arr->notes }}</td>
+                                                    <!--<td>{{ $arr->notes }}</td>-->
 
-                                                    <td>{{ $arr->description }}</td>
+                                                    <!--<td>{{ $arr->description }}</td>-->
+
+                                                    <td>
+                                                      <a href="javascript:void(0)" onclick="copyConfirmation('<?php echo $arr->id; ?>');" class="btn btn-info"><i class="fas fa-copy" alt="copy" title="copy"></i></a>
+                                                    </td>
 
                                                     <td class="project-state">
 
@@ -218,7 +268,7 @@
 
                                                             <a href="{{url('/admin/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
 
-                                                            <a href="{{url('/admin/editRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
+                                                            <a href="{{url('/admin/editHotelRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
                                                             <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
 

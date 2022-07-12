@@ -86,6 +86,15 @@
     });
 </script>
 
+<script>
+    $(function() {
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+    });
+</script>
+
 @endsection
 
 
@@ -270,20 +279,20 @@
 
                         <div class="row">
 
-                           <div class="col-md-6">
+                            <div class="col-md-6">
 
-                               <label>Address</label>
+                                <label>Address</label>
 
-                           </div>
+                            </div>
 
-                           <div class="col-md-6">
+                            <div class="col-md-6">
 
-                               <p>
-                                   {{ Auth::user()->address }} @if(!empty(Auth::user()->user_city)),@endif {{ Auth::user()->user_city }} @if(!empty(Auth::user()->state_id)),@endif {{ Auth::user()->state_id }} @if(!empty(Auth::user()->user_country)),@endif {{ Auth::user()->user_country }} @if(!empty(Auth::user()->postal_code)),@endif {{ Auth::user()->postal_code }} 
-                                  
+                                <p>
+                                    {{ Auth::user()->address }} @if(!empty(Auth::user()->user_city)),@endif {{ Auth::user()->user_city }} @if(!empty(Auth::user()->state_id)),@endif {{ Auth::user()->state_id }} @if(!empty(Auth::user()->user_country)),@endif {{ Auth::user()->user_country }} @if(!empty(Auth::user()->postal_code)),@endif {{ Auth::user()->postal_code }}
+
                                 </p>
 
-                           </div>
+                            </div>
 
                         </div>
 
@@ -365,6 +374,12 @@
 
                                     <div class="form-group">
 
+                                        <input type="text" class="form-control" name="plname" id="plname" value="{{ Auth::user()->last_name }}" placeholder="Last name">
+
+                                    </div>
+
+                                    <div class="form-group">
+
                                         <input type="email" class="form-control" name="puemail" id="puemail" value="{{ Auth::user()->email }}" placeholder="Email Address" readonly />
 
                                     </div>
@@ -389,7 +404,23 @@
 
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control" name="country" id="country" value="{{ Auth::user()->user_country }}" placeholder="Country">
+                                        <!-- <input type="text" class="form-control" name="country" id="country" value="{{ Auth::user()->user_country }}" placeholder="Country"> -->
+
+                                        <select class="form-control select2bs4" name="country" id="country" style="width: 100%;">
+
+                                            <option value="">Select Country</option>
+
+                                            @foreach ($countries as $cont)
+
+                                            <!-- <option value="{{ $cont->id }}">{{ $cont->name }}</option> -->
+                                            <option value="<?php echo $cont->id; ?>" <?php if (Auth::user()->user_country == $cont->id) {
+                                                                                                echo "selected";
+                                                                                                } ?>><?php echo $cont->name; ?></option>
+
+                                            @endforeach
+
+                                        
+                                        </select>
 
                                     </div>
 

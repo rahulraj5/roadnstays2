@@ -270,7 +270,7 @@ class ApiLoginController extends APIBaseController
 
                   // });
                   $data = array('user_id'=>$user_id,'name'=>"User");
-                  Mail::send('email.signup_email_template', $data, function ($message) use ($inData) {
+                  Mail::send('emails.signup_email_template', $data, function ($message) use ($inData) {
                                   $message->from($inData['from_email'],'roadNstays');
                                   $message->to($inData['email']);
                                   $message->subject('roadNstays - User Signup');
@@ -397,32 +397,30 @@ class ApiLoginController extends APIBaseController
 
                     }
 
-                    $user_info = Auth::user();
+                    $user_info = Auth::user(); 
                     
                     $user_new_info = array(
-                            "user_id"=> $user_info->id,
-                            "user_type"=>$user_info->user_type,
-                            "first_name"=>$user_info->first_name,
-                            "last_name"=>$user_info->last_name,
-                            "email"=>$user_info->email,
-                            "contact_number"=>$user_info->contact_number,
-                            "role_id"=>$user_info->role_id,
-                            "is_verify_email"=>$user_info->is_verify_email,
-                            "is_verify_contact"=>$user_info->is_verify_contact,
-                            "my_referral_code"=>$user_info->my_referral_code,
-                            "user_referral_id"=>$user_info->user_referral_id,
-                            "wallet_balance"=>$user_info->wallet_balance,
-                            "profile_pic"=>$user_info->profile_pic,
-                            "device_id"=>$user_info->device_id,
-                            "device_token"=>$user_info->device_token,
-                            "device_type"=>$user_info->device_type
-                        );
-                    
-                    
-
+                    "user_id"=> $user_info->id,
+                    "user_type"=>$user_info->user_type,
+                    "first_name"=> isset($user_info->first_name)?$user_info->first_name:"",
+                    "last_name"=> isset($user_info->last_name)?$user_info->last_name:"",
+                    "email"=>$user_info->email,
+                    "contact_number"=>isset($user_info->contact_number)?$user_info->contact_number:"",
+                    "role_id"=> isset($user_info->role_id)?$user_info->role_id:0,
+                    "is_verify_email"=>isset($user_info->is_verify_email)?$user_info->is_verify_email:0,
+                    "is_verify_contact"=>isset($user_info->is_verify_contact)?$user_info->is_verify_contact:0, 
+                    "my_referral_code"=>isset($user_info->my_referral_code)?$user_info->my_referral_code:"", 
+                    "user_referral_id"=>isset($user_info->user_referral_id)?$user_info->user_referral_id:"", 
+                    "wallet_balance"=>isset($user_info->wallet_balance)?$user_info->wallet_balance:0,
+                    "profile_pic"=>isset($user_info->profile_pic)?$user_info->profile_pic:"",
+                    "device_id"=>isset($user_info->device_id)?$user_info->device_id:"",
+                    "device_token"=>isset($user_info->device_token)?$user_info->device_token:"",
+                    "device_type"=>isset($user_info->device_type)?$user_info->device_type:""
+                    );
+                            
                     return $this->sendResponse($user_new_info, 'You are logged In.!');
 
-                  } else {
+                  }else{
 
                     Auth::logout();
 
@@ -528,7 +526,7 @@ class ApiLoginController extends APIBaseController
 
 	                    $inData['from_email']     =  $fromEmail;
 
-	                    $res1 = Mail::send('email.forget_password',$data, function ($message) use ($inData) {
+	                    $res1 = Mail::send('emails.forget_password',$data, function ($message) use ($inData) {
 
 	                        $message->from($inData['from_email'],'roadNstays');
 
@@ -639,15 +637,15 @@ class ApiLoginController extends APIBaseController
         } else {
             
             $user_obj = User::where('id','=',$request->user_id)->first();
-            
+        
             $user_info = array(
                 "user_id"=> $request->user_id,
                 "user_type"=>$user_obj->user_type,
-                "first_name"=>$user_obj->first_name,
-                "last_name"=>$user_obj->last_name,
+                "first_name"=>isset($user_obj->first_name)?$user_obj->first_name:"",
+                "last_name"=>isset($user_obj->last_name)?$user_obj->last_name:"",
                 "email"=>$user_obj->email,
-                "contact_number"=>$user_obj->contact_number,
-                "profile_pic"=>$user_obj->profile_pic,
+                "contact_number"=>isset($user_obj->contact_number)?$user_obj->contact_number:"",
+                "profile_pic"=> isset($user_obj->profile_pic)?$user_obj->profile_pic:"",
             );
             
             return $this->sendResponse($user_info,"");
@@ -660,10 +658,10 @@ class ApiLoginController extends APIBaseController
             'user_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'contact_number' => 'required|numeric|unique:users,contact_number',
+            'contact_number' => 'required|numeric',
         ]);
         
-        $user_obj = User::where('id','=',$request->user_id)->first();
+        
         
         if ($validator->fails()) {
 
@@ -671,7 +669,7 @@ class ApiLoginController extends APIBaseController
 
         } else {
             $name1 = '';
-
+            $user_obj = User::where('id','=',$request->user_id)->first();
             if ($request->hasFile('profile_image')) {
             
               $image = $request->file('profile_image');
@@ -697,11 +695,19 @@ class ApiLoginController extends APIBaseController
             
             $res = DB::update('update users set first_name = ?,last_name=?,contact_number=?,profile_pic=? where id = ?',[$first_name,$last_name,$contact_number,$profile_pic,$user_id]);
             
-            if($res){
-                return $this->sendResponse(array(),"Profile Updated Successfully");
-            }else{
-                return $this->sendError('Some internal issue occured. Please check and try again.', array(), 200);
-            }
+            
+                $user_obj1 = User::where('id','=',$request->user_id)->first();
+                $user_info = array(
+                "user_id"=> $user_obj1->user_id,
+                "user_type"=>$user_obj1->user_type,
+                "first_name"=>$user_obj1->first_name,
+                "last_name"=>$user_obj1->last_name,
+                "email"=>$user_obj1->email,
+                "contact_number"=>$user_obj1->contact_number,
+                "profile_pic"=>$user_obj1->profile_pic,
+            );
+                return $this->sendResponse($user_info,"Profile Updated Successfully");
+            
         }
         
     }

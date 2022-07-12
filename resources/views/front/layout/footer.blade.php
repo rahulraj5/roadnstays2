@@ -49,9 +49,16 @@
             <h4>Explore</h4>
 
             <ul>
-
+            @if(Auth::check())
+              @if(Auth::user()->user_type == "service_provider")
+                <li> <a href="{{ url('/servicepro/dashboard') }}">Service Provider Dashboard</a></li>
+              @else
+                <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signin">Service Provider Login</a></li>
+              @endif
+            @else  
               <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signin">Service Provider Login</a></li>
-
+            @endif
+              
               <li> <a href="#">Weather</a></li>
 
               <li> <a href="#">Packages</a></li>
@@ -160,7 +167,7 @@
 
   <!-- Modal user login -->
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal-log-in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
 
@@ -222,9 +229,9 @@
 
                     <div class="forgot">
 
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-signup" class="signup-bar" id="signup">Sign Up</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-sign-up" class="signup-bar" id="signup">Sign Up</a>
 
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#forgotpass" id="forgot">Forgot password?</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#forgot-pass" id="forgot">Forgot password?</a>
 
                     </div>
 
@@ -252,7 +259,7 @@
 
   <!-- Modal user signup-->
 
-  <div class="modal fade" id="exampleModal-signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal-sign-up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
 
@@ -286,7 +293,13 @@
 
                   <div class="form-group">
 
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Full name">
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First name">
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last name">
 
                   </div>
 
@@ -350,7 +363,7 @@
 
   <!-- forgotpass -->
 
-  <div class="modal fade" id="forgotpass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="forgot-pass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
 
@@ -437,6 +450,9 @@
                     <input type="text" class="form-control" name="vsname" id="vsname" placeholder="Full name">
                   </div>
                   <div class="form-group">
+                    <input type="text" class="form-control" name="vslname" id="vslname" placeholder="Full name">
+                  </div>
+                  <div class="form-group">
                     <input type="text" class="form-control" name="vsphone_no" id="vsphone_no" placeholder="Mobile number">
                   </div>
                   <div class="form-group">
@@ -518,21 +534,21 @@
 
   $("#signup").click(function () {
 
-      $("#exampleModal").modal('hide');
+      $("#exampleModal-log-in").addClass('disnone');
 
-      $("#forgotpass").modal('hide');
+      $("#forgot-pass").addClass('disnone');
 
-      $("#exampleModal-signup").modal('show');
+      $("#exampleModal-sign-up").addClass('disshow');
 
   });
 
   $("#forgot").click(function () {
 
-      $("#exampleModal").modal('hide');
+      $("#exampleModal-log-in").modal('hide');
 
-      $("#exampleModal-signup").modal('hide');
+      $("#exampleModal-sign-up").modal('hide');
 
-      $("#forgotpass").modal('show');
+      $("#forgot-pass").modal('show');
 
   });
 

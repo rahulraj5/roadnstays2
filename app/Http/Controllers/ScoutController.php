@@ -49,6 +49,7 @@ class ScoutController extends Controller
         //     return response()->json(['status' => 'error', 'msg' => 'Please Fill required filed']);
         // } 
         $fname = $request->fname;
+        $lname = $request->lname;
         $email = $request->email;
         $user_country = $request->user_country;
         $user_city = $request->city;
@@ -64,7 +65,7 @@ class ScoutController extends Controller
             $obj = new User;
             $obj->user_type = "scout";
             $obj->first_name = $fname;
-            // $obj->last_name = $lname;
+            $obj->last_name = $lname;
             $obj->email = $email;
             $obj->user_country = $user_country;
             $obj->user_city = $user_city;
@@ -110,19 +111,19 @@ class ScoutController extends Controller
     
     public function update_scout(Request $request){
 
-    	$fname = $request->input('fname') ;
-        $lname = $request->input('lname') ;
+    	$fname = $request->input('fnameu') ;
+        $lname = $request->input('lnameu') ;
         $user_id = $request->input('user_id') ;
-    	$email = $request->input('email') ;
-        $user_country = $request->input('user_country') ;
-        $city = $request->input('city') ;
-        $address = $request->input('address') ;
-    	$contact_number = $request->input('contact_number') ;
+    	$email = $request->input('emailu') ;
+        $user_country = $request->input('user_countryu') ;
+        $city = $request->input('cityu') ;
+        $address = $request->input('addressu') ;
+    	$contact_number = $request->input('contact_numberu') ;
 
     	$userData = User::where('id', $user_id)->first();
     
         $userData->first_name = $fname;
-    	// $userData->last_name = $lname;
+    	$userData->last_name = $lname;
         $userData->email = $email;
         $userData->user_country = $user_country;
         $userData->user_city = $city;

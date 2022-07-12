@@ -118,25 +118,25 @@
 
                     <div class="form-group">
 
-                      <label>Customer Full Name</label>
+                      <label>Customer First Name</label>
 
-                      <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Customer First Name"  value="{{(!empty($user_info->first_name) ? $user_info->first_name : '')}}">
+                      <input type="text" class="form-control" name="fnameup" id="fname" placeholder="Enter Customer First Name"  value="{{(!empty($user_info->first_name) ? $user_info->first_name : '')}}">
 
                     </div>
 
                   </div>
 
-                  <!-- <div class="col-md-6">
+                  <div class="col-md-6">
 
                     <div class="form-group">
 
                       <label>Customer Last Name</label>
 
-                      <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Customer Last Name"  value="{{(!empty($user_info->last_name) ? $user_info->last_name : '')}}">
+                      <input type="text" class="form-control" name="lnameup" id="lname" placeholder="Enter Customer Last Name"  value="{{(!empty($user_info->last_name) ? $user_info->last_name : '')}}">
 
                     </div>
 
-                  </div> -->
+                  </div>
 
 
 
@@ -146,7 +146,7 @@
 
                       <label>Customer Email</label>
 
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Enter Customer Email" value="{{(!empty($user_info->email) ? $user_info->email : '')}}">
+                      <input type="email" class="form-control" name="emailup" id="email" placeholder="Enter Customer Email" value="{{(!empty($user_info->email) ? $user_info->email : '')}}">
 
                     </div>
 
@@ -160,7 +160,7 @@
 
                       <label>Customer Number</label>
 
-                      <input type="number" class="form-control" name="contact_number" id="contact_number" placeholder="Enter Customer Number" value="{{(!empty($user_info->contact_number) ? $user_info->contact_number : '')}}">
+                      <input type="number" class="form-control" name="contact_numberup" id="contact_number" placeholder="Enter Customer Number" value="{{(!empty($user_info->contact_number) ? $user_info->contact_number : '')}}">
 
                     </div>
 
@@ -174,7 +174,7 @@
 
                       <label>Update Password</label>
 
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="new-password">
+                      <input type="password" class="form-control" name="passwordup" id="password" placeholder="Enter Password" autocomplete="new-password">
 
                     </div>
 
@@ -202,7 +202,7 @@
 
                       <label>Address</label>
 
-                      <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address" value="{{(!empty($user_info->address) ? $user_info->address : '')}}">
+                      <input type="text" class="form-control" name="addressup" id="address" placeholder="Enter Address" value="{{(!empty($user_info->address) ? $user_info->address : '')}}">
 
                     </div>
 
@@ -216,7 +216,7 @@
 
                       <label>City</label>
 
-                      <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" value="{{(!empty($user_info->user_city) ? $user_info->user_city : '')}}">
+                      <input type="text" class="form-control" name="cityup" id="city" placeholder="Enter City" value="{{(!empty($user_info->user_city) ? $user_info->user_city : '')}}">
 
                     </div>
 
@@ -225,75 +225,35 @@
                   
 
                   <div class="col-md-6">
-
                     <div class="form-group">
-
                       <label>Country</label>
-
                       <!-- <div class="select2-purple"> -->
-
-                        <select class="form-control select2bs4" name="user_country"  id="user_country" style="width: 100%;">
-
+                        <select class="form-control select2bs4" name="user_countryup"  id="user_country" style="width: 100%;">
                         <!-- <option value="{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}">{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}</option> -->
-
                           <!-- @foreach ($countries as $cont) -->
-
                             <!-- <option value="{{ $cont->id }}">{{ $cont->name }}</option> -->
-
                           <!-- @endforeach -->
-
-
-
                           <option value="">Select Country</option>
-
                             <?php
-
                             //print_r($country);
-
                             foreach ($countries as $value1) {
-
                             ?>
-
                             <option value="<?php echo $value1->id; ?>" <?php if ($user_info->user_country == $value1->id) {
-
                                                                                 echo "selected";
-
                                                                                 } ?>><?php echo $value1->name; ?></option>
-
                             <?php
-
                             }
-
                             ?>
-
                         </select>
-
                       <!-- </div>   -->
-
                     </div>
-
                   </div>
-
-
 
                   <div class="col-12">
-
-
-
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
-
-
-
                   </div>
-
-
-
                 </div>
-
               </form>
-
-
-
             <!-- /.row -->
 
           </div>

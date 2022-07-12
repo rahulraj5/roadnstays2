@@ -33,6 +33,7 @@ class CustomerController extends Controller
     public function add_customer_action(Request $request)
     {
         $fname = $request->fname;
+        $lname = $request->lname;
         $email = $request->email;
         $user_country = $request->user_country;
         $user_city = $request->city;
@@ -66,7 +67,7 @@ class CustomerController extends Controller
             $obj = new User;
             $obj->user_type = "normal_user";
             $obj->first_name = $fname;
-            // $obj->last_name = $lname;
+            $obj->last_name = $lname;
             $obj->email = $email;
             $obj->user_country = $user_country;
             $obj->user_city = $user_city;
@@ -112,22 +113,22 @@ class CustomerController extends Controller
     
     public function customer_update(Request $request){
 
-    	$fname = $request->input('fname') ;
-        $lname = $request->input('lname') ;
+    	$fname = $request->input('fnameup') ;
+        $lname = $request->input('lnameup') ;
         $user_id = $request->input('user_id') ;
-    	$email = $request->input('email') ;
-        $user_country = $request->input('user_country') ;
-        $city = $request->input('city') ;
-        $address = $request->input('address') ;
-    	$contact_number = $request->input('contact_number') ;
+    	$email = $request->input('emailup') ;
+        $user_country = $request->input('user_countryup') ;
+        $city = $request->input('cityup') ;
+        $address = $request->input('addressup') ;
+    	$contact_number = $request->input('contact_numberup') ;
 
     	$userData = User::where('id', $user_id)->first();
     
         $userData->first_name = $fname;
-    	// $userData->last_name = $lname;
+    	$userData->last_name = $lname;
         $userData->email = $email;
-        if($request->password){
-            $userData->password = bcrypt($request->password);
+        if($request->passwordup){
+            $userData->password = bcrypt($request->passwordup);
         }
         $userData->user_country = $user_country;
         $userData->user_city = $city;
@@ -187,5 +188,66 @@ class CustomerController extends Controller
             return json_encode(array('status' => 'error','msg' => 'Some internal issue occured.'));
         }
 
+    }
+
+    public function delete_coustomer(Request $request)
+    {
+        $hotel_id = $request->hotel_id;
+        $res = DB::table('hotels')->where('hotel_id', '=', $hotel_id)->first();
+        // echo "<pre>";print_r($res);die;
+        $getHotelGallery = DB::table('hotel_gallery')->where('hotel_id', '=', $hotel_id)->get();
+        $getRoom = DB::table('room_list')->where('hotel_id', '=', $hotel_id)->get();
+
+        if ($res) {
+            if(!empty($getHotelGallery))
+            {
+                foreach($getHotelGallery as $hotelGallery){
+                    // echo "<pre>";print_r($hotelGallery);
+                    $filePath = public_path('uploads/hotel_gallery/'. $hotelGallery->image);
+                    if(file_exists($filePath)){
+                        $oldImagePath = './public/uploads/hotel_gallery/' . $hotelGallery->image;
+                        unlink($oldImagePath);
+                    }
+                }
+            }
+
+            if(count($getRoom) > 0){
+                foreach($getRoom as $room){
+                    $getRoomimg = DB::table('room_gallery')->where('room_id', '=', $room->id)->get();
+                    
+                    if(count($getRoomimg) > 0){
+                        foreach($getRoomimg as $roomImg){
+                            // echo "<pre>";print_r($roomImg->image);
+                            $filePath = public_path('uploads/room_images/'. $roomImg->image);
+                            if(file_exists($filePath)){
+                                $oldImagePath = './public/uploads/room_images/' . $roomImg->image;
+                                unlink($oldImagePath);
+                            }
+                        }
+                    }
+                    DB::table('room_gallery')->where('room_id', '=', $room->id)->delete();
+
+
+                    DB::table('room_amenities')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_services')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_extra_option')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_features')->where('room_id', '=', $room->id)->delete();
+                }
+            }
+
+            DB::table('hotel_gallery')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('room_list')->where('hotel_id', '=', $hotel_id)->delete();
+            // DB::table('room_gallery')->where('room_id', '=', $room_id)->delete();
+            DB::table('hotel_amenities')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('hotel_services')->where('hotel_id', '=', $hotel_id)->delete();
+
+            DB::table('hotel_service_fee')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('hotel_extra_price')->where('hotel_id', '=', $hotel_id)->delete();
+
+            DB::table('hotels')->where('hotel_id', '=', $hotel_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
     }
 }

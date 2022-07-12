@@ -9,12 +9,9 @@ class Helper
 {
     public static function getFromEmail()
     {
-        if ($_SERVER['SERVER_NAME'] == 'votivelaravel.in') {
-            return 'testing@votivelaravel.in';
-        } 
-        // elseif ($_SERVER['SERVER_NAME'] == 'pix2arts.com') {
-        //     return 'info@pix2arts.com';
-        // } 
+        if ($_SERVER['SERVER_NAME'] == 'votivetechnologies.in') {
+            return 'info@votivetechnologies.in';
+        }
         else {
             return 'votivephp.rahulraj@gmail.com';
         }

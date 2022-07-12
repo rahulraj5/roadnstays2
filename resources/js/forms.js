@@ -4,7 +4,7 @@ $(function () {
     "buttons": ["copy", "csv", "excel", "pdf", "print"]
     // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  // $('#example2').DataTable({
+  // $('#example1').DataTable({
   //   "paging": true,
   //   "lengthChange": false,
   //   "searching": false,
@@ -138,9 +138,9 @@ $("#customerAdmin_form").validate({
     fname: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
+    lname: {
+      required: true,
+    },
     email: {
       required: true,
       email:true,
@@ -180,7 +180,7 @@ $("#customerAdmin_form").validate({
         console.log(response);
         if (response.status == 'success') {
           // $("#register_form")[0].reset();
-          // success_noti(response.msg);
+          success_noti(response.msg);
           // setTimeout(function(){window.location.reload()},1000);
           setTimeout(function(){window.location.href=site_url+"/admin/customer_management"},1000);
         } else {
@@ -196,17 +196,17 @@ $("#customerAdmin_form").validate({
 $("#customerUpdateAdmin_form").validate({
   debug: false,
   rules: {
-    fname: {
+    fnameup: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
-    email: {
+    lnameup: {
+      required: true,
+    },
+    emailup: {
       required: true,
       email:true,
     },
-    contact_number: {
+    contact_numberup: {
       required: true,
       number:true,
       // minlength: 10,
@@ -219,13 +219,13 @@ $("#customerUpdateAdmin_form").validate({
     //   required: true,
     //   equalTo : "#password"
     // },
-    address: {
+    addressup: {
       required: true,
     },
-    city: {
+    cityup: {
       required: true,
     },
-    user_country: {
+    user_countryup: {
       required: true,
     },
   },
@@ -262,9 +262,9 @@ $("#scoutAdmin_form").validate({
     fname: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
+    lname: {
+      required: true,
+    },
     email: {
       required: true,
       email:true,
@@ -304,7 +304,7 @@ $("#scoutAdmin_form").validate({
         // console.log(response);
         if (response.status == 'success') {
           // $("#register_form")[0].reset();
-          // success_noti(response.msg);
+          success_noti(response.msg);
           // setTimeout(function(){window.location.reload()},1000);
           setTimeout(function(){window.location.href=site_url+"/admin/scoutList"},1000);
         } else {
@@ -320,17 +320,17 @@ $("#scoutAdmin_form").validate({
 $("#scoutUpdateAdmin_form").validate({
   debug: false,
   rules: {
-    fname: {
+    fnameu: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
-    email: {
+    lnameu: {
+      required: true,
+    },
+    emailu: {
       required: true,
       email:true,
     },
-    contact_number: {
+    contact_numberu: {
       required: true,
       number:true,
       // minlength: 10,
@@ -343,13 +343,13 @@ $("#scoutUpdateAdmin_form").validate({
     //   required: true,
     //   equalTo : "#password"
     // },
-    address: {
+    addressu: {
       required: true,
     },
-    city: {
+    cityu: {
       required: true,
     },
-    user_country: {
+    user_countryu: {
       required: true,
     },
   },
@@ -386,9 +386,9 @@ $("#servProAdmin_form").validate({
     fname: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
+    lname: {
+      required: true,
+    },
     email: {
       required: true,
       email:true,
@@ -428,7 +428,7 @@ $("#servProAdmin_form").validate({
         console.log(response);
         if (response.status == 'success') {
           // $("#register_form")[0].reset();
-          // success_noti(response.msg);
+          success_noti(response.msg);
           // setTimeout(function(){window.location.reload()},1000);
           setTimeout(function(){window.location.href=site_url+"/admin/serviceProviderList"},1000);
         } else {
@@ -444,17 +444,17 @@ $("#servProAdmin_form").validate({
 $("#servProUpdateAdmin_form").validate({
   debug: false,
   rules: {
-    fname: {
+    fnameup: {
         required: true,
     },
-    // lname: {
-    //   required: true,
-    // },
-    email: {
+    lnameup: {
+      required: true,
+    },
+    emailup: {
       required: true,
       email:true,
     },
-    contact_number: {
+    contact_numberup: {
       required: true,
       number:true,
       // minlength: 10,
@@ -467,13 +467,13 @@ $("#servProUpdateAdmin_form").validate({
     //   required: true,
     //   equalTo : "#password"
     // },
-    address: {
+    addressup: {
       required: true,
     },
-    city: {
+    cityup: {
       required: true,
     },
-    user_country: {
+    user_countryup: {
       required: true,
     },
   },
@@ -801,11 +801,19 @@ $('#roomAdmin_form').validate({
       url: site_url + '/admin/submitroom',
       data: formData,
       success: function (response) {
-        // console.log(response);
+        console.log(response);
         if (response.status == 'success') {
           // $("#newsForm")[0].reset();
           success_noti(response.msg);
-          setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+          if(response.hotel_id == 0){
+            setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+            // console.log(response.hotel_id);
+            // console.log('hello');
+          }else{
+            setTimeout(function() {window.location.href = site_url + "/admin/viewHotelRooms/" + response.hotel_id}, 1000);
+            // console.log(response.hotel_id);
+          }
+          
         } else {
           error_noti(response.msg);
         }
@@ -905,6 +913,108 @@ $('#updateroomAdmin_form').validate({
           // $("#newsForm")[0].reset();
           success_noti(response.msg);
           setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+        } else {
+          error_noti(response.msg);
+        }
+
+      }
+    });
+  }
+});
+
+$('#updateHotelroomAdmin_form').validate({
+  // initialize the plugin
+  rules: {
+    // hotel_nameh: {
+    //   required: true
+    // },
+    room_typeh: {
+      required: true
+    },
+    room_nameh: {
+      required: true
+    },
+    max_adultsh: {
+      required: true,
+      number:true,
+    },
+    max_childernh: {
+      required: true,
+      number:true,
+    },
+    number_of_roomsh: {
+      required: true,
+      number:true,
+    },
+    price_per_nighth: {
+      required: true,
+      number:true,
+    },
+    price_per_night_7dh: {
+      required: true,
+      number:true,
+    },
+    price_per_night_30dh: {
+      required: true,
+      number:true,
+    },
+    // cleaning_fee: {
+    //   required: true,
+    //   number:true,
+    // },
+    // city_fee: {
+    //   required: true,
+    //   number:true,
+    // },
+    extra_guest_per_nighth: {
+      required: true,
+      number:true,
+    },
+    room_sizeh: {
+      required: true,
+    },
+    type_of_priceh: {
+      required: true,
+    },
+    bed_typeh: {
+      required: true,
+    },
+    private_bathroomh: {
+      required: true,
+    },
+    private_entranceh: {
+      required: true,
+    },
+    family_friendlyh: {
+      required: true,
+    },
+    descriptionh: {
+      required: true,
+    },
+    notesh: {
+      required: true,
+    },
+    extra_peopleh: {
+      required: true,
+    }
+    
+  },
+  submitHandler: function(form) {
+    // form.submit();
+    var site_url = $("#baseUrl").val();
+    // alert(site_url);
+    var formData = $(form).serialize();
+    $(form).ajaxSubmit({
+      type: 'POST',
+      url: site_url + '/admin/updateHotelRoom',
+      data: formData,
+      success: function (response) {
+        // console.log(response);
+        if (response.status == 'success') {
+          // $("#newsForm")[0].reset();
+          success_noti(response.msg);
+          // setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+          setTimeout(function(){window.location.href=site_url+"/admin/viewHotelRooms/"+response.hotel_id},1000);
         } else {
           error_noti(response.msg);
         }

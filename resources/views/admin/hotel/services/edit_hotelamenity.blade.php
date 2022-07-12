@@ -6,13 +6,13 @@
 
 @section('current_page_js')
 <script>
-  $("#updateHotelNstays_form").validate({
+  $("#updatehotelAmenities_form").validate({
     debug: false,
     rules: {
-      hotelstayname: {
+      hotelAmenityName: {
         required: true,
       },
-      hotelstaydescription: {
+      hotelAmenity_type_id: {
         required: true,
       },
     },
@@ -22,7 +22,7 @@
       var formData = $(form).serialize();
       $(form).ajaxSubmit({
         type: 'POST',
-        url: "{{url('/admin/updateHotelAndStays')}}",
+        url: "{{url('/admin/updateHotelAmenity')}}",
         data: formData,
         success: function (response) {
           // console.log(response);
@@ -30,7 +30,7 @@
             // $("#register_form")[0].reset();
             success_noti(response.msg);
             // setTimeout(function(){window.location.reload()},1000);
-            setTimeout(function(){window.location.href=site_url+"/admin/hotelAndStays_list"},1000);
+            setTimeout(function(){window.location.href=site_url+"/admin/hotelAmenity_list"},1000);
           } else {
             error_noti(response.msg);
           }
@@ -92,16 +92,11 @@
 
                 <div class="row">
 
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Amenity Name</label>
-                      <input type="text" class="form-control" name="hotelAmenityName" id="hotelAmenityName" placeholder="Enter Name" value="{{(!empty($hotelAmenity_info->amenity_name) ? $hotelAmenity_info->amenity_name : '')}}">
-                    </div>
-                  </div>
+                 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Select Amenity Type</label>
-                      <select class="form-control" name="hotelAmenity_type"  id="hotelAmenity_type">
+                      <select class="form-control" name="hotelAmenity_type_id"  id="hotelAmenity_type_id">
                         <option value="">Select Amenity Type</option>
                             <?php
                             foreach ($amenities_type as $amenity_type) {
@@ -110,6 +105,12 @@
                                             { echo "selected"; } ?>><?php echo $amenity_type->name; ?></option>
                             <?php }?>
                       </select>
+                    </div>
+                  </div>
+                   <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Amenity Name</label>
+                      <input type="text" class="form-control" name="hotelAmenityName" id="hotelAmenityName" placeholder="Enter Name" value="{{(!empty($hotelAmenity_info->amenity_name) ? $hotelAmenity_info->amenity_name : '')}}">
                     </div>
                   </div>
 

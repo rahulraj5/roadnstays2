@@ -46,12 +46,11 @@ class HotelController extends Controller
         $data['service_type'] = DB::table('services_type')->orderby('id', 'ASC')->where('status', 1)->get();
         $data['hotel_services'] = DB::table('H3_Services')->orderby('id', 'ASC')->where('status', 1)->get();
 
-        return view('admin/hotel/add_hotel_test')->with($data);
+        return view('admin/hotel/add_hotel')->with($data);
     }
 
     public function submit_hotel(Request $request)
     {
-
         if ($request->hasFile('hotelVideo')) {
             $vfile_name = $request->file('hotelVideo')->getClientOriginalName();
             $filename = pathinfo($vfile_name, PATHINFO_FILENAME);
@@ -62,23 +61,24 @@ class HotelController extends Controller
         } else {
             $hotelVideo = '';
         }
-        // if($request->hasFile('hotelGallery'))
-        // {
-        //     $image_name1 = $request->file('hotelGallery')->getClientOriginalName();
-        //     $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
-        //     $image_ext1 = $request->file('hotelGallery')->getClientOriginalExtension();
-        //     $hotelGallery = $filename1.'-'.time().'.'.$image_ext1;
-        //     $path1 = base_path() . '/public/uploads/hotel_gallery';
-        //     $request->file('hotelGallery')->move($path1,$hotelGallery);
-        // }else{
-        //     $hotelGallery = '';
-        // }
         
-        if (!empty($_FILES["hotelGallery"]["name"][0])) {
-            $hotelmainimgname = $_FILES["hotelGallery"]["name"][0];
-            $hotelmainimgurl = time() . '_' . $hotelmainimgname;
-            move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][0], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][0]);
+        if($request->hasFile('hotelFeaturedImg'))
+        {
+            $image_name1 = $request->file('hotelFeaturedImg')->getClientOriginalName();
+            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+            $image_ext1 = $request->file('hotelFeaturedImg')->getClientOriginalExtension();
+            $hotelFeaturedImg = $filename1.'-'.'hotelMainImg'.'-'.time().'.'.$image_ext1;
+            $path1 = base_path() . '/public/uploads/hotel_gallery';
+            $request->file('hotelFeaturedImg')->move($path1,$hotelFeaturedImg);
+        }else{
+            $hotelFeaturedImg = '';
         }
+        // dd($hotelFeaturedImg);
+        // if (!empty($_FILES["hotelGallery"]["name"][0])) {
+        //     $hotelmainimgname = $_FILES["hotelGallery"]["name"][0];
+        //     $hotelmainimgurl = time() . '_' . $hotelmainimgname;
+        //     move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][0], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][0]);
+        // }
 
         if ($request->hasFile('hotel_document')) {
             $image_nam2 = $request->file('hotel_document')->getClientOriginalName();
@@ -127,12 +127,13 @@ class HotelController extends Controller
 
         // $adminhotel->created_at = date('Y-m-d H:i:s');
         $adminhotel->hotel_video = $hotelVideo;
-        $adminhotel->hotel_gallery = $hotelmainimgurl;
+        $adminhotel->hotel_gallery = $hotelFeaturedImg;
         $adminhotel->hotel_document = $hotel_document;
         // $adminhotel->hotel_notes = $hotel_notes;
         $adminhotel->hotel_notes = $request->hotel_notes;
 
         // step 2
+        $adminhotel->payment_mode = $request->payment_mode;
         $adminhotel->booking_option = $request->booking_option;
         $adminhotel->hotel_address = $request->hotel_address;
         $adminhotel->hotel_latitude = $request->hotel_latitude;
@@ -153,19 +154,6 @@ class HotelController extends Controller
         $adminhotel->service_fee_type = $request->service_fee_type;
         $adminhotel->property_type = $request->property_type;
 
-        // step 3
-
-        // $adminhotel->room_amenities = json_encode($request->entertain_service1); 
-        // $adminhotel->bathroom_amenities = json_encode($request->extra_service2); 
-        // $adminhotel->media_tech_amenities = json_encode($request->extra_service3); 
-        // $adminhotel->food_drink_amenities = json_encode($request->extra_service4); 
-        // $adminhotel->outdoor_view_amenities = json_encode($request->extra_service5); 
-        // $adminhotel->accessibility_amenities = json_encode($request->extra_service6); 
-        // $adminhotel->entertain_family_amenities = json_encode($request->extra_service7); 
-        // $adminhotel->extra_service_amenities = json_encode($request->extra_service8); 
-
-        // $adminhotel->entertain_family_service = json_encode($request->entertain_service); 
-        // $adminhotel->extra_service = json_encode($request->extra_service); 
 
         $adminhotel->parking_option = $request->parking_option;
         $adminhotel->parking_price = $request->parking_price;
@@ -277,12 +265,13 @@ class HotelController extends Controller
         $data['hotel_services'] = DB::table('hotel_services')->where('hotel_id', $hotel_id)->pluck('hotel_service_id')->toArray();
         $data['hotel_extra_price'] = DB::table('hotel_extra_price')->where('hotel_id', $hotel_id)->where('status', 1)->get();
         $data['hotel_service_fee'] = DB::table('hotel_service_fee')->where('hotel_id', $hotel_id)->where('status', 1)->get();
-
+        // echo "<pre>";print_r($data['hotel_info']);die;
         return view('admin/hotel/edit_hotel')->with($data);
     }
 
     public function update_hotel(Request $request)
     {
+        // echo "<pre>";print_r($request->amenity);die;
         $hotel_id = $request->hotel_id;
         $user_id = Auth::user()->id;
 
@@ -297,17 +286,38 @@ class HotelController extends Controller
             $hotelVideo = '';
         }
 
-        // if($request->hasFile('hotelGallery'))
+        // if($request->hasFile('hotelFeaturedImg'))
         // {
-        //     $image_name1 = $request->file('hotelGallery')->getClientOriginalName();
+        //     $image_name1 = $request->file('hotelFeaturedImg')->getClientOriginalName();
         //     $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
-        //     $image_ext1 = $request->file('hotelGallery')->getClientOriginalExtension();
-        //     $hotelGallery = $filename1.'-'.time().'.'.$image_ext1;
+        //     $image_ext1 = $request->file('hotelFeaturedImg')->getClientOriginalExtension();
+        //     $hotelFeaturedImg = $filename1.'#'.time().'.'.$image_ext1;
         //     $path1 = base_path() . '/public/uploads/hotel_gallery';
-        //     $request->file('hotelGallery')->move($path1,$hotelGallery);
+        //     $request->file('hotelFeaturedImg')->move($path1,$hotelFeaturedImg);
         // }else{
-        //     $hotelGallery = '';
-        // }
+        //     $hotelFeaturedImg = $request->old_hotel_image;
+        // } 
+
+        if($request->hasFile('hotelFeaturedImg'))
+        {
+            if(!empty($request->old_hotel_image))
+            {
+                $filePath = public_path('uploads/hotel_gallery/'. $request->old_hotel_image);
+                if(file_exists($filePath)){
+                    $oldImagePath = './public/uploads/hotel_gallery/' . $request->old_hotel_image;
+                    unlink($oldImagePath);
+                }
+            }
+            $image_name1 = $request->file('hotelFeaturedImg')->getClientOriginalName();
+            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+            $image_ext1 = $request->file('hotelFeaturedImg')->getClientOriginalExtension();
+            $hotelFeaturedImg = $filename1.'-'.'hotelMainImg'.'-'.time().'.'.$image_ext1;
+            $path1 = base_path() . '/public/uploads/hotel_gallery';
+            $request->file('hotelFeaturedImg')->move($path1,$hotelFeaturedImg);
+        }else{
+            $hotelFeaturedImg = $request->old_hotel_image;
+        }
+        // echo "<pre>";print_r($hotelFeaturedImg);die;
 
         if ($request->hasFile('hotel_document')) {
             $image_nam2 = $request->file('hotel_document')->getClientOriginalName();
@@ -319,19 +329,6 @@ class HotelController extends Controller
         } else {
             $hotel_document = '';
         }
-
-        // if($request->hasFile('hotel_notes'))
-        // {
-        //     $image_name3 = $request->file('hotel_notes')->getClientOriginalName();
-        //     $filename3 = pathinfo($image_name3,PATHINFO_FILENAME);
-        //     $image_ext3 = $request->file('hotel_notes')->getClientOriginalExtension();
-        //     $hotel_notes = $filename3.'-'.time().'.'.$image_ext3;
-        //     $path3 = base_path() . '/public/uploads/hotel_notes';
-        //     $request->file('hotel_notes')->move($path3,$hotel_notes);
-        // }else{
-        //     $hotel_notes = '';
-        // }
-
 
         if (!empty($hotel_id)) {
             DB::table('hotels')
@@ -355,12 +352,13 @@ class HotelController extends Controller
                     'min_day_stays' => $request->min_day_stays,
 
                     'hotel_video' => $hotelVideo,
-                    // 'hotel_gallery' => $hotelGallery,
+                    'hotel_gallery' => $hotelFeaturedImg,
                     'hotel_document' => $hotel_document,
                     // 'hotel_notes' => $hotel_notes,
                     'hotel_notes' => $request->hotel_notes,
 
                     // step 2
+                    'payment_mode' => $request->payment_mode,
                     'booking_option' => $request->booking_option,
                     'hotel_address' => $request->hotel_address,
                     'hotel_latitude' => $request->hotel_latitude,
@@ -381,19 +379,6 @@ class HotelController extends Controller
                     'service_fee_type' => $request->service_fee_type,
                     'property_type' => $request->property_type,
 
-                    // step 3
-                    // 'room_amenities' => json_encode($request->entertain_service1),
-                    // 'bathroom_amenities' => json_encode($request->extra_service2),
-                    // 'media_tech_amenities' => json_encode($request->extra_service3),
-                    // 'food_drink_amenities' => json_encode($request->extra_service4),
-                    // 'outdoor_view_amenities' => json_encode($request->extra_service5),
-                    // 'accessibility_amenities' => json_encode($request->extra_service6),
-                    // 'entertain_family_amenities' => json_encode($request->extra_service7),
-                    // 'extra_service_amenities' => json_encode($request->extra_service8),
-
-                    // 'entertain_family_service' => json_encode($request->entertain_service),
-                    // 'extra_service' => json_encode($request->extra_service),
-
                     'parking_option' => $request->parking_option,
                     'parking_price' => $request->parking_price,
                     'payment_interval' => $request->payment_interval,
@@ -408,6 +393,7 @@ class HotelController extends Controller
                     'updated_at' => date('Y-m-d H:i:s'),
 
                 ]);
+
             if (!empty($_FILES["hotelGallery"]["name"])) {
                 foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
                     $imgname = $_FILES["hotelGallery"]["name"][$key];
@@ -511,26 +497,79 @@ class HotelController extends Controller
         return view('admin/hotel/hotel_view')->with($data);
     }
 
-    public function hotel_rooms_list($id)
+    public function hotel_rooms_list($hotel_id)
     {
         // dd(Auth::user()->id);
-        $data['hotelRoomsList'] = DB::table('room_list')->where('hotel_id', $id)->orderby('created_at', 'DESC')->get();
+        $data['hotel_id'] = $hotel_id;
+
+        $data['hotelRoomsList'] = DB::table('room_list')
+
+    	->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+        ->join('hotels', 'room_list.hotel_id', '=', 'hotels.hotel_id')
+    	->select('room_list.*',
+                'room_type_categories.id as room_type_cat_id',
+                'room_type_categories.title as room_type_cat_title',
+                'hotels.hotel_name')
+        ->orderby('id', 'DESC')        
+        ->where('room_list.hotel_id', $hotel_id)
+    	->get();  
         return view('admin/hotel/hotel_rooms_list')->with($data);
     }
 
     public function delete_hotel(Request $request)
     {
         $hotel_id = $request->hotel_id;
-        // echo "<pre>";print_r($frame_info);die;
         $res = DB::table('hotels')->where('hotel_id', '=', $hotel_id)->first();
         // echo "<pre>";print_r($res);die;
-        // $res = DB::table('hotels')->where('hotel_id', '=', $hotel_id)->delete();
+        $getHotelGallery = DB::table('hotel_gallery')->where('hotel_id', '=', $hotel_id)->get();
+        $getRoom = DB::table('room_list')->where('hotel_id', '=', $hotel_id)->get();
 
         if ($res) {
+            if(!empty($getHotelGallery))
+            {
+                foreach($getHotelGallery as $hotelGallery){
+                    // echo "<pre>";print_r($hotelGallery);
+                    $filePath = public_path('uploads/hotel_gallery/'. $hotelGallery->image);
+                    if(file_exists($filePath)){
+                        $oldImagePath = './public/uploads/hotel_gallery/' . $hotelGallery->image;
+                        unlink($oldImagePath);
+                    }
+                }
+            }
+
+            if(count($getRoom) > 0){
+                foreach($getRoom as $room){
+                    $getRoomimg = DB::table('room_gallery')->where('room_id', '=', $room->id)->get();
+                    
+                    if(count($getRoomimg) > 0){
+                        foreach($getRoomimg as $roomImg){
+                            // echo "<pre>";print_r($roomImg->image);
+                            $filePath = public_path('uploads/room_images/'. $roomImg->image);
+                            if(file_exists($filePath)){
+                                $oldImagePath = './public/uploads/room_images/' . $roomImg->image;
+                                unlink($oldImagePath);
+                            }
+                        }
+                    }
+                    DB::table('room_gallery')->where('room_id', '=', $room->id)->delete();
+
+
+                    DB::table('room_amenities')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_services')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_extra_option')->where('room_id', '=', $room->id)->delete();
+                    DB::table('room_features')->where('room_id', '=', $room->id)->delete();
+                }
+            }
+
             DB::table('hotel_gallery')->where('hotel_id', '=', $hotel_id)->delete();
             DB::table('room_list')->where('hotel_id', '=', $hotel_id)->delete();
+            // DB::table('room_gallery')->where('room_id', '=', $room_id)->delete();
             DB::table('hotel_amenities')->where('hotel_id', '=', $hotel_id)->delete();
             DB::table('hotel_services')->where('hotel_id', '=', $hotel_id)->delete();
+
+            DB::table('hotel_service_fee')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('hotel_extra_price')->where('hotel_id', '=', $hotel_id)->delete();
+
             DB::table('hotels')->where('hotel_id', '=', $hotel_id)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
         } else {
@@ -552,26 +591,21 @@ class HotelController extends Controller
         return response()->json(['success' => 'status change successfully.']);
     }
 
-    public function add_hotel_test(Request $request)
-    {
-        // $value = $request->session()->pull('key', 'lastinsertedid');
-        // $value = $request->session()->get('lastinsertedid');
-        // echo $value;
-        $data['countries'] = DB::table('country')->orderby('name', 'ASC')->get();
-        $data['properties'] = DB::table('H1_Hotel_and_other_Stays')->orderby('id', 'ASC')->get();
-        $data['services'] = DB::table('H3_Services')->orderby('id', 'ASC')->get();
-
-        return view('admin/hotel/add_hotel_test')->with($data);
-    }
-
-    public function submit_hotel_test(Request $request)
-    {
-        echo "<pre>";
-        print_r($request->all());
-        die;
-
-        // $lastinsertid = $adminhotel->id;
-        // $request->session()->put('lastinsertedid', $lastinsertid);
-        return response()->json(['status' => 'success', 'msg' => 'Hotel Added Successfully']);
-    }
+    public function delete_hotel_single_image(Request $request)
+	{
+        $imageId = $request->id;
+        // $hotelID = $request->hotel_id;
+        $image_data = DB::table('hotel_gallery')->where('id', $imageId)->first();
+		if ($image_data) {
+            $filePath = public_path('uploads/hotel_gallery/'. $image_data->image);
+            if(file_exists($filePath)){
+                $Path = './public/uploads/hotel_gallery/' . $image_data->image;
+                unlink($Path);
+            }
+			$image_delete = DB::table('hotel_gallery')->where('id', '=', $imageId)->delete();
+			return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
+		} else {
+			return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+		}
+	}
 }

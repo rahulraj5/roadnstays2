@@ -17,7 +17,7 @@
       hotelAmenityName: {
         required: true,
       },
-      hotelAmenity_type: {
+      hotelAmenity_type_id: {
         required: true,
       },
     },
@@ -34,8 +34,8 @@
           if (response.status == 'success') {
             // $("#register_form")[0].reset();
             success_noti(response.msg);
-            setTimeout(function(){window.location.reload()},1000);
-            // setTimeout(function(){window.location.href=site_url+"/admin/hotelAmenity_list"},1000);
+            // setTimeout(function(){window.location.reload()},1000);
+            setTimeout(function(){window.location.href=site_url+"/admin/hotelAmenity_list"},1000);
           } else {
             error_noti(response.msg);
           }

@@ -179,6 +179,18 @@ var toastDelete = Swal.mixin({
   reverseButtons: !0
 });
 
+var toastCopy = Swal.mixin({
+  toast: true,
+  title: 'Are you sure?',
+  icon: 'warning',
+  position: 'top-right',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, Copy it!',
+  showCancelButton: !0,
+  reverseButtons: !0
+});
+
 var toastMixinLeftSuccess = Swal.mixin({
   toast: true,
   icon: 'success',

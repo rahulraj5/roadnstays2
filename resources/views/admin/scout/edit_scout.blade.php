@@ -118,25 +118,25 @@
 
                     <div class="form-group">
 
-                      <label>Name</label>
+                      <label>First Name</label>
 
-                      <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter First Name"  value="{{(!empty($user_info->first_name) ? $user_info->first_name : '')}}">
+                      <input type="text" class="form-control" name="fnameu" id="fname" placeholder="Enter First Name"  value="{{(!empty($user_info->first_name) ? $user_info->first_name : '')}}">
 
                     </div>
 
                   </div>
 
-                  <!-- <div class="col-md-6">
+                  <div class="col-md-6">
 
                     <div class="form-group">
 
                       <label>Last Name</label>
 
-                      <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Last Name"  value="{{(!empty($user_info->last_name) ? $user_info->last_name : '')}}">
+                      <input type="text" class="form-control" name="lnameu" id="lname" placeholder="Enter Last Name"  value="{{(!empty($user_info->last_name) ? $user_info->last_name : '')}}">
 
                     </div>
 
-                  </div> -->
+                  </div>
 
 
 
@@ -146,7 +146,7 @@
 
                       <label>Email</label>
 
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="{{(!empty($user_info->email) ? $user_info->email : '')}}">
+                      <input type="email" class="form-control" name="emailu" id="email" placeholder="Enter Email" value="{{(!empty($user_info->email) ? $user_info->email : '')}}">
 
                     </div>
 
@@ -160,7 +160,7 @@
 
                       <label>Number</label>
 
-                      <input type="number" class="form-control" name="contact_number" id="contact_number" placeholder="Enter Number" value="{{(!empty($user_info->contact_number) ? $user_info->contact_number : '')}}">
+                      <input type="number" class="form-control" name="contact_numberu" id="contact_number" placeholder="Enter Number" value="{{(!empty($user_info->contact_number) ? $user_info->contact_number : '')}}">
 
                     </div>
 
@@ -174,7 +174,7 @@
 
                       <label>Update Password</label>
 
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="new-password">
+                      <input type="password" class="form-control" name="passwordu" id="password" placeholder="Enter Password" autocomplete="new-password">
 
                     </div>
 
@@ -202,7 +202,7 @@
 
                       <label>Address</label>
 
-                      <input type="text" class="form-control" name="address" id="address" placeholder="Enter Address" value="{{(!empty($user_info->address) ? $user_info->address : '')}}">
+                      <input type="text" class="form-control" name="addressu" id="address" placeholder="Enter Address" value="{{(!empty($user_info->address) ? $user_info->address : '')}}">
 
                     </div>
 
@@ -216,7 +216,7 @@
 
                       <label>City</label>
 
-                      <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" value="{{(!empty($user_info->user_city) ? $user_info->user_city : '')}}">
+                      <input type="text" class="form-control" name="cityu" id="city" placeholder="Enter City" value="{{(!empty($user_info->user_city) ? $user_info->user_city : '')}}">
 
                     </div>
 
@@ -232,7 +232,7 @@
 
                       <!-- <div class="select2-purple"> -->
 
-                        <select class="form-control select2bs4" name="user_country"  id="user_country" style="width: 100%;">
+                        <select class="form-control select2bs4" name="user_countryu"  id="user_country" style="width: 100%;">
 
                         <!-- <option value="{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}">{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}</option> -->
 

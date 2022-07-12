@@ -2,6 +2,7 @@
  
 
 Auth::routes();
+// Auth::routes(['verify' => true]);
 
 	Route::get('/clear', function () {
     $exitCode = Artisan::call('view:clear', []);   
@@ -22,7 +23,7 @@ Auth::routes();
 Route::any("/test",function ()
 {	 	
 	try {
-		Mail::send("email.test",[],function($message){
+		Mail::send("emails.test",[],function($message){
 
 			// $message->from(config("app.webmail"), config("app.mailname"));
 			// $message->from('info@votivelaravel.in', 'votivelaravel.in');
@@ -48,8 +49,6 @@ Route::fallback(function () {
 });
 
 
-
-
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/baseForm', 'HomeController@baseForm');
@@ -64,12 +63,11 @@ Route::post('/servicepro/signup', 'HomeController@vendorSignup');
 
 Route::post('forgotPassword_action','HomeController@forgotPassword_action');
 
-Route::get('/hotelDetails/{id}','HomeController@hotel_details')->name('user.hotel_details');
+Route::get('/hotelDetails/{id?}','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/roomdetails','HomeController@room_details')->name('user.room_details');
-Route::get('/hotelList','HomeController@hotel_list')->name('user.hotel_list');
-
-Route::get('/checkout','HomeController@checkout')->name('user.checkout');
+Route::get('/hotelList/{name?}','HomeController@hotel_list')->name('user.hotel_list');
+Route::get('/checkout/{name?}','HomeController@checkout')->name('user.checkout');
 
 Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confirm_booking');
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
@@ -79,6 +77,13 @@ Route::get('/event_details','HomeController@event_details')->name('user.event_de
 Route::get('/tour','HomeController@tour')->name('user.tour');
 Route::get('/tour_details','HomeController@tour_details')->name('user.tour_details');
 Route::get('/packages','HomeController@packages')->name('user.packages');
+Route::get('/space','HomeController@space')->name('user.space');
+Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
+Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
+Route::get('/blogs','HomeController@blogs')->name('user.blogs');
+
+Route::post('/bookingRoomOrder','HomeController@booking_room_order')->name('user.booking_room_order');
+Route::get('payment-successful','HomeController@payment_successful')->name('user.payment_successful');
 // Route::get('/two','HomeController@two')->name('user.two');
 // Route::get('/three','HomeController@three')->name('user.three');
 
@@ -96,6 +101,7 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function () {
     Route::get('servicepro/dashboard','HomeController@serviceProDashboard')->name('servicepro.dashboard');
     Route::any('servicepro/profile', 'HomeController@serviceProProfile');
+    // Route::any('servicepro/profile', 'Vendor\VendorController@serviceProProfile');
     // Route::any('servicepro/changePassword', 'HomeController@change_password');
     Route::any('servicepro/logout', 'HomeController@serviceProLogout')->name('servicepro.logout');	
 
@@ -112,6 +118,7 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/updateHotel', 'Vendor\VendorController@update_hotel');
     Route::get('servicepro/changeHotelStatus', 'Vendor\VendorController@change_hotel_status');
     Route::any('servicepro/deleteHotel', 'Vendor\VendorController@delete_hotel');
+    Route::any('servicepro/deleteHotelSingleImage', 'Vendor\VendorController@delete_hotel_single_image');
 
     Route::get('servicepro/viewHotelRooms/{id}', 'Vendor\RoomController@hotel_rooms_list');
     Route::get('servicepro/addroom/{id}', 'Vendor\RoomController@add_room');
@@ -122,6 +129,14 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/updateRoom', 'Vendor\RoomController@update_room');
     Route::any('servicepro/viewRoom/{id}', 'Vendor\RoomController@view_room');
     Route::post('servicepro/room_name', 'Vendor\RoomController@room_name');
+    Route::any('servicepro/deleteRoomSingleImage', 'Vendor\RoomController@delete_room_single_image');
+    Route::post('servicepro/addCopyRoom','Vendor\RoomController@add_copy_room');
+    Route::get('servicepro/editCopyRoom/{id}', 'Vendor\RoomController@edit_copy_room');
+
+    
+    Route::get('servicepro/bookingList', 'Vendor\BookingController@booking_list');
+    Route::any('servicepro/viewBooking/{id}', 'Vendor\BookingController@view_booking');
+
 });	
 
 
@@ -138,6 +153,16 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/logout', 'AdminController@logout')->name('admin.logout');	
 
         Route::get('/customer_management', 'CustomerController@index');
+        Route::get('/add_customer', 'CustomerController@add_customer');
+        Route::any('/add_customer_action', 'CustomerController@add_customer_action');
+        Route::get('/edit_customer/{id}', 'CustomerController@edit_customer');
+        Route::any('/customer_update', 'CustomerController@customer_update');
+        Route::get('/change_user_status', 'CustomerController@change_user_status');
+        Route::any('/deletecustomer', 'CustomerController@deletecustomer');
+
+        Route::get('/booking_list', 'Admin\BookingController@booking_list');
+        Route::any('/viewBooking/{id}', 'Admin\BookingController@view_booking');
+        Route::any('/bookingDetails/{id}', 'Admin\BookingController@booking_details');
         Route::get('/add_customer', 'CustomerController@add_customer');
         Route::any('/add_customer_action', 'CustomerController@add_customer_action');
         Route::get('/edit_customer/{id}', 'CustomerController@edit_customer');
@@ -163,23 +188,36 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::get('/roomlist', 'Admin\RoomController@room_list');
         Route::get('/addroom', 'Admin\RoomController@add_room');
+        Route::get('/addroom/{id}', 'Admin\RoomController@add_room');
         Route::get('/addroomtest', 'Admin\RoomController@add_room_test');
         Route::any('/submitroom', 'Admin\RoomController@submit_room');
         Route::get('/changeRoomStatus', 'Admin\RoomController@change_room_status');
         Route::post('/deleteRoom', 'Admin\RoomController@delete_room');
         Route::get('/editRoom/{id}', 'Admin\RoomController@edit_room');
-        Route::get('/editRoomtest/{id}', 'Admin\RoomController@edit_room_test');
+        // Route::get('/editRoomtest/{id}', 'Admin\RoomController@edit_room_test');
         Route::any('/updateRoom', 'Admin\RoomController@update_room');
         Route::any('/viewRoom/{id}', 'Admin\RoomController@view_room');
+
+        Route::get('/editHotelRoom/{id}', 'Admin\RoomController@edit_hotel_room');
+        Route::any('/updateHotelRoom', 'Admin\RoomController@update_hotel_room');
+
         Route::get('/changeRoomTypeStatus', 'Admin\RoomController@change_room_type_status');
         Route::get('/room_type_categories', 'Admin\RoomController@room_type_categories');
         Route::post('/room_name', 'Admin\RoomController@room_name');
+
+        Route::any('/deleteRoomSingleImage', 'Admin\RoomController@delete_room_single_image');
+        Route::post('/addCopyRoom','Admin\RoomController@add_copy_room');
+        Route::get('/editCopyRoom/{id}', 'Admin\RoomController@edit_copy_room');
+
+        Route::get('/editCopyHotelRoom/{id}', 'Admin\RoomController@edit_copy_hotel_room');
+        Route::any('/updateCopyHotelRoom', 'Admin\RoomController@update_copy_hotel_room');
 
         Route::get('/hotelList', 'Admin\HotelController@hotel_list');
         Route::get('/addHotel', 'Admin\HotelController@add_hotel');
         Route::any('/submitHotel', 'Admin\HotelController@submit_hotel');
         Route::get('/addHotelTest', 'Admin\HotelController@add_hotel_test'); 
         Route::get('/hotel_types', 'Admin\HotelController@hotel_types');
+        Route::any('/deleteHotelSingleImage', 'Admin\HotelController@delete_hotel_single_image');
 
         Route::any('/submitHotelTest', 'Admin\HotelController@submit_hotel_test');
         Route::any('/submitHotelPolicy', 'Admin\HotelController@submit_hotel_policy');
@@ -240,6 +278,16 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/updateHotelSpacetype', 'Admin\HotelSpacetypeController@updateHotelSpacetype');
         Route::get('/changeHotelSpacetypeStatus', 'Admin\HotelSpacetypeController@changeHotelSpacetypeStatus');
         Route::any('/deleteHotelSpacetype', 'Admin\HotelSpacetypeController@deleteHotelSpacetype');
+
+        // Tour start here
+        Route::get('/tourList', 'Admin\TourController@tour_list');
+        Route::get('/addTour', 'Admin\TourController@add_tour');
+        Route::any('/submitTour', 'Admin\TourController@submit_tour');
+        Route::get('/editTour/{id}', 'Admin\TourController@edit_tour');
+        Route::any('/updateTour', 'Admin\TourController@update_tour');
+        Route::get('/changeTourStatus', 'Admin\TourController@change_tour_status');
+        Route::any('/deleteTour', 'Admin\TourController@delete_tour');
+
     });
 });
 
@@ -259,10 +307,10 @@ Route::group(['prefix' => 'scout'], function(){
 
 /* start web services api */
 
-Route::group(['middleware' => 'App\Http\Middleware\VerifyCsrfToken'], function () {
+/* Route::group(['middleware' => 'App\Http\Middleware\VerifyCsrfToken'], function () {
 
 Route::post('/ws/hotel_list','WsController@hotel_list')->middleware('CheckToken');
 Route::post('/ws/hotel_detail','WsController@hotel_details')->middleware('CheckToken');
 Route::post('/ws/room_detail','WsController@room_details')->middleware('CheckToken');
 
-}); 
+}); */

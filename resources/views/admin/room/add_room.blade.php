@@ -103,6 +103,22 @@
   })
 </script>
 <script>
+    // $(document).ready(function() {
+    //     // Select2 Multiple
+    //     $('.select2bs4').select2({
+    //         theme: 'bootstrap4'
+    //     })
+    // });
+    $("select").on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+        
+        $element.detach();
+        $(this).append($element);
+        $(this).trigger("change");
+    });
+</script>
+<script>
   $("#allow_guest_in_room1").click(function() {
     $("#allow_guest_price_div").removeClass('d-none');
     $("#allow_guest_cap_div").removeClass('d-none');
@@ -126,7 +142,7 @@
     $(addButton).click(function() {
       if (x < maxField) {
         x++; 
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra['+x+'][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>'); 
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
 
@@ -153,7 +169,12 @@
       <div class="row mb-2">
 
         <div class="col-sm-6">
-          <a href="{{url('/admin/roomlist')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          @if(!empty($hotel_id))
+            <a href="{{url('/admin/viewHotelRooms')}}/{{$hotel_id}}"><i class="right fas fa-angle-left"></i>Back</a>
+          @else
+            <a href="{{url('/admin/roomlist')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          @endif
+          
           <h1>Add Room</h1>
 
         </div>
@@ -200,6 +221,10 @@
 
             @csrf
 
+            @if(!empty($hotel_id))
+              <input type="hidden" name="hotel_id" id="hotel_id" value="{{$hotel_id}}">
+            @endif
+
             <div class="row">
 
               <div class="col-md-12 mt-0">
@@ -210,6 +235,7 @@
                 </div>
               </div>
 
+              @if(empty($hotel_id))
               <div class="col-md-6">
 
                 <div class="form-group">
@@ -231,6 +257,7 @@
                 </div>
 
               </div>
+              @endif
 
               <div class="col-md-6">
 
@@ -312,7 +339,7 @@
                 <div class="form-group">
                   <label>Room description</label>
                   <!-- <input type="text" class="form-control" name="description" id="description" placeholder="Enter room description"> -->
-                  <textarea id="summernote" name="description" required></textarea>
+                  <textarea class="form-control" id="summernoteRemoved" name="description" required></textarea>
                 </div>
               </div>
 
@@ -320,7 +347,7 @@
                 <div class="form-group">
                   <label>Notes</label>
                   <!-- <input type="text" class="form-control" name="notes" id="notes" placeholder="Enter notes"> -->
-                  <textarea id="summernote1" name="notes" required></textarea>
+                  <textarea class="form-control" id="summernote1Removed" name="notes" required></textarea>
                 </div>
               </div>
 
@@ -510,8 +537,19 @@
                     <div class="col-md-3">
                       <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                       <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
+                    </div> -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                          <option value="">Select Price type</option>
+                          <option value="single_fee">Single fee</option>
+                          <option value="per_night">Per night</option>
+                          <option value="per_guest">Per guest</option>
+                          <option value="per_night_per_guest">Per night per guest</option>
+                          </select>
+                      </div>
                     </div>
                     <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                   </div>
@@ -540,7 +578,7 @@
                     <option value="Single bed">Single bed</option>
                     <option value="Double bed">Double bed</option>
                     <option value="Bunk bed">Bunk bed</option>
-                    <option value="Sofa bed">Sofa bed</option>
+                    <option value="Sofa">Sofa</option>
                     <option value="Futon Mat">Futon Mat</option>
                     <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
                   </select>
@@ -618,11 +656,22 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="field" align="left">
-                    <label>Upload room images</label>
+                    <label>Upload room featured images</label>
+                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" required/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="field" align="left">
+                    <label>Upload room gallery</label>
                     <input type="file" id="files" name="imgupload[]" multiple required/>
                   </div>
                 </div>
               </div>
+
+
 
               <!-- <div class="row"> -->
               <div class="col-md-12">

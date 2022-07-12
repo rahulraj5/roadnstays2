@@ -77,34 +77,27 @@ class HotelAmenityController extends Controller
     }
 
     
-    public function updateHotelAmenity(Request $request){
+    public function updateHotelAmenity(Request $request)
+    {
+        $id = $request->id;
+        $hotelAmenityName = $request->hotelAmenityName;
+        $hotelAmenity_type_id = $request->hotelAmenity_type_id;
+        // $other_featured_id = json_encode($request->otherFeaturedId); 
+        $amenity_type_name = DB::table('amenities_type')->where('id',$hotelAmenity_type_id)->value('name');
 
-    	$fname = $request->input('fname') ;
-        $lname = $request->input('lname') ;
-        $user_id = $request->input('user_id') ;
-    	$email = $request->input('email') ;
-        $user_country = $request->input('user_country') ;
-        $city = $request->input('city') ;
-        $address = $request->input('address') ;
-    	$contact_number = $request->input('contact_number') ;
+        $amenity_type_sym = str_replace(' ', '_', $amenity_type_name);
 
-    	$userData = User::where('id', $user_id)->first();
-    
-        $userData->first_name = $fname;
-    	// $userData->last_name = $lname;
-        $userData->email = $email;
-        if($request->password){
-            $userData->password = bcrypt($request->password);
-        }
-        $userData->user_country = $user_country;
-        $userData->user_city = $city;
-        $userData->address = $address;
-    	$userData->contact_number = $contact_number;
-    	$userData->updated_at = date('Y-m-d H:i:s');
-    	$res = $userData->save();
+        $data = DB::table('H2_Amenities')
+                    ->where('amenity_id', $id)
+                    ->update(['amenity_name' => trim($hotelAmenityName),
+                            'amenity_type' => $hotelAmenity_type_id,
+                            'amenity_type_name' => trim($amenity_type_name),
+                            'amenity_type_sym' => $amenity_type_sym,
+                            'updated_at' => date('Y-m-d H:i:s'),
+                            ]);
 
-    	if($res){
-            return response()->json(['status' => 'success', 'msg' => 'User has been updated successfully.']);
+    	if($data){
+            return response()->json(['status' => 'success', 'msg' => 'Item Updated successfully.']);
     	}else{
             return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
     	} 
@@ -177,7 +170,7 @@ class HotelAmenityController extends Controller
     	if($res){
             return response()->json(['status' => 'success', 'msg' => 'updated successfully.']);
     	}else{
-            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+            return response()->json(['status' => 'error', 'msg' => 'You have not changed any value.']);
     	} 
     }
 

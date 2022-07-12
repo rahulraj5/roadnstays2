@@ -27,9 +27,10 @@
         </li> -->
         <!-- <li><a href="#">Booking</a></li> -->
         <!-- <li><a href="#">Space</a></li> -->
-        <li><a href="{{ url('/hotelList') }}">Hotel</a></li>
-        <li><a href="{{ url("/tour") }}">Tour</a></li>
-        <li><a href="#">Event</a></li>
+        <!-- <li><a href="{{ url('/hotelList') }}">Hotel</a></li> -->
+        <li><a href="{{ url('/tour') }}">Tour</a></li>
+        <li><a href="{{ url('/events') }}">Event</a></li>
+        <li><a href="{{ url('/space') }}">Space</a></li>
         <li><a href="#">Packages</a></li>
         <li><a href="#">Weather</a></li>
 
@@ -41,13 +42,23 @@
       @if(Auth::user()->user_type == "normal_user")
         <!-- Auth::check() -->
         <!-- Auth::gaurd('user') -->
+        <nav class="nav-menu d-none d-lg-block">
+        <ul>
+        <li><a href="{{ route('user.profile') }}">Profile</a></li>
+        </ul>
+        </nav>
         <a href="{{ route('user.logout') }}" class="get-started-btn">Logout </a>
       @elseif(Auth::user()->user_type == "service_provider")
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+        <li><a href="{{ route('servicepro.dashboard') }}">Dashboard</a></li>
+        </ul>
+        </nav>
         <a href="{{ route('servicepro.logout') }}" class="get-started-btn">Logout </a>
       @else
       @endif
     @else
-      <a href="" data-toggle="modal" data-target="#exampleModal" class="get-started-btn">SIGN UP</a>
+      <a href="" data-toggle="modal" data-target="#exampleModal-log-in" class="get-started-btn">SIGN UP</a>
     @endif
 
     

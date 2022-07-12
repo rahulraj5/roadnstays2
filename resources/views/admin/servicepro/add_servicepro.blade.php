@@ -112,7 +112,7 @@
 
                     <div class="form-group">
 
-                      <label>Full Name</label>
+                      <label>First Name</label>
 
                       <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter First Name">
 
@@ -120,7 +120,7 @@
 
                   </div>
 
-                  <!-- <div class="col-md-6">
+                  <div class="col-md-6">
 
                     <div class="form-group">
 
@@ -130,7 +130,7 @@
 
                     </div>
 
-                  </div> -->
+                  </div>
 
 
 
