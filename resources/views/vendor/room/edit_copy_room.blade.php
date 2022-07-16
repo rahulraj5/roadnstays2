@@ -206,10 +206,10 @@
     $("#updateRoom_form").validate({
       debug: false,
       rules: {
-        hotelName: {
+        room_type: {
           required: true,
         },
-        summernote: {
+        room_name: {
           required: true,
         },
       },

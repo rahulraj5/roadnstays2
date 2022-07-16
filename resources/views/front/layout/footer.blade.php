@@ -213,6 +213,15 @@
 
                   <form id="userLogin_form" method="POST">
 
+                    <div id="loginResBox">
+                      @if(Session::has('message'))
+                      <div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> {{ Session::get('message') }}</div>        
+                      @endif
+                      @if(Session::has('error'))
+                      <div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Opps!</strong> {{ Session::get('error') }}</div>
+                      @endif
+                    </div>
+
                     @csrf
 
                     <div class="form-group">
@@ -229,9 +238,9 @@
 
                     <div class="forgot">
 
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-sign-up" class="signup-bar" id="signup">Sign Up</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-sign-up" class="signup-bar" id="signup" data-dismiss="modal">Sign Up</a>
 
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#forgot-pass" id="forgot">Forgot password?</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#forgot-pass" id="forgot" data-dismiss="modal">Forgot password?</a>
 
                     </div>
 
@@ -343,6 +352,12 @@
 
                   </div>
 
+                  <div class="forgot">
+
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-log-in"  data-dismiss="modal">Sign In</a>
+
+                  </div>
+
                   <button type="submit" class="btn btn-primary">Sign Up</button>
 
                 </form>
@@ -380,7 +395,11 @@
                 <div class="main-div">
 
                   <div class="panel">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
+                      <span aria-hidden="true">&times;</span>
+
+                    </button>
                     <!-- <div class="tab-login">
 
                     <h2>User login  </h2>
@@ -406,6 +425,14 @@
                     <div class="form-group">
                       <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" />
                       <input type="email" class="form-control" name="forgetEmail" id="forgetEmail" placeholder="Enter Email Address">
+
+                    </div>
+
+                    <div class="forgot">
+
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-sign-up" class="signup-bar" id="signup" data-dismiss="modal">SignUp</a>
+
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal-log-in"  data-dismiss="modal">SignIn</a>
 
                     </div>
 
@@ -447,10 +474,10 @@
                 <form id="vendorSignup_form" method="POST">
                     @csrf
                   <div class="form-group">
-                    <input type="text" class="form-control" name="vsname" id="vsname" placeholder="Full name">
+                    <input type="text" class="form-control" name="vsname" id="vsname" placeholder="First name">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" name="vslname" id="vslname" placeholder="Full name">
+                    <input type="text" class="form-control" name="vslname" id="vslname" placeholder="Last name">
                   </div>
                   <div class="form-group">
                     <input type="text" class="form-control" name="vsphone_no" id="vsphone_no" placeholder="Mobile number">
@@ -514,7 +541,7 @@
                       <input type="password" class="form-control" name="vlpassword" id="vlpassword" placeholder="Password">
                     </div>
                     <div class="forgot">
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signup" class="signup-bar" id="vendor_Signup">Sign Up</a>
+                      <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signup" class="signup-bar" id="vendor_Signup" data-dismiss="modal">Sign Up</a>
                       <!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#forgotpass" id="forgot">Forgot password?</a> -->
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>

@@ -50,7 +50,7 @@
           type: 'POST',
           url: "{{url('/admin/deleteTour')}}",
           data: {
-            hotel_id: id,
+            id: id,
             _token: CSRF_TOKEN
           },
           dataType: 'JSON',
@@ -72,14 +72,14 @@
 <script>
   $('.toggle-class').on('change', function() {
     var status = $(this).prop('checked') == true ? 1 : 0; 
-    var hotel_id = $(this).data('id');
+    var id = $(this).data('id');
     // alert(status);
     // alert(user_id);
     $.ajax({
       type: "GET",
       dataType: "json",
       url: "<?php echo url('/admin/changeTourStatus'); ?>",
-      data: {'status': status, 'hotel_id': hotel_id},
+      data: {'status': status, 'id': id},
       success: function(data){
         success_noti(data.success);
         // console.log(data);
@@ -182,17 +182,13 @@
 
                                             <th>Tour Name</th>
 
-                                            <!-- <th>Last Name</th> -->
+                                            <th>Package Name</th>
 
-                                            <th>Contact Name</th>
+                                            <th>Tour Code</th>
 
-                                            <th>Contact Number</th>
+                                            <th>Star Date</th>
 
-                                            <th>Tour</th>
-
-                                            <!-- <th>City</th> -->
-
-                                            <!-- <th>Country</th> -->
+                                            <th>End Date</th>
 
                                             <th>Status</th>
 
@@ -210,20 +206,23 @@
 
                                             @foreach ($tourList as $arr)
 
-                                                <tr id="row{{ $arr->hotel_id }}">
+                                                <tr id="row{{ $arr->id }}">
 
                                                     <td>{{ $i }}</td>
 
-                                                    <td>{{ $arr->hotel_name }}</td>
+                                                    <td>{{ $arr->tour_title }}</td>
 
-                                                    <td>{{ $arr->property_contact_name }}</td>
+                                                    <td>{{ $arr->tour_package_name }}</td>
 
-                                                    <td>{{ $arr->property_contact_num }}</td>
-                                                    <td><a href="{{url('/admin/viewHotelRooms')}}/{{$arr->hotel_id}}" class="btn btn-default btn-sm"><i class="fas fa-list"></i>  View</a></td>
+                                                    <td>{{ $arr->tour_code }}</td>
+
+                                                    <td>{{ $arr->tour_start_date }}</td>
+
+                                                    <td>{{ $arr->tour_end_date }}</td>
 
                                                     <td class="project-state">
 
-                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->hotel_status ? 'checked' : '' }}>
+                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->tour_status ? 'checked' : '' }}>
 
                                                     </td>
 
@@ -231,17 +230,11 @@
 
                                                         <div class="btn-group btn-group-sm">
 
-                                                            <a href="{{url('/admin/viewHotel')}}/{{$arr->hotel_id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                                                            <a href="{{url('/admin/viewTour')}}/{{$arr->id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
 
-                                                            <a href="{{url('/admin/editHotel')}}/{{$arr->hotel_id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
+                                                            <a href="{{url('/admin/editTour')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->hotel_id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
-
-
-
-                                                            <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->hotel_id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
-
-                                                            <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->hotel_id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
+                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
 
                                                         </div>
 

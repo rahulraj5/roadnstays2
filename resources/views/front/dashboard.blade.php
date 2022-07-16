@@ -157,11 +157,11 @@
 
                         <ul>
 
-                            <li><a href="#"><i class='bx bx-user'></i> <span> Profile </span></a> </li>
+                            <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user'></i> <span> Profile </span></a> </li>
 
                             <li><a href="#"><i class='bx bxs-detail'></i><span> Change Password </span></a> </li>
 
-                            <li><a href="#"><i class='bx bx-copy-alt'></i><span> Save Travellers </span></a> </li>
+                            <li><a href="{{ url('/user/bookingList') }}"><i class='bx bx-copy-alt'></i><span> Booking </span></a> </li>
 
 
 

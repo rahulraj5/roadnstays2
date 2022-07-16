@@ -115,6 +115,187 @@
 </script>
 
 
+<script>
+  $(".slide.one .button").click(function() {
+    // alert('sdfsd');
+    var form = $("#addTourContext_form");
+    form.validate({
+      rules: {
+        hotelName: {
+          required: true,
+        },
+        summernote: {
+          required: true,
+        },
+        "hotelGallery[]": {
+          required: true,
+          extension: "jpg|jpeg|png",
+          // filesize: 20971520, 
+        },
+        hotelVideo: {
+          // required: true,
+          accept: "video/*"
+        },
+        cat_listed_room_type: {
+          required: true,
+        },
+        hotel_rating: {
+          required: true,
+        },
+        contact_name: {
+          required: true,
+        },
+        contact_num: {
+          required: true,
+          number: true,
+        },
+        alternate_num: {
+          number: true,
+        },
+        scout_id: {
+          required: true,
+        },
+        vendor_id: {
+          required: true,
+        },
+        checkin_time: {
+          required: true,
+        },
+        checkout_time: {
+          required: true,
+        },
+        min_day_before_book: {
+          required: true,
+          number: true,
+        },
+        min_day_stays: {
+          required: true,
+          number: true,
+        },
+        hotel_latitude: {
+          number: true,
+        },
+        hotel_longitude: {
+          number: true,
+        },
+        tour_type: {
+          required: true,
+        },
+        booking_contact: {
+          required: true,
+          number: true,
+        },
+        stay_price: {
+          required: true,
+          number: true,
+        },
+        extra_price: {
+          number: true,
+        },
+        service_fee: {
+          number: true,
+        },
+        property_type: {
+          required: true,
+        },
+
+      }, 
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+    if (form.valid() === true) {
+      stepper.next();
+      // alert( "Form successful submitted!" );
+      $(".slide.one").removeClass("active");
+      $(".slide.two").addClass("active");
+    }
+  });
+
+  $(".slide.two .button").click(function() {
+    var form = $("#addTourContext_form");
+    form.validate({
+      rules: {
+        hotel_address: {
+          required: true
+        },
+        hotel_city: {
+          required: true
+        }
+      },
+      messages: {
+        hotel_address: {
+          required: "Please enter a Hotel Name"
+        },
+        hotel_city: {
+          required: "Please provide a Hotel Content",
+        },
+        // terms: "Please accept our terms"
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+    if (form.valid() === true) {
+      stepper.next();
+      $(".slide.two").removeClass("active");
+      $(".slide.three").addClass("active");
+    }
+  });
+
+  $(".slide.three .button").click(function() {
+    var form = $("#addTourContext_form");
+    form.validate({
+      rules: {
+        hotelName: {
+          required: true,
+        },
+        entertain_service2: {
+          required: true,
+        },
+      },
+    });
+    if (form.valid() === true) {
+      var site_url = $("#baseUrl").val(); 
+      var formData = $(form).serialize(); 
+      $('#step_btn1').prop('disabled', true); 
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: "{{url('/admin/submitTour')}}",
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') { 
+            success_noti(response.msg); 
+            setTimeout(function() {
+              window.location.href = site_url + "/admin/tourList"
+            }, 1000);
+          } else {
+            error_noti(response.msg);
+          }
+
+        }
+      });
+    }
+  });
+</script>
+
 @endsection
 
 @section('content')

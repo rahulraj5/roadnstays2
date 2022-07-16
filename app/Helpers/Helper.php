@@ -69,4 +69,27 @@ class Helper
 
         return $output;
     }
+
+    public static function smsapi($otp,$mobile)
+    {
+
+      /* End of file common_helper.php */
+      // Your Account SID and Auth Token from twilio.com/console
+      $sid = 'ACf3c15917b08e13ca3ae4c5bb91839065';
+      $token = '57bd920870e7a35862931fcf3333cd86';
+      $client = new Client($sid, $token);
+
+      // Use the client to do fun stuff like send text messages!
+      $client->messages->create(
+          // the number you'd like to send the message to
+          '+972'.$mobile,
+          array(
+              // A Twilio phone number you purchased at twilio.com/console
+              'from' => '+972526285726',
+              // the body of the text message you'd like to send
+              'body' => $otp. "Please verify this otp in RoadNstays"
+          )
+      );
+    }
+
 }

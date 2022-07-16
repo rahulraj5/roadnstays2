@@ -1,11 +1,7 @@
 @extends('admin.layouts.layout')
-
-
-
-@section('title', 'User - Profile')
-
-
-
+ 
+@section('title', 'Add - Tour')
+ 
 @section('current_page_css')
 <style>
   .nav-pills .nav-link.active,
@@ -90,9 +86,6 @@
 <script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script> -->
-
-<!-- <script type="text/javascript" src="{{ asset('resources/js/raone/multi-form.js') }}"></script> -->
 <script>
   $(function() {
     // Summernote
@@ -104,23 +97,29 @@
     $('#summernote1').summernote()
   })
 </script>
-<script>
-  // BS-Stepper Init
+<script> 
   document.addEventListener('DOMContentLoaded', function() {
     window.stepper = new Stepper(document.querySelector('.bs-stepper'))
   })
 </script>
 <script>
-  $('#checkin_time').datetimepicker({
-    //  format: 'hh:mm:ss a'
-    //  format: 'HH:mm'
-    format: 'LT'
-  });
-  $('#checkout_time').datetimepicker({
-    //  format: 'hh:mm:ss a'
-    //  format: 'HH:mm'
-    format: 'LT'
-  });
+$('#start_date').datepicker(
+{ 
+  minDate: 0,
+    beforeShow: function() {
+    $(this).datepicker('option', 'maxDate', $('#to').val());
+  }
+});
+$('#end_date').datepicker(
+  {
+    defaultDate: "+1w",
+    beforeShow: function()
+    {
+      $(this).datepicker('option', 'minDate', $('#start_date').val());
+     if ($('#start_date').val() === '') $(this).datepicker('option', 'minDate', 0);                             
+    }
+  }
+);
 </script>
 <script>
   $("select").on("select2:select", function(evt) {
@@ -136,7 +135,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
-      $("#hotelGallery").on("change", function(e) {
+      $("#tourGallery").on("change", function(e) {
         var files = e.target.files,
           filesLength = files.length;
         for (var i = 0; i < filesLength; i++) {
@@ -164,7 +163,7 @@
 <script>
   $(".slide.one .button").click(function() {
     // alert('sdfsd');
-    var form = $("#addHotelContext_form");
+    var form = $("#addTourContext_form");
     form.validate({
       rules: {
         hotelName: {
@@ -201,6 +200,9 @@
         scout_id: {
           required: true,
         },
+        vendor_id: {
+          required: true,
+        },
         checkin_time: {
           required: true,
         },
@@ -221,9 +223,13 @@
         hotel_longitude: {
           number: true,
         },
-        // attraction_distance: {
-        //   required: true,
-        // },
+        tour_type: {
+          required: true,
+        },
+        booking_contact: {
+          required: true,
+          number: true,
+        },
         stay_price: {
           required: true,
           number: true,
@@ -238,16 +244,7 @@
           required: true,
         },
 
-      },
-      // messages: {
-      //   hotelName: {
-      //     required: "Please enter a Hotel Name"
-      //   },
-      //   summernote: {
-      //     required: "Please provide a Hotel Content",
-      //   },
-      //   // terms: "Please accept our terms"
-      // },
+      }, 
       errorElement: 'span',
       errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
@@ -269,7 +266,7 @@
   });
 
   $(".slide.two .button").click(function() {
-    var form = $("#addHotelContext_form");
+    var form = $("#addTourContext_form");
     form.validate({
       rules: {
         hotel_address: {
@@ -308,7 +305,7 @@
   });
 
   $(".slide.three .button").click(function() {
-    var form = $("#addHotelContext_form");
+    var form = $("#addTourContext_form");
     form.validate({
       rules: {
         hotelName: {
@@ -320,25 +317,19 @@
       },
     });
     if (form.valid() === true) {
-      var site_url = $("#baseUrl").val();
-      // alert(site_url);
-      var formData = $(form).serialize();
-      $('#step_btn1').prop('disabled', true);
-      // alert(formData);
+      var site_url = $("#baseUrl").val(); 
+      var formData = $(form).serialize(); 
+      $('#step_btn1').prop('disabled', true); 
       $(form).ajaxSubmit({
         type: 'POST',
-        url: "{{url('/admin/submitHotel')}}",
+        url: "{{url('/admin/submitTour')}}",
         data: formData,
         success: function(response) {
           console.log(response);
-          if (response.status == 'success') {
-            // $("#register_form")[0].reset();
-            success_noti(response.msg);
-            // setTimeout(function() {
-            //   window.location.reload()
-            // }, 1000);
+          if (response.status == 'success') { 
+            success_noti(response.msg); 
             setTimeout(function() {
-              window.location.href = site_url + "/admin/hotelList"
+              window.location.href = site_url + "/admin/tourList"
             }, 1000);
           } else {
             error_noti(response.msg);
@@ -428,7 +419,7 @@
     $("#breakfast_cost_div").removeClass('d-none');
   });
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
 
 <script type="text/javascript">
   function initialize() {
@@ -451,11 +442,9 @@
 </script>
 
 @endsection
-
-
+ 
 @section('content')
-
-
+ 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -511,27 +500,27 @@
                     <div class="step" data-target="#hotel-context-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="hotel-context-part" id="hotel-context-part-trigger">
                         <span class="bs-stepper-circle">1</span>
-                        <span class="bs-stepper-label">Hotel Context</span>
+                        <span class="bs-stepper-label">Tour Context</span>
                       </button>
                     </div>
                     <div class="line"></div>
                     <div class="step" data-target="#hotel-policy-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
                         <span class="bs-stepper-circle">2</span>
-                        <span class="bs-stepper-label">Hotel Policy</span>
+                        <span class="bs-stepper-label">Tour Itinerary</span>
                       </button>
                     </div>
                     <div class="line"></div>
                     <div class="step" data-target="#facility-service-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
                         <span class="bs-stepper-circle">3</span>
-                        <span class="bs-stepper-label">Facilities & Services</span>
+                        <span class="bs-stepper-label">Bank Details</span>
                       </button>
                     </div>
                   </div>
                   <div class="bs-stepper-content">
                     <!-- your steps content here -->
-                    <form method="POST" id="addHotelContext_form" action="#">
+                    <form method="POST" id="addTourContext_form" action="#">
                       <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
                       @csrf
                       <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
@@ -544,120 +533,77 @@
                           <div class="col-md-12 mt-0">
                             <!-- <div class="tab-custom-content mt-0"> -->
                             <p class="lead mb-0">
-                            <h4>Hotel Context</h4>
+                            <h4>Tour Context</h4>
                             </p>
                             <!-- </div> -->
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Hotel Name</label>
-                              <input type="text" class="form-control" name="hotelName" id="hotelName" placeholder="Enter Name">
+                              <label>Tour Name</label>
+                              <input type="text" class="form-control" name="tour_title" id="tour_title" placeholder="Enter Name">
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Hotel Content</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="summernote" required></textarea>
+                              <label>Tour Description</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="tour_description" required></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Locations</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" required></textarea>
                             </div>
                           </div>
 
                           <!-- <div class="col-md-12"> -->
+                            
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="customFile">Hotel Gallery</label>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="hotelGallery" name="hotelGallery[]" multiple>
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
+                                <label>Tour Package Name</label>
+                                  <input type="text" class="form-control" id="tour_package_name" name="tour_package_name">
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Tour Code</label>
+                                  <input type="text" class="form-control" id="tour_code" name="tour_code">
                               </div>
                             </div>
                           <!-- </div> -->
+
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="customFile">Tour Gallery</label>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="tourGallery" name="tourGallery[]" multiple>
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                          </div> 
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="customFile">Tour Featured/Main Image</label>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" required>
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                              </div>
+                            </div>
+                          </div>  
+                          
                           <div class="col-md-12">
                             <div class="col" id="hotelGalleryPreview"></div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Hotel Featured/Main Image</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="hotelFeaturedImg" name="hotelFeaturedImg" required>
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Hotel Video</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="hotelVideo" id="hotelVideo">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                              </div>
-                            </div>
-                          </div>
-
-                          
-                          
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Category</label>
-                              <select class="form-control select2bs4" name="cat_listed_room_type" id="cat_listed_room_type" style="width: 100%;">
-                                <option value="">Select Category</option>
-                                @foreach ($properties as $prop)
-                                <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-6">
-                            <label>Where else your property listed?</label>
-                            <div class="row">
-                              <div class="col-sm-6">
-                                <!-- checkbox -->
-                                <div class="form-group">
-                                  <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="where_property_listed1" name="where_property_listed" value="1">
-                                    <label for="where_property_listed1" class="custom-control-label">Yes</label>
-                                  </div>
-
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <!-- radio -->
-                                <div class="form-group">
-                                  <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="where_property_listed2" name="where_property_listed" value="0" checked>
-                                    <label for="where_property_listed2" class="custom-control-label">No</label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <!-- select -->
-                            <div class="form-group">
-                              <label>Select Hotel Rating</label>
-                              <select class="form-control" name="hotel_rating" id="hotel_rating">
-                                <option value="">Select Hotel Rating</option>
-                                <option value="1">1 Star</option>
-                                <option value="2">2 Star</option>
-                                <option value="3">3 Star</option>
-                                <option value="4">4 Star</option>
-                                <option value="5">5 Star</option>
-                              </select>
-                            </div>
-
                           </div>
 
                           <div class="col-md-12 mt-0">
                             <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Contact Details for this Property</h4>
+                              <h4>Contact Details for this Tour</h4>
                               </p>
                             </div>
                           </div>
@@ -683,35 +629,11 @@
                             </div>
                           </div>
 
-                          <div class="col-sm-6">
-                            <label>Do you own multiple hotels or are you part of property management company or group?</label>
-                            <div class="row">
-                              <div class="col-sm-6">
-                                <!-- checkbox -->
-                                <div class="form-group">
-                                  <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel1" name="do_you_multiple_hotel" value="1">
-                                    <label for="do_you_multiple_hotel1" class="custom-control-label">Yes</label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <!-- radio -->
-                                <div class="form-group">
-                                  <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="do_you_multiple_hotel2" name="do_you_multiple_hotel" value="0" checked>
-                                    <label for="do_you_multiple_hotel2" class="custom-control-label">No</label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="customFile">Document</label>
                               <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document">
+                                <input type="file" class="custom-file-input" name="tour_document" id="tour_document">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                               </div>
                             </div>
@@ -719,7 +641,7 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Scouts ID</label>
+                              <label>Scouts</label>
                               <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
                                 <option value="">Select Scouts</option>
                                 @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
@@ -729,93 +651,99 @@
                               </select>
                             </div>
                           </div>
-
-                          <!-- <div class="col-md-6">
+                          <div class="col-md-6">
                             <div class="form-group">
-                              <label for="customFile">Hotel Notes</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="hotel_notes" name="hotel_notes" required="required">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                              </div>
-                            </div>
-                          </div> -->
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Hotel Notes Policy</label>
-                              <textarea class="form-control" id="summernote1Removed" name="hotel_notes"></textarea>
+                              <label>Vendor</label>
+                              <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;">
+                                <option value="">Select Vendors</option>
+                                @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
+                                @foreach ($vendors as $value)
+                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                @endforeach
+                              </select>
                             </div>
                           </div>
-
-                          <!-- <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Scouts ID</label>
-                                <input type="text" class="form-control" name="scout_id" id="scout_id" placeholder="Enter Scouts ID">
-                              </div>
-                            </div> -->
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Term & Condition</label>
+                              <textarea class="form-control" id="summernote1Removed" name="tour_term_condition"></textarea>
+                            </div>
+                          </div>
 
 
                           <div class="col-md-12 mt-0">
                             <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Check In/out time</h4>
+                              <h4>Tour Start/End Date</h4>
                               </p>
                             </div>
                           </div>
 
-                          <!-- <div class="col-md-6">1 -->
-                            <!-- <div class="form-group"> -->
-                            <!-- <label>Time for Check in</label>2 -->
-                            <!-- <input type="text" class="form-control" name="scout_id" id="datetime" placeholder="Enter Scouts ID"> -->
-                            <!-- <div class="input-group date" id="mondatetimepicker31">3
-                              <input type="text" class="form-control" id="checkin_time" name="checkin_time" required>
-                              <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                              </span>
-                            </div> -->
-                            <!-- </div> -->
-                          <!-- </div>4 -->
-
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Time for Check in</label>
-                              <input type="text" class="form-control" name="checkin_time" id="checkin_time" required>
+                              <label>Start Date</label>
+                              <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Enter start date" required>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Time for Check out</label>
-                              <input type="text" class="form-control" name="checkout_time" id="checkout_time" required>
+                              <label>End Date</label>
+                              <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Enter end date" required>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Min day before booking</label>
-                              <input type="text" class="form-control" name="min_day_before_book" id="min_d_before_book" placeholder="Enter Min day before booking">
+                              <label>Tour Days</label>
+                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Min day stays</label>
-                              <input type="text" class="form-control" name="min_day_stays" id="min_day_stays" placeholder="Enter Min day stays">
+                              <label>Tour Price</label>
+                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter tour price">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour services includes</label>
+                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour services not includes</label>
+                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Type</label>
+                              <select class="form-control select2bs4" name="tour_type" id="tour_type" style="width: 100%;">
+                                <option value="">Select Tour Type</option>
+                                <option value="standard">Standard</option>
+                                <option value="deluxe">Deluxe</option>
+                                <option value="exclusive">Exclusive</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Booking Contact Mobile Nubmer</label>
+                              <input type="text" name="booking_contact" id="booking_contact" placeholder="Please enter mobile number" class="form-control">
                             </div>
                           </div>
 
                           <div class="col-12">
-                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> -->
-                            <!-- <button type="submit" id="step_btn1" class="btn btn-primary">Submit</button> -->
-
-                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Submit</button> -->
                             <a class="btn btn-primary btn-dark button">Next</a>
-                            <!-- onclick="stepper.next()" -->
                           </div>
                         </div>
-
-                        <!-- </form> -->
-                        <!-- <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
                       </div>
 
                       <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
@@ -947,42 +875,6 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Atrractions</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name</label>
-                              <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Content</label>
-                              <input type="text" class="form-control" name="attraction_content" id="attraction_content" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Distance</label>
-                              <input type="text" class="form-control" name="attraction_distance" id="attraction_distance" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Type</label>
-                              <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
                               <h4>Pricing</h4>
                               </p>
                             </div>
@@ -990,34 +882,31 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Price ( min. Price of the Room )</label>
-                              <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter ">
+                              <label>Tour Price others</label>
+                              <input type="text" class="form-control" name="tour_price_others" id="tour_price_others" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-12 mt-0">
                             <div class="tab-custom-content mt-0">
                               <p class="lead mb-0">
-                              <h4>Extra Price</h4>
+                              <h4>Tour Itinerary</h4>
                               </p>
                             </div>
                           </div>
                           <div class="col-md-12 field_wrapper">
                             <div class="form-group" id="extra">
-                              <label>Extra Price</label>
+                              <label>Itinerary</label>
                               <div class="row">
                                 <div class="col-md-3">
-                                  <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" />
+                                  <input type="text" class="form-control" name="itinerary[0][name]" placeholder="Enter activities" value="" />
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" />
+                                  <input type="text" class="form-control" name="itinerary[0][price]" placeholder="Enter Price" value="" />
                                 </div>
-                                <!-- <div class="col-md-3">
-                                  <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" />
-                                </div> -->
                                 <div class="col-md-3">
                                   <div class="form-group">
-                                    <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                                    <select class="form-control select2bs4" name="itinerary[0][type]" style="width: 100%;">
                                       <option value="">Select Price type</option>
                                       <option value="single_fee">Single fee</option>
                                       <option value="per_night">Per night</option>
@@ -1029,64 +918,7 @@
                                 <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
-                              <p class="lead mb-0">
-                              <h4>Service Fee</h4>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-12 field_wrapper_service">
-                            <div class="form-group" id="service_div">
-                              <label>Service Fee</label>
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="service[0][name]" placeholder="Enter Name" value="" />
-                                </div>
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" />
-                                </div>
-                                <!-- <div class="col-md-3">
-                                  <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" />
-                                </div> -->
-                                <div class="col-md-3">
-                                  <div class="form-group">
-                                      <select class="form-control select2bs4" name="service[0][type]" style="width: 100%;">
-                                      <option value="">Select Price type</option>
-                                      <option value="single_fee">Single fee</option>
-                                      <option value="per_night">Per night</option>
-                                      <option value="per_guest">Per guest</option>
-                                      <option value="per_night_per_guest">Per night per guest</option>
-                                      </select>
-                                  </div>
-                                </div>
-                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Property Details</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Property Type</label>
-                              <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;" required="required">
-                                <option value="">Select Property Type</option>
-                                @foreach ($properties as $prop)
-                                <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
+                          </div> 
 
                           <div class="col-12">
                             <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
@@ -1096,267 +928,69 @@
                           </div>
                         </div>
 
-                        <!-- </form> -->
-                        <!-- <button class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</button>
-                          <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
                       </div>
 
-                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger">
-                        <!-- <form method="POST" id="addHotelFacilityService_form">
-                          <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-
+                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger"> 
                         <div class="row">
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Facilities</h4>
+                              <h4>You can deposit money from any Bank</h4>
                               </p>
                             </div>
                           </div>
 
-                          @foreach ($amenity_type as $value)
-                          @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
-
-                          @if($amenity_count > 0)
-                          @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
-                          <div class="col-md-12">
+                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>{{$value->name}}</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
-                                <!-- <option value="">Select Room Amenities</option> -->
-
-                                @foreach ($amenities as $amenity)
-                                <option value="{{ $amenity->amenity_id }}">{{ $amenity->amenity_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-                          @endif
-
-                          @endforeach
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Services</h4>
-                              </p>
+                              <label>Bank Name</label>
+                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name ">
                             </div>
                           </div>
 
-                          @foreach ($service_type as $value)
-                          @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
-
-                          @if($hotel_services_count > 0)
-                          @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
-                          <div class="col-md-12">
+                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>{{$value->name}}</label>
-                              <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
-                                <!-- <option value="">Select Room Amenities</option> -->
-
-                                @foreach ($services as $service)
-                                <option value="{{ $service->id }}">{{ $service->service_name }}</option>
-                                @endforeach
-                              </select>
+                              <label>Account Title</label>
+                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name ">
                             </div>
                           </div>
-                          @endif
 
-                          @endforeach
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Account Number</label>
+                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number">
+                            </div>
+                          </div>
 
-
-                          <!-- checking for the other option added start here -->
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Branch Name</label>
+                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name">
+                            </div>
+                          </div>
 
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Other</h4>
+                              <h4>You can also deposit money through Easypaisa and Jazz Cash</h4>
                               </p>
                             </div>
                           </div>
-
-                          <div class="col-md-12">
-                            <div class="col-md-6">
-                              <label>Is parking available to guests?</label>
-                              <!-- <div class="row"> -->
-                              <div class="form-group">
-                                <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="parking_option1" name="parking_option" value="1">
-                                  <label for="parking_option1" class="custom-control-label">Yes, free</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="parking_option2" name="parking_option" value="2">
-                                  <label for="parking_option2" class="custom-control-label">Yes, paid</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="parking_option3" name="parking_option" value="0" checked>
-                                  <label for="parking_option3" class="custom-control-label">No</label>
-                                </div>
-                              </div>
-                              <!-- </div> -->
-                            </div>
-
-                            <div class="d-none" id="parking_free_div">
-                              <div class="col-md-12 d-none" id="parking_price_div">
-                                <label>How much does parking cost?</label>
-                                <div class="row">
-                                  <div class="form-group">
-                                    <label for="exampleInputPassword1">Price</label>
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR">
-                                      </div>
-                                      <div class="col-md-6">
-                                        <select class="custom-select" name="payment_interval" id="payment_interval">
-                                          <option value="0">Per Hour</option>
-                                          <option value="1">Per Day</option>
-                                          <option value="2">Per Stay</option>
-                                        </select>
-                                      </div>
-                                    </div>
-
-                                  </div>
-                                  <!-- <div class="form-group">
-                                  <label>Select</label>
-                                  <select class="custom-select" name="payment_interval" id="payment_interval">
-                                    <option value="hour">Per Hour</option>
-                                    <option value="day">Per Day</option>
-                                    <option value="stay">Per Stay</option>
-                                  </select>
-                                </div> -->
-                                </div>
-                              </div>
-                              <div class="col-md-12">
-                                <label>Do they need to reserve a parking spot?</label>
-                                <div class="row">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_reserv_need1" name="parking_reserv_need" value="1">
-                                      <label for="parking_reserv_need1" class="custom-control-label">Reservation needed</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_reserv_need2" name="parking_reserv_need" value="0" checked>
-                                      <label for="parking_reserv_need2" class="custom-control-label">No reservation needed</label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-12">
-                                <label>Where is the parking located?</label>
-                                <div class="row">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_locate1" name="parking_locate" value="1">
-                                      <label for="parking_locate1" class="custom-control-label">On site</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_locate2" name="parking_locate" value="0" checked>
-                                      <label for="parking_locate2" class="custom-control-label">Off site</label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-12">
-                                <label>What type of parking is it?</label>
-                                <div class="row">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_type1" name="parking_type" value="1">
-                                      <label for="parking_type1" class="custom-control-label">Private</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="parking_type2" name="parking_type" value="0" checked>
-                                      <label for="parking_type2" class="custom-control-label">Public</label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Easypaisa</label>
+                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number">
                             </div>
                           </div>
 
-                          <!-- <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Breakfast</h4>
-                              </p>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Jazz Cash</label>
+                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number">
                             </div>
-                          </div> -->
-
-                          <div class="col-md-12">
-                            <div class="col-sm-6">
-                              <label>Is breakfast available to guests?</label>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="breakfast_availability1" name="breakfast_availability" value="1">
-                                      <label for="breakfast_availability1" class="custom-control-label">Yes</label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="breakfast_availability2" name="breakfast_availability" value="0" checked>
-                                      <label for="breakfast_availability2" class="custom-control-label">No</label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-sm-6 d-none" id="breakfast_price_inclusion_div">
-                              <label>Is breakfast included in the price ?</label>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="breakfast_price_inclusion1" name="breakfast_price_inclusion" value="0" checked>
-                                      <label for="breakfast_price_inclusion1" class="custom-control-label">Yes, it's included in the price</label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                      <input class="custom-control-input" type="radio" id="breakfast_price_inclusion2" name="breakfast_price_inclusion" value="1">
-                                      <label for="breakfast_price_inclusion2" class="custom-control-label">No, it's optional</label>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-sm-6 d-none" id="breakfast_cost_div">
-                                  <div class="form-group">
-                                    <!-- <label>Select all that apply</label> -->
-                                    <label>Breakfast Price</label>
-                                    <input type="text" class="form-control" name="breakfast_cost" id="breakfast_cost" placeholder="Price">
-                                  </div>
-                                </div>
-
-                                <div class="col-sm-12 d-none" id="breakfast_price_type_div">
-                                  <div class="form-group">
-                                    <!-- <label>Select all that apply</label> -->
-                                    <label>What kind of breakfast is available?</label>
-                                    <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;" required="required">
-                                      <!-- <option value="">Select Entertainment and family services</option> -->
-                                      @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
-                                      @foreach ($breakfast_type as $value)
-                                      <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
-                                      @endforeach
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
                           </div>
-
-                          <!-- checking for the other option added end here -->
 
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
                             <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
                           </div>
                         </div>

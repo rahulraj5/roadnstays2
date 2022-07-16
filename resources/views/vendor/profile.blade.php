@@ -116,9 +116,9 @@
     <!-- padding-top: 100px; -->
         <div class="container">
 
-            <div class="row">
+            <div class="row profile-row">
 
-                <div class="col-md-3">
+                <div class="col-md-3 profile-col">
 
                     <div class="user-bar">
 

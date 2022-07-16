@@ -123,7 +123,7 @@ class WsController extends APIBaseController
 
             $Hotel = $Hotel->orderBy('stay_price','DESC');
 
-        }
+            }
 
         }
 
@@ -268,45 +268,64 @@ class WsController extends APIBaseController
                 'amenity_name_type' => isset($value->amenity_name_type)?$value->amenity_name_type:"",
             ); 
         }
- 
+    
+        $booking = DB::table('booking')
+        ->where("hotel_id",$hotelID)
+        ->whereBetween('check_in', [$hotel_data['0']->checkin_time, $hotel_data['0']->checkout_time])
+        ->orWhereBetween('check_out', [$hotel_data['0']->checkin_time, $hotel_data['0']->checkout_time])
+        ->get();
+
+        $bookroomids = array();
+
+        foreach ($booking as $key => $bookvalue) {
+        
+        $bookroomids[] = $bookvalue->room_id;
+            
+        }
+
+         $hotel_room_data = DB::table('room_list')->where("hotel_id",$hotelID)->whereNotIn("id",$bookroomids)->get(); 
+
+
+
         $hotel_room_data = DB::table('room_list')
         //->join('room_gallery', 'room_list.id', '=', 'room_gallery.room_id')
         ->where('room_list.hotel_id', '=', $hotelID) 
         ->where('room_list.status', '=', 1) 
         ->get();  
+
         $hotelroomdata = array();
         foreach ($hotel_room_data as $key => $value) {          
 
             $baseurl = url('/public/uploads/room_images/');
             $roomimg = $baseurl.'/'.$value->image;
  
-        $room_amenities = DB::table('room_amenities')
-        ->join('H2_Amenities', 'room_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
-        ->join('amenities_type', 'H2_Amenities.amenity_type', '=', 'amenities_type.id')
-        ->where('room_amenities.room_id', '=', $value->id) 
-        ->where('room_amenities.status', '=', 1) 
-        ->get();
+            $room_amenities = DB::table('room_amenities')
+            ->join('H2_Amenities', 'room_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+            ->join('amenities_type', 'H2_Amenities.amenity_type', '=', 'amenities_type.id')
+            ->where('room_amenities.room_id', '=', $value->id) 
+            ->where('room_amenities.status', '=', 1) 
+            ->get();
 
-        $roomamenities = array();
+            $roomamenities = array();
 
-        foreach ($room_amenities as $roomvalue) {
-            
-            $roomamenities[] = array(
-                'id'=> $roomvalue->id,
-                'room_id' => $roomvalue->room_id,
-                'amenity_id' => $roomvalue->amenity_id,
-                'status' => $roomvalue->status,
-                'created_at' => $roomvalue->created_at,
-                'amenity_name' => $roomvalue->amenity_name,
-                'amenity_icon' => isset($roomvalue->amenity_icon)?$roomvalue->amenity_icon:"",
-                'amenity_type' => $roomvalue->amenity_type,
-                'amenity_type_name' => isset($roomvalue->amenity_type_name)?$roomvalue->amenity_type_name:"",
-                'amenity_type_sym' => isset($roomvalue->amenity_type_sym)?$roomvalue->amenity_type_sym:"",
-                'room_other_featured_id' => isset($roomvalue->room_other_featured_id)?$roomvalue->room_other_featured_id:"", 
-                'name' => $roomvalue->name,
-                'amenity_name_type' => isset($roomvalue->amenity_name_type)?$roomvalue->amenity_name_type:"",
-            ); 
-        }
+            foreach ($room_amenities as $roomvalue) {
+                
+                $roomamenities[] = array(
+                    'id'=> $roomvalue->id,
+                    'room_id' => $roomvalue->room_id,
+                    'amenity_id' => $roomvalue->amenity_id,
+                    'status' => $roomvalue->status,
+                    'created_at' => $roomvalue->created_at,
+                    'amenity_name' => $roomvalue->amenity_name,
+                    'amenity_icon' => isset($roomvalue->amenity_icon)?$roomvalue->amenity_icon:"",
+                    'amenity_type' => $roomvalue->amenity_type,
+                    'amenity_type_name' => isset($roomvalue->amenity_type_name)?$roomvalue->amenity_type_name:"",
+                    'amenity_type_sym' => isset($roomvalue->amenity_type_sym)?$roomvalue->amenity_type_sym:"",
+                    'room_other_featured_id' => isset($roomvalue->room_other_featured_id)?$roomvalue->room_other_featured_id:"", 
+                    'name' => $roomvalue->name,
+                    'amenity_name_type' => isset($roomvalue->amenity_name_type)?$roomvalue->amenity_name_type:"",
+                ); 
+            }
          
             $max_adults = $value->max_adults;
             $noofroom1 = $member%$max_adults;

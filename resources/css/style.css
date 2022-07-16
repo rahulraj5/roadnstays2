@@ -56,3 +56,41 @@
 [class*=sidebar-dark-] .sidebar a {
     color: #ffffff !important;
 }
+
+/* add hotel form */
+a.add_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    position: relative;
+    top: 7px;
+  }
+  a.remove_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+  }
+  a.add_service_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    position: relative;
+    top: 7px;
+  }
+  a.remove_serv_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+}

@@ -59,7 +59,7 @@
     background: #2a7b72 !important;
     color: black;
   }
-  a.add_service_button {
+  /* a.add_service_button {
     background: #13544d;
     color: #ffffff;
     padding: 10px;
@@ -68,7 +68,7 @@
     position: relative;
     top: 7px;
   }
-  a.remove_button {
+  a.remove_serv_button {
     background: #f90e39;
     color: #ffffff;
     padding: 10px;
@@ -76,7 +76,7 @@
     position: relative;
     top: 7px;
     font-size: 14px;
-}
+  } */
 </style>
 <style>
   /*.container-fluid {

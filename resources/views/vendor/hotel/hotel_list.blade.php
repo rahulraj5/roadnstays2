@@ -142,7 +142,7 @@
 
               <div class="card-body table-responsive">
 
-                <table id="example" class="table table-bordered table-striped htl-listing">
+                <table id="example1" class="table table-bordered table-striped htl-listing">
 
                   <thead>
 

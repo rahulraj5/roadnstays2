@@ -73,7 +73,7 @@ body.main_b_s {
                     <div style="float:left; width: 30%;"><img src="{{url('resources/assets/img/road-logo.png')}}" class="logo_im" width="50px;"></div>
                     
                         <div style="width:65%; float:right;"  class="book-id">
-                            <p style="text-align:right; font-size: 20px; font-family:Arial,Helvetica,sans-serif;">Booking-ID: <strong style="font-weight:900;">#{{$order_info->id}}</strong></p>
+                            <p style="text-align:right; font-size: 18px; font-family:Arial,Helvetica,sans-serif;">Booking-ID: <strong style="font-weight:900;">#{{$order_info->id}}</strong></p>
                             <p style="font-family:Arial,Helvetica,sans-serif; text-align:right;">Booked On: {{$order_info->created_at}} IST</p>
                         </div>
                     

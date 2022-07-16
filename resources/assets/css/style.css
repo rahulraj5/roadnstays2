@@ -2777,6 +2777,8 @@ width: 65%;
     padding: 32px 0;
     /*margin-top: 27px;*/
 }
+
+
 .user-bar img {
     width: 100%;
     height: 100%;
@@ -5348,14 +5350,14 @@ span.rvw {
   width: 100%;
   max-width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit:cover;
+  
+
 }
   div#hotelGalleryPreview {
     width: auto;height: auto;
   }
-  div#hotelGalleryPreview {
-    width: auto;height: auto;
-    }
+  
 /******************Room details*******************/
 
  .bed-room h3 {
@@ -5584,7 +5586,7 @@ a.resurve-btn-res {
     color: #000;
     padding-top: 32px;
 }
-}
+
 .price-rom {
     margin-top: 11px;
 }
@@ -6422,6 +6424,8 @@ a.remove_button {
 }
 .tab-custom-content h4 {
     font-size: 20px;
+    font-weight: 900;
+    padding: 5px 0;
 }
 .bs-stepper .step-trigger {
     border-radius: 0px !important;
@@ -6507,6 +6511,51 @@ ul.menu-trig01 li a i {
 .htl-add {
     z-index: 9 !important;
 }
+.invoice h4{
+  border-bottom: 1px solid #ada5a5;
+    padding-bottom: 10px;
+}
+
+a.add_service_button {
+  background: #13544d;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  position: relative;
+  top: 7px;
+  margin-left: 20px;
+}
+a.remove_serv_button {
+  background: #f90e39;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  position: relative;
+  top: 7px;
+  font-size: 14px;
+}
+address {
+  line-height:30px;
+}
+.portlet .portlet-body .value {
+  font-weight: 500;
+  line-height: 28px!important;
+}
+.invoice-col{
+  line-height: 28px;
+}
+.form-group {
+  margin-bottom: 1rem;
+  line-height: 30px;
+}
+
+
+
+
+
+
+
 
 @media screen and (max-width: 767px) {
 	section.user-section {
@@ -6575,5 +6624,261 @@ div#mySidenav::-webkit-scrollbar-thumb
 }
 .menu-trig01 .sub-menu {
     border-left: 5px solid #b1d78c;
+}
+.hotel_info-card {
+  margin: 0!important;
+}
+.hotel_info-card .card-body{
+  padding: 0 5px;
+}
+div.dataTables_wrapper #example_filter label {
+  text-align: end;
+}
+div.dataTables_wrapper #example_filter {
+  text-align: right;
+  padding: 0 5px;
+}
+div.dataTables_wrapper #example_filter label {
+  text-align: right;
+  padding: 10px 0;
+}
+div.dataTables_wrapper #example_filter input {
+  display: block;
+  width: auto;
+}
+.table-space .htl-add {
+  margin-bottom: 0px;
+  margin-left: 10px !important;
+  top: 40px;
+}
+table.dataTable>tbody>tr.child span.dtr-title{
+    width: 55%;
+}
+#example1_filter{
+  width: 50%;
+  margin: auto;
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+.card-body{
+  padding:0;
+}
+.sider-page{
+  margin-top:10px;
+  padding: 20px 12px;
+}
+.prifle {
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+.top-dash {
+  align-items: flex-start;
+}
+.sider-page  .row label {
+  padding: 8px 0!important;
+}
+.sider-page .row {
+  border-bottom: 5px solid #edefec;
+  align-items: center;
+  margin-top: 10px;
+}
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 0.85em;
+  padding-bottom: 10px;
+}
+table.dataTable>tbody>tr.child {
+  padding: 0.5em 1em;
+  background: #126c621c;
+}
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child {
+  padding-right: 0;
+  padding-left: 0;
+}
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:first-child {
+  padding-left: 0;
+  padding-right: 0;
+}
+.page-link{
+  color: #126c62;
+}
+.portlet-body .col-md-7.value {
+  font-weight: 400;
+  margin-top: 10px;
+}
+small, .small {
+  font-size: 55%;
+  font-weight: 400;
+}
+address, .invoice-col {
+  line-height: 30px;
+}
+.card-body .bs-stepper-header{
+  display: block;
+}
+.image-gridiv img{
+  border: none;
+  padding: 0;
+  
+}
+.image-gridiv{
+  margin-left:0;
+}
+.rmv-spc .customFile, .table-space label{
+  font-size: 14px;
+  text-transform:capitalize;
+}
+.card{
+  border: none!important;
+}
+.form-control{
+  margin-bottom: 10px;
+}
+a.add_button {
+  margin-left: 20px;
+  top: 0;
+}
+a.remove_button {
+  margin-left: 20px;
+top: 0;
+}
+.dashbord-text {
+  color: #FFF;
+  font-size: 16px;
+  margin-bottom: 0;
+  padding-left: 15px;
+}
+#updateRoom_form .form-group{
+  width: 320px;
+}
+#updateRoom_form .form-group .form-control, #hotel-context-part .form-group .form-control{
+  font-size: 14px;
+  color: #a7a6a6;
+}
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+  color: #a7a6a6;
+  font-size: 14px;
+}
+.icheck-success{
+  font-size: 14px;
+}
+.tab-custom-content h4:after { 
+  height: 2px;
+}
+table.dataTable>tbody>tr.child ul.dtr-details {
+  width: 100%;
+}
+.image-gridiv .pip {
+  display: inline;
+  margin: 10px 10px 0 0;
+}
+.d-flex #hotelGalleryPreview {
+  width: 50%;
+  height: auto;
+}
+}
+
+
+
+
+@media screen and (max-width:1023px) and (min-width:768px){
+  .content-body .col-md-3 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin: 10px 0;
+}
+.table-space .hotel_info-card {
+  margin: 0px 10px;
+}
+div.dataTables_wrapper #example_filter label {
+  font-weight: normal;
+  white-space: normal;
+  text-align: left;
+}
+div.dataTables_wrapper #example_filter input {
+  margin-left: 0.5em;
+  display: inline-block;
+  width: 100%;
+}
+.table th, .table td {
+  vertical-align: middle;
+  
+}
+a.btn_add {
+  top: 80px!important;
+}
+
+.profile-row{
+display: block;
+
+}
+.profile-row .profile-col{
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-bottom:20px;
+}
+.profile-row .col-md-9{
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.order_Detail_s .row, .invoice-info{
+  display: block;
+}
+.order_Detail_s .row .col-md-6, .invoice-info .invoice-col{
+  max-width: 100%;
+}
+.portlet-body .col-md-7.value {
+  font-weight: 400;
+  margin-top: 10px;
+}
+small, .small {
+  font-size: 55%;
+  font-weight: 400;
+}
+address, .invoice-col {
+  line-height: 30px;
+}
+.table-responsive .dataTables_wrapper .table tr th{
+  padding-right: 21px;
+}
+.col-12 .row .col-md-11 {
+  display: none;
+}
+div.dataTables_wrapper #example1_filter input {
+  margin-left: 0.5em;
+  display: inline-block;
+  width: 67%;
+}
+.card-body .bs-stepper-header{
+  display: block;
+}
+.image-gridiv img{
+  border: none;
+  padding: 0;
+}
+.image-gridiv{
+  margin-left:0;
+}
+.rmv-spc .customFile, .table-space label{
+  font-size: 14px;
+}
+#updateRoom_form .col-md-6{
+  flex: 0 0 100%;
+  max-width:100%;
+}
+#updateRoom_form .col-md-3{
+  padding-left: 1px;
+  padding-right:1px;
+  flex: 0 0 33%;
+    max-width: 33%;
+}
+a.add_button {
+  top: 0;
+}
+a.remove_button {
+top: 0;
 }
 }

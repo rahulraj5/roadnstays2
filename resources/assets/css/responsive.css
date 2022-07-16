@@ -1680,7 +1680,21 @@ button.more-details:hover {
      width: inherit; 
     margin: auto;
 }
+/*................................................... vendor side responsive css................................................... */
+.hotel_info-card {
+    margin: 0px 0px;
 }
+.hotel_info-card .card-body{
+    padding: 0;
+}
+div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: end;
+}
+}
+
+
 
 
 
@@ -1830,6 +1844,11 @@ button.more-details:hover {
         
     }
 }
+
+
+
+
+
 
 .amenities-img ul li img{
 

@@ -53,24 +53,7 @@
     color: black;
   }
   
-  a.add_service_button {
-    background: #13544d;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    position: relative;
-    top: 7px;
-  }
-  a.remove_serv_button {
-    background: #f90e39;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 4px;
-    position: relative;
-    top: 7px;
-    font-size: 14px;
-}
+
 </style>
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">

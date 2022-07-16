@@ -58,6 +58,7 @@ Route::post('/updateProfileImage', 'HomeController@updateProImg');
 
 Route::post('/user/loginPost', 'HomeController@postLogin'); 
 Route::post('/user/signup', 'HomeController@signup'); 
+Route::get('/email_verification/{id}', 'HomeController@email_verification');
 Route::post('/servicepro/loginPost', 'HomeController@serviceProPostLogin');
 Route::post('/servicepro/signup', 'HomeController@vendorSignup');  
 
@@ -91,10 +92,15 @@ Route::get('payment-successful','HomeController@payment_successful')->name('user
 Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function () {
     Route::get('user/profile','HomeController@userProfile')->name('user.profile');
     Route::any('user/changePassword', 'HomeController@change_password');
-    // Route::any('user/logout', 'HomeController@userLogout');	
     Route::any('user/logout', 'HomeController@userLogout')->name('user.logout');
 
     // Route::get('user/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
+
+    // booking 
+    Route::any('user/bookingList', 'Home\BookingController@booking_list');	
+    // Route::any('user/bookingDetails', 'Home\BookingController@booking_details');	
+    Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
+    Route::get('user/bookingDetailCancelled/{id}', 'Home\BookingController@booking_canceled_detail');	
 });	
 
 // vendor route start here
@@ -283,6 +289,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/tourList', 'Admin\TourController@tour_list');
         Route::get('/addTour', 'Admin\TourController@add_tour');
         Route::any('/submitTour', 'Admin\TourController@submit_tour');
+        Route::get('/viewTour/{id}', 'Admin\TourController@view_tour');
         Route::get('/editTour/{id}', 'Admin\TourController@edit_tour');
         Route::any('/updateTour', 'Admin\TourController@update_tour');
         Route::get('/changeTourStatus', 'Admin\TourController@change_tour_status');

@@ -321,6 +321,11 @@ class HomeController extends Controller
         return view('front/change_password');
     }
 
+    // public function booking_list(Request $request)
+    // {
+    //     return view('front/booking/booking_list');
+    // }
+
     public function userLogout()
     {
         // Auth::guard('web')->logout();
@@ -392,8 +397,7 @@ class HomeController extends Controller
                         ->limit('10')
                         ->get();
 
-            $hoteldata[] = array(
-
+            $hoteldata[] = array( 
                 'hotel_id'=> $value->hotel_id,
                 'hotel_user_id' => $value->hotel_user_id,
                 'hotel_name' => $value->hotel_name,
@@ -487,8 +491,7 @@ class HomeController extends Controller
 
         foreach ($room_list as $key => $roomlvalue) {
 
-        	$total_memeber = $total_memeber+$roomlvalue->max_adults;  
-        	// $total_room = $total_room+$roomlvalue->total_room;      
+        	$total_memeber = $total_memeber+$roomlvalue->max_adults;    
         }
 
          if($person <= $total_memeber){
@@ -572,8 +575,7 @@ class HomeController extends Controller
         return view('front.hotel.hotel_list')->with($data);
 
     	}else{
-    		//return redirect()->route('/');
-    		return redirect('/');
+     		return redirect('/');
     	}
     } 
 
@@ -595,9 +597,21 @@ class HomeController extends Controller
                             ->select('H2_Amenities.*', 'hotel_amenities.amenity_id')
                             ->get(); 
 
-        //$data['room_data'] =  DB::table('room_list')->where(['hotel_id'=>$hotel_id,'status' => 1])->get();
+        $booking = DB::table('booking')
+        ->where("hotel_id",$hotel_id)
+        ->whereBetween('check_in', [$check_in, $check_out])
+        ->orWhereBetween('check_out', [$check_in, $check_out])
+        ->get();
 
-        $room_data =  DB::table('room_list')->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')->where(['room_list.hotel_id'=>$hotel_id,'room_list.status' => 1])->select('room_list.*', 'room_type_categories.title as room_type')->get();
+        $bookroomids = array();
+
+        foreach ($booking as $key => $bookvalue) {
+        
+        $bookroomids[] = $bookvalue->room_id;
+            
+        }
+
+        $room_data =  DB::table('room_list')->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')->whereNotIn("room_list.id",$bookroomids)->where(['room_list.hotel_id'=>$hotel_id,'room_list.status' => 1])->select('room_list.*', 'room_type_categories.title as room_type')->get();
 
         $roomdata = array();
         foreach ($room_data as $key => $room) {
@@ -689,16 +703,16 @@ class HomeController extends Controller
                         ->get();
 
         $room_features = DB::table('room_features')
-                    ->join('room_others_features', 'room_features.feature_id', '=', 'room_others_features.id')
-                    ->where('room_features.room_id','=',$room_id)
-                    ->select('room_others_features.*', 'room_features.feature_id')
-                    ->get();
+                        ->join('room_others_features', 'room_features.feature_id', '=', 'room_others_features.id')
+                        ->where('room_features.room_id','=',$room_id)
+                        ->select('room_others_features.*', 'room_features.feature_id')
+                        ->get();
 
         $room_services = DB::table('room_services')
-                    ->join('H3_Services', 'room_services.room_service_id', '=', 'H3_Services.id')
-                    ->where('room_services.room_id','=',$room_id)
-                    ->select('H3_Services.*', 'room_services.room_service_id')
-                    ->get();
+                        ->join('H3_Services', 'room_services.room_service_id', '=', 'H3_Services.id')
+                        ->where('room_services.room_id','=',$room_id)
+                        ->select('H3_Services.*', 'room_services.room_service_id')
+                        ->get();
 
         $room_extra_option = DB::table('room_extra_option')->where('room_id','=',$room_id)->get();
 
@@ -752,7 +766,7 @@ class HomeController extends Controller
             $data['booking_days'] = $booking_days;
             $data['start_day'] = $start_day;
             $data['end_day'] = $end_day;
-            //echo "<pre>";print_r($data);die;
+
             return view('front/hotel/checkout')->with($data);
         }else{
             return redirect()->route('home');
@@ -885,13 +899,11 @@ class HomeController extends Controller
     public function payment_successful(Request $request)
     {   
         if (Auth::check()) {
-            
             $user_id =  Auth::id();
         }else{
             $user_id = '';
         }
-
-    	//print_r($request->all());
+ 
     	$paymentId = $_GET['paymentId']; 
         $token = $_GET['token'];
         $PayerID = $_GET['PayerID'];
@@ -1020,8 +1032,7 @@ class HomeController extends Controller
                   'created_at' =>  date('Y-m-d H:i:s')
                 ]
             ); 
-            ///$room_detail = DB::table('room_list')->where('id',$room_id)->first();
-
+ 
             $check = true;
  
             if($check){
@@ -1063,7 +1074,7 @@ class HomeController extends Controller
 
                     $data['booking_id'] = $booking_id;
 
-                    Mail::send('emails.booking_invoice_admin_template', $data, function ($message) use ($inData) {
+                    Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'],'roadNstyas');
                         $message->to('votivephppushpendra@gmail.com');
                         $message->subject('roadNstyas - New Booking Recieved Mail');
@@ -1087,7 +1098,7 @@ class HomeController extends Controller
                         $fromEmail = Helper::getFromEmail();
                         $inData['from_email'] = $fromEmail;
                         $inData['email'] = $vendors->email;
-                        Mail::send('emails.booking_invoice_admin_template', $data, function ($message) use ($inData) {
+                        Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
                             $message->from($inData['from_email'],'roadNstyas');
                             $message->to($inData['email']);
                             $message->subject('roadNstyas - Order assigned');
@@ -1158,8 +1169,7 @@ class HomeController extends Controller
 
         $reseturll = url('/resetPassword/');
 
-        $checkuser = DB::table('users')->where(['email' => $email])->first();
-        // print_r($checkuser);die;
+        $checkuser = DB::table('users')->where(['email' => $email])->first(); 
 
         if(!empty($checkuser)){
             DB::table('password_resets')->insert([
@@ -1169,17 +1179,7 @@ class HomeController extends Controller
             ]);
     
             $data = array( 'email' => $email, 'token' => $token , 'reseturll' => $reseturll);
-    
-            // Mail::send("emails.forgotPasswordMail",$data,function($message) use ($data) {
-    
-            //     $message->from('info@votivetechnologies.in', 'votivetechnologies.in');
-        
-            //     $message->subject("Forgot Password");
-        
-            //     $message->to($data['email']);
-        
-            // });
-
+     
             $fromEmail = Helper::getFromEmail();
             $inData['from_email'] = $fromEmail;
             $inData['email'] = $email;
@@ -1191,10 +1191,11 @@ class HomeController extends Controller
             });
 
             return response()->json(['status' => 'success','msg' => 'Please check your email address..']);
-            // return Redirect::back()->with('msg', "Please check your email address..");
+        
         }else{
-            return response()->json(['status' => 'error','msg' => 'Please enter vaild mail-id!']);
-            // return Redirect::back()->with('error', "Please enter vaild mail-id!");
+
+            return response()->json(['status' => 'error','msg' => 'Please enter vaild mail-id!']); 
+        
         }                                
 
     }
