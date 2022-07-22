@@ -59,7 +59,7 @@
                                     <div class="Budget">
                                         <div class="rt">
                                             <p class="p-0">Total Booking</p>
-                                            <h3>20 <small> Since last month</small></h3>
+                                            <h3>{{ $total_booking}} <small> Since last month</small></h3>
                                         </div>
                                         <div class="icon-vb">
                                             <i class='bx bx-book-content'></i>
@@ -71,8 +71,8 @@
                                 <div class="rating-das">
                                     <div class="Budget">
                                         <div class="rt">
-                                            <p class="p-0">Tour Booking</p>
-                                            <h3>351 <small> Since last month</small></h3>
+                                            <p class="p-0">Total Tour</p>
+                                            <h3>{{ $total_tour}} <small> Since last month</small></h3>
                                         </div>
                                         <div class="icon-vb">
                                             <i class='bx bxs-car'></i>
@@ -84,8 +84,8 @@
                                 <div class="rating-das">
                                     <div class="Budget">
                                         <div class="rt">
-                                            <p class="p-0">Total Event</p>
-                                            <h3>861 <small> Since last month</small></h3>
+                                            <p class="p-0">Total Space</p>
+                                            <h3>{{ $total_space}} <small> Since last month</small></h3>
                                         </div>
                                         <div class="icon-vb">
                                             <i class='bx bx-star'></i>
@@ -98,7 +98,7 @@
                                     <div class="Budget">
                                         <div class="rt">
                                             <p class="p-0">Total Hotel </p>
-                                            <h3>15 <small> Since last month</small> </h3>
+                                            <h3>{{ $total_hotel}} <small> Since last month</small> </h3>
                                         </div>
                                         <div class="icon-vb">
                                             <i class='bx bx-buildings'></i>

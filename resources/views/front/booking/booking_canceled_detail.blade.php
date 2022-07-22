@@ -543,9 +543,9 @@
                         <p>{{ $bookingDetails->room_name }}</p>
 
                     </div>
-                    <div class="down-i">
+                    <!-- <div class="down-i">
                         <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
-                    </div>
+                    </div> -->
 
                 </div>
                 <!--............................................. booking cancel status......................................................... -->
@@ -596,9 +596,9 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <ul>
+                        <!-- <ul>
                             <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
 

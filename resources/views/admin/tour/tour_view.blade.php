@@ -549,18 +549,32 @@ $('#end_date').datepicker(
                               </div>
                           </div> 
 
+                          <div class="col-md-12">
+                            <div class="d-flex flex-wrap">
+                              @php $tour_gallery = DB::table('tour_gallery')->orderby('id', 'ASC')->where('tour_id', $tour_info->id)->get(); @endphp
+                              @foreach($tour_gallery as $image)
+                              <div class="image-gridiv">
+                                <img src="{{url('public/uploads/tour_gallery/')}}/{{$image->image}}">
+                              </div>
+                              @endforeach
+                            </div>
+                          </div>
+
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="customFile">Tour Featured/Main Image</label>
                               <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" disabled="">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
+                                @if((!empty($tour_info->tour_feature_image)))
+                                <div class="col-md-12">
+                                  <div class="image-gridiv">
+                                    <img src="{{url('public/uploads/tour_gallery/')}}/{{$tour_info->tour_feature_image}}">
+                                  </div>
+                                </div>
+                                @endif
                               </div>
                             </div>
-                          </div>  
-                          
-                          <div class="col-md-12">
-                            <div class="col" id="hotelGalleryPreview"></div>
                           </div>
 
                           <div class="col-md-12 mt-0">
@@ -609,7 +623,7 @@ $('#end_date').datepicker(
                                 <option value="">Select Scouts</option>
                                 @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
                                 @foreach ($scouts as $value)
-                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if($tour_info->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -621,7 +635,7 @@ $('#end_date').datepicker(
                                 <option value="">Select Vendors</option>
                                 @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
                                 @foreach ($vendors as $value)
-                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if($tour_info->vendor_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -689,9 +703,9 @@ $('#end_date').datepicker(
                               <label>Tour Type</label>
                               <select class="form-control select2bs4" disabled="" style="width: 100%;">
                                 <option value="">Select Tour Type</option>
-                                <option value="standard">Standard</option>
-                                <option value="deluxe">Deluxe</option>
-                                <option value="exclusive">Exclusive</option>
+                                <option value="standard" @php if($tour_info->tour_type == 'standard'){echo "selected";} @endphp>Standard</option>
+                                <option value="deluxe" @php if($tour_info->tour_type == 'deluxe'){echo "selected";} @endphp>Deluxe</option>
+                                <option value="exclusive" @php if($tour_info->tour_type == 'exclusive'){echo "selected";} @endphp>Exclusive</option>
                               </select>
                             </div>
                           </div>
@@ -728,7 +742,7 @@ $('#end_date').datepicker(
                               <div class="col-sm-2">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" readonly="" value="1">
+                                    <input class="custom-control-input" type="radio" readonly="" value="1" @php if($tour_info->payment_mode == 1){echo 'checked';} @endphp>
                                     <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                   </div>
                                 </div>
@@ -736,7 +750,7 @@ $('#end_date').datepicker(
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio"readonly="" value="2">
+                                    <input class="custom-control-input" type="radio"readonly="" value="2" @php if($tour_info->payment_mode == 2){echo 'checked';} @endphp>
                                     <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
                                   </div>
                                 </div>
@@ -744,7 +758,7 @@ $('#end_date').datepicker(
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" readonly="" value="0" checked>
+                                    <input class="custom-control-input" type="radio" readonly="" value="0" @php if($tour_info->payment_mode == 0 ){echo 'checked';} @endphp>
                                     <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                                   </div>
                                 </div>
@@ -759,7 +773,7 @@ $('#end_date').datepicker(
                                 <!-- checkbox -->
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" readonly="" value="1">
+                                    <input class="custom-control-input" type="radio" readonly="" value="1"@php if($tour_info->booking_option == 1){echo 'checked';} @endphp>
                                     <label for="booking_option1" class="custom-control-label">Instant booking</label>
                                   </div>
 
@@ -770,7 +784,7 @@ $('#end_date').datepicker(
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" readonly="" value="2" checked>
+                                    <input class="custom-control-input" type="radio" readonly="" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
@@ -789,7 +803,7 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->address}}">
                             </div>
                           </div>
 
@@ -798,28 +812,28 @@ $('#end_date').datepicker(
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->latitude}}">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->longitude}}">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>City</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->city}}">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Neighborhood / Area</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->neighb_area}}">
                             </div>
                           </div>
 
@@ -829,7 +843,7 @@ $('#end_date').datepicker(
                               <select class="form-control select2bs4" disabled="" style="width: 100%;" >
                                 <!-- <option value="">Select Country</option> -->
                                 @foreach ($countries as $cont)
-                                <option value="{{ $cont->id }}">{{ $cont->name }}</option>
+                                <option value="{{ $cont->id }}" php if($tour_info->country_id == $cont->id){echo "selected";>{{ $cont->name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -846,56 +860,10 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Price others</label>
-                              <input type="text" class="form-control" readonly="" value="">
+                              <input type="text" class="form-control" readonly="" value="{{$tour_info->tour_price_others}}">
                             </div>
                           </div>
-
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
-                              <p class="lead mb-0">
-                              <h4>Tour Itinerary</h4>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-12 field_wrapper">
-                            <div class="form-group" id="extra">
-                              <label>Itinerary</label>
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="itinerary[0][name]" placeholder="Enter activities" value="" readonly="" />
-                                </div>
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="itinerary[0][price]" placeholder="Enter Price" value="" readonly="" />
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="form-group">
-                                    <select class="form-control select2bs4" name="itinerary[0][type]" style="width: 100%;" disabled>
-                                      <option value="">Select Price type</option>
-                                      <option value="single_fee">Single fee</option>
-                                      <option value="per_night">Per night</option>
-                                      <option value="per_guest">Per guest</option>
-                                      <option value="per_night_per_guest">Per night per guest</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
-                              </div>
-                            </div>
-                          </div> 
-
-                          <div class="col-12">
-                            <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
-                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
-                            <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                            <a class="btn btn-primary btn-dark button">Next</a>
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger"> 
-                        <div class="row">
-                          <div class="col-md-12">
+                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
                               <h4>You can deposit money from any Bank</h4>
@@ -906,28 +874,28 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Bank Name</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->bank_name}}" readonly="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Title</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->account_holder}}" readonly="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Number</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->account_number}}" readonly="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Branch Name</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->branch_name}}" readonly="">
                             </div>
                           </div>
 
@@ -941,17 +909,69 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Easypaisa</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->easypaisa}}" readonly="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Jazz Cash</label>
-                              <input type="text" class="form-control" value="" readonly="">
+                              <input type="text" class="form-control" value="{{$tour_info->jazz_cash}}" readonly="">
                             </div>
                           </div>
+                          
 
+                          <div class="col-12">
+                            <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
+                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
+                            <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
+                            <a class="btn btn-primary btn-dark button">Next</a>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger"> 
+                        <div class="row">
+                         <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
+                              <p class="lead mb-0">
+                              <h4>Tour Itinerary</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12 field_wrapper">
+                            <div class="form-group" id="extra">
+                              <label>Itinerary</label>
+                              <?php $i = 0; $len = count($tour_itinerary); ?>
+                              @foreach($tour_itinerary as $key => $itinerary)
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][name]" placeholder="Enter title" value="{{$itinerary->title}}" readonly="" />
+                                  <?php if($i > 0) {?>
+                                  <ul style="padding: 3px; margin-top: 12px;" class="itinerary<?php echo $i;?>">
+                                  <?php }else{ ?>
+                                  <ul style="padding: 3px; margin-top: 12px;" class="itinerary">
+                                  <?php } ?>
+                                  <?php $j = 0; $lenng = count(json_decode($itinerary->trip_detail)); 
+                                    $lastkey = $lenng -1;
+
+                                  ?>
+                                  @foreach(json_decode($itinerary->trip_detail) as $key1 => $detail)
+                                  
+                                    <li class="d-flex  mb-2" style="align-items: center;"> 
+                                     <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][services][{{$key1}}]" placeholder="services" value="{{$detail}}" readonly>
+                                    </li>
+                                    <?php $j++;?>
+                                  @endforeach
+                                  </ul>
+                                </div>
+                                
+                              </div>
+                              <?php $i++;?>
+                              @endforeach
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <!-- <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button> -->

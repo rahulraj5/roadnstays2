@@ -353,13 +353,18 @@
       console.log(place);
       document.getElementById('hotel_latitude').value = place.geometry.location.lat();
       document.getElementById('hotel_longitude').value = place.geometry.location.lng();
-      document.getElementById('neighb_area').value = place.vicinity;
+      // document.getElementById('neighb_area').value = place.vicinity;
       for (let i = 0; i < place.address_components.length; i++) {
         if (place.address_components[i].types[0] == "administrative_area_level_2") {
           document.getElementById('hotel_city').value = place.address_components[i].long_name;
         }
+        if (place.address_components[i].types[0] == "sublocality_level_1") {
+          document.getElementById('neighb_area').value = place.address_components[i].long_name;
+        }
+        // if (place.address_components[i].types[0] == "neighborhood") {
+        //   document.getElementById('neighb_area').value = place.address_components[i].long_name;
+        // }
       }
-
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);

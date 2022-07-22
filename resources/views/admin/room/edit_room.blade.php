@@ -126,7 +126,10 @@
     var maxField = 10;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
-    var x = 0;
+    var x = $('#extra_option_count').val() - 1;
+    // alert(x);
+    // alert(--x);
+    // var x = 0;
 
     $(addButton).click(function() {
       if (x < maxField) {
@@ -243,6 +246,7 @@
             <input type="hidden" name="room_id" id="room_id" value="{{$room_data->id}}">
             <input type="hidden" name="hotel_name" id="hotel_id" value="{{$room_data->hotel_id}}">
             <input type="hidden" name="old_room_image" id="old_room_image" value="@if(!empty($room_data->hotel_id)){{ $room_data->image }}@endif" />
+            <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($room_extra_option) }}">
             <div class="row">
 
               <!-- <div class="col-md-6">
@@ -555,7 +559,7 @@
                       @if($key == 0)
                       <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                       @else
-                      <span><a href="javascript:void(0);" class="remove_button" title="Add field">Remove</a></span>
+                      <span><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove</a></span>
                       @endif
                     </div>
                     

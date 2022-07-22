@@ -9,11 +9,30 @@ use Illuminate\Auth\Events\Validated;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hotel;
+use App\Models\Room;
+use App\Models\Tour;
+use App\Models\Space;
 use DB;
 use Session;
 
 class VendorController extends Controller
 {
+    public function serviceProDashboard(Request $request)
+    {
+        // echo "";die;
+        $user_id = Auth::user()->id;
+        $data['total_hotel'] = Hotel::where('hotel_user_id', $user_id)->count(); 
+        // $data['room_total'] = Room::where('id', $user_id)->count(); 
+        $data['total_tour'] = Tour::where('vendor_id', $user_id)->count(); 
+        // dd($data['total_tour']);
+        $data['total_space'] = Space::where('space_user_id', $user_id)->count(); 
+        $data['total_event'] = 0;
+        $data['total_booking'] = 0; 
+        // Model::where('id', $id)->count() 
+        // Model::where('price', '>', 100)->count();
+        $data['page_heading_name'] = 'Dashboard';
+        return view('vendor.dashboard')->with($data);
+    }
 
     public function add_hotel(Request $request)
     {

@@ -40,7 +40,7 @@ class TourController extends Controller
 
     public function submit_tour(Request $request)
     {
-        //print_r($request->all());
+        //print_r($request->all()); die;
 
         if($request->hasFile('tourFeaturedImg'))
         {
@@ -52,8 +52,7 @@ class TourController extends Controller
             $request->file('tourFeaturedImg')->move($path1,$tourFeaturedImg);
         }else{
             $tourFeaturedImg = '';
-        }
-
+        } 
         if ($request->hasFile('tour_document')) {
             $image_nam2 = $request->file('tour_document')->getClientOriginalName();
             $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
@@ -65,8 +64,7 @@ class TourController extends Controller
             $tour_document = '';
         }
 
-        $admintour = new Tour;
-
+        $admintour = new Tour; 
         $admintour->vendor_id = $request->vendor_id;
         $admintour->scout_id = $request->scout_id;
         $admintour->tour_code= $request->tour_code;
@@ -95,7 +93,18 @@ class TourController extends Controller
         $admintour->easypaisa = $request->easypaisa;
         $admintour->jazz_cash = $request->jazz_cash;
         $admintour->booking_contact_no = $request->booking_contact;
-        $admintour->tour_status = $request->tour_status;
+        $admintour->contact_name = $request->contact_name;
+        $admintour->contact_num = $request->contact_num;
+        $admintour->alternate_num = $request->alternate_num;
+        $admintour->country_id = $request->country_id;
+        $admintour->address = $request->address;
+        $admintour->latitude = $request->latitude;
+        $admintour->longitude = $request->longitude;
+        $admintour->city = $request->city;
+        $admintour->neighb_area = $request->neighb_area;
+        $admintour->booking_option = $request->booking_option;
+        $admintour->payment_mode = $request->payment_mode;
+        $admintour->tour_status = 1;
         $admintour->save();  
         $admintour_id = $admintour->id;
 
@@ -116,6 +125,22 @@ class TourController extends Controller
                 $up = DB::table('tour_gallery')->insert($Img);
             }
         }
+
+       
+        if (!empty($request->itinerary)) {
+            foreach ($request->itinerary as $itinerary) {
+            	$trip_detail = json_encode($itinerary['services']);
+                $trip_itinerary = array(
+                    'tour_id' => $admintour_id,
+                    'title' => $itinerary['name'],
+                    'trip_detail' => $trip_detail,
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
+                $up = DB::table('tour_itinerary')->insert($trip_itinerary);
+            }
+       	}
         return response()->json(['status' => 'success', 'msg' => 'Tour Added Successfully']);
 
     }
@@ -179,6 +204,139 @@ class TourController extends Controller
         $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id',$tour_id)->get();
         //echo "<pre>"; print_r($data);die;
         return view('admin/tour/edit_tour')->with($data); 
+    }
+
+    public function update_tour(Request $request)
+    {   
+
+        $tour_id = $request->tour_id;
+        $user_id = Auth::user()->id;
+
+         if($request->hasFile('tourFeaturedImg'))
+        {
+            $image_name1 = $request->file('tourFeaturedImg')->getClientOriginalName();
+            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+            $image_ext1 = $request->file('tourFeaturedImg')->getClientOriginalExtension();
+            $tourFeaturedImg = $filename1.'-'.'tourMainImg'.'-'.time().'.'.$image_ext1;
+            $path1 = base_path() . '/public/uploads/tour_gallery';
+            $request->file('tourFeaturedImg')->move($path1,$tourFeaturedImg);
+        }else{
+            $tourFeaturedImg = $request->old_tour_image;
+        }
+
+        if ($request->hasFile('tour_document')) {
+            $image_nam2 = $request->file('tour_document')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('tour_document')->getClientOriginalExtension();
+            $tour_document = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/tour_document';
+            $request->file('tour_document')->move($pat2, $tour_document);
+        } else {
+            $tour_document = $request->old_tour_document;
+        }
+
+        if (!empty($tour_id)) {
+            DB::table('tour_list')
+
+                ->where('id', $tour_id)
+
+                ->update([
+                    'vendor_id' => $request->vendor_id,
+                    'scout_id' => $request->scout_id,
+                    'tour_code'=> $request->tour_code,
+                    'tour_start_day' => $request->tour_start_day,
+                    'tour_start_date' => date('Y-m-d', strtotime($request->start_date)),
+                    'tour_end_date' => date('Y-m-d', strtotime($request->end_date)),
+                    'tour_feature_image' => $tourFeaturedImg,
+                    'tour_package_name' =>$request->tour_package_name,
+                    'tour_title' => $request->tour_title,
+                    'tour_type' => $request->tour_type,
+                    'tour_price' => $request->tour_price,
+                    'tour_days' => $request->tour_days,
+                    'tour_duration' =>$request->tour_duration,
+                    'tour_price_others' => $request->tour_price_others,
+                    'tour_locations' => $request->tour_locations,
+                    'tour_services_includes' => $request->tour_services_includes,
+                    'tour_services_not_includes' => $request->tour_services_not_includes,
+                    'tour_payment_term' => $request->tour_payment_term,
+                    'tour_description' => $request->tour_description,
+                    'tour_term_condition' => $request->tour_term_condition,
+                    'bank_name' => $request->bank_name,
+                    'account_holder' => $request->account_title,
+                    'account_number' => $request->account_number,
+                    'branch_name' => $request->branch_name,
+                    'tour_document' =>$request->tour_document,
+                    'easypaisa' => $request->easypaisa,
+                    'jazz_cash' => $request->jazz_cash,
+                    'booking_contact_no' => $request->booking_contact,
+                    'contact_name' => $request->contact_name,
+                    'contact_num' => $request->contact_num,
+                    'alternate_num' => $request->alternate_num,
+                    'country_id' => $request->country_id,
+                    'address' => $request->address,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
+                    'city' => $request->city,
+                    'neighb_area' => $request->neighb_area,
+                    'booking_option' => $request->booking_option,
+                    'payment_mode' => $request->payment_mode,
+                    'tour_status' => 1,
+                ]);
+
+            if (!empty($_FILES["tourGallery"]["name"])) {
+                foreach ($_FILES["tourGallery"]["name"] as $key => $error) {
+                    $imgname = $_FILES["tourGallery"]["name"][$key];
+                    $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
+                    $name = $_FILES["tourGallery"]["name"];
+                    move_uploaded_file($_FILES["tourGallery"]["tmp_name"][$key], "public/uploads/tour_gallery/" . time() . '_' . $_FILES['tourGallery']['name'][$key]);
+
+                    $Img = array(
+                        'image' => time() . '_' . $imgname,
+                        'tour_id' => $tour_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('tour_gallery')->insert($Img);
+                }
+            }
+
+            DB::table('tour_itinerary')->where('tour_id', '=', $tour_id)->delete();
+            if (!empty($request->itinerary)) {
+                foreach ($request->itinerary as $itinerary) {
+                	$trip_detail = json_encode($itinerary['services']);
+                    $trip_itinerary = array(
+                        'tour_id' => $tour_id,
+                        'title' => $itinerary['name'],
+                        'trip_detail' => $trip_detail,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('tour_itinerary')->insert($trip_itinerary);
+                }
+            }
+
+            return response()->json(['status' => 'success', 'msg' => 'Hotel Updated Successfully']);
+        }
+    }
+
+    public function delete_tour_single_image(Request $request)
+    {
+        $imageId = $request->id;
+        // $hotelID = $request->hotel_id;
+        $image_data = DB::table('tour_gallery')->where('id', $imageId)->first();
+        if ($image_data) {
+            $filePath = public_path('uploads/tour_gallery/'. $image_data->image);
+            if(file_exists($filePath)){
+                $Path = './public/uploads/tour_gallery/' . $image_data->image;
+                unlink($Path);
+            }
+            $image_delete = DB::table('tour_gallery')->where('id', '=', $imageId)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
     }
 
     public function room_type_categories()
@@ -748,21 +906,5 @@ class TourController extends Controller
         return response()->json(['success' => 'status change successfully.']);
     }
 
-    public function delete_hotel_single_image(Request $request)
-	{
-        $imageId = $request->id;
-        // $hotelID = $request->hotel_id;
-        $image_data = DB::table('hotel_gallery')->where('id', $imageId)->first();
-		if ($image_data) {
-            $filePath = public_path('uploads/hotel_gallery/'. $image_data->image);
-            if(file_exists($filePath)){
-                $Path = './public/uploads/hotel_gallery/' . $image_data->image;
-                unlink($Path);
-            }
-			$image_delete = DB::table('hotel_gallery')->where('id', '=', $imageId)->delete();
-			return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
-		} else {
-			return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
-		}
-	}
+    
 }

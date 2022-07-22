@@ -71,6 +71,9 @@ padding: 6px 9px;
 #header .logo a {
   color: #0b2341;
 }
+.truely-dedicated .image-expri{
+  height: auto!important;
+}
 
 #header .logo img {
   max-height: 65px;
@@ -1374,6 +1377,10 @@ width: 20px !important;
   color: #fdedea;
   font-size: 26px;
 }
+.info-details i{
+font-size: 20px;
+color: #06a18f;
+}
 
 .testimonials .testimonial-item .quote-icon-left {
   display: inline-block;
@@ -1475,6 +1482,10 @@ display: none;
 
 }
 
+/*................................................... responsive css below 768px ................................................*/
+/*................................................... responsive css below 768px ................................................*/
+
+
 @media (max-width: 767px) {
   .testimonials .testimonial-wrap {
     padding-left: 0;
@@ -1537,6 +1548,10 @@ margin-bottom: 2px;
   width: 95% !important;
 }
   }
+
+
+
+
 
 /*--------------------------------------------------------------
 # Cta
@@ -3043,6 +3058,11 @@ color: #12a594;
   font-size: 22px !important;
 }
 
+
+/*................................................... responsive css below 768px ................................................*/
+/*................................................... responsive css below 768px ................................................*/
+
+
 @media(min-width:280px) and (max-width:767px) {
 .testimonials .testimonial-item {
     padding: 3px !important;
@@ -3242,7 +3262,7 @@ color: #12a594;
     box-sizing: content-box;
     /* padding: 30px 30px 30px 60px; */
     margin: 30px 15px;
-    height: 355px !important;
+    height: auto !important;
     }
    .offer-circle {
     height: 79px;
@@ -3254,6 +3274,7 @@ color: #12a594;
     padding: 8px;
     margin: 8px;
 }
+
 .family-group h2 {
     color: #FFF;
     font-weight: bolder;
@@ -3359,6 +3380,10 @@ color: #12a594;
     padding: 4px 13px 4px 13px;
 }
 }
+
+/*................................................... responsive css below 768px end ................................................*/
+/*................................................... responsive css below 768px end ................................................*/
+/*................................................... responsive css below 768px end ................................................*/
 
 
 /**************vendor pages*******************/
@@ -3678,7 +3703,10 @@ box-shadow: 0 3px 30px 0 rgb(131 131 131 / 50%);
 }
 
 
-/* 31 may updated responsive above 767px */
+
+/* ................................................31 may updated responsive above 767px...................................... */
+/* ................................................31 may updated responsive above 767px...................................... */
+/* ................................................31 may updated responsive above 767px...................................... */
 @media screen and (max-width:1023px) and (min-width:768px){
 
   .truely-dedicated{
@@ -3716,6 +3744,11 @@ display: block!important;
   height:auto;
 }
 }
+
+/* ................................................31 may updated responsive above 767px...................................... */
+/* ................................................31 may updated responsive above 767px...................................... */
+
+
 
 .portfolio-menu{
   text-align:center;
@@ -4671,19 +4704,22 @@ margin-right: 10px;
     width: 100%;
     margin-bottom: 3px;
 }
-.botm-icom {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
+.item-card2-img{
+  height: 265px;
+  overflow: hidden;
+ 
 }
+.item-card2-img img{
+  height: 100% !important;
+}
+
 .botm-icom a {
-    margin-right: 1px;
     color: #424242;
     font-weight: 500;
-    font-size: 13px;
-    /*width: 31%;*/
+    font-size: 12px;
     display: flex;
     margin-top: 4px;
+    margin-right: 10px;
 }
 .tect-event p {
     font-size: 14px;
@@ -5242,10 +5278,11 @@ span.rvw {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 80%;
 }
-.botm-icom a {
-    margin-right: 15px;
-}
+
 .btnrating {
     color: #ffcc33;
 }
@@ -5256,6 +5293,7 @@ span.rvw {
 }
 .info-details {
     padding-bottom: 10px;
+      width:75%;
 }
 .info-details p {
     color: rgba(0, 0, 0, 0.7);
@@ -6165,7 +6203,7 @@ width: 60px;
 }
 .image-expri {
     overflow: hidden;
-    height: 185px;
+    height: auto;
     margin-bottom: 8px;
 }
 .expricne-box h4 {
@@ -6553,7 +6591,9 @@ address {
 
 
 
-
+/*................................................... responsive css below 768px ................................................*/
+/*................................................... responsive css below 768px ................................................*/
+/*................................................... responsive css below 768px ................................................*/
 
 
 

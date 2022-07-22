@@ -7,12 +7,10 @@
   .nav-pills .nav-link.active,
   .nav-pills .show>.nav-link {
     background-color: #5f666c !important;
-  }
-
+  } 
   .d-none {
     display: none;
-  }
-
+  } 
   .d-bloc {
     display: block;
   }
@@ -67,9 +65,7 @@
 @section('current_page_js')
 
 <!-- Select2 -->
-<script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
-
-
+<script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script> 
 <!-- datetimepicker -->
 <script src="{{ asset('resources/js/bootstrap-datetimepicker.min.js')}}"></script>
 <!-- daterangepicker -->
@@ -80,18 +76,15 @@
 <!-- Summernote -->
 <script src="{{ asset('resources/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- Multi-form -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> 
 <!-- jquery-validation -->
 <script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-<script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
-
+<script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script> 
 <script>
   $(function() {
     // Summernote
     $('#summernote').summernote()
-  })
-
+  }) 
   $(function() {
     // Summernote
     $('#summernote1').summernote()
@@ -103,23 +96,23 @@
   })
 </script>
 <script>
-$('#start_date').datepicker(
-{ 
-  minDate: 0,
-    beforeShow: function() {
-    $(this).datepicker('option', 'maxDate', $('#to').val());
-  }
-});
-$('#end_date').datepicker(
-  {
-    defaultDate: "+1w",
-    beforeShow: function()
-    {
-      $(this).datepicker('option', 'minDate', $('#start_date').val());
-     if ($('#start_date').val() === '') $(this).datepicker('option', 'minDate', 0);                             
+  $('#start_date').datepicker(
+  { 
+    minDate: 0,
+      beforeShow: function() {
+      $(this).datepicker('option', 'maxDate', $('#to').val());
     }
-  }
-);
+  });
+  $('#end_date').datepicker(
+    {
+      defaultDate: "+1w",
+      beforeShow: function()
+      {
+        $(this).datepicker('option', 'minDate', $('#start_date').val());
+       if ($('#start_date').val() === '') $(this).datepicker('option', 'minDate', 0);                             
+      }
+    }
+  );
 </script>
 <script>
   $("select").on("select2:select", function(evt) {
@@ -130,8 +123,7 @@ $('#end_date').datepicker(
     $(this).append($element);
     $(this).trigger("change");
   });
-</script>
-
+</script> 
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
@@ -158,33 +150,32 @@ $('#end_date').datepicker(
       alert("Your browser doesn't support to File API")
     }
   });
-</script>
-
+</script> 
 <script>
   $(".slide.one .button").click(function() {
     // alert('sdfsd');
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
+        tour_title: {
           required: true,
         },
-        summernote: {
+        tour_description: {
           required: true,
         },
-        "hotelGallery[]": {
+        "tourGallery[]": {
           required: true,
           extension: "jpg|jpeg|png",
           // filesize: 20971520, 
         },
-        hotelVideo: {
-          // required: true,
-          accept: "video/*"
+        tourFeaturedImg: {
+          required: true,
+          extension: "jpg|jpeg|png",
         },
-        cat_listed_room_type: {
+        tour_locations: {
           required: true,
         },
-        hotel_rating: {
+        tour_package_name: {
           required: true,
         },
         contact_name: {
@@ -203,34 +194,30 @@ $('#end_date').datepicker(
         vendor_id: {
           required: true,
         },
-        checkin_time: {
+        start_date: {
           required: true,
         },
-        checkout_time: {
+        end_date: {
           required: true,
         },
-        min_day_before_book: {
-          required: true,
-          number: true,
+        tour_code: {
+          required: true, 
         },
         min_day_stays: {
           required: true,
           number: true,
-        },
-        hotel_latitude: {
-          number: true,
-        },
-        hotel_longitude: {
-          number: true,
-        },
+        }, 
         tour_type: {
+          required: true,
+        },
+        tour_days: {
           required: true,
         },
         booking_contact: {
           required: true,
           number: true,
         },
-        stay_price: {
+        tour_price: {
           required: true,
           number: true,
         },
@@ -269,19 +256,46 @@ $('#end_date').datepicker(
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        hotel_address: {
-          required: true
+        address: {
+          required: true,
         },
-        hotel_city: {
-          required: true
+        city: {
+          required: true,
+        },
+        latitude: {
+          number: true,
+        },
+        longitude: {
+          number: true,
+        },
+        country_id: {
+          required: true,
+        },
+        bank_name: {
+          required: true,
+        },
+        account_title: {
+          required: true,
+        },
+        account_number: {
+          required: true,
+        },
+        branch_name: {
+          required: true,
+        },
+        easypaisa: {
+          required: true,
+        },
+        jazz_cash: {
+          required: true,
         }
       },
       messages: {
-        hotel_address: {
-          required: "Please enter a Hotel Name"
+        address: {
+          required: "Please enter a Your Office Address"
         },
-        hotel_city: {
-          required: "Please provide a Hotel Content",
+        city: {
+          required: "Please provide a City",
         },
         // terms: "Please accept our terms"
       },
@@ -308,12 +322,9 @@ $('#end_date').datepicker(
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
+        "itinerary[]": {
           required: true,
-        },
-        entertain_service2: {
-          required: true,
-        },
+        }
       },
     });
     if (form.valid() === true) {
@@ -339,8 +350,7 @@ $('#end_date').datepicker(
       });
     }
   });
-</script>
-
+</script> 
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -351,7 +361,7 @@ $('#end_date').datepicker(
     $(addServButton).click(function() {
       if (x < maxField) {
         x++;
-        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="service[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>');
+        $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><input type="text" class="form-control" name="service[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="service[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>');
       }
     });
 
@@ -361,8 +371,7 @@ $('#end_date').datepicker(
       x--;
     });
   });
-</script>
-
+</script> 
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -371,9 +380,9 @@ $('#end_date').datepicker(
     var x = 0;
 
     $(addButton).click(function() {
-      if (x < maxField) {
+      if (x < maxField) { 
         x++;
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><input type="text" class="form-control" name="itinerary[' + x + '][name]" placeholder="Enter Name" value="" /><ul style="padding: 3px; margin-top: 12px;" class="itinerary'+x+'"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+x+'][services][0]" placeholder="services"><a href="javascript:void(0);" class="add_button_ser'+x+'" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
 
@@ -384,7 +393,27 @@ $('#end_date').datepicker(
     });
   });
 </script>
-
+<script type="text/javascript">
+    var x = 1;
+    function addtrips(id,inc) {
+      var maxField = 10; 
+     inc++;
+      if(id > 0){
+        $(".add_button_ser"+id).attr("onclick","addtrips('"+id+"','"+inc+"')");
+        $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>');
+      
+        $(".itinerary"+id).on('click','.remove_button_ser'+id,function(){
+        $(this).parents('li').remove();
+        });
+      }else{ 
+         $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
+        $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
+        $(".itinerary").on('click','.remove_button_ser',function(){
+        $(this).parents('li').remove();
+        });
+      } 
+    }
+</script> 
 <script>
   $("#parking_option1").click(function() {
     $("#parking_free_div").removeClass('d-none');
@@ -419,21 +448,20 @@ $('#end_date').datepicker(
     $("#breakfast_cost_div").removeClass('d-none');
   });
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script> 
 <script type="text/javascript">
   function initialize() {
-    var input = document.getElementById('hotel_address');
+    var input = document.getElementById('address');
     var autocomplete = new google.maps.places.Autocomplete(input);
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       var place = autocomplete.getPlace();
       console.log(place);
-      document.getElementById('hotel_latitude').value = place.geometry.location.lat();
-      document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+      document.getElementById('latitude').value = place.geometry.location.lat();
+      document.getElementById('longitude').value = place.geometry.location.lng();
       document.getElementById('neighb_area').value = place.vicinity;
       for (let i = 0; i < place.address_components.length; i++) {
         if (place.address_components[i].types[0] == "administrative_area_level_2") {
-          document.getElementById('hotel_city').value = place.address_components[i].long_name;
+          document.getElementById('city').value = place.address_components[i].long_name;
         }
       }
     });
@@ -507,14 +535,14 @@ $('#end_date').datepicker(
                     <div class="step" data-target="#hotel-policy-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
                         <span class="bs-stepper-circle">2</span>
-                        <span class="bs-stepper-label">Tour Itinerary</span>
+                        <span class="bs-stepper-label">Payment Mode & Bank Details</span>
                       </button>
                     </div>
                     <div class="line"></div>
                     <div class="step" data-target="#facility-service-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
                         <span class="bs-stepper-circle">3</span>
-                        <span class="bs-stepper-label">Bank Details</span>
+                        <span class="bs-stepper-label">Tour Itinerary</span>
                       </button>
                     </div>
                   </div>
@@ -548,14 +576,14 @@ $('#end_date').datepicker(
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="tour_description" required></textarea>
+                              <textarea class="form-control" id="summernoteRemoved" name="tour_description" ></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Locations</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" required></textarea>
+                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" ></textarea>
                             </div>
                           </div>
 
@@ -590,7 +618,7 @@ $('#end_date').datepicker(
                             <div class="form-group">
                               <label for="customFile">Tour Featured/Main Image</label>
                               <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" required>
+                                <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" >
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                               </div>
                             </div>
@@ -682,21 +710,21 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Start Date</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Enter start date" required>
+                              <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Enter start date" >
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>End Date</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Enter end date" required>
+                              <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Enter end date" >
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Days</label>
-                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days">
+                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days" required="">
                             </div>
                           </div>
 
@@ -739,17 +767,13 @@ $('#end_date').datepicker(
                               <input type="text" name="booking_contact" id="booking_contact" placeholder="Please enter mobile number" class="form-control">
                             </div>
                           </div>
-
                           <div class="col-12">
                             <a class="btn btn-primary btn-dark button">Next</a>
                           </div>
                         </div>
                       </div>
 
-                      <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
-                        <!-- <form method="POST" id="addHotelPolicy_form"> -->
-                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-
+                      <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger"> 
                         <div class="row">
 
                           <div class="col-md-12">
@@ -826,7 +850,7 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" class="form-control" name="hotel_address" id="hotel_address" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " >
                             </div>
                           </div>
 
@@ -835,21 +859,21 @@ $('#end_date').datepicker(
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter ">
+                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter ">
+                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter ">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>City</label>
-                              <input type="text" class="form-control" name="hotel_city" id="hotel_city" placeholder="Enter " required="required">
+                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " >
                             </div>
                           </div>
 
@@ -863,7 +887,7 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Country</label>
-                              <select class="form-control select2bs4" name="hotel_country" id="hotel_country" style="width: 100%;" required="required">
+                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" >
                                 <!-- <option value="">Select Country</option> -->
                                 @foreach ($countries as $cont)
                                 <option value="{{ $cont->id }}">{{ $cont->name }}</option>
@@ -887,51 +911,7 @@ $('#end_date').datepicker(
                             </div>
                           </div>
 
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
-                              <p class="lead mb-0">
-                              <h4>Tour Itinerary</h4>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-12 field_wrapper">
-                            <div class="form-group" id="extra">
-                              <label>Itinerary</label>
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="itinerary[0][name]" placeholder="Enter activities" value="" />
-                                </div>
-                                <div class="col-md-3">
-                                  <input type="text" class="form-control" name="itinerary[0][price]" placeholder="Enter Price" value="" />
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="form-group">
-                                    <select class="form-control select2bs4" name="itinerary[0][type]" style="width: 100%;">
-                                      <option value="">Select Price type</option>
-                                      <option value="single_fee">Single fee</option>
-                                      <option value="per_night">Per night</option>
-                                      <option value="per_guest">Per guest</option>
-                                      <option value="per_night_per_guest">Per night per guest</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
-                              </div>
-                            </div>
-                          </div> 
-
-                          <div class="col-12">
-                            <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
-                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
-                            <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                            <a class="btn btn-primary btn-dark button">Next</a>
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger"> 
-                        <div class="row">
+                         
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
@@ -988,16 +968,47 @@ $('#end_date').datepicker(
                               <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number">
                             </div>
                           </div>
+                          <div class="col-12">
+                            <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
+                            <a class="btn btn-primary btn-dark button">Next</a>
+                          </div>
+                        </div> 
+                      </div>
 
+                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger"> 
+                        <div class="row">
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
+                              <p class="lead mb-0">
+                              <h4>Tour Itinerary</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12 field_wrapper">
+                            <div class="form-group" id="extra">
+                              <label>Itinerary</label>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control mr-2" name="itinerary[0][name]" placeholder="Enter title" value="" required="" />
+                                  <ul style="padding: 3px; margin-top: 12px;" class="itinerary">
+                                    <li class="d-flex  mb-2" style="align-items: center;"> 
+                                     <input type="text" class="form-control mr-2" name="itinerary[0][services][0]" placeholder="services" required="">
+                                      <a href="javascript:void(0);" class="add_button_ser" style="padding: 5px; top: 0px;" onclick="addtrips(0,0)">Button </a>
+                                    </li>
+                                 <!-- <li class="d-flex mb-2" style="align-items: center;"> <input type="text" class="form-control mr-2" name=""><a href="" class="add_button" style="padding: 5px; top: 0px;">Button </a></li> -->
+                                   </ul>
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                              </div>
+                            </div>
+                          </div> 
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
                           </div>
-                        </div>
-
-                        <!-- </form> -->
-
-                      </div>
+                        </div> 
+                        <!-- </form> --> 
+                      </div> 
 
                     </form>
 

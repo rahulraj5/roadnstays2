@@ -78,7 +78,10 @@ Route::get('/event_details','HomeController@event_details')->name('user.event_de
 Route::get('/tour','HomeController@tour')->name('user.tour');
 Route::get('/tour_details','HomeController@tour_details')->name('user.tour_details');
 Route::get('/packages','HomeController@packages')->name('user.packages');
-Route::get('/space','HomeController@space')->name('user.space');
+Route::get('/space','Home\SpaceController@space')->name('user.space');
+Route::get('/space-details/{id?}','Home\SpaceController@space_details')->name('user.space_details');
+Route::get('/space-details','Home\SpaceController@space_details')->name('user.space_details');
+
 Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
 Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
 Route::get('/blogs','HomeController@blogs')->name('user.blogs');
@@ -105,7 +108,7 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 
 // vendor route start here
 Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function () {
-    Route::get('servicepro/dashboard','HomeController@serviceProDashboard')->name('servicepro.dashboard');
+    Route::get('servicepro/dashboard','Vendor\VendorController@serviceProDashboard')->name('servicepro.dashboard');
     Route::any('servicepro/profile', 'HomeController@serviceProProfile');
     // Route::any('servicepro/profile', 'Vendor\VendorController@serviceProProfile');
     // Route::any('servicepro/changePassword', 'HomeController@change_password');
@@ -142,6 +145,32 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     
     Route::get('servicepro/bookingList', 'Vendor\BookingController@booking_list');
     Route::any('servicepro/viewBooking/{id}', 'Vendor\BookingController@view_booking');
+
+            // Tour start here
+    Route::get('servicepro/tourList', 'Vendor\TourController@tour_list');
+    Route::get('servicepro/addTour', 'Vendor\TourController@add_tour');
+    Route::any('servicepro/submitTour', 'Vendor\TourController@submit_tour');
+    Route::get('servicepro/viewTour/{id}', 'Vendor\TourController@view_tour');
+    Route::get('servicepro/editTour/{id}', 'Vendor\TourController@edit_tour');
+    Route::any('servicepro/updateTour', 'Vendor\TourController@update_tour');
+    Route::get('servicepro/changeTourStatus', 'Vendor\TourController@change_tour_status');
+    Route::any('servicepro/deleteTour', 'Vendor\TourController@delete_tour');
+    Route::any('servicepro/deleteTourSingleImage', 'Vendor\TourController@delete_tour_single_image');
+
+    // space route start from here
+    Route::get('servicepro/space-list', 'Vendor\SpaceController@space_list');
+    Route::get('servicepro/add-space', 'Vendor\SpaceController@add_space');
+    Route::get('servicepro/add-space/{id}', 'Vendor\SpaceController@add_space');
+    Route::any('servicepro/submitSpace', 'Vendor\SpaceController@submit_space');
+    Route::get('servicepro/changeSpaceStatus', 'Vendor\SpaceController@change_space_status');
+    Route::post('servicepro/deleteSpace', 'Vendor\SpaceController@delete_space');
+    Route::get('servicepro/edit-space/{id}', 'Vendor\SpaceController@edit_space');
+    Route::any('servicepro/updateSpace', 'Vendor\SpaceController@update_space');
+    Route::any('servicepro/view-space/{id}', 'Vendor\SpaceController@view_space');
+
+    Route::any('servicepro/deleteSpaceSingleImage', 'Vendor\SpaceController@delete_space_single_image');
+    Route::post('servicepro/addCopySpace','Vendor\SpaceController@add_copy_space');
+    Route::get('servicepro/editCopySpace/{id}', 'Vendor\SpaceController@edit_copy_space');
 
 });	
 
@@ -294,7 +323,38 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/updateTour', 'Admin\TourController@update_tour');
         Route::get('/changeTourStatus', 'Admin\TourController@change_tour_status');
         Route::any('/deleteTour', 'Admin\TourController@delete_tour');
+        Route::any('/deleteTourSingleImage', 'Admin\TourController@delete_tour_single_image');
 
+        // Space start here
+        Route::get('/space-list', 'Admin\SpaceController@space_list');
+        Route::get('/add-space', 'Admin\SpaceController@add_space');
+        Route::get('/add-space/{id}', 'Admin\SpaceController@add_space');
+        Route::any('/submitSpace', 'Admin\SpaceController@submit_space');
+        Route::get('/changeSpaceStatus', 'Admin\SpaceController@change_space_status');
+        Route::post('/deleteSpace', 'Admin\SpaceController@delete_space');
+        Route::get('/edit-space/{id}', 'Admin\SpaceController@edit_space');
+        Route::any('/updateSpace', 'Admin\SpaceController@update_space');
+        Route::any('/view-space/{id}', 'Admin\SpaceController@view_space');
+
+        Route::any('/deleteSpaceSingleImage', 'Admin\SpaceController@delete_space_single_image');
+        Route::post('/addCopySpace','Admin\SpaceController@add_copy_space');
+        Route::get('/editCopySpace/{id}', 'Admin\SpaceController@edit_copy_space');
+
+        Route::get('/space-category', 'Admin\SpaceController@space_category_list');
+        Route::get('/add-space-category', 'Admin\SpaceController@add_space_category');
+        Route::any('/submitSpaceCategory', 'Admin\SpaceController@submit_space_category');
+        Route::get('/edit-space-category/{id}', 'Admin\SpaceController@edit_space_category');
+        Route::any('/updateSpaceCategory', 'Admin\SpaceController@update_space_category');
+        Route::get('/changeSpaceCategoryStatus', 'Admin\SpaceController@change_space_category_status');
+        Route::post('/deleteSpaceCategory', 'Admin\SpaceController@delete_space_category');
+
+        Route::get('/space-subcategory', 'Admin\SpaceController@space_subcategory_list');
+        Route::get('/add-space-subcategory', 'Admin\SpaceController@add_space_subcategory');
+        Route::any('/submitSpaceSubCategory', 'Admin\SpaceController@submit_space_subcategory');
+        Route::get('/edit-space-subcategory/{id}', 'Admin\SpaceController@edit_space_subcategory');
+        Route::any('/updateSpaceSubCategory', 'Admin\SpaceController@update_space_subcategory');
+        Route::get('/changeSpaceSubCategoryStatus', 'Admin\SpaceController@change_space_subcategory_status');
+        Route::post('/deleteSpaceSubCategory', 'Admin\SpaceController@delete_space_subcategory');
     });
 });
 

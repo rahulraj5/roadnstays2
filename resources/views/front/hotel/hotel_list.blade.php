@@ -183,10 +183,8 @@
       </div>
       <div class="col-md-3">
          <div class="filter-row">
-            
-            
-               
-                  <!-- <div class="form-group-ser">
+              
+                <!-- <div class="form-group-ser">
                      <input type="checkbox" id="html">
                      <label for="html">Breakfast included</label>
                   </div>
@@ -198,47 +196,57 @@
                      <input type="checkbox" id="javascript">
                      <label for="javascript">All-inclusive plan available</label>
                   </div> -->
-                  <h6>Filter</h6>
+
+    <h6>Filter</h6>
+
+    <div class="category category-0">
+      <p>Distance</p>
+      <ul>
+          <li><label><input type="checkbox" name="star" id="" value="1">Less than 1 Mile<label></li>
+          <li><label><input type="checkbox" name="star" id="" value="3">Less than 3 Mile<label></li>
+          <li><label><input type="checkbox" name="star" id="" value="5">Less than 5 Mile<label></li>
+          <li><label><input type="checkbox" name="star" id="" value="7">Less than 7 Mile<label></li>
+          
+      </ul>
+  </div>
+
         <div class="category category-1">
-        <p> budget (per night)</p>
+        <p>Your Budget (per night)</p>
         <ul>
-            <li><label><input type="checkbox" name="budget" id="">0 - 5000</label></li>
-            <li><label><input type="checkbox" name="budget" id="">5000-7500</label></li>
-            <li><label><input type="checkbox" name="budget" id="">7500 - 10000</label></li>
-            <li><label><input type="checkbox" name="budget" id="">10000 - 20000</label></li>
-            <li><label><input type="checkbox" name="budget" id="">20000 - 25000</label></li>
-            <li><label><input type="checkbox" name="budget" id="">Other</label></li>
+            <li><label><input type="checkbox" name="budget" id="" value="1">0 - 5000</label></li>
+            <li><label><input type="checkbox" name="budget" id="" value="2">5000-10000</label></li>
+            <li><label><input type="checkbox" name="budget" id="" value="3">10000 - 15000</label></li>
+            <li><label><input type="checkbox" name="budget" id="" value="4">15000 - 20000</label></li>
+            <li><label><input type="checkbox" name="budget" id="" value="5">20000 +</label></li>
             
         </ul>
         </div>
 
         <div class="category category-2">
-            <p>Star Category</p>
+            <p>Star Rating</p>
             <ul>
-                <li><label><input type="checkbox" name="star" id="">5 star<label></li>
-                <li><label><input type="checkbox" name="star" id="">4 star<label></li>
-                <li><label><input type="checkbox" name="star" id="">3.5 star<label></li>
-                <li><label><input type="checkbox" name="star" id="">3 star<label></li>
+                <li><label><input type="checkbox" name="star" id="" value="2">2 stars<label></li>
+                <li><label><input type="checkbox" name="star" id="" value="3">3 stars<label></li>
+                <li><label><input type="checkbox" name="star" id="" value="4">4 stars<label></li>
+                <li><label><input type="checkbox" name="star" id="" value="5">5 stars<label></li>
+                <li><label><input type="checkbox" name="star" id="" value="1">Unrated<label></li>  
                 
             </ul>
         </div>
 
         <div class="category category-3">
-            <p>Room-Wise</p>
-            <ul>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Room-Wise</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">double Bedroom</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Bedroom with suite</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Suite</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Hall</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Hall with double room</label></li>
-                <li><label><input type="checkbox" name="Room-Wise" id="">Room with balcony</label></li>
+          <p>Room-Wise</p>
+          <ul>
+          <?php foreach ($room_wise as $key => $value) { ?> 
+
+          <li><label><input type="checkbox" name="Room-Wise" id="" value="{{$value->id}}">{{$value->title}}</label></li>  
                 
+          <?php } ?>                
                
-            </ul>
+          </ul>
         </div>
 
-        <div class="category category-4">
+        <!--<div class="category category-4">
             <p>Meals</p>
             <ul>
                 <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
@@ -247,24 +255,36 @@
                 <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
                 
             </ul>
-        </div>
+        </div>-->
+
         <div class="category category-4">
             <p>Emenites</p>
-            <input type="Search" name="" id="" placeholder="search anything!">
+            <!--<input type="Search" name="" id="" placeholder="search anything!">-->
+
+          <ul>
+              <?php foreach ($emenites as $key => $value) { ?> 
+
+                <li><label><input type="checkbox" name="" id="" value="{{$value->amenity_id}}">{{$value->amenity_name}}</label></li>
+
+              <?php } ?>
+
+            </ul>  
            
         </div>
         <div class="category category-5">
             <p>Property type</p>
             <ul>
-                <li><label><input type="checkbox" name="" id="">Hotels</label></li>
-                <li><label><input type="checkbox" name="" id="">Villa</label></li>
-                <li><label><input type="checkbox" name="" id="">Bed and breakfasts</label></li>
-                <li><label><input type="checkbox" name="" id="">Resorts</label></li>
-                <li><label><input type="checkbox" name="" id="">Country houses</label></li> 
+              <?php foreach ($property_type as $key => $value) { ?>
+
+                <li><label><input type="checkbox" name="" id="" value="{{$value->id}}">{{$value->stay_type}}</label></li>
+
+              <?php } ?>
+
             </ul>
         </div>
          </div>
       </div>
+
       <div class="col-md-9 gird-event">
          <div class="row pt-3">
             <div class="col-md-12">

@@ -2,9 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam&family=Libre+Franklin:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&family=Padauk&display=swap');
 
 
-@import url('http://fonts.cdnfonts.com/css/cosmith');
-
-
 #image-gallery .modal-footer {
     display: block;
     padding: 2px;
@@ -99,7 +96,6 @@
 
 .filter-row {
     padding: 0px 0;
-    background: #e3f7f6;
     
 }
 
@@ -194,7 +190,7 @@
     color: #126c62;
     font-size: 26px;
     font-weight: 900;
-    background: #e9f5f4;
+    background: #fff;
     font-family: 'IcoFont';
     width: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -256,7 +252,7 @@
     height: 240px;
 }
 .tect-event p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 21px;
     margin-top: 1px;
     letter-spacing: 0px;
@@ -326,9 +322,7 @@
     margin-top: 20px;
 }
 .hotel-type {
-    min-height: 80px;
-    padding: 20px 40px;
-    
+    padding: 20px 40px;  
 }
 
 .hotel-type p{
@@ -336,7 +330,6 @@
     font-size: 16px;
     font-weight: 500;
     padding: 10px 0 0 0!important;
-
 }
 .hotel-type input::placeholder{
     
@@ -1071,9 +1064,7 @@ margin-right: 10px;
     border-bottom: 1px solid #5bbfb3;
     padding: 10px 0;
 }
-.info-details{
-    width:75%;
-}
+
 
 /*************roomlist****************/
 
@@ -1151,7 +1142,7 @@ margin-right: 10px;
 .event-sec .img-banner .bannner-text{
     position: absolute;
     width: 100%;
-    top: 350px;
+    top: 330px;
     padding: 10px 80px;
     background: #000000c2;
     color: #fff;
@@ -1315,6 +1306,871 @@ button.more-details:hover {
 }
 
 
+/*=============================================== 19 july space space css start========================================================= */
+/*=============================================== 19 july space space css start========================================================= */
+/*=============================================== 19 july space space css start========================================================= */
+.main-body{
+    overflow: hidden;
+  }
+  .spaces-banner {
+    height: 400px;
+    background-image: url("https://source.unsplash.com/random/1200×700/?wedding, birthday, live show, seminar, dark");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+   
+    position: relative;
+  }
+  .spaces-banner .text{
+      position: absolute;
+      top: 40%;
+      left: 15%;
+      z-index: 10;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      color: #fff;
+      text-align: left;
+  
+  }
+  .spaces-banner  h5{
+    font-size: 40px;
+      font-weight: 900;
+      
+      color:#fff;
+  }
+  .space-cl{
+    position: absolute;
+      top: 50%;
+      left:25%;
+  }
+  .space-cl .search-form{
+    display: flex; 
+    margin-top: 20px;
+    padding-left: 50px;
+  }
+  .space-cl .search-form button {
+    border: none;
+    background: #126c62;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-transform: capitalize;
+  }
+  .space-cl .search-form .dropdown-center .form-control{
+    margin-right: 10px;
+    height: 50px;
+    width: 240px;
+  }
+  .space-cl .search-form .dropdown-center .bxs-chevron-down{
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    font-size: 20px;
+    z-index: 0;
+  }
+  
+  .space-detail{
+    position: relative;
+  }
+  .space-detail h3:after{
+    content: '';
+      background: #126c62;
+      height: 2px;
+      width: 60px;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      margin-left: -30px;
+  
+  }
+  .abt-col{
+    margin-bottom: 30px;
+  }
+  .abt-col img{
+    width: 250px;
+    height: 220px;
+    
+    object-fit: cover;
+      object-position: right;
+      border: 10px solid #f9f1f1;
+  
+  }
+  .abt-col .space-img img:hover {
+    transition: all 0.3s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transform: scale(1.1) rotateZ(360deg);
+    -webkit-transform: scale(1.1) rotateZ(360deg);
+    -moz-transform: scale(1.1) rotateZ(360deg);
+    -ms-transform: scale(1.1) rotateZ(360deg);
+    -o-transform: scale(1.1) rotateZ(360deg);
+  }
+  .abt-col h6{
+    margin: 15px 0 0 0;
+    font-size: 16px;
+      font-weight: 900;
+  
+  }
+  .abt-col p{
+    margin: 5px 0 0 0;
+    font-size: 14px;
+      
+  
+  }
+  .space-about{
+    padding-top:40px;
+    padding-bottom: 40px;
+  }
+  
+  .abt-col .space-img{
+    display: flex;
+    justify-content: center;
+  }
+  .abt-col .space-text{
+    text-align: center;
+  }
+  .abt-col button{
+    border: none;
+      background: none;
+      border-bottom: 2px dotted #126c62;
+      color: #126c62;
+  }
+  .space-ser{
+    background-image: url("https://votivelaravel.in/roadNstays/resources/assets/img/h5.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 0;
+  }
+  .space-ser .space-contain{
+  padding: 50px;
+  background: rgb(32 35 36 / 80%);
+  }
+  .space-contain h3{
+    color: #fff;
+  }
+  
+  .space-contain p{
+    color: #fff;
+    margin-bottom:20px;
+  }
+  
+  .servic-col{
+      background: #fff;
+      padding: 20px 30px 50px 30px;
+      text-align: center;
+      width: 30%;
+      flex: 30%;
+      max-width: 30%;
+      margin-left: 55px;
+      border-radius:5px ;
+      -webkit-border-radius:5px ;
+      -moz-border-radius:5px ;
+      -ms-border-radius:5px ;
+      -o-border-radius:5px ;
+  }
+  .servic-col:nth-child(1){
+    margin: 0;
+  }
+  .servic-col p{
+    color:#000;
+    font-size: 16px;
+      line-height: 24px;
+  
+  }
+  .servic-col h5{
+    font-weight: 900;
+  }
+  .servic-col .icon{
+    background: #126c62 none repeat scroll 0 0;
+      color: #fff;
+      height: 60px;
+      left: 42%;
+      position: absolute;
+      top: -9%;
+      transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      width: 60px;
+  }
+  .servic-col .icon i{
+    font-size: 30px;
+    padding: 15px;
+    transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+  
+  }
+  .servic-col .text{
+    margin-top: 50px;
+  }
+  .space-serrow{
+    margin-top: 75px;
+  }
+  .space-serrow button{
+    border: none;
+      background: #126c62;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: #fff;
+      text-transform: capitalize;
+  }
+  #featured .owl-carousel{
+    overflow: hidden;
+  }
+  
+  
+  .space-testimonial .text-t{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .space-testimonial{
+    position: relative;
+    padding:0 0 20px 0;
+  }
+  .space-testimonial .imgae-rid {
+    height: auto;
+    overflow: hidden;
+  }
+  .space-testimonial .owl-carousel .owl-item img {
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .space-testimonial .trending-city h3 {
+    font-weight: 900;
+    font-size: 24px;
+    text-align: left;
+  }
+  .space-testimonial .trending-city p{
+    font-weight: 300;
+    font-size: 16px;
+    text-align: left;
+    padding:0;
+  }
+  .desti-div{
+    display: flex;
+    align-items: center;
+      background: #fff;
+      border-radius: 5px;
+      height: 50px;
+      margin-right: 10px;
+  }
+  .desti-div i{
+    padding: 10px;
+      font-size: 24px;
+  }
+  .locatin-fi{
+    border: none;
+  }
+  .recom-head{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+  .world-class-feature-1 {
+    box-shadow: 2px 4px 11px #ccc;
+    padding: 8px;
+    background: #FFF;
+    margin: auto;
+    
+  }
+  .recom-cl{
+    padding-bottom:20px;
+    padding-top:20px;
+  }
+  .wht-text-r-1{
+    position: absolute;
+      bottom: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      right: 18px;
+  }
+  .wht-text-r-1 h4 {
+    font-size: 16px;
+    position: relative;
+    top: -105px;
+    left: 0px;
+    font-weight: bold;
+    color: #FFF !important;
+    background: #0000004d;
+    padding: 9px;
+    width: 100% !important;
+    float: left;
+  }
+  
+  .recom-cl .imgae-rid-1 img{
+    width: 320px;
+      height: 180px;
+      object-fit: cover;
+      
+  }
+  .recom-cl:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    -o-transition: all 0.8s;
+  }
+  .testimonials .testimonial-ite {
+    box-sizing: content-box;
+    margin: 30px 15px;
+    height: auto;
+    position: relative;
+    background: #fff0;
+    border: 1px solid #126c6250;
+  }
+  .testimonials .testimonial-ite h5{
+    text-align: center;
+    color: #126c62;
+     padding: 10px 0; 
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .testimonials .testimonial-ite i{
+  font-size: 60px;
+  color: #126c62;
+  padding: 15px 0;
+  }
+  .testimonials .testimonial-ite .imgae-rid {
+    display: flex;
+    justify-content: center;
+  }
+  
+
+
+
+  /*............................................ space details page css start........................................................ */
+  /*............................................ space details page css start........................................................ */
+  /*............................................ space details page css start........................................................ */
+
+.spaces-detail{
+    background-color: cadetblue;
+    height: 250px;
+}
+.space-dl h5{
+    position: absolute;
+    left: 0%;
+    top: 120px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.space-sec .space-filter{
+    background-color: #fff;
+}
+.space-listsec .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      background-color: #fff;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 20px 0 rgb(0 0 0 / 10%);
+      justify-content: space-between;
+      border-radius:0px;
+      position: relative;
+      top: -72px;
+      border-radius: 10px;
+}
+.space-listsec .tabs img{
+    width: 20px;
+    margin: auto;
+}
+  
+  .space-listsec  .tabs__label {
+    padding: 15px 29px 10px 28px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #000;
+    font-weight: 500;
+    text-transform: capitalize;
+      display: grid;
+      margin-bottom: 0;
+  }
+  .space-listsec .tabs__label i{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+    font-size: 20px;
+    margin: auto;
+  }
+  
+  .space-listsec  .tabs__radio {
+    display: none;
+  }
+  
+  .space-listsec .tabs__content {
+    order: 1;
+    width: 100%;  
+    line-height: 1.5;
+    font-size: 0.9em;
+    display: none;
+      background-color: #fff;
+      position: relative;
+      border-radius: 10px;
+      
+  }
+  .text-detail ul{
+      display: flex;
+  }
+  .text-detail ul li{
+      margin: 0 35px 0 0px;
+      list-style-position: inside;
+      list-style-type: disclosure-closed;
+  }
+  .btn-detail a{
+      color: #fff;
+      font-weight: 700;
+      min-width: 235px;
+      padding: 15px 30px;
+      border-radius: 20px;
+      box-shadow: 0 3px 4px 0 rgb(0 0 0 / 20%);
+      background-image: linear-gradient(50deg,#2e7f7c6e,#126c62);
+      text-decoration: none;
+  }
+  
+  
+  .space-listsec .tabs__radio:checked + .tabs__label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #020202;
+    border-bottom: 3px solid #01100d;
+    background: #c9ff96;
+    border-radius: 30%;   
+  }
+  .space-listsec{
+    padding: 0;
+  }
+  
+  .space-listsec .tabs__radio:checked + .tabs__label + .tabs__content {
+      display: flex;
+      align-items: baseline;
+    justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0px 20px 0 0;
+      border-top: 1px solid #EBECF0;
+    
+  }
+  .space-listsec  .tabs__content .content{
+      width: 100%;
+      margin-bottom: 50px;
+      box-shadow: -4px -4px 8px #e3e3e3, 4px 4px 8px #f9f4f4, 4px 4px 8px #e3e3e3, 4px 4px 8px #f9f4f4;
+  }
+  
+
+.space-dropdown .btn-secondary:focus{
+    color: #141111;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.space-dropdown:hover .dropdown-menu {
+    display: block!important;
+}
+.space-span{
+    width:70%;
+}
+.space-span i{
+    font-size: 20px;
+    color: #009578;
+}
+.space-filter{
+    padding-top: 0;
+}
+.space-filter h1{
+    font-size: 18px;
+}
+.space-testimonial .testimonial-item{
+    height: auto;
+}
+.curated-head span{
+  font-size: 12px;
+   font-weight:100;
+   text-transform: capitalize;
+   letter-spacing: 2px;
+}
+.curated-head {
+  font-size: 20px;
+   font-weight:900;
+   text-transform: uppercase;
+   padding: 20px 0;
+}
+.curated-owl{
+  overflow-x: hidden;
+  position: relative;
+}
+.curated-owl .imgae-ri img{
+  object-fit: cover;
+}
+.curated-owl .text-t{
+  background: rgb(20 18 18 / 63%); 
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: absolute;
+  bottom: 0;
+  padding: 10px 10px 0 10px;
+  color: #fff;
+}
+.curated-owl .text-t p{
+    padding:0px 0 13px 0;
+}
+.curated-owl .owl-nav{
+  position: absolute;
+  top: 30%;
+  width: 100%;
+}
+.curated-owl .owl-nav .owl-prev{
+  background: #ffff!important;
+  width: 40px;
+  border-radius:50%!important;
+  height: 40px;
+  position: absolute;
+  left: 0px;
+  -webkit-border-radius:50%!important;
+  -moz-border-radius:50%!important;
+  -ms-border-radius:50%!important;
+  -o-border-radius:50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+.curated-owl .owl-nav .owl-next{
+  background: #ffff!important;
+  width: 40px;
+  border-radius:50%!important;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  -webkit-border-radius:50%!important;
+  -moz-border-radius:50%!important;
+  -ms-border-radius:50%!important;
+  -o-border-radius:50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+.curated-owl .owl-dots{
+  margin-top: 10px;
+}
+.q-space .img-dec img{
+  width: 22vw;
+  height: 260px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+.q-space{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.quality-spaces{
+  padding-top:20px;
+}
+.view-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+  padding: 30px 20px;
+  background: #e3f7f6;
+}
+.view-box a{
+  width: 48px;
+  height: 48px;
+  position: relative;
+  border-radius: 24px;
+  padding: 12px;
+  cursor: pointer;
+  background-color: #98d55d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+.segment-space {
+margin-top: 20px;
+padding: 20px 20px;
+background: #e3f7f6;
+}
+.segment-space img{
+ padding-right: 10px;
+height: 60px;
+}
+.segment-owl{
+overflow-x: hidden;
+padding: 0 22px;
+}
+.segment-owl .box-item{ 
+  width:21vw;
+   height:210px;
+    background-color: #fff;
+     border-radius: 15px; 
+     -webkit-border-radius: 15px; 
+     -moz-border-radius: 15px; 
+     -ms-border-radius: 15px; 
+     -o-border-radius: 15px;
+      display: flex; 
+      justify-content: center;
+}
+
+.segment-text h5{
+  font-weight: 900;
+}
+.segment-text h5 span{
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+.segment-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.segment-owl .owl-nav {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+}
+.segment-owl .owl-nav .owl-prev {
+  background: #ffff!important;
+  width: 40px;
+  border-radius: 50%!important;
+  height: 40px;
+  position: absolute;
+  left: -20px;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  -ms-border-radius: 50%!important;
+  -o-border-radius: 50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+.segment-owl .owl-nav .owl-next {
+  background: #ffff!important;
+  width: 40px;
+  border-radius: 50%!important;
+  height: 40px;
+  position: absolute;
+  right: -15px;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  -ms-border-radius: 50%!important;
+  -o-border-radius: 50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+.segment-owl .owl-dots {
+  margin-top: 10px;
+}
+.spaceblog-testimonial{
+  padding:0;
+  margin-bottom: 50px;
+}
+.trend-blog{
+  font-size:24px;
+  font-weight: 800;
+  color: #000;
+  padding-left: 20px;
+}
+.space-city{
+  overflow:hidden;
+
+}
+.space-city .owl-dots{
+  display: none;
+}
+.space-city .testimonial-ite i {
+  font-size: 60px;
+  color: #126c62;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+.trendwith-city p{
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+.trendwith-city h5{
+  margin-bottom: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #000;
+
+}
+.trendwith-city{
+  padding-left: 20px;
+}
+.spaceblog-testimonial .testimonial-item{
+  height: auto;
+  margin:0 15px;
+  box-sizing: content-box;
+    position: relative;
+    background: #fff0;
+}
+.space-city .owl-nav {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+}
+.space-city .owl-nav .owl-prev {
+  background: #ffff!important;
+  width: 40px;
+  border-radius: 50%!important;
+  height: 40px;
+  position: absolute;
+  left: 10px;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  -ms-border-radius: 50%!important;
+  -o-border-radius: 50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+.space-city .owl-nav .owl-next {
+  background: #ffff!important;
+  width: 40px;
+  border-radius: 50%!important;
+  height: 40px;
+  position: absolute;
+  right: 7px;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  -ms-border-radius: 50%!important;
+  -o-border-radius: 50%!important;
+  box-shadow: 2px 2px 10px #b1a9a9;
+}
+#featured-city .owl-carousel .owl-item img {
+     display: block;
+     width: 150px;
+     border-radius:50%;
+     -webkit-border-radius:50%;
+     -moz-border-radius:50%;
+     -ms-border-radius:50%;
+     -o-border-radius:50%;
+     height: 150px;
+     object-fit: cover;
+     margin: auto;
+     filter: grayscale(1);
+     border: 10px solid #ffecec;
+}
+#featured-city .owl-carousel .owl-item img:hover{
+    filter: none;
+    -webkit-filter: none;
+}
+#featured-city .space-city .testimonial-ite {
+    box-sizing: content-box;
+    margin: 30px 15px;
+    height: auto;
+    position: relative;
+    background: #fff0;
+    border: 0px solid #126c6250;
+}
+#featured-blog .owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    border-radius: none!important;
+    -webkit-border-radius: none!important;
+    -moz-border-radius: none!important;
+    -ms-border-radius: none!important;
+    -o-border-radius: none!important;
+    padding-top:10px;
+    object-fit: cover;
+}
+
+
+#featured-blog .world-class{
+    box-shadow: 2px 4px 11px #ccc;
+    padding: 15px;
+    background: #FFF;
+    position: relative;
+    top: -35px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    width: 94%;
+    margin: auto;
+}
+
+
+.space-listsec .select-dropdown {
+	position: relative;
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 20px 0;
+	border-right: 1px solid #EBECF0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.space-listsec .select-dropdown select {
+	font-size: 1rem;
+	font-weight: normal;
+	max-width: 100%;
+	padding: 8px 24px 8px 10px;
+	border: none;
+	background-color: transparent;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	appearance: none;
+    width: 100%;
+}
+.space-listsec .select-dropdown select:active, .space-listsec .select-dropdown select:focus {
+	outline: none;
+	box-shadow: none;
+}
+.space-listsec .select-dropdown:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	width: 0;
+	height: 0;
+	margin-top: -2px;
+	border-top: 5px solid #aaa;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+}
+
+.select-dropdown:hover select{
+    display:block;
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+}
+.space-listsec .select-dropdown select option{
+    padding: 5px 0;
+    background-color: #ddd;
+    margin-bottom: 5px;
+}
+.category-8 input{
+width: 100%;
+}
+
+
+  /*.............................................. space details page css end......................................................... */
+  /*.............................................. space details page css end......................................................... */
+  /*.............................................. space details page css end......................................................... */
+
+/*=============================================== 19 july space space css end========================================================= */
+/*=============================================== 19 july space space css end========================================================= */
+/*=============================================== 19 july space space css end========================================================= */
+
 
 
 
@@ -1322,22 +2178,24 @@ button.more-details:hover {
   
   
 
-/* -----------------------------------10 june responsive work below 768px -------------------------------------*/
+/* ------------------------===============-10 june responsive work below 768px ------------------------------- ==================*/
+/* ------------------------===============-10 june responsive work below 768px ------------------------------- ==================*/
 
 @media screen and (max-width:767px) {
     .detail-section .full-img .box {
         background: rgba(15, 16, 14, 0.39);
-        box-shadow: rgb(31 38 135 / 37%) 0px 8px 32px 0px;
-        backdrop-filter: blur(4px);
-        border-radius: 10px;
-        border: 1px solid rgb(86 86 86 / 11%);
-        width: 82vw;
-        height: 160px;
-        position: absolute;
-        right: 15%;
-        top: 30%;
-        padding: 33px 21px;
-    }
+    box-shadow: rgb(31 38 135 / 37%) 0px 8px 32px 0px;
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgb(86 86 86 / 11%);
+    width: 82vw;
+    height: 160px;
+    position: absolute;
+    right: 0%;
+    top: 60%;
+    padding: 15px 15px;
+}
+    
     .date1 h3 {
     font-size: 14px !important;
    
@@ -1614,6 +2472,7 @@ button.more-details:hover {
    /* 16 june responsive work  */
    .event-br {
     display: block;
+    position: relative;
 }
 .img-list-event {
     width: 100%;
@@ -1653,18 +2512,17 @@ button.more-details:hover {
 }
 .event-br .book-btn{
     text-align: center;
-    padding: 5px 2px;
+    padding: 5px 15px;
     background: #126c62; 
-    width: 104px;
+    position: absolute;
+    bottom: 5%;
+    left: 5%; 
 }
 .pric-off span {
-    background: #126c62;
-    color: #FFF;
-    padding: 5px 6px;
+    padding: 5px 15px;
     border-radius: 50px;
     font-size: 10px;
-    width: 59px;
-    margin-bottom: 13px;
+    margin: 13px 0 5px;
     float: right;
 }
 .gird-event nav .shadow-sm {
@@ -1691,6 +2549,135 @@ div.dataTables_wrapper div.dataTables_filter label {
     font-weight: normal;
     white-space: nowrap;
     text-align: end;
+}
+
+/*======================================= 21 july responsive work=============================================================== */
+.list-header{
+    display: block;
+}
+.info-details {
+    padding-bottom: 10px;
+      width:100%;
+}
+.time-event-bn{
+    display: block;
+}
+.tect-event p {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+}
+.botm-icom{
+    width:100%;
+}
+.event-sec .img-banner .bannner-text {
+    padding: 10px 10px;
+    top: 368px;
+}
+.event-sec .img-banner .bannner-text h1 {
+    font-size: 1.5rem;
+}
+.img-banner{
+    margin-bottom: 20px;
+}
+.filter-row ul li {
+    font-size: 14px;
+    width: 50%;
+}
+.filter-row ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+.filter-row ul input[type="checkbox"] {
+    width: auto;
+    height: 17px;
+    margin-right: 7px;
+    accent-color: #126c62;
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+
+/*============================================================= space page responsive css========================================== */
+.space-listsec .tabs__radio:checked + .tabs__label {
+    font-size: 12px;
+}
+.space-listsec .tabs__label {
+        padding: 8px 15px 10px 15px;
+        font-size: 12px;
+        color: #000;
+        font-weight: 400;
+        text-transform: capitalize; 
+}
+.space-dl h5 {
+    top: 95px;
+    font-size: 16px;
+    line-height: 24px;
+}
+.space-listsec .tabs__radio:checked + .tabs__label + .tabs__content{
+    padding: 0;
+}
+.locatin-fil {
+    width: auto;
+    text-overflow: ellipsis;
+}
+.space-listsec .select-dropdown{
+    width: 100%;
+    padding: 10px 0;
+}
+.view-box {
+    display: block;
+    margin-top: 0px;
+    padding: 17px 12px;
+}
+.view-text h5{
+    font-size: 1.1rem;
+}
+.view-box img{
+    width: 100px;
+    height: auto;
+  object-fit: cover;
+}
+.view-box p{
+    padding: 10px 0;
+}
+.segment-owl .box-item {
+    width: auto;
+}
+.q-space{
+    display: block;
+}
+.q-space .img-dec img {
+    width: 86vw;   
+}
+.segment-space img {
+    width: 60px;
+    object-fit: contain;
+}
+.segment-space h5{
+    font-size: 1.1rem;
+}
+.tour-body .item-card2-text h4 {
+    padding-top: 20px;
+}
+.tour-body h2.mb-0.font-weight-bold {
+    font-size: 14px;
+    padding: 5px 20px;
+}
+.package-coming {
+    padding-top: 0;
+}
+.t01 h4{
+    font-size: 20px;
+    letter-spacing: 0;
+}
+.t01{
+    padding-bottom: 1px;
+    padding-top: 0px;
 }
 }
 

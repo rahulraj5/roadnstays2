@@ -74,8 +74,17 @@ class WsController extends APIBaseController
         $bookroomids = array();
 
         foreach ($booking as $key => $bookvalue) {
+
+        $roomid = $bookvalue->room_id;
+        $totalbookroom = $bookvalue->total_room;
+
+        $nofroom = DB::table('room_list')->where("id",$roomid)->value('number_of_rooms'); 
+
+        if($totalbookroom >= $nofroom ){    
         
         $bookroomids[] = $bookvalue->room_id;
+
+        }
             
         }
 

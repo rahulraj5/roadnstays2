@@ -57,7 +57,8 @@ class HomeController extends Controller
 
     public function tour()
     {
-        return view('front/tour/tour');
+        $data['tour_data'] = DB::table('tour_list')->orderby('id','DESC')->get();
+        return view('front/tour/tour')->with($data);
     }   
 
     public function packages()
@@ -65,8 +66,11 @@ class HomeController extends Controller
         return view('front/packages/packages');
     }  
 
-    public function tour_details()
+    public function tour_details(Request $request)
     {
+        $data['tour_details'] = DB::table('tour_list')->where('id',$request->tour_id)->get();
+        $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id',$request->tour_id)->get();
+        $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id',$request->tour_id)->get();
         return view('front/tour/tour_details');
     } 
 
@@ -476,12 +480,22 @@ class HomeController extends Controller
         $bookroomids = array();
 
         foreach ($booking as $key => $bookvalue) {
-        
-        $bookroomids[] = $bookvalue->room_id;
-            
-        }
 
-         $room_list = DB::table('room_list')->where("hotel_id",$value->hotel_id)->whereNotIn("id",$bookroomids)->get(); 
+        $roomid = $bookvalue->room_id;
+        $totalbookroom = $bookvalue->total_room;
+
+        $nofroom = DB::table('room_list')->where("id",$roomid)->value('number_of_rooms'); 
+
+        if($totalbookroom >= $nofroom ){
+
+         $bookroomids[] = $bookvalue->room_id;
+
+        }
+            
+        } 
+
+
+        $room_list = DB::table('room_list')->where("hotel_id",$value->hotel_id)->whereNotIn("id",$bookroomids)->get(); 
 
         //$totalroom = count($room_list);
 
@@ -559,7 +573,13 @@ class HomeController extends Controller
                     
         $data['hotel_data'] = $hoteldata;
 
-        //echo "<pre>"; print_r($data); die;
+        $room_wise = DB::table('room_type_categories')->where('status','=',1)->get();
+
+        $emenites = DB::table('H2_Amenities')->where('status','=',1)->get();
+
+        $property_type = DB::table('H1_Hotel_and_other_Stays')->where('status','=',1)->get();
+
+        //echo "<pre>"; print_r($property_type); die;
 
         $data['hotel_data'] = $hoteldata;
         $data['hotels'] = $hotel_data; 
@@ -571,6 +591,10 @@ class HomeController extends Controller
         $data['booking_days'] = $booking_days;
         $data['hotel_latitude'] = $hotel_latitude;
         $data['hotel_longitude'] = $hotel_longitude;
+        $data['room_wise'] = $room_wise;
+        $data['emenites'] = $emenites;
+        $data['property_type'] = $property_type;
+
         //echo "<pre>"; print_r($data);die;
         return view('front.hotel.hotel_list')->with($data);
 
