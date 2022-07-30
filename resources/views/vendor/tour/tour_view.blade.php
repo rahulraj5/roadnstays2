@@ -775,7 +775,7 @@ $('#end_date').datepicker(
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Locations</h4>
+                              <h4>Tour Address</h4>
                               </p>
                             </div>
                           </div>

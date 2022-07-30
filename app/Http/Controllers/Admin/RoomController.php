@@ -69,9 +69,14 @@ class RoomController extends Controller
 
     public function submit_room(Request $request)
     {
-
         $roomName = $request->room_name;
-        $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->orwhere('hotel_id',$request->hotel_id)->get();
+
+        if($request->hotel_name){
+            $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->get();
+        }else{
+            $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_id)->get();
+        }
+        
         $roomNameExist = count($checkRoomName);
         if($roomNameExist == 0){
             if(!empty($request->hotel_id)){
@@ -117,13 +122,7 @@ class RoomController extends Controller
             $adminroom->optional_services = $request->optional_services;
             $adminroom->family_friendly = $request->family_friendly;
             $adminroom->outdoor_facilities = $request->outdoor_facilities;
-            $adminroom->extra_people = $request->extra_people;
-
-            // if (!empty($_FILES["imgupload"]["name"][0])) {
-            //     $roommainimgname = $_FILES["imgupload"]["name"][0];
-            //     $hotelmainimgurl = time() . '_' . $roommainimgname;
-            //     move_uploaded_file($_FILES["imgupload"]["tmp_name"][0], "public/uploads/room_images/" . time() . '_' . $_FILES['imgupload']['name'][0]);
-            // }
+            $adminroom->extra_people = $request->extra_people; 
 
             if($request->hasFile('roomFeaturedImg'))
             {
@@ -201,8 +200,6 @@ class RoomController extends Controller
                 }
             }
 
-            // add multiple option
-            // if (!empty($request->extra)) {
             if (!empty($request->extra[0]['name'])) {
                 foreach ($request->extra as $extra_option) {
                     // echo "<pre>";print_r($extra_option['name']);
@@ -266,7 +263,8 @@ class RoomController extends Controller
     public function update_room(Request $request)
     {
         $roomName = $request->room_name;
-        $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        // $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        $checkRoomName = DB::table('room_list')->where('name', $roomName)->whereNotNull('name')->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
         $roomNameExist = count($checkRoomName);
         // echo "<pre>";print_r($roomNameExist);die;
         if($roomNameExist == 0){
@@ -453,7 +451,8 @@ class RoomController extends Controller
     public function update_hotel_room(Request $request)
     {
         $roomName = $request->room_name;
-        $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        // $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        $checkRoomName = DB::table('room_list')->where('name', $roomName)->whereNotNull('name')->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
         $roomNameExist = count($checkRoomName);
         // echo "<pre>";print_r($roomNameExist);die;
         // echo "<pre>";print_r($request->all);die;

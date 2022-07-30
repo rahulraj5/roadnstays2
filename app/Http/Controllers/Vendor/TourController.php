@@ -81,6 +81,7 @@ class TourController extends Controller
         $admintour->tour_price = $request->tour_price;
         $admintour->tour_days = $request->tour_days;
         $admintour->tour_duration =$request->tour_duration;
+        $admintour->tour_activities =$request->tour_activities;
         $admintour->tour_price_others = $request->tour_price_others;
         $admintour->tour_locations = $request->tour_locations;
         $admintour->tour_services_includes = $request->tour_services_includes;
@@ -258,6 +259,7 @@ class TourController extends Controller
                     'tour_duration' =>$request->tour_duration,
                     'tour_price_others' => $request->tour_price_others,
                     'tour_locations' => $request->tour_locations,
+                    'tour_activities' =>$request->tour_activities,
                     'tour_services_includes' => $request->tour_services_includes,
                     'tour_services_not_includes' => $request->tour_services_not_includes,
                     'tour_payment_term' => $request->tour_payment_term,
@@ -318,7 +320,7 @@ class TourController extends Controller
                 }
             }
              
-            return response()->json(['status' => 'success', 'msg' => 'Hotel Updated Successfully']);
+            return response()->json(['status' => 'success', 'msg' => 'Tour Updated Successfully']);
         }
     }
 

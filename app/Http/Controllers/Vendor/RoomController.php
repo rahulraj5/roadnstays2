@@ -67,7 +67,7 @@ class RoomController extends Controller
     public function submit_room(Request $request)
     {
         $roomName = $request->room_name;
-        $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_id)->get();
+        $checkRoomName = DB::table('room_list')->where('name', $roomName)->whereNotNull('name')->where('hotel_id',$request->hotel_id)->get();
         $roomNameExist = count($checkRoomName);
         if($roomNameExist == 0){
             $hotel_id = $request->hotel_id;
@@ -261,7 +261,8 @@ class RoomController extends Controller
     public function update_room(Request $request)
     {
         $roomName = $request->room_name;
-        $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        // $checkRoomName = DB::table('room_list')->where('name', $roomName)->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
+        $checkRoomName = DB::table('room_list')->where('name', $roomName)->whereNotNull('name')->where('hotel_id',$request->hotel_name)->where('id','!=',$request->room_id)->get();
         $roomNameExist = count($checkRoomName);
         // echo "<pre>";print_r($roomNameExist);die;
         if($roomNameExist == 0){

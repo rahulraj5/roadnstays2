@@ -173,76 +173,85 @@
 </script>
 
 <script>
-  // $('#step_btn1').click(function() {
-  $("#addRoomVendor_form").validate({
-    debug: false,
-    rules: {
-      room_type: {
-        required: true,
+  $("#submit_btn").click(function() {
+    // alert('shdfsd');
+    var form = $("#addRoomVendor_form");
+    form.validate({
+      rules: {
+        // hotel_name: {
+        //   required: true,
+        // },
+        room_type: {
+          required: true,
+        },
+        room_name: {
+          required: true,
+        },
+        max_adults: {
+          required: true,
+        },
+        max_childern: {
+          required: true,
+        },
+        number_of_rooms: {
+          required: true,
+        },
+        price_per_night: {
+          required: true,
+        },
+        type_of_price: {
+          required: true,
+        },
+        tax_percentage: {
+          required: true,
+        },
+        price_per_night_7d: {
+          required: true,
+        },
+        price_per_night_30d: {
+          required: true,
+        },
+        room_size: {
+          required: true,
+        },
+        bed_type: {
+          required: true,
+        },
+        private_bathroom: {
+          required: true,
+        },
+        private_entrance: {
+          required: true,
+        },
+        family_friendly: {
+          required: true,
+        },
+        outdoor_facilities: {
+          required: true,
+        },
+        extra_people: {
+          required: true,
+        },
       },
-      room_name: {
-        required: true,
-      },
-      max_adults: {
-        required: true,
-      },
-      max_childern: {
-        required: true,
-      },
-      number_of_rooms: {
-        required: true,
-      },
-      price_per_night: {
-        required: true,
-      },
-      type_of_price: {
-        required: true,
-      },
-      tax_percentage: {
-        required: true,
-      },
-      price_per_night_7d: {
-        required: true,
-      },
-      price_per_night_30d: {
-        required: true,
-      },
-      room_size: {
-        required: true,
-      },
-      bed_type: {
-        required: true,
-      },
-      private_bathroom: {
-        required: true,
-      },
-      private_entrance: {
-        required: true,
-      },
-      family_friendly: {
-        required: true,
-      },
-      outdoor_facilities: {
-        required: true,
-      },
-      extra_people: {
-        required: true,
-      },
-    },
-    submitHandler: function(form) {
+    });
+    if (form.valid() === true) {
       var site_url = $("#baseUrl").val();
       // alert(site_url);
       var formData = $(form).serialize();
+      $('#submit_btn').prop('disabled', true);
+      $('#submit_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
       $(form).ajaxSubmit({
         type: 'POST',
-        url: "{{url('/servicepro/submitroom')}}",
+        url: site_url + '/servicepro/submitroom',
         data: formData,
         success: function(response) {
-          // console.log(response);
+          console.log(response);
           if (response.status == 'success') {
             // $("#register_form")[0].reset();
             success_noti(response.msg);
-
             // var hotel_id = $.base64.encode(response.hotel_id)
             // setTimeout(function() { window.location.reload() }, 1000);
             setTimeout(function() {
@@ -250,13 +259,104 @@
             }, 1000);
           } else {
             error_noti(response.msg);
+            $('#submit_btn').html(
+              `<span class=""></span>Submit`
+            );
+            $('#submit_btn').prop('disabled', false);
           }
-
         }
       });
       // event.preventDefault();
     }
   });
+
+  // $('#step_btn1').click(function() {
+  // $("#addRoomVendor_form").validate({
+  //   debug: false,
+  //   rules: {
+  //     hotel_name: {
+  //       required: true,
+  //     },
+  //     room_type: {
+  //       required: true,
+  //     },
+  //     room_name: {
+  //       required: true,
+  //     },
+  //     max_adults: {
+  //       required: true,
+  //     },
+  //     max_childern: {
+  //       required: true,
+  //     },
+  //     number_of_rooms: {
+  //       required: true,
+  //     },
+  //     price_per_night: {
+  //       required: true,
+  //     },
+  //     type_of_price: {
+  //       required: true,
+  //     },
+  //     tax_percentage: {
+  //       required: true,
+  //     },
+  //     price_per_night_7d: {
+  //       required: true,
+  //     },
+  //     price_per_night_30d: {
+  //       required: true,
+  //     },
+  //     room_size: {
+  //       required: true,
+  //     },
+  //     bed_type: {
+  //       required: true,
+  //     },
+  //     private_bathroom: {
+  //       required: true,
+  //     },
+  //     private_entrance: {
+  //       required: true,
+  //     },
+  //     family_friendly: {
+  //       required: true,
+  //     },
+  //     outdoor_facilities: {
+  //       required: true,
+  //     },
+  //     extra_people: {
+  //       required: true,
+  //     },
+  //   },
+  //   submitHandler: function(form) {
+  //     var site_url = $("#baseUrl").val();
+  //     // alert(site_url);
+  //     var formData = $(form).serialize();
+  //     $(form).ajaxSubmit({
+  //       type: 'POST',
+  //       url: "{{url('/servicepro/submitroom')}}",
+  //       data: formData,
+  //       success: function(response) {
+  //         // console.log(response);
+  //         if (response.status == 'success') {
+  //           // $("#register_form")[0].reset();
+  //           success_noti(response.msg);
+
+  //           // var hotel_id = $.base64.encode(response.hotel_id)
+  //           // setTimeout(function() { window.location.reload() }, 1000);
+  //           setTimeout(function() {
+  //             window.location.href = site_url + "/servicepro/viewHotelRooms/" + response.hotel_id
+  //           }, 1000);
+  //         } else {
+  //           error_noti(response.msg);
+  //         }
+
+  //       }
+  //     });
+  //     // event.preventDefault();
+  //   }
+  // });
   // });
 </script>
 
@@ -824,7 +924,8 @@
 
                                 <div class="col-12">
 
-                                  <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
+                                  <!-- <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> -->
+                                  <button class="btn btn-primary btn-dark button float-right" name="submit" id="submit_btn" type="button"><span class=""></span>Submit</button>
 
                                 </div>
 

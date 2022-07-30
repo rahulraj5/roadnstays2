@@ -1,11 +1,21 @@
-.layout-fixed .main-sidebar {
+/*.layout-fixed .main-sidebar {
     bottom: 0;
     float: none;
     left: 0;
     position: fixed;
     background: #126c62;
     top: 0;
+}*/
+
+.layout-fixed .main-sidebar {
+    bottom: 0;
+    float: none;
+    left: 0;
+    position: fixed;
+    background: #126c62 !important;
+    top: 0;
 }
+
 .image-gridiv {
     width: 155px;
     overflow: hidden;
@@ -21,13 +31,17 @@
     height: 100%;
     object-fit: fill;
 }
-  .layout-fixed .main-sidebar {
-    bottom: 0;
-    float: none;
-    left: 0;
-    position: fixed;
-    background: #126c62 !important;
-    top: 0;
+  
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active{
+background-color: rgb(6 88 79) !important;
+
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active{
+    background-color: #179587 !important;
+    color: #fff;
+    box-shadow: none;
 }
 .imageThumb {
     max-height: 97px !important;
@@ -104,6 +118,24 @@ a.add_custom_button {
     top: 7px;
   }
   a.remove_custom_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+}
+a.add_attraction_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    position: relative;
+    top: 7px;
+  }
+  a.remove_attraction_button {
     background: #f90e39;
     color: #ffffff;
     padding: 10px;

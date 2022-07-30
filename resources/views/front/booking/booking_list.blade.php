@@ -10,6 +10,9 @@
     body {
         font-family: 'Open Sans', sans-serif;
     }
+    h1,h2,h3,h4,h5,h6{
+        font-family: 'Open Sans', sans-serif;
+    }
 
     .bread-sec {
         padding: 100px 0 100px;
@@ -223,8 +226,10 @@
     .btn-detail {
         position: relative;
         float: right;
-        top: -70px;
-        right: 33px;
+        top: -70px;  
+    }
+    .user-detail p{
+        padding:5px 0;
     }
 
     .upcom-row {
@@ -305,12 +310,11 @@
     }
 
     .progress-ba li.active:before {
-        background: green;
+        background:#cfb11d;
         color: white;
     }
 
     .progress-ba h5 {
-
         font-weight: 800;
         font-size: 20px;
     }
@@ -318,8 +322,221 @@
     .hint-text li {
         font-size: 16px;
         font-weight: 500;
-
     }
+    
+
+/* =====================================================responsive css below 768px =======================================================*/
+@media screen and (max-width:767px){
+    .tabs {
+    padding:0;
+    box-shadow:none;
+}
+.tabs__label {
+    padding: 15px 15px 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    text-align: center;
+}
+.tabs__radio:checked+.tabs__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #009578;
+    border-bottom: 5px solid #009578;
+    background: aliceblue;
+    border-radius: 10px;
+}
+.tabs__label i {
+    padding-right: 0px;
+    margin: auto;
+}
+.tabs__content {
+    padding: 0;
+     margin-top: 0px;
+     border-bottom:none;
+}
+.icontext i {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    left: -15px;
+}
+.btn-detail {
+    position: absolute;
+    top: 25px;
+    right: 5px;
+}
+.btn-detail a {
+    min-width: 235px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.text-detail {
+    padding: 20px 0px 8px 0px;
+}
+.icontext .text{
+    padding-left:40px;
+}
+.text-detail ul {
+    padding-left: 15px;
+    display: block;
+    margin: 0;
+}
+.user-detail-row .user-detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-detail h6 {
+    font-weight: 800;
+    font-size: 14px;
+}
+.upcom-row {
+    width: 100%;
+    padding: 0px 0;
+}
+.upcom-row h5 {
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.upcom-row p {
+    font-size: 14px;
+    margin: 8px 0 30px 0;
+}
+.upcom-text{
+    padding:0 5px;
+}
+.tabs__content .content {
+    margin-bottom: 30px;
+}
+.multi-step-bar {
+    margin: 1px auto 0px;
+    padding: 15px 0;
+    display:flex;
+    justify-content:space-between;
+}
+.hint-text p{
+    font-size:12px;
+}
+.user-detail-row {
+    padding: 7px;
+}
+.user-detail p {
+    padding: 3px 0;
+}
+}
+
+
+/* =========================================responsive below 1024px css============================================== */
+        /* =========================================responsive below 1024px css============================================== */
+
+        @media screen and (max-width:1023px) and (min-width:768px){
+            .tabs {
+    padding:0;
+    box-shadow:none;
+}
+.tabs__label {
+    padding: 15px 15px 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    text-align: center;
+}
+.tabs__radio:checked+.tabs__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #009578;
+    border-bottom: 5px solid #009578;
+    background: aliceblue;
+    border-radius: 10px;
+}
+.tabs__label i {
+    padding-right: 0px;
+    margin: auto;
+}
+.tabs__content {
+    padding: 0;
+     margin-top: 0px;
+     border-bottom:none;
+}
+.icontext i {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    left: -27px;
+}
+.btn-detail {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+.btn-detail a {
+    min-width: 235px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.text-detail {
+    padding: 20px 0px 20px 0px;
+}
+.icontext .text{
+    padding-left:40px;
+}
+.text-detail ul {
+    padding-left: 15px;
+}
+.user-detail-row .user-detail{
+    padding: 0px 0;
+    width: 50%;
+}
+.user-detail h6 {
+    font-weight: 800;
+    font-size: 14px;
+}
+.upcom-row {
+    width: 100%;
+    padding: 0px 0;
+    display: flex;
+    align-items:center;
+}
+.upcom-row .upcom-img{
+    max-width: 30%;
+    flex: 0 0 30%;
+}
+.upcom-row h5 {
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.upcom-row p {
+    font-size: 14px;
+    margin: 8px 0 30px 0;
+}
+.upcom-row .upcom-text{
+    padding:0 5px;
+    max-width: 68%;
+    flex: 0 0 68%;
+}
+.tabs__content .content {
+    margin-bottom: 50px;
+}
+.multi-step-bar {
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+
+        }
+
 </style>
 
 
@@ -329,6 +546,23 @@
 
 @section('current_page_js')
 
+<script>
+$('.tab1').on('click', function() {
+  $(".bread-sec").css('background-color', '#000');
+})
+$('.tab2').on('click', function() {
+  $(".bread-sec").css('background-color', '#fff');
+})
+$('.tab3').on('click', function() {
+  $(".bread-sec").css('background-color', '#f3f3f3');
+})
+$('.tab4').on('click', function() {
+  $(".bread-sec").css('background-color', '#ccc');
+})
+
+
+
+</script>
 
 @endsection
 
@@ -471,7 +705,7 @@
 
 
 
-            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+            <!-- <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
             <label for="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
             <div class="tabs__content">
                 <div class="row upcom-row">
@@ -485,10 +719,10 @@
                         <a href="#">PLAN A TRIP</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-            <label for="tab3" class="tabs__label"> <i class='bx bx-x'></i>Cancelled</label>
+            <label for="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
             <div class="tabs__content">
 
             @if (!$bookingList->isEmpty())
@@ -497,7 +731,7 @@
                   
                     @foreach ($bookingList->where('booking_status', 'canceled') as $arr)
 
-                        <div class="content">
+                        <div class="content cancelled-content">
                             <div class="text-detail">
                                 <div class="icontext">
                                     <i class='bx bxs-hotel'></i>
@@ -574,7 +808,7 @@
 
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <label for="tab4" class="tabs__label"> <i class='bx bxs-detail'></i>Failed</label>
+            <label for="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label>
             <div class="tabs__content">
 
             @if (!$bookingList->isEmpty())
@@ -584,7 +818,7 @@
                     @foreach ($bookingList->where('booking_status', 'failed') as $arr)
 
                         
-                        <div class="content">
+                        <div class="content failed-content">
                             <div class="text-detail">
                                 <div class="icontext">
                                     <i class='bx bxs-hotel'></i>

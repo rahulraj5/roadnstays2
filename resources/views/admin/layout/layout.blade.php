@@ -104,6 +104,24 @@
 
    <script src="{{ asset('resources/js/forms.js') }}"></script>
    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places"></script>
+   <script type="text/javascript">
+     /*** add active class and stay opened when selected ***/
+    var url = window.location;
+
+    // for sidebar menu entirely but not cover treeview
+    $('ul.nav-sidebar a').filter(function() {
+        if (this.href) {
+            return this.href == url || url.href.indexOf(this.href) == 0;
+        }
+    }).addClass('active');
+
+    // for the treeview
+    $('ul.nav-treeview a').filter(function() {
+        if (this.href) {
+            return this.href == url || url.href.indexOf(this.href) == 0;
+        }
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+       </script>
    <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initialize" async defer></script> -->
    @yield('current_page_js')
 

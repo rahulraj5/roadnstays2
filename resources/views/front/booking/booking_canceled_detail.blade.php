@@ -10,6 +10,12 @@
     body {
         font-family: 'Open Sans', sans-serif;
     }
+    h1,h2,h3,h4,h5,h6{
+        font-family: 'Open Sans', sans-serif;
+    }
+    .breadcrumb{
+        background:none;
+    }
 
     .bread-sec {
         padding: 100px 0 10px;
@@ -113,7 +119,7 @@
     }
 
     .hotel-name span {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 300;
         margin-left: 5px;
         text-transform: capitalize;
@@ -349,11 +355,11 @@
     }
 
     .user-det-2 ul li .bx-male {
-        color: darkgray;
+        color: #8FB2F9;
     }
 
     .user-det-2 ul li .bx-female {
-        color: #126c62;
+        color: #FFA3C8;
     }
 
 
@@ -396,6 +402,8 @@
         width: 100%;
         margin: 15px auto 30px;
         padding: 20px 0;
+        display: flex;
+    justify-content: space-between;
     }
 
     .progress-ba li {
@@ -441,7 +449,7 @@
     }
 
     .progress-ba li.active:before {
-        background: green;
+        background: #cfb11d;
         color: white;
     }
 
@@ -455,6 +463,131 @@
         font-size: 16px;
         font-weight: 500;
     }
+    .user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul {
+    padding-left: 0;
+}
+/* =========================================responsive below 768px css============================================== */
+@media screen and (max-width:767px){
+            .bread-row .id {
+                  width: 100%;
+            }
+            .user-detailc .user-det {
+             padding: 15px;
+             width: 100%;
+            }
+            .side-b {
+                margin-top:20px;
+    margin-left: 0px;
+    width: 100%;
+    max-height: 400px;
+}
+.user-detailc {
+    display: block;
+    margin-top: -4px;
+}
+.user-detailr .user-det-2, .user-detailr .user-det-3{
+                margin-top:20px;
+    margin-left: 0px;
+    width: 100%;
+    padding: 15px;
+}
+.user-det-2 h4 {
+    font-size: 20px;
+}
+.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
+    padding-left:0;
+}
+.user-det p{
+    font-size:12px;
+}
+.loc h6 {
+    font-size: 16px;
+    font-weight: 800;
+    display: grid;
+    line-height: 24px;
+}
+.loc span {
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.bread-row h5 {
+    font-size: 20px;
+    font-weight: 800;
+}
+.hotel-name span {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 0px;
+    text-transform: capitalize;
+}
+.multi-step-bar {
+    display: flex;
+    justify-content: space-between;  
+      margin: 5px auto 0px;
+}
+.progress-ba li {
+    font-weight: 500;
+    font-size: 12px;
+}
+.status {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+        }
+
+        /* =========================================responsive below 1024px css============================================== */
+        /* =========================================responsive below 1024px css============================================== */
+
+@media screen and (max-width:1023px) and (min-width:768px){
+    .user-detailc .user-det {
+    padding: 15px;
+    width: 65%;
+    position: relative;
+}
+.side-b {
+    margin-left: 10px;
+    width: 34%;
+    max-height: 400px;
+}
+.side-b h5, .side-b ul {
+    padding: 15px 10px;
+}
+.user-detailr .user-det-2 , .user-detailr .user-det-3{
+    padding: 15px;
+    width: 62%;
+}
+.user-det-2 h4 {
+    font-size: 20px;
+}
+.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
+    padding-left:0;
+}
+.user-det p{
+    font-size:14px;
+}
+.multi-step-bar {  
+    margin: 15px auto 0px;
+}
+.hint-text{
+    padding-left: 10px;
+}
+.status {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.progress-ba h5 {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+}
+
+
 </style>
 
 

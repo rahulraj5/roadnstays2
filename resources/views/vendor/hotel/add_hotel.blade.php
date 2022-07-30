@@ -45,6 +45,25 @@
         background: white;
         color: black;
     }
+
+    .pip_featured_img {
+        display: inline-block;
+        margin: 10px 10px 20px 0;
+    }
+
+    .remove_featured_img {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .remove_featured_img:hover {
+        background: white;
+        color: black;
+    }
 </style>
 <style>
     /*.container-fluid {
@@ -108,7 +127,19 @@
         format: 'LT'
     });
 </script>
-
+<script>
+    $('#hotel_document').on('change',function(e){
+        // alert('doucment adding checking');
+        //get the file name
+        // var fileName = $(this).val();
+        var fileName = e.target.files[0].name;
+        
+        // alert(fileName);
+        //replace the "Choose a file" label
+        // $(this).next('#documentPreview').html(fileName);
+        $('#documentPreview').html(fileName);
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Select2 Multiple
@@ -125,7 +156,42 @@
         $(this).trigger("change");
     });
 </script>
+<script type="text/javascript">
+  $(function() {
+    $('.upload-video-file').on('change', function() {
 
+      if (isVideo($(this).val())) {
+        $('.video-preview').attr('src', URL.createObjectURL(this.files[0]));
+        $('.video-prev').show();
+      } else {
+        $('.upload-video-file').val('');
+        $('.video-prev').hide();
+        error_noti("Only video files are allowed to upload.");
+      }
+    });
+  });
+
+  // If user tries to upload videos other than these extension , it will throw error.
+  function isVideo(filename) {
+    var ext = getExtension(filename);
+    switch (ext.toLowerCase()) {
+      case 'm4v':
+      case 'avi':
+      case 'mp4':
+      case 'mov':
+      case 'mpg':
+      case 'mpeg':
+        // etc
+        return true;
+    }
+    return false;
+  }
+
+  function getExtension(filename) {
+    var parts = filename.split('.');
+    return parts[parts.length - 1];
+  }
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         if (window.File && window.FileList && window.FileReader) {
@@ -143,6 +209,33 @@
                             "</span>").insertAfter("#hotelGalleryPreview");
                         $(".remove").click(function() {
                             $(this).parent(".pip").remove();
+                        });
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+        } else {
+            alert("Your browser doesn't support to File API")
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        if (window.File && window.FileList && window.FileReader) {
+            $("#hotelFeaturedImg").on("change", function(e) {
+                var files = e.target.files,
+                    filesLength = files.length;
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i]
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function(e) {
+                        var file = e.target;
+                        $("<span class=\"pip_featured_img\">" +
+                            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                            "<br/><span class=\"remove_featured_img\">Remove image</span>" +
+                            "</span>").insertAfter("#hotelFeaturedImgPreview");
+                        $(".remove_featured_img").click(function() {
+                            $(this).parent(".pip_featured_img").remove();
                         });
                     });
                     fileReader.readAsDataURL(f);
@@ -329,6 +422,9 @@
             // alert(site_url);
             var formData = $(form).serialize();
             $('#step_btn1').prop('disabled', true);
+            $('#step_btn1').html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+            );
             // alert(formData);
             $(form).ajaxSubmit({
                 type: 'POST',
@@ -348,12 +444,38 @@
                         }, 1000);
                     } else {
                         error_noti(response.msg);
+                        $('#step_btn1').html(
+                        `<span class=""></span>Submit`
+                        );
+                        $('#step_btn1').prop('disabled', false);
                     }
                 }
             });
             // event.preventDefault();
         }
     });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addAttrButton = $('.add_attraction_button');
+    var attrWrapper = $('.field_wrapper_attraction');
+    var x = 0;
+
+    $(addAttrButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(attrWrapper).append('<div class="col-md-12"><div class="row"><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][content]" placeholder="Enter Content" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][distance]" placeholder="Enter Distance" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_attraction_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(attrWrapper).on('click', '.remove_attraction_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
 </script>
 
 <script type="text/javascript">
@@ -440,6 +562,7 @@
 <script type="text/javascript">
     function initialize() {
         var input = document.getElementById('hotel_address');
+        var options = document.getElementById("hotel_country").options;
         var autocomplete = new google.maps.places.Autocomplete(input);
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             var place = autocomplete.getPlace();
@@ -452,6 +575,18 @@
                 }
                 if (place.address_components[i].types[0] == "sublocality_level_1") {
                     document.getElementById('neighb_area').value = place.address_components[i].long_name;
+                }
+                if (place.address_components[i].types[0] == "country") {
+                    // console.log(place.address_components[i].long_name);
+                    for (var j = 0; j < options.length; j++) {
+                        if (options[j].text == place.address_components[i].long_name) {
+                        options[j].selected = true;
+                        document.getElementById("select2-hotel_country-container").textContent = options[j].text;
+                        const getSpan = document.getElementById("select2-hotel_country-container")
+                        getSpan.setAttribute("title", options[j].text);
+                        break;
+                        }
+                    }
                 }
                 // if (place.address_components[i].types[0] == "neighborhood") {
                 //   document.getElementById('neighb_area').value = place.address_components[i].long_name;
@@ -561,19 +696,27 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div class="col" id="hotelFeaturedImgPreview"></div>
+                                                </div>
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="customFile">Hotel Video</label>
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" name="hotelVideo" id="hotelVideo">
+                                                            <input type="file" class="custom-file-input upload-video-file" name="hotelVideo" id="hotelVideo">
                                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div style="display: none;" class='video-prev' class="pull-right">
+                                                    <video width="225" height="150" class="video-preview" controls="controls" />
+                                                    </div>
+                                                </div>
 
                                                 <div class="col-sm-6">
-                                                    <label>Where else your property listed?</label>
+                                                    <label>Is your property listed anywhere else also ?</label>
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <!-- checkbox -->
@@ -672,9 +815,13 @@
                                                         <div class="custom-file">
                                                             <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document">
                                                             <label class="custom-file-label" for="customFile">Choose file</label>
+                                                            <p id="documentPreview"></p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- <div class="col-md-12">
+                                                    <div class="col" id="documentPreview"><p></p></div>
+                                                </div> -->
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -882,7 +1029,7 @@
                                                         <select class="form-control select2bs4" name="hotel_country" id="hotel_country" style="width: 100%;" required="required">
                                                             <!-- <option value="">Select Country</option> -->
                                                             @foreach ($countries as $cont)
-                                                            <option value="{{ $cont->id }}">{{ $cont->name }}</option>
+                                                            <option value="{{ $cont->id }}">{{ $cont->nicename }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -891,12 +1038,35 @@
                                                 <div class="col-md-12">
                                                     <div class="tab-custom-content">
                                                         <p class="lead mb-0">
-                                                        <h4>Atrractions</h4>
+                                                        <h4>Attractions</h4>
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-12 field_wrapper_attraction">
+                                                    <div class="form-group" id="attraction">
+                                                        <label>Attractions Details</label>
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-5 form-group">
+                                                                <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
+                                                                </div>
+                                                                <div class="col-md-5 form-group">
+                                                                <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
+                                                                </div>
+                                                                <div class="col-md-5 form-group">
+                                                                <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
+                                                                </div>
+                                                                <div class="col-md-5 form-group">
+                                                                <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter Type" value="" />
+                                                                </div>
+                                                                <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                                            </div>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Name</label>
                                                         <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter ">
@@ -922,7 +1092,7 @@
                                                         <label>Type</label>
                                                         <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter ">
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="col-md-12">
                                                     <div class="tab-custom-content">
@@ -948,7 +1118,7 @@
                                                 </div>
                                                 <div class="col-md-12 field_wrapper">
                                                     <div class="form-group" id="extra">
-                                                        <label>Extra Price</label>
+                                                        <label>Extra Price Details</label>
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" />
@@ -1023,7 +1193,7 @@
                                                     <div class="form-group">
                                                         <label>Property Type</label>
                                                         <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;" required="required">
-                                                            <option value="">Select Property Type</option>
+                                                            <option value="">Select Hotel Category</option>
                                                             @foreach ($properties as $prop)
                                                             <option value="{{ $prop->id }}">{{ $prop->stay_type }}</option>
                                                             @endforeach
@@ -1277,19 +1447,17 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12 d-none" id="breakfast_price_type_div">
+                                                            <!-- <div class="col-sm-12 d-none" id="breakfast_price_type_div">
                                                                 <div class="form-group">
-                                                                    <!-- <label>Select all that apply</label> -->
                                                                     <label>What kind of breakfast is available?</label>
                                                                     <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;" required="required">
-                                                                        <!-- <option value="">Select Entertainment and family services</option> -->
                                                                         @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
                                                                         @foreach ($breakfast_type as $value)
                                                                         <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
 
@@ -1300,7 +1468,7 @@
                                                 <div class="col-md-12">
                                                     <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                                                     <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
-                                                    <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
+                                                    <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button"><span class=""></span>Submit</button>
                                                 </div>
                                             </div>
 

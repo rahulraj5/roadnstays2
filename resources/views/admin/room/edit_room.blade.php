@@ -93,20 +93,20 @@
   })
 </script>
 <script>
-    // $(document).ready(function() {
-    //     // Select2 Multiple
-    //     $('.select2bs4').select2({
-    //         theme: 'bootstrap4'
-    //     })
-    // });
-    $("select").on("select2:select", function (evt) {
-        var element = evt.params.data.element;
-        var $element = $(element);
-        
-        $element.detach();
-        $(this).append($element);
-        $(this).trigger("change");
-    });
+  // $(document).ready(function() {
+  //     // Select2 Multiple
+  //     $('.select2bs4').select2({
+  //         theme: 'bootstrap4'
+  //     })
+  // });
+  $("select").on("select2:select", function(evt) {
+    var element = evt.params.data.element;
+    var $element = $(element);
+
+    $element.detach();
+    $(this).append($element);
+    $(this).trigger("change");
+  });
 </script>
 <script>
   $("#allow_guest_in_room1").click(function() {
@@ -148,17 +148,19 @@
 
 <script>
   function deleteConfirmation(Id) {
-    toastDelete.fire({
-    }).then(function(e) {
+    toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
           url: "{{url('/admin/deleteRoomSingleImage')}}",
-          data: {'id': Id, _token: CSRF_TOKEN},
+          data: {
+            'id': Id,
+            _token: CSRF_TOKEN
+          },
           dataType: 'JSON',
-          success: function(data){
-            $("#remove_img_"+Id).parent('div').remove();
+          success: function(data) {
+            $("#remove_img_" + Id).parent('div').remove();
             success_noti(data.msg);
           },
           error: function(errorData) {
@@ -174,11 +176,125 @@
     })
   }
   $(".removeImage").click(function() {
-    var Id=$(this).attr('id');
+    var Id = $(this).attr('id');
     var hotel_id = $('#hotel_id').val();
     deleteConfirmation(Id);
   });
+</script>
+<script>
+  $("#submit_up_btn").click(function() {
+    // alert('shdfsd');
+    var form = $("#updateroomAdmin_form");
+    form.validate({
+      rules: {
+        hotel_name: {
+          required: true
+        },
+        room_type: {
+          required: true
+        },
+        room_name: {
+          required: true
+        },
+        max_adults: {
+          required: true,
+          number: true,
+        },
+        max_childern: {
+          required: true,
+          number: true,
+        },
+        number_of_rooms: {
+          required: true,
+          number: true,
+        },
+        price_per_night: {
+          required: true,
+          number: true,
+        },
+        price_per_night_7d: {
+          required: true,
+          number: true,
+        },
+        price_per_night_30d: {
+          required: true,
+          number: true,
+        },
+        cleaning_fee: {
+          // required: true,
+          number:true,
+        },
+        city_fee: {
+          // required: true,
+          number:true,
+        },
+        extra_guest_per_night: {
+          required: true,
+          number: true,
+        },
+        room_size: {
+          required: true,
+          number: true,
+        },
+        type_of_price: {
+          required: true,
+        },
+        bed_type: {
+          required: true,
+        },
+        private_bathroom: {
+          required: true,
+        },
+        private_entrance: {
+          required: true,
+        },
+        family_friendly: {
+          required: true,
+        },
+        description: {
+          required: true,
+        },
+        notes: {
+          required: true,
+        },
+        extra_people: {
+          required: true,
+        }
 
+      },
+    });
+    if (form.valid() === true) {
+      var site_url = $("#baseUrl").val();
+      // alert(site_url);
+      var formData = $(form).serialize();
+      $('#submit_up_btn').prop('disabled', true);
+      $('#submit_up_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: site_url + '/admin/updateRoom',
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+          // $("#newsForm")[0].reset();
+          success_noti(response.msg);
+          setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+        } else {
+            error_noti(response.msg);
+            $('#submit_up_btn').html(
+              `<span class=""></span>Update`
+            );
+            $('#submit_up_btn').prop('disabled', false);
+          }
+
+        }
+      });
+      // event.preventDefault();
+    }
+  });
 </script>
 @endsection
 @section('content')
@@ -285,7 +401,7 @@
 
                   <label>Room type</label>
 
-                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;">
+                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;" disabled>
 
                     <option value="">Select Hotel</option>
 
@@ -309,7 +425,7 @@
 
                   <label>Room name</label>
 
-                  <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}">
+                  <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
 
                 </div>
 
@@ -483,7 +599,7 @@
                       <div class="col-sm-6">
                         <div class="form-group">
                           <div class="icheck-danger d-inline">
-                            <input type="radio" id="allow_guest_in_room2" name="is_guest_allow" value="0"  @php if($room_data->is_guest_allow == 0){echo 'checked';} @endphp>
+                            <input type="radio" id="allow_guest_in_room2" name="is_guest_allow" value="0" @php if($room_data->is_guest_allow == 0){echo 'checked';} @endphp>
                             <label for="allow_guest_in_room2">No</label>
                           </div>
                         </div>
@@ -491,17 +607,23 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 <? if ($room_data->is_guest_allow == 0) {echo 'd-none';} ?>" id="allow_guest_price_div">
+                  <div class="col-md-4 <? if ($room_data->is_guest_allow == 0) {
+                                          echo 'd-none';
+                                        } ?>" id="allow_guest_price_div">
                     <div class="form-group">
                       <label>Extra guest per night</label>
                       <input type="text" class="form-control" name="extra_guest_per_night" id="extra_guest_per_night" placeholder="Enter extra guest per night." value="{{$room_data->extra_guest_per_night}}">
                     </div>
                   </div>
-                  <div class="col-md-4 <? if ($room_data->is_guest_allow == 0) {echo 'd-none';} ?>" id="allow_guest_cap_div">
+                  <div class="col-md-4 <? if ($room_data->is_guest_allow == 0) {
+                                          echo 'd-none';
+                                        } ?>" id="allow_guest_cap_div">
                     <div class="form-group">
                       <label>Please Check if Allow Above Capacity yes </label>
                       <div class="icheck-success d-inline">
-                        <input type="checkbox" name="is_above_guest_cap" id="checkboxSuccess1" value="1" <? if ($room_data->is_above_guest_cap == 1) {echo 'checked';} ?>>
+                        <input type="checkbox" name="is_above_guest_cap" id="checkboxSuccess1" value="1" <? if ($room_data->is_above_guest_cap == 1) {
+                                                                                                            echo 'checked';
+                                                                                                          } ?>>
                         <label for="checkboxSuccess1">Allow guests above capacity?</label>
                       </div>
                     </div>
@@ -510,11 +632,15 @@
 
                 </div>
               </div>
-              <div class="col-md-12 <? if ($room_data->is_guest_allow == 0) {echo 'd-none';} ?>" id="pay_by_no_guest_div">
+              <div class="col-md-12 <? if ($room_data->is_guest_allow == 0) {
+                                      echo 'd-none';
+                                    } ?>" id="pay_by_no_guest_div">
                 <div class="form-group">
                   <!-- <label>Pay by the number of guests (room prices will NOT be used anymore and billing will be done by guest number only) </label> -->
                   <div class="icheck-success d-inline">
-                    <input type="checkbox" name="is_pay_by_num_guest" id="checkboxSuccess2" value="1" <? if ($room_data->is_pay_by_num_guest == 1) {echo 'checked';} ?>>
+                    <input type="checkbox" name="is_pay_by_num_guest" id="checkboxSuccess2" value="1" <? if ($room_data->is_pay_by_num_guest == 1) {
+                                                                                                        echo 'checked';
+                                                                                                      } ?>>
                     <label for="checkboxSuccess2">Pay by the number of guests (room prices will NOT be used anymore and billing will be done by guest number only)</label>
                   </div>
                 </div>
@@ -533,39 +659,39 @@
 
                   @if(count($room_extra_option) > 0)
 
-                    @foreach ($room_extra_option as $key=>$value)
-            
-                    <div class="row form-group">
-                      <div class="col-md-3">
-                        <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" />
-                      </div>
-                      <div class="col-md-3">
-                        <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
-                      </div>
-                      <!-- <div class="col-md-3">
+                  @foreach ($room_extra_option as $key=>$value)
+
+                  <div class="row form-group">
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" />
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
+                    </div>
+                    <!-- <div class="col-md-3">
                         <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" />
                       </div> -->
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
-                            <option value="">Select Price type</option>
-                            <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
-                            <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
-                            <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
-                            <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
-                          </select>
-                        </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
+                          <option value="">Select Price type</option>
+                          <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                          <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                          <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                          <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                        </select>
                       </div>
-                      @if($key == 0)
-                      <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
-                      @else
-                      <span><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove</a></span>
-                      @endif
                     </div>
-                    
-                    @endforeach
+                    @if($key == 0)
+                    <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                    @else
+                    <span><a href="javascript:void(0);" class="remove_button" title="Remove field">Remove</a></span>
+                    @endif
+                  </div>
 
-                  @else  
+                  @endforeach
+
+                  @else
 
                   <div class="row">
                     <div class="col-md-3">
@@ -579,13 +705,13 @@
                     </div> -->
                     <div class="col-md-3">
                       <div class="form-group">
-                          <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                        <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
                           <option value="">Select Price type</option>
                           <option value="single_fee">Single fee</option>
                           <option value="per_night">Per night</option>
                           <option value="per_guest">Per guest</option>
                           <option value="per_night_per_guest">Per night per guest</option>
-                          </select>
+                        </select>
                       </div>
                     </div>
                     <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
@@ -722,7 +848,7 @@
                 <div class="form-group">
                   <div class="field" align="left">
                     <label>Upload room featured images</label>
-                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg"/>
+                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" />
                   </div>
                 </div>
               </div>
@@ -744,15 +870,15 @@
                     <input type="file" id="files" name="imgupload[]" multiple />
                   </div>
                 </div>
-              </div> 
+              </div>
 
               <div class="col-md-12">
                 <div class="d-flex flex-wrap">
                   @foreach($room_images as $image)
                   <div class="image-gridiv">
                     <span class="pip" id="remove_img_{{$image->id}}">
-                    <img class="imageThumb" src="{{url('public/uploads/room_images/')}}/{{$image->image}}">
-                    <br/><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
+                      <img class="imageThumb" src="{{url('public/uploads/room_images/')}}/{{$image->image}}">
+                      <br /><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
                   </div>
                   @endforeach
                 </div>
@@ -872,7 +998,7 @@
 
               <div class="col-12">
 
-                <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button>
+                <button class="btn btn-primary btn-dark float-right button" name="submit" id="submit_up_btn" type="button"><span class=""></span>Update</button>
 
               </div>
 

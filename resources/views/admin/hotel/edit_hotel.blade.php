@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('admin.layouts.layout')
 @section('title', 'User - Profile')
 
 @section('current_page_css')
@@ -34,6 +34,7 @@
     text-align: center;
     cursor: pointer;
   }
+
   .remove:hover {
     background: white;
     color: black;
@@ -52,8 +53,25 @@
     background: #2a7b72 !important;
     color: black;
   }
-  
 
+  .pip_featured_img {
+    display: inline-block;
+    margin: 10px 10px 20px 0;
+  }
+
+  .remove_featured_img {
+    display: block;
+    background: #444;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .remove_featured_img:hover {
+    background: white;
+    color: black;
+  }
 </style>
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
@@ -110,6 +128,43 @@
   });
 </script>
 
+<!-- <script type="text/javascript">
+  $(function() {
+    $('.upload-video-file').on('change', function() {
+
+      if (isVideo($(this).val())) {
+        $('.video-preview').attr('src', URL.createObjectURL(this.files[0]));
+        $('.video-prev').show();
+      } else {
+        $('.upload-video-file').val('');
+        $('.video-prev').hide();
+        error_noti("Only video files are allowed to upload.");
+      }
+    });
+  });
+
+  // If user tries to upload videos other than these extension , it will throw error.
+  function isVideo(filename) {
+    var ext = getExtension(filename);
+    switch (ext.toLowerCase()) {
+      case 'm4v':
+      case 'avi':
+      case 'mp4':
+      case 'mov':
+      case 'mpg':
+      case 'mpeg':
+        // etc
+        return true;
+    }
+    return false;
+  }
+
+  function getExtension(filename) {
+    var parts = filename.split('.');
+    return parts[parts.length - 1];
+  }
+</script> -->
+
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
@@ -137,20 +192,48 @@
     }
   });
 </script>
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.File && window.FileList && window.FileReader) {
+      $("#hotelFeaturedImg").on("change", function(e) {
+        var files = e.target.files,
+          filesLength = files.length;
+        for (var i = 0; i < filesLength; i++) {
+          var f = files[i]
+          var fileReader = new FileReader();
+          fileReader.onload = (function(e) {
+            var file = e.target;
+            $("<span class=\"pip_featured_img\">" +
+              "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+              "<br/><span class=\"remove_featured_img\">Remove image</span>" +
+              "</span>").insertAfter("#hotelFeaturedImgPreview");
+            $(".remove_featured_img").click(function() {
+              $(this).parent(".pip_featured_img").remove();
+            });
+          });
+          fileReader.readAsDataURL(f);
+        }
+      });
+    } else {
+      alert("Your browser doesn't support to File API")
+    }
+  });
+</script>
 <script>
   function deleteConfirmation(Id) {
-    toastDelete.fire({
-    }).then(function(e) {
+    toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
           url: "{{url('/admin/deleteHotelSingleImage')}}",
-          data: {'id': Id, _token: CSRF_TOKEN},
+          data: {
+            'id': Id,
+            _token: CSRF_TOKEN
+          },
           dataType: 'JSON',
-          success: function(data){
-            $("#remove_img_"+Id).parent('div').remove();
+          success: function(data) {
+            $("#remove_img_" + Id).parent('div').remove();
             success_noti(data.msg);
           },
           error: function(errorData) {
@@ -166,11 +249,10 @@
     })
   }
   $(".removeImage").click(function() {
-    var Id=$(this).attr('id');
+    var Id = $(this).attr('id');
     var hotel_id = $('#hotel_id').val();
     deleteConfirmation(Id);
   });
-
 </script>
 
 <script>
@@ -181,10 +263,10 @@
     })
   });
 
-  $("select").on("select2:select", function (evt) {
+  $("select").on("select2:select", function(evt) {
     var element = evt.params.data.element;
     var $element = $(element);
-    
+
     $element.detach();
     $(this).append($element);
     $(this).trigger("change");
@@ -275,46 +357,116 @@
   //   });
   // });
 
-  $('#step_btn9').click(function() {
-    $("#updateHotelContext_form").validate({
-      debug: false,
-      rules: {
-        hotelName: {
-          required: true,
-        },
-        summernote: {
-          required: true,
-        },
-      },
-      submitHandler: function(form) {
-        var site_url = $("#baseUrl").val();
-        // alert(site_url);
-        var formData = $(form).serialize();
-        $(form).ajaxSubmit({
-          type: 'POST',
-          url: "{{url('/admin/updateHotel')}}",
-          data: formData,
-          success: function(response) {
-            // console.log(response);
-            if (response.status == 'success') {
-              // $("#register_form")[0].reset();
-              success_noti(response.msg);
-              // setTimeout(function() {
-              //   window.location.reload()
-              // }, 1000);
-              setTimeout(function() {
-                window.location.href = site_url + "/admin/hotelList"
-              }, 1000);
-            } else {
-              error_noti(response.msg);
-            }
+  // $('#step_btn9').click(function() {
+  //   $("#updateHotelContext_form").validate({
+  //     debug: false,
+  //     rules: {
+  //       hotelName: {
+  //         required: true,
+  //       },
+  //       summernote: {
+  //         required: true,
+  //       },
+  //       "hotelGallery[]": {
+  //         required: true,
+  //         extension: "jpg|jpeg|png",
+  //         // filesize: 20971520, 
+  //       },
+  //       hotelVideo: {
+  //         // required: true,
+  //         accept: "video/*"
+  //       },
+  //       cat_listed_room_type: {
+  //         required: true,
+  //       },
+  //       hotel_rating: {
+  //         required: true,
+  //       },
+  //       contact_name: {
+  //         required: true,
+  //       },
+  //       contact_num: {
+  //         required: true,
+  //         number: true,
+  //       },
+  //       alternate_num: {
+  //         number: true,
+  //       },
+  //       scout_id: {
+  //         required: true,
+  //       },
+  //       checkin_time: {
+  //         required: true,
+  //       },
+  //       checkout_time: {
+  //         required: true,
+  //       },
+  //       min_day_before_book: {
+  //         required: true,
+  //         number: true,
+  //       },
+  //       min_day_stays: {
+  //         required: true,
+  //         number: true,
+  //       },
+  //       hotel_latitude: {
+  //         number: true,
+  //       },
+  //       hotel_longitude: {
+  //         number: true,
+  //       },
+  //       // attraction_distance: {
+  //       //   required: true,
+  //       // },
+  //       stay_price: {
+  //         required: true,
+  //         number: true,
+  //       },
+  //       extra_price: {
+  //         number: true,
+  //       },
+  //       service_fee: {
+  //         number: true,
+  //       },
+  //       property_type: {
+  //         required: true,
+  //       },
+  //       hotel_address: {
+  //         required: true
+  //       },
+  //       hotel_city: {
+  //         required: true
+  //       },
+  //     },
+  //     submitHandler: function(form) {
+  //       var site_url = $("#baseUrl").val();
+  //       // alert(site_url);
+  //       var formData = $(form).serialize();
+  //       $(form).ajaxSubmit({
+  //         type: 'POST',
+  //         url: "{{url('/admin/updateHotel')}}",
+  //         data: formData,
+  //         success: function(response) {
+  //           // console.log(response);
+  //           if (response.status == 'success') {
+  //             // $("#register_form")[0].reset();
+  //             success_noti(response.msg);
+  //             // setTimeout(function() {
+  //             //   window.location.reload()
+  //             // }, 1000);
+  //             setTimeout(function() {
+  //               window.location.href = site_url + "/admin/hotelList"
+  //             }, 1000);
+  //           } else {
+  //             error_noti(response.msg);
+  //           }
 
-          }
-        });
-        // event.preventDefault();
-      }
-    });
-  });
+  //         }
+  //       });
+  //       // event.preventDefault();
+  //     }
+  //   });
+  // });
 
   // $('#step_btn2').click(function() {
   //   $("#addHotelPolicy_form").validate({
@@ -395,16 +547,242 @@
   // });
 </script>
 
+<script>
+  $(".slide.one .button").click(function() {
+    // alert('sdfsd');
+    var form = $("#updateHotelContext_form");
+    form.validate({
+      rules: {
+        hotelName: {
+          required: true,
+        },
+        summernote: {
+          required: true,
+        },
+        "hotelGallery[]": {
+          // required: true,
+          extension: "jpg|jpeg|png",
+          // filesize: 20971520, 
+        },
+        hotelVideo: {
+          // required: true,
+          accept: "video/*"
+        },
+        cat_listed_room_type: {
+          required: true,
+        },
+        hotel_rating: {
+          required: true,
+        },
+        contact_name: {
+          required: true,
+        },
+        contact_num: {
+          required: true,
+          number: true,
+        },
+        alternate_num: {
+          number: true,
+        },
+        scout_id: {
+          required: true,
+        },
+        checkin_time: {
+          required: true,
+        },
+        checkout_time: {
+          required: true,
+        },
+        min_day_before_book: {
+          required: true,
+          number: true,
+        },
+        min_day_stays: {
+          required: true,
+          number: true,
+        },
+        hotel_latitude: {
+          required: true,
+          number: true,
+        },
+        hotel_longitude: {
+          required: true,
+          number: true,
+        },
+        // attraction_distance: {
+        //   required: true,
+        // },
+        stay_price: {
+          required: true,
+          number: true,
+        },
+        extra_price: {
+          number: true,
+        },
+        service_fee: {
+          number: true,
+        },
+        property_type: {
+          required: true,
+        },
+        hotel_address: {
+          required: true
+        },
+        hotel_city: {
+          required: true
+        },
+
+      },
+      // messages: {
+      //   hotelName: {
+      //     required: "Please enter a Hotel Name"
+      //   },
+      //   summernote: {
+      //     required: "Please provide a Hotel Content",
+      //   },
+      //   // terms: "Please accept our terms"
+      // },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+    if (form.valid() === true) {
+      stepper.next();
+      // alert( "Form successful submitted!" );
+      $(".slide.one").removeClass("active");
+      $(".slide.two").addClass("active");
+    }
+  });
+
+  $(".slide.two .button").click(function() {
+    var form = $("#updateHotelContext_form");
+    form.validate({
+      rules: {
+        hotel_address: {
+          required: true
+        },
+        hotel_city: {
+          required: true
+        },
+      },
+      messages: {
+        hotel_address: {
+          required: "Please enter a Hotel Name"
+        },
+        hotel_city: {
+          required: "Please provide a Hotel Content",
+        },
+        // terms: "Please accept our terms"
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+    if (form.valid() === true) {
+      stepper.next();
+      $(".slide.two").removeClass("active");
+      $(".slide.three").addClass("active");
+    }
+  });
+
+  $(".slide.three .button").click(function() {
+    var form = $("#updateHotelContext_form");
+    form.validate({
+      rules: {
+        hotelName: {
+          required: true,
+        },
+        entertain_service2: {
+          required: true,
+        },
+      },
+    });
+    if (form.valid() === true) {
+      var site_url = $("#baseUrl").val();
+      // alert(site_url);
+      var formData = $(form).serialize();
+      $('#step_btn9').prop('disabled', true);
+      $('#step_btn9').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: "{{url('/admin/updateHotel')}}",
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+            // $("#register_form")[0].reset();
+            success_noti(response.msg);
+            // setTimeout(function() {
+            //   window.location.reload()
+            // }, 1000);
+            setTimeout(function() {
+              window.location.href = site_url + "/admin/hotelList"
+            }, 1000);
+          } else {
+            error_noti(response.msg);
+            $('#step_btn9').html(
+              `<span class=""></span>Update`
+            );
+            $('#step_btn9').prop('disabled', false);
+          }
+
+        }
+      });
+    }
+  });
+</script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
-    var addServButton = $('.add_service_button'); 
-    var servWrapper = $('.field_wrapper_service'); 
-    var x = 0; 
+    var addAttrButton = $('.add_attraction_button');
+    var attrWrapper = $('.field_wrapper_attraction');
+    var x = $('#attraction_count').val() - 1;
+
+    $(addAttrButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(attrWrapper).append('<div class="col-md-12"><div class="row"><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][content]" placeholder="Enter Content" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][distance]" placeholder="Enter Distance" value="" /></div><div class="col-md-5 form-group"><input type="text" class="form-control" name="attraction[' + x + '][type]" placeholder="Enter Type" value="" /></div><span><a href="javascript:void(0);" class="remove_attraction_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(attrWrapper).on('click', '.remove_attraction_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addServButton = $('.add_service_button');
+    var servWrapper = $('.field_wrapper_service');
+    var x = $('#serv_fee_count').val() - 1;
 
     $(addServButton).click(function() {
       if (x < maxField) {
-        x++; 
+        x++;
         $(servWrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="service[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="service[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_serv_button">Remove</a></span></div></div>');
       }
     });
@@ -420,13 +798,13 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
-    var addButton = $('.add_button'); 
-    var wrapper = $('.field_wrapper'); 
-    var x = 0; 
+    var addButton = $('.add_button');
+    var wrapper = $('.field_wrapper');
+    var x = $('#extra_option_count').val() - 1;
 
     $(addButton).click(function() {
       if (x < maxField) {
-        x++; 
+        x++;
         $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
@@ -442,29 +820,42 @@
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>-->
 
 <script type="text/javascript">
-    function initialize() {
-        var input = document.getElementById('hotel_address');
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-          var place = autocomplete.getPlace();
-          console.log(place);
-          document.getElementById('hotel_latitude').value = place.geometry.location.lat();
-          document.getElementById('hotel_longitude').value = place.geometry.location.lng();
-          // document.getElementById('neighb_area').value = place.vicinity;
-          for (let i = 0; i < place.address_components.length; i++) {
-            if (place.address_components[i].types[0] == "administrative_area_level_2") {
-              document.getElementById('hotel_city').value = place.address_components[i].long_name;
+  function initialize() {
+    var input = document.getElementById('hotel_address');
+    var options = document.getElementById("hotel_country").options;
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      var place = autocomplete.getPlace();
+      console.log(place);
+      document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+      document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+      // document.getElementById('neighb_area').value = place.vicinity;
+      for (let i = 0; i < place.address_components.length; i++) {
+        if (place.address_components[i].types[0] == "administrative_area_level_2") {
+          document.getElementById('hotel_city').value = place.address_components[i].long_name;
+        }
+        if (place.address_components[i].types[0] == "sublocality_level_1") {
+          document.getElementById('neighb_area').value = place.address_components[i].long_name;
+        }
+        if (place.address_components[i].types[0] == "country") {
+          // console.log(place.address_components[i].long_name);
+          for (var j = 0; j < options.length; j++) {
+            if (options[j].text == place.address_components[i].long_name) {
+              options[j].selected = true;
+              document.getElementById("select2-hotel_country-container").textContent = options[j].text;
+              const getSpan = document.getElementById("select2-hotel_country-container")
+              getSpan.setAttribute("title", options[j].text);
+              break;
             }
-            if (place.address_components[i].types[0] == "sublocality_level_1") {
-              document.getElementById('neighb_area').value = place.address_components[i].long_name;
-            }
-            // if (place.address_components[i].types[0] == "neighborhood") {
-            //   document.getElementById('neighb_area').value = place.address_components[i].long_name;
-            // }
           }
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', initialize); 
+        }
+        // if (place.address_components[i].types[0] == "neighborhood") {
+        //   document.getElementById('neighb_area').value = place.address_components[i].long_name;
+        // }
+      }
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 @endsection
 
@@ -555,8 +946,11 @@
                       <input type="hidden" name="old_hotel_image" id="old_hotel_image" value="@if(!empty($hotel_info->hotel_id)){{ $hotel_info->hotel_gallery }}@endif" />
                       <input type="hidden" name="old_hotel_document" id="old_hotel_document" value="@if(!empty($hotel_info->hotel_id)){{ $hotel_info->hotel_document }}@endif" />
                       <input type="hidden" name="old_hotel_notes" id="old_hotel_notes" value="@if(!empty($hotel_info->hotel_id)){{ $hotel_info->hotel_notes }}@endif" />
+                      <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($hotel_extra_price) }}">
+                      <input type="hidden" name="serv_fee_count" id="serv_fee_count" value="{{ count($hotel_service_fee) }}">
+                      <input type="hidden" name="attraction_count" id="attraction_count" value="{{ count($hotel_attraction) }}">
 
-                      <div id="hotel-context-part" class="content" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
+                      <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
                         <!-- <form method="POST" id="addHotelContext_form"> -->
 
                         <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
@@ -605,8 +999,8 @@
                               @foreach($hotel_gallery as $image)
                               <div class="image-gridiv" id="hotelGalleryPreview">
                                 <span class="pip" id="remove_img_{{$image->id}}">
-                                <img class="imageThumb" src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
-                                <br/><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
+                                  <img class="imageThumb" src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
+                                  <br /><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
                               </div>
                               @endforeach
                             </div>
@@ -633,22 +1027,29 @@
                             </div>
                             @endif
                           </div>
-                          
+
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="customFile">Hotel Video</label>
                               <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="hotelVideo" id="hotelVideo">
+                                <input type="file" class="custom-file-input upload-video-file" name="hotelVideo" id="hotelVideo">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
 
                                 @if((!empty($hotel_info->hotel_video)))
                                 <div class="col-md-12">
-                                  <video class="mt-2" width="200" height="150" controls>
+                                  <div class='video-prev' class="pull-right">
+                                    <video class="mt-2" width="200" height="150" class="video-preview" controls="controls" />
                                     <source src="{{url('/')}}/public/uploads/hotel_video/{{$hotel_info->hotel_video}}" type="video/mp4">
-                                  </video>
+                                    </video>
+                                  </div>
                                 </div>
                                 @endif
+                                <!-- <div class="col-md-12">
+                                  <div style="display: none;" class='video-prev' class="pull-right">
+                                    <video width="225" height="150" class="video-preview" controls="controls" />
+                                  </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
@@ -668,7 +1069,7 @@
                           </div>
 
                           <div class="col-sm-6">
-                            <label>Where else your property listed?</label>
+                            <label>Is your property listed anywhere else also ?</label>
                             <div class="row">
                               <div class="col-sm-6">
                                 <!-- checkbox -->
@@ -850,7 +1251,8 @@
                             <!-- <button type="submit" id="step_btn1" class="btn btn-primary">Submit</button> -->
 
                             <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Submit</button> -->
-                            <a class="btn btn-primary btn-dark" onclick="stepper.next()">Next</a>
+                            <!-- <a class="btn btn-primary btn-dark" onclick="stepper.next()">Next</a> -->
+                            <a class="btn btn-primary btn-dark button">Next</a>
                           </div>
                         </div>
 
@@ -858,7 +1260,7 @@
                         <!-- <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
                       </div>
 
-                      <div id="hotel-policy-part" class="content" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
+                      <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
                         <!-- <form method="POST" id="addHotelPolicy_form"> -->
                         <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
@@ -977,7 +1379,7 @@
                               <select class="form-control select2bs4" name="hotel_country" id="hotel_country" style="width: 100%;">
                                 <!-- <option value="">Select Country</option> -->
                                 @foreach ($countries as $cont)
-                                <option value="{{ $cont->id }}" @php if($hotel_info->hotel_country == $cont->id){echo "selected";} @endphp >{{ $cont->name }}</option>
+                                <option value="{{ $cont->id }}" @php if($hotel_info->hotel_country == $cont->id){echo "selected";} @endphp >{{ $cont->nicename }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -986,12 +1388,65 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Atrractions</h4>
+                              <h4>Attractions</h4>
                               </p>
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-12 field_wrapper_attraction">
+                            <div class="form-group" id="attraction">
+                              <label>Attractions Details</label>
+                              
+                                @if(count($hotel_attraction) > 0)
+
+                                @foreach ($hotel_attraction as $key=>$value)
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" />
+                                    </div>
+                                    @if($key == 0)
+                                    <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                    @else
+                                    <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field">Remove</a></span>
+                                    @endif
+                                  </div>
+                                </div>
+                                @endforeach
+
+                                @else
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                      <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" />
+                                    </div>
+                                    <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                  </div>
+                                </div>  
+                                @endif
+                            </div>
+                          </div>
+
+
+                          <!-- <div class="col-md-6">
                             <div class="form-group">
                               <label>Name</label>
                               <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter " value="{{(!empty($hotel_info->attraction_name) ? $hotel_info->attraction_name : '')}}">
@@ -1017,7 +1472,7 @@
                               <label>Type</label>
                               <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter " value="{{(!empty($hotel_info->attraction_type) ? $hotel_info->attraction_type : '')}}">
                             </div>
-                          </div>
+                          </div> -->
 
                           <div class="col-md-12">
                             <div class="tab-custom-content">
@@ -1030,7 +1485,7 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Price ( min. Price of the Room )</label>
-                              <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter " value="{{(!empty($hotel_info->stay_price) ? $hotel_info->stay_price : '')}}">
+                              <input type="text" class="form-control" name="stay_price" id="stay_price" placeholder="Enter " required="required" value="{{(!empty($hotel_info->stay_price) ? $hotel_info->stay_price : '')}}">
                             </div>
                           </div>
 
@@ -1043,43 +1498,43 @@
                           </div>
                           <div class="col-md-12 field_wrapper">
                             <div class="form-group" id="extra">
-                              <label>Extra Price</label>
+                              <label>Extra Price Details</label>
 
                               @if(count($hotel_extra_price) > 0)
 
-                                @foreach ($hotel_extra_price as $key=>$value)
-                        
-                                <div class="row form-group">
-                                  <div class="col-md-3">
-                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" />
-                                  </div>
-                                  <div class="col-md-3">
-                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
-                                  </div>
-                                  <!-- <div class="col-md-3">
+                              @foreach ($hotel_extra_price as $key=>$value)
+
+                              <div class="row form-group">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" />
+                                </div>
+                                <!-- <div class="col-md-3">
                                     <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" />
                                   </div> -->
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                      <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
-                                        <option value="">Select Price type</option>
-                                        <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
-                                        <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
-                                        <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
-                                        <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
-                                      </select>
-                                    </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;">
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                      <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                      <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                      <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                    </select>
                                   </div>
-                                  @if($key == 0)
-                                  <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
-                                  @else
-                                  <span><a href="javascript:void(0);" class="remove_button" title="Add field">Remove</a></span>
-                                  @endif
                                 </div>
-                                
-                                @endforeach
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_button" title="Add field">Remove</a></span>
+                                @endif
+                              </div>
 
-                              @else 
+                              @endforeach
+
+                              @else
 
                               <div class="row">
                                 <div class="col-md-3">
@@ -1125,37 +1580,37 @@
 
                               @if(count($hotel_service_fee) > 0)
 
-                                @foreach ($hotel_service_fee as $key=>$value)
-                        
-                                <div class="row form-group">
-                                  <div class="col-md-3">
-                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->serv_fee_name }}" />
-                                  </div>
-                                  <div class="col-md-3">
-                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->serv_fee_price }}" />
-                                  </div>
-                                  <!-- <div class="col-md-3">
+                              @foreach ($hotel_service_fee as $key=>$value)
+
+                              <div class="row form-group">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->serv_fee_name }}" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->serv_fee_price }}" />
+                                </div>
+                                <!-- <div class="col-md-3">
                                     <input type="text" class="form-control" name="service[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->serv_fee_type }}" />
                                   </div> -->
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                      <select class="form-control select2bs4" name="service[@php echo $key; @endphp][type]" style="width: 100%;">
-                                        <option value="">Select Price type</option>
-                                        <option value="single_fee" {{ $value->serv_fee_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
-                                        <option value="per_night" {{ $value->serv_fee_type == "per_night" ? 'selected' : '' }}>Per night</option>
-                                        <option value="per_guest" {{ $value->serv_fee_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
-                                        <option value="per_night_per_guest" {{ $value->serv_fee_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
-                                      </select>
-                                    </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="service[@php echo $key; @endphp][type]" style="width: 100%;">
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee" {{ $value->serv_fee_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                      <option value="per_night" {{ $value->serv_fee_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                      <option value="per_guest" {{ $value->serv_fee_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                      <option value="per_night_per_guest" {{ $value->serv_fee_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                    </select>
                                   </div>
-                                  @if($key == 0)
-                                  <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
-                                  @else
-                                  <span><a href="javascript:void(0);" class="remove_serv_button" title="Add field">Remove</a></span>
-                                  @endif
                                 </div>
-                                
-                                @endforeach
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_serv_button" title="Add field">Remove</a></span>
+                                @endif
+                              </div>
+
+                              @endforeach
 
                               @else
 
@@ -1185,7 +1640,7 @@
 
                               @endif
 
-                              
+
 
 
                             </div>
@@ -1203,7 +1658,7 @@
                             <div class="form-group">
                               <label>Property Type</label>
                               <select class="form-control select2bs4" name="property_type" id="property_type" style="width: 100%;">
-                                <!-- <option value="">Select Property Type</option> -->
+                                <!-- <option value="">Select Hotel Category</option> -->
                                 @foreach ($properties as $prop)
                                 <option value="{{ $prop->id }}" @php if($hotel_info->property_type == $prop->id){echo "selected";} @endphp >{{ $prop->stay_type }}</option>
                                 @endforeach
@@ -1215,8 +1670,10 @@
                           <div class="col-12">
                             <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
                             <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
+                            <!-- <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
+                            <a class="btn btn-primary btn-dark" onclick="stepper.next()">Next</a> -->
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                            <a class="btn btn-primary btn-dark" onclick="stepper.next()">Next</a>
+                            <a class="btn btn-primary btn-dark button">Next</a>
                           </div>
                         </div>
 
@@ -1225,7 +1682,7 @@
                           <button class="btn btn-primary btn-dark" onclick="stepper.next()">Next</button> -->
                       </div>
 
-                      <div id="facility-service-part" class="content" role="tabpanel" aria-labelledby="facility-service-part-trigger">
+                      <div id="facility-service-part" class="content slide three" role="tabpanel" aria-labelledby="facility-service-part-trigger">
                         <!-- <form method="POST" id="addHotelFacilityService_form">
                           <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
@@ -1244,26 +1701,28 @@
                           @if($amenity_count > 0)
                           @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                              <div class="form-group">
-                                  <label>{{$value->name}}</label>
-                                  <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
-                                    <!-- <option value="">Select Room Amenities</option> -->
-                                    @foreach ($amenities as $amenity)
-                                    <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) { echo 'selected'; } ?>>{{ $amenity->amenity_name }}</option>
-                                    @endforeach
-                                  </select>
-                              </div>
+                            <div class="form-group">
+                              <label>{{$value->name}}</label>
+                              <select class="form-control select2bs4" multiple="multiple" name="amenity[]" id="amenity_{{$value->id}}" data-placeholder="Select Room Amenities" style="width: 100%;">
+                                <!-- <option value="">Select Room Amenities</option> -->
+                                @foreach ($amenities as $amenity)
+                                <option value="{{ $amenity->amenity_id }}" <?php if (in_array($amenity->amenity_id, $hotel_amenities)) {
+                                                                              echo 'selected';
+                                                                            } ?>>{{ $amenity->amenity_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
                           </div>
                           @endif
 
                           @endforeach
 
                           <div class="col-md-12">
-                              <div class="tab-custom-content">
-                                  <p class="lead mb-0">
-                                  <h4>Services</h4>
-                                  </p>
-                              </div>
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Services</h4>
+                              </p>
+                            </div>
                           </div>
 
                           @foreach ($service_type as $value)
@@ -1272,16 +1731,18 @@
                           @if($hotel_services_count > 0)
                           @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
                           <div class="col-md-12">
-                              <div class="form-group">
-                                  <label>{{$value->name}}</label>
-                                  <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
-                                      <!-- <option value="">Select Room Amenities</option> -->
+                            <div class="form-group">
+                              <label>{{$value->name}}</label>
+                              <select class="form-control select2bs4" multiple="multiple" name="services[]" id="service_{{$value->id}}" data-placeholder="Select {{$value->name}}" style="width: 100%;">
+                                <!-- <option value="">Select Room Amenities</option> -->
 
-                                      @foreach ($services as $service)
-                                      <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) { echo 'selected'; } ?>>{{ $service->service_name }}</option>
-                                      @endforeach
-                                  </select>
-                              </div>
+                                @foreach ($services as $service)
+                                <option value="{{ $service->id }}" <?php if (in_array($service->id, $hotel_services)) {
+                                                                      echo 'selected';
+                                                                    } ?>>{{ $service->service_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
                           </div>
                           @endif
 
@@ -1318,7 +1779,9 @@
                               <!-- </div> -->
                             </div>
 
-                            <div class="<? if ($hotel_info->parking_option == 0) {echo 'd-none';} ?>" id="parking_free_div">
+                            <div class="<? if ($hotel_info->parking_option == 0) {
+                                          echo 'd-none';
+                                        } ?>" id="parking_free_div">
                               <div class="col-md-12 <? if ($hotel_info->parking_option != 2) {
                                                       echo 'd-none';
                                                     } ?>" id="parking_price_div">
@@ -1462,14 +1925,12 @@
                                   </div>
                                 </div>
 
-                                <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
-                                                        echo 'd-none';
-                                                      } ?>" id="breakfast_price_type_div">
+                                <!-- <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
+                                                              echo 'd-none';
+                                                            } ?>" id="breakfast_price_type_div">
                                   <div class="form-group">
-                                    <!-- <label>Select all that apply</label> -->
                                     <label>What kind of breakfast is available?</label>
                                     <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;">
-                                      <!-- <option value="">Select Entertainment and family services</option> -->
                                       @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
                                       @foreach ($breakfast_type as $value)
                                       <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
@@ -1477,7 +1938,7 @@
 
                                     </select>
                                   </div>
-                                </div>
+                                </div> -->
 
                               </div>
                             </div>
@@ -1489,7 +1950,7 @@
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
-                            <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn9" type="submit">Update</button>
+                            <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn9" type="button"><span class=""></span>Update</button>
                           </div>
                         </div>
 

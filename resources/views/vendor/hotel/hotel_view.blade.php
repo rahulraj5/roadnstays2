@@ -116,6 +116,8 @@
   $(':radio:not(:checked)').attr('disabled', true);
 </script>
 
+
+
 @endsection
 
 @section('content')
@@ -193,7 +195,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label>Hotel Content</label>
-                            <textarea id="summernote" name="summernote" disabled>{{(!empty($hotel_info-> hotel_content) ? $hotel_info-> hotel_content : '')}}</textarea>
+                            <textarea class="form-control" id="summernote_removed" name="summernote" disabled>{{(!empty($hotel_info-> hotel_content) ? $hotel_info-> hotel_content : '')}}</textarea>
                             <!-- Place <em>some</em> <u>text</u> <strong>here</strong> -->
                             <!-- </textarea> -->
                           </div>
@@ -213,8 +215,6 @@
                           </div>
                         </div>
 
-
-
                         <div class="col-md-12">
                           <div class="d-flex flex-wrap">
                             @php $hotel_gallery = DB::table('hotel_gallery')->orderby('id', 'ASC')->where('hotel_id', $hotel_info->hotel_id)->get(); @endphp
@@ -225,6 +225,28 @@
                             @endforeach
                           </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="customFile">Hotel Featured/Main Image</label>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="hotelFeaturedImg" name="hotelFeaturedImg" disabled>
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                            </div>
+
+                            @if((!empty($hotel_info->hotel_gallery)))
+                            <div class="col-md-12">
+                              <div class="d-flex flex-wrap">
+                                <div class="image-gridiv">
+                                  <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel_info->hotel_gallery}}">
+                                </div>
+                              </div>
+                            </div>
+                            @endif
+                          </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
@@ -257,7 +279,7 @@
                         </div>
 
                         <div class="col-sm-6">
-                          <label>Where else your property listed?</label>
+                          <label>Is your property listed anywhere else also ?</label>
                           <div class="row">
                             <div class="col-sm-6">
                               <!-- checkbox -->
@@ -379,7 +401,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label>Hotel Notes</label>
-                            <textarea id="summernote1" name="hotel_notes">{{(!empty($hotel_info-> hotel_notes) ? $hotel_info-> hotel_notes : '')}}</textarea>
+                            <textarea class="form-control" id="summernote1_removed" name="hotel_notes" disabled>{{(!empty($hotel_info-> hotel_notes) ? $hotel_info-> hotel_notes : '')}}</textarea>
                             <!-- Place <em>some</em> <u>text</u> <strong>here</strong> -->
                             <!-- </textarea> -->
                           </div>
@@ -562,12 +584,64 @@
                         <div class="col-md-12">
                           <div class="tab-custom-content">
                             <p class="lead mb-0">
-                            <h4>Atrractions</h4>
+                            <h4>Attractions</h4>
                             </p>
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-12 field_wrapper_attraction">
+                          <div class="form-group" id="attraction">
+                            <label>Attractions Details</label>
+                            
+                              @if(count($hotel_attraction) > 0)
+
+                              @foreach ($hotel_attraction as $key=>$value)
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" readonly>
+                                  </div>
+                                  @if($key == 0)
+                                  <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field" disabled>Add</a></span>
+                                  @else
+                                  <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field" disabled>Remove</a></span>
+                                  @endif
+                                </div>
+                              </div>
+                              @endforeach
+
+                              @else
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" readonly>
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" readonly>
+                                  </div>
+                                  <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                </div>
+                              </div>  
+                              @endif
+                          </div>
+                        </div>
+
+                        <!-- <div class="col-md-6">
                           <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="attraction_name" id="attraction_name" placeholder="Enter " value="{{(!empty($hotel_info->attraction_name) ? $hotel_info->attraction_name : '')}}" readonly>
@@ -593,7 +667,7 @@
                             <label>Type</label>
                             <input type="text" class="form-control" name="attraction_type" id="attraction_type" placeholder="Enter " value="{{(!empty($hotel_info->attraction_type) ? $hotel_info->attraction_type : '')}}" readonly>
                           </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
                           <div class="tab-custom-content">
@@ -618,7 +692,78 @@
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-12 field_wrapper">
+                            <div class="form-group" id="extra">
+                              <label>Extra Price Details</label>
+
+                              @if(count($hotel_extra_price) > 0)
+
+                              @foreach ($hotel_extra_price as $key=>$value)
+
+                              <div class="row form-group">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" readonly>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <input type="text" class="form-control" name="extra[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->ext_opt_type }}" readonly>
+                                  </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;" disabled>
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee" {{ $value->ext_opt_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                      <option value="per_night" {{ $value->ext_opt_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                      <option value="per_guest" {{ $value->ext_opt_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                      <option value="per_night_per_guest" {{ $value->ext_opt_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field" disabled>Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_button" title="Add field" disabled>Remove</a></span>
+                                @endif
+                              </div>
+
+                              @endforeach
+
+                              @else
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" readonly>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                  <input type="text" class="form-control" name="extra[0][type]" placeholder="Enter type" value="" readonly>
+                                </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;" disabled>
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee">Single fee</option>
+                                      <option value="per_night">Per night</option>
+                                      <option value="per_guest">Per guest</option>
+                                      <option value="per_night_per_guest">Per night per guest</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_button" title="Add field" disabled>Add</a></span>
+                              </div>
+
+                              @endif
+
+
+
+                            </div>
+                          </div>
+
+                        <!-- <div class="col-md-6">
                           <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="extra_price_name" id="extra_price_name" placeholder="Enter " value="{{(!empty($hotel_info->extra_price_name) ? $hotel_info->extra_price_name : '')}}" readonly>
@@ -637,7 +782,7 @@
                             <label>Type</label>
                             <input type="text" class="form-control" name="extra_price_type" id="extra_price_type" placeholder="Enter " value="{{(!empty($hotel_info->extra_price_type) ? $hotel_info->extra_price_type : '')}}" readonly>
                           </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
                           <div class="tab-custom-content">
@@ -647,7 +792,79 @@
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-12 field_wrapper_service">
+                            <div class="form-group" id="service_div">
+                              <label>Service Fee</label>
+
+                              @if(count($hotel_service_fee) > 0)
+
+                              @foreach ($hotel_service_fee as $key=>$value)
+
+                              <div class="row form-group">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->serv_fee_name }}" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->serv_fee_price }}" readonly>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <input type="text" class="form-control" name="service[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->serv_fee_type }}" />
+                                  </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="service[@php echo $key; @endphp][type]" style="width: 100%;" disabled>
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee" {{ $value->serv_fee_type == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                                      <option value="per_night" {{ $value->serv_fee_type == "per_night" ? 'selected' : '' }}>Per night</option>
+                                      <option value="per_guest" {{ $value->serv_fee_type == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                                      <option value="per_night_per_guest" {{ $value->serv_fee_type == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field" disabled>Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_serv_button" title="Add field" disabled>Remove</a></span>
+                                @endif
+                              </div>
+
+                              @endforeach
+
+                              @else
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][name]" placeholder="Enter Name" value="" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][price]" placeholder="Enter Price" value="" readonly>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                  <input type="text" class="form-control" name="service[0][type]" placeholder="Enter type" value="" readonly>
+                                </div> -->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="service[0][type]" style="width: 100%;" disabled>
+                                      <option value="">Select Price type</option>
+                                      <option value="single_fee">Single fee</option>
+                                      <option value="per_night">Per night</option>
+                                      <option value="per_guest">Per guest</option>
+                                      <option value="per_night_per_guest">Per night per guest</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_service_button" title="Add field">Add</a></span>
+                              </div>
+
+                              @endif
+
+
+
+
+                            </div>
+                          </div>
+
+                        <!-- <div class="col-md-6">
                           <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="service_fee_name" id="service_fee_name" placeholder="Enter " value="{{(!empty($hotel_info->service_fee_name) ? $hotel_info->service_fee_name : '')}}" readonly>
@@ -666,7 +883,7 @@
                             <label>Type</label>
                             <input type="text" class="form-control" name="service_fee_type" id="service_fee_type" placeholder="Enter " value="{{(!empty($hotel_info->service_fee_type) ? $hotel_info->service_fee_type : '')}}" readonly>
                           </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
                           <div class="tab-custom-content">

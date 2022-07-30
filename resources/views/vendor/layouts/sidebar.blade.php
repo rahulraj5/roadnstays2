@@ -6,7 +6,7 @@
           <div class="sidebar left ">
             <ul class="list-sidebar bg-defoult">
               <div class="vend-stays"> Road N Stays</div>
-              <li class="active-bg"> <a href="{{ url('servicepro/dashboard') }}" class="collapsed active"> <i class='bx bx-home-circle'></i> <span class="nav-label"> Dashboard </span> </a>
+              <li class="active-bg"> <a href="{{ url('servicepro/dashboard') }}" class="collapsed"> <i class='bx bx-home-circle'></i> <span class="nav-label"> Dashboard </span> </a>
               </li>
               <li> <a href="#" data-toggle="collapse" data-target="#hotels" class="collapsed"> <i class='bx bx-buildings'></i> <span class="nav-label"> Hotel Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="hotels">

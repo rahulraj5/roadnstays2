@@ -176,6 +176,122 @@
   });
 
 </script>
+
+
+<script>
+  $("#update_btn").click(function() {
+  // alert('shdfsd');
+  var form = $("#updateHotelroomAdmin_form");
+  form.validate({
+    rules: {
+      // hotel_nameh: {
+      //   required: true
+      // },
+      room_typeh: {
+        required: true
+      },
+      room_nameh: {
+        required: true
+      },
+      max_adultsh: {
+        required: true,
+        number:true,
+      },
+      max_childernh: {
+        required: true,
+        number:true,
+      },
+      number_of_roomsh: {
+        required: true,
+        number:true,
+      },
+      price_per_nighth: {
+        required: true,
+        number:true,
+      },
+      price_per_night_7dh: {
+        required: true,
+        number:true,
+      },
+      price_per_night_30dh: {
+        required: true,
+        number:true,
+      },
+      cleaning_fee: {
+        // required: true,
+        number:true,
+      },
+      city_fee: {
+        // required: true,
+        number:true,
+      },
+      extra_guest_per_nighth: {
+        required: true,
+        number:true,
+      },
+      room_sizeh: {
+        required: true,
+        number: true,
+      },
+      type_of_priceh: {
+        required: true,
+      },
+      bed_typeh: {
+        required: true,
+      },
+      private_bathroomh: {
+        required: true,
+      },
+      private_entranceh: {
+        required: true,
+      },
+      family_friendlyh: {
+        required: true,
+      },
+      descriptionh: {
+        required: true,
+      },
+      notesh: {
+        required: true,
+      },
+      extra_peopleh: {
+        required: true,
+      }
+      
+    },
+  });
+  if (form.valid() === true) {
+    var site_url = $("#baseUrl").val();
+    var formData = $(form).serialize();
+    $('#update_btn').prop('disabled', true);
+      $('#update_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: site_url + '/admin/updateHotelRoom',
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+            // $("#newsForm")[0].reset();
+            success_noti(response.msg);
+            // setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+            setTimeout(function(){window.location.href=site_url+"/admin/viewHotelRooms/"+response.hotel_id},1000);
+          } else {
+            error_noti(response.msg);
+            $('#update_btn').html(
+              `<span class=""></span>Update`
+            );
+            $('#update_btn').prop('disabled', false);
+          }
+        }
+      });
+      // event.preventDefault();
+    }
+  });
+</script>
 @endsection
 @section('content')
 
@@ -280,7 +396,7 @@
 
                   <label>Room type</label>
 
-                  <select class="form-control select2bs4" name="room_typeh" id="room_type" style="width: 100%;">
+                  <select class="form-control select2bs4" name="room_typeh" id="room_type" style="width: 100%;" disabled>
 
                     <option value="">Select Hotel</option>
 
@@ -304,7 +420,7 @@
 
                   <label>Room name</label>
 
-                  <input type="text" class="form-control" name="room_nameh" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}">
+                  <input type="text" class="form-control" name="room_nameh" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
 
                 </div>
 
@@ -867,7 +983,8 @@
 
               <div class="col-12">
 
-                <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button>
+                <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="update_btn" type="submit">Update</button> -->
+                <button class="btn btn-primary btn-dark float-right button" name="submit" id="update_btn" type="button"><span class=""></span>Update</button>
 
               </div>
 

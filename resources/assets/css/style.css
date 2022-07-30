@@ -92,6 +92,7 @@ padding: 6px 9px;
     margin-bottom: 0px !important;
     display: flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .booking-type form {
@@ -480,13 +481,13 @@ z-index: 9999;
 }
 
 #hero p {
-    -webkit-animation-delay: 0.4s;
     animation-delay: 0.4s;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 7px;
     padding: 14px 224px;
     text-align: center;
-    font-size: 19px;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 @media (min-width: 1200px) {
@@ -591,7 +592,7 @@ z-index: 9999;
 
 @media (max-width: 992px) {
   #hero {
-    height: 150vh;
+    height: 68vh;
   }
   #hero .carousel-container {
     text-align: center;
@@ -1252,6 +1253,10 @@ color: #191919;
   transform: translateZ(-1px);
   z-index: 1;
 }
+.cate-text-icon-img .owl-carousel .item {
+    background: inherit !important;
+
+    }
 
 .services .icon-box h4 {
   font-weight: 700;
@@ -1347,8 +1352,7 @@ width: 20px !important;
 
 .testimonials .testimonial-item h3 {
   font-size: 18px;
-  font-weight: bold;
-  margin: 10px 0 5px 0;
+  font-weight: 500;
   color: #126c62;
 }
 .offer-tex .testimonial-item h3 {
@@ -1435,7 +1439,7 @@ color: #06a18f;
 }
 .bank-bar .form-group {
     margin-bottom: 7px;
-    padding-left: 0;
+    
 }
 .featured .testimonial-wrap {
     padding-left: 1px !important;
@@ -1482,38 +1486,36 @@ display: none;
 
 }
 
-/*................................................... responsive css below 768px ................................................*/
-/*................................................... responsive css below 768px ................................................*/
-
+/*........... responsive css below 768px ............*/
 
 @media (max-width: 767px) {
-  .testimonials .testimonial-wrap {
-    padding-left: 0;
-  }
-  .offer-tex .testimonial-wrap {
-    padding-left: 0;
-  }
-  .testimonials .testimonial-item {
-    padding: 30px;
-    margin: 15px;
-  }
-  .offer-tex .testimonial-item {
-    padding: 30px;
-    margin: 15px;
-  }
-  .testimonials .testimonial-item .testimonial-img {
-    position: static;
-    left: auto;
-  }
-   .offer-tex .testimonial-item .testimonial-img {
-    position: static;
-    left: auto;
-  }
-  .inner-baner-container .inner-banner-content {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    position: relative;
-    color: #ffffff;
+.testimonials .testimonial-wrap {
+  padding-left: 0;
+}
+.offer-tex .testimonial-wrap {
+  padding-left: 0;
+}
+.testimonials .testimonial-item {
+  padding: 30px;
+  margin: 15px;
+}
+.offer-tex .testimonial-item {
+  padding: 30px;
+  margin: 15px;
+}
+.testimonials .testimonial-item .testimonial-img {
+  position: static;
+  left: auto;
+}
+.offer-tex .testimonial-item .testimonial-img {
+  position: static;
+  left: auto;
+}
+.inner-baner-container .inner-banner-content {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  position: relative;
+  color: #ffffff;
 }
 .exprince-text.mt-5 {
   margin-top: 1px !important;
@@ -1522,23 +1524,23 @@ display: none;
 margin-bottom: 2px;
   }
 
-  .truly-dedicate {
-    height: 217px !important;
-    overflow: hidden !important;
-    background-size: cover !important;
-    background-position: inherit !important;
+.truly-dedicate {
+  height: 217px !important;
+  overflow: hidden !important;
+  background-size: cover !important;
+  background-position: inherit !important;
 }
 .text-logo {
-    float: right;
-    width: 211px !important;
-    text-align: center !important;
-    line-height: 17px !important;
-    top: 96px !important;
-    font-size: 13px;
-    position: relative !important;
-    right: 20px !important;
-    color: #222222;
-    font-weight: 500;
+  float: right;
+  width: 211px !important;
+  text-align: center !important;
+  line-height: 17px !important;
+  top: 96px !important;
+  font-size: 13px;
+  position: relative !important;
+  right: 20px !important;
+  color: #222222;
+  font-weight: 500;
 }
 .infobox h4 {
    line-height: 35px;
@@ -3053,10 +3055,7 @@ color: #12a594;
     margin: auto;
     margin-bottom: 13px !important;
 }
-.infobox h3{
-  padding: 1px 1px !important;
-  font-size: 22px !important;
-}
+
 
 
 /*................................................... responsive css below 768px ................................................*/
@@ -3372,7 +3371,6 @@ color: #12a594;
     transition: 0.5s;
     margin-top: 14px !important;
     margin: auto;
-    width: 99%;
     margin-bottom: 10px;
 }
 .get-started-btn {
@@ -3703,20 +3701,597 @@ box-shadow: 0 3px 30px 0 rgb(131 131 131 / 50%);
 }
 
 
+/********************** listing cowrking*************************/
+.about-space img {
+    width: 30px;
+}
+.about-space p {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 0px;
+}
+.owner-img{
+  width: 150px;
+}
+.about-space h4 {
+    color: #126c62;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.cate-text-detail {
+    background-color: #FFF;
+    border-radius: 12px;
+    height: 277px;
+    width: 365px;
+    margin-right: 20px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    position: absolute;
+    left: 14px;
+}
 
-/* ................................................31 may updated responsive above 767px...................................... */
-/* ................................................31 may updated responsive above 767px...................................... */
-/* ................................................31 may updated responsive above 767px...................................... */
+@media only screen and (max-width: 1024px) {
+.btom-text ul {
+  margin-bottom: 2px !important;
+}
+
+}
+
+@media only screen and (max-width: 900px) {
+.co-overlay {
+  min-height: 271px;
+  width: 90% !important;
+  position: relative !important;
+  right: 5% !important;
+  top: -11px !important;
+  z-index: 9;
+}
+.btom-text ul {
+  margin-bottom: 2px !important;
+}
+.cate-text-icon-img {
+  position: initial !important;
+}
+  }
+
+.cate-text-detail img{
+  width: 100%;
+}
+.co-overlay-text {
+    min-height: 242px;
+    width: 73%;
+    position: relative;
+    right: -13%;
+    top: 18px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 6px 2px 15px #ccc;
+    padding: 20px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    z-index: 9;
+}
+
+.space-category h3 {
+  font-size: 24px;
+  /* margin-bottom: 13px; */
+}
+
+@media (max-width: 768px) {
+
+.cate-text-icon-img .owl-theme .owl-nav {
+    margin-top: 10px;
+    position: absolute;
+    bottom: 38px;
+    color: #f1f3f4;
+    font-size: 42px;
+    left: 0;
+    right: 0;
+}
+
+.modal-content {
+    border: 2px solid #126c62;
+}
+
+
+.cate-text-detail {
+    background-color: #FFF;
+    border-radius: 12px;
+    height: 245px !important;
+}
+.cate-text-detail{
+position: inherit !important;
+width: 100%;
+}
+.d-flex.detail-persquar{
+  display: block !important;
+}
+.co-overlay-text {
+    min-height: 242px;
+    width: 100%;
+    position: relative;
+     right: -1% !important; 
+    top: 6px;
+    }
+
+.cate-text-icon-img {
+  
+    position: initial !important;
+}
+
+.about-property .w-50{
+width: 100% !important;
+}
+.btom-text ul li {
+
+}
+.btom-text ul {
+  margin-bottom: 2px;
+}
+.space-category h3.mb-4 {
+    font-size: 22px;
+    /* margin-bottom: 13px; */
+    margin-top: 25px;
+}
+.dash-bord h2{
+font-size: 18px;
+}
+.dash-bord{
+  display: flex;
+}
+.about-space{
+    display: block !important;
+}
+
+.text-area-responsive.mt-5{
+margin-top: 10px !important;
+}
+
+.send-text {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 13px !important;
+}
+
+.user-details h4 {
+    text-align: center;
+    font-size: 19px;
+}
+
+.user-details h5{
+  font-size: 18px;
+}
+
+.about-property {
+    padding: 13px !important;
+}
+
+.i-agree {
+    font-size: 12px !important;
+    line-height: 16px;
+}
+
+.form-check-inline {
+    display: block;
+    line-height: 17px;
+    margin-bottom: 25px;
+    margin-top: 11px;
+}
+.owner-img{
+  width: 111px;
+}
+.furnising-details {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.about-property h3 {
+    font-size: 19px;
+    margin-bottom: 12px !important;
+}
+
+.funris-faci p {
+    margin-bottom: 0px;
+    line-height: 19px !important;
+    font-size: 14px;
+}
+.funris-faci {
+    background: #FFF;
+    color: #126c62;
+    padding: 5px;
+    width: 46% !important;
+    }
+.cosmall-text {
+    background: #FFF;
+    padding: 12px 13px;
+    border-radius: 6px;
+    display: block !important;
+    margin-bottom: 0px !important;
+}
+.about-space .w-50{
+width: 100% !important;
+display: block !important;
+}
+.about-space .d-flex{
+width: 100% !important;
+display: flex !important;
+margin-bottom: 9px;
+align-items: center;
+}
+.detail-persquar{
+   display: block !important; 
+}
+.per-squer{
+  display: block !important; 
+}
+.co-overlay {
+   
+    padding: 11px !important;
+}
+.botm-info {
+    display: initial !important;
+    justify-content: space-between;
+    background: #FFF;
+    border-radius: 6px;
+    padding: 13px;
+    float: left;
+    width: 100%;
+  
+}
+.btom-text ul {
+    list-style: none;
+    padding: 4px !important;
+    margin-bottom: 0px;
+}
+.contact-oprator {
+    border: 1px solid #f6f6f6;
+    padding: 5px 5px !important;
+    background: #126c62;
+    color: #FFF;
+    border-radius: 5px;
+    transition: 0.5s;
+    font-size: 13px !important;
+}
+.v-text{
+  font-size: 14px !important;
+  line-height: 17px;
+}
+.motn-text {
+    font-size: 14px !important;
+    margin-bottom: 0;
+}
+.co-overlay h3 {
+    font-size: 20px;
+    margin-bottom: 7px !important;
+}
+.hot-desh a {
+    background-color: #126c623d;
+    margin-right: 6px;
+    padding: 2px 4px !important;
+    font-size: 12px !important;
+    }
+
+.cate-box{
+  display: inherit !important;
+  justify-content: inherit !important;
+}
+.co-overlay {
+    min-height: 200px !important;
+    width: 96% !important;
+    right: 0px !important;
+    top: -38px !important;
+    margin: auto;
+    margin-bottom: -7px !important;
+  }
+  .cate-text-icon-img {
+    background-color: #FFF;
+    border-radius: 12px;
+   /* height: 281px;*/
+    width: 100% !important;
+    margin-bottom: 14px;
+    overflow: hidden;
+    margin: auto !important;
+}
+.cate-text-icon-img {
+    background-color: #FFF;
+    border-radius: 12px;
+    height: 239px !important;
+    }
+}
+
+/***************** end media query listing cowrking ***************/
+
+
+.cate-box{
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 25px;
+}
+
+.funris-faci {
+    background: #FFF;
+    color: #126c62;
+    padding: 5px;
+    width: 15%;
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    text-align: center;
+    /* cursor: pointer; */
+    /* transition: 0.5s; */
+    justify-content: center;
+    align-items: center;
+}
+
+/*.funris-faci:hover {
+background-color: #126c62;
+ color: #FFF;
+}*/
+.funris-faci p {
+    margin-bottom: 0px;
+    line-height: 21px;
+    padding: 0px;
+}
+.furnising-details {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.owner-details{
+
+}
+.textarea::placeholder{
+  color: #ccc;
+}
+.btom-text ul li span {
+    color: #4e4e4e;
+    margin-right: 10px;
+    font-weight: 500;
+    line-height: 30px;
+}
+.about-property h3{
+  font-size: 19px;
+}
+.botm-info {
+    display: flex;
+    justify-content: space-between;
+    background: #FFF;
+    border-radius: 6px;
+    padding: 13px;
+   /* border: 2px solid #98d55d30;*/
+}
+.btom-text ul{
+  list-style: none;
+  padding: 12px;
+  margin-bottom: 0px;
+}
+.about-property{
+  background-color: #FFF;
+  border-radius: 6px;
+}
+
+.cosmall-text small{
+  font-size: 13px;
+  
+}
+.about-space h4 {
+    color: #126c62;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+.cosmall-text{
+    background: #FFF;
+    padding: 12px 13px;
+    border-radius: 6px;
+}
+.cate-text-icon-img {
+    background-color: #FFF;
+    border-radius: 12px;
+    height: 370px;
+    width: 365px;
+    margin-right: 20px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    position: absolute;
+}
+.co-overlay {
+    min-height: 242px;
+    width: 73%;
+    position: relative;
+    right: -28%;
+    top: 18px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 6px 2px 15px #ccc;
+    padding: 20px;
+    cursor: pointer;
+    margin-bottom: 44px;
+    z-index: 9;
+}
+.co-overlay h3 {
+    font-size: 20px;
+    margin-bottom: 21px;
+}
+.motn-text small{
+  font-size: 12px;
+}
+.motn-text{
+  font-size: 19px;
+  margin-bottom: 0;
+}
+.hot-desh a {
+    background-color: #126c623d;
+    margin-right: 8px;
+    padding: 2px 7px;
+    font-size: 14px;
+    border-radius: 3px;
+    color: #126c62;
+    font-weight: 500;
+}
+.text-area-modal{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.i-agree{
+  font-size: 15px;
+}
+.send-mail {
+    border: 1px solid #ccc;
+    padding: 7px 18px;
+    border-radius: 6px;
+    margin: auto;
+    color: #FFF;
+    background: #126c62;
+    transition: 0.5s;
+    margin-bottom: 13px;
+}
+.send-mail:hover {
+background-color: #FFF;
+color: #126c62;
+border: 1px solid #126c62;
+
+}
+.user-details .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #126c62;
+    outline: 0;
+    box-shadow: none;
+}
+.contact-oprator {
+    border: 1px solid #f6f6f6;
+    padding: 6px 15px;
+    background: #126c62;
+    color: #FFF;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.social-icon-list ul{
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0px;
+      padding: 0;
+}
+.social-icon-list ul li a label {
+    font-size: 13px;
+    margin: 0;
+    margin-left: 5px;
+}
+.social-icon-list ul li a {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+.social-icon-list ul li {
+    padding-right: 10px;
+    margin-right: 13px;
+}
+.social-icon-list ul li a:hover {
+color: #078f7f;
+  }
+.contact-oprator:hover {
+background: #FFF;
+border: 1px solid #126c62;
+color:  #126c62;
+  }
+
+.user-details h4{
+  text-align: center;
+}
+
+.radiotextsty {
+color: #2c2c2c;
+font-size: 17px;
+}
+
+.cosmall-text p{
+  font-size: 15px;
+  padding: 0px;
+}
+.customradio {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*Hide the browser's default radio button */
+.customradio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button*/
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border-radius: 50%;
+  border:1px solid #BEBEBE;
+}
+
+ /*On mouse-over, add a grey background color */
+.customradio:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/*When the radio button is checked, add a blue background 
+*/
+.customradio input:checked ~ .checkmark {
+  background-color: white;
+  border:1px solid #BEBEBE;
+}
+
+ /*Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.customradio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle)*/
+.customradio .checkmark:after {
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #126c62;
+}
+
+/* ...........31 may updated responsive above 767px......... */
+
 @media screen and (max-width:1023px) and (min-width:768px){
+.truely-dedicated{
+  height: auto!important;
+}
 
-  .truely-dedicated{
-    height: auto!important;
-  }
-  .truely-dedicated .row{
-display: block!important;
-  }
 .exprience-heading{
   max-width: 100%;
+}
+.exprience-heading h2{
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+}
+.exprience-heading ul li a {
+  font-size: 16px;
 }
 #hero p {
   padding: 14px 35px;
@@ -3748,8 +4323,6 @@ display: block!important;
 /* ................................................31 may updated responsive above 767px...................................... */
 /* ................................................31 may updated responsive above 767px...................................... */
 
-
-
 .portfolio-menu{
   text-align:center;
 }
@@ -3775,7 +4348,6 @@ display: block!important;
   margin-bottom:10px;
 }
 
-
 .left-facility ul {
 display: flex;
     justify-content: start;
@@ -3783,7 +4355,6 @@ display: flex;
     padding: 0px;
     float: left;
 }
-
 
 .inner ul li {
     margin-right: 30px;
@@ -4140,20 +4711,8 @@ border: 1px solid #126c62;
 }
 
 .thbn-hotel .thumb {
-    /* margin-top: 15px; */
-    /* margin-bottom: 15px; */
     padding: 0;
 }
-
-/* .thbn-hotel .img-thumbnail {
-    padding: 0px; 
-    background-color: #fff;
-    border: 0px solid #FFF !important;
-    border-radius: 0 !important;
-    max-width: 100%;
-    height: auto;
-} */
-
 
 
 .botm-left button {
@@ -4392,15 +4951,15 @@ border: 1px solid #126c62;
     padding: 6px 62px;
     font-size: 17px;
     border-radius: 6px;
-    margin-top: 10px;
+   /* margin-top: 10px;*/
     /* float: left; */
     transition: 0.5s;
     border: 1px solid #126c62;
 }
 .paynow-btn:hover {
-color: #126c62; 
-background: #FFF;
-border: 1px solid #126c62;
+    color: #126c62; 
+    background: #FFF;
+    border: 1px solid #126c62;
   }
 
 .runs-andpay {
@@ -4411,6 +4970,7 @@ border: 1px solid #126c62;
     margin-top: 12px;
     background: #f5ffeb;
     padding: 6px 10px;
+    border-radius: 5px;
 }
 .date1{
   width: 20%;
@@ -4434,14 +4994,15 @@ border: 1px solid #126c62;
     vertical-align: middle;
     color: #4c4c4c;
     font-weight: bold;
+    margin-bottom: 0;
 }
-.date1 h3 {
+/*.date1 h3 {
     font-size: 20px;
     color: #000;
     font-weight: 600;
     margin-bottom: 0;
     padding: 0;
-}
+}*/
 .date3 i{
   font-size: 25px;
 }
@@ -4456,10 +5017,11 @@ border: 1px solid #126c62;
 }
 .price-bkp h4 {
     font-size: 17px;
-    padding: 11px 13px;
+    padding: 9px 9px;
     border-bottom: 1px solid #e3e3e3;
     background: #126c62;
     color: #FFF;
+    margin-top: 7px;
     border-radius: 6px 6px 1px 1px;
 }
 .done-payment {
@@ -4476,15 +5038,96 @@ border: 1px solid #126c62;
 }
 .revie-box-boxi {
     background: #FFF;
-    min-height: 266px;
+    min-height: 190px;
     border-radius: 6px;
-    padding: 2px;
+    padding: 2px 6px;
     margin-bottom: 15px;
     box-shadow: 2px 2px 6px 2px #e7e7e78c;
 }
+.booking-type .btn:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+.revie-box-boxi p {
+    
+    padding: 5px;
+}
+.info-locat .carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 300px !important;
+}
 .revie-box-boxi ul {
     list-style: none;
-    padding: 0px 16px;
+    padding: 0px 2px;
+}
+#loading-image {
+    position: fixed;
+    z-index: 99;
+    right: 32%;
+    top: 143px;
+}
+.accordion button:before {
+    float: right !important;
+    font-family: boxicons;
+    content:"\2212";
+    padding-right: 5px;
+    color: #126c62;
+}
+.card-footer.btns-combo {
+    padding: 6px 2px;
+    }
+.accordion button.collapsed:before {
+    float: right !important;
+    content: "\002b";
+    font-weight: bold;
+    color: #126c62;
+    font-size: 16px;
+}
+.new-collaps .card-header {
+    padding: 4px;
+    background: #ecf7f7;
+    margin-bottom: 7px !important;
+    border: none !important;
+}
+.new-collaps .card-body {
+    padding: 4px 14px;
+    margin-bottom: 12px;
+}
+.new-collaps .nav-link {
+    display: block;
+    padding: 2px 3px;
+}
+.new-collaps .card{
+border: none !important;
+}
+.accordion button:hover, 
+.accordion button:active, 
+.accordion button:focus  {
+    text-decoration:none;
+}
+.card-header .btn{
+    color:#484848;
+}
+.new-collaps .btn:focus, .new-collaps .btn.focus {
+    outline: 0;
+    box-shadow:none !important;
+}
+.btns-chats .btn-secondary:focus{
+  box-shadow:none !important;
+}
+.btns-chats .btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: none !important;
+}
+.tour-name .btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+.nav-link{
+    color:#000;
 }
 .rmn {
     font-size: 14px;
@@ -4496,7 +5139,8 @@ border: 1px solid #126c62;
     height: 150px;
     overflow: hidden;
     border-radius: 4px;
-
+    margin-bottom: 14px;
+    width: 100%;
 }
 .revie-box-boxi ul li b{
 	font-size: 15px;
@@ -4504,39 +5148,64 @@ border: 1px solid #126c62;
 .image-section:before {
     content: '';
     position: absolute;
-    width: 94%;
-    height: 9.1%;
+    width: 90%;
+    height: 150px;
     background: rgba(0,0,0,0.3);
     border-radius: 6px;
     top: 3px;
+}
+a.add_attraction_button {
+   background: #13544d;
+   color: #ffffff;
+   padding: 10px;
+   border-radius: 4px;
+   font-size: 14px;
+   position: relative;
+   top: 7px;
+ }
+ a.remove_attraction_button {
+   background: #f90e39;
+   color: #ffffff;
+   padding: 10px;
+   border-radius: 4px;
+   position: relative;
+   top: 7px;
+   font-size: 14px;
 }
 .image-section p{
     position: absolute;
     top: 109px;
     color: #FFF;
     font-weight: 500;
+    padding: 11px 10px;
 }
-.image-section img{
-
-	}
+.image-section img {
+    width: 100% !important;
+    object-fit: cover;
+}
 .price-left h5 {
-    font-size: 15px;
+    font-size: 13px;
+}
+.page-detail-sid img{
+  width: 100% !important;
 }
 .bank-bar .form-group {
     margin-bottom: 7px;
+    /*padding-left: -5px !important;*/
 }
 .price-left h5 b {
 color: #126c62;
   }
-  .price-left h6 b {
-color: #126c62;
-  }
+.price-left h6 b {
+  color: #126c62;
+  font-size: 13px;
+}
 .room-praci h5 {
     font-size: 16px;
     color: #000;
 }
 .room-praci {
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #e7e7e7;
     border-radius: 7px;
     margin-top: 19px;
@@ -4547,11 +5216,11 @@ color: #126c62;
     padding: 5px;
     border-bottom: 1px dashed #e7e6e6;
     align-items: center;
-    margin-bottom: 14px;
+    margin-bottom: 4px;
 }
-.page-detail-sid{
-    height: 103px;
-    width: 107px;
+.page-detail-sid {
+    height: 117px;
+    width: 137px;
     overflow: hidden;
     border-radius: 9px;
     display: flex;
@@ -5058,7 +5727,6 @@ display: flex;
   border: 1px solid #126c62;
   color: #126c62;
   background-color: #FFF;
-
   }
 
 .data{
@@ -5268,19 +5936,22 @@ span.rvw {
     color: #3e3e3e;
     font-size: 12px;
     font-weight: 700;
-    margin-left: 18px;
+    margin-left: 5px;
 }
 .botm-icom {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    text-align: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      width: 80%;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+text-align: center;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+flex-wrap: wrap;
+margin-top: 10px;
+width: 80%;
+}
+.tect-event p {
+    display: flex !important;
 }
 
 .btnrating {
@@ -6099,6 +6770,9 @@ figure {
     padding: 55px 20px;
     text-align: center;
 }
+.image-section img {
+    width: 100%;
+}
 .package-item .review-area {
     margin-bottom: 10px;
 }
@@ -6107,16 +6781,20 @@ figure {
     vertical-align: middle;
     margin-left: 10px;
 }
+
 /***************travel experience*****************/
 
 .infobox h3 {
     color: #126c62;
     font-weight: bold;
-    font-size: 25px;
-    padding: 10px 1px;
+    font-size: 20px;
+    padding: 2px 1px;
     width: 100%;
+    margin-bottom: 0;
 }
-
+.room-praci ul{
+  padding-left: 22px;
+}
 .exprience-heading-ot ul li a {
     padding-left: 30px;
     color: #2a2a2a;
@@ -6431,6 +7109,7 @@ a.add_button {
 	font-size: 14px;
 	position: relative;
     top: 7px;
+    margin-left: 15px;
 }
 /*span.a_btn {
     position: relative;
@@ -6444,6 +7123,27 @@ a.remove_button {
     position: relative;
     top: 7px;
 	font-size: 14px;
+  margin-left: 15px;
+}
+a.add_custom_button {
+  background: #13544d;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  position: relative;
+  top: 7px;
+  margin-left: 15px;
+}
+a.remove_custom_button {
+  background: #f90e39;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  position: relative;
+  top: 7px;
+  font-size: 14px;
+  margin-left: 15px;
 }
 .rmv-spc {
     padding: 0px;
@@ -6563,6 +7263,7 @@ a.add_service_button {
   position: relative;
   top: 7px;
   margin-left: 20px;
+  margin-left: 15px;
 }
 a.remove_serv_button {
   background: #f90e39;
@@ -6572,6 +7273,7 @@ a.remove_serv_button {
   position: relative;
   top: 7px;
   font-size: 14px;
+  margin-left: 15px;
 }
 address {
   line-height:30px;
@@ -6588,22 +7290,19 @@ address {
   line-height: 30px;
 }
 
-
-
-
-/*................................................... responsive css below 768px ................................................*/
-/*................................................... responsive css below 768px ................................................*/
-/*................................................... responsive css below 768px ................................................*/
-
-
+/*........... responsive css below 768px ..........*/
 
 @media screen and (max-width: 767px) {
 	section.user-section {
     padding: 0px;
 }
-    span.adj-nav {
-    display: block !important; 
-	font-size: 24px !important;
+
+span.adj-nav {
+display: block !important; 
+font-size: 24px !important;
+}
+.co-overlay .w-75{
+  width: 100% !important;
 }
 ul.list-sidebar {
     display: none;
@@ -6759,7 +7458,6 @@ address, .invoice-col {
 .image-gridiv img{
   border: none;
   padding: 0;
-  
 }
 .image-gridiv{
   margin-left:0;
@@ -6780,7 +7478,7 @@ a.add_button {
 }
 a.remove_button {
   margin-left: 20px;
-top: 0;
+  top: 0;
 }
 .dashbord-text {
   color: #FFF;
@@ -6818,15 +7516,12 @@ table.dataTable>tbody>tr.child ul.dtr-details {
 }
 }
 
-
-
-
 @media screen and (max-width:1023px) and (min-width:768px){
-  .content-body .col-md-3 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-    margin: 10px 0;
+.content-body .col-md-3 {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  margin: 10px 0;
 }
 .table-space .hotel_info-card {
   margin: 0px 10px;
@@ -6850,7 +7545,7 @@ a.btn_add {
 }
 
 .profile-row{
-display: block;
+  display: block;
 
 }
 .profile-row .profile-col{
@@ -6921,4 +7616,89 @@ a.add_button {
 a.remove_button {
 top: 0;
 }
+}
+
+.radiotextsty {
+color: #2c2c2c;
+font-size: 17px;
+}
+
+.cosmall-text p{
+  font-size: 15px;
+}
+.customradio {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.customradio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border-radius: 50%;
+  border:1px solid #BEBEBE;
+}
+
+/* On mouse-over, add a grey background color */
+.customradio:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the radio button is checked, add a blue background */
+.customradio input:checked ~ .checkmark {
+  background-color: white;
+  border:1px solid #BEBEBE;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.customradio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.customradio .checkmark:after {
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #126c62;
+}
+.cros-btn {
+    width: 100%;
+    text-align: right;
+    font-size: 34px;
+    margin: -2px;
+    color: #126c62;
+    opacity: 9;
+}
+.bank-bar fieldset{
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -41,6 +41,7 @@
     text-align: center;
     cursor: pointer;
   }
+   
   .remove:hover {
     background: white;
     color: black;
@@ -618,6 +619,13 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Locations</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" required>{{$tour_info->tour_activities}}</textarea>
+                            </div>
+                          </div>
+
                           <!-- <div class="col-md-12"> -->
                             
                             <div class="col-md-6">
@@ -791,15 +799,15 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services includes</label>
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes">{{$tour_info->tour_services_includes}}</textarea>
+                              <!-- <label>Tour services includes</label> -->
+                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden="">{{$tour_info->tour_services_includes}}</textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services not includes</label>
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes">{{$tour_info->tour_services_not_includes}}</textarea>
+                              <!-- <label>Tour services not includes</label> -->
+                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden="">{{$tour_info->tour_services_not_includes}}</textarea>
                             </div>
                           </div>
 
@@ -900,7 +908,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Address</h4>
+                              <h4>Tour Address</h4>
                               </p>
                             </div>
                           </div>

@@ -220,7 +220,7 @@
            <h3 class="mb-0">PRICE</h3>
            <div class="brakfast-price" style="height: 271px; border: none;">
               <div class="boking-plo">
-                 <p> Partial payment at the tie of booking confirmation (i.e. 30% online payment , 70% payment at the desk)</p>
+                 <p> Partial payment at the time of booking confirmation (i.e. 30% online payment , 70% payment at the desk)</p>
               </div>
               <div class="chagr-es">
                  <span>Per Night</span>
@@ -350,7 +350,7 @@
 					      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/hotel_gallery/1655471866_1246280_16061017110043391702.jpg" alt="First slide">
 					    </div> -->
 					    <div class="carousel-item">
-					      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/hotel_gallery/1655471866_1246280_16061017110043391702.jpg" alt="First slide">
+					      <img class="d-block w-100" src="{{url('/public/uploads/hotel_gallery')}}/{{$hotel_gallery[0]->image}}" alt="First slide">
 					    </div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -730,10 +730,8 @@
 
       $('.more-details').click(function(){
           
-          var id = $(this).attr('roomid'); //get the attribute value
-          //alert(id);
-          //$('#exampleModal').modal({backdrop: 'static', keyboard: true, show: true});
-         $.ajaxSetup({
+          var id = $(this).attr('roomid'); 
+          $.ajaxSetup({
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               }
@@ -754,12 +752,13 @@
                 
                 $('#room_qty').html('<i class="bx bxs-door-open"></i>'+response.room_data.number_of_rooms+ 'Rooms Qty');
 
+                var upload_url = "{{url('public/uploads/room_images/')}}/";
                 $(response.room_gallery).each(function (i, item) {
 
                    if(i == 0){
-                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide active"><img class="d-block w-100" src="https://votivetechnologies.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
+                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide active"><img class="d-block w-100" src="'+upload_url+item.image+'"></div>'));
                    }else{
-                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide"><img class="d-block w-100" src="https://votivetechnologies.in/roadNstays/public/uploads/room_images/'+item.image+'"></div>'));
+                   	$('.carousel-inner').append($('<div class="carousel-item remove_slide"><img class="d-block w-100" src="'+upload_url+item.image+'"></div>'));
                    }
                   
                 });

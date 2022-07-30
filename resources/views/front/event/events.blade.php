@@ -97,17 +97,12 @@
                 <li><input type="checkbox" name="" id="">peshawar</li> 
             </ul>
         </div>
-
-
-
-
-
     </div>
     <div class="col-md-9">
         <h1>Recent events</h1>
         <div class="row event-box-1">
         <div class="col-md-4 box">
-            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h1.jpg" alt=""></div>
+            <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?dj" alt=""></div>
             <i class='bx bx-heart'  id="heart" ></i>
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2"><i class="fa-solid fa-calendar"></i>08 May 2022 - 22 september 2022</div>
@@ -118,7 +113,7 @@
             
         </div>
         <div class="col-md-4 box">
-           <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/h2.jpg" alt=""></div>
+           <div class="img-box"> <img src="https://source.unsplash.com/random/900×700/?Singer, rapper" alt=""></div>
             <i class='bx bx-heart'  id="heart"></i>
         <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -130,7 +125,7 @@
         </div>
         <div class="col-md-4 box">
             
-            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/confrance.jpg" alt=""></div>
+            <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?disco, songs" alt=""></div>
             <i class='bx bx-heart'  id="heart"></i>
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -145,7 +140,7 @@
 
        <div class="col-md-4 box">
             
-            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h3.jpg" alt=""></div>
+            <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?food, catering" alt=""></div>
             <i class='bx bx-heart'  id="heart"></i>
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -157,7 +152,7 @@
         </div>
         <div class="col-md-4 box">
            
-            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h4.jpg" alt=""></div>
+            <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?nature" alt=""></div>
             <i class='bx bx-heart'  id="heart"></i>
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -169,7 +164,7 @@
         </div>
         <div class="col-md-4 box">
            
-            <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h5.jpg" alt=""></div>
+            <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?meeting, office" alt=""></div>
             <i class='bx bx-heart'  id="heart"></i>
             <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
             <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -191,7 +186,7 @@
          </div>
         <div class="col-md-4 box">
            
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h6.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?wedding" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -202,7 +197,7 @@
        </div>
        <div class="col-md-4 box">
           
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h7.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?marriage, mehndi, haldi" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -214,7 +209,7 @@
        </div>
        <div class="col-md-4 box">
           
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h8.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?decoration, cake" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -230,7 +225,7 @@
         <div class="row event-box-1">
         <div class="col-md-4 box">
            
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/art.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?art, business" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -241,7 +236,7 @@
        </div>
        <div class="col-md-4 box">
           
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h9.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?conclave, standup" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -253,7 +248,7 @@
        </div>
        <div class="col-md-4 box">
           
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h10.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?tracking, trip" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -269,7 +264,7 @@
         <div class="row event-box-1">
         <div class="col-md-4 box">
            
-          <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/a1.png" alt=""></div>
+          <div class="img-box"> <img src="https://source.unsplash.com/random/900×700/?family" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -280,7 +275,7 @@
        </div>
        <div class="col-md-4 box">
           
-          <div class="img-box"> <img src="https://votivelaravel.in/roadNstays/resources/assets/img/h1.jpg" alt=""></div>
+          <div class="img-box"> <img src="https://source.unsplash.com/random/900×700/?group, friend" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>
@@ -292,7 +287,7 @@
        </div>
        <div class="col-md-4 box">
           
-           <div class="img-box"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/h3.jpg" alt=""></div>
+           <div class="img-box"><img src="https://source.unsplash.com/random/900×700/?club, wine" alt=""></div>
            <i class='bx bx-heart'  id="heart"></i>
            <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
            <div class="date-2">08 May 2022 - 22 september 2022</div>

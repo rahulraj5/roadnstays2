@@ -60,7 +60,7 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
-          url: "{{url('/admin/deleteTour')}}",
+          url: "{{url('/servicepro/deleteTour')}}",
           data: {
             id: id,
             _token: CSRF_TOKEN

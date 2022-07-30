@@ -1,40 +1,25 @@
 @extends('front.layout.layout')
-
 <!-- @section('title', 'User - Profile') -->
-
 @section('current_page_css')
-
-
-
 @endsection
 
-
-
-
-
-
 @section('content')
-
 <main id="main" class="main-body">
   <section class="spaces-detail">
     <div class="container">
       <div class="row space-rw">
         <div class="col-md-12 space-dl">
           <h5 class="">Find Your Perfect Venue for any ocassion</h5>
-
-
         </div>
       </div>
     </div>
-
   </section>
-
 
   <section class="space-listsec">
     <div class="container">
       <div class="tabs">
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
-        <label for="tab1" class="tabs__label"> <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/private-room.png" class="testimonial-img" alt=""> Private Room</label>
+        <label for="tab1" class="tabs__label"> <img src="{{ url('resources/assets/img/space/private-room.png')}}" class="testimonial-img" alt=""> Private Room</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -59,14 +44,14 @@
 
           <span class="space-span"><i class='bx bx-map'></i>
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
+
+            <a href=""><input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;"></a>
 
 
         </div>
 
-
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-        <label for="tab2" class="tabs__label"> <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" class="testimonial-img" alt="">cabin</label>
+        <label for="tab2" class="tabs__label"> <img src="{{ url('resources/assets/img/space/cabin.png')}}" class="testimonial-img" alt="">cabin</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -95,7 +80,7 @@
         </div>
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-        <label for="tab3" class="tabs__label"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/condo.png" class="testimonial-img" alt="">Condos</label>
+        <label for="tab3" class="tabs__label"><img src="{{ url('resources/assets/img/space/condo.png')}}" class="testimonial-img" alt="">Condos</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -121,11 +106,9 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
-
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab5">
-        <label for="tab5" class="tabs__label"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/dorm.png" class="testimonial-img" alt="">Dorm</label>
+        <label for="tab5" class="tabs__label"><img src="{{ url('resources/assets/img/space/dorm.png')}}" class="testimonial-img" alt="">Dorm</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -151,10 +134,9 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab8">
-        <label for="tab8" class="tabs__label"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/apartment.png" class="testimonial-img" alt="">Apartment</label>
+        <label for="tab8" class="tabs__label"><img src="{{ url('resources/assets/img/space/apartment.png')}}" class="testimonial-img" alt="">Apartment</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -180,10 +162,9 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab6">
-        <label for="tab6" class="tabs__label"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/villa.png" class="testimonial-img" alt="">villa</label>
+        <label for="tab6" class="tabs__label"><img src="{{ url('resources/assets/img/space/villa.png')}}" class="testimonial-img" alt="">villa</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -209,10 +190,9 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab7">
-        <label for="tab7" class="tabs__label"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/house.png" class="testimonial-img" alt="">House</label>
+        <label for="tab7" class="tabs__label"><img src="{{ url('resources/assets/img/space/house.png')}}" class="testimonial-img" alt="">House</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -238,11 +218,9 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
-
 
         <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-        <label for="tab4" class="tabs__label"> <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/co-working.png" class="testimonial-img" alt="">Co-working</label>
+        <label for="tab4" class="tabs__label"> <img src="{{ url('resources/assets/img/space/co-working.png')}}" class="testimonial-img" alt="">Co-working</label>
         <div class="tabs__content">
           <div class="select-dropdown">
             <select>
@@ -269,55 +247,53 @@
             <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
           <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
         </div>
-
-
-
-
-
 
       </div>
     </div>
 
   </section>
   <section class="space-sec">
-
     <div class="container-fluid">
       <div class="row filter-row space-filter">
         <div class="col-md-3">
           <h6>Filter- Space</h6>
           <div class="category category-1">
-            <p>Private Space</p>
+            <p>Space Type</p>
             <ul>
-              <li><input type="checkbox" name="Wedding" id="">Wedding</li>
-              <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
+              @foreach($categories as $category)
+                <li><input type="checkbox" name="{{$category->category_name}}" id="">{{$category->category_name}}</li>
+              @endforeach
+              <!-- <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
               <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
               <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
               <li><input type="checkbox" name="Business'" id="">Business'</li>
               <li><input type="checkbox" name="Schools" id="">Schools</li>
-              <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li>
+              <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li> -->
             </ul>
           </div>
-          <div class="category category-8">
+          <!-- <div class="category category-8">
             <p>Range (in lacs)</p>
             <input type="range" name="range" id="">
             <label for="range">0</label>
-          </div>
+          </div> -->
 
           <div class="category category-2">
-            <p>CORPORATE</p>
+            <p>Room Wise</p>
             <ul>
-              <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
-              <li><input type="checkbox" name="Conferences" id="">Conferences</li>
+              @foreach($subcategories as $subcategory)
+                <li><input type="checkbox" name="{{$subcategory->sub_category_name}}" id="">{{$subcategory->sub_category_name}}</li>
+              @endforeach
+              <!-- <li><input type="checkbox" name="Conferences" id="">Conferences</li>
               <li><input type="checkbox" name="Networking events" id="">Networking events</li>
               <li><input type="checkbox" name="Seminars" id="">Seminars</li>
               <li><input type="checkbox" name="Product launches" id="">Product launches</li>
               <li><input type="checkbox" name="Meetings" id="">Meetings</li>
               <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
-              <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
+              <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li> -->
             </ul>
           </div>
 
-          <div class="category category-3">
+          <!-- <div class="category category-3">
             <p>CHARITY/FUNDRAISING</p>
             <ul>
               <li><input type="checkbox" name="Society balls" id="">Society balls</li>
@@ -329,16 +305,16 @@
               <li><input type="checkbox" name="Sponsored walks" id="">Sponsored walks</li>
 
             </ul>
-          </div>
+          </div> -->
 
-          <div class="category category-4">
+          <!-- <div class="category category-4">
             <p>Space For Kudo's</p>
             <ul>
               <li><input type="checkbox" name="Music events" id="">Music events</li>
               <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
               <li><input type="checkbox" name="Festivals" id="">Festivals</li>
             </ul>
-          </div>
+          </div> -->
           <div class="category category-4">
             <p>Select Date</p>
             <input type="date" name="" id="" placeholder="select a date">
@@ -347,31 +323,18 @@
           <div class="category category-5">
             <p>Event Venue</p>
             <ul>
-              <li><input type="checkbox" name="" id="">Delhi</li>
-              <li><input type="checkbox" name="" id="">islamabad</li>
-              <li><input type="checkbox" name="" id="">Dubai</li>
-              <li><input type="checkbox" name="" id="">Pakistan</li>
-              <li><input type="checkbox" name="" id="">peshawar</li>
-              <li><input type="checkbox" name="" id="">Karachi</li>
-              <li><input type="checkbox" name="" id="">Lahore</li>
-              <li><input type="checkbox" name="" id="">Mumbai</li>
-              <li><input type="checkbox" name="" id="">New York</li>
-              <li><input type="checkbox" name="" id="">Chicago</li>
+              @foreach($space_country as $country)
+                <li><input type="checkbox" name="" id="">{{ $country->country_name }}</li>
+              @endforeach  
             </ul>
           </div>
-          <div class="category category-5">
+          <!-- <div class="category category-5">
             <p>Event Venue</p>
             <ul>
               <li><input type="checkbox" name="" id="">Owner</li>
               <li><input type="checkbox" name="" id="">vendor</li>
-
             </ul>
-          </div>
-
-
-
-
-
+          </div> -->
         </div>
         <div class="col-md-9">
           <section id="featured" class="testimonials space-testimonial">
@@ -397,23 +360,15 @@
                           </div>
                         </div>
                         <div class="world-class-feature">
-
                           <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}"><h3> {{ $space->space_name }} </h3></a>
-
                           <a href="" class="city-nam"><i class='bx bx-map'></i> {{ Str::limit($space->space_address, 20) }} </a>
                           <div class="city-nam"><i class='bx bx-home-alt'></i> {{ $space->city }}</div>
                         </div>
                       </div>
                     </div>
-
                   @endforeach  
-
                 @endif  
-
               </div>
-
-
-
             </div>
           </section>
           <h5 class="curated-head">Curated Space collections <br> <span>In karachi</span></h5>
@@ -464,7 +419,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="view-box">
@@ -475,7 +429,8 @@
             </div>
             <a href="#"><i class='bx bxs-right-arrow-alt'></i></a>
           </div>
-          <div class="quality-spaces">
+
+          <!-- <div class="quality-spaces">
             <h5 class="curated-head">List Space collections Type <br> <span>Choose your preferred furnishing</span></h5>
             <div class="q-space">
               <div class="img-dec">
@@ -491,7 +446,7 @@
                 <h5>Genie Services</h5>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="segment-space">
 
 
@@ -531,13 +486,8 @@
             </div>
 
           </div>
-
         </div>
-
-
-
       </div>
-
     </div>
   </section>
 
@@ -549,200 +499,26 @@
       </div>
       <div class="space-city">
         <div class="owl-carousel owl-theme">
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bx-buildings'></i> -->
-                  <img src="https://source.unsplash.com/random/?mumbai,india" alt="">
+
+        @foreach($space_country_wise as $space_country)
+            <div class="item">
+              <div class="testimonial-wrap">
+                <div class="testimonial-ite">
+                  <div class="imgae-r"> 
+                    <!-- <i class='bx bx-buildings'></i> -->
+                    <!-- <a href="{{ url('/space-city-wise') }}"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a> -->
+                    <a href="{{url('/space-city-wise')}}/{{base64_encode($space_country->space_country)}}" target="_blank"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a>
+                  </div>
+                  <h5> {{ ucfirst(strtolower(trans($space_country->country_name))) }} </h5>
                 </div>
-                <h5> Mumbai </h5>
               </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-buildings'></i> -->
-                  <img src="https://source.unsplash.com/random/?indiagate, delhi" alt="">
-
-                </div>
-
-
-                <h5> Delhi </h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-city' ></i> -->
-                  <img src="https://source.unsplash.com/random/?Tajmahal, Agra" alt="">
-
-                </div>
-
-
-                <h5> Agra</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?IT, bangalore" alt="">
-
-                </div>
-
-
-                <h5>bangalore</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?mosque,Karachi" alt="">
-
-                </div>
-
-
-                <h5>karachi</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?mosque,Lahore" alt="">
-                </div>
-
-
-                <h5>Lahore</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?mosque,god" alt="">
-
-                </div>
-
-
-                <h5>Islamabad</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?building, tower, newyork" alt="">
-
-                </div>
-
-
-                <h5>New york</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?london, england" alt="">
-
-                </div>
-
-
-                <h5>London</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?share, market" alt="">
-
-                </div>
-
-
-                <h5>chicago</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?South, food, catering" alt="">
-
-                </div>
-                <h5>chennai</h5>
-
-
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial-wrap">
-              <div class="testimonial-ite">
-                <div class="imgae-r">
-                  <!-- <i class='bx bxs-business' ></i> -->
-                  <img src="https://source.unsplash.com/random/?sea, mall, south" alt="">
-
-                </div>
-
-
-                <h5>vizag</h5>
-
-
-              </div>
-            </div>
-          </div>
+        @endforeach
+          
         </div>
       </div>
-
-
-
-
     </div>
   </section>
-
-
   <section id="featured-blog" class="testimonials spaceblog-testimonial">
     <div class="container-fluid" data-aos="fade-up">
       <div class="trend-blog">
@@ -837,15 +613,7 @@
 
     </div>
   </section>
-
-
-
-
-
-
 </main><!-- End #main -->
-
-
 @endsection
 
 @section('current_page_js')
@@ -894,13 +662,8 @@
         scrollTop: scrollTo - 5
       }, 150);
     });
-
-
-
   });
 </script>
-
-
 
 <script type="text/javascript">
   function readURL(input) {
@@ -941,13 +704,9 @@
         $("#rating-star-" + ix).toggleClass('btn-warning');
         $("#rating-star-" + ix).toggleClass('btn-default');
       }
-
     }));
-
-
   });
 </script>
-
 <script>
   $('.curated-owl .owl-carousel').owlCarousel({
     loop: true,
@@ -984,7 +743,6 @@
     }
   })
 </script>
-
 <script>
   $('.space-city .owl-carousel').owlCarousel({
     loop: true,
@@ -1003,6 +761,4 @@
     }
   })
 </script>
-
-
 @endsection

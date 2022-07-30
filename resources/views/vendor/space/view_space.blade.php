@@ -207,42 +207,6 @@
 
               </div>
 
-              <div class="col-md-6">
-
-                <div class="form-group">
-
-                  <label>City</label>
-
-                  <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" required value="{{ $space_data->city ?? '' }}" readonly>
-
-                </div>
-
-              </div>
-
-              <div class="col-md-6">
-
-                <div class="form-group">
-
-                  <label>Neighborhood / Area</label>
-
-                  <input type="text" class="form-control" name="neighbor_area" id="neighbor_area" placeholder="Enter Neighborhood / Area." value="{{ $space_data->neighbor_area ?? '' }}" readonly>
-
-                </div>
-
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Country</label>
-                  <select class="form-control select2bs4" name="space_country" id="space_country" style="width: 100%;" required="required" disabled>
-                    <!-- <option value="">Select Country</option> -->
-                    @foreach ($countries as $cont)
-                    <option value="{{ $cont->id }}" {{ $cont->id == $space_data->space_country ? 'selected': '' }}>{{ $cont->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Property Description</label>
@@ -565,13 +529,13 @@
                   @foreach ($space_extra_option as $key=>$value)
 
                   <div class="row form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="extra[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->ext_opt_name }}" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="extra[@php echo $key; @endphp][price]" placeholder="Enter Price" value="{{ $value->ext_opt_price }}" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <div class="form-group">
                         <select class="form-control select2bs4" name="extra[@php echo $key; @endphp][type]" style="width: 100%;" disabled>
                           <option value="">Select Price type</option>
@@ -593,14 +557,14 @@
 
                   @else
 
-                  <div class="row">
-                    <div class="col-md-3">
+                  <div class="row form-group">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="extra[0][name]" placeholder="Enter Name" value="" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="extra[0][price]" placeholder="Enter Price" value="" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <div class="form-group">
                         <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;" disabled>
                           <option value="">Select Price type</option>
@@ -809,10 +773,10 @@
 
                   @foreach ($space_custom_details as $key=>$value)
                   <div class="row form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="custom[@php echo $key; @endphp][label]" placeholder="Enter Name" value="{{ $value->custom_label }}" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="custom[@php echo $key; @endphp][quantity]" placeholder="Enter Quantity" value="{{ $value->custom_quantity }}" / readonly>
                     </div>
                     @if($key == 0)
@@ -824,11 +788,11 @@
                   @endforeach
 
                   @else
-                  <div class="row">
-                    <div class="col-md-3">
+                  <div class="row form-group">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="custom[0][label]" placeholder="Enter Name" value="" / readonly>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <input type="text" class="form-control" name="custom[0][quantity]" placeholder="Enter Quantity" value="" / readonly>
                     </div>
                     <span><a href="javascript:void(0);" class="add_custom_button" title="Add field">Add</a></span>
@@ -845,10 +809,33 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
                   <label>Address</label>
                   <input type="text" class="form-control" name="space_address" id="space_address" placeholder="Enter Address" required="required" value="{{ $space_data->space_address ?? '' }}" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" required value="{{ $space_data->city ?? '' }}" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Neighborhood / Area</label>
+                  <input type="text" class="form-control" name="neighbor_area" id="neighbor_area" placeholder="Enter Neighborhood / Area." value="{{ $space_data->neighbor_area ?? '' }}" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Country</label>
+                  <select class="form-control select2bs4" name="space_country" id="space_country" style="width: 100%;" required="required" disabled>
+                    <!-- <option value="">Select Country</option> -->
+                    @foreach ($countries as $cont)
+                    <option value="{{ $cont->id }}" {{ $cont->id == $space_data->space_country ? 'selected': '' }}>{{ $cont->name }}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
 

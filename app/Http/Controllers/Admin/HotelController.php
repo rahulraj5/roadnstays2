@@ -51,204 +51,229 @@ class HotelController extends Controller
 
     public function submit_hotel(Request $request)
     {
-        if ($request->hasFile('hotelVideo')) {
-            $vfile_name = $request->file('hotelVideo')->getClientOriginalName();
-            $filename = pathinfo($vfile_name, PATHINFO_FILENAME);
-            $file_ext = $request->file('hotelVideo')->getClientOriginalExtension();
-            $hotelVideo = $filename . '-' . time() . '.' . $file_ext;
-            $path = base_path() . '/public/uploads/hotel_video';
-            $request->file('hotelVideo')->move($path, $hotelVideo);
-        } else {
-            $hotelVideo = '';
-        }
-        
-        if($request->hasFile('hotelFeaturedImg'))
-        {
-            $image_name1 = $request->file('hotelFeaturedImg')->getClientOriginalName();
-            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
-            $image_ext1 = $request->file('hotelFeaturedImg')->getClientOriginalExtension();
-            $hotelFeaturedImg = $filename1.'-'.'hotelMainImg'.'-'.time().'.'.$image_ext1;
-            $path1 = base_path() . '/public/uploads/hotel_gallery';
-            $request->file('hotelFeaturedImg')->move($path1,$hotelFeaturedImg);
+        $adminhotel = Hotel::firstOrNew(['hotel_name' =>  request('hotelName')]);
+        if(!$adminhotel->hotel_id){
+            if ($request->hasFile('hotelVideo')) {
+                $vfile_name = $request->file('hotelVideo')->getClientOriginalName();
+                $filename = pathinfo($vfile_name, PATHINFO_FILENAME);
+                $file_ext = $request->file('hotelVideo')->getClientOriginalExtension();
+                $hotelVideo = $filename . '-' . time() . '.' . $file_ext;
+                $path = base_path() . '/public/uploads/hotel_video';
+                $request->file('hotelVideo')->move($path, $hotelVideo);
+            } else {
+                $hotelVideo = '';
+            }
+            
+            if($request->hasFile('hotelFeaturedImg'))
+            {
+                $image_name1 = $request->file('hotelFeaturedImg')->getClientOriginalName();
+                $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+                $image_ext1 = $request->file('hotelFeaturedImg')->getClientOriginalExtension();
+                $hotelFeaturedImg = $filename1.'-'.'hotelMainImg'.'-'.time().'.'.$image_ext1;
+                $path1 = base_path() . '/public/uploads/hotel_gallery';
+                $request->file('hotelFeaturedImg')->move($path1,$hotelFeaturedImg);
+            }else{
+                $hotelFeaturedImg = '';
+            }
+            // dd($hotelFeaturedImg);
+            // if (!empty($_FILES["hotelGallery"]["name"][0])) {
+            //     $hotelmainimgname = $_FILES["hotelGallery"]["name"][0];
+            //     $hotelmainimgurl = time() . '_' . $hotelmainimgname;
+            //     move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][0], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][0]);
+            // }
+
+            if ($request->hasFile('hotel_document')) {
+                $image_nam2 = $request->file('hotel_document')->getClientOriginalName();
+                $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+                $image_ex2 = $request->file('hotel_document')->getClientOriginalExtension();
+                $hotel_document = $filenam2 . '-' . time() . '.' . $image_ex2;
+                $pat2 = base_path() . '/public/uploads/hotel_document';
+                $request->file('hotel_document')->move($pat2, $hotel_document);
+            } else {
+                $hotel_document = '';
+            }
+
+            // if($request->hasFile('hotel_notes'))
+            // {
+            //     $image_name3 = $request->file('hotel_notes')->getClientOriginalName();
+            //     $filename3 = pathinfo($image_name3,PATHINFO_FILENAME);
+            //     $image_ext3 = $request->file('hotel_notes')->getClientOriginalExtension();
+            //     $hotel_notes = $filename3.'-'.time().'.'.$image_ext3;
+            //     $path3 = base_path() . '/public/uploads/hotel_notes';
+            //     $request->file('hotel_notes')->move($path3,$hotel_notes);
+            // }else{
+            //     $hotel_notes = '';
+            // }
+
+            // $adminhotel = new Hotel;
+
+            // step 1 
+            $adminhotel->hotel_user_id = Auth::user()->id;
+            $adminhotel->is_admin = 1;
+            $adminhotel->hotel_name = $request->hotelName;
+            $adminhotel->hotel_content = $request->summernote;
+            $adminhotel->property_contact_name = $request->contact_name;
+            $adminhotel->property_contact_num = $request->contact_num;
+            $adminhotel->property_alternate_num = $request->alternate_num;
+
+            // $adminhotel->cat_listed_room_type = $request->cat_listed_room_type;
+            $adminhotel->where_property_listed = $request->where_property_listed;
+            $adminhotel->do_you_multiple_hotel = $request->do_you_multiple_hotel;
+            $adminhotel->hotel_rating = $request->hotel_rating;
+
+            $adminhotel->scout_id = $request->scout_id;
+            $adminhotel->checkin_time = $request->checkin_time;
+            $adminhotel->checkout_time = $request->checkout_time;
+            $adminhotel->min_day_before_book = $request->min_day_before_book;
+            $adminhotel->min_day_stays = $request->min_day_stays;
+
+            // $adminhotel->created_at = date('Y-m-d H:i:s');
+            $adminhotel->hotel_video = $hotelVideo;
+            $adminhotel->hotel_gallery = $hotelFeaturedImg;
+            $adminhotel->hotel_document = $hotel_document;
+            // $adminhotel->hotel_notes = $hotel_notes;
+            $adminhotel->hotel_notes = $request->hotel_notes;
+
+            // step 2
+            $adminhotel->payment_mode = $request->payment_mode;
+            $adminhotel->booking_option = $request->booking_option;
+            $adminhotel->hotel_address = $request->hotel_address;
+            $adminhotel->hotel_latitude = $request->hotel_latitude;
+            $adminhotel->hotel_longitude = $request->hotel_longitude;
+            $adminhotel->hotel_city = $request->hotel_city;
+            $adminhotel->neighb_area = $request->neighb_area;
+            $adminhotel->hotel_country = $request->hotel_country;
+
+            // $adminhotel->attraction_name = $request->attraction_name;
+            // $adminhotel->attraction_content = $request->attraction_content;
+            // $adminhotel->attraction_distance = $request->attraction_distance;
+            // $adminhotel->attraction_type = $request->attraction_type;
+
+            $adminhotel->stay_price = $request->stay_price;
+            $adminhotel->extra_price_name = $request->extra_price_name;
+            $adminhotel->extra_price = $request->extra_price;
+            $adminhotel->extra_price_type = $request->extra_price_type;
+            $adminhotel->service_fee_name = $request->service_fee_name;
+            $adminhotel->service_fee = $request->service_fee;
+            $adminhotel->service_fee_type = $request->service_fee_type;
+            $adminhotel->property_type = $request->property_type;
+
+
+            $adminhotel->parking_option = $request->parking_option;
+            $adminhotel->parking_price = $request->parking_price;
+            $adminhotel->payment_interval = $request->payment_interval;
+            $adminhotel->parking_reserv_need = $request->parking_reserv_need;
+            $adminhotel->parking_locate = $request->parking_locate;
+            $adminhotel->parking_type = $request->parking_type;
+            $adminhotel->breakfast_availability = $request->breakfast_availability;
+            $adminhotel->breakfast_price_inclusion = $request->breakfast_price_inclusion;
+            $adminhotel->breakfast_cost = $request->breakfast_cost;
+            $adminhotel->breakfast_type = json_encode($request->breakfast_type);
+
+            $adminhotel->save();
+
+            $adminhotel_id = $adminhotel->id;
+            if (!empty($_FILES["hotelGallery"]["name"])) {
+                foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
+                    $imgname = $_FILES["hotelGallery"]["name"][$key];
+                    $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
+                    $name = $_FILES["hotelGallery"]["name"];
+                    move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][$key], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][$key]);
+
+                    $Img = array(
+                        'image' => time() . '_' . $imgname,
+                        'hotel_id' => $adminhotel_id,
+                        'is_featured' => 0,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_gallery')->insert($Img);
+                }
+            }
+
+            if (!empty($request->amenity)) {
+                foreach ($request->amenity as $amenity_id) {
+                    $ameni = array(
+                        'hotel_id' => $adminhotel_id,
+                        'amenity_id' => $amenity_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_amenities')->insert($ameni);
+                }
+            }
+
+            if (!empty($request->services)) {
+                foreach ($request->services as $service_id) {
+                    $ameni = array(
+                        'hotel_id' => $adminhotel_id,
+                        'hotel_service_id' => $service_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_services')->insert($ameni);
+                }
+            }
+
+            // add multiple option
+            if (!empty($request->extra[0]['name'])) {
+                foreach ($request->extra as $extra_option) {
+                    // echo "<pre>";print_r($extra_option['name']);
+                    $extra_opt = array(
+                        'ext_opt_name' => $extra_option['name'],
+                        'ext_opt_price' => $extra_option['price'],
+                        'ext_opt_type' => $extra_option['type'],
+                        'hotel_id' => $adminhotel_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_extra_price')->insert($extra_opt);
+                }
+            }
+
+            // add multiple services
+            if (!empty($request->service[0]['name'])) {
+                foreach ($request->service as $service_fee) {
+                    // echo "<pre>";print_r($extra_option['name']);
+                    $services_fee = array(
+                        'serv_fee_name' => $service_fee['name'],
+                        'serv_fee_price' => $service_fee['price'],
+                        'serv_fee_type' => $service_fee['type'],
+                        'hotel_id' => $adminhotel_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_service_fee')->insert($services_fee);
+                }
+            }
+
+            // add multiple Attraction
+            if (!empty($request->attraction[0]['name'])) {
+                foreach ($request->attraction as $gogattr) {
+                    // echo "<pre>";print_r($extra_option['name']);
+                    $google_attraction = array(
+                        'attraction_name' => $gogattr['name'],
+                        'attraction_content' => $gogattr['content'],
+                        'attraction_distance' => $gogattr['distance'],
+                        'attraction_type' => $gogattr['type'],
+                        'attraction_hotel_id' => $adminhotel_id,
+                        'attraction_status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_attraction')->insert($google_attraction);
+                }
+            }
+
+            return response()->json(['status' => 'success', 'msg' => 'Hotel Added Successfully']);
         }else{
-            $hotelFeaturedImg = '';
-        }
-        // dd($hotelFeaturedImg);
-        // if (!empty($_FILES["hotelGallery"]["name"][0])) {
-        //     $hotelmainimgname = $_FILES["hotelGallery"]["name"][0];
-        //     $hotelmainimgurl = time() . '_' . $hotelmainimgname;
-        //     move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][0], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][0]);
-        // }
-
-        if ($request->hasFile('hotel_document')) {
-            $image_nam2 = $request->file('hotel_document')->getClientOriginalName();
-            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
-            $image_ex2 = $request->file('hotel_document')->getClientOriginalExtension();
-            $hotel_document = $filenam2 . '-' . time() . '.' . $image_ex2;
-            $pat2 = base_path() . '/public/uploads/hotel_document';
-            $request->file('hotel_document')->move($pat2, $hotel_document);
-        } else {
-            $hotel_document = '';
-        }
-
-        // if($request->hasFile('hotel_notes'))
-        // {
-        //     $image_name3 = $request->file('hotel_notes')->getClientOriginalName();
-        //     $filename3 = pathinfo($image_name3,PATHINFO_FILENAME);
-        //     $image_ext3 = $request->file('hotel_notes')->getClientOriginalExtension();
-        //     $hotel_notes = $filename3.'-'.time().'.'.$image_ext3;
-        //     $path3 = base_path() . '/public/uploads/hotel_notes';
-        //     $request->file('hotel_notes')->move($path3,$hotel_notes);
-        // }else{
-        //     $hotel_notes = '';
-        // }
-
-        $adminhotel = new Hotel;
-
-        // step 1 
-        $adminhotel->hotel_user_id = Auth::user()->id;
-        $adminhotel->is_admin = 1;
-        $adminhotel->hotel_name = $request->hotelName;
-        $adminhotel->hotel_content = $request->summernote;
-        $adminhotel->property_contact_name = $request->contact_name;
-        $adminhotel->property_contact_num = $request->contact_num;
-        $adminhotel->property_alternate_num = $request->alternate_num;
-
-        $adminhotel->cat_listed_room_type = $request->cat_listed_room_type;
-        $adminhotel->where_property_listed = $request->where_property_listed;
-        $adminhotel->do_you_multiple_hotel = $request->do_you_multiple_hotel;
-        $adminhotel->hotel_rating = $request->hotel_rating;
-
-        $adminhotel->scout_id = $request->scout_id;
-        $adminhotel->checkin_time = $request->checkin_time;
-        $adminhotel->checkout_time = $request->checkout_time;
-        $adminhotel->min_day_before_book = $request->min_day_before_book;
-        $adminhotel->min_day_stays = $request->min_day_stays;
-
-        // $adminhotel->created_at = date('Y-m-d H:i:s');
-        $adminhotel->hotel_video = $hotelVideo;
-        $adminhotel->hotel_gallery = $hotelFeaturedImg;
-        $adminhotel->hotel_document = $hotel_document;
-        // $adminhotel->hotel_notes = $hotel_notes;
-        $adminhotel->hotel_notes = $request->hotel_notes;
-
-        // step 2
-        $adminhotel->payment_mode = $request->payment_mode;
-        $adminhotel->booking_option = $request->booking_option;
-        $adminhotel->hotel_address = $request->hotel_address;
-        $adminhotel->hotel_latitude = $request->hotel_latitude;
-        $adminhotel->hotel_longitude = $request->hotel_longitude;
-        $adminhotel->hotel_city = $request->hotel_city;
-        $adminhotel->neighb_area = $request->neighb_area;
-        $adminhotel->hotel_country = $request->hotel_country;
-        $adminhotel->attraction_name = $request->attraction_name;
-        $adminhotel->attraction_content = $request->attraction_content;
-        $adminhotel->attraction_distance = $request->attraction_distance;
-        $adminhotel->attraction_type = $request->attraction_type;
-        $adminhotel->stay_price = $request->stay_price;
-        $adminhotel->extra_price_name = $request->extra_price_name;
-        $adminhotel->extra_price = $request->extra_price;
-        $adminhotel->extra_price_type = $request->extra_price_type;
-        $adminhotel->service_fee_name = $request->service_fee_name;
-        $adminhotel->service_fee = $request->service_fee;
-        $adminhotel->service_fee_type = $request->service_fee_type;
-        $adminhotel->property_type = $request->property_type;
-
-
-        $adminhotel->parking_option = $request->parking_option;
-        $adminhotel->parking_price = $request->parking_price;
-        $adminhotel->payment_interval = $request->payment_interval;
-        $adminhotel->parking_reserv_need = $request->parking_reserv_need;
-        $adminhotel->parking_locate = $request->parking_locate;
-        $adminhotel->parking_type = $request->parking_type;
-        $adminhotel->breakfast_availability = $request->breakfast_availability;
-        $adminhotel->breakfast_price_inclusion = $request->breakfast_price_inclusion;
-        $adminhotel->breakfast_cost = $request->breakfast_cost;
-        $adminhotel->breakfast_type = json_encode($request->breakfast_type);
-
-        $adminhotel->save();
-
-        $adminhotel_id = $adminhotel->id;
-        if (!empty($_FILES["hotelGallery"]["name"])) {
-            foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
-                $imgname = $_FILES["hotelGallery"]["name"][$key];
-                $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
-                $name = $_FILES["hotelGallery"]["name"];
-                move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][$key], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][$key]);
-
-                $Img = array(
-                    'image' => time() . '_' . $imgname,
-                    'hotel_id' => $adminhotel_id,
-                    'is_featured' => 0,
-                    'status' => 1,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                );
-                $up = DB::table('hotel_gallery')->insert($Img);
-            }
-        }
-
-        if (!empty($request->amenity)) {
-            foreach ($request->amenity as $amenity_id) {
-                $ameni = array(
-                    'hotel_id' => $adminhotel_id,
-                    'amenity_id' => $amenity_id,
-                    'status' => 1,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                );
-                $up = DB::table('hotel_amenities')->insert($ameni);
-            }
-        }
-
-        if (!empty($request->services)) {
-            foreach ($request->services as $service_id) {
-                $ameni = array(
-                    'hotel_id' => $adminhotel_id,
-                    'hotel_service_id' => $service_id,
-                    'status' => 1,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                );
-                $up = DB::table('hotel_services')->insert($ameni);
-            }
-        }
-
-        // add multiple option
-        if (!empty($request->extra[0]['name'])) {
-            foreach ($request->extra as $extra_option) {
-                // echo "<pre>";print_r($extra_option['name']);
-                $extra_opt = array(
-                    'ext_opt_name' => $extra_option['name'],
-                    'ext_opt_price' => $extra_option['price'],
-                    'ext_opt_type' => $extra_option['type'],
-                    'hotel_id' => $adminhotel_id,
-                    'status' => 1,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                );
-                $up = DB::table('hotel_extra_price')->insert($extra_opt);
-            }
-        }
-
-        // add multiple services
-        if (!empty($request->service[0]['name'])) {
-            foreach ($request->service as $service_fee) {
-                // echo "<pre>";print_r($extra_option['name']);
-                $services_fee = array(
-                    'serv_fee_name' => $service_fee['name'],
-                    'serv_fee_price' => $service_fee['price'],
-                    'serv_fee_type' => $service_fee['type'],
-                    'hotel_id' => $adminhotel_id,
-                    'status' => 1,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                );
-                $up = DB::table('hotel_service_fee')->insert($services_fee);
-            }
-        }
-
-        return response()->json(['status' => 'success', 'msg' => 'Hotel Added Successfully']);
+                return response()->json(['status' => 'error', 'msg' => 'Hotel Name Already Exists']);
+        }     
     }
 
     public function edit_hotel($id)
@@ -265,6 +290,7 @@ class HotelController extends Controller
         $data['hotel_services'] = DB::table('hotel_services')->where('hotel_id', $hotel_id)->pluck('hotel_service_id')->toArray();
         $data['hotel_extra_price'] = DB::table('hotel_extra_price')->where('hotel_id', $hotel_id)->where('status', 1)->get();
         $data['hotel_service_fee'] = DB::table('hotel_service_fee')->where('hotel_id', $hotel_id)->where('status', 1)->get();
+        $data['hotel_attraction'] = DB::table('hotel_attraction')->where('attraction_hotel_id', $hotel_id)->where('attraction_status', 1)->get();
         // echo "<pre>";print_r($data['hotel_info']);die;
         return view('admin/hotel/edit_hotel')->with($data);
     }
@@ -341,7 +367,7 @@ class HotelController extends Controller
                     'property_contact_name' => $request->contact_name,
                     'property_contact_num' => $request->contact_num,
                     'property_alternate_num' => $request->alternate_num,
-                    'cat_listed_room_type' => $request->cat_listed_room_type,
+                    // 'cat_listed_room_type' => $request->cat_listed_room_type,
                     'where_property_listed' => $request->where_property_listed,
                     'do_you_multiple_hotel' => $request->do_you_multiple_hotel,
                     'hotel_rating' => $request->hotel_rating,
@@ -366,10 +392,12 @@ class HotelController extends Controller
                     'hotel_city' => $request->hotel_city,
                     'neighb_area' => $request->neighb_area,
                     'hotel_country' => $request->hotel_country,
-                    'attraction_name' => $request->attraction_name,
-                    'attraction_content' => $request->attraction_content,
-                    'attraction_distance' => $request->attraction_distance,
-                    'attraction_type' => $request->attraction_type,
+
+                    // 'attraction_name' => $request->attraction_name,
+                    // 'attraction_content' => $request->attraction_content,
+                    // 'attraction_distance' => $request->attraction_distance,
+                    // 'attraction_type' => $request->attraction_type,
+
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,
                     'extra_price' => $request->extra_price,
@@ -475,7 +503,26 @@ class HotelController extends Controller
                     );
                     $up = DB::table('hotel_service_fee')->insert($services_fee);
                 }
-            }    
+            }   
+            
+            // add multiple attraction 
+            if (!empty($request->attraction[0]['name'])) {
+                DB::table('hotel_attraction')->where('attraction_hotel_id', '=', $hotel_id)->delete();
+                foreach ($request->attraction as $gogattr) {
+                    // echo "<pre>";print_r($extra_option['name']);
+                    $google_attraction = array(
+                        'attraction_name' => $gogattr['name'],
+                        'attraction_content' => $gogattr['content'],
+                        'attraction_distance' => $gogattr['distance'],
+                        'attraction_type' => $gogattr['type'],
+                        'attraction_hotel_id' => $hotel_id,
+                        'attraction_status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_attraction')->insert($google_attraction);
+                }
+            }
 
             return response()->json(['status' => 'success', 'msg' => 'Hotel Updated Successfully']);
         }
@@ -493,6 +540,9 @@ class HotelController extends Controller
         $data['service_type'] = DB::table('services_type')->orderby('id', 'ASC')->where('status', 1)->get();
         $data['hotel_amenities'] = DB::table('hotel_amenities')->where('hotel_id', $hotel_id)->pluck('amenity_id')->toArray();
         $data['hotel_services'] = DB::table('hotel_services')->where('hotel_id', $hotel_id)->pluck('hotel_service_id')->toArray();
+        $data['hotel_extra_price'] = DB::table('hotel_extra_price')->where('hotel_id', $hotel_id)->where('status', 1)->get();
+        $data['hotel_service_fee'] = DB::table('hotel_service_fee')->where('hotel_id', $hotel_id)->where('status', 1)->get();
+        $data['hotel_attraction'] = DB::table('hotel_attraction')->where('attraction_hotel_id', $hotel_id)->where('attraction_status', 1)->get();
 
         return view('admin/hotel/hotel_view')->with($data);
     }

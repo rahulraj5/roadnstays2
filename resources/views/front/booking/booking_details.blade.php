@@ -10,6 +10,9 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
+h1,h2,h3,h4,h5,h6{
+        font-family: 'Open Sans', sans-serif;
+    }
     .breadcrumb {
         background:none;
     }
@@ -116,7 +119,7 @@ body {
         }
 
         .hotel-name span {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 300;
             margin-left: 5px;
             text-transform: capitalize;
@@ -348,12 +351,13 @@ body {
             font-size: 25px;
             margin-right: 5px;
         }
-        .user-det-2 ul li .bx-male{
-            color: darkgray;
-        }
-        .user-det-2 ul li .bx-female{
-            color: #126c62;
-}
+        .user-det-2 ul li .bx-male {
+        color: #8FB2F9;
+    }
+
+    .user-det-2 ul li .bx-female {
+        color: #FFA3C8;
+    }
         
 
         .user-det-3 h4 {
@@ -387,7 +391,120 @@ body {
             margin-right: 5px;
             color: #8f8c8a;
         }
-        
+        .user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul {
+    padding-left: 0;
+}
+
+
+        /* =========================================responsive below 768px css============================================== */
+        @media screen and (max-width:767px){
+            .bread-row .id {
+                  width: 100%;
+            }
+            .user-detailc .user-det {
+             padding: 15px;
+             width: 100%;
+             position:relative;
+            }
+            .side-b {
+                margin-top:20px;
+    margin-left: 0px;
+    width: 100%;
+    max-height: 400px;
+}
+.user-detailc {
+    display: block;
+    margin-top: -4px;
+}
+.user-detailr .user-det-2, .user-detailr .user-det-3{
+                margin-top:20px;
+    margin-left: 0px;
+    width: 100%;
+    padding: 15px;
+}
+.user-det-2 h4 {
+    font-size: 20px;
+}
+.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
+    padding-left:0;
+}
+.user-det p{
+    font-size:14px;
+}
+.loc h6 {
+    font-size: 16px;
+    font-weight: 800;
+    display: grid;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+.loc span {
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.bread-row h5 {
+    font-size: 20px;
+    font-weight: 800;
+}
+.hotel-name span {
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 0px;
+    text-transform: capitalize;
+}
+.status {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.cm__travelLine {
+    width: 60px;
+    height: 1px;
+    margin-top: 10px;
+}
+.ico i {
+    font-size: 20px;
+}
+        }
+
+        /* =========================================responsive below 1024px css============================================== */
+        /* =========================================responsive below 1024px css============================================== */
+
+@media screen and (max-width:1023px) and (min-width:768px){
+    .user-detailc .user-det {
+    padding: 15px;
+    width: 65%;
+    position:relative;
+}
+.side-b {
+    margin-left: 10px;
+    width: 34%;
+    max-height: 400px;
+}
+.side-b h5, .side-b ul {
+    padding: 15px 10px;
+}
+.user-detailr .user-det-2 , .user-detailr .user-det-3{
+    padding: 15px;
+    width: 62%;
+}
+.user-det-2 h4 {
+    font-size: 20px;
+}
+.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
+    padding-left:0;
+}
+.user-det p{
+    font-size:14px;
+}
+.status {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+}
 
     
 </style>

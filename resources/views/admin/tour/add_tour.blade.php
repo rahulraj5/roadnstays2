@@ -587,6 +587,13 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Activities</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" ></textarea>
+                            </div>
+                          </div>
+
                           <!-- <div class="col-md-12"> -->
                             
                             <div class="col-md-6">
@@ -737,15 +744,15 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services includes</label>
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes"></textarea>
+                              <!-- <label>Tour services includes</label> -->
+                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden=""></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services not includes</label>
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes"></textarea>
+                             <!--  <label>Tour services not includes</label> -->
+                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden=""></textarea>
                             </div>
                           </div>
 
@@ -842,7 +849,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Locations</h4>
+                              <h4>Tour Address</h4>
                               </p>
                             </div>
                           </div>
@@ -923,28 +930,28 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Bank Name</label>
-                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name ">
+                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name " required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Title</label>
-                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name ">
+                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name " required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Number</label>
-                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number">
+                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Branch Name</label>
-                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name">
+                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name" required="">
                             </div>
                           </div>
 
@@ -958,14 +965,14 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Easypaisa</label>
-                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number">
+                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Jazz Cash</label>
-                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number">
+                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number" required="">
                             </div>
                           </div>
                           <div class="col-12">

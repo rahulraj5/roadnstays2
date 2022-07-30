@@ -202,49 +202,6 @@
 </script>
 
 <script>
-  $('#step_btn1').click(function() {
-    $("#updateRoom_form").validate({
-      debug: false,
-      rules: {
-        hotelName: {
-          required: true,
-        },
-        summernote: {
-          required: true,
-        },
-      },
-      submitHandler: function(form) {
-        var site_url = $("#baseUrl").val();
-        // alert(site_url);
-        var formData = $(form).serialize();
-        $(form).ajaxSubmit({
-          type: 'POST',
-          url: "{{url('/servicepro/updateRoom')}}",
-          data: formData,
-          success: function(response) {
-            console.log(response);
-            if (response.status == 'success') {
-              // $("#register_form")[0].reset();
-              success_noti(response.msg);
-              // var hotell_id = $.base64.encode(response.hotel_id);
-              // console.log(hotell_id);
-              // console.log(response.hotel_id);
-              // setTimeout(function() { window.location.reload() }, 1000);
-              // setTimeout(function() {window.location.href = site_url + "/servicepro/viewHotelRooms/" + hotel_id}, 1000);
-              setTimeout(function() {
-                window.location.href = site_url + "/servicepro/viewHotelRooms/" + response.hotel_id
-              }, 1000);
-            } else {
-              error_noti(response.msg);
-            }
-          }
-        });
-        // event.preventDefault();
-      }
-    });
-  });
-</script>
-<script>
   function deleteConfirmation(Id) {
     toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
@@ -280,14 +237,164 @@
   });
 </script>
 
+<script>
+  $("#update_btn").click(function() {
+  // alert('shdfsd');
+  var form = $("#updateRoom_form");
+  form.validate({
+    rules: {
+      // hotel_name: {
+      //   required: true
+      // },
+      room_type: {
+        required: true
+      },
+      room_name: {
+        required: true
+      },
+      max_adults: {
+        required: true,
+        number: true,
+      },
+      max_childern: {
+        required: true,
+        number: true,
+      },
+      number_of_rooms: {
+        required: true,
+        number: true,
+      },
+      price_per_night: {
+        required: true,
+        number: true,
+      },
+      price_per_night_7d: {
+        required: true,
+        number: true,
+      },
+      price_per_night_30d: {
+        required: true,
+        number: true,
+      },
+      cleaning_fee: {
+        // required: true,
+        number:true,
+      },
+      city_fee: {
+        // required: true,
+        number:true,
+      },
+      extra_guest_per_night: {
+        required: true,
+        number: true,
+      },
+      room_size: {
+        required: true,
+        number: true,
+      },
+      type_of_price: {
+        required: true,
+      },
+      bed_type: {
+        required: true,
+      },
+      private_bathroom: {
+        required: true,
+      },
+      private_entrance: {
+        required: true,
+      },
+      family_friendly: {
+        required: true,
+      },
+      description: {
+        required: true,
+      },
+      notes: {
+        required: true,
+      },
+      extra_people: {
+        required: true,
+      }
+
+    },
+  });
+  if (form.valid() === true) {
+    var site_url = $("#baseUrl").val();
+    var formData = $(form).serialize();
+    $('#update_btn').prop('disabled', true);
+      $('#update_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: site_url + '/servicepro/updateRoom',
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+            success_noti(response.msg);
+            setTimeout(function() {window.location.href = site_url + "/servicepro/viewHotelRooms/" + response.hotel_id}, 1000);
+          } else {
+            error_noti(response.msg);
+            $('#update_btn').html(
+              `<span class=""></span>Update`
+            );
+            $('#update_btn').prop('disabled', false);
+          }
+        }
+      });
+      // event.preventDefault();
+    }
+  });
+</script>
+
+<!-- <script>
+  $('#step_btn1').click(function() {
+    $("#updateRoom_form").validate({
+      debug: false,
+      rules: {
+        hotelName: {
+          required: true,
+        },
+        summernote: {
+          required: true,
+        },
+      },
+      submitHandler: function(form) {
+        var site_url = $("#baseUrl").val();
+        // alert(site_url);
+        var formData = $(form).serialize();
+        $(form).ajaxSubmit({
+          type: 'POST',
+          url: "{{url('/servicepro/updateRoom')}}",
+          data: formData,
+          success: function(response) {
+            console.log(response);
+            if (response.status == 'success') {
+              // $("#register_form")[0].reset();
+              success_noti(response.msg);
+              // var hotell_id = $.base64.encode(response.hotel_id);
+              // console.log(hotell_id);
+              // console.log(response.hotel_id);
+              // setTimeout(function() { window.location.reload() }, 1000);
+              // setTimeout(function() {window.location.href = site_url + "/servicepro/viewHotelRooms/" + hotel_id}, 1000);
+              setTimeout(function() {window.location.href = site_url + "/servicepro/viewHotelRooms/" + response.hotel_id}, 1000);
+            } else {
+              error_noti(response.msg);
+            }
+          }
+        });
+        // event.preventDefault();
+      }
+    });
+  });
+</script> -->
 @endsection
 
 @section('content')
-
-
             <div class="row d-flex flex-wrap p-3">
-
-
               <div class="row add_m01">
                 <div class="col-md-12">
                   <div class="card card-default">
@@ -807,7 +914,7 @@
                             <div class="form-group">
                               <div class="field" align="left">
                                 <label>Upload room featured images</label>
-                                <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" required />
+                                <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" />
                               </div>
                             </div>
                           </div>
@@ -957,7 +1064,8 @@
 
                           <div class="col-12">
 
-                            <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button>
+                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button> -->
+                            <button class="btn btn-primary btn-dark float-right button" name="submit" id="update_btn" type="button"><span class=""></span>Update</button>
 
                           </div>
 

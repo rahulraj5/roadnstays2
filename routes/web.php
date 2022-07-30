@@ -62,13 +62,18 @@ Route::get('/email_verification/{id}', 'HomeController@email_verification');
 Route::post('/servicepro/loginPost', 'HomeController@serviceProPostLogin');
 Route::post('/servicepro/signup', 'HomeController@vendorSignup');  
 
+// Route::post('forgotPassword_action','Home\HomeController@forgotPassword_action');
 Route::post('forgotPassword_action','HomeController@forgotPassword_action');
+Route::get('reset-password','Home\HomeController@reset_password');
 
 Route::get('/hotelDetails/{id?}','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/roomdetails','HomeController@room_details')->name('user.room_details');
 Route::get('/hotelList/{name?}','HomeController@hotel_list')->name('user.hotel_list');
 Route::get('/checkout/{name?}','HomeController@checkout')->name('user.checkout');
+Route::post('/hote_list_ajax','HomeController@hotel_list_ajax')->name('user.hotel_list_ajax');
+
+Route::get('/hote_list_ajax','HomeController@hotel_list_ajax_page')->name('user.hotel_list_ajax_page');
 
 Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confirm_booking');
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
@@ -76,11 +81,18 @@ Route::post('/room_details_ajax','HomeController@room_details_ajax')->name('user
 Route::get('/events','HomeController@events')->name('user.events');
 Route::get('/event_details','HomeController@event_details')->name('user.event_details');
 Route::get('/tour','HomeController@tour')->name('user.tour');
-Route::get('/tour_details','HomeController@tour_details')->name('user.tour_details');
+Route::get('/tour_list_country/{id?}','HomeController@tour_list_country')->name('user.tour_list_country');
+Route::get('/tour_details/{id?}','HomeController@tour_details')->name('user.tour_details');
+Route::get('/tourBooking/{name?}','HomeController@tourBooking')->name('user.tourBooking');
 Route::get('/packages','HomeController@packages')->name('user.packages');
 Route::get('/space','Home\SpaceController@space')->name('user.space');
 Route::get('/space-details/{id?}','Home\SpaceController@space_details')->name('user.space_details');
 Route::get('/space-details','Home\SpaceController@space_details')->name('user.space_details');
+Route::get('/space-detail/{id?}','Home\SpaceController@space_detail')->name('user.space_detail');
+Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_list')->name('user.space_category_list');
+Route::get('/space-checkout/{name?}','Home\SpaceController@checkout')->name('user.space_checkout');
+Route::get('/space-city-wise/{id?}','Home\SpaceController@space_city_wise')->name('user.space_city_wise');
+Route::get('/space-payment-successful','Home\SpaceController@space_payment_successful')->name('user.space_payment_successful');
 
 Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
 Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
@@ -88,6 +100,9 @@ Route::get('/blogs','HomeController@blogs')->name('user.blogs');
 
 Route::post('/bookingRoomOrder','HomeController@booking_room_order')->name('user.booking_room_order');
 Route::get('payment-successful','HomeController@payment_successful')->name('user.payment_successful');
+
+Route::post('/tourBookingOrder','HomeController@tourBookingOrder')->name('user.tourBookingOrder');
+Route::get('tour-payment-successful','HomeController@tour_payment_successful')->name('user.tour_payment_successful');
 // Route::get('/two','HomeController@two')->name('user.two');
 // Route::get('/three','HomeController@three')->name('user.three');
 
@@ -160,13 +175,16 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     // space route start from here
     Route::get('servicepro/space-list', 'Vendor\SpaceController@space_list');
     Route::get('servicepro/add-space', 'Vendor\SpaceController@add_space');
+    Route::get('servicepro/stepadd-space', 'Vendor\SpaceController@step_add_space');
     Route::get('servicepro/add-space/{id}', 'Vendor\SpaceController@add_space');
     Route::any('servicepro/submitSpace', 'Vendor\SpaceController@submit_space');
     Route::get('servicepro/changeSpaceStatus', 'Vendor\SpaceController@change_space_status');
     Route::post('servicepro/deleteSpace', 'Vendor\SpaceController@delete_space');
     Route::get('servicepro/edit-space/{id}', 'Vendor\SpaceController@edit_space');
+    Route::get('servicepro/stepedit-space/{id}', 'Vendor\SpaceController@step_edit_space');
     Route::any('servicepro/updateSpace', 'Vendor\SpaceController@update_space');
     Route::any('servicepro/view-space/{id}', 'Vendor\SpaceController@view_space');
+    Route::any('servicepro/stepview-space/{id}', 'Vendor\SpaceController@step_view_space');
 
     Route::any('servicepro/deleteSpaceSingleImage', 'Vendor\SpaceController@delete_space_single_image');
     Route::post('servicepro/addCopySpace','Vendor\SpaceController@add_copy_space');
@@ -328,13 +346,16 @@ Route::group(['prefix' => 'admin'], function(){
         // Space start here
         Route::get('/space-list', 'Admin\SpaceController@space_list');
         Route::get('/add-space', 'Admin\SpaceController@add_space');
-        Route::get('/add-space/{id}', 'Admin\SpaceController@add_space');
+        Route::get('/stepadd-space', 'Admin\SpaceController@step_add_space');
+        // Route::get('/add-space/{id}', 'Admin\SpaceController@add_space');
         Route::any('/submitSpace', 'Admin\SpaceController@submit_space');
         Route::get('/changeSpaceStatus', 'Admin\SpaceController@change_space_status');
         Route::post('/deleteSpace', 'Admin\SpaceController@delete_space');
         Route::get('/edit-space/{id}', 'Admin\SpaceController@edit_space');
+        Route::get('/stepedit-space/{id}', 'Admin\SpaceController@step_edit_space');
         Route::any('/updateSpace', 'Admin\SpaceController@update_space');
         Route::any('/view-space/{id}', 'Admin\SpaceController@view_space');
+        Route::any('/stepview-space/{id}', 'Admin\SpaceController@step_view_space');
 
         Route::any('/deleteSpaceSingleImage', 'Admin\SpaceController@delete_space_single_image');
         Route::post('/addCopySpace','Admin\SpaceController@add_copy_space');

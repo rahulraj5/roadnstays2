@@ -80,6 +80,7 @@ class TourController extends Controller
         $admintour->tour_duration =$request->tour_duration;
         $admintour->tour_price_others = $request->tour_price_others;
         $admintour->tour_locations = $request->tour_locations;
+        $admintour->tour_activities = $request->tour_activities;
         $admintour->tour_services_includes = $request->tour_services_includes;
         $admintour->tour_services_not_includes = $request->tour_services_not_includes;
         $admintour->tour_payment_term = $request->tour_payment_term;
@@ -241,21 +242,22 @@ class TourController extends Controller
                 ->where('id', $tour_id)
 
                 ->update([
-                    'vendor_id' => $request->vendor_id,
+                    'vendor_id'=> $request->vendor_id,
                     'scout_id' => $request->scout_id,
                     'tour_code'=> $request->tour_code,
                     'tour_start_day' => $request->tour_start_day,
                     'tour_start_date' => date('Y-m-d', strtotime($request->start_date)),
                     'tour_end_date' => date('Y-m-d', strtotime($request->end_date)),
                     'tour_feature_image' => $tourFeaturedImg,
-                    'tour_package_name' =>$request->tour_package_name,
+                    'tour_package_name' => $request->tour_package_name,
                     'tour_title' => $request->tour_title,
-                    'tour_type' => $request->tour_type,
+                    'tour_type' =>  $request->tour_type,
                     'tour_price' => $request->tour_price,
-                    'tour_days' => $request->tour_days,
-                    'tour_duration' =>$request->tour_duration,
+                    'tour_days' =>  $request->tour_days,
+                    'tour_duration' => $request->tour_duration,
                     'tour_price_others' => $request->tour_price_others,
                     'tour_locations' => $request->tour_locations,
+                    'tour_activities' => $request->tour_activities,
                     'tour_services_includes' => $request->tour_services_includes,
                     'tour_services_not_includes' => $request->tour_services_not_includes,
                     'tour_payment_term' => $request->tour_payment_term,
@@ -265,7 +267,7 @@ class TourController extends Controller
                     'account_holder' => $request->account_title,
                     'account_number' => $request->account_number,
                     'branch_name' => $request->branch_name,
-                    'tour_document' =>$request->tour_document,
+                    'tour_document' => $request->tour_document,
                     'easypaisa' => $request->easypaisa,
                     'jazz_cash' => $request->jazz_cash,
                     'booking_contact_no' => $request->booking_contact,

@@ -4,7 +4,40 @@
 
 @section('current_page_css')
 
-
+<style type="text/css">
+#profile-description {
+  max-width: 400px; 
+  position:relative;
+}
+#profile-description .text {
+/*   width: 660px;  */
+  margin-bottom: 5px; 
+  color: #777; 
+  padding: 0 15px; 
+  position:relative; 
+  font-family: Arial; 
+  font-size: 14px; 
+  display: block;
+}
+#profile-description .show-more {
+/*   width: 690px;  */
+  color: #777; 
+  position:relative; 
+  font-size: 12px; 
+  padding-top: 5px; 
+  height: 20px; 
+  text-align: center; 
+  background: #f1f1f1; 
+  cursor: pointer;
+}
+#profile-description .show-more:hover { 
+    color: #1779dd;
+}
+#profile-description .show-more-height { 
+  height: 200px; 
+  overflow:hidden; 
+}
+</style>
 
 @endsection
 
@@ -103,12 +136,60 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+
+ $(document).ready(function() { 
+
+  $('#filterform').on('change',function(){
+
+    var $this = $(this);
+    var frmValues = $this.serialize();
+
+    $('#loading-image').show();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        method:'POST',
+        url: "{{url('hote_list_ajax')}}",
+        data:frmValues,
+        dataType:'json',
+        success:function(response) {
+          //console.log(response);
+          $('#filterdata').html(response);
+          $('#loading-image').hide();
+
+        }
+     });
+   
+   }); 
+
+}); 
+
+</script>
+
+<script type="text/javascript">
+ 
+$(".show-more").click(function () { 
+    if($(".text").hasClass("show-more-height")) {
+        $(this).text("Show less");
+    } else {
+        $(this).text("Show all");
+    }
+
+    $(".text").toggleClass("show-more-height");
+});  
+
+</script>
+
 @endsection
 
-
-
 @section('content')
-
 
 <style type="text/css">
   
@@ -136,7 +217,7 @@
             <!-- <small><a href="#"> Home </a>/ <a href="#"> Event </a> </small> -->
             
             <div class="hotel-type">
-            <h3>Hotels in India, Asia</h3>
+            <h3>Hotels in {{$location}}</h3>
             <form method="GET" action="{{url('hotelList')}}">
               @csrf
                <div class="row">
@@ -197,15 +278,18 @@
                      <label for="javascript">All-inclusive plan available</label>
                   </div> -->
 
-    <h6>Filter</h6>
+    <form method="POST" id="filterform" action="{{url('hotel_list_ajax')}}" enctype="multipart/form-data">  
 
+    @csrf            
+
+    <h6>Filter</h6>
     <div class="category category-0">
       <p>Distance</p>
       <ul>
-          <li><label><input type="checkbox" name="star" id="" value="1">Less than 1 Mile<label></li>
-          <li><label><input type="checkbox" name="star" id="" value="3">Less than 3 Mile<label></li>
-          <li><label><input type="checkbox" name="star" id="" value="5">Less than 5 Mile<label></li>
-          <li><label><input type="checkbox" name="star" id="" value="7">Less than 7 Mile<label></li>
+      <li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
+      <li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
+      <li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
+      <li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
           
       </ul>
   </div>
@@ -213,11 +297,11 @@
         <div class="category category-1">
         <p>Your Budget (per night)</p>
         <ul>
-            <li><label><input type="checkbox" name="budget" id="" value="1">0 - 5000</label></li>
-            <li><label><input type="checkbox" name="budget" id="" value="2">5000-10000</label></li>
-            <li><label><input type="checkbox" name="budget" id="" value="3">10000 - 15000</label></li>
-            <li><label><input type="checkbox" name="budget" id="" value="4">15000 - 20000</label></li>
-            <li><label><input type="checkbox" name="budget" id="" value="5">20000 +</label></li>
+          <li><label><input type="checkbox" name="budget[]" id="" value="1">0 - 5000</label></li>
+          <li><label><input type="checkbox" name="budget[]" id="" value="2">5000 - 10000</label></li>
+          <li><label><input type="checkbox" name="budget[]" id="" value="3">10000 - 15000</label></li>
+          <li><label><input type="checkbox" name="budget[]" id="" value="4">15000 - 20000</label></li>
+          <li><label><input type="checkbox" name="budget[]" id="" value="5">20000 +</label></li>
             
         </ul>
         </div>
@@ -225,12 +309,11 @@
         <div class="category category-2">
             <p>Star Rating</p>
             <ul>
-                <li><label><input type="checkbox" name="star" id="" value="2">2 stars<label></li>
-                <li><label><input type="checkbox" name="star" id="" value="3">3 stars<label></li>
-                <li><label><input type="checkbox" name="star" id="" value="4">4 stars<label></li>
-                <li><label><input type="checkbox" name="star" id="" value="5">5 stars<label></li>
-                <li><label><input type="checkbox" name="star" id="" value="1">Unrated<label></li>  
-                
+                <li><label><input type="checkbox" name="star[]" id="" value="1">1 stars<label></li>  
+                <li><label><input type="checkbox" name="star[]" id="" value="2">2 stars<label></li>
+                <li><label><input type="checkbox" name="star[]" id="" value="3">3 stars<label></li>
+                <li><label><input type="checkbox" name="star[]" id="" value="4">4 stars<label></li>
+                <li><label><input type="checkbox" name="star[]" id="" value="5">5 stars<label></li>
             </ul>
         </div>
 
@@ -239,7 +322,7 @@
           <ul>
           <?php foreach ($room_wise as $key => $value) { ?> 
 
-          <li><label><input type="checkbox" name="Room-Wise" id="" value="{{$value->id}}">{{$value->title}}</label></li>  
+          <li><label><input type="checkbox" name="roomwise[]" id="" value="{{$value->id}}">{{$value->title}}</label></li>  
                 
           <?php } ?>                
                
@@ -261,33 +344,49 @@
             <p>Emenites</p>
             <!--<input type="Search" name="" id="" placeholder="search anything!">-->
 
+          <div id="profile-description">
+            <div class="text show-more-height">  
+
           <ul>
               <?php foreach ($emenites as $key => $value) { ?> 
 
-                <li><label><input type="checkbox" name="" id="" value="{{$value->amenity_id}}">{{$value->amenity_name}}</label></li>
+                <li><label><input type="checkbox" name="emenites[]" id="" value="{{$value->amenity_id}}">{{$value->amenity_name}}</label></li>
 
               <?php } ?>
 
-            </ul>  
+            </ul> 
+
+            </div>
+            <div class="show-more">Show all</div>
+            </div>  
            
         </div>
+
         <div class="category category-5">
             <p>Property type</p>
             <ul>
               <?php foreach ($property_type as $key => $value) { ?>
 
-                <li><label><input type="checkbox" name="" id="" value="{{$value->id}}">{{$value->stay_type}}</label></li>
+                <li><label><input type="checkbox" name="property[]" id="" value="{{$value->id}}">{{$value->stay_type}}</label></li>
 
               <?php } ?>
 
             </ul>
         </div>
+
+      </form>
+
          </div>
       </div>
 
-      <div class="col-md-9 gird-event">
+     
+
+      <div class="col-md-9 gird-event" id="filterdata">
          <div class="row pt-3">
             <div class="col-md-12">
+
+               <span><img id="loading-image" src="{{asset('resources/assets/img/loading.gif')}}" style="display: none;"></span>
+
               @if (!empty($hotel_data))
                <div class="col-md-12 pro-fund p-0">
                   <h2>{{$location}}: {{$hotelcount}} Hotel found</h2>
@@ -637,13 +736,6 @@ $(document)
     });
     
 </script>
-
-<script>
-  
-</script>
-
-
-
 
 
 <!-- End #main -->

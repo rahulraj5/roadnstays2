@@ -103,20 +103,20 @@
   })
 </script>
 <script>
-    // $(document).ready(function() {
-    //     // Select2 Multiple
-    //     $('.select2bs4').select2({
-    //         theme: 'bootstrap4'
-    //     })
-    // });
-    $("select").on("select2:select", function (evt) {
-        var element = evt.params.data.element;
-        var $element = $(element);
-        
-        $element.detach();
-        $(this).append($element);
-        $(this).trigger("change");
-    });
+  // $(document).ready(function() {
+  //     // Select2 Multiple
+  //     $('.select2bs4').select2({
+  //         theme: 'bootstrap4'
+  //     })
+  // });
+  $("select").on("select2:select", function(evt) {
+    var element = evt.params.data.element;
+    var $element = $(element);
+
+    $element.detach();
+    $(this).append($element);
+    $(this).trigger("change");
+  });
 </script>
 <script>
   $("#allow_guest_in_room1").click(function() {
@@ -135,13 +135,13 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
-    var addButton = $('.add_button'); 
-    var wrapper = $('.field_wrapper'); 
-    var x = 0; 
+    var addButton = $('.add_button');
+    var wrapper = $('.field_wrapper');
+    var x = 0;
 
     $(addButton).click(function() {
       if (x < maxField) {
-        x++; 
+        x++;
         $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3"><input type="text" class="form-control" name="extra[' + x + '][price]" placeholder="Enter Price" value="" /></div><div class="col-md-3"><div class="form-group"><select class="form-control select2bs4" name="extra[' + x + '][type]" style="width: 100%;"><option value="">Select Price type</option><option value="single_fee">Single fee</option><option value="per_night">Per night</option><option value="per_guest">Per guest</option><option value="per_night_per_guest">Per night per guest</option></select></div></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
       }
     });
@@ -151,6 +151,108 @@
       $(this).parent().parent('div').remove();
       x--;
     });
+  });
+</script>
+<script>
+  $("#submit_btn").click(function() {
+    // alert('shdfsd');
+    var form = $("#roomAdmin_form");
+    form.validate({
+      rules: {
+        hotel_name: {
+          required: true,
+        },
+        room_type: {
+          required: true,
+        },
+        room_name: {
+          required: true,
+        },
+        max_adults: {
+          required: true,
+        },
+        max_childern: {
+          required: true,
+        },
+        number_of_rooms: {
+          required: true,
+        },
+        price_per_night: {
+          required: true,
+        },
+        type_of_price: {
+          required: true,
+        },
+        tax_percentage: {
+          required: true,
+        },
+        price_per_night_7d: {
+          required: true,
+        },
+        price_per_night_30d: {
+          required: true,
+        },
+        room_size: {
+          required: true,
+        },
+        bed_type: {
+          required: true,
+        },
+        private_bathroom: {
+          required: true,
+        },
+        private_entrance: {
+          required: true,
+        },
+        family_friendly: {
+          required: true,
+        },
+        outdoor_facilities: {
+          required: true,
+        },
+        extra_people: {
+          required: true,
+        },
+      },
+    });
+    if (form.valid() === true) {
+      var site_url = $("#baseUrl").val();
+      // alert(site_url);
+      var formData = $(form).serialize();
+      $('#submit_btn').prop('disabled', true);
+      $('#submit_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: site_url + '/admin/submitroom',
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+            success_noti(response.msg);
+            if (response.hotel_id == 0) {
+              setTimeout(function() {
+                window.location.href = site_url + "/admin/roomlist"
+              }, 1000);
+            } else {
+              setTimeout(function() {
+                window.location.href = site_url + "/admin/viewHotelRooms/" + response.hotel_id
+              }, 1000);
+              // console.log(response.hotel_id);
+            }
+          } else {
+            error_noti(response.msg);
+            $('#submit_btn').html(
+              `<span class=""></span>Submit`
+            );
+            $('#submit_btn').prop('disabled', false);
+          }
+        }
+      });
+      // event.preventDefault();
+    }
   });
 </script>
 @endsection
@@ -170,11 +272,11 @@
 
         <div class="col-sm-6">
           @if(!empty($hotel_id))
-            <a href="{{url('/admin/viewHotelRooms')}}/{{$hotel_id}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/admin/viewHotelRooms')}}/{{$hotel_id}}"><i class="right fas fa-angle-left"></i>Back</a>
           @else
-            <a href="{{url('/admin/roomlist')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/admin/roomlist')}}"><i class="right fas fa-angle-left"></i>Back</a>
           @endif
-          
+
           <h1>Add Room</h1>
 
         </div>
@@ -222,7 +324,7 @@
             @csrf
 
             @if(!empty($hotel_id))
-              <input type="hidden" name="hotel_id" id="hotel_id" value="{{$hotel_id}}">
+            <input type="hidden" name="hotel_id" id="hotel_id" value="{{$hotel_id}}">
             @endif
 
             <div class="row">
@@ -242,7 +344,7 @@
 
                   <label>Hotel name</label>
 
-                  <select class="form-control select2bs4" name="hotel_name" id="hotel_name" style="width: 100%;">
+                  <select class="form-control select2bs4" name="hotel_name" id="hotel_name" style="width: 100%;" required>
 
                     <option value="">Select Hotel</option>
 
@@ -361,7 +463,7 @@
               </div>
               <div class="col-md-6">
                 <div class="row">
-                
+
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Price per night</label>
@@ -381,7 +483,7 @@
                       </select>
                     </div>
                   </div>
-                </div>  
+                </div>
               </div>
 
               <div class="col-md-6">
@@ -508,7 +610,7 @@
                     </div>
                   </div>
 
-                  
+
                 </div>
               </div>
               <div class="col-md-12 d-none" id="pay_by_no_guest_div">
@@ -542,13 +644,13 @@
                     </div> -->
                     <div class="col-md-3">
                       <div class="form-group">
-                          <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
+                        <select class="form-control select2bs4" name="extra[0][type]" style="width: 100%;">
                           <option value="">Select Price type</option>
                           <option value="single_fee">Single fee</option>
                           <option value="per_night">Per night</option>
                           <option value="per_guest">Per guest</option>
                           <option value="per_night_per_guest">Per night per guest</option>
-                          </select>
+                        </select>
                       </div>
                     </div>
                     <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
@@ -657,7 +759,7 @@
                 <div class="form-group">
                   <div class="field" align="left">
                     <label>Upload room featured images</label>
-                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" required/>
+                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" required />
                   </div>
                 </div>
               </div>
@@ -666,7 +768,7 @@
                 <div class="form-group">
                   <div class="field" align="left">
                     <label>Upload room gallery</label>
-                    <input type="file" id="files" name="imgupload[]" multiple required/>
+                    <input type="file" id="files" name="imgupload[]" multiple required />
                   </div>
                 </div>
               </div>
@@ -756,7 +858,8 @@
 
               <div class="col-12">
 
-                <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
+                <!-- <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> -->
+                <button class="btn btn-primary btn-dark button float-right" name="submit" id="submit_btn" type="button"><span class=""></span>Submit</button>
 
               </div>
 

@@ -568,6 +568,13 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Activities</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" required></textarea>
+                            </div>
+                          </div>
+
                           <!-- <div class="col-md-12"> -->
                             
                             <div class="col-md-6">
@@ -719,15 +726,15 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services includes</label>
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes"></textarea>
+                              <!-- <label>Tour services includes</label> -->
+                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden=""></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services not includes</label>
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes"></textarea>
+                              <!-- <label>Tour services not includes</label> -->
+                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden=""></textarea>
                             </div>
                           </div>
 
@@ -828,7 +835,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Address</h4>
+                              <h4>Tour Address</h4>
                               </p>
                             </div>
                           </div>

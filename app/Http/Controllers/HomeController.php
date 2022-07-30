@@ -58,21 +58,375 @@ class HomeController extends Controller
     public function tour()
     {
         $data['tour_data'] = DB::table('tour_list')->orderby('id','DESC')->get();
+        $data['tour_data_countries'] = DB::table('tour_list')
+                                      ->select('tour_list.*','country.name as country_name')   
+                                      ->join('country', 'tour_list.country_id', '=', 'country.id')
+                                      ->orderby('tour_list.tour_price','ASC')
+                                      ->groupBy('tour_list.country_id')->get();
+                                      //echo "<pre>"; print_r($data);die;
         return view('front/tour/tour')->with($data);
-    }   
+    } 
+
+    public function tour_list_country($id){
+
+        $data['tour_data'] = DB::table('tour_list')->where('country_id',$id)->orderby('id','DESC')->get();
+
+        $data['tour_details'] = DB::table('tour_list')->where('country_id',$id)->orderby('id','DESC')->first();
+        $data['tour_data_countries'] = DB::table('tour_list')
+                                      ->select('tour_list.*','country.name as country_name')
+                                      ->join('country', 'tour_list.country_id', '=', 'country.id')
+                                      ->orderby('tour_list.tour_price','ASC')
+                                      ->groupBy('tour_list.country_id')->get();
+                                      $data['country_id'] = $id;
+        return view('front/tour/tour_list_country')->with($data);
+    }
+
 
     public function packages()
     {
         return view('front/packages/packages');
     }  
 
-    public function tour_details(Request $request)
-    {
-        $data['tour_details'] = DB::table('tour_list')->where('id',$request->tour_id)->get();
-        $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id',$request->tour_id)->get();
-        $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id',$request->tour_id)->get();
-        return view('front/tour/tour_details');
+    public function tour_details($id)
+    {   $tour_id = $id;
+        $data['tour_details'] = DB::table('tour_list')->where('id',$tour_id)->first();
+        $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id',$tour_id)->get();
+        $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id',$tour_id)->get();
+
+        //echo "<pre>";print_r($data); die;
+        return view('front/tour/tour_details')->with($data);
     } 
+
+    public function tourBooking(Request $request)
+    {   
+        $tour_id = $request->id;
+        $data['tour_details'] = DB::table('tour_list')->where('id',$tour_id)->first();
+        //echo "<pre>"; print_r($data);die;
+        return view('front/tour/tour-booking')->with($data);
+    }
+
+    public function tourBookingOrder(Request $request)
+    {
+    	$tour_id = $request->tour_id;
+    	$user_id = $request->user_id;
+    	$tour_price = $request->tour_price;
+    	$tour_start_date = $request->tour_start_date;
+    	$tour_end_date = $request->tour_end_date;
+    	$email = $request->email;
+    	$first_name = $request->first_name;
+    	$last_name = $request->last_name;
+    	$mobile = $request->mobile;
+    	$status = 1;
+    	//echo "<pre>"; print_r($forminput);die;
+        $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
+        $secret="EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+
+    	$ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token");
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+        curl_setopt($ch, CURLOPT_USERPWD, $client.":".$secret);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+
+        $result = curl_exec($ch);
+
+        if(empty($result))die("Error: No response.");
+        else
+        {
+        $json = json_decode($result);
+
+        $paccess_token = $json->access_token;
+       
+        }
+
+        $data = '{
+          "intent":"sale",
+          "redirect_urls":{
+            "return_url":"'.url('/tour-payment-successful').'",
+            "cancel_url":"'.url('/payment-cancelled').'"
+          },
+          "payer":{
+            "payment_method":"paypal"
+          },
+          "transactions":[
+            {
+              "amount":{
+                "total":'.round($tour_price).',
+                "currency":"USD"
+              },
+              "description":"This is the payment transaction description."
+            }
+          ]
+        }';
+
+        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          "Content-Type: application/json",
+          "Authorization: Bearer ".$json->access_token, 
+          "Content-length: ".strlen($data))
+        );
+
+        $result = curl_exec($ch);
+        $json = json_decode($result);
+        $link=$json->links[1]->href;
+        $tokenlink = $json->links[1]->href;
+        $link_array = explode('&token=',$tokenlink);
+    	$token = end($link_array);
+
+    	$state=$json->state;
+
+        $payment_id = $json->id;
+
+    	$guestinfo = DB::table('guestinfo')->insert(array(
+            'tour_id' =>  $tour_id,
+            'email' =>  $email,
+            'first_name' =>  $first_name,
+            'last_name' => $last_name,
+            'mobile' =>  $mobile,
+            'status'=>  $status,
+            'created_date' =>  date('Y-m-d H:i:s')
+        	) 
+    	);
+
+        $check = DB::table('tour_booking_temp')->insert(array(
+            'user_id' =>  $user_id,
+            'payment_id' =>  $payment_id,
+            'paccess_token' =>  $paccess_token,
+            'token_id' => $token,
+            'tour_id' =>  $tour_id,
+            'tour_start_date' =>  $tour_start_date,
+            'tour_end_date' =>  $tour_end_date,
+            'total_amount' => round($tour_price),
+            'created_at' =>  date('Y-m-d H:i:s')
+            )
+    	);
+
+   		return redirect($link);
+    }
+
+    public function tour_payment_successful(Request $request)
+    {   
+        if (Auth::check()) {
+            $user_id =  Auth::id();
+        }else{
+            $user_id = '';
+        } 
+    	$paymentId = $_GET['paymentId']; 
+        $token = $_GET['token'];
+        $PayerID = $_GET['PayerID'];
+        $paccess_token = '';
+        $bookingtemp = DB::table('tour_booking_temp')->where('payment_id','=',$paymentId)->first();
+        if(!empty($bookingtemp)){
+        	$paccess_token = $bookingtemp->paccess_token; 
+        	$data1 = '{
+	       	"payer_id": "'.$PayerID.'"
+	       	}';
+
+	        $ch = curl_init();
+
+	        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/".$paymentId."/execute");
+	        /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
+	        curl_setopt($ch, CURLOPT_POST, true);
+	        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	        curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
+	        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json","Authorization: Bearer ".$paccess_token));
+	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	        $result = curl_exec($ch);
+	      
+	        $resulspays = json_decode($result); 
+
+	        $cartid = $resulspays->cart;
+	        $pstatus = $resulspays->state;
+	        $paymethod = $resulspays->payer->payment_method;
+
+	        $pemail = $resulspays->payer->payer_info->email;
+	        $pfirst_name = $resulspays->payer->payer_info->first_name;
+	        $plast_name = $resulspays->payer->payer_info->last_name;
+	        $payer_id = $resulspays->payer->payer_info->payer_id;
+
+	        $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
+	        $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
+	        $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2)?  $resulspays->payer->payer_info->shipping_address->line2 :'';
+	        $scity = $resulspays->payer->payer_info->shipping_address->city;
+	        $sstate = $resulspays->payer->payer_info->shipping_address->state;
+	        $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
+	        $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
+
+	        $phone = !empty($resulspays->payer->payer_info->phone)?  $resulspays->payer->payer_info->phone :'';
+	        $country_code = $resulspays->payer->payer_info->country_code;
+	        $business_name =!empty($resulspays->payer->payer_info->business_name)?  $resulspays->payer->payer_info->business_name :'';
+
+	        $total_amount = $resulspays->transactions[0]->amount->total;
+	        $currency = $resulspays->transactions[0]->amount->currency;
+
+	        $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
+	        $merchant_email = $resulspays->transactions[0]->payee->email;
+	        $password = "Admin@123";
+	        $password = md5($password);
+	        curl_close($ch);
+	        if(empty($user_id)){ 
+
+	        	$checkuser = DB::table('users')->where('email',$pemail)->first();   
+
+		        if(!empty($checkuser)){
+
+		        	$user_id = $checkuser->id;
+
+		        }else{  
+
+		            DB::table('users')->insert( 
+		            [
+		              'first_name' =>  $pfirst_name,
+		              'last_name' =>  $plast_name,
+		              'email' =>  $pemail,
+		              'user_type' => 'normal_user',
+		              'contact_number' =>  $phone,
+		              'password' =>  $password,
+		              'role_id' =>  2,
+		              'is_verify_email' => 1,
+		              'register_by' =>  'paypal',
+		              'status' => 1,
+		              'updated_at' => date('Y-m-d H:i:s'),
+		              'created_at' =>  date('Y-m-d H:i:s')
+		            ]
+		            );
+
+		            $user_id = DB::getpdo()->lastInsertId();
+
+         		}    
+
+        	} 
+        }
+        $checkorder = DB::table('tour_booking')->where('payment_token','=',$token)->first();
+
+        if(empty($checkorder)){ 
+
+        	DB::table('tour_booking')->insert( 
+                [
+                  'user_id' =>  $user_id,
+                  'tour_id' => $bookingtemp->tour_id,
+                  'total_amount' =>  $bookingtemp->total_amount,
+                  'booking_status' => "pending",
+                  'payment_status' => 'successful',
+                  'payment_type'=>$paymethod,
+                  'payment_id' => $paymentId,
+                  'payment_token' => $token,
+                  'payer_id' => $PayerID,
+                  'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $booking_id = DB::getpdo()->lastInsertId();
+
+            DB::table('payment_transaction')->insert( 
+                [
+                  'booking_id' => $booking_id, 
+                  'user_id' =>  $user_id,
+                  'txn_id' => $cartid,
+                  'txn_amount' =>  $bookingtemp->total_amount,
+                  'payment_method' => $paymethod,
+                  'txn_status' =>  'successful',
+                  'txn_date' => date('Y-m-d H:i:s'), 
+                  'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            ); 
+ 
+            $check = true;
+ 
+            if($check){
+                $users = User::where('id','=',$user_id)->first();
+                $data['user_info'] = $users;
+                $data['booking_id'] = $booking_id;
+                $data['url'] = url('/');
+                $data['order_info'] =  DB::table('tour_booking')
+                ->join('users','users.id','=','tour_booking.user_id')
+                ->join('tour_list','tour_list.id','=','tour_booking.tour_id')
+                ->where('tour_booking.id', $booking_id)
+                ->where('users.status', 1)
+                ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number')
+                ->first();
+
+                // if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                //     $fromEmail = Helper::getFromEmail();
+                //     $inData['from_email'] = $fromEmail;
+                //     $inData['email'] = $users->email;
+                //     Mail::send('emails.invoice', $data, function ($message) use ($inData) {
+                //         $message->from($inData['from_email'],'roadNstays');
+                //         $message->to($inData['email']);
+                //         $message->subject('roadNstyas - Tour Booking Confirmation Mail');
+                //     });
+ 
+                //     $data['url'] = url('/admin_login');
+
+                //     $data['status'] = 'created to user';
+
+                //     $data['booking_id'] = $booking_id;
+
+                //     Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
+                //         $message->from($inData['from_email'],'roadNstyas');
+                //         $message->to('votivephppushpendra@gmail.com');
+                //         $message->subject('roadNstyas - New Booking Recieved Mail');
+                //     });
+
+                // }
+
+                $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+                $vendor_id = $tourData->vendor_id;
+                $vendors = User::where('id','=',$vendor_id)->first();
+                //$vendor_counts = count($vendors);
+                // if (!empty($vendors)) {
+                //     if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                //         $data['first_name'] = $vendors->first_name;
+
+                //         $data['status'] = 'Booking Tour';
+
+                //         $data['booking_id'] = $booking_id;
+
+                //         $fromEmail = Helper::getFromEmail();
+                //         $inData['from_email'] = $fromEmail;
+                //         $inData['email'] = $vendors->email;
+                //         Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
+                //             $message->from($inData['from_email'],'roadNstyas');
+                //             $message->to($inData['email']);
+                //             $message->subject('roadNstyas - Order assigned');
+                //         });
+                //     }
+                // }
+                Session::get('total_amt');
+                session::flash('message', 'Order created Succesfully.');
+                //return redirect('/category/'.$frame_detail->category_id.'');
+                return view('front/tour/confirm_booking',$data);
+            }else{
+                session::flash('error', 'Record not inserted.');
+                return redirect('/'); 
+            }
+        }else{
+          	$data['booking_id'] = $checkorder->id;
+	   		$users = User::where('id','=',$user_id)->first();
+	        $data['user_info'] = $users;
+	        $data['booking_id'] =  $checkorder->id;
+	        $data['url'] = url('/');
+	        $users = User::where('id','=',$user_id)->first();
+            $data['user_info'] = $users;
+            $data['url'] = url('/');
+            $data['order_info'] =  DB::table('tour_booking')
+            ->join('users','users.id','=','tour_booking.user_id')
+            ->join('tour_list','tour_list.id','=','tour_booking.tour_id')
+            ->where('tour_booking.id', $checkorder->id)
+            ->where('users.status', 1)
+            ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number')
+            ->first();
+        } 
+        session::flash('message', 'Booking created Succesfully.');
+        return view('front/tour/confirm_booking',$data);
+    }
 
     public function space()
     {
@@ -424,9 +778,7 @@ class HomeController extends Controller
                 'gallary' => $Img
             );
         }
-        
-
-
+         
         $data['hotel_data'] = $hoteldata;
         $data['hotels'] = $hotel_data; 
         $data['hotelcount'] = count($hotelcount);
@@ -440,18 +792,41 @@ class HomeController extends Controller
     public function hotel_list(Request $request)
     {
     	//print_r($request->all());
-    	if(count($request->all()) >= 1){
-    	$hotel_latitude = $request->hotel_latitude; 
-        $hotel_longitude = $request->hotel_longitude; 
-        $location = $request->location; 
-        $hotel_name = $request->hotel_name; 
-        $person = $request->person;
-        // $checkin_date = $request->check_in;
-        $checkin_date = date('Y-m-d', strtotime($request->check_in));
-        // $checkout_date = $request->check_out;
-        $checkout_date = date('Y-m-d', strtotime($request->check_out));
+    if(count($request->all()) >= 1){ 
+
+        if(isset($request->hotel_latitude)){ $hotel_latitude = $request->hotel_latitude; }else{ 
+
+        $hotel_latitude = Session::get('hotel_latitude'); }
+
+        if(isset($request->hotel_longitude)){ $hotel_longitude = $request->hotel_longitude; }else{
+
+         $hotel_longitude = Session::get('hotel_longitude'); } 
+
+        if(isset($request->location)){ $location = $request->location; }else{
+
+         $location = Session::get('location'); }
+
+        if(isset($request->hotel_name)){ $hotel_name = $request->hotel_name; }else{ 
+            $hotel_name = Session::get('hotel_name'); }
+
+        if(isset($request->person)){ $person = $request->person; }else{ 
+            $person = Session::get('person'); }
+
+        if(isset($request->check_in)){ $checkin_date = date('Y-m-d', strtotime($request->check_in));
+         }else{ $checkin_date = Session::get('checkin_date'); }
+
+        if(isset($request->check_out)){ $checkout_date = date('Y-m-d', strtotime($request->check_out)); }else{ $checkout_date = Session::get('checkout_date'); }
+
         $hotel_city = explode(',', $location);
-        
+
+        Session::put('hotel_latitude', $hotel_latitude);
+        Session::put('hotel_longitude', $hotel_longitude);
+        Session::put('location', $location);
+        Session::put('hotel_name', $hotel_name);
+        Session::put('person', $person);
+        Session::put('checkin_date', $checkin_date);
+        Session::put('checkout_date', $checkout_date);
+
 	    // $new_check_in = date('Y-m-d', strtotime($checkin_date));
 	    // $new_check_out = date('Y-m-d', strtotime($checkout_date));
 	    
@@ -602,6 +977,609 @@ class HomeController extends Controller
      		return redirect('/');
     	}
     } 
+
+    public function hotel_list_ajax(Request $request)
+    {
+
+        $gdistance = $request->distance;
+        $budget = $request->budget;
+        $star = $request->star;
+        $roomwise = $request->roomwise;
+        $emenites = $request->emenites;
+        $property = $request->property;
+
+        Session::put('gdistance', $gdistance);
+        Session::put('budget', $budget);
+        Session::put('star', $star);
+        Session::put('roomwise', $roomwise);
+        Session::put('emenites', $emenites);
+        Session::put('property', $property);
+
+        if(!empty($gdistance)){
+
+        $distance = max($gdistance);
+
+        }else{
+        
+        $distance=30;
+
+        }
+
+        $min_price1 = ''; $min_price2 = ''; $min_price3 = ''; $min_price4 = ''; $min_price5 = '';
+        $max_price1 = ''; $max_price2 = ''; $max_price3 = ''; $max_price4 = ''; $max_price5 = '';
+
+        if(!empty($budget)){
+        foreach ($budget as $key => $price) { 
+        
+        if($price==1){
+        $min_price1 = 0;
+        $max_price1 = 5000;
+        }
+
+        if($price==2){
+        $min_price2 = 5000;
+        $max_price2 = 10000;
+        }
+
+        if($price==3){
+        $min_price3 = 10000;
+        $max_price3 = 15000;
+        }
+
+        if($price==4){
+        $min_price4 = 15000;
+        $max_price4 = 20000;
+        }
+
+        if($price==5){
+        $min_price5 = 20000;
+        $max_price5 = 500000;
+        }
+            
+        }
+
+       }
+
+        $hotel_latitude = Session::get('hotel_latitude'); 
+        $hotel_longitude = Session::get('hotel_longitude'); 
+        $location = Session::get('location'); 
+        $hotel_name = Session::get('hotel_name'); 
+        $person = Session::get('person'); 
+        $checkin_date = Session::get('checkin_date'); 
+        $checkout_date = Session::get('checkout_date'); 
+
+        $hotel_city = explode(',', $location);
+        
+        $date1_ts = strtotime($checkin_date);
+        $date2_ts = strtotime($checkout_date);
+        $diff = $date2_ts - $date1_ts;
+        $booking_days =  round($diff / 86400);
+        
+        $results = DB::select(DB::raw('SELECT hotel_id, ( 3959 * acos( cos( radians(' . $hotel_latitude . ') ) * cos( radians( hotel_latitude ) ) * cos( radians( hotel_longitude ) - radians(' . $hotel_longitude . ') ) + sin( radians(' . $hotel_latitude .') ) * sin( radians(hotel_latitude) ) ) ) AS distance FROM hotels HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
+
+        $hotelids = array();
+
+        foreach ($results as $key => $value) { 
+
+        $booking = DB::table('booking')
+        ->where("hotel_id",$value->hotel_id)
+        ->whereBetween('check_in', [$checkin_date, $checkout_date])
+        ->orWhereBetween('check_out', [$checkin_date, $checkout_date])
+        //->whereNotBetween('check_out', [$checkin_date, $checkout_date])
+        ->get();
+
+        $bookroomids = array();
+
+        foreach ($booking as $key => $bookvalue) {
+
+        $roomid = $bookvalue->room_id;
+        $totalbookroom = $bookvalue->total_room;
+
+        $nofroom = DB::table('room_list')->where("id",$roomid)->value('number_of_rooms'); 
+
+        if($totalbookroom >= $nofroom ){
+
+         $bookroomids[] = $bookvalue->room_id;
+
+        }
+            
+        } 
+
+
+        $room_list = DB::table('room_list')
+        ->where("hotel_id",$value->hotel_id)
+        ->where(function ($query) use ($roomwise) { 
+            if(!empty($roomwise)){
+                $query->whereIn("room_types_id",$roomwise);
+            } 
+         })
+        ->whereNotIn("id",$bookroomids)
+        ->get(); 
+
+        //$totalroom = count($room_list); 
+
+        $total_memeber = 0;
+
+        $total_room = 0;
+
+        foreach ($room_list as $key => $roomlvalue) {
+
+            $total_memeber = $total_memeber+$roomlvalue->max_adults;    
+        }
+
+         if($person <= $total_memeber){
+
+         $hotelids[]= $value->hotel_id; 
+
+         }  
+
+        }
+
+
+       // get eminites data
+
+        $hotelamenities = '';
+        $amhotelids = array();
+
+        if(!empty($emenites)){ 
+
+        $hotelamenities = DB::table('hotel_amenities')
+        ->whereIn("amenity_id",$emenites)
+        ->where("status",1)
+        ->get(); 
+
+        if(!empty($hotelamenities)){
+ 
+        foreach ($hotelamenities as $key => $valueam) {
+
+         $amhotel_ids[] = $valueam->hotel_id;
+            
+         }
+
+         $amhotelids = array_unique($amhotel_ids);
+
+         }       
+
+        }
+
+        if(!empty($amhotelids)){ 
+
+        $hotelids = array_intersect($hotelids,$amhotelids);
+        
+        }
+
+       // close table    
+
+        $hotel_data = DB::table('hotels')
+        ->whereIn("hotel_id",$hotelids)
+        //->whereIn("hotel_rating",$star)
+        ->where(function ($query) use ($star) {
+            if(!empty($star)){
+                $query->whereIn("hotel_rating",$star);
+            } 
+         })
+        ->where(function ($query) use ($property) {
+            if(!empty($property)){
+                $query->whereIn("property_type",$property);
+            } 
+         })
+
+        ->where(function($query) use ($min_price1,$max_price1, $min_price2,$max_price2, $min_price3,$max_price3, $min_price4,$max_price4, $min_price5,$max_price5,$budget){
+
+         if(!empty($budget)){
+
+         $query->where(function($query) use ($min_price1,$max_price1){
+             $query->where('stay_price', '>=', $min_price1);
+             $query->where('stay_price', '<=', $max_price1);
+         });
+
+         $query->orWhere(function($query) use ($min_price2,$max_price2){
+             $query->where('stay_price', '>=', $min_price2);
+             $query->where('stay_price', '<=', $max_price2);
+         });
+
+         $query->orWhere(function($query) use ($min_price3,$max_price3){
+             $query->where('stay_price', '>=', $min_price3);
+             $query->where('stay_price', '<=', $max_price3);
+         });
+
+         $query->orWhere(function($query) use ($min_price4,$max_price4){
+             $query->where('stay_price', '>=', $min_price4);
+             $query->where('stay_price', '<=', $max_price4);
+         });
+
+         $query->orWhere(function($query) use ($min_price5,$max_price5){
+             $query->where('stay_price', '>=', $min_price5);
+             $query->where('stay_price', '<=', $max_price5);
+         }); 
+
+         }        
+       
+        })            
+        ->where("hotel_status",1)
+        ->groupBy('hotel_id')
+        ->paginate(10); 
+        //->get();
+
+
+        $hoteldata=array();
+
+        //echo "<pre>";print_r($data);die;
+        foreach ($hotel_data as $key => $value) {
+            $gallary = DB::table('hotel_gallery')->where('hotel_id','=',$value->hotel_id)->get();
+
+            $Img=array();
+            $baseurl = url('/public/uploads/hotel_gallery/');
+            foreach ($gallary as $key => $IMG) {
+                $Img[] = array(
+                    'img_id'=>$IMG->id,
+                    'img_name'=>$baseurl.'/'.$IMG->image,
+                    'is_featured'=>$IMG->is_featured,
+                    'status'=>$IMG->status,
+                );
+            }
+
+            $amenities = DB::table('hotel_amenities')
+                        ->join('H2_Amenities', 'hotel_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+                        ->where('hotel_amenities.hotel_id','=',$value->hotel_id)
+                        ->select('H2_Amenities.*', 'hotel_amenities.amenity_id')
+                        ->limit('10')
+                        ->get();
+
+
+            $hoteldata[] = array(
+
+            'hotel_id'=> $value->hotel_id,
+            'hotel_user_id' => $value->hotel_user_id,
+            'hotel_name' => $value->hotel_name,
+            'hotel_content' => $value->hotel_content,
+            'property_contact_name' => $value->property_contact_name,
+            'property_contact_num' => $value->property_contact_num,
+            'property_alternate_num' =>isset($value->property_alternate_num)?$value->property_alternate_num:"",
+            'cat_listed_room_type' => isset($value->cat_listed_room_type)?$value->cat_listed_room_type:0, 
+            'hotel_rating' => $value->hotel_rating,
+            'checkin_time' =>  isset($value->checkin_time)?$value->checkin_time:"",
+            'checkout_time' =>  isset($value->checkout_time)?$value->checkout_time:"",
+            'stay_price' => isset($value->stay_price)?$value->stay_price:"",
+            'hotel_address' => isset($value->hotel_address)?$value->hotel_address:"", 
+            'hotel_city' => isset($value->hotel_city)?$value->hotel_city:"", 
+            'hotel_country' => isset($value->hotel_country)?$value->hotel_country:"", 
+            'hotel_latitude' => isset($value->hotel_latitude)?$value->hotel_latitude:"",
+            'hotel_longitude' => isset($value->hotel_longitude)?$value->hotel_longitude:"",
+            'hotel_gallery' => isset($value->hotel_gallery)?$value->hotel_gallery:"",
+            'hotel_amenities' => $amenities,
+            'gallary' => $Img
+            );
+            }
+                    
+        $data['hotel_data'] = $hoteldata;
+
+        $room_wise = DB::table('room_type_categories')->where('status','=',1)->get();
+
+        $emenites = DB::table('H2_Amenities')->where('status','=',1)->get();
+
+        $property_type = DB::table('H1_Hotel_and_other_Stays')->where('status','=',1)->get();
+
+        //echo "<pre>"; print_r($property_type); die;
+
+        $data['hotel_data'] = $hoteldata;
+        $data['hotels'] = $hotel_data; 
+        $data['hotelcount'] = count($hoteldata);
+        $data['location'] = $hotel_city[0];
+        $data['check_in'] = $checkin_date;
+        $data['check_out'] = $checkout_date;
+        $data['person'] = $person;
+        $data['booking_days'] = $booking_days;
+        $data['hotel_latitude'] = $hotel_latitude;
+        $data['hotel_longitude'] = $hotel_longitude;
+        $data['room_wise'] = $room_wise;
+        $data['emenites'] = $emenites;
+        $data['property_type'] = $property_type;
+
+        $returnHTML = view('front.hotel.hotel_list_ajax')->with($data)->render();;
+
+        return response()->json($returnHTML);
+
+    } 
+
+    public function hotel_list_ajax_page(Request $request)
+    {
+        //$page = $request->page; 
+        $gdistance = Session::get('gdistance'); 
+        $budget = Session::get('budget'); 
+        $star = Session::get('star'); 
+        $roomwise = Session::get('roomwise'); 
+        $emenites = Session::get('emenites'); 
+        $property = Session::get('property'); 
+
+        if(!empty($gdistance)){
+
+        $distance = max($gdistance);
+
+        }else{
+        
+        $distance=30;
+
+        }
+
+        $min_price1 = ''; $min_price2 = ''; $min_price3 = ''; $min_price4 = ''; $min_price5 = '';
+        $max_price1 = ''; $max_price2 = ''; $max_price3 = ''; $max_price4 = ''; $max_price5 = '';
+
+        if(!empty($budget)){
+        foreach ($budget as $key => $price) { 
+        
+        if($price==1){
+        $min_price1 = 0;
+        $max_price1 = 5000;
+        }
+
+        if($price==2){
+        $min_price2 = 5000;
+        $max_price2 = 10000;
+        }
+
+        if($price==3){
+        $min_price3 = 10000;
+        $max_price3 = 15000;
+        }
+
+        if($price==4){
+        $min_price4 = 15000;
+        $max_price4 = 20000;
+        }
+
+        if($price==5){
+        $min_price5 = 20000;
+        $max_price5 = 500000;
+        }
+            
+        }
+
+       }
+
+        $hotel_latitude = Session::get('hotel_latitude'); 
+        $hotel_longitude = Session::get('hotel_longitude'); 
+        $location = Session::get('location'); 
+        $hotel_name = Session::get('hotel_name'); 
+        $person = Session::get('person'); 
+        $checkin_date = Session::get('checkin_date'); 
+        $checkout_date = Session::get('checkout_date'); 
+
+        $hotel_city = explode(',', $location);
+        
+        $date1_ts = strtotime($checkin_date);
+        $date2_ts = strtotime($checkout_date);
+        $diff = $date2_ts - $date1_ts;
+        $booking_days =  round($diff / 86400);
+        
+        $results = DB::select(DB::raw('SELECT hotel_id, ( 3959 * acos( cos( radians(' . $hotel_latitude . ') ) * cos( radians( hotel_latitude ) ) * cos( radians( hotel_longitude ) - radians(' . $hotel_longitude . ') ) + sin( radians(' . $hotel_latitude .') ) * sin( radians(hotel_latitude) ) ) ) AS distance FROM hotels HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
+
+        $hotelids = array();
+
+        foreach ($results as $key => $value) { 
+
+        $booking = DB::table('booking')
+        ->where("hotel_id",$value->hotel_id)
+        ->whereBetween('check_in', [$checkin_date, $checkout_date])
+        ->orWhereBetween('check_out', [$checkin_date, $checkout_date])
+        //->whereNotBetween('check_out', [$checkin_date, $checkout_date])
+        ->get();
+
+        $bookroomids = array();
+
+        foreach ($booking as $key => $bookvalue) {
+
+        $roomid = $bookvalue->room_id;
+        $totalbookroom = $bookvalue->total_room;
+
+        $nofroom = DB::table('room_list')->where("id",$roomid)->value('number_of_rooms'); 
+
+        if($totalbookroom >= $nofroom ){
+
+         $bookroomids[] = $bookvalue->room_id;
+
+        }
+            
+        } 
+
+
+        $room_list = DB::table('room_list')
+        ->where("hotel_id",$value->hotel_id)
+        ->where(function ($query) use ($roomwise) { 
+            if(!empty($roomwise)){
+                $query->whereIn("room_types_id",$roomwise);
+            } 
+         })
+        ->whereNotIn("id",$bookroomids)
+        ->get(); 
+
+        //$totalroom = count($room_list); 
+
+        $total_memeber = 0;
+
+        $total_room = 0;
+
+        foreach ($room_list as $key => $roomlvalue) {
+
+            $total_memeber = $total_memeber+$roomlvalue->max_adults;    
+        }
+
+         if($person <= $total_memeber){
+
+         $hotelids[]= $value->hotel_id; 
+
+         }  
+
+        }
+
+
+       // get eminites data
+
+        $hotelamenities = '';
+        $amhotelids = array();
+
+        if(!empty($emenites)){ 
+
+        $hotelamenities = DB::table('hotel_amenities')
+        ->whereIn("amenity_id",$emenites)
+        ->where("status",1)
+        ->get(); 
+
+        if(!empty($hotelamenities)){
+ 
+        foreach ($hotelamenities as $key => $valueam) {
+
+         $amhotel_ids[] = $valueam->hotel_id;
+            
+         }
+
+         $amhotelids = array_unique($amhotel_ids);
+
+         }       
+
+        }
+
+        if(!empty($amhotelids)){ 
+
+        $hotelids = array_intersect($hotelids,$amhotelids);
+        
+        }
+
+       // close table    
+
+        $hotel_data = DB::table('hotels')
+        ->whereIn("hotel_id",$hotelids)
+        //->whereIn("hotel_rating",$star)
+        ->where(function ($query) use ($star) {
+            if(!empty($star)){
+                $query->whereIn("hotel_rating",$star);
+            } 
+         })
+        ->where(function ($query) use ($property) {
+            if(!empty($property)){
+                $query->whereIn("property_type",$property);
+            } 
+         })
+
+        ->where(function($query) use ($min_price1,$max_price1, $min_price2,$max_price2, $min_price3,$max_price3, $min_price4,$max_price4, $min_price5,$max_price5,$budget){
+
+         if(!empty($budget)){
+
+         $query->where(function($query) use ($min_price1,$max_price1){
+             $query->where('stay_price', '>=', $min_price1);
+             $query->where('stay_price', '<=', $max_price1);
+         });
+
+         $query->orWhere(function($query) use ($min_price2,$max_price2){
+             $query->where('stay_price', '>=', $min_price2);
+             $query->where('stay_price', '<=', $max_price2);
+         });
+
+         $query->orWhere(function($query) use ($min_price3,$max_price3){
+             $query->where('stay_price', '>=', $min_price3);
+             $query->where('stay_price', '<=', $max_price3);
+         });
+
+         $query->orWhere(function($query) use ($min_price4,$max_price4){
+             $query->where('stay_price', '>=', $min_price4);
+             $query->where('stay_price', '<=', $max_price4);
+         });
+
+         $query->orWhere(function($query) use ($min_price5,$max_price5){
+             $query->where('stay_price', '>=', $min_price5);
+             $query->where('stay_price', '<=', $max_price5);
+         }); 
+
+         }        
+       
+        })            
+        ->where("hotel_status",1)
+        ->groupBy('hotel_id')
+        ->paginate(10); 
+        //->get();
+
+
+        $hoteldata=array();
+
+        //echo "<pre>";print_r($data);die;
+        foreach ($hotel_data as $key => $value) {
+            $gallary = DB::table('hotel_gallery')->where('hotel_id','=',$value->hotel_id)->get();
+
+            $Img=array();
+            $baseurl = url('/public/uploads/hotel_gallery/');
+            foreach ($gallary as $key => $IMG) {
+                $Img[] = array(
+                    'img_id'=>$IMG->id,
+                    'img_name'=>$baseurl.'/'.$IMG->image,
+                    'is_featured'=>$IMG->is_featured,
+                    'status'=>$IMG->status,
+                );
+            }
+
+            $amenities = DB::table('hotel_amenities')
+                        ->join('H2_Amenities', 'hotel_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+                        ->where('hotel_amenities.hotel_id','=',$value->hotel_id)
+                        ->select('H2_Amenities.*', 'hotel_amenities.amenity_id')
+                        ->limit('10')
+                        ->get();
+
+
+            $hoteldata[] = array(
+
+            'hotel_id'=> $value->hotel_id,
+            'hotel_user_id' => $value->hotel_user_id,
+            'hotel_name' => $value->hotel_name,
+            'hotel_content' => $value->hotel_content,
+            'property_contact_name' => $value->property_contact_name,
+            'property_contact_num' => $value->property_contact_num,
+            'property_alternate_num' =>isset($value->property_alternate_num)?$value->property_alternate_num:"",
+            'cat_listed_room_type' => isset($value->cat_listed_room_type)?$value->cat_listed_room_type:0, 
+            'hotel_rating' => $value->hotel_rating,
+            'checkin_time' =>  isset($value->checkin_time)?$value->checkin_time:"",
+            'checkout_time' =>  isset($value->checkout_time)?$value->checkout_time:"",
+            'stay_price' => isset($value->stay_price)?$value->stay_price:"",
+            'hotel_address' => isset($value->hotel_address)?$value->hotel_address:"", 
+            'hotel_city' => isset($value->hotel_city)?$value->hotel_city:"", 
+            'hotel_country' => isset($value->hotel_country)?$value->hotel_country:"", 
+            'hotel_latitude' => isset($value->hotel_latitude)?$value->hotel_latitude:"",
+            'hotel_longitude' => isset($value->hotel_longitude)?$value->hotel_longitude:"",
+            'hotel_gallery' => isset($value->hotel_gallery)?$value->hotel_gallery:"",
+            'hotel_amenities' => $amenities,
+            'gallary' => $Img
+            );
+            }
+                    
+        $data['hotel_data'] = $hoteldata;
+
+        $room_wise = DB::table('room_type_categories')->where('status','=',1)->get();
+
+        $emenites = DB::table('H2_Amenities')->where('status','=',1)->get();
+
+        $property_type = DB::table('H1_Hotel_and_other_Stays')->where('status','=',1)->get();
+
+        //echo "<pre>"; print_r($property_type); die;
+
+        $data['hotel_data'] = $hoteldata;
+        $data['hotels'] = $hotel_data; 
+        $data['hotelcount'] = count($hoteldata);
+        $data['location'] = $hotel_city[0];
+        $data['check_in'] = $checkin_date;
+        $data['check_out'] = $checkout_date;
+        $data['person'] = $person;
+        $data['booking_days'] = $booking_days;
+        $data['hotel_latitude'] = $hotel_latitude;
+        $data['hotel_longitude'] = $hotel_longitude;
+        $data['room_wise'] = $room_wise;
+        $data['emenites'] = $emenites;
+        $data['property_type'] = $property_type;
+
+        $returnHTML = view('front.hotel.hotel_list_ajax')->with($data)->render();;
+
+        return response()->json($returnHTML);
+
+    } 
+
+    // Hotel list ajax close
 
     public function hotel_details(Request $request)
     {
@@ -917,7 +1895,7 @@ class HomeController extends Controller
             	);
 
            	return redirect($link);
-        //return view('thankyou');
+       
     }
 
     public function payment_successful(Request $request)
@@ -1222,5 +2200,10 @@ class HomeController extends Controller
         
         }                                
 
+    }
+
+    public function reset_password()
+    {
+        return view('front/reset_password');
     }
 }

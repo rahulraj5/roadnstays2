@@ -316,11 +316,38 @@ $('#end_date').datepicker(
     var form = $("#updateTourContext_form");
     form.validate({
       rules: {
-        hotel_address: {
-          required: true
+        address: {
+          required: true,
         },
-        hotel_city: {
-          required: true
+        city: {
+          required: true,
+        },
+        latitude: {
+          number: true,
+        },
+        longitude: {
+          number: true,
+        },
+        country_id: {
+          required: true,
+        },
+        bank_name: {
+          required: true,
+        },
+        account_title: {
+          required: true,
+        },
+        account_number: {
+          required: true,
+        },
+        branch_name: {
+          required: true,
+        },
+        easypaisa: {
+          required: true,
+        },
+        jazz_cash: {
+          required: true,
         }
       },
       messages: {
@@ -355,12 +382,9 @@ $('#end_date').datepicker(
     var form = $("#updateTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
+        "itinerary[]": {
           required: true,
-        },
-        entertain_service2: {
-          required: true,
-        },
+        }
       },
     });
     if (form.valid() === true) {
@@ -631,6 +655,13 @@ $('#end_date').datepicker(
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Activities</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" >{{$tour_info->tour_activities}}</textarea>
+                            </div>
+                          </div>
+
                           <!-- <div class="col-md-12"> -->
                             
                             <div class="col-md-6">
@@ -804,15 +835,15 @@ $('#end_date').datepicker(
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services includes</label>
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes">{{$tour_info->tour_services_includes}}</textarea>
+                              <!-- <label>Tour services includes</label> -->
+                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden="">{{$tour_info->tour_services_includes}}</textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour services not includes</label>
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes">{{$tour_info->tour_services_not_includes}}</textarea>
+                              <!-- <label>Tour services not includes</label> -->
+                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden="">{{$tour_info->tour_services_not_includes}}</textarea>
                             </div>
                           </div>
 
@@ -913,7 +944,7 @@ $('#end_date').datepicker(
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Address</h4>
+                              <h4>Tour Address</h4>
                               </p>
                             </div>
                           </div>
@@ -993,28 +1024,28 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Bank Name</label>
-                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name " value="{{$tour_info->bank_name}}">
+                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name " value="{{$tour_info->bank_name}}" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Title</label>
-                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name " value="{{$tour_info->account_holder}}">
+                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name " value="{{$tour_info->account_holder}}" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Account Number</label>
-                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number" value="{{$tour_info->account_number}}">
+                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number" value="{{$tour_info->account_number}}" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Branch Name</label>
-                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name" value="{{$tour_info->branch_name}}">
+                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name" value="{{$tour_info->branch_name}}" required="">
                             </div>
                           </div>
 
@@ -1028,14 +1059,14 @@ $('#end_date').datepicker(
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Easypaisa</label>
-                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number" value="{{$tour_info->easypaisa}}">
+                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number" value="{{$tour_info->easypaisa}}" required="">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Jazz Cash</label>
-                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number" value="{{$tour_info->jazz_cash}}">
+                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number" value="{{$tour_info->jazz_cash}}" required="">
                             </div>
                           </div>
 

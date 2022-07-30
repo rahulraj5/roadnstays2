@@ -12,7 +12,7 @@
       space_cat_name: {
         required: true,
       },
-      // space_cat_detail: {
+      // space_cat_img: {
       //   required: true,
       // },
     },
@@ -84,11 +84,13 @@
 
           <div class="card-body">
 
-              <form  method="POST" id="updateSpcaeCat_form">
+              <form  method="POST" id="updateSpcaeCat_form" enctype="multipart/form-data">
 
                 <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" />
 
                 <input type="hidden" name="cat_id" id="cat_id" value="{{(!empty($space_cat_info->scat_id) ? $space_cat_info->scat_id : '')}}" />
+
+                <input type="hidden" name="old_space_cat_img" id="old_space_cat_img" value="{{(!empty($space_cat_info->space_cat_image) ? $space_cat_info->space_cat_image : '')}}" />
 
                 <div class="row">
                   <div class="col-md-12">
@@ -97,12 +99,21 @@
                       <input type="text" class="form-control" name="space_cat_name" id="space_cat_name" placeholder="Enter Name" value="{{ (!empty($space_cat_info->category_name) ? $space_cat_info->category_name: '')}}">
                     </div>
                   </div>
-                  <!-- <div class="col-md-12">
+                  <div class="col-md-12">
                     <div class="form-group">
-                      <label>Space Category Detail</label>
-                      <input type="text" class="form-control" name="space_cat_detail" id="space_cat_detail" placeholder="Enter Detail" value="{{ (!empty($space_cat_info->details) ? $space_cat_info->details: '')}}">
+                      <label>Space Category Image</label>
+                      <input type="file" class="form-control" name="space_cat_img" id="space_cat_img" >
                     </div>
-                  </div> -->
+                  </div>
+                  @if((!empty($space_cat_info->space_cat_image)))
+                    <div class="col-md-12">
+                      <div class="d-flex flex-wrap">
+                        <div class="image-gridiv">
+                          <img src="{{url('public/uploads/space_images/cat_img/')}}/{{$space_cat_info->space_cat_image}}">
+                        </div>
+                      </div>
+                    </div>
+                  @endif
 
                   <div class="col-12">
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>

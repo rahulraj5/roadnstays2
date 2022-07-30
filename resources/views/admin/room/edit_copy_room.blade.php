@@ -198,6 +198,120 @@
     });
   });
 </script>
+<script>
+  $("#submit_up_btn").click(function() {
+    // alert('shdfsd');
+    var form = $("#updateroomAdmin_form");
+    form.validate({
+      rules: {
+        hotel_name: {
+          required: true
+        },
+        room_type: {
+          required: true
+        },
+        room_name: {
+          required: true
+        },
+        max_adults: {
+          required: true,
+          number: true,
+        },
+        max_childern: {
+          required: true,
+          number: true,
+        },
+        number_of_rooms: {
+          required: true,
+          number: true,
+        },
+        price_per_night: {
+          required: true,
+          number: true,
+        },
+        price_per_night_7d: {
+          required: true,
+          number: true,
+        },
+        price_per_night_30d: {
+          required: true,
+          number: true,
+        },
+        cleaning_fee: {
+          // required: true,
+          number:true,
+        },
+        city_fee: {
+          // required: true,
+          number:true,
+        },
+        extra_guest_per_night: {
+          required: true,
+          number: true,
+        },
+        room_size: {
+          required: true,
+          number: true,
+        },
+        type_of_price: {
+          required: true,
+        },
+        bed_type: {
+          required: true,
+        },
+        private_bathroom: {
+          required: true,
+        },
+        private_entrance: {
+          required: true,
+        },
+        family_friendly: {
+          required: true,
+        },
+        description: {
+          required: true,
+        },
+        notes: {
+          required: true,
+        },
+        extra_people: {
+          required: true,
+        }
+
+      },
+    });
+    if (form.valid() === true) {
+      var site_url = $("#baseUrl").val();
+      // alert(site_url);
+      var formData = $(form).serialize();
+      $('#submit_up_btn').prop('disabled', true);
+      $('#submit_up_btn').html(
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+      );
+      // alert(formData);
+      $(form).ajaxSubmit({
+        type: 'POST',
+        url: site_url + '/admin/updateRoom',
+        data: formData,
+        success: function(response) {
+          console.log(response);
+          if (response.status == 'success') {
+          // $("#newsForm")[0].reset();
+          success_noti(response.msg);
+          setTimeout(function(){window.location.href=site_url+"/admin/roomlist"},1000);
+        } else {
+            error_noti(response.msg);
+            $('#submit_up_btn').html(
+              `<span class=""></span>Update`
+            );
+            $('#submit_up_btn').prop('disabled', false);
+          }
+        }
+      });
+      // event.preventDefault();
+    }
+  });
+</script>
 @endsection
 @section('content')
 
@@ -889,7 +1003,9 @@
 
               <div class="col-12">
 
-                <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button>
+                <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn1" type="submit">Update</button> -->
+                <button class="btn btn-primary btn-dark float-right button" name="submit" id="submit_up_btn" type="button"><span class=""></span>Update</button>
+
 
               </div>
 
