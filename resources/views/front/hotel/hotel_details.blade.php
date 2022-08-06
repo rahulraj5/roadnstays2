@@ -23,7 +23,7 @@
 
 <!-- slider -->
 <main id="main">
-   <section class="user-section detail-section" style="padding-top: 100px; background-color: #f6f6f6;">
+   <section class="user-section detail-section" style="padding-top: 77px; background-color: #f6f6f6;">
       <div class="container-fluid hero-banner">
          <div class="row hero-sec">
             <div class="col-md-12 full-img">
@@ -49,7 +49,7 @@
                </div>
             </div>
             @foreach($hotel_gallery as $gallery)
-            <div class="col-lg-2 col-md-2 col-xs-2 thumb">
+            <div class="thumb">
                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                   data-image="{{url('public/uploads/hotel_gallery')}}/{{$gallery->image}}"
                   data-target="#image-gallery">
@@ -148,28 +148,13 @@
     </div>
  </section> 
 
-  <section class="emenities-sec" id="2">
-    <div class="container">
-    <h1>FEATURED AMENITIES</h1>
-       <div class="row amenity-row">
-          <div class="col-md-12">
-             <div class="row amenities-img">
-                <ul>  
-                  @foreach($amenities as $amenity)
-                   <li><i class='bx bx-check'></i> {{$amenity->amenity_name}}</li>
-                  @endforeach
-                </ul>
-             </div>
-          </div>
-       </div>
-    </div>
-  </section>
+  
 
-  <section>
+  <section id="3">
     <div class="container">
       @foreach($room_data as $room)
       <div class="d-flex room-outline">
-        <div class="col-md-4 p-0 m-0 roomlist border-right-0" style="height: 371px;">
+        <div class="col-md-3 p-0 m-0 roomlist border-right-0" style="">
           <div class="romtype">
             <div class="dropdown">
               <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -182,23 +167,38 @@
               </div>
             </div>
           </div> 
-          <div id="roomdetails" class="roomdetails new-nav">
-            <div class="container">
-              <div class="owl-carousel testimonials-carousel">
-                @foreach($room['room_gallery'] as $gallery)
-                <div class="testimonial-wrap">
-                  <div class="testimonial-item">
-                    <div class="heig-fic-room-list">
-                    <img src="{{url('/public/uploads/room_images')}}/{{$gallery->image}}" class="testimonial-img" alt="">
-                  </div>
-                  </div>
-                </div>
-                @endforeach 
-              </div> 
-            </div>
-          </div>
+          <div id="roomdetail" class="roomdetail new-nav">
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+    <img src="https://source.unsplash.com/random/900×700/?boy, family" class="d-block w-100" alt="First slide">  
+    </div>
+    <div class="carousel-item">
+    <img src="https://source.unsplash.com/random/900×700/?food" class="d-block w-100" alt="Second slide">  
+    </div>
+    <div class="carousel-item">
+    <img src="https://source.unsplash.com/random/900×700/?hotel" class="d-block w-100" alt="Third slide">  
+    </div>
+   
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
         </div>
-        <div class="col-md-4 p-0 m-0 roomlist border-right-0" style="height: 371px;">
+        <div class="col-md-4 p-0 m-0 roomlist border-right-0" style="">
            <h3>OPTIONS</h3>
            <div class="brakfast-price " style="height: auto; border: none;"> 
               <div class="rom-inf">
@@ -216,7 +216,7 @@
               </div>
            </div> 
         </div>
-        <div class="col-md-4 p-0 m-0 roomlist " style="height: 371px;">
+        <div class="col-md-5 p-0 m-0 roomlist " style="">
            <h3 class="mb-0">PRICE</h3>
            <div class="brakfast-price" style="height: 271px; border: none;">
               <div class="boking-plo">
@@ -245,7 +245,25 @@
     </div>
   </section>
 
-  <section class="overview" id="3">
+
+  <section class="emenities-sec" id="2">
+    <div class="container">
+    <h1>FEATURED AMENITIES</h1>
+       <div class="row amenity-row">
+          <div class="col-md-12">
+             <div class="row amenities-img">
+                <ul>  
+                  @foreach($amenities as $amenity)
+                   <li><i class='bx bx-check'></i> {{$amenity->amenity_name}}</li>
+                  @endforeach
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+  </section>
+
+  <section class="overview" id="4" >
     <div class="container">
        <div class="row over-row">
           <div class="col-md-12 p-0">
@@ -255,7 +273,7 @@
        </div>
     </div>
   </section> 
-  <section class="policy" id="4">
+  <section class="policy" id="6">
     <div class="container">
        <h1 class="mt-0">Hotel Policy</h1>
        <div class="row policy-row">

@@ -87,6 +87,7 @@ a:hover {
 	height: 255px;
 	-webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    object-fit: cover;
 }
 .item-card2-card{
     border-radius: 6px;
@@ -345,6 +346,7 @@ p.sub-txt {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: cover;
 }
 
 .tour-body .owl-carousel .item {
@@ -366,9 +368,6 @@ p.sub-txt {
 }
 .tour-body item-card2-img:before {
     overflow: hidden;
-}
-.tour-body .owl-carousel .owl-item img {
-    display: block;
 }
 .tour-body .item-card2-img img {
     -webkit-transform: scale(1.1);

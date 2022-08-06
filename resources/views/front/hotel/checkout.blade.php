@@ -10,7 +10,7 @@
       <div class="container">
       <div class="row">
          <div class="col-md-12 rew-heding">
-            <h3>Review your Booking</h3>
+            <h3>Review your Hotel Room Booking</h3>
          </div>
          <div class="col-md-9">
             <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingRoomOrder')}}">

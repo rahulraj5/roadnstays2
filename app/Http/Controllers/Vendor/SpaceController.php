@@ -422,6 +422,21 @@ class SpaceController extends Controller
                 }
             }
 
+            if (!empty($request->custom[0]['label'])) {
+                DB::table('space_custom_details')->where('space_id', '=', $space_id)->delete();
+                foreach ($request->custom as $custom_detail) {
+                    $custom_opt = array(
+                        'custom_label' => $custom_detail['label'],
+                        'custom_quantity' => $custom_detail['quantity'],
+                        'space_id' => $space_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('space_custom_details')->insert($custom_opt);
+                }
+            }    
+
             return response()->json(['status' => 'success', 'msg' => 'Space update Successfully']);
         }else{
             return response()->json(['status' => 'error', 'msg' => 'Space Name Already Exist']);

@@ -66,7 +66,7 @@
                     <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                         <tr>
                             <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                                <a href="{{ url('/') }}" style="text-decoration:none;"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/road-logo.png" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                                <a href="{{ url('/') }}" style="text-decoration:none;"><img src="{{ url('/') }}/resources/assets/img/road-logo.png" width="165" alt="Logo" style="width:80px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
                             </td>
                         </tr>
                         <tr>
@@ -99,10 +99,10 @@
                                 <div class="col-lge" style="display:inline-block;width:100%;max-width:395px;vertical-align:top;padding-bottom:20px;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                                     <!-- <p style="margin-top:0;margin-bottom:12px;">Nullam mollis sapien vel cursus fermentum. Integer porttitor augue id ligula facilisis pharetra. In eu ex et elit ultricies ornare nec ac ex. Mauris sapien massa, placerat non venenatis et, tincidunt eget leo.</p> -->
                                     <p style="margin-top:0;margin-bottom:18px;">If you did not request a password reset, no further action is required..</p>
-                                    <p style="margin:0;"><a href="{{ url('/') }}/resetPassword/{{ $token }}" style="background: #ff3884; text-decoration: none; padding: 10px 25px; color: #ffffff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ff3884">
+                                    <p style="margin:0;"><a href="{{ url('/') }}/reset-password/{{ $token }}" style="background: #ff3884; text-decoration: none; padding: 10px 25px; color: #ffffff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ff3884">
                                             <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]-->
                                             <span style="mso-text-raise:10pt;font-weight:bold;">Reset Password</span>
-                                            <!-- <a href="{{ url('/') }}/resetPassword/{{ $token }}"><button class="btn btn-primary" style="text-align: center;">Reset Passsword</button></a> -->
+                                            <!-- <a href="{{ url('/') }}/reset-password/{{ $token }}"><button class="btn btn-primary" style="text-align: center;">Reset Passsword</button></a> -->
                                             <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]-->
                                         </a></p>
                                 </div>
@@ -121,15 +121,15 @@
                         </tr> -->
                         <tr>
                             <td style="padding:30px;background-color:#ffffff;">
-                                <p style="margin:0;">If you're having trouble clicking the 'Reset Password' button, copy and paste the URL, below into your web browser :</p><a href="{{ url('/') }}/resetPassword/{{ $token }}">{{ $reseturll }}/{{ $token }}</a>
+                                <p style="margin:0;">If you're having trouble clicking the 'Reset Password' button, copy and paste the URL, below into your web browser :</p><a href="{{ url('/') }}/reset-password/{{ $token }}">{{ $reseturll }}/{{ $token }}</a>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td style="padding:30px;text-align:center;font-size:12px;background-color:#404040;color:#cccccc;">
                                 <p style="margin:0 0 8px 0;"><a href="http://www.facebook.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/facebook_1.png" width="40" height="40" alt="f" style="display:inline-block;color:#cccccc;"></a> <a href="http://www.twitter.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/twitter_1.png" width="40" height="40" alt="t" style="display:inline-block;color:#cccccc;"></a></p>
                                 <p style="margin:0;font-size:14px;line-height:20px;">&reg; Someone, Somewhere 2021<br><a class="unsub" href="http://www.example.com/" style="color:#cccccc;text-decoration:underline;">Unsubscribe instantly</a></p>
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                     <!--[if mso]>
           </td>

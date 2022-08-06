@@ -3,620 +3,38 @@
 @section('current_page_css')
 @endsection
 
-@section('content')
-<main id="main" class="main-body">
-  <section class="spaces-detail">
-    <div class="container">
-      <div class="row space-rw">
-        <div class="col-md-12 space-dl">
-          <h5 class="">Find Your Perfect Venue for any ocassion</h5>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="space-listsec">
-    <div class="container">
-      <div class="tabs">
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
-        <label for="tab1" class="tabs__label"> <img src="{{ url('resources/assets/img/space/private-room.png')}}" class="testimonial-img" alt=""> Private Room</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-
-            <a href=""><input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;"></a>
-
-
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-        <label for="tab2" class="tabs__label"> <img src="{{ url('resources/assets/img/space/cabin.png')}}" class="testimonial-img" alt="">cabin</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-        <label for="tab3" class="tabs__label"><img src="{{ url('resources/assets/img/space/condo.png')}}" class="testimonial-img" alt="">Condos</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab5">
-        <label for="tab5" class="tabs__label"><img src="{{ url('resources/assets/img/space/dorm.png')}}" class="testimonial-img" alt="">Dorm</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab8">
-        <label for="tab8" class="tabs__label"><img src="{{ url('resources/assets/img/space/apartment.png')}}" class="testimonial-img" alt="">Apartment</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab6">
-        <label for="tab6" class="tabs__label"><img src="{{ url('resources/assets/img/space/villa.png')}}" class="testimonial-img" alt="">villa</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab7">
-        <label for="tab7" class="tabs__label"><img src="{{ url('resources/assets/img/space/house.png')}}" class="testimonial-img" alt="">House</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-        <label for="tab4" class="tabs__label"> <img src="{{ url('resources/assets/img/space/co-working.png')}}" class="testimonial-img" alt="">Co-working</label>
-        <div class="tabs__content">
-          <div class="select-dropdown">
-            <select>
-              <option value="">Select Ocassion</option>
-              <option value="Option 1">Wedding</option>
-              <option value="Option 2">Engagement</option>
-              <option value="Option 3">Reception</option>
-              <option value="Option 4">Birthday Party</option>
-              <option value="Option 5">Social Gathering</option>
-              <option value="Option 6">Corporate Party</option>
-              <option value="Option 7">Anniversary</option>
-              <option value="Option 8">Cocktail Party</option>
-              <option value="Option 9">Bachelor Party</option>
-              <option value="Option 10">Kitty Party</option>
-              <option value="Option 11">Pool Party</option>
-              <option value="Option 12">Team Building</option>
-              <option value="Option 13">Confrence</option>
-              <option value="Option 14">Exhibition</option>
-              <option value="Option 15">Meeting</option>
-            </select>
-          </div>
-
-          <span class="space-span"><i class='bx bx-map'></i>
-            <input type="location" name="location" placeholder="Destination, City, Locality, landmark...." class="locatin-fil"></span>
-          <input type="submit" value="Find" class="btn btn-primary pull-right" style="background: #126c62; border:none;">
-        </div>
-
-      </div>
-    </div>
-
-  </section>
-  <section class="space-sec">
-    <div class="container-fluid">
-      <div class="row filter-row space-filter">
-        <div class="col-md-3">
-          <h6>Filter- Space</h6>
-          <div class="category category-1">
-            <p>Space Type</p>
-            <ul>
-              @foreach($categories as $category)
-                <li><input type="checkbox" name="{{$category->category_name}}" id="">{{$category->category_name}}</li>
-              @endforeach
-              <!-- <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
-              <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
-              <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
-              <li><input type="checkbox" name="Business'" id="">Business'</li>
-              <li><input type="checkbox" name="Schools" id="">Schools</li>
-              <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li> -->
-            </ul>
-          </div>
-          <!-- <div class="category category-8">
-            <p>Range (in lacs)</p>
-            <input type="range" name="range" id="">
-            <label for="range">0</label>
-          </div> -->
-
-          <div class="category category-2">
-            <p>Room Wise</p>
-            <ul>
-              @foreach($subcategories as $subcategory)
-                <li><input type="checkbox" name="{{$subcategory->sub_category_name}}" id="">{{$subcategory->sub_category_name}}</li>
-              @endforeach
-              <!-- <li><input type="checkbox" name="Conferences" id="">Conferences</li>
-              <li><input type="checkbox" name="Networking events" id="">Networking events</li>
-              <li><input type="checkbox" name="Seminars" id="">Seminars</li>
-              <li><input type="checkbox" name="Product launches" id="">Product launches</li>
-              <li><input type="checkbox" name="Meetings" id="">Meetings</li>
-              <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
-              <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li> -->
-            </ul>
-          </div>
-
-          <!-- <div class="category category-3">
-            <p>CHARITY/FUNDRAISING</p>
-            <ul>
-              <li><input type="checkbox" name="Society balls" id="">Society balls</li>
-              <li><input type="checkbox" name="Sports events" id="">Sports events</li>
-              <li><input type="checkbox" name="Charitable auctions" id="">Charitable auctions</li>
-              <li><input type="checkbox" name="Sponsored runs" id="">Sponsored runs</li>
-              <li><input type="checkbox" name="Sponsored cycling" id="">Sponsored cycling</li>
-              <li><input type="checkbox" name="Sponsored skydiving" id="">Sponsored skydiving</li>
-              <li><input type="checkbox" name="Sponsored walks" id="">Sponsored walks</li>
-
-            </ul>
-          </div> -->
-
-          <!-- <div class="category category-4">
-            <p>Space For Kudo's</p>
-            <ul>
-              <li><input type="checkbox" name="Music events" id="">Music events</li>
-              <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
-              <li><input type="checkbox" name="Festivals" id="">Festivals</li>
-            </ul>
-          </div> -->
-          <div class="category category-4">
-            <p>Select Date</p>
-            <input type="date" name="" id="" placeholder="select a date">
-
-          </div>
-          <div class="category category-5">
-            <p>Event Venue</p>
-            <ul>
-              @foreach($space_country as $country)
-                <li><input type="checkbox" name="" id="">{{ $country->country_name }}</li>
-              @endforeach  
-            </ul>
-          </div>
-          <!-- <div class="category category-5">
-            <p>Event Venue</p>
-            <ul>
-              <li><input type="checkbox" name="" id="">Owner</li>
-              <li><input type="checkbox" name="" id="">vendor</li>
-            </ul>
-          </div> -->
-        </div>
-        <div class="col-md-9">
-          <section id="featured" class="testimonials space-testimonial">
-            <div class="container" data-aos="fade-up">
-              <div class=" trending-city">
-                <h3>Top Famous Spaces</h3>
-                <p class=""> These are the most recent properties added, with featured listed </p>
-              </div>
-              <div class="owl-carousel featured">
-
-                @if (!empty($spaceList))
-
-                  @foreach($spaceList as $space)
-
-                    <div class="testimonial-wrap">
-                      <div class="testimonial-item">
-                        <div class="imgae-rid">
-                          <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}">
-                            <img src="{{url('public/uploads/space_images/')}}/{{$space->image}}" class="testimonial-img" alt="" width="250px" height="160px">
-                          </a> 
-                          <div class="wht-text-r text-t">
-                            <h4> {{ $space->category_name }}</h4>
-                          </div>
-                        </div>
-                        <div class="world-class-feature">
-                          <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}"><h3> {{ $space->space_name }} </h3></a>
-                          <a href="" class="city-nam"><i class='bx bx-map'></i> {{ Str::limit($space->space_address, 20) }} </a>
-                          <div class="city-nam"><i class='bx bx-home-alt'></i> {{ $space->city }}</div>
-                        </div>
-                      </div>
-                    </div>
-                  @endforeach  
-                @endif  
-              </div>
-            </div>
-          </section>
-          <h5 class="curated-head">Curated Space collections <br> <span>In karachi</span></h5>
-          <div class="curated-owl">
-            <div class="owl-carousel owl-theme">
-              <div class="item">
-                <div class="imgae-ri">
-                  <img src="https://source.unsplash.com/random/?person" class="testimonial-img" alt="" height="300px">
-                  <div class="text-t">
-                    <h4>For Single Room</h4>
-                    <p>300+ Spaces Listed</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="imgae-ri">
-                  <img src="https://source.unsplash.com/random/?family" class="testimonial-img" alt="" height="300px">
-                  <div class="text-t">
-                    <h4>With Your Family</h4>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="imgae-ri">
-                  <img src="https://source.unsplash.com/random/?group, friends" class="testimonial-img" alt="" height="300px">
-                  <div class="text-t">
-                    <h4>Friends, Group</h4>
-                    <p>10 best location for you!</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="imgae-ri">
-                  <img src="https://source.unsplash.com/random/?travel, trip" class="testimonial-img" alt="" height="300px">
-                  <div class="text-t">
-                    <h4>Wedding Program</h4>
-                    <p>Don't wait for the Location, We are here</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="imgae-ri">
-                  <img src="https://source.unsplash.com/random/?couple" class="testimonial-img" alt="" height="300px">
-                  <div class="text-t">
-                    <h4>For Couple</h4>
-                    <p>just book now</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="view-box">
-            <img src="https://static.99acres.com/universalapp/img/d_hp_new_verified_prop_card.webp" alt="">
-            <div class="view-text">
-              <h5>View Spaces verified by Roadnstays</h5>
-              <p>Verified on site for genuineness. Check out real photos of the property</p>
-            </div>
-            <a href="#"><i class='bx bxs-right-arrow-alt'></i></a>
-          </div>
-
-          <!-- <div class="quality-spaces">
-            <h5 class="curated-head">List Space collections Type <br> <span>Choose your preferred furnishing</span></h5>
-            <div class="q-space">
-              <div class="img-dec">
-                <img src="https://source.unsplash.com/random/?Bride, makeup" alt="">
-                <h5>Facilation</h5>
-              </div>
-              <div class="img-dec">
-                <img src="https://source.unsplash.com/random/?Room" alt="">
-                <h5>Non-Facilation</h5>
-              </div>
-              <div class="img-dec">
-                <img src="https://source.unsplash.com/random/?dj, event" alt="">
-                <h5>Genie Services</h5>
-              </div>
-            </div>
-          </div> -->
-          <div class="segment-space">
-
-
-            <h5> <img src="https://static.99acres.com/universalapp/img/proj_investment_v2.webp" alt="">View Spaces With Budget</h5>
-
-            <div class="segment-owl">
-              <div class="owl-carousel owl-theme">
-                <div class="item box-item">
-                  <div class="segment-text">
-                    <h5>Affordable Space <span><br>
-                        <<- PKR 15000/ month</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="item box-item">
-                  <div class="segment-text">
-                    <h5>Mid-Segment Space <span><br>->> PKR 15000/ month</span></h5>
-                  </div>
-                </div>
-                <div class="item box-item">
-                  <div class="segment-text">
-                    <h5>Affordable Space <span><br>->> PKR 50000/ month</span></h5>
-                  </div>
-                </div>
-                <div class="item box-item">
-                  <div class="segment-text">
-                    <h5>Affordable Space <span><br>->>PKR 100000/ month</span></h5>
-                  </div>
-                </div>
-                <div class="item box-item">
-                  <div class="segment-text">
-                    <h5>Affordable Space <span><br>->>PKR 150000/ month</span></h5>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="featured-city" class="testimonials spacecity-testimonial">
-    <div class="container-fluid" data-aos="fade-up">
-      <div class="trendwith-city">
-        <p>Top Cities</p>
-        <h5>Explore Spaces in Popular Cities</h5>
-      </div>
-      <div class="space-city">
-        <div class="owl-carousel owl-theme">
-
-        @foreach($space_country_wise as $space_country)
-            <div class="item">
-              <div class="testimonial-wrap">
-                <div class="testimonial-ite">
-                  <div class="imgae-r"> 
-                    <!-- <i class='bx bx-buildings'></i> -->
-                    <!-- <a href="{{ url('/space-city-wise') }}"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a> -->
-                    <a href="{{url('/space-city-wise')}}/{{base64_encode($space_country->space_country)}}" target="_blank"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a>
-                  </div>
-                  <h5> {{ ucfirst(strtolower(trans($space_country->country_name))) }} </h5>
-                </div>
-              </div>
-            </div>
-        @endforeach
-          
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="featured-blog" class="testimonials spaceblog-testimonial">
-    <div class="container-fluid" data-aos="fade-up">
-      <div class="trend-blog">
-        <h3 style="text-align: left;">Top Article on some spaces</h3>
-
-      </div>
-      <div class="owl-carousel featured">
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?catering,haldi" class="testimonial-img" alt="" width="250px" height="250px">
-
-            </div>
-            <div class="world-class">
-
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?Resort villa" class="testimonial-img" alt="" width="250px" height="250px">
-
-            </div>
-            <div class="world-class">
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?yatch" class="testimonial-img" alt="" width="250px" height="250px">
-
-            </div>
-            <div class="world-class">
-
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?hotel wedding" class="testimonial-img" alt="" width="250px" height="250px">
-            </div>
-            <div class="world-class">
-
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?Wedding hall" class="testimonial-img" alt="" width="250px" height="250px">
-            </div>
-            <div class="world-class">
-
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-wrap">
-          <div class="testimonial-item">
-            <div class="imgae">
-              <img src="https://source.unsplash.com/random/?Beach" class="testimonial-img" alt="" width="250px" height="250px">
-
-            </div>
-            <div class="world-class">
-
-              <h3> Top 5 affordable localities in Pune </h3>
-              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-
-    </div>
-  </section>
-</main><!-- End #main -->
-@endsection
-
 @section('current_page_js')
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#dt1").datepicker({
+      dateFormat: "dd-M-yy",
+      minDate: 0,
+      onSelect: function() {
+        var dt2 = $('#dt2');
+        var startDate = $(this).datepicker('getDate');
+        var minDate = $(this).datepicker('getDate');
+        var dt2Date = dt2.datepicker('getDate');
+        //difference in days. 86400 seconds in day, 1000 ms in second
+        var dateDiff = (dt2Date - minDate) / (86400 * 1000);
+
+        startDate.setDate(startDate.getDate() + 30);
+        if (dt2Date == null || dateDiff < 0) {
+          dt2.datepicker('setDate', minDate);
+        } else if (dateDiff > 30) {
+          dt2.datepicker('setDate', startDate);
+        }
+        //sets dt2 maxDate to the last day of 30 days window
+        dt2.datepicker('option', 'maxDate', startDate);
+        dt2.datepicker('option', 'minDate', minDate);
+      }
+    });
+    $('#dt2').datepicker({
+      dateFormat: "dd-M-yy",
+      minDate: 0
+    });
+  });
+</script>
 <script type="text/javascript">
   $(function() {
     // ADDING DATA
@@ -717,10 +135,10 @@
         items: 1
       },
       600: {
-        items: 1
+        items: 2
       },
       1000: {
-        items: 2
+        items: 3
       }
     }
   })
@@ -738,7 +156,7 @@
         items: 2
       },
       1000: {
-        items: 3
+        items: 4
       }
     }
   })
@@ -761,4 +179,650 @@
     }
   })
 </script>
+<script>
+  $('.space-t .owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+      0: {
+        items: 4
+      },
+      600: {
+        items: 6
+      },
+      1000: {
+        items: 10
+      }
+    }
+  })
+</script>
+
+<script>
+  $(document).ready(function() {
+    $(window).scroll(function() {
+      if ($(document).scrollTop() > 50) {
+
+        $("#search-space-sec").addClass("newClass-1");
+        $("#space-searc").addClass("space-st");
+      } else {
+        $("#search-space-sec").removeClass("newClass-1");
+        $("#space-searc").removeClass("space-st");
+      }
+    });
+  });
+</script>
+
+<script>
+   var placeSearch, autocomplete;
+   var componentForm = {
+      // street_number: 'long_name',
+      // route: 'long_name',
+      // locality: 'long_name',
+      // postal_code: 'short_name'
+   };
+
+   function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('autocomplete')), {
+            types: ['(cities)']
+         });
+      autocomplete.addListener('place_changed', function() {
+         var place = autocomplete.getPlace();
+         console.log(place);
+         document.getElementById('space_latitude').value = place.geometry.location.lat();
+         document.getElementById('space_longitude').value = place.geometry.location.lng();
+         fillInAddress(autocomplete, "");
+      });
+   }
+
+   function fillInAddress(autocomplete, unique) {
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+         if (!!document.getElementById(component + unique)) {
+            document.getElementById(component + unique).value = '';
+            document.getElementById(component + unique).disabled = false;
+         }
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+         var addressType = place.address_components[i].types[0];
+         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType + unique).value = val;
+         }
+      }
+   }
+   google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+   function geolocate() {
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+               lat: position.coords.latitude,
+               lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+               center: geolocation,
+               radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+         });
+      }
+   }
+</script>
+
+<script>
+   $(function() {
+      $('.space_dater').daterangepicker({
+         opens: 'right'
+      }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
+
+<script>
+$(window).scroll(function(){
+    if ($(this).scrollTop() >0) {
+       $('#logo-s').addClass('logo-z');
+       
+
+    } else {
+       $('#logo-s').removeClass('logo-z');
+       
+       
+    }
+});
+
+</script>
+
+<script>
+   var today = new Date(); 
+   var dd = today.getDate(); 
+   var mm = today.getMonth()+1; //January is 0! 
+   var yyyy = today.getFullYear(); 
+   if(dd<10){ dd='0'+dd } 
+   if(mm<10){ mm='0'+mm } 
+   let today_date = dd+'/'+mm+'/'+yyyy;
+   // alert(today);
+
+   $(function() {
+       
+      $('.reserved').daterangepicker({
+         // minDate:new Date(),
+         dateFormat: "dd-M-yy",
+         minDate: 1,
+         defaultDate: new Date(),
+         // minDate: today_date,
+         // opens: 'right'
+      }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
+
+<script>
+   var placeSearch, autocomplete;
+   var componentForm = {
+      // street_number: 'long_name',
+      // route: 'long_name',
+      // locality: 'long_name',
+      // postal_code: 'short_name'
+   };
+
+   function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('autocomplete_space')), {
+            types: ['(cities)']
+         });
+      autocomplete.addListener('place_changed', function() {
+         var place = autocomplete.getPlace();
+         console.log(place);
+         document.getElementById('space_latitude').value = place.geometry.location.lat();
+         document.getElementById('space_longitude').value = place.geometry.location.lng();
+         fillInAddress(autocomplete, "");
+      });
+   }
+
+   function fillInAddress(autocomplete, unique) {
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+         if (!!document.getElementById(component + unique)) {
+            document.getElementById(component + unique).value = '';
+            document.getElementById(component + unique).disabled = false;
+         }
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+         var addressType = place.address_components[i].types[0];
+         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType + unique).value = val;
+         }
+      }
+   }
+   google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+   function geolocate() {
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+               lat: position.coords.latitude,
+               lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+               center: geolocation,
+               radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+         });
+      }
+   }
+</script>
+
+@endsection
+
+@section('content')
+<main id="main" class="main-body" style="padding-top:77px;">
+
+  <section id="space-sticky" class="space-car">
+  
+    <div class="container-fluid">
+      <div class="space-t">
+        <div class="owl-carousel owl-theme">
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" alt="" class="img-fluid">
+            </div>
+            <h6>Cabin</h6>
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/condos.png" alt="" class="img-fluid">
+            </div>
+            <h6>Condos</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/co-work.png" alt="" class="img-fluid">
+            </div>
+            <h6>Coworking space</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" alt="" class="img-fluid">
+            </div>
+            <h6>Dorm</h6>
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/villa.png" alt="" class="img-fluid">
+            </div>
+            <h6>Etire Villa</h6>
+
+          </div>
+
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/house.png" alt="" class="img-fluid">
+            </div>
+            <h6>Entire Homes</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/private-room.png" alt="" class="img-fluid">
+            </div>
+            <h6>Private Room</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/apartments.png" alt="" class="img-fluid">
+            </div>
+            <h6>Entire apartement</h6>
+
+          </div>
+
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/portions.png" alt="" class="img-fluid">
+            </div>
+            <h6>Upper/Lower Portions</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/shared-room.png" alt="" class="img-fluid">
+            </div>
+            <h6>Shared Room</h6>
+
+          </div>
+          <div class="item">
+            <div class="img-rid">
+              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/event.png" alt="" class="img-fluid">
+            </div>
+            <h6>Event Space</h6>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+
+    <div id="search-space-sec" class="space-type">
+    
+      <form method="GET" action="{{url('spaceList')}}">
+        @csrf
+        <div class="container">
+        <div class="logo-s" id="logo-s"><a href="{{ url('/') }}" class="logo mr-auto"><img src="{{ url('/') }}/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
+          <div id="space-searc" class="row space-searc">
+            <div class="col-md-4 pr-0 h-space">
+              <span class="span3 form-control-lo"><i class="bx bx-map"></i>
+                <!-- <input type="location" name="location" placeholder="Destination" class="locatin-space"> -->
+                <input type="location" name="space_location" placeholder="Location, City, Place" class="locatin-space" id="autocomplete_space" required="">
+                <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
+                <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+              </span>
+            </div>
+            
+            <div class="col-md-3 pr-0 space_dater reserved">
+              <input id="space_checkin_date" placeholder="Check in Date" class="s-siz" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date">
+              <!-- <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date"> -->
+            </div>
+            <div class="col-md-3 pr-0 space_dater reserved">
+              <input id="space_checkout_date" placeholder="Check out Date" class="s-siz" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date">
+              <!-- <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date"> -->
+            </div>
+
+            <!-- <span class="reservation1" id="reservation">
+              <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
+            </span>
+            <span class="to-date"><i class="bx bx-transfer"></i></span>
+            <span class="reservation2" id="reservation">
+              <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
+            </span> -->
+
+            <div class="col-md-2 pr-0 space-sbutton">
+              <button><i class='bx bx-search'></i></button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+
+
+
+
+
+  </section>
+
+
+  <section class="space-sec">
+    <div class="container-fluid">
+      <div class="row filter-row space-filter">
+
+        <div class="col-md-12">
+          <section id="featured" class="testimonials space-testimonial">
+            <div class="container-fluid" data-aos="">
+              <div class=" trending-city">
+                <h3>Top Famous Spaces</h3>
+                <p class=""> These are the most recent properties added, with featured listed </p>
+              </div>
+              <div class="owl-carousel featured">
+
+                @if (!empty($spaceList))
+
+                @foreach($spaceList as $space)
+
+                <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                    <div class="img-rid">
+                      <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}">
+                        <img src="{{url('public/uploads/space_images/')}}/{{$space->image}}" class="testimonial-img" alt="" width="250px" height="160px">
+                      </a>
+                      <div class="wht-text-r text-t">
+                        <h4> {{ $space->category_name }}</h4>
+                      </div>
+                    </div>
+                    <div class="world-class-feature">
+                      <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}">
+                        <h3> {{ $space->space_name }} </h3>
+                      </a>
+                      <a href="" class="city-nam"><i class='bx bx-map'></i> {{ Str::limit($space->space_address, 20) }} </a>
+                      <div class="city-nam"><i class='bx bx-home-alt'></i> {{ $space->city }}</div>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+                @endif
+              </div>
+            </div>
+          </section>
+          <h5 class="curated-head">Curated Space collections <br> <span>In karachi</span></h5>
+          <div class="curated-owl">
+            <div class="owl-carousel owl-theme">
+              <div class="item">
+                <div class="imgae-ri">
+                  <img src="https://source.unsplash.com/random/?person" class="testimonial-img" alt="" height="300px">
+                  <div class="text-t">
+                    <h4>For Single Room</h4>
+                    <p>300+ Spaces Listed</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="imgae-ri">
+                  <img src="https://source.unsplash.com/random/?family" class="testimonial-img" alt="" height="300px">
+                  <div class="text-t">
+                    <h4>With Your Family</h4>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="imgae-ri">
+                  <img src="https://source.unsplash.com/random/?group, friends" class="testimonial-img" alt="" height="300px">
+                  <div class="text-t">
+                    <h4>Friends, Group</h4>
+                    <p>10 best location for you!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="imgae-ri">
+                  <img src="https://source.unsplash.com/random/?travel, trip" class="testimonial-img" alt="" height="300px">
+                  <div class="text-t">
+                    <h4>Wedding Program</h4>
+                    <p>Don't wait for the Location, We are here</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="imgae-ri">
+                  <img src="https://source.unsplash.com/random/?couple" class="testimonial-img" alt="" height="300px">
+                  <div class="text-t">
+                    <h4>For Couple</h4>
+                    <p>just book now</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="view-box">
+            <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/7g.jpg" alt="">
+            <div class="view-text">
+              <h5>View Spaces verified by Roadnstays</h5>
+              <p>Verified on site for genuineness. Check out real photos of the property</p>
+              <a href="#"><i class='bx bxs-right-arrow-alt'></i></a>
+            </div>
+
+          </div>
+
+          <!-- <div class="quality-spaces">
+            <h5 class="curated-head">List Space collections Type <br> <span>Choose your preferred furnishing</span></h5>
+            <div class="q-space">
+              <div class="img-dec">
+                <img src="https://source.unsplash.com/random/?Bride, makeup" alt="">
+                <h5>Facilation</h5>
+              </div>
+              <div class="img-dec">
+                <img src="https://source.unsplash.com/random/?Room" alt="">
+                <h5>Non-Facilation</h5>
+              </div>
+              <div class="img-dec">
+                <img src="https://source.unsplash.com/random/?dj, event" alt="">
+                <h5>Genie Services</h5>
+              </div>
+            </div>
+          </div> -->
+          <div class="segment-space">
+
+
+            <h5> <img src="https://static.99acres.com/universalapp/img/proj_investment_v2.webp" alt="">View Spaces With Budget</h5>
+
+            <div class="segment-owl">
+              <div class="owl-carousel owl-theme">
+                <div class="item box-item">
+                  <div class="segment-text">
+                    <h5>Affordable Space <span><br>
+                        PKR 15000/ month</span>
+                    </h5>
+                    <p>400+ Properties</p>
+                    <a href="#">See All</a>
+                  </div>
+                </div>
+                <div class="item box-item">
+                  <div class="segment-text">
+                    <h5>Mid-Segment Space <span><br>- PKR 15000/ month</span></h5>
+                    <p>400+ Properties</p>
+                    <a href="#">See All</a>
+                  </div>
+                </div>
+                <div class="item box-item">
+                  <div class="segment-text">
+                    <h5>Affordable Space <span><br> PKR 50000/ month</span></h5>
+                    <p>400+ Properties</p>
+                    <a href="#">See All</a>
+                  </div>
+                </div>
+                <div class="item box-item">
+                  <div class="segment-text">
+                    <h5>Affordable Space <span><br>PKR 100000/ month</span></h5>
+                    <p>400+ Properties</p>
+                    <a href="#">See All</a>
+                  </div>
+                </div>
+                <div class="item box-item">
+                  <div class="segment-text">
+                    <h5>Affordable Space <span><br>PKR 150000/ month</span></h5>
+                    <p>400+ Properties</p>
+                    <a href="#">See All</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="featured-city" class="testimonials spacecity-testimonial">
+    <div class="container-fluid" data-aos="">
+      <div class="trendwith-city">
+        <p>Top Cities</p>
+        <h5>Explore Spaces in Popular Cities</h5>
+      </div>
+      <div class="space-city">
+        <div class="owl-carousel owl-theme">
+
+          @foreach($space_country_wise as $space_country)
+          <div class="item">
+            <div class="testimonial-wrap">
+              <div class="testimonial-ite">
+                <div class="imgae-r">
+                  <!-- <i class='bx bx-buildings'></i> -->
+                  <!-- <a href="{{ url('/space-city-wise') }}"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a> -->
+                  <a href="{{url('/space-city-wise')}}/{{base64_encode($space_country->space_country)}}" target="_blank"><img src="{{url('/')}}/public/uploads/space_images/{{$space_country->image}}" alt=""></a>
+                </div>
+                <h5> {{ ucfirst(strtolower(trans($space_country->country_name))) }} </h5>
+              </div>
+            </div>
+          </div>
+          @endforeach
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="featured-blog" class="testimonials spaceblog-testimonial">
+    <div class="container-fluid" data-aos="">
+      <div class="trend-blog">
+        <h3 style="text-align: left;">Top Article on some spaces</h3>
+
+      </div>
+      <div class="owl-carousel featured">
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?catering,haldi" class="testimonial-img" alt="" width="250px" height="250px">
+
+            </div>
+            <div class="world-class">
+
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?Resort villa" class="testimonial-img" alt="" width="250px" height="250px">
+
+            </div>
+            <div class="world-class">
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?yatch" class="testimonial-img" alt="" width="250px" height="250px">
+
+            </div>
+            <div class="world-class">
+
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?hotel wedding" class="testimonial-img" alt="" width="250px" height="250px">
+            </div>
+            <div class="world-class">
+
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?Wedding hall" class="testimonial-img" alt="" width="250px" height="250px">
+            </div>
+            <div class="world-class">
+
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-wrap">
+          <div class="testimonial-item">
+            <div class="imgae">
+              <img src="https://source.unsplash.com/random/?Beach" class="testimonial-img" alt="" width="250px" height="250px">
+
+            </div>
+            <div class="world-class">
+
+              <h3> Top 5 affordable localities in Pune </h3>
+              <a href="#" class="city-nam"><i class='bx bxs-user'></i> By shivendra, manager - roadnstays </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+</main><!-- End #main -->
 @endsection

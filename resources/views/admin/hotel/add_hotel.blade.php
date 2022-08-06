@@ -905,7 +905,7 @@
                             <label>Scouts ID</label>
                             <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
                               <option value="">Select Scouts</option>
-                              @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                              @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                               @foreach ($scouts as $value)
                               <option value="{{ $value->id }}">{{ $value->first_name }}</option>
                               @endforeach
@@ -1324,7 +1324,7 @@
                       @php $amenity_count = DB::table('H2_Amenities')->where('amenity_type',$value->id)->count(); @endphp
 
                       @if($amenity_count > 0)
-                      @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->get(); @endphp
+                      @php $amenities = DB::table('H2_Amenities')->orderby('amenity_id', 'ASC')->where('amenity_type',$value->id)->where('status',1)->get(); @endphp
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>{{$value->name}}</label>
@@ -1353,7 +1353,7 @@
                       @php $hotel_services_count = DB::table('H3_Services')->where('service_type_id',$value->id)->count(); @endphp
 
                       @if($hotel_services_count > 0)
-                      @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->get(); @endphp
+                      @php $services = DB::table('H3_Services')->orderby('id', 'ASC')->where('service_type_id',$value->id)->where('status',1)->get(); @endphp
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>{{$value->name}}</label>

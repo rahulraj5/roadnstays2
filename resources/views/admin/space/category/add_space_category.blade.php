@@ -101,7 +101,7 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Space Category Image</label>
+                      <label>Space Category Icon</label>
                       <input type="file" class="form-control" name="space_cat_img" id="space_cat_img" >
                     </div>
                   </div>

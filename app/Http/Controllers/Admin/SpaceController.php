@@ -887,4 +887,123 @@ class SpaceController extends Controller
         }
     }
 
+
+        
+    public function booking_list()
+    {
+        $data['bookingList'] = DB::table('space_booking')
+                                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                                ->select('space_booking.*',
+                                    'users.user_type',
+                                    'users.first_name as user_first_name',
+                                    'users.last_name as user_last_name',
+                                    'users.email as user_email',
+                                    'users.contact_number as user_contact_num',
+                                    'users.role_id as user_role_id',
+                                    'users.is_verify_email as user_email_is_verify_email',
+                                    'users.is_verify_contact as user_contact_is_verify_contact',
+                                    'space.space_name',
+                                    'space.space_user_id as space_vendor_id',
+                                    // 'space.is_admin as hotel_added_is_admin',
+                                    // 'space.property_contact_name',
+                                    // 'space.property_contact_num',
+                                    'space.space_address',
+                                    'space.city',
+                                    // 'space.stay_price as hotelroom_min_stay_price',
+                                    // 'room_list.name as room_name'
+                                    )
+                                ->orderby('id', 'DESC')
+                                ->get();
+        // echo "<pre>";print_r($data['bookingList']);die;
+        return view('admin/booking/space_booking_list')->with($data);
+    }
+    
+    public function view_booking($id)
+    {
+        //print_r($id);die;
+        $booking_id = base64_decode($id);
+
+        // echo "<pre>";print_r($data);die;
+        $data['bookingList'] = DB::table('space_booking')
+                                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                                ->join('country', 'users.user_country', '=', 'country.id')
+                                ->select('space_booking.*',
+                                    'users.user_type',
+                                    'users.first_name as user_first_name',
+                                    'users.last_name as user_last_name',
+                                    'users.email as user_email',
+                                    'users.contact_number as user_contact_num',
+                                    'users.role_id as user_role_id',
+                                    'users.is_verify_email as user_email_is_verify_email',
+                                    'users.is_verify_contact as user_contact_is_verify_contact',
+                                    'users.address as user_address',
+                                    'users.state_id as user_state',
+                                    'users.user_city as user_city',
+                                    'users.postal_code as user_postal_code',
+                                    'country.nicename as user_country',
+                                    'space.space_name',
+                                    'space.space_user_id as space_vendor_id',
+                                    'space.space_address',
+                                    'space.city',
+                                    'space.guest_number',
+                                    'space.room_number',
+                                    'space.checkout_hr',
+                                    'space.price_per_night')
+                                // ->orderby('created_at', 'DESC')
+                                ->where('space_booking.id',$booking_id)
+                                ->first();
+
+        // echo "<pre>";print_r($data['bookingList']);
+        $space_vendor_id = $data['bookingList']->space_vendor_id;
+        // echo "<pre>";print_r($space_vendor_id);die;
+        if($space_vendor_id == 1){
+                $data['vendor_details'] = DB::table('admins')->where('id', $space_vendor_id)->first();
+        }else{
+            $data['vendor_details'] = DB::table('users')
+            ->join('country', 'users.user_country', 'country.id')
+            ->select('users.*','country.name as vendor_country_name')
+            ->where('users.id', $space_vendor_id)->first();
+        } 
+
+        // echo "<pre>";print_r($data['vendor_details']);die;
+
+        $data['order_details'] = DB::table('space_booking')
+                        ->join('users', 'space_booking.user_id', '=', 'users.id')
+                        ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                        ->join('country', 'users.user_country', '=', 'country.id')
+                        ->select('space_booking.*',
+                            'users.user_type',
+                            'users.first_name as user_first_name',
+                            'users.last_name as user_last_name',
+                            'users.email as user_email',
+                            'users.contact_number as user_contact_num',
+                            'users.role_id as user_role_id',
+                            'users.is_verify_email as user_email_is_verify_email',
+                            'users.is_verify_contact as user_contact_is_verify_contact',
+
+                            'users.address as user_address',
+                            'users.state_id as user_state',
+                            'users.user_city as user_city',
+                            'users.postal_code as user_postal_code',
+                            'country.nicename as user_country',
+
+                            'space.space_name',
+                            'space.space_user_id as space_vendor_id',
+                            'space.space_address',
+                            'space.city',
+                            'space.guest_number',
+                            'space.room_number',
+                            'space.checkout_hr',
+                            'space.price_per_night')
+                            // ->orderby('created_at', 'DESC')
+                            ->where('space_booking.id',$booking_id)
+                            ->get();
+
+        // echo "<pre>";print_r($data['order_details']);die;
+        // return view('admin/booking/booking_view')->with($data);
+        return view('admin/booking/space_booking_details')->with($data);
+    }
+
 }

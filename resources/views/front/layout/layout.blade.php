@@ -182,6 +182,8 @@
    <!-- Vendor JS Files -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
    <script src="{{ asset('resources/assets/vendor/jquery/jquery.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
@@ -205,6 +207,7 @@
    <script src="{{ asset('resources/js/raone/jquery.validate.min.js') }}"></script>
    <script src="{{ asset('resources/js/raone/jquery.form.js') }}"></script>
    <script src="{{ asset('resources/assets/js/forms.js') }}"></script>
+   
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">

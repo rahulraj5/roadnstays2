@@ -329,25 +329,25 @@
                                  <div class="row">
                                     <div class="form-group col-md-6">
                                        <label for="exampleInputPassword1">First name*</label>
-                                       <input type="text" class="form-control" id="exampleInputPassword1" name="first_name">
+                                       <input type="text" class="form-control" id="exampleInputPassword1" name="first_name" required="">
                                     </div>
                                     <div class="form-group col-md-6">
                                        <label for="exampleInputEmail1">Last name*</label>
-                                       <input type="text" class="form-control" id="exampleInputEmail1" name="last_name">
+                                       <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" required="">
                                     </div>
                                     <div class="form-group col-md-6">
                                        <label for="exampleInputEmail1">Mobile phone number *</label>
-                                       <input type="text" class="form-control" id="exampleInputEmail1" name="mobile">
+                                       <input type="text" class="form-control" id="exampleInputEmail1" name="mobile" required="">
                                     </div>
                                     <div class="form-group col-md-6">
                                        <label for="exampleInputEmail1">Email *</label>
-                                       <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+                                       <input type="email" class="form-control" id="exampleInputEmail1" name="email" required="">
                                     </div>
                                  </div>
-                                 <div class="form-group col-md-6">
+                                 <!-- <div class="form-group col-md-6">
                                     <label for="vehicle1">  <input type="checkbox" name="vehicle1" value="Bike">
                                     Remember this card for future use</label>
-                                 </div>
+                                 </div> -->
                            </fieldset>
                            <!--     </form> -->
                            </div>

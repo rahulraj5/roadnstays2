@@ -60,7 +60,33 @@ class BookingController extends Controller
             )
             ->where('booking.user_id', $u_id)   
             ->orderby('booking.id', 'DESC')
-            ->get();
+            ->paginate(10);
+
+        $data['upcomingBookingList'] = DB::table('booking')
+            ->join('users', 'booking.user_id', '=', 'users.id')
+            ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+            ->join('room_list', 'booking.room_id', '=', 'room_list.id')
+            ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+            ->join('country', 'hotels.hotel_country', '=', 'country.id')
+            ->select(
+                'booking.*',
+                'hotels.hotel_name',
+                'hotels.hotel_user_id',
+                'hotels.is_admin as hotel_added_is_admin',
+                'hotels.property_contact_name',
+                'hotels.property_contact_num',
+                'hotels.hotel_address',
+                'hotels.hotel_city',
+                'hotels.stay_price as hotelroom_min_stay_price',
+                'hotels.checkin_time',
+                'hotels.checkout_time',
+                'country.nicename as hotel_country',
+                'room_type_categories.title as room_type_name',
+                'room_list.name as room_name'
+            )
+            ->where('booking.user_id', $u_id)   
+            ->orderby('booking.id', 'DESC')
+            ->paginate(10);    
         // echo "<pre>";print_r($data['canceledList']);die;
         return view('front/booking/booking_list')->with($data);
     }

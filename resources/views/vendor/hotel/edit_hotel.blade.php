@@ -891,7 +891,7 @@
                         <label>Scouts ID</label>
                         <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
                           <!-- <option value="">Select Scouts</option> -->
-                          @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                          @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                           @foreach ($scouts as $value)
                           <option value="{{ $value->id }}">{{ $value->first_name }}</option>
                           @endforeach

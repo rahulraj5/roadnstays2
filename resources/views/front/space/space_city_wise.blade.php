@@ -76,45 +76,43 @@
       <div class="row scrow-3">
 
         @if(!empty($space_data))
-          @foreach($space_data as $space)
+        @foreach($space_data as $space)
 
-          <div class="col-md-3 col-sm-6 item">
-            <div class="card item-card card-block">
-              <img src="{{url('/')}}/public/uploads/space_images/{{$space->image}}" alt="Photo of sunset">
-              <div class="text">
-                <h6>{{$space->space_name}}, {{$space->city}}</h6>
-                <p class="address-star"><span>-{{$space->space_address}}</span></p>
-                <p><i class='bx bx-money'></i>From PKR {{$space->price_per_night}}</p>
-                <p class="mb-3"><i class='bx bxs-group'></i>{{$space->guest_number}} Guests</p>
-                <a href="{{ url('/space-details/') }}/{{ base64_encode($space->space_id) }}">Book Now</a>
-              </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="{{url('/')}}/public/uploads/space_images/{{$space->image}}" alt="Photo of sunset">
+            <div class="text">
+              <h6>{{$space->space_name}}, {{$space->city}}</h6>
+              <p class="address-star"><span>-{{$space->space_address}}</span></p>
+              <p><i class='bx bx-money'></i>From PKR {{$space->price_per_night}}</p>
+              <p class="mb-3"><i class='bx bxs-group'></i>{{$space->guest_number}} Guests</p>
+              <a href="{{ url('/space-details/') }}/{{ base64_encode($space->space_id) }}">Book Now</a>
             </div>
           </div>
-          @endforeach
-        @else  
-          <p>Not Found</p>
+        </div>
+        @endforeach
+        <div class="row gird-event"  id="filterdata">
+
+            <div class="col-md-12">
+                <div class="">{{ $space_data->links() }}</div>
+            </div>
+            
+        </div>
+        @else
+        <p>Not Found</p>
         @endif
 
       </div>
-
-
-
     </div>
-
-
-
   </section>
 
-
   <section class="sc-3">
-
     <div class="container mt-2">
       <!--   <div class="card card-block mb-2">
             <h4 class="card-title">Card 1</h4>
             <p class="card-text">Welcom to bootstrap card styles</p>
             <a href="#" class="btn btn-primary">Submit</a>
           </div>   -->
-
 
       <h5 class="head-sc">Browse by Venue Categories</h5>
       <div class="row scsecond-row">
@@ -132,15 +130,7 @@
 
     </div>
 
-
-
-
-
   </section>
-
-
-
-
 
 </main>
 <!-- End #main -->
@@ -273,13 +263,7 @@
 
           </div>
 
-
-
-
-
         </section>
-
-
 
       </div>
       <div class="modal-footer">

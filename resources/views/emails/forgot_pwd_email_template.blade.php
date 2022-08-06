@@ -6,8 +6,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="x-apple-disable-message-reformatting">
     <title></title>
+    <!--[if mso]>
+        <style>
+            table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
+            div, td {padding:0;}
+            div {margin:0 !important;}
+        </style>
+        <noscript>
+            <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+            </xml>
+        </noscript>
+    <![endif]-->
     <style>
-        table,td,div,h1, p {
+        table,
+        td,
+        div,
+        h1,
+        p {
             font-family: Arial, sans-serif;
         }
 
@@ -44,10 +62,15 @@
         <table role="presentation" style="width:100%;border:none;border-spacing:0;">
             <tr>
                 <td align="center" style="padding:0;">
+                    <!--[if mso]>
+                        <table role="presentation" align="center" style="width:600px;">
+                        <tr>
+                        <td>
+                    <![endif]-->
                     <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                         <tr>
                             <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                                <a href="{{ url('/') }}" style="text-decoration:none;"><img src="{{ url('/') }}/resources/assets/img/road-logo.png" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
+                                <a href="{{ url('/') }}" style="text-decoration:none;"><img src="https://votivelaravel.in/roadNstays/resources/assets/img/road-logo.png" width="165" alt="Logo" style="width:165px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
                             </td>
                         </tr>
                         <tr>
@@ -56,25 +79,53 @@
                                 <p style="margin:0;">You are receiving this email because we recieved a password reset request for your account.</p>
                             </td>
                         </tr>
+                        <!-- first wall image start here -->
+                        <!-- <tr>
+                            <td style="padding:0;font-size:24px;line-height:28px;font-weight:bold;">
+                                <a href="" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/1200x800-2.png" width="600" alt="" style="width:100%;height:auto;display:block;border:none;text-decoration:none;color:#363636;"></a>
+                            </td>
+                        </tr> -->
 
                         <tr>
                             <td style="padding:35px 30px 11px 30px;font-size:0;background-color:#ffffff;border-bottom:1px solid #f0f0f5;border-color:rgba(201,201,207,.35);">
-                                        <div class="col-sml" style="display:inline-block;width:100%;max-width:145px;vertical-align:top;text-align:left;font-family:Arial,sans-serif;font-size:14px;color:#363636;">
-                                            <img src="{{url('public/uploads/email_template_image/')}}/icon.png" width="115" alt="" style="width:115px;max-width:80%;margin-bottom:20px;">
-                                        </div>
-                                        
+                                <!--[if mso]>
+                                    <table role="presentation" width="100%">
+                                    <tr>
+                                    <td style="width:145px;" align="left" valign="top">
+                                    <![endif]-->
+                                <div class="col-sml" style="display:inline-block;width:100%;max-width:145px;vertical-align:top;text-align:left;font-family:Arial,sans-serif;font-size:14px;color:#363636;">
+                                    <img src="https://assets.codepen.io/210284/icon.png" width="115" alt="" style="width:115px;max-width:80%;margin-bottom:20px;">
+                                </div>
+                                <!--[if mso]>
+                                    </td>
+                                    <td style="width:395px;padding-bottom:20px;" valign="top">
+                                <![endif]-->
                                 <div class="col-lge" style="display:inline-block;width:100%;max-width:395px;vertical-align:top;padding-bottom:20px;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
+                                    <!-- <p style="margin-top:0;margin-bottom:12px;">Nullam mollis sapien vel cursus fermentum. Integer porttitor augue id ligula facilisis pharetra. In eu ex et elit ultricies ornare nec ac ex. Mauris sapien massa, placerat non venenatis et, tincidunt eget leo.</p> -->
                                     <p style="margin-top:0;margin-bottom:18px;">If you did not request a password reset, no further action is required..</p>
                                     <p style="margin:0;"><a href="{{ url('/') }}/reset-password/{{ $token }}" style="background: #ff3884; text-decoration: none; padding: 10px 25px; color: #ffffff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ff3884">
+                                            <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]-->
                                             <span style="mso-text-raise:10pt;font-weight:bold;">Reset Password</span>
-                                        </a>
-                                    </p>
+                                            <!-- <a href="{{ url('/') }}/reset-password/{{ $token }}"><button class="btn btn-primary" style="text-align: center;">Reset Passsword</button></a> -->
+                                            <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]-->
+                                        </a></p>
                                 </div>
+                                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
                             </td>
                         </tr>
+                        <!-- second wall image start here -->
+                        <!-- <tr>
+                            <td style="padding:30px;font-size:24px;line-height:28px;font-weight:bold;background-color:#ffffff;border-bottom:1px solid #f0f0f5;border-color:rgba(201,201,207,.35);">
+                                <a href="{{ url('/') }}" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/1200x800-1.png" width="540" alt="" style="width:100%;height:auto;border:none;text-decoration:none;color:#363636;"></a>
+                            </td>
+                        </tr> -->
                         <tr>
                             <td style="padding:30px;background-color:#ffffff;">
-                                <p style="margin:0;">If you're having trouble clicking the 'Reset Password' button, copy and paste the URL, below into your web browser :</p><a href="{{ url('/') }}/resetPassword/{{ $token }}">{{ $reseturll }}/{{ $token }}</a>
+                                <p style="margin:0;">If you're having trouble clicking the 'Reset Password' button, copy and paste the URL, below into your web browser :</p><a href="{{ url('/') }}/reset-password/{{ $token }}">{{ $reseturll }}/{{ $token }}</a>
                             </td>
                         </tr>
                         <tr>
@@ -84,6 +135,11 @@
                             </td>
                         </tr>
                     </table>
+                    <!--[if mso]>
+          </td>
+          </tr>
+          </table>
+          <![endif]-->
                 </td>
             </tr>
         </table>

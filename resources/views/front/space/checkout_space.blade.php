@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 rew-heding">
-                    <h3>Review your Booking</h3>
+                    <h3>Review your Space Booking</h3>
                 </div>
                 <div class="col-md-9">
                     <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}">
@@ -20,15 +20,15 @@
 
                         <input type="hidden" name="user_id" value="{{Auth::check()}}">
                         <input type="hidden" name="space_id" value="{{$space_data->space_id}}">
+                        <input type="hidden" name="space_price" value="{{$total_amount}}">
                         <input type="hidden" name="check_in" value="{!! date('Y-m-d', strtotime($check_in)) !!}">
                         <input type="hidden" name="check_out" value="{!! date('Y-m-d', strtotime($check_out)) !!}">
                         <input type="hidden" name="cleaning_fee" value="{{$space_data->cleaning_fee}}">
                         <input type="hidden" name="city_fee" value="{{$space_data->city_fee}}">
                         <input type="hidden" name="tax_percentage" value="{{$space_data->tax_percentage}}">
                         <input type="hidden" name="total_days" value="{{$booking_days}}">
-                        <input type="hidden" name="total_room" value="1">
-                        <input type="hidden" name="total_member" value="2">
-                        <input type="hidden" name="total_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="total_room" value="{{$space_data->room_number}}">
+                        <input type="hidden" name="total_member" value="{{$space_data->guest_number}}">
                         <div class="infobox">
                             <div class="revie-box">
                                 <div class="page-detail">
@@ -195,7 +195,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center d-flex p-4">
-                                            <input type="submit" name="paynow" class="paynow-btn" value="Paynow" disabled>
+                                            <input type="submit" name="paynow" class="paynow-btn" value="Paynow">
                                             <!-- <a href="#" class="paynow-btn">Paynow </a> -->
                                         </div>
                                     </div>

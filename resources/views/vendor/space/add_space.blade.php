@@ -229,6 +229,9 @@
         },
         space_name: {
           required: true,
+          normalizer: function( value ) {
+            return $.trim( value );
+          }
         },
         guest_number: {
           number: true,

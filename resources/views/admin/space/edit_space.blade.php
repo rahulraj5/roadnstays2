@@ -255,6 +255,9 @@
         },
         space_name: {
           required: true,
+          normalizer: function( value ) {
+            return $.trim( value );
+          }
         },
         guest_number: {
           number: true,
@@ -267,6 +270,8 @@
         },
         description: {
           required: true,
+          minlength: 200
+          // wordCount: 50
         },
         scout_id: {
           required: true,
@@ -334,6 +339,7 @@
         },
         extra_people: {
           required: true,
+          number: true,
         },
       },
     });

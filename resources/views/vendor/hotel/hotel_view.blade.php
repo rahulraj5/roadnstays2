@@ -266,17 +266,16 @@
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                           <div class="form-group">
                             <label>Category</label>
                             <select class="form-control select2bs4" name="cat_listed_room_type" id="cat_listed_room_type" style="width: 100%;" disabled="disabled">
-                              <!-- <option value="">Select Category and Listed In/Room Type</option> -->
                               @foreach ($properties as $prop)
                               <option value="{{ $prop->id }}" @php if($hotel_info->cat_listed_room_type == $prop->id){echo "selected";} @endphp >{{ $prop->stay_type }}</option>
                               @endforeach
                             </select>
                           </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-sm-6">
                           <label>Is your property listed anywhere else also ?</label>
@@ -390,7 +389,7 @@
                             <label>Scouts ID</label>
                             <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;" disabled="disabled">
                               <!-- <option value="">Select Scouts</option> -->
-                              @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                              @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status', 1)->get(); @endphp
                               @foreach ($scouts as $value)
                               <option value="{{ $value->id }}">{{ $value->first_name }}</option>
                               @endforeach

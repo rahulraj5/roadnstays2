@@ -604,3 +604,94 @@
   // $('label.error').addClass('error_label');
 
 </script>
+<script>
+  //  $(function() {
+  //     $('#reservation').daterangepicker({
+  //        opens: 'right'
+  //     }, function(start, end, label) {
+  //           $('#date-range200').val(start.format('DD-MM-YYYY'));
+  //           $('#date-range201').val(end.format('DD-MM-YYYY'));
+  //           // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  //     });
+  //  });
+</script>
+<script>
+  //  $(function() {
+  //     $('.reserved').daterangepicker({
+  //        opens: 'right'
+  //     }, function(start, end, label) {
+  //           $('#date1').val(start.format('DD-MM-YYYY'));
+  //           $('#date2').val(end.format('DD-MM-YYYY'));
+  //           // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  //     });
+  //  });
+</script>
+<script>
+   // $(function() {
+   //    $('input[name="daterange"]').daterangepicker({
+   //       opens: 'left'
+   //    }, function(start, end, label) {
+   //       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+   //    });
+   // });
+   
+   // $(function() {
+   //    $('#reservation').daterangepicker({
+   //       // autoClose: false,
+	//       // format: 'YYYY-MM-DD',
+   //       // separator : ' to ',
+   //       // getValue: function()
+   //       // {
+   //       //    alert($('#date-range200').val());
+   //       //    alert($('#date-range201').val());
+   //       //    if ($('#date-range200').val() && $('#date-range201').val() )
+   //       //       return $('#date-range200').val() + ' to ' + $('#date-range201').val();
+   //       //    else
+   //       //       return '';
+   //       // },
+   //       // setValue: function(s,s1,s2)
+   //       // {
+   //       //    $('#date-range200').val(s1);
+   //       //    $('#date-range201').val(s2);
+   //       // },
+   //       opens: 'right'
+   //    }, function(start, end, label) {
+   //          $('#date-range200').val(start.format('DD-MM-YYYY'));
+   //          $('#date-range201').val(end.format('DD-MM-YYYY'));
+   //          // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+   //    });
+      
+
+   //    // $('input[name="daterange"]').daterangepicker({
+   //    //    opens: 'left'
+   //    // }, function(start, end, label) {
+   //    //    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+   //    // });
+   // });
+    
+</script>
+
+
+<!-- <script>
+   
+   $(function() {
+      $('#reservation').daterangepicker({
+         autoClose: false,
+	      format: 'YYYY-MM-DD',
+         separator : ' to ',
+         opens: 'right'
+      },getValue: function()
+         {
+            if ($('#date-range200').val() && $('#date-range201').val() )
+               return $('#date-range200').val() + ' to ' + $('#date-range201').val();
+            else
+               return '';
+         },
+         setValue: function(start, end, label) {
+         {
+            $('#date-range200').val(start);
+            $('#date-range201').val(end);
+      });
+   });
+    
+</script> -->

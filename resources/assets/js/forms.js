@@ -6,6 +6,10 @@
 
 // });
 
+jQuery.validator.addMethod("noSpace", function(value, element) { 
+  return value == '' || value.trim().length != 0;  
+}, "No space please and don't leave it empty");
+
 $("#userLogin_form").validate({
 
     debug: false,
@@ -81,105 +85,63 @@ $("#userLogin_form").validate({
 });
 
 $("#userSignup_form").validate({
-
   debug: false,
-
   rules: {
-
     remember: {
-
       required: true
-
     },
-
     firstname: {
-
-      required: true
-
+      required: true,
+      normalizer: function( value ) {
+        return $.trim( value );
+      }
     },
-
     lastname: {
 
-      required: true
-
+      required: true,
+      normalizer: function( value ) {
+        return $.trim( value );
+      }
     },
-
     semail: {
-
       required: true,
-
       email: true
-
     },
-
     phone_no: {
-
       required: true,
-
       number: true,
-
       minlength: 10,
-
       maxlength: 10
-
     },
-
     spassword: {
-
       required: true
-
     },
-
     sconfirm_password: {
-
       required: true,
-
       equalTo: "#spassword"
-
     }
-
   },
-
   submitHandler: function (form) {
-
     var site_url = $("#baseUrl").val();
-
   //   alert(site_url);
-
     var formData = $(form).serialize();
-
     $(form).ajaxSubmit({
-
       type: 'POST',
-
       url: site_url + '/user/signup',
-
       data: formData,
-
       success: function (response) {
-
         // console.log(response);
-
         if (response.status == 'success') {
           $("#userSignup_form")[0].reset();
           success_noti(response.msg);
-
           // setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
-
           setTimeout(function(){window.location.reload()},1000);
-
         } else {
-
           error_noti(response.msg);
-
         }
-
       }
-
     });
-
     // event.preventDefault();
-
   }
 
 });

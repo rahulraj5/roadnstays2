@@ -105,9 +105,17 @@ class HotelAmenityController extends Controller
 
     public function changeHotelAmenityStatus(Request $request)
     {
-    	$user = User::find($request->user_id);
-    	$user->status = $request->status;
-    	$user->save();
+    	// $user = DB::find($request->amenity_id);
+    	// $user->status = $request->status;
+    	// $user->save();
+        $id = $request->amenity_id;
+        if(!empty($id)) { 
+            DB::table('H2_Amenities')
+            ->where('amenity_id', $id)
+            ->update([
+                'status' => $request->status
+            ]);
+        }    
 
     	return response()->json(['success'=>'User status change successfully.']);
     }
@@ -184,11 +192,11 @@ class HotelAmenityController extends Controller
     }
 
     public function changeHotelAmenityTypeStatus(Request $request)
-    {
-        $hotel_id = $request->user_id;
-        if(!empty($hotel_id)) { 
+    { 
+        $id = $request->amenity_id;
+        if(!empty($id)) { 
             DB::table('amenities_type')
-            ->where('id', $hotel_id)
+            ->where('id', $id)
             ->update([
                 'status' => $request->status
             ]);

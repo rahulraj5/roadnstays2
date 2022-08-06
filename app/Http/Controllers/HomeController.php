@@ -221,6 +221,8 @@ class HomeController extends Controller
         $PayerID = $_GET['PayerID'];
         $paccess_token = '';
         $bookingtemp = DB::table('tour_booking_temp')->where('payment_id','=',$paymentId)->first();
+        $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+        $vendor_id = $tourData->vendor_id;
         if(!empty($bookingtemp)){
         	$paccess_token = $bookingtemp->paccess_token; 
         	$data1 = '{
@@ -327,9 +329,11 @@ class HomeController extends Controller
                 [
                   'booking_id' => $booking_id, 
                   'user_id' =>  $user_id,
+                  'vendor_id' =>  $vendor_id,
                   'txn_id' => $cartid,
                   'txn_amount' =>  $bookingtemp->total_amount,
                   'payment_method' => $paymethod,
+                  'booking_type' => 'Tour',
                   'txn_status' =>  'successful',
                   'txn_date' => date('Y-m-d H:i:s'), 
                   'created_at' =>  date('Y-m-d H:i:s')
@@ -348,61 +352,60 @@ class HomeController extends Controller
                 ->join('tour_list','tour_list.id','=','tour_booking.tour_id')
                 ->where('tour_booking.id', $booking_id)
                 ->where('users.status', 1)
-                ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number')
+                ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number','users.user_company_number')
                 ->first();
 
-                // if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
 
-                //     $fromEmail = Helper::getFromEmail();
-                //     $inData['from_email'] = $fromEmail;
-                //     $inData['email'] = $users->email;
-                //     Mail::send('emails.invoice', $data, function ($message) use ($inData) {
-                //         $message->from($inData['from_email'],'roadNstays');
-                //         $message->to($inData['email']);
-                //         $message->subject('roadNstyas - Tour Booking Confirmation Mail');
-                //     });
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $users->email;
+                    Mail::send('emails.tour-invoice', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'],'roadNstays');
+                        $message->to($inData['email']);
+                        $message->subject('roadNstyas - Tour Booking Confirmation Mail');
+                    });
  
-                //     $data['url'] = url('/admin_login');
+                    $data['url'] = url('/admin_login');
 
-                //     $data['status'] = 'created to user';
+                    $data['status'] = 'created to user';
 
-                //     $data['booking_id'] = $booking_id;
+                    $data['booking_id'] = $booking_id;
 
-                //     Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
-                //         $message->from($inData['from_email'],'roadNstyas');
-                //         $message->to('votivephppushpendra@gmail.com');
-                //         $message->subject('roadNstyas - New Booking Recieved Mail');
-                //     });
+                    Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'],'roadNstyas');
+                        $message->to('votivephppushpendra@gmail.com');
+                        $message->subject('roadNstyas - New Booking Recieved Mail');
+                    });
 
-                // }
+                }
 
-                $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
-                $vendor_id = $tourData->vendor_id;
-                $vendors = User::where('id','=',$vendor_id)->first();
-                //$vendor_counts = count($vendors);
-                // if (!empty($vendors)) {
-                //     if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                // $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+                // $vendor_id = $tourData->vendor_id;
+                $vendors = User::where('id','=',$vendor_id)->get();
+                $vendor_counts = count($vendors);
+                if (!empty($vendors)) {
+                    if ($_SERVER['SERVER_NAME'] != 'localhost') {
 
-                //         $data['first_name'] = $vendors->first_name;
+                        $data['first_name'] = $vendors['0']->first_name;
 
-                //         $data['status'] = 'Booking Tour';
+                        $data['status'] = 'Booking Tour';
 
-                //         $data['booking_id'] = $booking_id;
+                        $data['booking_id'] = $booking_id;
 
-                //         $fromEmail = Helper::getFromEmail();
-                //         $inData['from_email'] = $fromEmail;
-                //         $inData['email'] = $vendors->email;
-                //         Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
-                //             $message->from($inData['from_email'],'roadNstyas');
-                //             $message->to($inData['email']);
-                //             $message->subject('roadNstyas - Order assigned');
-                //         });
-                //     }
-                // }
+                        $fromEmail = Helper::getFromEmail();
+                        $inData['from_email'] = $fromEmail;
+                        $inData['email'] = $vendors['0']->email;
+                        Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'],'roadNstyas');
+                            $message->to($inData['email']);
+                            $message->subject('roadNstyas - Order assigned');
+                        });
+                    }
+                }
                 Session::get('total_amt');
-                session::flash('message', 'Order created Succesfully.');
-                //return redirect('/category/'.$frame_detail->category_id.'');
-                return view('front/tour/confirm_booking',$data);
+                session::flash('message', 'Order created Succesfully.'); 
+                return view('front/tour/confirm_booking',$data); 
             }else{
                 session::flash('error', 'Record not inserted.');
                 return redirect('/'); 
@@ -421,7 +424,7 @@ class HomeController extends Controller
             ->join('tour_list','tour_list.id','=','tour_booking.tour_id')
             ->where('tour_booking.id', $checkorder->id)
             ->where('users.status', 1)
-            ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number')
+            ->select('tour_booking.*', 'tour_list.*','users.first_name','users.last_name','users.email','users.address as user_addresss','users.user_city','users.postal_code','users.contact_number','users.user_company_number')
             ->first();
         } 
         session::flash('message', 'Booking created Succesfully.');
@@ -1798,7 +1801,7 @@ class HomeController extends Controller
     	$status = 1;
     	//echo "<pre>"; print_r($forminput);die;
         $client = "AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
-            $secret= "EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+        $secret= "EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
 
             $ch = curl_init();
 
@@ -1871,8 +1874,7 @@ class HomeController extends Controller
 	                'status'=>  $status,
 	                'created_date' =>  date('Y-m-d H:i:s')
 	            	)
-	           
-            	);
+            	); 
 
                 $check = DB::table('booking_temp')->insert(array(
 	                'user_id' =>  $user_id,
@@ -1904,13 +1906,14 @@ class HomeController extends Controller
             $user_id =  Auth::id();
         }else{
             $user_id = '';
-        }
- 
+        } 
     	$paymentId = $_GET['paymentId']; 
         $token = $_GET['token'];
         $PayerID = $_GET['PayerID'];
         $paccess_token = '';
         $bookingtemp = DB::table('booking_temp')->where('payment_id','=',$paymentId)->first();
+        $hotelData = DB::table('hotels')->where('hotel_id',$bookingtemp->hotel_id)->where('hotel_status', 1)->first();
+        $vendor_id = $hotelData->hotel_user_id;
         if(!empty($bookingtemp)){
         	$paccess_token = $bookingtemp->paccess_token; 
         	$data1 = '{
@@ -2026,9 +2029,11 @@ class HomeController extends Controller
                 [
                   'booking_id' => $booking_id, 
                   'user_id' =>  $user_id,
+                  'vendor_id' =>  $vendor_id,
                   'txn_id' => $cartid,
                   'txn_amount' =>  $bookingtemp->total_amount,
                   'payment_method' => $paymethod,
+                  'booking_type' => 'Room',
                   'txn_status' =>  'successful',
                   'txn_date' => date('Y-m-d H:i:s'), 
                   'created_at' =>  date('Y-m-d H:i:s')
@@ -2084,8 +2089,8 @@ class HomeController extends Controller
 
                 }
 
-                $hotelData = DB::table('hotels')->where('hotel_id',$bookingtemp->hotel_id)->where('hotel_status', 1)->first();
-                $vendor_id = $hotelData->hotel_user_id;
+                // $hotelData = DB::table('hotels')->where('hotel_id',$bookingtemp->hotel_id)->where('hotel_status', 1)->first();
+                // $vendor_id = $hotelData->hotel_user_id;
                 $vendors = User::where('id','=',$vendor_id)->first();
                 //$vendor_counts = count($vendors);
                 if (!empty($vendors)) {
@@ -2169,11 +2174,16 @@ class HomeController extends Controller
 
         $token = Str::random(64);
 
-        $reseturll = url('/resetPassword/');
+        $reseturll = url('/reset-password/');
 
         $checkuser = DB::table('users')->where(['email' => $email])->first(); 
 
         if(!empty($checkuser)){
+            $checkLinkExist = DB::table('password_resets')->where('email', $email)->first();
+            if(!empty($checkLinkExist))
+            {
+                DB::table('password_resets')->where(['email' => $email])->delete();   
+            }
             DB::table('password_resets')->insert([
                 'email' => $email,
                 'token' => $token,
@@ -2189,7 +2199,7 @@ class HomeController extends Controller
             Mail::send('emails.emailtemplate', $data, function ($message) use ($inData) {
                 $message->from($inData['from_email'],'RoadNStays');
                 $message->to($inData['email']);
-                $message->subject('RoadNStays - New Registration');
+                $message->subject('RoadNStays - Reset Password');
             });
 
             return response()->json(['status' => 'success','msg' => 'Please check your email address..']);
@@ -2202,8 +2212,38 @@ class HomeController extends Controller
 
     }
 
-    public function reset_password()
+    public function reset_password($token)
     {
-        return view('front/reset_password');
+
+        return view("front/reset_password", ['token' => $token]);
+    }
+
+    public function resetPassword_action(Request $request)
+    {
+        $password = $request->reset_password;
+        $confirmpassword = $request->reset_repassword;
+
+        if($password==$confirmpassword){
+            $updatePassword = DB::table('password_resets')->where(['token' => $request->token])->first();
+
+            if(!$updatePassword){
+            // return back()->withInput()->with('error', 'Invalid token!');
+            // return redirect('/forgotPassword')->with('error', "Password Reset link has been Expired");
+            return response()->json(['status' => 'expError','msg' => 'Password Reset link has been Expired']);
+            }
+
+            $password = $request->reset_password;
+
+            $user = User::where('email', $updatePassword->email)->update(['password' => bcrypt($password)]);
+
+            DB::table('password_resets')->where(['email' => $updatePassword->email])->delete();                
+
+            // return redirect('/login')->with('msg', "Your password has been changed!");
+            return response()->json(['status' => 'success','msg' => 'Your password has been changed!']);
+        }else{
+            // return redirect('/resetPassword/{{$request->token}}')->with('error', "Password not Matched!");
+            return response()->json(['status' => 'error','msg' => 'Password not Matched!']);
+        }
+
     }
 }

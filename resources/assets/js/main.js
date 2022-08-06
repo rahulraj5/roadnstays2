@@ -241,7 +241,6 @@
     dots: true,
     loop: true,
     nav:true,
-    items: 1,
     responsive: {
       0: {
         items: 1
@@ -296,13 +295,12 @@
     autoplay: true,
     dots: false,
     loop: true,
-    responsiveClass: true,
      responsive: {
       0: {
         items: 1
       },
       768: {
-        items: 2
+        items: 1
       },
       900: {
         items: 2
@@ -335,25 +333,25 @@
     }
   })
 
-  $('.roomdetails').owlCarousel({
-    loop:true,
-    margin:0,
-    nav:true,
-    singleItem:true,
-    items: 1,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:1
-        },
-        1000:{
-            items:1
-        }
+  // $('#roomdetails').owlCarousel({
+  //   loop:true,
+  //   margin:0,
+  //   nav:true,
+  //   singleItem:true,
+  //   items: 1,
+  //   responsive:{
+  //       0:{
+  //           items:1
+  //       },
+  //       600:{
+  //           items:1
+  //       },
+  //       1000:{
+  //           items:1
+  //       }
         
-    }
-  })
+  //   }
+  // })
 
   
 
@@ -406,5 +404,7 @@
   });
 
 })(jQuery);
+
+
 
 

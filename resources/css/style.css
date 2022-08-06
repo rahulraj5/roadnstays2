@@ -1,12 +1,3 @@
-/*.layout-fixed .main-sidebar {
-    bottom: 0;
-    float: none;
-    left: 0;
-    position: fixed;
-    background: #126c62;
-    top: 0;
-}*/
-
 .layout-fixed .main-sidebar {
     bottom: 0;
     float: none;
@@ -32,7 +23,6 @@
     object-fit: fill;
 }
   
-
 [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active{
 background-color: rgb(6 88 79) !important;
 
@@ -135,7 +125,7 @@ a.add_attraction_button {
     position: relative;
     top: 7px;
   }
-  a.remove_attraction_button {
+a.remove_attraction_button {
     background: #f90e39;
     color: #ffffff;
     padding: 10px;
@@ -143,4 +133,71 @@ a.add_attraction_button {
     position: relative;
     top: 7px;
     font-size: 14px;
+}
+.main-footer a{
+     color: #126c62;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #126c62 !important;
+    border-color: #126c62 !important;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #126c62;
+    border-color: #0d6259;
+    box-shadow: none;
+}
+.active .bs-stepper-circle {
+    background-color: #126c62 !important;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #126c62;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.breadcrumb-item a{
+    color: #126c62;
+}
+.content-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    margin-top: 14px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #126c62;
+}
+.page-link:hover {
+    z-index: 2;
+    color: #126c62 !important;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+[class*=sidebar-dark] .user-panel {
+    border-bottom: 1px solid #1f7e74 !important;
+}
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid #1f7e74;
+}
+.bs-stepper-label {
+    display: inline-block;
+    margin: 0.25rem;
+    color: #126c62;
+}
+.card-body .table td a{
+    color: #FFF;
+    font-weight: 700;
+}
+
+.card-body.new-color .table td a{
+    color: #126c62;
+    font-weight: 700;
 }

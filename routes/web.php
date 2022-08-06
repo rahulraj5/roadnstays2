@@ -62,9 +62,10 @@ Route::get('/email_verification/{id}', 'HomeController@email_verification');
 Route::post('/servicepro/loginPost', 'HomeController@serviceProPostLogin');
 Route::post('/servicepro/signup', 'HomeController@vendorSignup');  
 
-// Route::post('forgotPassword_action','Home\HomeController@forgotPassword_action');
+// Route::post('forgotPassword_action','Home\FrontController@forgotPassword_action');
 Route::post('forgotPassword_action','HomeController@forgotPassword_action');
-Route::get('reset-password','Home\HomeController@reset_password');
+Route::any('reset-password/{token}','HomeController@reset_password');
+Route::post('resetPassword_action','HomeController@resetPassword_action');
 
 Route::get('/hotelDetails/{id?}','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
@@ -87,11 +88,13 @@ Route::get('/tourBooking/{name?}','HomeController@tourBooking')->name('user.tour
 Route::get('/packages','HomeController@packages')->name('user.packages');
 Route::get('/space','Home\SpaceController@space')->name('user.space');
 Route::get('/space-details/{id?}','Home\SpaceController@space_details')->name('user.space_details');
+Route::get('/spaceList/{name?}','Home\SpaceController@space_search_list');
 Route::get('/space-details','Home\SpaceController@space_details')->name('user.space_details');
 Route::get('/space-detail/{id?}','Home\SpaceController@space_detail')->name('user.space_detail');
 Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_list')->name('user.space_category_list');
 Route::get('/space-checkout/{name?}','Home\SpaceController@checkout')->name('user.space_checkout');
 Route::get('/space-city-wise/{id?}','Home\SpaceController@space_city_wise')->name('user.space_city_wise');
+Route::post('/bookingSpaceOrder','Home\SpaceController@spaceBookingOrder')->name('user.spaceBookingOrder');
 Route::get('/space-payment-successful','Home\SpaceController@space_payment_successful')->name('user.space_payment_successful');
 
 Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
@@ -124,12 +127,8 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 // vendor route start here
 Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function () {
     Route::get('servicepro/dashboard','Vendor\VendorController@serviceProDashboard')->name('servicepro.dashboard');
-    Route::any('servicepro/profile', 'HomeController@serviceProProfile');
-    // Route::any('servicepro/profile', 'Vendor\VendorController@serviceProProfile');
-    // Route::any('servicepro/changePassword', 'HomeController@change_password');
-    Route::any('servicepro/logout', 'HomeController@serviceProLogout')->name('servicepro.logout');	
-
-
+    Route::any('servicepro/profile', 'HomeController@serviceProProfile'); 
+    Route::any('servicepro/logout', 'HomeController@serviceProLogout')->name('servicepro.logout');	 
     Route::get('servicepro/hotelList', 'Vendor\VendorController@hotel_list');
     Route::get('servicepro/viewHotel/{id}', 'Vendor\VendorController@view_hotel');
     Route::any('servicepro/addHotel', 'Vendor\VendorController@add_hotel');
@@ -171,6 +170,8 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/changeTourStatus', 'Vendor\TourController@change_tour_status');
     Route::any('servicepro/deleteTour', 'Vendor\TourController@delete_tour');
     Route::any('servicepro/deleteTourSingleImage', 'Vendor\TourController@delete_tour_single_image');
+    Route::get('servicepro/tourbooking_list', 'Vendor\TourController@tourbooking_list');
+    Route::get('servicepro/viewtourBooking/{id}', 'Vendor\TourController@view_booking');
 
     // space route start from here
     Route::get('servicepro/space-list', 'Vendor\SpaceController@space_list');
@@ -189,6 +190,21 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/deleteSpaceSingleImage', 'Vendor\SpaceController@delete_space_single_image');
     Route::post('servicepro/addCopySpace','Vendor\SpaceController@add_copy_space');
     Route::get('servicepro/editCopySpace/{id}', 'Vendor\SpaceController@edit_copy_space');
+
+    Route::get('servicepro/spaceBookingList', 'Vendor\BookingController@space_booking_list');
+    Route::any('servicepro/spaceBookingView/{id}', 'Vendor\BookingController@space_booking_view');
+
+    Route::get('servicepro/transactionHistory', 'Vendor\BookingController@transaction_history');
+    Route::get('servicepro/transactionHistoryView/{id}', 'Vendor\BookingController@view_transaction_history');
+
+    Route::get('servicepro/events_list', 'Vendor\EventController@events_list');
+    Route::get('servicepro/addEvent', 'Vendor\EventController@addEvent');
+    Route::post('servicepro/submitEvent', 'Vendor\EventController@submitEvent');
+    Route::get('servicepro/changeEventStatus', 'Vendor\EventController@change_event_status');
+    Route::get('servicepro/edit_event/{id}', 'Vendor\EventController@edit_event');
+    Route::post('servicepro/updateEvent', 'Vendor\EventController@updateEvent');
+    Route::any('servicepro/view-event/{id}', 'Vendor\EventController@view_event');
+    Route::post('servicepro/deleteEvent', 'Vendor\EventController@delete_event');
 
 });	
 
@@ -216,12 +232,6 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/booking_list', 'Admin\BookingController@booking_list');
         Route::any('/viewBooking/{id}', 'Admin\BookingController@view_booking');
         Route::any('/bookingDetails/{id}', 'Admin\BookingController@booking_details');
-        Route::get('/add_customer', 'CustomerController@add_customer');
-        Route::any('/add_customer_action', 'CustomerController@add_customer_action');
-        Route::get('/edit_customer/{id}', 'CustomerController@edit_customer');
-        Route::any('/customer_update', 'CustomerController@customer_update');
-        Route::get('/change_user_status', 'CustomerController@change_user_status');
-        Route::any('/deletecustomer', 'CustomerController@deletecustomer');
 
         Route::get('/scoutList', 'ScoutController@scout_list');
         Route::get('/addScout', 'ScoutController@add_scout');
@@ -342,7 +352,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/changeTourStatus', 'Admin\TourController@change_tour_status');
         Route::any('/deleteTour', 'Admin\TourController@delete_tour');
         Route::any('/deleteTourSingleImage', 'Admin\TourController@delete_tour_single_image');
-
+        Route::get('/tourbooking_list', 'Admin\TourController@tourbooking_list');
+        Route::get('/viewtourBooking/{id}', 'Admin\TourController@view_booking');
         // Space start here
         Route::get('/space-list', 'Admin\SpaceController@space_list');
         Route::get('/add-space', 'Admin\SpaceController@add_space');
@@ -376,6 +387,21 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/updateSpaceSubCategory', 'Admin\SpaceController@update_space_subcategory');
         Route::get('/changeSpaceSubCategoryStatus', 'Admin\SpaceController@change_space_subcategory_status');
         Route::post('/deleteSpaceSubCategory', 'Admin\SpaceController@delete_space_subcategory');
+
+        Route::get('/spaceBookingList', 'Admin\SpaceController@booking_list');
+        Route::any('/spaceViewBooking/{id}', 'Admin\SpaceController@view_booking');
+        Route::any('/spaceBookingDetails/{id}', 'Admin\SpaceController@booking_details');
+        Route::get('/transactionHistory', 'Admin\BookingController@transaction_history');
+        Route::get('/transactionHistoryView/{id}', 'Admin\BookingController@view_transaction_history');
+
+        Route::get('/events_list', 'Admin\EventController@events_list');
+        Route::get('/addEvent', 'Admin\EventController@addEvent');
+        Route::post('/submitEvent', 'Admin\EventController@submitEvent');
+        Route::get('/changeEventStatus', 'Admin\EventController@change_event_status');
+        Route::get('/edit_event/{id}', 'Admin\EventController@edit_event');
+        Route::post('/updateEvent', 'Admin\EventController@updateEvent');
+        Route::any('/view-event/{id}', 'Admin\EventController@view_event');
+        Route::post('/deleteEvent', 'Admin\EventController@delete_event');
     });
 });
 

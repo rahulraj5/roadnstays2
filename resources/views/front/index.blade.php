@@ -5,150 +5,253 @@
 @section('current_page_js')
 <script>
    var today = new Date().toISOString().split('T')[0];
-   $('.min_date').attr('min', today);
+   $('.minimum_date').attr('min', today);
 </script>
 <script type="text/javascript">
    var placeSearch, autocomplete;
+
    function initAutocomplete() {
-   autocomplete = new google.maps.places.Autocomplete(
-     (document.getElementById('autocomplete1')), {
-       types: ['(cities)']
-     });
-    autocomplete.addListener('place_changed', function() {
-     fillInAddress(autocomplete, "");
-   });
-   
+      autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('autocomplete1')), {
+            types: ['(cities)']
+         });
+      autocomplete.addListener('place_changed', function() {
+         fillInAddress(autocomplete, "");
+      });
+
    }
-   
+
    function fillInAddress(autocomplete, unique) {
-   
-   var place = autocomplete.getPlace();
-   for (var component in componentForm) {
-     if (!!document.getElementById(component + unique)) {
-       document.getElementById(component + unique).value = '';
-       document.getElementById(component + unique).disabled = false;
-     }
-   }
-   
-   for (var i = 0; i < place.address_components.length; i++) {
-     var addressType = place.address_components[i].types[0];
-     if (componentForm[addressType] && document.getElementById(addressType + unique)) {
-       var val = place.address_components[i][componentForm[addressType]];
-       document.getElementById(addressType + unique).value = val;
-     }
-   }
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+         if (!!document.getElementById(component + unique)) {
+            document.getElementById(component + unique).value = '';
+            document.getElementById(component + unique).disabled = false;
+         }
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+         var addressType = place.address_components[i].types[0];
+         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType + unique).value = val;
+         }
+      }
    }
    google.maps.event.addDomListener(window, "load", initAutocomplete);
-   
+
    function geolocate() {
-   if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(function(position) {
-       var geolocation = {
-         lat: position.coords.latitude,
-         lng: position.coords.longitude
-       };
-       var circle = new google.maps.Circle({
-         center: geolocation,
-         radius: position.coords.accuracy
-       });
-       autocomplete.setBounds(circle.getBounds());
-     });
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+               lat: position.coords.latitude,
+               lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+               center: geolocation,
+               radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+         });
+      }
    }
+</script>
+<script>
+   var today = new Date(); 
+   var dd = today.getDate(); 
+   var mm = today.getMonth()+1; //January is 0! 
+   var yyyy = today.getFullYear(); 
+   if(dd<10){ dd='0'+dd } 
+   if(mm<10){ mm='0'+mm } 
+   let today_date = dd+'/'+mm+'/'+yyyy;
+   // alert(today);
+
+   $(function() {
+       
+      $('#reservation').daterangepicker({
+         // minDate:new Date(),
+         dateFormat: "dd-M-yy",
+         minDate: 1,
+         defaultDate: new Date(),
+         // minDate: today_date,
+         // opens: 'right'
+      }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
+<script>
+   $(function() {
+      $('.reserved').daterangepicker({
+         opens: 'right'
+      }, function(start, end, label) {
+            $('#date1').val(start.format('DD-MM-YYYY'));
+            $('#date2').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
+<script>
+   $(function() {
+      $('.tourdater').daterangepicker({
+         opens: 'right'
+      }, function(start, end, label) {
+            $('#tour_check_in').val(start.format('DD-MM-YYYY'));
+            $('#tour_check_out').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
+<script>
+   var placeSearch, autocomplete;
+   var componentForm = {
+      // street_number: 'long_name',
+      // route: 'long_name',
+      // locality: 'long_name',
+      // postal_code: 'short_name'
+   };
+
+   function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('autocomplete')), {
+            types: ['(cities)']
+         });
+      autocomplete.addListener('place_changed', function() {
+         var place = autocomplete.getPlace();
+         console.log(place);
+         document.getElementById('hotel_latitude').value = place.geometry.location.lat();
+         document.getElementById('hotel_longitude').value = place.geometry.location.lng();
+         fillInAddress(autocomplete, "");
+      });
+   }
+
+   function fillInAddress(autocomplete, unique) {
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+         if (!!document.getElementById(component + unique)) {
+            document.getElementById(component + unique).value = '';
+            document.getElementById(component + unique).disabled = false;
+         }
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+         var addressType = place.address_components[i].types[0];
+         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType + unique).value = val;
+         }
+      }
+   }
+   google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+   function geolocate() {
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+               lat: position.coords.latitude,
+               lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+               center: geolocation,
+               radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+         });
+      }
    }
 </script>
 <script>
    var placeSearch, autocomplete;
    var componentForm = {
-   // street_number: 'long_name',
-   // route: 'long_name',
-   // locality: 'long_name',
-   // postal_code: 'short_name'
+      // street_number: 'long_name',
+      // route: 'long_name',
+      // locality: 'long_name',
+      // postal_code: 'short_name'
    };
-   
+
    function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('autocomplete')), {
-        types: ['(cities)']
+      autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('autocomplete_space')), {
+            types: ['(cities)']
+         });
+      autocomplete.addListener('place_changed', function() {
+         var place = autocomplete.getPlace();
+         console.log(place);
+         document.getElementById('space_latitude').value = place.geometry.location.lat();
+         document.getElementById('space_longitude').value = place.geometry.location.lng();
+         fillInAddress(autocomplete, "");
       });
-    autocomplete.addListener('place_changed', function() {
-      var place = autocomplete.getPlace();
-      console.log(place);
-      document.getElementById('hotel_latitude').value = place.geometry.location.lat();
-      document.getElementById('hotel_longitude').value = place.geometry.location.lng();
-      fillInAddress(autocomplete, "");
-    });
-   
    }
-   
+
    function fillInAddress(autocomplete, unique) {
-   
-    var place = autocomplete.getPlace();
-    for (var component in componentForm) {
-      if (!!document.getElementById(component + unique)) {
-        document.getElementById(component + unique).value = '';
-        document.getElementById(component + unique).disabled = false;
+
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+         if (!!document.getElementById(component + unique)) {
+            document.getElementById(component + unique).value = '';
+            document.getElementById(component + unique).disabled = false;
+         }
       }
-    }
-   
-    for (var i = 0; i < place.address_components.length; i++) {
-      var addressType = place.address_components[i].types[0];
-      if (componentForm[addressType] && document.getElementById(addressType + unique)) {
-        var val = place.address_components[i][componentForm[addressType]];
-        document.getElementById(addressType + unique).value = val;
+
+      for (var i = 0; i < place.address_components.length; i++) {
+         var addressType = place.address_components[i].types[0];
+         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType + unique).value = val;
+         }
       }
-    }
    }
    google.maps.event.addDomListener(window, "load", initAutocomplete);
-   
+
    function geolocate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var geolocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        var circle = new google.maps.Circle({
-          center: geolocation,
-          radius: position.coords.accuracy
-        });
-        autocomplete.setBounds(circle.getBounds());
-      });
-    }
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+               lat: position.coords.latitude,
+               lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+               center: geolocation,
+               radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+         });
+      }
    }
 </script>
 <script type="text/javascript">
-   $(document).ready(function () {
-   
-          $("#dt1").datepicker({
-              dateFormat: "dd-M-yy",
-              minDate: 0,
-              defaultDate: new Date(),
-              onSelect: function () {
-                  var dt2 = $('#dt2');
-                  var startDate = $(this).datepicker('getDate');
-                  var minDate = $(this).datepicker('getDate');
-                  var dt2Date = dt2.datepicker('getDate');
-                  //difference in days. 86400 seconds in day, 1000 ms in second
-                  var dateDiff = (dt2Date - minDate)/(86400 * 1000);
-                  
-                  startDate.setDate(startDate.getDate() + 30);
-                  if (dt2Date == null || dateDiff < 0) {
-                      dt2.datepicker('setDate', minDate);
-                  }
-                  else if (dateDiff > 30){
-                      dt2.datepicker('setDate', startDate);
-                  }
-                  //sets dt2 maxDate to the last day of 30 days window
-                  dt2.datepicker('option', 'maxDate', startDate);
-                  dt2.datepicker('option', 'minDate', minDate);
-              }
-          });
-          $('#dt2').datepicker({
-              dateFormat: "dd-M-yy",
-              minDate: 1,
-              defaultDate: new Date()
-          });
+   $(document).ready(function() {
+
+      $("#dt1").datepicker({
+         dateFormat: "dd-M-yy",
+         minDate: 0,
+         defaultDate: new Date(),
+         onSelect: function() {
+            var dt2 = $('#dt2');
+            var startDate = $(this).datepicker('getDate');
+            var minDate = $(this).datepicker('getDate');
+            var dt2Date = dt2.datepicker('getDate');
+            //difference in days. 86400 seconds in day, 1000 ms in second
+            var dateDiff = (dt2Date - minDate) / (86400 * 1000);
+
+            startDate.setDate(startDate.getDate() + 30);
+            if (dt2Date == null || dateDiff < 0) {
+               dt2.datepicker('setDate', minDate);
+            } else if (dateDiff > 30) {
+               dt2.datepicker('setDate', startDate);
+            }
+            //sets dt2 maxDate to the last day of 30 days window
+            dt2.datepicker('option', 'maxDate', startDate);
+            dt2.datepicker('option', 'minDate', minDate);
+         }
       });
+      $('#dt2').datepicker({
+         dateFormat: "dd-M-yy",
+         minDate: 1,
+         defaultDate: new Date()
+      });
+   });
 </script>
 @endsection
 @section('content')
@@ -157,12 +260,12 @@
    <div id="" class=" carousel-fade">
       <div class="carousel-inner">
          <!-- Slide 1 -->
-         <div class="carousel-item active" style="background-image: url(resources/assets/img/road-banner.png)">
+         <div class=" carousel-item active" style="">
             <div class="carousel-container">
                <div class="container search-bar">
                   <div class="mt-3 mb-2">
                      <h2 class="animate__animated animate__fadeInDown">
-                        Make Your Trip Fun & Noted 
+                        Make Your Trip Fun & Noted
                      </h2>
                   </div>
                   <p class="animate__animated animate__fadeInUp mb-3">
@@ -214,7 +317,7 @@
                               <h4> Event</h4>
                               <div class="d-flex justify-content-center align-self-center">
                                  <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
-                                 <input type="location" name="location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
+                                    <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
                                  <input type="submit" value="Find" class="btn btn-primary-event pull-right">
                               </div>
                               <div class="event-avlabel">
@@ -277,23 +380,24 @@
                            <div class="booking-type">
                               <h4> Hotel</h4>
                               <form method="GET" action="{{url('hotelList')}}">
-                                @csrf
+                                 @csrf
                                  <div class="row">
-                                    <div class="col-md-4 filter_01 pr-0 h-hotel ">
+                                    <div class="col-md-3 filter_01 pr-0 h-hotel ">
                                        <!-- <p>Where To</p>  -->
-                                       <span class="span3 form-control-lo"><i class="bx bx-map"></i>
-                                       <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="">
-                                       <input type="hidden"  name="hotel_latitude" id="hotel_latitude" value="22.7196">
-                                       <input type="hidden"  name="hotel_longitude" id="hotel_longitude" value="75.8577">
+                                       <span class="span3 hotel-searchbar"><i class="bx bx-map"></i>
+                                          <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="">
+                                          <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
+                                          <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
                                        </span>
                                     </div>
-                                    <div class="col-md-2 filter_01 pr-0 ">
+                                    <div class="col-md-2 filter_01 pr-0 reserved reserved1">
                                        <!-- <p>Check_in</p> -->
-                                       <input type="text" name="check_in" id="dt1" placeholder="Check-in" required="" value="<?php echo date("d-M-y");?>">
+                                       <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="<?php echo date("d-M-y"); ?>">
                                     </div>
-                                    <div class="col-md-2 filter_01 pr-0 ">
+                                    <span class="to-date"><i class="bx bx-transfer"></i></span>
+                                    <div class="col-md-2 filter_01 pr-0 reserved reserved2">
                                        <!-- <p>Check_out</p> -->
-                                       <input type="text" name="check_out" id="dt2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day"));?>">
+                                       <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>">
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0 ">
                                        <!-- <p>Person</p> -->
@@ -317,10 +421,15 @@
                               <h4> Tour</h4>
                               <form>
                                  <input type="text" name="firstname" placeholder="Place name" class="span3 form-control">
-                                 <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date"><span class="to-date"><i class='bx bx-transfer'></i></span>
-                                 <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
+
+                                 <span class="tourdater">
+                                    <input id="tour_check_in" placeholder="Date" class="span3 form-control min_date">
+                                    <span class="to-date"><i class='bx bx-transfer'></i></span>
+                                    <input id="tour_check_out" placeholder="Date" class="span3 form-control min_date">
+                                 </span>
+
                                  <span class="span3 form-control-lo"><i class='bx bx-map'></i>
-                                 <input type="location" name="location" placeholder="Destination" class="locatin-fil"></span>
+                                 <input type="location" name="tour_location" placeholder="Destination" class="locatin-fil"></span>
                                  <input type="submit" value="Find" class="btn btn-primary pull-right">
                               </form>
                            </div>
@@ -328,14 +437,39 @@
                         <div class="tab-pane" id="settings" role="tabpanel">
                            <div class="booking-type">
                               <h4> Space</h4>
-                              <form>
-                                 <input type="text" name="firstname" placeholder="Space name" class="span3 form-control">
-                                 <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
-                                 <span class="to-date"><i class='bx bx-transfer'></i></span>
-                                 <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
-                                 <span class="span3 form-control-lo"><i class='bx bx-map'></i>
-                                 <input type="location" name="location" placeholder="Destination" class="locatin-fil"></span>
-                                 <input type="submit" value="Find" class="btn btn-primary pull-right">
+                              <!-- <form> -->
+                              <form method="GET" action="{{url('spaceList')}}">
+                                 @csrf
+                                 <!-- <input type="text" name="location" placeholder="Space name" class="span3 form-control"> -->
+                                 <input type="location" name="space_location" placeholder="Location, City, Place" class="span3 space-control" id="autocomplete_space" required="">
+                                 <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
+                                 <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+
+                                 <!-- <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
+                                 <span class="to-date"><i class='bx bx-transfer'></i></span> -->
+                                 <!-- <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date"> -->
+
+                                 <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkin" id="reservation"> to  -->
+                                 <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkout" id="reservation"> -->
+
+                                 
+                                 <!-- <span class="" id="reservation">
+                                    <input id="date-range200" class="span3 min_dat" value="" placeholder="Choose_a_date">
+                                 </span> -->
+                                 <span class="reservation1" id="reservation">
+                                 <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
+                     
+                                 </span>
+                                 <span class="to-date"><i class="bx bx-transfer"></i></span>
+                                 <span class="reservation2" id="reservation">
+                                    <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
+                                 </span>
+                                 
+
+                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y");?>" placeholder="Select Date"> -->
+                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y", strtotime("+ 1 day"));?>" placeholder="Select Date"> -->
+
+                                 <input type="submit" value="Find" class="btn btn-primary pull-right space-button">
                               </form>
                            </div>
                         </div>
@@ -431,7 +565,7 @@
             <div class="col-md-6 exprience-heading">
                <h2>We're truely dedicated to
                   make your travel experience
-                  best. 
+                  best.
                </h2>
                <ul>
                   <li><a href="#"> Most Attractive Hotels</a></li>
@@ -477,7 +611,7 @@
                   </div>
                   <div class="world-class-feature">
                      <h3> Holiday Inn Swat, Family Room-11
-                        Hotel 
+                        Hotel
                      </h3>
                      <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
                      <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath</div>
@@ -524,7 +658,7 @@
                   </div>
                   <div class="world-class-feature">
                      <h3> Holiday Inn Swat, Family Room-11
-                        Hotel 
+                        Hotel
                      </h3>
                      <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad </a>
                      <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath</div>
@@ -667,164 +801,164 @@
          <div class="w-50">
             <div class="container">
                <div class="row">
-<div class="col-md-11 m-auto p-0">
-   <div id="offernew" class="offer-tex">
-      <div class="container p-0" data-aos="fade-up">
-         <div class="owl-carousel testimonials-carousel">
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                  <div class="col-md-11 m-auto p-0">
+                     <div id="offernew" class="offer-tex">
+                        <div class="container p-0" data-aos="fade-up">
+                           <div class="owl-carousel testimonials-carousel">
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/hotlee.jpg') }}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
+                                             <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/hotlee.jpg') }}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="offer-grid">
-                     <div class="offer-img">
-                        <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                        <div class="offer-circle">
-                           <p>Discount 30%</p>
-                        </div>
-                     </div>
-                     <div class="wht-text">
-                        <h4> 30% OFF</h4>
-                        <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                     </div>
-                     <div class="world-class-p">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <div class="d-flex justify-content-between watch-time">
-                           <a href="#" class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May </a>
-                           <a href="#"> <i class='bx bx-user'></i> 5 Peopel </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
                </div>
             </div>
          </div>

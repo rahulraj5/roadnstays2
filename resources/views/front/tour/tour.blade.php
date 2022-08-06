@@ -62,10 +62,9 @@
    });
 </script>
 <script>
-   $(document).ready(function() {
+  $(document).ready(function() {
     
-     $(".owl-carousel").owlCarousel({
-    
+    $(".owl-carousel").owlCarousel({ 
          autoplay:true,
          autoplayTimeout:3000,
          autoplayHoverPause:true,
@@ -84,15 +83,11 @@
                items:3
            }
          }
-          
+           
+    }); 
     
-     });
-    
-   });
-   
-   
-   
-</script>
+  });    
+</script> 
 @endsection
 @section('content')
 <main id="main">
@@ -125,7 +120,7 @@
       </div>
    </section>
    <section id="" class="tour-package">
-      <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="">
          <div class="section-title t01">
             <h4>Popular Tours</h4>
             <span class="separator01"></span>   
@@ -192,7 +187,7 @@
       </div>
    </section>
    <section class="best-sell card-design">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
+      <div class="container aos-init aos-animate" data-aos="">
          <div class="section-title t01">
             <h4>Best Selling Tours</h4>
             <span class="separator01"></span>
@@ -217,7 +212,7 @@
       </div>
    </section> 
    <section id="" class="package-coming">
-      <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="">
          <div class="section-title t01">
             <h4>Top Visited Destinations Tours</h4>
             <span class="separator01"></span>   

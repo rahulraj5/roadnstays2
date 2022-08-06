@@ -138,6 +138,12 @@
                   <p>Tour List</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="{{ url('/admin/tourbooking_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tour Booking</p>
+                </a>
+              </li>
             </ul>
           </li>
 
@@ -154,6 +160,12 @@
                 <a href="{{ url('/admin/space-list') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Space List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/spaceBookingList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Space Booking List</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -178,10 +190,10 @@
                     </a>
                   </li>
                 </ul>
-              </li>
-              
+              </li> 
             </ul>
           </li>
+         
           <!-- <li class="nav-item">
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -224,6 +236,71 @@
           </li> -->
 
           <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Events Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/events_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Events List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/customer_management') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/scoutList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Scout List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/serviceProviderList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Service Provider list</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>
+                Transactions
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{{ url('/admin/transactionHistory') }}" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Transaction Histiory</p>
+                  </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li class="nav-item">
             <a href="{{ url('/admin/scoutList') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -248,7 +325,7 @@
                 Customer List
               </p>
             </a>
-          </li>
+          </li> -->
 
 
 

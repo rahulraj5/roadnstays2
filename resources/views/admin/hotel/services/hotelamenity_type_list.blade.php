@@ -177,7 +177,7 @@
 
     var status = $(this).prop('checked') == true ? 1 : 0; 
 
-    var user_id = $(this).data('id');
+    var amenity_id = $(this).data('id');
 
     // alert(status);
 
@@ -191,7 +191,7 @@
 
       url: "<?php echo url('/admin/changeHotelAmenityTypeStatus'); ?>",
 
-      data: {'status': status, 'user_id': user_id},
+      data: {'status': status, 'amenity_id': amenity_id},
 
       success: function(data){
 

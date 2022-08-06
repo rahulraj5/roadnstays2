@@ -37,6 +37,10 @@
   height: 200px; 
   overflow:hidden; 
 }
+
+ 
+
+
 </style>
 
 @endsection
@@ -136,7 +140,16 @@
         });
     });
 </script>
-
+<script>
+   $(function() {
+      $('.reserved').daterangepicker({
+         opens: 'right'
+      }, function(start, end, label) {
+            $('#date1').val(start.format('DD-MM-YYYY'));
+            $('#date2').val(end.format('DD-MM-YYYY'));
+      });
+   });
+</script>
 <script type="text/javascript">
 
  $(document).ready(function() { 
@@ -186,6 +199,30 @@ $(".show-more").click(function () {
 });  
 
 </script>
+<script>
+$(window).scroll(function(){
+    if ($(this).scrollTop() >0) {
+       $('#dynamic').addClass('newClass');
+       $('#locat-h').addClass('hotel-type');
+       $('#header').addClass('hotel-type');
+       
+       
+       $('#hotel-form1').addClass('input-box');
+       $('#logo-s').addClass('logo-z');
+       $('#dynamic').removeClass('sticky-sec');
+
+    } else {
+       $('#dynamic').removeClass('newClass');
+       $('#locat-h').removeClass('hotel-type');
+       $('#header').removeClass('hotel-type');
+       $('#hotel-form1').removeClass('input-box');
+       $('#logo-s').removeClass('logo-z');
+       $('#dynamic').addClass('sticky-sec');
+       
+    }
+});
+
+</script>
 
 @endsection
 
@@ -209,21 +246,23 @@ $(".show-more").click(function () {
 
 <!-- slider -->
 <main id="main">
-   <section class="user-section" style="padding-top: 100px; background-color: #f6f6f6;">
-      <div class="container-fluid">
+   <section id="dynamic" class="sticky-sec" style="">
+   <div class="logo-s col-md-2" id="logo-s"><a href="https://votivetechnologies.in/roadNstays" class="logo mr-auto"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
+      <div class="container">
       <div class="row">
       <div class="col-md-12 ">
-         <div class="event-locaation mb-4">
+         <div class="event-locaatio">
             <!-- <small><a href="#"> Home </a>/ <a href="#"> Event </a> </small> -->
             
-            <div class="hotel-type">
-            <h3>Hotels in {{$location}}</h3>
+            <div class="hotel-typ">
+            <h3 id ="locat-h">Hotels in {{$location}}</h3>
             <form method="GET" action="{{url('hotelList')}}">
               @csrf
-               <div class="row">
-                  <div class="col-md-4 filter_01 pr-0 h-hotel pl-0">
+               <div id="hotel-form1" class="row  align-items-center hotel-form1" >
+                
+                  <div class="col-md-4 filter_01 pr-0 h-hotel pl-0" >
                  <!-- <p>Where To</p>  -->
-                     <span class="span3 form-control-lo"><i class="bx bx-map"></i>
+                     <span id="i-1" class="span3 form-control-lo"><i class="bx bx-map"></i>
                      
                      <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="" value="{{$location}}">
                      <input type="hidden"  name="hotel_latitude" id="hotel_latitude" value="{{$hotel_latitude}}">
@@ -231,19 +270,19 @@ $(".show-more").click(function () {
                  	</span>
                   </div>
 
-                  <div class="col-md-2 filter_01 pr-0 ">
+                  <div class="col-md-2 filter_01 pr-0 reserved" >
                   <!-- <p>Check_in</p> -->
-                  <input type="text" name="check_in" id="dt1" placeholder="Check-in" required="" value="{{date('d-M-y', strtotime($check_in))}}">
+                  <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="{{date('d-M-y', strtotime($check_in))}}">
                   <!-- <input type="text" name="check_in" id="dt1" placeholder="Check-in" required="" value="<?php echo date("d-M-y");?>"> -->
                   </div>
-                  <div class="col-md-2 filter_01 pr-0">
+                  <div class="col-md-2 filter_01 pr-0 reserved" >
                   <!-- <p>Check_out</p> -->
-                   <input type="text" name="check_out" id="dt2" placeholder="Check-Out" required="" value="{{date('d-M-y', strtotime($check_out))}}">
+                   <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="{{date('d-M-y', strtotime($check_out))}}">
                    <!-- <input type="text" name="check_out" id="dt2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day"));?> "> -->
                   </div>
-                  <div class="col-md-2 filter_01 pr-0 ">
+                  <div class="col-md-2 filter_01 pr-0" >
                     <!-- <p>Person</p> -->
-                     <select class="h-siz" name="person">
+                     <select class="h-siz" id="i-4" name="person" >
                         <option>1 Person </option>
                         <option>2 Person</option>
                         <option>3 Person</option>
@@ -251,9 +290,9 @@ $(".show-more").click(function () {
                         <option>Fammily</option>
                      </select>
                   </div>
-                  <div class="col-md-2 filter_01 pr-0">
-                  <input type="submit" value="Find" class="hotel-btn pull-right">
-                  </div>
+                  <div class="col-md-2 filter_01 pr-0" id="i-5">
+                  <button><i class="bx bx-search"></i></button></div>
+                  
                   
                </div>
               
@@ -262,285 +301,306 @@ $(".show-more").click(function () {
          </div>
          
       </div>
-      <div class="col-md-3">
-         <div class="filter-row">
-              
-                <!-- <div class="form-group-ser">
-                     <input type="checkbox" id="html">
-                     <label for="html">Breakfast included</label>
-                  </div>
-                  <div class="form-group-ser">
-                     <input type="checkbox" id="css">
-                     <label for="css">House</label>
-                  </div>
-                  <div class="form-group-ser">
-                     <input type="checkbox" id="javascript">
-                     <label for="javascript">All-inclusive plan available</label>
-                  </div> -->
+      </div>
+      </div>
 
-    <form method="POST" id="filterform" action="{{url('hotel_list_ajax')}}" enctype="multipart/form-data">  
 
-    @csrf            
+      
+   </section>
 
-    <h6>Filter</h6>
-    <div class="category category-0">
-      <p>Distance</p>
-      <ul>
-      <li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
-      <li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
-      <li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
-      <li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
-          
-      </ul>
+<section>
+<div class="container-fluid">
+  <div class="wrapper-d d-flex justify-content-between">
+  <div class="hotel-list sticky w-25 h-100">
+  
+  <div class="filter-row">
+       
+         <!-- <div class="form-group-ser">
+              <input type="checkbox" id="html">
+              <label for="html">Breakfast included</label>
+           </div>
+           <div class="form-group-ser">
+              <input type="checkbox" id="css">
+              <label for="css">House</label>
+           </div>
+           <div class="form-group-ser">
+              <input type="checkbox" id="javascript">
+              <label for="javascript">All-inclusive plan available</label>
+           </div> -->
+
+<form method="POST" id="filterform" action="{{url('hotel_list_ajax')}}" enctype="multipart/form-data">  
+
+@csrf            
+
+<h6>Filter</h6>
+<div class="category category-0">
+<p>Distance</p>
+<ul>
+<li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
+<li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
+<li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
+<li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
+   
+</ul>
+</div>
+
+ <div class="category category-1">
+ <p>Your Budget (per night)</p>
+ <ul>
+   <li><label><input type="checkbox" name="budget[]" id="" value="1">0 - 5000</label></li>
+   <li><label><input type="checkbox" name="budget[]" id="" value="2">5000 - 10000</label></li>
+   <li><label><input type="checkbox" name="budget[]" id="" value="3">10000 - 15000</label></li>
+   <li><label><input type="checkbox" name="budget[]" id="" value="4">15000 - 20000</label></li>
+   <li><label><input type="checkbox" name="budget[]" id="" value="5">20000 +</label></li>
+     
+ </ul>
+ </div>
+
+ <div class="category category-2">
+     <p>Star Rating</p>
+     <ul>
+         <li><label><input type="checkbox" name="star[]" id="" value="1">1 stars<label></li>  
+         <li><label><input type="checkbox" name="star[]" id="" value="2">2 stars<label></li>
+         <li><label><input type="checkbox" name="star[]" id="" value="3">3 stars<label></li>
+         <li><label><input type="checkbox" name="star[]" id="" value="4">4 stars<label></li>
+         <li><label><input type="checkbox" name="star[]" id="" value="5">5 stars<label></li>
+     </ul>
+ </div>
+
+ <div class="category category-3">
+   <p>Room-Wise</p>
+   <ul>
+   <?php foreach ($room_wise as $key => $value) { ?> 
+
+   <li><label><input type="checkbox" name="roomwise[]" id="" value="{{$value->id}}">{{$value->title}}</label></li>  
+         
+   <?php } ?>                
+        
+   </ul>
+ </div>
+
+ <!--<div class="category category-4">
+     <p>Meals</p>
+     <ul>
+         <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
+         <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
+         <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
+         <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
+         
+     </ul>
+ </div>-->
+
+ <div class="category category-4">
+     <p>Emenites</p>
+     <!--<input type="Search" name="" id="" placeholder="search anything!">-->
+
+   <div id="profile-description">
+     <div class="text show-more-height">  
+
+   <ul>
+       <?php foreach ($emenites as $key => $value) { ?> 
+
+         <li><label><input type="checkbox" name="emenites[]" id="" value="{{$value->amenity_id}}">{{$value->amenity_name}}</label></li>
+
+       <?php } ?>
+
+     </ul> 
+
+     </div>
+     <div class="show-more">Show all</div>
+     </div>  
+    
+ </div>
+
+ <div class="category category-5">
+     <p>Property type</p>
+     <ul>
+       <?php foreach ($property_type as $key => $value) { ?>
+
+         <li><label><input type="checkbox" name="property[]" id="" value="{{$value->id}}">{{$value->stay_type}}</label></li>
+
+       <?php } ?>
+
+     </ul>
+ </div>
+
+</form>
+
+  </div>
+</div>
+
+
+
+<div class="gird-event hotel-list w-75 row pt-3" id="filterdata">
+  <div class="">
+     <div class="col-md-12">
+
+        <span><img id="loading-image" src="{{asset('resources/assets/img/loading.gif')}}" style="display: none;"></span>
+
+       @if (!empty($hotel_data))
+        <div class="col-md-12 pro-fund p-0">
+           <h2>{{$location}}: {{$hotelcount}} Hotel found</h2>
+        </div>
+
+        @foreach($hotel_data as $hotel)
+        <div class="event-br">
+           <div class="img-list-event">
+              <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel['hotel_gallery']}}" class="animate__animated animate__zoomIn animate__slower	3s">
+              <!-- <div class="ribbon"><span>POPULAR</span></div> -->
+           </div>
+           <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
+              <div class="mb-auto w-100">
+    <div class="list-header">
+     <div class="info-details">
+       <h3>{{$hotel['hotel_name']}}</h3>
+       <p><i class="bx bx-map"></i> {{$hotel['hotel_address']}},{{$hotel['hotel_city']}}</p>
+
+     </div>
+           <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}" class="book-btn" target="_blank">View Room</a>
+           
+     <!-- <div class="review-count">
+       <div class="info_rev">
+         <p>287 reviews</p>
+       </div>
+       <div class="rating_rev">
+         <span>{{$hotel['hotel_rating']}}</span>
+       </div>
+                 </div> -->
+    </div>
+        
+                 <div class="mb-1 d-flex" id="rating-ability-wrapper">
+                    <label class="control-label" for="rating">
+                    <span class="field-label-info"></span>
+                    <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
+                    </label>
+                    @if ($hotel['hotel_rating'] === 5)
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
+                    @elseif ($hotel['hotel_rating'] === 4)
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
+                    @elseif ($hotel['hotel_rating'] === 3)
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
+                    @elseif ($hotel['hotel_rating'] === 2)
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                    @else
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    @endif
+                  <span class="rvw">26412 review</span>
+                 </div>
+                 <b> {{$hotel['property_contact_name']}}</b>
+                 <!-- <p class="p-0"> {{$hotel['hotel_content']}}.</p> -->
+              </div>
+              <div class="w-100">
+                 <div class="time-event-bn">
+                    <div class="botm-icom">
+                     @foreach($hotel['hotel_amenities'] as $amenities)
+                       <a href="#"><i class='bx bx-check'></i> <label>{{$amenities->amenity_name}}</label> </a>
+                     @endforeach  
+
+                       <!-- <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
+                       <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
+                       <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
+                       <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
+                       <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a> -->
+                    </div>
+                    
+                    
+                    
+                    <div class="pric-off">
+                       <span>20% Off</span>
+                       <h5>PKR {{$hotel['stay_price']}}/- </h5>
+                       <!-- <div><small>+₹400 taxes and charges</small></div> -->
+                    </div>
+                    
+                 </div>
+              </div>
+            <div class="room-avail">
+            <i class='bx bxs-hotel'></i>
+            Available
+            </div>
+           </div>
+        </div>
+        @endforeach
+        @else
+
+        @endif
+        <!-- <div class="event-br">
+           <div class="img-list-event">
+              <img src="assets/img/pany.png">
+           </div>
+           <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
+              <div class="mb-auto w-100">
+                 <h3>JW Marriott Hotel New Delhi Aerocity </h3>
+                 <div class="mb-1 d-flex" id="rating-ability-wrapper">
+                    <label class="control-label" for="rating">
+                    <span class="field-label-info"></span>
+                    <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
+                    </label>
+                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
+                    <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
+                 </div>
+                 <b> Comfiest Beds, Delicous Breakfast </b>
+                 <p class="p-0">
+                    stay at unbetable reates with complimentary breakfast and wi-fi. free stay for kids below 12 year of age.
+                 </p>
+              </div>
+              <div class="w-100">
+                 <div class="time-event-bn">
+                    <div class="botm-icom">
+                       <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
+                       <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
+                       <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
+                       <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
+                       <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
+                    </div>
+                    <div class="pric-off">
+                       <span>20% Off</span>
+                       <h5>PKR 125/- </h5>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div> -->
+     </div>
   </div>
 
-        <div class="category category-1">
-        <p>Your Budget (per night)</p>
-        <ul>
-          <li><label><input type="checkbox" name="budget[]" id="" value="1">0 - 5000</label></li>
-          <li><label><input type="checkbox" name="budget[]" id="" value="2">5000 - 10000</label></li>
-          <li><label><input type="checkbox" name="budget[]" id="" value="3">10000 - 15000</label></li>
-          <li><label><input type="checkbox" name="budget[]" id="" value="4">15000 - 20000</label></li>
-          <li><label><input type="checkbox" name="budget[]" id="" value="5">20000 +</label></li>
-            
-        </ul>
-        </div>
+<!-- <nav aria-label="Page navigation" class="pagination-list">
+<ul class="pagination">
+ <li class="page-item "><a class="page-link" href="#">«</a></li>
+ <li class="page-item active"><a class="page-link" href="#">1</a></li>
+ <li class="page-item"><a class="page-link" href="#">2</a></li>
+ <li class="page-item"><a class="page-link" href="#">3</a></li>
+ <li class="page-item"><a class="page-link" href="#">»</a></li>
+</ul>
+</nav> -->
 
-        <div class="category category-2">
-            <p>Star Rating</p>
-            <ul>
-                <li><label><input type="checkbox" name="star[]" id="" value="1">1 stars<label></li>  
-                <li><label><input type="checkbox" name="star[]" id="" value="2">2 stars<label></li>
-                <li><label><input type="checkbox" name="star[]" id="" value="3">3 stars<label></li>
-                <li><label><input type="checkbox" name="star[]" id="" value="4">4 stars<label></li>
-                <li><label><input type="checkbox" name="star[]" id="" value="5">5 stars<label></li>
-            </ul>
-        </div>
 
-        <div class="category category-3">
-          <p>Room-Wise</p>
-          <ul>
-          <?php foreach ($room_wise as $key => $value) { ?> 
 
-          <li><label><input type="checkbox" name="roomwise[]" id="" value="{{$value->id}}">{{$value->title}}</label></li>  
-                
-          <?php } ?>                
-               
-          </ul>
-        </div>
+{!! $hotels->render() !!}
+</div>
 
-        <!--<div class="category category-4">
-            <p>Meals</p>
-            <ul>
-                <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
-                <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
-                <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
-                <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
-                
-            </ul>
-        </div>-->
+</div>
 
-        <div class="category category-4">
-            <p>Emenites</p>
-            <!--<input type="Search" name="" id="" placeholder="search anything!">-->
+</div>
+  </div>
+</div>
 
-          <div id="profile-description">
-            <div class="text show-more-height">  
 
-          <ul>
-              <?php foreach ($emenites as $key => $value) { ?> 
 
-                <li><label><input type="checkbox" name="emenites[]" id="" value="{{$value->amenity_id}}">{{$value->amenity_name}}</label></li>
+</section>
 
-              <?php } ?>
-
-            </ul> 
-
-            </div>
-            <div class="show-more">Show all</div>
-            </div>  
-           
-        </div>
-
-        <div class="category category-5">
-            <p>Property type</p>
-            <ul>
-              <?php foreach ($property_type as $key => $value) { ?>
-
-                <li><label><input type="checkbox" name="property[]" id="" value="{{$value->id}}">{{$value->stay_type}}</label></li>
-
-              <?php } ?>
-
-            </ul>
-        </div>
-
-      </form>
-
-         </div>
-      </div>
-
-     
-
-      <div class="col-md-9 gird-event" id="filterdata">
-         <div class="row pt-3">
-            <div class="col-md-12">
-
-               <span><img id="loading-image" src="{{asset('resources/assets/img/loading.gif')}}" style="display: none;"></span>
-
-              @if (!empty($hotel_data))
-               <div class="col-md-12 pro-fund p-0">
-                  <h2>{{$location}}: {{$hotelcount}} Hotel found</h2>
-               </div>
-
-               @foreach($hotel_data as $hotel)
-               <div class="event-br">
-                  <div class="img-list-event">
-                     <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel['hotel_gallery']}}">
-                     <!-- <div class="ribbon"><span>POPULAR</span></div> -->
-                  </div>
-                  <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
-                     <div class="mb-auto w-100">
-					 <div class="list-header">
-						<div class="info-details">
-							<h3>{{$hotel['hotel_name']}}</h3>
-							<p><i class="bx bx-map"></i> {{$hotel['hotel_address']}},{{$hotel['hotel_city']}}</p>
-
-						</div>
-                  <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}" class="book-btn" target="_blank">View Room</a>
-                  
-						<!-- <div class="review-count">
-							<div class="info_rev">
-							  <p>287 reviews</p>
-							</div>
-							<div class="rating_rev">
-								<span>{{$hotel['hotel_rating']}}</span>
-							</div>
-                        </div> -->
-					 </div>
-               
-                        <div class="mb-1 d-flex" id="rating-ability-wrapper">
-                           <label class="control-label" for="rating">
-                           <span class="field-label-info"></span>
-                           <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
-                           </label>
-                           @if ($hotel['hotel_rating'] === 5)
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
-                           @elseif ($hotel['hotel_rating'] === 4)
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
-                           @elseif ($hotel['hotel_rating'] === 3)
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                           @elseif ($hotel['hotel_rating'] === 2)
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                           @else
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           @endif
-						             <span class="rvw">26412 review</span>
-                        </div>
-                        <b> {{$hotel['property_contact_name']}}</b>
-                        <!-- <p class="p-0"> {{$hotel['hotel_content']}}.</p> -->
-                     </div>
-                     <div class="w-100">
-                        <div class="time-event-bn">
-                           <div class="botm-icom">
-                            @foreach($hotel['hotel_amenities'] as $amenities)
-                              <a href="#"><i class='bx bx-check'></i> <label>{{$amenities->amenity_name}}</label> </a>
-                            @endforeach  
-
-                              <!-- <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
-                              <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
-                              <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
-                              <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                              <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a> -->
-                           </div>
-                           
-                           
-                           
-                           <div class="pric-off">
-                              <span>20% Off</span>
-                              <h5>PKR {{$hotel['stay_price']}}/- </h5>
-                              <!-- <div><small>+₹400 taxes and charges</small></div> -->
-                           </div>
-                           
-                        </div>
-                     </div>
-                   <div class="room-avail">
-                   <i class='bx bxs-hotel'></i>
-                   Available
-                   </div>
-                  </div>
-               </div>
-               @endforeach
-               @else
-
-               @endif
-               <!-- <div class="event-br">
-                  <div class="img-list-event">
-                     <img src="assets/img/pany.png">
-                  </div>
-                  <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
-                     <div class="mb-auto w-100">
-                        <h3>JW Marriott Hotel New Delhi Aerocity </h3>
-                        <div class="mb-1 d-flex" id="rating-ability-wrapper">
-                           <label class="control-label" for="rating">
-                           <span class="field-label-info"></span>
-                           <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
-                           </label>
-                           <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                           <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
-                           <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
-                        </div>
-                        <b> Comfiest Beds, Delicous Breakfast </b>
-                        <p class="p-0">
-                           stay at unbetable reates with complimentary breakfast and wi-fi. free stay for kids below 12 year of age.
-                        </p>
-                     </div>
-                     <div class="w-100">
-                        <div class="time-event-bn">
-                           <div class="botm-icom">
-                              <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
-                              <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
-                              <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
-                              <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                              <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
-                           </div>
-                           <div class="pric-off">
-                              <span>20% Off</span>
-                              <h5>PKR 125/- </h5>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div> -->
-            </div>
-         </div>
-		 
-		<!-- <nav aria-label="Page navigation" class="pagination-list">
-			<ul class="pagination">
-				<li class="page-item "><a class="page-link" href="#">«</a></li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">»</a></li>
-			</ul>
-		</nav> -->
-      
-		 
-		 
-		 {!! $hotels->render() !!}
-      </div>
-   </section>
 </main>
 <!-- End #main -->
 

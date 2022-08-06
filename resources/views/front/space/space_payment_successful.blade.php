@@ -32,19 +32,19 @@
                         <p>Booking confirmed</p>
                         <h5>Booking Details-</h5>
                         <ul class="details">
-                            <li>Booking-id <span> 445</span></li>
-                            <li>since when <span>27 July 2022</span>  </li>
-                            <li> till when <span>05 Aug 2022</span> </li>
-                            <li>Total <span>$123</span></li>
-                            <li>Status <span>Confirmed</span></li>
+                            <li>Booking-id <span> {{$order_info->space_booking_id}}</span></li>
+                            <li>since when <span>{{date("d F, Y", strtotime($order_info->check_in_date))}}</span>  </li>
+                            <li> till when <span>{{date("d F, Y", strtotime($order_info->check_out_date))}}</span> </li>
+                            <li>Total <span>PKR {{ $order_info->total_amount }}</span></li>
+                            <li>Status <span>{{ $order_info->booking_status }}</span></li>
                         </ul>
 
                         <div class="booker-d">
-                            <h6>Details: <span>Space For Friend</span></h6>
+                            <h6>Details: <span>{{ $order_info->space_name }}</span></h6>
                             <h6>Ocassion: <span>Beach Party</span></h6>
                         </div>
                         <div class="booker-d">
-                            <h6>Name: <span>Aditya Sisodiya</span></h6>
+                            <h6>Name: <span>{{ $order_info->first_name }} {{ $order_info->last_name }}</span></h6>
                             <h6>Identity Card: <span>Driving License</span></h6>
                         </div>
 <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/vecteezy_tourists-with-luggage-at-the-airport-set-collection-of_3857409.jpg" alt="">

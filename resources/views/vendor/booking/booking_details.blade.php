@@ -410,16 +410,10 @@
         <!-- <section class="content"> -->
         <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
-              <!-- <div class="callout callout-info">
-                        <h5><i class="fas fa-info"></i> Note:</h5>
-                        This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
-                      </div> -->
-
+            <div class="col-12"> 
               <section class="order_Detail_s">
                 <div class="container-fluid">
-                  <div class="row">
-
+                  <div class="row"> 
                     <div class="col-md-6 col-sm-12">
                       <div class="order_Detail_main_s">
                         <div class="portlet yellow-crusta box">
@@ -440,8 +434,6 @@
 
                               <div class="col-md-7 value"> #000{{ $bookingList->id }}
 
-                                <!-- <span class="label label-info label-sm"> Email confirmation was sent </span> -->
-
                               </div>
 
                             </div>
@@ -451,7 +443,6 @@
                               <div class="col-md-5 name"> Order Date &amp; Time: </div>
 
                               <div class="col-md-7 value"> {{ date('d-M-Y h:i A', strtotime($bookingList->created_at)) }} </div>
-                              <!-- <div class="col-md-7 value"> 03 July 2022 16:35 PM </div> -->
 
                             </div>
 
@@ -729,7 +720,7 @@
                       Email: {{ $admin_details->email }}
                       @else
                       <strong>
-                        @if(isset($vendor_details->first_name)) {{ $vendor_details->first_name }} {{ $vendor_details->last_name }}@endif
+                      @if(isset($vendor_details->first_name)) {{ $vendor_details->first_name }} {{ $vendor_details->last_name }}@endif
                       </strong><br>
                       @if(isset($vendor_details->address)) {{ $vendor_details->address }}@endif
                       <br>

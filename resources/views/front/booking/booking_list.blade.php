@@ -10,7 +10,13 @@
     body {
         font-family: 'Open Sans', sans-serif;
     }
-    h1,h2,h3,h4,h5,h6{
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: 'Open Sans', sans-serif;
     }
 
@@ -130,6 +136,7 @@
         background-color: #f7f3f3;
         padding: 20px 50px 20px 54px;
         position: relative;
+        border-bottom: 1px dotted;
     }
 
     .icontext i {
@@ -152,7 +159,6 @@
     .user-detail-row {
         width: 100%;
         background: #fff;
-        border-top: 1px dashed;
         padding: 20px;
         border-radius: 5px;
         margin: 0px;
@@ -226,10 +232,11 @@
     .btn-detail {
         position: relative;
         float: right;
-        top: -70px;  
+        top: -70px;
     }
-    .user-detail p{
-        padding:5px 0;
+
+    .user-detail p {
+        padding: 5px 0;
     }
 
     .upcom-row {
@@ -310,7 +317,7 @@
     }
 
     .progress-ba li.active:before {
-        background:#cfb11d;
+        background: #cfb11d;
         color: white;
     }
 
@@ -323,242 +330,318 @@
         font-size: 16px;
         font-weight: 500;
     }
-    
-
-/* =====================================================responsive css below 768px =======================================================*/
-@media screen and (max-width:767px){
-    .tabs {
-    padding:0;
-    box-shadow:none;
-}
-.tabs__label {
-    padding: 15px 15px 10px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    text-align: center;
-}
-.tabs__radio:checked+.tabs__label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #009578;
-    border-bottom: 5px solid #009578;
-    background: aliceblue;
-    border-radius: 10px;
-}
-.tabs__label i {
-    padding-right: 0px;
-    margin: auto;
-}
-.tabs__content {
-    padding: 0;
-     margin-top: 0px;
-     border-bottom:none;
-}
-.icontext i {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-    left: -15px;
-}
-.btn-detail {
-    position: absolute;
-    top: 25px;
-    right: 5px;
-}
-.btn-detail a {
-    min-width: 235px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 500;
-}
-.text-detail {
-    padding: 20px 0px 8px 0px;
-}
-.icontext .text{
-    padding-left:40px;
-}
-.text-detail ul {
-    padding-left: 15px;
-    display: block;
-    margin: 0;
-}
-.user-detail-row .user-detail{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.user-detail h6 {
-    font-weight: 800;
-    font-size: 14px;
-}
-.upcom-row {
-    width: 100%;
-    padding: 0px 0;
-}
-.upcom-row h5 {
-    font-weight: 800;
-    font-size: 16px;
-    text-transform: capitalize;
-}
-.upcom-row p {
-    font-size: 14px;
-    margin: 8px 0 30px 0;
-}
-.upcom-text{
-    padding:0 5px;
-}
-.tabs__content .content {
-    margin-bottom: 30px;
-}
-.multi-step-bar {
-    margin: 1px auto 0px;
-    padding: 15px 0;
-    display:flex;
-    justify-content:space-between;
-}
-.hint-text p{
-    font-size:12px;
-}
-.user-detail-row {
-    padding: 7px;
-}
-.user-detail p {
-    padding: 3px 0;
-}
-}
 
 
-/* =========================================responsive below 1024px css============================================== */
-        /* =========================================responsive below 1024px css============================================== */
-
-        @media screen and (max-width:1023px) and (min-width:768px){
-            .tabs {
-    padding:0;
-    box-shadow:none;
-}
-.tabs__label {
-    padding: 15px 15px 10px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    text-align: center;
-}
-.tabs__radio:checked+.tabs__label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #009578;
-    border-bottom: 5px solid #009578;
-    background: aliceblue;
-    border-radius: 10px;
-}
-.tabs__label i {
-    padding-right: 0px;
-    margin: auto;
-}
-.tabs__content {
-    padding: 0;
-     margin-top: 0px;
-     border-bottom:none;
-}
-.icontext i {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    left: -27px;
-}
-.btn-detail {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-}
-.btn-detail a {
-    min-width: 235px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 500;
-}
-.text-detail {
-    padding: 20px 0px 20px 0px;
-}
-.icontext .text{
-    padding-left:40px;
-}
-.text-detail ul {
-    padding-left: 15px;
-}
-.user-detail-row .user-detail{
-    padding: 0px 0;
-    width: 50%;
-}
-.user-detail h6 {
-    font-weight: 800;
-    font-size: 14px;
-}
-.upcom-row {
-    width: 100%;
-    padding: 0px 0;
-    display: flex;
-    align-items:center;
-}
-.upcom-row .upcom-img{
-    max-width: 30%;
-    flex: 0 0 30%;
-}
-.upcom-row h5 {
-    font-weight: 800;
-    font-size: 16px;
-    text-transform: capitalize;
-}
-.upcom-row p {
-    font-size: 14px;
-    margin: 8px 0 30px 0;
-}
-.upcom-row .upcom-text{
-    padding:0 5px;
-    max-width: 68%;
-    flex: 0 0 68%;
-}
-.tabs__content .content {
-    margin-bottom: 50px;
-}
-.multi-step-bar {
-    
-    display: flex;
-    justify-content: space-between;
-}
-
-
+    /* =====================================================responsive css below 768px =======================================================*/
+    @media screen and (max-width:767px) {
+        .tabs {
+            padding: 0;
+            box-shadow: none;
         }
 
+        .tabs__label {
+            padding: 15px 15px 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            text-align: center;
+        }
+
+        .tabs__radio:checked+.tabs__label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #009578;
+            border-bottom: 5px solid #009578;
+            background: aliceblue;
+            border-radius: 10px;
+        }
+
+        .tabs__label i {
+            padding-right: 0px;
+            margin: auto;
+        }
+
+        .tabs__content {
+            padding: 0;
+            margin-top: 0px;
+            border-bottom: none;
+        }
+
+        .icontext i {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            left: -15px;
+        }
+
+        .btn-detail {
+            position: absolute;
+            top: 25px;
+            right: 5px;
+        }
+
+        .btn-detail a {
+            min-width: 235px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .text-detail {
+            padding: 20px 0px 8px 0px;
+        }
+
+        .icontext .text {
+            padding-left: 40px;
+        }
+
+        .text-detail ul {
+            padding-left: 15px;
+            display: block;
+            margin: 0;
+        }
+
+        .user-detail-row .user-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-detail h6 {
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .upcom-row {
+            width: 100%;
+            padding: 0px 0;
+        }
+
+        .upcom-row h5 {
+            font-weight: 800;
+            font-size: 16px;
+            text-transform: capitalize;
+        }
+
+        .upcom-row p {
+            font-size: 14px;
+            margin: 8px 0 30px 0;
+        }
+
+        .upcom-text {
+            padding: 0 5px;
+        }
+
+        .tabs__content .content {
+            margin-bottom: 30px;
+        }
+
+        .multi-step-bar {
+            margin: 1px auto 0px;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hint-text p {
+            font-size: 12px;
+        }
+
+        .user-detail-row {
+            padding: 7px;
+        }
+
+        .user-detail p {
+            padding: 3px 0;
+        }
+    }
+
+
+    /* =========================================responsive below 1024px css============================================== */
+    /* =========================================responsive below 1024px css============================================== */
+
+    @media screen and (max-width:1023px) and (min-width:768px) {
+        .tabs {
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .tabs__label {
+            padding: 15px 15px 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+            text-align: center;
+        }
+
+        .tabs__radio:checked+.tabs__label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #009578;
+            border-bottom: 5px solid #009578;
+            background: aliceblue;
+            border-radius: 10px;
+        }
+
+        .tabs__label i {
+            padding-right: 0px;
+            margin: auto;
+        }
+
+        .tabs__content {
+            padding: 0;
+            margin-top: 0px;
+            border-bottom: none;
+        }
+
+        .icontext i {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            left: -27px;
+        }
+
+        .btn-detail {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+        }
+
+        .btn-detail a {
+            min-width: 235px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .text-detail {
+            padding: 20px 0px 20px 0px;
+        }
+
+        .icontext .text {
+            padding-left: 40px;
+        }
+
+        .text-detail ul {
+            padding-left: 15px;
+        }
+
+        .user-detail-row .user-detail {
+            padding: 0px 0;
+            width: 50%;
+        }
+
+        .user-detail h6 {
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .upcom-row {
+            width: 100%;
+            padding: 0px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .upcom-row .upcom-img {
+            max-width: 30%;
+            flex: 0 0 30%;
+        }
+
+        .upcom-row h5 {
+            font-weight: 800;
+            font-size: 16px;
+            text-transform: capitalize;
+        }
+
+        .upcom-row p {
+            font-size: 14px;
+            margin: 8px 0 30px 0;
+        }
+
+        .upcom-row .upcom-text {
+            padding: 0 5px;
+            max-width: 68%;
+            flex: 0 0 68%;
+        }
+
+        .tabs__content .content {
+            margin-bottom: 50px;
+        }
+
+        .multi-step-bar {
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+    }
 </style>
 
-
 @endsection
-
-
 
 @section('current_page_js')
 
 <script>
-$('.tab1').on('click', function() {
-  $(".bread-sec").css('background-color', '#000');
-})
-$('.tab2').on('click', function() {
-  $(".bread-sec").css('background-color', '#fff');
-})
-$('.tab3').on('click', function() {
-  $(".bread-sec").css('background-color', '#f3f3f3');
-})
-$('.tab4').on('click', function() {
-  $(".bread-sec").css('background-color', '#ccc');
-})
+    $('.tab1').on('click', function() {
+        $(".bread-sec").css('background-color', '#000');
+    })
+    $('.tab2').on('click', function() {
+        $(".bread-sec").css('background-color', '#fff');
+    })
+    $('.tab3').on('click', function() {
+        $(".bread-sec").css('background-color', '#f3f3f3');
+    })
+    $('.tab4').on('click', function() {
+        $(".bread-sec").css('background-color', '#ccc');
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+
+        // var url = document.location.toString();
+        // if (url.match('#')) {
+        //     $('.nav-tabs a[href="#' + url.split('#')[1] + '"]')[0].click();
+        // } 
+
+        // //To make sure that the page always goes to the top
+        // setTimeout(function () {
+        //     window.scrollTo(0, 0);
+        // },200);
+
+        var url = document.location.toString();
+        // alert(url.match('#'));
+        // alert(url.split('#')[1]);
+
+        // alert($('.tabs__radio input[type="radio' + url.split('#')[1] + '"]')[0]);
+        // $('.nav-tabs a[href="#' + url.split('#')[1] + '"]')[0].click();
+        // alert($('.tabs__radio input[type="radio"]').val());
+        // alert([href="#' + url.split('#')[1] + '"]);
+        if (url.match('#')) {
+            // console.log('checking');
+            // console.log(url.split('#')[1]);
+            console.log('.tabs__radio-tabs a[href="#' + url.split('#')[1] + '"]');
+            $('.tabs__radio-tabs a[href="#' + url.split('#')[1] + '"]')[0].click();
+        } 
+
+        //To make sure that the page always goes to the top
+        setTimeout(function () {
+            window.scrollTo(0, 0);
+        },200);
+
+
+
+
+    });
+
 
 
 
@@ -592,80 +675,105 @@ $('.tab4').on('click', function() {
             <label for="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
             <div class="tabs__content">
 
-            @if (!$bookingList->isEmpty())
-            
-                @if(count($bookingList) > 0)    
-                  
-                    @foreach ($bookingList as $arr)
+                @if (!$bookingList->isEmpty())
 
+                    @if(count($bookingList) > 0)
 
-                        <div class="content">
-                            <div class="text-detail">
-                                <div class="icontext">
-                                    <i class='bx bxs-hotel'></i>
-                                    <div class="text">
-                                        <h3>{{ $arr->hotel_name }}</h3>
-                                        <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
-                                    </div>
-                                </div>
+                        @foreach ($bookingList as $arr)
 
-                                <ul>
-                                    <li>{{ $arr->room_name }}</li>
-                                    <li>Booking ID - VXMN{{ $arr->id }}</li>
-                                    <li>{{ $arr->payment_status }}</li>
-                                </ul>
-                                <div class="btn-detail">
-                                    <a href="{{ url('/user/bookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+                            <!-- @if($arr->check_in > Carbon\Carbon::today()->format('Y-m-d'))
+                                @php echo 'upcoming' @endphp
+                            @else
+                                @php echo 'past' @endphp
+                            @endif -->
 
-                                </div>
-                            </div>
-
-                            <div class="row user-detail-row ">
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-calendar'></i>FROM</p>
-                                    <h6>{{ $arr->check_in }} <span>{{ $arr->checkin_time }}</span></h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-calendar'></i>TO</p>
-                                    <h6>{{ $arr->check_out }} <span>{{ $arr->checkout_time }}</span></h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-store'></i>Room Name</p>
-                                    <h6>{{ $arr->room_name }} </h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-store'></i>Room Type</p>
-                                    <h6>{{ $arr->room_type_name }} </h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-
-                                <!-- <div class="col-md-3 user-detail">
-                                    <div class="dropdown">
-                                        <button class="dropbtn"><i class='bx bxs-store'></i>Room Name
-                                            <i class='bx bx-caret-down'></i>
-                                        </button>
-                                        <div class="dropdown-content">
-                                            <p>Room Name</p>
-                                            <h6>{{ $arr->room_name }}</h6>
-                                            <P>Room Type</P>
-                                            <h6>{{ $arr->room_type_name }}</h6>
+                            <div class="content">
+                                <div class="text-detail">
+                                    <div class="icontext">
+                                        <i class='bx bxs-hotel'></i>
+                                        <div class="text">
+                                            <h3>{{ $arr->hotel_name }}</h3>
+                                            <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
                                         </div>
                                     </div>
 
-                                    <p> <strong><i class='bx bxs-user-plus'></i>Neeru sharma +2</strong></p>
-                                </div> -->
-                                <!-- <div class="col-md-3 user-detail" style="text-align:center;">
-                                    <a href="#"><i class='bx bx-download'></i> Download Invoice</a>
-                                </div> -->
+                                    <ul>
+                                        <li>{{ $arr->room_name }}</li>
+                                        <li>Booking ID - VXMN{{ $arr->id }}</li>
+                                        <li>{{ $arr->payment_status }}</li>
+                                    </ul>
+                                    <div class="btn-detail">
+                                        <a href="{{ url('/user/bookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+
+                                    </div>
+                                </div>
+
+                                <div class="row user-detail-row ">
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-calendar'></i>FROM</p>
+                                        <h6>{{ $arr->check_in }} <span>{{ $arr->checkin_time }}</span></h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-calendar'></i>TO</p>
+                                        <h6>{{ $arr->check_out }} <span>{{ $arr->checkout_time }}</span></h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-store'></i>Room Name</p>
+                                        <h6>{{ $arr->room_name }} </h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-store'></i>Room Type</p>
+                                        <h6>{{ $arr->room_type_name }} </h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+
+                                    <!-- <div class="col-md-3 user-detail">
+                                        <div class="dropdown">
+                                            <button class="dropbtn"><i class='bx bxs-store'></i>Room Name
+                                                <i class='bx bx-caret-down'></i>
+                                            </button>
+                                            <div class="dropdown-content">
+                                                <p>Room Name</p>
+                                                <h6>{{ $arr->room_name }}</h6>
+                                                <P>Room Type</P>
+                                                <h6>{{ $arr->room_type_name }}</h6>
+                                            </div>
+                                        </div>
+
+                                        <p> <strong><i class='bx bxs-user-plus'></i>Neeru sharma +2</strong></p>
+                                    </div> -->
+                                    <!-- <div class="col-md-3 user-detail" style="text-align:center;">
+                                                <a href="#"><i class='bx bx-download'></i> Download Invoice</a>
+                                            </div> -->
+                                </div>
+                            </div>
+
+                        @endforeach
+                        <div class="row gird-event"  id="filterdata">
+                            <div class="col-md-12">
+                                <div class="">{{ $bookingList->fragment('tab1')->links() }}</div>
                             </div>
                         </div>
                         
+                    @else
 
-                    @endforeach
+                        <div class="row upcom-row">
+                            <div class="col-md-3 upcom-img">
+                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                            </div>
+                            <div class="col-md-9 upcom-text">
+                                <h5>Looks empty, you've no bookings.</h5>
+                                <p>When you book a trip, you will see your itinerary here.</p>
+                                <a href="#">PLAN A TRIP</a>
+                            </div>
+                        </div>
+
+                    @endif
 
                 @else
 
@@ -682,54 +790,132 @@ $('.tab4').on('click', function() {
                     </div>
 
                 @endif
-
-            @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>    
-
-            @endif
             </div>
 
-
-
-
-
-
-            <!-- <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
             <label for="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
-            <div class="tabs__content">
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
 
+            <div class="tabs__content">
+
+                @if (!$upcomingBookingList->isEmpty())
+                    @if(count($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d'))) > 0)
+
+                        @foreach ($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
+
+                            <div class="content">
+                                <div class="text-detail">
+                                    <div class="icontext">
+                                        <i class='bx bxs-hotel'></i>
+                                        <div class="text">
+                                            <h3>{{ $arr->hotel_name }}</h3>
+                                            <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
+                                        </div>
+                                    </div>
+
+                                    <ul>
+                                        <li>{{ $arr->room_name }}</li>
+                                        <li>Booking ID - VXMN{{ $arr->id }}</li>
+                                        <li>{{ $arr->payment_status }}</li>
+                                    </ul>
+                                    <div class="btn-detail">
+                                        <a href="{{ url('/user/bookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+
+                                    </div>
+                                </div>
+
+                                <div class="row user-detail-row ">
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-calendar'></i>FROM</p>
+                                        <h6>{{ $arr->check_in }} <span>{{ $arr->checkin_time }}</span></h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-calendar'></i>TO</p>
+                                        <h6>{{ $arr->check_out }} <span>{{ $arr->checkout_time }}</span></h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-store'></i>Room Name</p>
+                                        <h6>{{ $arr->room_name }} </h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+                                    <div class="col-md-3 user-detail">
+                                        <p><i class='bx bxs-store'></i>Room Type</p>
+                                        <h6>{{ $arr->room_type_name }} </h6>
+                                        <!-- <strong>new Delhi</strong> -->
+                                    </div>
+
+                                    <!-- <div class="col-md-3 user-detail">
+                                        <div class="dropdown">
+                                            <button class="dropbtn"><i class='bx bxs-store'></i>Room Name
+                                                <i class='bx bx-caret-down'></i>
+                                            </button>
+                                            <div class="dropdown-content">
+                                                <p>Room Name</p>
+                                                <h6>{{ $arr->room_name }}</h6>
+                                                <P>Room Type</P>
+                                                <h6>{{ $arr->room_type_name }}</h6>
+                                            </div>
+                                        </div>
+
+                                        <p> <strong><i class='bx bxs-user-plus'></i>Neeru sharma +2</strong></p>
+                                    </div> -->
+                                    <!-- <div class="col-md-3 user-detail" style="text-align:center;">
+                                                <a href="#"><i class='bx bx-download'></i> Download Invoice</a>
+                                            </div> -->
+                                </div>
+                            </div>
+
+                        @endforeach
+                            <div class="row gird-event"  id="filterdata">
+                                <div class="col-md-12">
+                                    <div class="">{{ $bookingList->fragment('tab2') }}</div>
+                                </div>
+                            </div>
+                    @else
+
+                        <div class="row upcom-row">
+                            <div class="col-md-3 upcom-img">
+                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                            </div>
+                            <div class="col-md-9 upcom-text">
+                                <h5>Looks empty, you've no upcoming bookings.</h5>
+                                <p>When you book a trip, you will see your itinerary here.</p>
+                                <a href="#">PLAN A TRIP</a>
+                            </div>
+                        </div>
+
+                    @endif
+
+                @else
+
+                    <div class="row upcom-row">
+                        <div class="col-md-3 upcom-img">
+                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                        </div>
+                        <div class="col-md-9 upcom-text">
+                            <h5>Looks empty, you've no upcoming bookings.</h5>
+                            <p>When you book a trip, you will see your itinerary here.</p>
+                            <a href="#">PLAN A TRIP</a>
+                        </div>
                     </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no upcoming bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-            </div> -->
+
+                @endif
+
+            </div>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
             <label for="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
             <div class="tabs__content">
 
-            @if (!$bookingList->isEmpty())
-            
-                @if(count($bookingList->where('booking_status', 'canceled')) > 0)    
-                  
-                    @foreach ($bookingList->where('booking_status', 'canceled') as $arr)
+                @if (!$bookingList->isEmpty())
+
+                    @if(count($bookingList->where('booking_status', 'canceled')) > 0)
+
+                        @foreach ($bookingList->where('booking_status', 'canceled') as $arr)
 
                         <div class="content cancelled-content">
                             <div class="text-detail">
@@ -770,14 +956,33 @@ $('.tab4').on('click', function() {
                             </ul>
                         </div>
 
-                    @endforeach
+                        @endforeach
+                        <!-- <div class="row gird-event"  id="filterdata">
+                            <div class="col-md-12">
+                                <div class="">{{ $bookingList->links() }}</div>
+                            </div>
+                        </div> -->
+                    @else
+
+                        <div class="row upcom-row">
+                            <div class="col-md-3 upcom-img">
+                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                            </div>
+                            <div class="col-md-9 upcom-text">
+                                <h5>Looks empty, you've no canceled bookings.</h5>
+                                <p>When you book a trip, you will see your itinerary here.</p>
+                                <a href="#">PLAN A TRIP</a>
+                            </div>
+                        </div>
+
+                    @endif
 
                 @else
 
                     <div class="row upcom-row">
                         <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
+                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="150px">
                         </div>
                         <div class="col-md-9 upcom-text">
                             <h5>Looks empty, you've no canceled bookings.</h5>
@@ -786,38 +991,20 @@ $('.tab4').on('click', function() {
                         </div>
                     </div>
 
-                @endif    
-
-            @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="" alt="" width="150px">
-
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no canceled bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-            @endif
+                @endif
 
             </div>
-
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
             <label for="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label>
             <div class="tabs__content">
 
-            @if (!$bookingList->isEmpty())
-            
-                @if(count($bookingList->where('booking_status', 'failed')) > 0)    
-                  
-                    @foreach ($bookingList->where('booking_status', 'failed') as $arr)
+                @if (!$bookingList->isEmpty())
 
-                        
+                    @if(count($bookingList->where('booking_status', 'failed')) > 0)
+
+                        @foreach ($bookingList->where('booking_status', 'failed') as $arr)
+
                         <div class="content failed-content">
                             <div class="text-detail">
                                 <div class="icontext">
@@ -857,10 +1044,15 @@ $('.tab4').on('click', function() {
                                 </ul>
                             </div>
                         </div>
-                            
-                        
-                    @endforeach
-                @else
+
+                        @endforeach
+
+                        <!-- <div class="row gird-event"  id="filterdata">
+                            <div class="col-md-12">
+                                <div class="">{{ $bookingList->links() }}</div>
+                            </div>
+                        </div> -->
+                    @else
 
                     <div class="row upcom-row">
                         <div class="col-md-3 upcom-img">
@@ -873,21 +1065,21 @@ $('.tab4').on('click', function() {
                         </div>
                     </div>
 
+                    @endif
+
+                @else
+
+                    <div class="row upcom-row">
+                        <div class="col-md-3 upcom-img">
+                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+                        </div>
+                        <div class="col-md-9 upcom-text">
+                            <h5>Looks empty, you've no failed bookings.</h5>
+                            <p>When you book a trip, you will see your itinerary here.</p>
+                            <a href="#">PLAN A TRIP</a>
+                        </div>
+                    </div>
                 @endif
-
-            @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no failed bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>    
-            @endif
 
             </div>
         </div>
