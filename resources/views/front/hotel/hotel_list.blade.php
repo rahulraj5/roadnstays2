@@ -141,14 +141,22 @@
     });
 </script>
 <script>
-   $(function() {
-      $('.reserved').daterangepicker({
-         opens: 'right'
-      }, function(start, end, label) {
-            $('#date1').val(start.format('DD-MM-YYYY'));
-            $('#date2').val(end.format('DD-MM-YYYY'));
-      });
-   });
+  var today = new Date();
+  $(function() {
+    $('.reserved').daterangepicker({
+      autoApply: true,
+      autoUpdateInput: true,
+      minDate: today,
+      locale: {
+            format: 'DD-MM-YYYY'
+      },
+      "opens": "center",
+      "drops": "auto"
+    }, function(start, end, label) {
+          $('#date1').val(start.format('DD-MM-YYYY'));
+          $('#date2').val(end.format('DD-MM-YYYY'));
+    });
+  });
 </script>
 <script type="text/javascript">
 

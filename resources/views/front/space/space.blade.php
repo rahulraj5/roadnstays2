@@ -300,27 +300,22 @@ $(window).scroll(function(){
 </script>
 
 <script>
-   var today = new Date(); 
-   var dd = today.getDate(); 
-   var mm = today.getMonth()+1; //January is 0! 
-   var yyyy = today.getFullYear(); 
-   if(dd<10){ dd='0'+dd } 
-   if(mm<10){ mm='0'+mm } 
-   let today_date = dd+'/'+mm+'/'+yyyy;
-   // alert(today);
+  var today = new Date(); 
 
    $(function() {
        
       $('.reserved').daterangepicker({
-         // minDate:new Date(),
-         dateFormat: "dd-M-yy",
-         minDate: 1,
-         defaultDate: new Date(),
-         // minDate: today_date,
-         // opens: 'right'
+        "autoApply": true,
+        "autoUpdateInput": true,
+        minDate: today,
+        locale: {
+            format: 'DD-MM-YYYY'
+        },
+        "opens": "center",
+        "drops": "auto"
       }, function(start, end, label) {
-            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
-            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+          $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+          $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
       });
    });
 </script>
@@ -395,7 +390,19 @@ $(window).scroll(function(){
     <div class="container-fluid">
       <div class="space-t">
         <div class="owl-carousel owl-theme">
+
+        @foreach($categories as $category)
           <div class="item">
+            <div class="img-rid">
+              <!-- <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" alt="" class="img-fluid"> -->
+              <a href="{{url('/space-category-list')}}/{{base64_encode($category->scat_id)}}"><img src="{{url('public/uploads/space_images/cat_img/')}}/{{$category->space_cat_image}}" alt="" class="img-fluid"></a>
+              
+            </div>
+            <h6>{{ $category->category_name }}</h6>
+          </div>
+        @endforeach  
+
+          <!-- <div class="item">
             <div class="img-rid">
               <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" alt="" class="img-fluid">
             </div>
@@ -471,7 +478,7 @@ $(window).scroll(function(){
             </div>
             <h6>Event Space</h6>
 
-          </div>
+          </div> -->
 
         </div>
 

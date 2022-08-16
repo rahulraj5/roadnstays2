@@ -43,7 +43,7 @@
          var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
          $.ajax({
            type: 'POST',
-           url: "{{url('/servicepro/deleteTour')}}",
+           url: "{{url('/servicepro/deleteEvent')}}",
            data: {
              id: id,
              _token: CSRF_TOKEN
@@ -73,7 +73,7 @@
      $.ajax({
        type: "GET",
        dataType: "json",
-       url: "<?php echo url('/admin/changeTourStatus'); ?>",
+       url: "<?php echo url('/servicepro/changeEventStatus'); ?>",
        data: {'status': status, 'id': id},
        success: function(data){
          success_noti(data.success);
@@ -90,7 +90,7 @@
 </script>
 @endsection
 @section('content')
-<a href="{{ url('/servicepro/addTour') }}" class="btn btn-primary btn-dark btn_add htl-add">Add</a>
+<a href="{{ url('/servicepro/addEvent') }}" class="btn btn-primary btn-dark btn_add htl-add">Add</a>
 <div class="card hotel_info-card">
    <div class="card-body table-responsive">
       <table id="example1" class="table table-bordered table-striped htl-listing">
@@ -115,8 +115,7 @@
             <tr id="row{{ $arr->id }}">
                <td>{{ $i }}</td>
                <td>{{ $arr->title }}</td>
-               <td>{{ $arr->image }}</td>
-               <td>{{ $arr->description }}</td>
+               <td><img src="{{url('/')}}/public/uploads/event_gallery/{{$arr->image}}" width="100" height="100"></td>
                <td>{{ $arr->start_date }}</td>
                <td>{{ $arr->start_time }}</td>
                <td>{{ $arr->end_date }}</td>
@@ -127,8 +126,8 @@
                </td>
                <td class="text-right py-0 align-middle">
                   <div class="btn-group btn-group-sm">
-                     <a href="{{url('/servicepro/viewTour')}}/{{$arr->id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
-                     <a href="{{url('/servicepro/editTour')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
+                     <a href="{{url('/servicepro/view-event')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
+                     <a href="{{url('/servicepro/edit_event')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
                      <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash"  alt="user" title="user"></i></a>
                   </div>
                </td>

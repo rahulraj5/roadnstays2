@@ -28,7 +28,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `admin_address`, `admin_city`, `admin_state`, `admin_country`, `admin_postal_code`, `admin_number`, `created_at`, `updated_at`) VALUES
-(1,	'RoadnStays Admin',	'admin@gmail.com',	NULL,	'$2y$10$veRpHDfzuM4HyCp7iPqI8OnvJX4Nzm47KSHJDZo.JlgIPSHdMiLui',	NULL,	'Lahore',	'Lahore',	'Panjab',	'Pakistan',	'05499',	'0123456789',	'2022-05-19 01:44:25',	'2022-05-19 01:44:25');
+(1,	'RoadnStays Admin',	'admin@gmail.com',	NULL,	'$2y$10$MhWnBFhDk2ruulwlWeEni.JfhPOTqhsAnePBs/E9aZqErI9B6At7q',	NULL,	'Lahore',	'Lahore',	'Panjab',	'Pakistan',	'05499',	'0123456789',	'2022-05-19 01:44:25',	'2022-05-19 01:44:25');
 
 DROP TABLE IF EXISTS `amenities_type`;
 CREATE TABLE `amenities_type` (
@@ -37,7 +37,7 @@ CREATE TABLE `amenities_type` (
   `amenity_name_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `amenities_type` (`id`, `name`, `amenity_name_type`, `status`) VALUES
 (1,	'Room Amenitie',	'Room_Amenities',	1),
@@ -46,7 +46,7 @@ INSERT INTO `amenities_type` (`id`, `name`, `amenity_name_type`, `status`) VALUE
 (4,	'Food & drink',	'Food_&_drink',	1),
 (5,	'Outdoor and view',	'Outdoor_and_view',	1),
 (6,	'Accessibility',	'Accessibility',	1),
-(7,	'Entertainment and family services',	'Entertainment_and_family_services',	1);
+(7,	'Entertainment and family service',	'Entertainment_and_family_services',	1);
 
 DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
@@ -74,7 +74,7 @@ CREATE TABLE `booking` (
   `created_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `booking` (`id`, `user_id`, `hotel_id`, `room_id`, `check_in`, `check_out`, `total_days`, `total_room`, `total_member`, `coupon_code`, `discount`, `cleaning_fee`, `city_fee`, `tax_percentage`, `total_amount`, `booking_status`, `payment_id`, `payment_token`, `payer_id`, `payment_type`, `payment_status`, `created_at`, `updated_at`) VALUES
 (1,	678,	100,	55,	'2022-06-28',	'2022-06-28',	1,	1,	2,	NULL,	NULL,	NULL,	NULL,	NULL,	610.00,	'canceled',	'PAYID-MK5MDVA81A50106HU238121H',	'EC-9SR43850K62596739',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-07-15 08:17:56',	'2022-07-15 08:17:56'),
@@ -184,7 +184,19 @@ INSERT INTO `booking` (`id`, `user_id`, `hotel_id`, `room_id`, `check_in`, `chec
 (125,	837,	281,	385,	'2022-08-04',	'2022-08-05',	1,	1,	2,	NULL,	NULL,	20.00,	20.00,	1.00,	541.00,	'pending',	'PAYID-MLVZLLI79A26451B7176502V',	'EC-7GG39118MK4689611',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-04 09:47:47',	'2022-08-04 09:47:47'),
 (126,	837,	78,	693,	'2022-08-13',	'2022-08-20',	7,	1,	2,	NULL,	NULL,	0.00,	0.00,	NULL,	3500.00,	'pending',	'PAYID-MLVZNAQ6EM03775K3307810J',	'EC-98D95633NS216954F',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-04 09:51:25',	'2022-08-04 09:51:25'),
 (127,	837,	118,	107,	'2022-08-10',	'2022-09-15',	36,	1,	2,	NULL,	NULL,	500.00,	500.00,	20.00,	37020.00,	'pending',	'PAYID-MLVZNHA2W4416965N9479531',	'EC-3648028264752244B',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-04 09:51:49',	'2022-08-04 09:51:49'),
-(128,	837,	92,	39,	'2022-08-06',	'2022-08-07',	1,	1,	2,	NULL,	NULL,	1000.00,	1000.00,	NULL,	7000.00,	'pending',	'PAYID-MLXA52I3TH55771Y83314300',	'EC-3RS19686UR757005J',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-06 06:49:36',	'2022-08-06 06:49:36');
+(128,	837,	92,	39,	'2022-08-06',	'2022-08-07',	1,	1,	2,	NULL,	NULL,	1000.00,	1000.00,	NULL,	7000.00,	'pending',	'PAYID-MLXA52I3TH55771Y83314300',	'EC-3RS19686UR757005J',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-06 06:49:36',	'2022-08-06 06:49:36'),
+(129,	837,	281,	383,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	100.00,	100.00,	3.00,	1203.00,	'pending',	'PAYID-MLZAGTA5H550315JV373235B',	'EC-2TP53361RV800771P',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 06:49:21',	'2022-08-09 06:49:21'),
+(130,	837,	281,	384,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	20.00,	20.00,	1.00,	541.00,	'pending',	'PAYID-MLZBWIQ8JD58036MX3619408',	'EC-3UX8808850600701T',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 08:30:57',	'2022-08-09 08:30:57'),
+(131,	1018,	281,	385,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	20.00,	20.00,	1.00,	541.00,	'pending',	'PAYID-MLZDR6Q1CS24871XE228611P',	'EC-3LY60657MN303015T',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 10:38:07',	'2022-08-09 10:38:07'),
+(132,	837,	400,	749,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'pending',	'PAYID-MLZDVZI6H3757533M1766924',	'EC-5GK30899LN362603T',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 10:46:20',	'2022-08-09 10:46:20'),
+(133,	837,	402,	753,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'pending',	'PAYID-MLZFEJI3TF449779W448780V',	'EC-56Y40407WC167222A',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 12:25:36',	'2022-08-09 12:25:36'),
+(134,	837,	402,	754,	'2022-08-09',	'2022-08-10',	1,	1,	2,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'pending',	'PAYID-MLZFHQY2EV46379WJ7776319',	'EC-69410041N50652602',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-09 12:32:15',	'2022-08-09 12:32:15'),
+(135,	678,	92,	39,	'2022-08-10',	'2022-08-11',	1,	1,	2,	NULL,	NULL,	1000.00,	1000.00,	NULL,	7000.00,	'pending',	'PAYID-MLZUG3I59L02351YL742505N',	'EC-5WB01330FU127142D',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-10 05:35:12',	'2022-08-10 05:35:12'),
+(136,	837,	104,	66,	'2022-08-10',	'2022-08-11',	1,	1,	2,	NULL,	NULL,	500.00,	500.00,	NULL,	3000.00,	'pending',	'PAYID-MLZU7RI7HR01633U09031717',	'EC-5FV02505839630644',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-10 06:27:39',	'2022-08-10 06:27:39'),
+(137,	837,	100,	55,	'2022-08-10',	'2022-08-11',	1,	1,	2,	NULL,	NULL,	100.00,	10.00,	NULL,	610.00,	'pending',	'PAYID-MLZWUNQ5K3029425X117492C',	'EC-17805773AJ409393X',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-10 08:20:43',	'2022-08-10 08:20:43'),
+(138,	938,	331,	770,	'2022-08-10',	'2022-08-11',	1,	1,	2,	NULL,	NULL,	200.00,	100.00,	10.00,	2310.00,	'pending',	'PAYID-MLZXSBQ07R618245M057051H',	'EC-46R22069438640508',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-10 09:32:07',	'2022-08-10 09:32:07'),
+(139,	934,	409,	775,	'2022-08-10',	'2022-08-11',	1,	1,	2,	NULL,	NULL,	200.00,	100.00,	10.00,	2310.00,	'pending',	'PAYID-MLZZLUQ7GA43318RE386645J',	'EC-6ES204583V127291G',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-10 11:26:46',	'2022-08-10 11:26:46'),
+(140,	837,	281,	382,	'2022-08-16',	'2022-08-17',	1,	1,	2,	NULL,	NULL,	200.00,	200.00,	2.00,	902.00,	'pending',	'PAYID-ML5SAQQ9US57129GU5019000',	'EC-2DW35553DA4688331',	'ER72HMHPHXM3S',	'paypal',	'successful',	'2022-08-16 04:44:32',	'2022-08-16 04:44:32');
 
 DROP TABLE IF EXISTS `booking_temp`;
 CREATE TABLE `booking_temp` (
@@ -212,7 +224,7 @@ CREATE TABLE `booking_temp` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id`, `user_id`, `hotel_id`, `room_id`, `check_in`, `check_out`, `cleaning_fee`, `city_fee`, `tax_percentage`, `total_days`, `total_room`, `total_member`, `coupon_code`, `discount`, `total_amount`, `pay_amount`, `online_payment_amount`, `desk_payment_amount`, `created_at`, `updated_at`) VALUES
 (1,	'PAYID-MK5L4II01G22227TC242060T',	'A21AAJH7jvoinIYraD-2-IlFYUGgHPsVRRN_yq8ybezuX-KIT0zfMANY4SVwt4P5jXZn7-l-xb1048BgPb0xvfVGqvPT3JLpA',	UNHEX('45432D3533573531353839315737323839363044'),	NULL,	104,	74,	'2022-06-28',	'2022-06-28',	50.00,	50.00,	0.00,	1,	1,	2,	NULL,	NULL,	600.00,	NULL,	NULL,	NULL,	'2022-06-28 08:38:57',	'2022-06-28 08:38:57'),
@@ -344,7 +356,19 @@ INSERT INTO `booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id`, `us
 (127,	'PAYID-MLVZLLI79A26451B7176502V',	'A21AAJ5c740jCcM-RksWw70Q8F_SelPVIIK2w8EMDrYoPiq2TfiyKQmJo85t4QZ1RK0uoYsSR2IpRUcosr2z7jcbuxyDpdCbQ',	UNHEX('45432D37474733393131384D4B34363839363131'),	1,	281,	385,	'2022-08-04',	'2022-08-05',	20.00,	20.00,	1.00,	1,	1,	2,	NULL,	NULL,	541.00,	NULL,	NULL,	NULL,	'2022-08-04 09:47:25',	'2022-08-04 09:47:25'),
 (128,	'PAYID-MLVZNAQ6EM03775K3307810J',	'A21AAJ5c740jCcM-RksWw70Q8F_SelPVIIK2w8EMDrYoPiq2TfiyKQmJo85t4QZ1RK0uoYsSR2IpRUcosr2z7jcbuxyDpdCbQ',	UNHEX('45432D39384439353633334E5332313639353446'),	1,	78,	693,	'2022-08-13',	'2022-08-20',	0.00,	0.00,	NULL,	7,	1,	2,	NULL,	NULL,	3500.00,	NULL,	NULL,	NULL,	'2022-08-04 09:50:59',	'2022-08-04 09:50:59'),
 (129,	'PAYID-MLVZNHA2W4416965N9479531',	'A21AAJ5c740jCcM-RksWw70Q8F_SelPVIIK2w8EMDrYoPiq2TfiyKQmJo85t4QZ1RK0uoYsSR2IpRUcosr2z7jcbuxyDpdCbQ',	UNHEX('45432D3336343830323832363437353232343442'),	1,	118,	107,	'2022-08-10',	'2022-09-15',	500.00,	500.00,	20.00,	36,	1,	2,	NULL,	NULL,	37020.00,	NULL,	NULL,	NULL,	'2022-08-04 09:51:24',	'2022-08-04 09:51:24'),
-(130,	'PAYID-MLXA52I3TH55771Y83314300',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	UNHEX('45432D335253313936383655523735373030354A'),	1,	92,	39,	'2022-08-06',	'2022-08-07',	1000.00,	1000.00,	NULL,	1,	1,	2,	NULL,	NULL,	7000.00,	NULL,	NULL,	NULL,	'2022-08-06 06:49:13',	'2022-08-06 06:49:13');
+(130,	'PAYID-MLXA52I3TH55771Y83314300',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	UNHEX('45432D335253313936383655523735373030354A'),	1,	92,	39,	'2022-08-06',	'2022-08-07',	1000.00,	1000.00,	NULL,	1,	1,	2,	NULL,	NULL,	7000.00,	NULL,	NULL,	NULL,	'2022-08-06 06:49:13',	'2022-08-06 06:49:13'),
+(131,	'PAYID-MLZAGTA5H550315JV373235B',	'A21AAJ74-4vsbkD8WU_SPYKo6abSAZZtpOyoAURecrCjzdP4aOBdyog8xb20V_8VXu7j6R6tgQl15KKc-TqRiVgFmXkP-6d6g',	UNHEX('45432D3254503533333631525638303037373150'),	1,	281,	383,	'2022-08-09',	'2022-08-10',	100.00,	100.00,	3.00,	1,	1,	2,	NULL,	NULL,	1203.00,	NULL,	NULL,	NULL,	'2022-08-09 06:48:44',	'2022-08-09 06:48:44'),
+(132,	'PAYID-MLZBWIQ8JD58036MX3619408',	'A21AAIlkeQgm0j3E9ps8n7jLAbSjtx1gXuFgQzMNXEFM_b-enDLORn4kUT6oGRhZOA02Qd7j2l5oA6A5NHTP6HZu_uI0el5HQ',	UNHEX('45432D3355583838303838353036303037303154'),	1,	281,	384,	'2022-08-09',	'2022-08-10',	20.00,	20.00,	1.00,	1,	1,	2,	NULL,	NULL,	541.00,	NULL,	NULL,	NULL,	'2022-08-09 08:30:27',	'2022-08-09 08:30:27'),
+(133,	'PAYID-MLZDR6Q1CS24871XE228611P',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	UNHEX('45432D334C5936303635374D4E33303330313554'),	1,	281,	385,	'2022-08-09',	'2022-08-10',	20.00,	20.00,	1.00,	1,	1,	2,	NULL,	NULL,	541.00,	NULL,	NULL,	NULL,	'2022-08-09 10:37:46',	'2022-08-09 10:37:46'),
+(134,	'PAYID-MLZDVZI6H3757533M1766924',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	UNHEX('45432D35474B33303839394C4E33363236303354'),	1,	400,	749,	'2022-08-09',	'2022-08-10',	10.00,	10.00,	1.00,	1,	1,	2,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-08-09 10:45:57',	'2022-08-09 10:45:57'),
+(135,	'PAYID-MLZFEJI3TF449779W448780V',	'A21AAJ8u7mEp3c5Hb-_dzWgP5rzd9ueSaUn3fgWDHTf32zeBv6BrdRcGSMTV6uSMtgkmoEE9f1Q_sslp9aTYqtbmfPXxWRW0A',	UNHEX('45432D3536593430343037574331363732323241'),	1,	402,	753,	'2022-08-09',	'2022-08-10',	10.00,	10.00,	1.00,	1,	1,	2,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-08-09 12:25:10',	'2022-08-09 12:25:10'),
+(136,	'PAYID-MLZFHQY2EV46379WJ7776319',	'A21AAJ8u7mEp3c5Hb-_dzWgP5rzd9ueSaUn3fgWDHTf32zeBv6BrdRcGSMTV6uSMtgkmoEE9f1Q_sslp9aTYqtbmfPXxWRW0A',	UNHEX('45432D36393431303034314E3530363532363032'),	1,	402,	754,	'2022-08-09',	'2022-08-10',	10.00,	10.00,	1.00,	1,	1,	2,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-08-09 12:32:03',	'2022-08-09 12:32:03'),
+(137,	'PAYID-MLZUG3I59L02351YL742505N',	'A21AALDl6mulCXLrNB3cnbeYgAlzozK5C6sTHIUC9Al-ZRteyXhRstOEvVUmf6V26joAYFUkHTfGpR5DQiWhmMaLVMC3WDMPQ',	UNHEX('45432D3557423031333330465531323731343244'),	NULL,	92,	39,	'2022-08-10',	'2022-08-11',	1000.00,	1000.00,	NULL,	1,	1,	2,	NULL,	NULL,	7000.00,	NULL,	NULL,	NULL,	'2022-08-10 05:34:38',	'2022-08-10 05:34:38'),
+(138,	'PAYID-MLZU7RI7HR01633U09031717',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	UNHEX('45432D3546563032353035383339363330363434'),	1,	104,	66,	'2022-08-10',	'2022-08-11',	500.00,	500.00,	NULL,	1,	1,	2,	NULL,	NULL,	3000.00,	NULL,	NULL,	NULL,	'2022-08-10 06:27:17',	'2022-08-10 06:27:17'),
+(139,	'PAYID-MLZWUNQ5K3029425X117492C',	'A21AAKxwdeWmpI2rdSiBI7qAvvWC0qu0aKmmKKZiW9MFmqfVwkQAHSK5s4DuaoEw86xDNmy-8eAFps7rihwrSEwqrDIrXEyeA',	UNHEX('45432D3137383035373733414A34303933393358'),	1,	100,	55,	'2022-08-10',	'2022-08-11',	100.00,	10.00,	NULL,	1,	1,	2,	NULL,	NULL,	610.00,	NULL,	NULL,	NULL,	'2022-08-10 08:20:06',	'2022-08-10 08:20:06'),
+(140,	'PAYID-MLZXSBQ07R618245M057051H',	'A21AAIS0jjhtWMCG5XeudT0XHo-T9pbBm2Kj0qwUgZyFR0Dfx83v6Q8vk1LzBumky9DESU5_YTO_Uz7DfBovo0g9kC4sYIp1g',	UNHEX('45432D3436523232303639343338363430353038'),	1,	331,	770,	'2022-08-10',	'2022-08-11',	200.00,	100.00,	10.00,	1,	1,	2,	NULL,	NULL,	2310.00,	NULL,	NULL,	NULL,	'2022-08-10 09:23:18',	'2022-08-10 09:23:18'),
+(141,	'PAYID-MLZZLUQ7GA43318RE386645J',	'A21AAKcdFq8v00UxjayKQ82Zq0MC9YlqWJKp511eBmXhEyD7H2aQ8HtlPX27KFx1FsJEoI7Z2AqaT2UCark24ViA6tSMylGSQ',	UNHEX('45432D3645533230343538335631323732393147'),	1,	409,	775,	'2022-08-10',	'2022-08-11',	200.00,	100.00,	10.00,	1,	1,	2,	NULL,	NULL,	2310.00,	NULL,	NULL,	NULL,	'2022-08-10 11:26:10',	'2022-08-10 11:26:10'),
+(142,	'PAYID-ML5SAQQ9US57129GU5019000',	'A21AAI7jLR1gca6Bla0pZRTRhTc0lOekh14pzEQBTMtVKf1QcgNW4R-fKshGqycnix2YkUgpAWvi3xlisBFro-q4nrvhB58Gg',	UNHEX('45432D3244573335353533444134363838333331'),	1,	281,	382,	'2022-08-16',	'2022-08-17',	200.00,	200.00,	2.00,	1,	1,	2,	NULL,	NULL,	902.00,	NULL,	NULL,	NULL,	'2022-08-16 04:42:42',	'2022-08-16 04:42:42');
 
 DROP TABLE IF EXISTS `breakfast_type`;
 CREATE TABLE `breakfast_type` (
@@ -894,6 +918,8 @@ CREATE TABLE `events` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `price` double(10,2) NOT NULL,
+  `ticket_qty` int(10) NOT NULL DEFAULT '1',
   `start_date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_date` date NOT NULL,
@@ -907,13 +933,19 @@ CREATE TABLE `events` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `events` (`id`, `vendor_id`, `title`, `description`, `image`, `start_date`, `start_time`, `end_date`, `end_time`, `address`, `latitude`, `longitude`, `hotel_ids`, `space_ids`, `status`, `created_at`, `updated_at`) VALUES
-(1,	0,	'Electrocom Expo dfdaf',	'Electrocom Expo adfadf',	'1659617624_2022_07_28T06_16_35_798Z.jpeg',	'2022-08-04',	'10:00:00',	'2022-08-04',	'10:00:00',	'Indore regal square',	'',	'',	NULL,	NULL,	1,	'2022-08-04 12:53:44',	'2022-08-05 06:47:43'),
-(4,	0,	'abc',	'description',	'1659693772_pexels-amar-saleem-91628.jpg',	'2022-08-05',	'00:00:00',	'2022-08-05',	'01:30:00',	'rnt road',	'',	'',	NULL,	NULL,	1,	'2022-08-05 10:02:52',	'2022-08-05 12:29:29'),
-(5,	0,	'pqr',	'sfjkkgag',	'pexels-pixabay-261327.jpg',	'2022-08-07',	'00:00:00',	'2022-08-07',	'02:00:00',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'',	'',	NULL,	NULL,	1,	'2022-08-06 08:35:44',	'2022-08-06 08:36:01'),
-(6,	0,	'Test Demo',	'Test Demo',	'bx+money-1325051899093085107.png',	'2022-08-21',	'00:30:00',	'2022-08-22',	'00:30:00',	'Indore, Madhya Pradesh, India',	'22.7195687',	'75.8577258',	'[\"331\",\"78\",\"80\"]',	'[\"435\",\"270\"]',	1,	'2022-08-06 10:10:20',	'2022-08-06 11:02:16');
+INSERT INTO `events` (`id`, `vendor_id`, `title`, `description`, `image`, `price`, `ticket_qty`, `start_date`, `start_time`, `end_date`, `end_time`, `address`, `latitude`, `longitude`, `hotel_ids`, `space_ids`, `status`, `created_at`, `updated_at`) VALUES
+(1,	0,	'Electrocom Expo dfdaf',	'Electrocom Expo adfadf',	'1659617624_2022_07_28T06_16_35_798Z.jpeg',	0.00,	0,	'2022-08-04',	'10:00:00',	'2022-08-04',	'10:00:00',	'Indore regal square',	'',	'',	'[\"411\",\"92\",\"93\",\"80\",\"90\"]',	'[\"472\",\"273\",\"412\",\"410\",\"411\",\"432\",\"367\"]',	1,	'2022-08-04 12:53:44',	'2022-08-12 10:25:12'),
+(4,	0,	'abc',	'description',	'1659693772_pexels-amar-saleem-91628.jpg',	0.00,	0,	'2022-08-05',	'00:00:00',	'2022-08-05',	'01:30:00',	'rnt road',	'',	'',	'[\"411\",\"93\",\"118\",\"108\",\"226\",\"148\"]',	'[\"473\",\"323\",\"272\",\"412\"]',	1,	'2022-08-05 10:02:52',	'2022-08-12 10:24:51'),
+(5,	0,	'pqr',	'sfjkkgag',	'pexels-pixabay-261327.jpg',	0.00,	0,	'2022-08-07',	'00:00:00',	'2022-08-07',	'02:00:00',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'',	'',	'[\"331\",\"92\",\"93\",\"78\",\"281\",\"148\"]',	'[\"471\",\"411\",\"434\",\"449\",\"406\"]',	1,	'2022-08-06 08:35:44',	'2022-08-12 10:24:25'),
+(7,	0,	'Demo',	'Demo',	'1659788766_m12.jpg',	100.00,	10,	'2022-08-21',	'00:30:00',	'2022-08-22',	'01:30:00',	'Indore Airport, Devi Ahillyabai Holkar Airport Area, Indore, Madhya Pradesh, India',	'',	'',	'[\"411\",\"90\",\"80\",\"78\",\"92\"]',	'[\"273\",\"272\",\"454\",\"323\",\"472\"]',	1,	'2022-08-06 12:26:06',	'2022-08-12 10:23:59'),
+(8,	0,	'rrrrrr',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'1660026631pexels-prime-cinematics-2057610.jpg',	10000.00,	10,	'2022-08-09',	'00:30:00',	'2022-08-09',	'01:00:00',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'',	'',	'[\"80\",\"78\",\"306\",\"309\"]',	'[\"455\",\"272\",\"273\",\"297\",\"323\"]',	1,	'2022-08-09 06:30:31',	'2022-08-12 10:23:36'),
+(9,	0,	'Testing',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,',	'pexels-pixabay-164595.jpg',	1200.00,	15,	'2022-10-08',	'01:00:00',	'2022-11-08',	'02:00:00',	'Lahore, Pakistan',	'',	'',	'[\"92\",\"80\",\"90\",\"284\",\"309\"]',	'[\"471\",\"272\",\"273\",\"412\",\"449\"]',	1,	'2022-08-09 10:00:49',	'2022-08-12 10:23:10'),
+(10,	336,	'Demo vendor',	'Demo',	'LEMON-CLEAR-CONCENTRATE.png',	0.00,	1,	'2022-08-12',	'10:10:00',	'2022-08-13',	'11:10:00',	'India Gate, Rajpath, India Gate, New Delhi, Delhi, India',	'',	'',	'[\"330\",\"311\",\"118\",\"95\",\"228\"]',	'[\"473\",\"272\",\"412\",\"449\",\"434\"]',	1,	'2022-08-09 10:15:36',	'2022-08-12 10:20:25'),
+(12,	877,	'rst',	'description',	'pexels-amar-saleem-91628.jpg',	0.00,	1,	'2022-08-10',	'13:00:00',	'2022-08-12',	'14:00:00',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'',	'',	'[\"408\",\"407\",\"331\",\"148\",\"320\"]',	'[\"412\",\"270\",\"375\",\"406\"]',	1,	'2022-08-10 06:42:09',	'2022-08-12 10:19:46'),
+(13,	877,	'abcd',	'description',	'pexels-fox-1082326.jpg',	0.00,	1,	'2022-08-10',	'00:00:00',	'2022-08-10',	'00:00:00',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'',	'',	'[\"330\",\"281\",\"90\",\"117\",\"80\",\"95\"]',	'[\"474\",\"362\",\"367\",\"375\"]',	1,	'2022-08-10 08:28:39',	'2022-08-12 10:19:00'),
+(14,	833,	'sdfsdf',	'sdfsd sdf',	'2018-Ford-Mustang-V8-GT-4K-UHD-Wallpaper-1648881365.jpg',	0.00,	1,	'2022-05-14',	'20:00:00',	'2022-06-09',	'20:00:00',	'Eiffel Tower, Avenue Anatole France, Paris, France',	'',	'',	'[\"80\",\"78\",\"93\",\"95\",\"118\"]',	'[\"272\",\"270\",\"323\",\"362\"]',	1,	'2022-08-10 10:15:51',	'2022-08-12 10:18:22');
 
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
@@ -945,7 +977,7 @@ CREATE TABLE `guestinfo` (
   `created_date` datetime NOT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=328 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `guestinfo` (`id`, `user_id`, `hotel_id`, `room_id`, `tour_id`, `space_id`, `email`, `first_name`, `last_name`, `mobile`, `status`, `created_date`, `updated_date`) VALUES
 (1,	NULL,	104,	74,	NULL,	NULL,	'pushpendrajha@gmail.com',	'Pushpendra',	'techs',	'09179004123',	1,	'2022-06-28 08:33:11',	'2022-06-28 08:33:11'),
@@ -1222,7 +1254,59 @@ INSERT INTO `guestinfo` (`id`, `user_id`, `hotel_id`, `room_id`, `tour_id`, `spa
 (272,	NULL,	NULL,	NULL,	73,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412589874',	1,	'2022-08-06 06:43:43',	'2022-08-06 06:43:43'),
 (273,	NULL,	92,	39,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'7412589874',	1,	'2022-08-06 06:49:13',	'2022-08-06 06:49:13'),
 (274,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-06 06:53:02',	'2022-08-06 06:53:02'),
-(275,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562584',	1,	'2022-08-06 08:15:43',	'2022-08-06 08:15:43');
+(275,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562584',	1,	'2022-08-06 08:15:43',	'2022-08-06 08:15:43'),
+(276,	NULL,	NULL,	NULL,	51,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412589874',	1,	'2022-08-06 12:39:12',	'2022-08-06 12:39:12'),
+(277,	NULL,	281,	383,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874625874',	1,	'2022-08-09 06:48:44',	'2022-08-09 06:48:44'),
+(278,	NULL,	NULL,	NULL,	120,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 06:54:32',	'2022-08-09 06:54:32'),
+(279,	NULL,	NULL,	NULL,	120,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 06:56:15',	'2022-08-09 06:56:15'),
+(280,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'srb',	'SAHU',	'9874562584',	1,	'2022-08-09 06:59:02',	'2022-08-09 06:59:02'),
+(281,	NULL,	NULL,	NULL,	NULL,	451,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 07:19:10',	'2022-08-09 07:19:10'),
+(282,	NULL,	NULL,	NULL,	20,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 08:27:22',	'2022-08-09 08:27:22'),
+(283,	NULL,	NULL,	NULL,	20,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 08:27:36',	'2022-08-09 08:27:36'),
+(284,	NULL,	281,	384,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 08:30:27',	'2022-08-09 08:30:27'),
+(285,	NULL,	NULL,	NULL,	120,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 08:32:02',	'2022-08-09 08:32:02'),
+(286,	NULL,	NULL,	NULL,	NULL,	362,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 08:34:27',	'2022-08-09 08:34:27'),
+(287,	NULL,	NULL,	NULL,	NULL,	434,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	1,	'2022-08-09 09:49:09',	'2022-08-09 09:49:09'),
+(288,	NULL,	NULL,	NULL,	122,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 10:32:12',	'2022-08-09 10:32:13'),
+(289,	NULL,	281,	385,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 10:37:46',	'2022-08-09 10:37:46'),
+(290,	NULL,	400,	749,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874123698',	1,	'2022-08-09 10:45:57',	'2022-08-09 10:45:57'),
+(291,	NULL,	NULL,	NULL,	18,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 10:47:26',	'2022-08-09 10:47:26'),
+(292,	NULL,	NULL,	NULL,	18,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 10:47:28',	'2022-08-09 10:47:28'),
+(293,	NULL,	NULL,	NULL,	NULL,	455,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 10:50:10',	'2022-08-09 10:50:10'),
+(294,	NULL,	402,	753,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 12:25:10',	'2022-08-09 12:25:10'),
+(295,	NULL,	NULL,	NULL,	122,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-09 12:26:53',	'2022-08-09 12:26:53'),
+(296,	NULL,	402,	754,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 12:32:03',	'2022-08-09 12:32:03'),
+(297,	NULL,	NULL,	NULL,	52,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-09 13:25:03',	'2022-08-09 13:25:03'),
+(298,	NULL,	92,	39,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'7419874798',	1,	'2022-08-10 05:34:38',	'2022-08-10 05:34:38'),
+(299,	NULL,	NULL,	NULL,	NULL,	465,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 05:45:50',	'2022-08-10 05:45:50'),
+(300,	NULL,	NULL,	NULL,	NULL,	434,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	1,	'2022-08-10 06:04:27',	'2022-08-10 06:04:27'),
+(301,	NULL,	NULL,	NULL,	NULL,	465,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 06:05:09',	'2022-08-10 06:05:09'),
+(302,	NULL,	NULL,	NULL,	50,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 06:19:14',	'2022-08-10 06:19:14'),
+(303,	NULL,	104,	66,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562584',	1,	'2022-08-10 06:27:17',	'2022-08-10 06:27:17'),
+(304,	NULL,	NULL,	NULL,	NULL,	465,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 06:29:08',	'2022-08-10 06:29:08'),
+(305,	NULL,	NULL,	NULL,	129,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 06:32:01',	'2022-08-10 06:32:02'),
+(306,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 06:50:17',	'2022-08-10 06:50:17'),
+(307,	NULL,	100,	55,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 08:20:06',	'2022-08-10 08:20:06'),
+(308,	NULL,	NULL,	NULL,	127,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'7412589874',	1,	'2022-08-10 08:23:48',	'2022-08-10 08:23:48'),
+(309,	NULL,	NULL,	NULL,	128,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 08:44:36',	'2022-08-10 08:44:36'),
+(310,	NULL,	NULL,	NULL,	NULL,	470,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 08:45:57',	'2022-08-10 08:45:57'),
+(311,	NULL,	NULL,	NULL,	128,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 08:50:39',	'2022-08-10 08:50:39'),
+(312,	NULL,	NULL,	NULL,	NULL,	410,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 09:02:39',	'2022-08-10 09:02:39'),
+(313,	NULL,	331,	770,	NULL,	NULL,	'ayeshazahid913@gmail.com',	'Ayesha',	'Zahid',	'1234567890',	1,	'2022-08-10 09:23:18',	'2022-08-10 09:23:18'),
+(314,	NULL,	NULL,	NULL,	NULL,	472,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874562587',	1,	'2022-08-10 10:19:17',	'2022-08-10 10:19:17'),
+(315,	NULL,	NULL,	NULL,	52,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 10:43:15',	'2022-08-10 10:43:15'),
+(316,	NULL,	409,	775,	NULL,	NULL,	'ayeshazahid913@gmail.com',	'Ayesha',	'Zahid',	'1234567890',	1,	'2022-08-10 11:26:10',	'2022-08-10 11:26:10'),
+(317,	NULL,	NULL,	NULL,	NULL,	410,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-10 11:41:21',	'2022-08-10 11:41:21'),
+(318,	NULL,	NULL,	NULL,	NULL,	474,	'ayeshazahid913@gmail.com',	'Ayesha',	'Zahid',	'1234567890',	1,	'2022-08-10 11:53:01',	'2022-08-10 11:53:01'),
+(319,	NULL,	NULL,	NULL,	NULL,	272,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	1,	'2022-08-10 12:45:53',	'2022-08-10 12:45:53'),
+(320,	NULL,	NULL,	NULL,	53,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'votivephp',	'942509544',	1,	'2022-08-10 12:48:26',	'2022-08-10 12:48:26'),
+(321,	NULL,	NULL,	NULL,	NULL,	449,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562584',	1,	'2022-08-10 12:51:25',	'2022-08-10 12:51:25'),
+(322,	NULL,	NULL,	NULL,	NULL,	449,	'ayeshazahid913@gmail.com',	'Ayesha',	'Zahid',	'1234567890',	1,	'2022-08-10 13:00:15',	'2022-08-10 13:00:15'),
+(323,	NULL,	NULL,	NULL,	NULL,	272,	'asda@sdfsdf',	'sdfsd',	'sdfsd',	'sdfdfs',	1,	'2022-08-12 13:42:35',	'2022-08-12 13:42:35'),
+(324,	NULL,	281,	382,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'SAHU',	'7412589874',	1,	'2022-08-16 04:42:42',	'2022-08-16 04:42:42'),
+(325,	NULL,	NULL,	NULL,	54,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-16 04:46:04',	'2022-08-16 04:46:04'),
+(326,	NULL,	NULL,	NULL,	NULL,	273,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	1,	'2022-08-16 04:48:22',	'2022-08-16 04:48:22'),
+(327,	NULL,	NULL,	NULL,	NULL,	362,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7414798745',	1,	'2022-08-16 04:50:11',	'2022-08-16 04:50:11');
 
 DROP TABLE IF EXISTS `H1_Hotel_and_other_Stays`;
 CREATE TABLE `H1_Hotel_and_other_Stays` (
@@ -1233,7 +1317,7 @@ CREATE TABLE `H1_Hotel_and_other_Stays` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `H1_Hotel_and_other_Stays` (`id`, `stay_type`, `description`, `status`, `created_at`, `updated_at`) VALUES
 (4,	'Homestay',	'A shared home where the guest has a private room and the host lives and is on site. Some facilities are shared between hosts and guests.',	1,	'2022-06-01 10:11:13',	NULL),
@@ -1244,9 +1328,9 @@ INSERT INTO `H1_Hotel_and_other_Stays` (`id`, `stay_type`, `description`, `statu
 (9,	'Farm stay',	'Private farm with simple accommodation.',	1,	'2022-06-01 10:12:34',	'2022-06-02 10:43:59'),
 (10,	'Inn',	'Small and basic accommodation with a rustic feel',	1,	'2022-06-01 10:12:43',	NULL),
 (11,	'Motel',	'Roadside hotel usually for motorists, with direct access to parking and little to no amenities',	1,	'2022-06-01 10:13:04',	NULL),
-(12,	'Resort',	'A place for relaxation with onsite restaurants, activities and often with a luxury feel.',	1,	'2022-06-01 10:13:38',	'2022-06-01 11:42:22'),
-(21,	'Lodges',	'Private home with accommodation surrounded by nature, such as mountain or forest.',	1,	'2022-06-14 11:51:47',	'2022-07-19 13:28:28'),
-(24,	'Cottage',	'Cottages are typically small homes built to look like old-fashioned homes.',	1,	'2022-06-17 06:21:33',	'2022-08-06 09:24:36');
+(12,	'Resort',	'A place for relaxation with onsite restaurants, activities and often with a luxury feel.',	1,	'2022-06-01 10:13:38',	'2022-08-09 08:55:18'),
+(21,	'Lodges',	'Private home with accommodation surrounded by nature, such as mountain or forest.',	1,	'2022-06-14 11:51:47',	'2022-08-09 08:55:07'),
+(24,	'Cottage',	'Cottages are typically small homes built to look like old-fashioned homes.',	1,	'2022-06-17 06:21:33',	'2022-08-10 11:57:26');
 
 DROP TABLE IF EXISTS `H2_Amenities`;
 CREATE TABLE `H2_Amenities` (
@@ -1261,11 +1345,10 @@ CREATE TABLE `H2_Amenities` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`amenity_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `H2_Amenities` (`amenity_id`, `amenity_name`, `amenity_icon`, `amenity_type`, `amenity_type_name`, `amenity_type_sym`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
-(13,	'Patio',	'',	5,	'Outdoor and view',	'Outdoor_and_view',	NULL,	1,	'2022-06-02 06:56:37',	NULL),
-(14,	'Room is situated on the ground floor',	'',	6,	'Accessibility',	'Accessibility',	NULL,	1,	'2022-06-02 06:56:50',	NULL),
+(14,	'Room is situated on the ground floor',	'',	6,	'Accessibility',	'Accessibility',	NULL,	1,	'2022-06-02 06:56:50',	'2022-08-10 12:01:34'),
 (15,	'Room is entirely wheelchair accessible',	'',	6,	'Accessibility',	'Accessibility',	NULL,	1,	'2022-06-02 06:58:23',	NULL),
 (16,	'Baby safety gates',	'',	7,	'Entertainment and family services',	'Entertainment_and_family_services',	NULL,	1,	'2022-06-02 06:58:56',	NULL),
 (17,	'Board games/puzzles',	'',	7,	'Entertainment and family services',	'Entertainment_and_family_services',	NULL,	1,	'2022-06-02 07:00:41',	NULL),
@@ -1374,9 +1457,7 @@ INSERT INTO `H2_Amenities` (`amenity_id`, `amenity_name`, `amenity_icon`, `ameni
 (144,	'certain',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-15 06:22:34',	NULL),
 (147,	'exhaust fan',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-15 12:16:55',	NULL),
 (157,	'internet',	NULL,	6,	'Accessibility',	'Accessibility',	NULL,	1,	'2022-06-21 08:47:14',	'2022-08-02 08:27:41'),
-(159,	'fridge, kitchenware',	NULL,	30,	'kitchen facility',	'kitchen_facility',	NULL,	1,	'2022-06-21 10:49:00',	NULL),
-(245,	'tttt',	NULL,	5,	'Outdoor and view',	'Outdoor_and_view',	NULL,	1,	'2022-08-05 09:44:50',	NULL),
-(246,	'sddfaf',	NULL,	3,	'Media and Technology',	'Media_and_Technology',	NULL,	1,	'2022-08-06 09:25:47',	NULL);
+(159,	'fridge, kitchenware',	NULL,	30,	'kitchen facility',	'kitchen_facility',	NULL,	1,	'2022-06-21 10:49:00',	NULL);
 
 DROP TABLE IF EXISTS `H3_Services`;
 CREATE TABLE `H3_Services` (
@@ -1462,7 +1543,7 @@ CREATE TABLE `hotels` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`hotel_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=415 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotels` (`hotel_id`, `hotel_user_id`, `is_admin`, `hotel_name`, `hotel_content`, `property_contact_name`, `property_contact_num`, `property_alternate_num`, `cat_listed_room_type`, `where_property_listed`, `do_you_multiple_hotel`, `hotel_rating`, `user_rating`, `scout_id`, `checkin_time`, `checkout_time`, `min_day_before_book`, `min_day_stays`, `hotel_video`, `hotel_gallery`, `hotel_document`, `hotel_notes`, `booking_option`, `payment_mode`, `hotel_address`, `hotel_latitude`, `hotel_longitude`, `hotel_city`, `neighb_area`, `hotel_country`, `attraction_name`, `attraction_content`, `attraction_distance`, `attraction_type`, `stay_price`, `extra_price_name`, `extra_price`, `extra_price_type`, `service_fee_name`, `service_fee`, `service_fee_type`, `property_type`, `parking_option`, `parking_price`, `payment_interval`, `parking_reserv_need`, `parking_locate`, `parking_type`, `breakfast_availability`, `breakfast_price_inclusion`, `breakfast_cost`, `breakfast_type`, `hotel_status`, `created_at`, `updated_at`) VALUES
 (78,	336,	3,	'La Eagle Inn',	'dgsdfsdf',	'Swayam',	'09425095449',	NULL,	1,	0,	0,	4,	3,	557,	'5:36 PM',	'5:36 AM',	'5',	'15',	'',	'g1-hotelMainImg-1656490697-hotelMainImg-1656759613.png',	'',	'sdfsdf',	2,	0,	'Ridhi Sidhi Circle, Surya Nagar, Gopal Pura Mode, Jaipur, Rajasthan',	'26.8736687',	'75.7765434',	'Jaipur',	'Surya Nagar',	'99',	NULL,	NULL,	'5KM',	NULL,	10000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'6',	2,	50,	'0',	1,	1,	1,	1,	1,	'300',	'null',	1,	'2022-06-14 12:08:24',	'2022-07-22 12:52:25'),
@@ -1488,8 +1569,12 @@ INSERT INTO `hotels` (`hotel_id`, `hotel_user_id`, `is_admin`, `hotel_name`, `ho
 (321,	1,	1,	'land_hotel',	'this is the test property',	'Ayesha Zahid',	'0789456123',	NULL,	NULL,	0,	1,	4,	NULL,	557,	'11:36 PM',	'1:36 AM',	'1',	'3',	'',	'pexels-pixabay-164595-hotelMainImg-1658853685.jpg',	'',	'this is policy of our hotel',	1,	0,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	'31.5106497',	'74.34073769999999',	'Lahore',	'Gulberg III',	'162',	NULL,	NULL,	NULL,	NULL,	1500,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'4',	2,	200,	'0',	0,	1,	1,	1,	0,	NULL,	'null',	1,	'2022-07-26 16:41:25',	'2022-07-27 06:52:52'),
 (330,	1,	1,	'testing_hotel',	'testing the property',	'Ayesha',	'05214788632',	NULL,	NULL,	1,	1,	4,	NULL,	557,	'8:38 PM',	'11:38 AM',	'1',	'2',	'',	'pexels-pixabay-164595-hotelMainImg-1658915202.jpg',	'',	'this is our policy',	1,	2,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	'31.5106497',	'74.34073769999999',	'Lahore',	'Gulberg III',	'162',	NULL,	NULL,	NULL,	NULL,	1500,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'92',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-07-27 09:46:42',	'2022-07-28 11:29:10'),
 (331,	934,	3,	'kalam_hotel',	'this is a test property',	'Ayesha',	'02158649826',	NULL,	NULL,	1,	1,	4,	NULL,	557,	'3:03 PM',	'11:03 AM',	'1',	'2',	'',	'pexels-pixabay-258154-hotelMainImg-1658916468.jpg',	'',	'consider our notes please',	1,	2,	'Minar-e-Pakistan, Circular Road, Walled City of Lahore, Lahore, Pakistan',	'31.5925148',	'74.309485',	'Lahore',	'Walled City of Lahore',	'162',	NULL,	NULL,	NULL,	NULL,	2000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'92',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-07-27 10:07:48',	'2022-07-28 10:53:18'),
-(380,	877,	3,	'klmno',	'content',	'opqr',	'9874562587',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'2:32 AM',	'2:32 PM',	'2',	'1',	'',	'pexels-amar-saleem-91628-hotelMainImg-1659603834.jpg',	'',	'notes',	1,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'9',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-04 09:03:54',	'2022-08-06 10:47:40'),
-(394,	1,	1,	'klmn',	'content',	'xyz',	'9874562587',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'4:18 AM',	'4:19 PM',	'1',	'1',	'',	'pexels-pixabay-261327-hotelMainImg-1659782993.jpg',	'Admin  Dashboard (4)-1659782993.pdf',	'policy',	1,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'8',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53');
+(399,	1,	1,	'shiva',	'content',	'ramesh',	'9874562545',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'2:49 AM',	'2:49 PM',	'1',	'1',	'',	'pexels-fox-1082326-hotelMainImg-1660036953.jpg',	'',	'policy',	1,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'5',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-09 09:22:33',	'2022-08-09 09:23:10'),
+(400,	877,	3,	'shree',	'content',	'amit',	'9874562587',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'3:27 AM',	'3:27 PM',	'1',	'1',	'',	'pexels-amar-saleem-91628-hotelMainImg-1660039135.jpg',	'',	'notes',	1,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'6',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-09 09:58:55',	'2022-08-10 08:13:58'),
+(407,	877,	3,	'kailash',	'content',	'rst',	'9874562587',	NULL,	NULL,	0,	0,	3,	NULL,	557,	'3:10 AM',	'3:10 PM',	'1',	'1',	'',	'pexels-amar-saleem-91628-hotelMainImg-1660124472.jpg',	'',	'notes',	1,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	10000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'4',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-10 09:41:12',	'2022-08-10 09:49:38'),
+(408,	877,	3,	'ram',	'content',	'ghi',	'9874562587',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'3:28 AM',	'3:29 PM',	'1',	'1',	'',	'pexels-amar-saleem-91628-hotelMainImg-1660125585.jpg',	'',	'notes',	2,	0,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'5',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-10 09:59:45',	'2022-08-10 10:13:53'),
+(409,	934,	3,	'TJ',	'This is TJ hotel',	'Ayesha Zahid',	'02145682652',	NULL,	NULL,	1,	1,	5,	NULL,	477,	'3:02 PM',	'8:02 PM',	'2',	'3',	'Video Of Hotel Lounge-1660125929.mp4',	'pexels-pixabay-271624-hotelMainImg-1660125929.jpg',	'allscreen-1660125929.pdf',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	1,	2,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	'31.5106497',	'74.34073769999999',	'Lahore',	'Gulberg III',	'162',	NULL,	NULL,	NULL,	NULL,	25000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'4',	2,	500,	'1',	1,	1,	1,	1,	0,	NULL,	'null',	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(413,	1,	1,	'kk',	'content',	'rudra',	'9874562587',	NULL,	NULL,	0,	0,	2,	NULL,	557,	'10:29 AM',	'10:29 PM',	'1',	'1',	'',	'pexels-jean-van-der-meulen-1457845-hotelMainImg-1660626070.jpg',	'',	'policy',	2,	1,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	'22.7097071',	'75.87578169999999',	'Indore',	'Chhawni',	'99',	NULL,	NULL,	NULL,	NULL,	10000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'5',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	1,	'2022-08-16 05:01:10',	'2022-08-16 05:06:57');
 
 DROP TABLE IF EXISTS `hotel_amenities`;
 CREATE TABLE `hotel_amenities` (
@@ -1500,7 +1585,7 @@ CREATE TABLE `hotel_amenities` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4150 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4496 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_amenities` (`id`, `hotel_id`, `amenity_id`, `status`, `created_at`, `updated_at`) VALUES
 (1349,	118,	37,	1,	'2022-07-02 10:46:15',	'2022-07-02 10:46:15'),
@@ -1680,20 +1765,53 @@ INSERT INTO `hotel_amenities` (`id`, `hotel_id`, `amenity_id`, `status`, `create
 (3354,	92,	15,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
 (3355,	92,	17,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
 (3356,	92,	79,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
-(4136,	380,	28,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4137,	380,	63,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4138,	380,	26,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4139,	380,	109,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4140,	380,	12,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4141,	380,	134,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4142,	380,	17,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(4143,	394,	28,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4144,	394,	32,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4145,	394,	86,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4146,	394,	105,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4147,	394,	124,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4148,	394,	15,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(4149,	394,	76,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53');
+(4234,	399,	37,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4235,	399,	63,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4236,	399,	85,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4237,	399,	105,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4238,	399,	126,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4239,	399,	133,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4240,	399,	17,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(4332,	400,	36,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4333,	400,	64,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4334,	400,	82,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4335,	400,	109,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4336,	400,	123,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4337,	400,	132,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4338,	400,	75,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(4374,	407,	37,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4375,	407,	63,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4376,	407,	26,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4377,	407,	110,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4378,	407,	123,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4379,	407,	132,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4380,	407,	21,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(4395,	409,	36,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4396,	409,	61,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4397,	409,	63,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4398,	409,	71,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4399,	409,	86,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4400,	409,	104,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4401,	409,	105,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4402,	409,	117,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4403,	409,	121,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4404,	409,	128,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4405,	409,	14,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4406,	409,	75,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(4414,	408,	36,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4415,	408,	63,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4416,	408,	26,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4417,	408,	109,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4418,	408,	122,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4419,	408,	157,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4420,	408,	21,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(4475,	413,	36,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4476,	413,	63,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4477,	413,	24,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4478,	413,	27,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4479,	413,	125,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4480,	413,	15,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(4481,	413,	16,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57');
 
 DROP TABLE IF EXISTS `hotel_attraction`;
 CREATE TABLE `hotel_attraction` (
@@ -1729,7 +1847,7 @@ CREATE TABLE `hotel_extra_price` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_extra_price` (`id`, `ext_opt_name`, `ext_opt_price`, `ext_opt_type`, `hotel_id`, `status`, `created_at`, `updated_at`) VALUES
 (1,	'airport pickup',	100,	'single_fee',	105,	1,	'2022-06-21 12:59:28',	'2022-06-21 12:59:28'),
@@ -1748,7 +1866,8 @@ INSERT INTO `hotel_extra_price` (`id`, `ext_opt_name`, `ext_opt_price`, `ext_opt
 (36,	'extra beds',	500,	'single_fee',	320,	1,	'2022-07-26 14:24:25',	'2022-07-26 14:24:25'),
 (38,	'extra bed',	500,	'per_night',	321,	1,	'2022-07-27 06:52:52',	'2022-07-27 06:52:52'),
 (44,	'room service',	200,	'single_fee',	331,	1,	'2022-07-28 10:53:18',	'2022-07-28 10:53:18'),
-(45,	'etxtra bed',	500,	'single_fee',	330,	1,	'2022-07-28 11:29:10',	'2022-07-28 11:29:10');
+(45,	'etxtra bed',	500,	'single_fee',	330,	1,	'2022-07-28 11:29:10',	'2022-07-28 11:29:10'),
+(46,	'Extra bed',	500,	'single_fee',	409,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29');
 
 DROP TABLE IF EXISTS `hotel_gallery`;
 CREATE TABLE `hotel_gallery` (
@@ -1760,7 +1879,7 @@ CREATE TABLE `hotel_gallery` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1059 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1183 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_gallery` (`id`, `hotel_id`, `image`, `is_featured`, `status`, `created_at`, `updated_at`) VALUES
 (238,	118,	'1656758775_1655715971_images-min.jpg',	0,	1,	'2022-07-02 10:46:15',	'2022-07-02 10:46:15'),
@@ -1874,22 +1993,44 @@ INSERT INTO `hotel_gallery` (`id`, `hotel_id`, `image`, `is_featured`, `status`,
 (783,	92,	'1659182734_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
 (784,	92,	'1659182734_pexels-the-lazy-artist-gallery-1488515.jpg',	0,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
 (785,	92,	'1659182734_pexels-vincent-rivaud-2363807.jpg',	0,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
-(980,	380,	'1659603834_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(981,	380,	'1659603834_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(982,	380,	'1659603834_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(983,	380,	'1659603834_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(984,	380,	'1659603834_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(985,	380,	'1659603834_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(986,	380,	'1659603834_pexels-pixabay-261327.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(987,	380,	'1659603834_pexels-pixabay-261395.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(988,	380,	'1659603834_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(989,	380,	'1659603834_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-04 09:03:54',	'2022-08-04 09:03:54'),
-(1053,	394,	'1659782993_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(1054,	394,	'1659782993_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(1055,	394,	'1659782993_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(1056,	394,	'1659782993_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(1057,	394,	'1659782993_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(1058,	394,	'1659782993_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53');
+(1083,	399,	'1660036953_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1084,	399,	'1660036953_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1085,	399,	'1660036953_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1086,	399,	'1660036953_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1087,	399,	'1660036953_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1088,	399,	'1660036953_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1089,	399,	'1660036953_pexels-donald-tong-189293.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1090,	399,	'1660036953_pexels-elina-sazonova-1838554.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1091,	399,	'1660036953_pexels-fox-1082326.jpg',	0,	1,	'2022-08-09 09:22:33',	'2022-08-09 09:22:33'),
+(1092,	400,	'1660039135_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1093,	400,	'1660039135_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1094,	400,	'1660039135_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1095,	400,	'1660039135_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1096,	400,	'1660039135_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1097,	400,	'1660039135_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1098,	400,	'1660039135_pexels-jean-van-der-meulen-1457845.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1099,	400,	'1660039135_pexels-pixabay-261327.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1100,	400,	'1660039135_pexels-pixabay-261395.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1101,	400,	'1660039135_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1102,	400,	'1660039135_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-09 09:58:55',	'2022-08-09 09:58:55'),
+(1144,	407,	'1660124472_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1145,	407,	'1660124472_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1146,	407,	'1660124472_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1147,	407,	'1660124472_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1148,	407,	'1660124472_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1149,	407,	'1660124472_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-10 09:41:12',	'2022-08-10 09:41:12'),
+(1150,	408,	'1660125585_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-10 09:59:45',	'2022-08-10 09:59:45'),
+(1151,	409,	'1660125929_pexels-donald-tong-189296.jpg',	0,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1152,	409,	'1660125929_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1153,	409,	'1660125929_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1154,	409,	'1660125929_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1155,	409,	'1660125929_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1171,	413,	'1660626070_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10'),
+(1172,	413,	'1660626070_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10'),
+(1173,	413,	'1660626070_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10'),
+(1174,	413,	'1660626070_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10'),
+(1175,	413,	'1660626070_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10'),
+(1176,	413,	'1660626070_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-16 05:01:10',	'2022-08-16 05:01:10');
 
 DROP TABLE IF EXISTS `hotel_services`;
 CREATE TABLE `hotel_services` (
@@ -1900,7 +2041,7 @@ CREATE TABLE `hotel_services` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=933 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1031 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_services` (`id`, `hotel_id`, `hotel_service_id`, `status`, `created_at`, `updated_at`) VALUES
 (279,	118,	1,	1,	'2022-07-02 10:46:15',	'2022-07-02 10:46:15'),
@@ -1935,10 +2076,18 @@ INSERT INTO `hotel_services` (`id`, `hotel_id`, `hotel_service_id`, `status`, `c
 (676,	330,	8,	1,	'2022-07-28 11:29:10',	'2022-07-28 11:29:10'),
 (723,	92,	3,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
 (724,	92,	10,	1,	'2022-07-30 12:05:34',	'2022-07-30 12:05:34'),
-(929,	380,	2,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(930,	380,	10,	1,	'2022-08-06 10:47:40',	'2022-08-06 10:47:40'),
-(931,	394,	2,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53'),
-(932,	394,	10,	1,	'2022-08-06 10:49:53',	'2022-08-06 10:49:53');
+(957,	399,	4,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(958,	399,	9,	1,	'2022-08-09 09:23:10',	'2022-08-09 09:23:10'),
+(985,	400,	3,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(986,	400,	7,	1,	'2022-08-10 08:13:58',	'2022-08-10 08:13:58'),
+(997,	407,	2,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(998,	407,	10,	1,	'2022-08-10 09:49:38',	'2022-08-10 09:49:38'),
+(1003,	409,	2,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1004,	409,	5,	1,	'2022-08-10 10:05:29',	'2022-08-10 10:05:29'),
+(1007,	408,	2,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(1008,	408,	10,	1,	'2022-08-10 10:13:53',	'2022-08-10 10:13:53'),
+(1025,	413,	2,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57'),
+(1026,	413,	7,	1,	'2022-08-16 05:06:57',	'2022-08-16 05:06:57');
 
 DROP TABLE IF EXISTS `hotel_service_fee`;
 CREATE TABLE `hotel_service_fee` (
@@ -1998,10 +2147,10 @@ CREATE TABLE `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `password_resets_email_index` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
-(235,	'votivetester.saurabh@gmail.com',	'YNb1LWC5ZnmMlnzmp8Y7sVwvWYkjynZygRD8umVPimkpsW1nvFHdC8BjJ5HgXYBH',	'2022-08-06 09:00:10');
+(241,	'votivetester.saurabh@gmail.com',	'SHicbOONYhji7ZBG10xYiQQgUHFb058YqOeawhf7kDXbLktPDZqExJyXzcuf7Ptc',	'2022-08-16 04:56:58');
 
 DROP TABLE IF EXISTS `payment_transaction`;
 CREATE TABLE `payment_transaction` (
@@ -2018,7 +2167,7 @@ CREATE TABLE `payment_transaction` (
   `created_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `payment_transaction` (`id`, `booking_id`, `user_id`, `vendor_id`, `txn_id`, `txn_amount`, `payment_method`, `booking_type`, `txn_status`, `txn_date`, `created_at`, `updated_at`) VALUES
 (1,	2,	678,	NULL,	'9RP38088J5741813M',	120.00,	'paypal',	'',	'successful',	'2022-06-28 13:16:21',	'2022-06-28 13:16:21',	'2022-06-28 13:16:21'),
@@ -2230,7 +2379,53 @@ INSERT INTO `payment_transaction` (`id`, `booking_id`, `user_id`, `vendor_id`, `
 (227,	71,	678,	1,	'0B5329481X703152D',	1502.00,	'paypal',	'Space',	'successful',	'2022-08-06 06:43:11',	'2022-08-06 06:43:11',	'2022-08-06 06:43:11'),
 (228,	34,	678,	834,	'95F91600809853330',	20000.00,	'paypal',	'Tour',	'successful',	'2022-08-06 06:44:05',	'2022-08-06 06:44:05',	'2022-08-06 06:44:05'),
 (229,	128,	837,	1,	'3RS19686UR757005J',	7000.00,	'paypal',	'Room',	'successful',	'2022-08-06 06:49:36',	'2022-08-06 06:49:36',	'2022-08-06 06:49:36'),
-(230,	72,	837,	1,	'4AT09045SL0631439',	321000.00,	'paypal',	'Space',	'successful',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25');
+(230,	72,	837,	1,	'4AT09045SL0631439',	321000.00,	'paypal',	'Space',	'successful',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25'),
+(231,	35,	678,	877,	'34P73730DR383720X',	225000.00,	'paypal',	'Tour',	'successful',	'2022-08-06 12:39:45',	'2022-08-06 12:39:45',	'2022-08-06 12:39:45'),
+(232,	129,	837,	877,	'2TP53361RV800771P',	1203.00,	'paypal',	'Room',	'successful',	'2022-08-09 06:49:21',	'2022-08-09 06:49:21',	'2022-08-09 06:49:21'),
+(233,	36,	837,	877,	'1JG71186XT204280U',	15000.00,	'paypal',	'Tour',	'successful',	'2022-08-09 06:54:55',	'2022-08-09 06:54:55',	'2022-08-09 06:54:55'),
+(234,	73,	837,	1,	'9S2950018C8694835',	121000.00,	'paypal',	'Space',	'successful',	'2022-08-09 06:59:32',	'2022-08-09 06:59:32',	'2022-08-09 06:59:32'),
+(235,	74,	678,	877,	'8RM64635UG7645030',	2001.00,	'paypal',	'Space',	'successful',	'2022-08-09 07:19:53',	'2022-08-09 07:19:53',	'2022-08-09 07:19:53'),
+(236,	37,	837,	877,	'1XD582909V415442H',	29000.00,	'paypal',	'Tour',	'successful',	'2022-08-09 08:28:15',	'2022-08-09 08:28:15',	'2022-08-09 08:28:15'),
+(237,	130,	837,	877,	'3UX8808850600701T',	541.00,	'paypal',	'Room',	'successful',	'2022-08-09 08:30:57',	'2022-08-09 08:30:57',	'2022-08-09 08:30:57'),
+(238,	38,	837,	877,	'67M15376RB769950V',	15000.00,	'paypal',	'Tour',	'successful',	'2022-08-09 08:32:27',	'2022-08-09 08:32:27',	'2022-08-09 08:32:27'),
+(239,	75,	837,	877,	'2VB49674VE938480D',	457.00,	'paypal',	'Space',	'successful',	'2022-08-09 08:34:49',	'2022-08-09 08:34:49',	'2022-08-09 08:34:49'),
+(240,	76,	678,	1,	'7GS08009MC0885211',	300420.00,	'paypal',	'Space',	'successful',	'2022-08-09 09:49:41',	'2022-08-09 09:49:41',	'2022-08-09 09:49:41'),
+(241,	39,	678,	877,	'36M58668NT981115B',	5000.00,	'paypal',	'Tour',	'successful',	'2022-08-09 10:32:59',	'2022-08-09 10:32:59',	'2022-08-09 10:32:59'),
+(242,	131,	1018,	877,	'3LY60657MN303015T',	541.00,	'paypal',	'Room',	'successful',	'2022-08-09 10:38:07',	'2022-08-09 10:38:07',	'2022-08-09 10:38:07'),
+(243,	132,	837,	877,	'5GK30899LN362603T',	121.00,	'paypal',	'Room',	'successful',	'2022-08-09 10:46:20',	'2022-08-09 10:46:20',	'2022-08-09 10:46:20'),
+(244,	40,	837,	877,	'4B0527563U592472E',	9950.00,	'paypal',	'Tour',	'successful',	'2022-08-09 10:47:52',	'2022-08-09 10:47:52',	'2022-08-09 10:47:52'),
+(245,	77,	837,	1,	'8LR83628YW9552639',	321.00,	'paypal',	'Space',	'successful',	'2022-08-09 10:50:31',	'2022-08-09 10:50:31',	'2022-08-09 10:50:31'),
+(246,	133,	837,	1,	'56Y40407WC167222A',	121.00,	'paypal',	'Room',	'successful',	'2022-08-09 12:25:36',	'2022-08-09 12:25:36',	'2022-08-09 12:25:36'),
+(247,	41,	837,	877,	'8MS62001R2192901N',	5000.00,	'paypal',	'Tour',	'successful',	'2022-08-09 12:27:15',	'2022-08-09 12:27:15',	'2022-08-09 12:27:15'),
+(248,	134,	837,	1,	'69410041N50652602',	121.00,	'paypal',	'Room',	'successful',	'2022-08-09 12:32:15',	'2022-08-09 12:32:15',	'2022-08-09 12:32:15'),
+(249,	135,	678,	1,	'5WB01330FU127142D',	7000.00,	'paypal',	'Room',	'successful',	'2022-08-10 05:35:12',	'2022-08-10 05:35:12',	'2022-08-10 05:35:12'),
+(250,	78,	678,	1,	'2VC07059FV631781E',	1021.00,	'paypal',	'Space',	'successful',	'2022-08-10 05:46:18',	'2022-08-10 05:46:18',	'2022-08-10 05:46:18'),
+(251,	79,	837,	1,	'0YU32574L7998312D',	300420.00,	'paypal',	'Space',	'successful',	'2022-08-10 06:04:54',	'2022-08-10 06:04:54',	'2022-08-10 06:04:54'),
+(252,	80,	837,	1,	'2LN27079B0614314V',	1021.00,	'paypal',	'Space',	'successful',	'2022-08-10 06:05:41',	'2022-08-10 06:05:41',	'2022-08-10 06:05:41'),
+(253,	136,	837,	550,	'5FV02505839630644',	3000.00,	'paypal',	'Room',	'successful',	'2022-08-10 06:27:39',	'2022-08-10 06:27:39',	'2022-08-10 06:27:39'),
+(254,	81,	837,	1,	'7AY70112PB088961X',	1021.00,	'paypal',	'Space',	'successful',	'2022-08-10 06:29:30',	'2022-08-10 06:29:30',	'2022-08-10 06:29:30'),
+(255,	42,	837,	877,	'6P285050BF564803E',	15000.00,	'paypal',	'Tour',	'successful',	'2022-08-10 06:32:22',	'2022-08-10 06:32:22',	'2022-08-10 06:32:22'),
+(256,	82,	678,	1,	'3WD67364JU9966537',	121000.00,	'paypal',	'Space',	'successful',	'2022-08-10 06:50:50',	'2022-08-10 06:50:50',	'2022-08-10 06:50:50'),
+(257,	137,	837,	1,	'17805773AJ409393X',	610.00,	'paypal',	'Room',	'successful',	'2022-08-10 08:20:43',	'2022-08-10 08:20:43',	'2022-08-10 08:20:43'),
+(258,	43,	837,	877,	'3WK604557U599101D',	10000.00,	'paypal',	'Tour',	'successful',	'2022-08-10 08:24:10',	'2022-08-10 08:24:10',	'2022-08-10 08:24:10'),
+(259,	44,	837,	877,	'4T075870PA914152P',	15000.00,	'paypal',	'Tour',	'successful',	'2022-08-10 08:45:06',	'2022-08-10 08:45:06',	'2022-08-10 08:45:06'),
+(260,	83,	837,	877,	'1VX81186691884737',	1201.00,	'paypal',	'Space',	'successful',	'2022-08-10 08:46:17',	'2022-08-10 08:46:17',	'2022-08-10 08:46:17'),
+(261,	45,	837,	877,	'61F71638FT395770V',	15000.00,	'paypal',	'Tour',	'successful',	'2022-08-10 08:51:00',	'2022-08-10 08:51:00',	'2022-08-10 08:51:00'),
+(262,	138,	938,	934,	'46R22069438640508',	2310.00,	'paypal',	'Room',	'successful',	'2022-08-10 09:32:07',	'2022-08-10 09:32:07',	'2022-08-10 09:32:07'),
+(263,	84,	678,	877,	'1AC61715VD352964P',	601.00,	'paypal',	'Space',	'successful',	'2022-08-10 10:19:53',	'2022-08-10 10:19:53',	'2022-08-10 10:19:53'),
+(264,	46,	678,	877,	'1X541595BG031402H',	52250.00,	'paypal',	'Tour',	'successful',	'2022-08-10 10:43:47',	'2022-08-10 10:43:47',	'2022-08-10 10:43:47'),
+(265,	139,	934,	934,	'6ES204583V127291G',	2310.00,	'paypal',	'Room',	'successful',	'2022-08-10 11:26:46',	'2022-08-10 11:26:46',	'2022-08-10 11:26:46'),
+(266,	85,	678,	877,	'5D958704K4165423B',	2001.00,	'paypal',	'Space',	'successful',	'2022-08-10 11:41:57',	'2022-08-10 11:41:57',	'2022-08-10 11:41:57'),
+(267,	86,	934,	934,	'9ES28961P1143233J',	3800.00,	'paypal',	'Space',	'successful',	'2022-08-10 11:54:12',	'2022-08-10 11:54:12',	'2022-08-10 11:54:12'),
+(268,	87,	837,	1,	'2WU571408P9321406',	121000.00,	'paypal',	'Space',	'successful',	'2022-08-10 12:46:22',	'2022-08-10 12:46:22',	'2022-08-10 12:46:22'),
+(269,	47,	837,	877,	'9722037920335845V',	25000.00,	'paypal',	'Tour',	'successful',	'2022-08-10 12:48:50',	'2022-08-10 12:48:50',	'2022-08-10 12:48:50'),
+(270,	88,	678,	1,	'20U85869N8794734B',	223.00,	'paypal',	'Space',	'successful',	'2022-08-10 12:52:00',	'2022-08-10 12:52:00',	'2022-08-10 12:52:00'),
+(271,	89,	934,	1,	'0VM746671D074545G',	223.00,	'paypal',	'Space',	'successful',	'2022-08-10 13:00:46',	'2022-08-10 13:00:46',	'2022-08-10 13:00:46'),
+(272,	90,	678,	1,	'57675949984590102',	121000.00,	'paypal',	'Space',	'successful',	'2022-08-12 13:45:08',	'2022-08-12 13:45:08',	'2022-08-12 13:45:08'),
+(273,	140,	837,	877,	'2DW35553DA4688331',	902.00,	'paypal',	'Room',	'successful',	'2022-08-16 04:44:32',	'2022-08-16 04:44:32',	'2022-08-16 04:44:32'),
+(274,	48,	837,	877,	'70085189ND187472S',	50000.00,	'paypal',	'Tour',	'successful',	'2022-08-16 04:46:28',	'2022-08-16 04:46:28',	'2022-08-16 04:46:28'),
+(275,	91,	678,	1,	'18107282LA250715R',	121000.00,	'paypal',	'Space',	'successful',	'2022-08-16 04:48:46',	'2022-08-16 04:48:46',	'2022-08-16 04:48:46'),
+(276,	92,	678,	877,	'1SS39834B71900712',	457.00,	'paypal',	'Space',	'successful',	'2022-08-16 04:50:35',	'2022-08-16 04:50:35',	'2022-08-16 04:50:35');
 
 DROP TABLE IF EXISTS `room_amenities`;
 CREATE TABLE `room_amenities` (
@@ -2241,7 +2436,7 @@ CREATE TABLE `room_amenities` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5381 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5620 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_at`, `updated_at`) VALUES
 (413,	77,	36,	1,	'2022-06-21 10:10:15',	'2022-06-21 10:10:15'),
@@ -2468,22 +2663,6 @@ INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_
 (5051,	693,	75,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
 (5052,	693,	30,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
 (5053,	693,	77,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
-(5054,	691,	40,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5055,	691,	66,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5056,	691,	85,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5057,	691,	108,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5058,	691,	13,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5059,	691,	133,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5060,	691,	17,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5061,	691,	78,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(5070,	696,	39,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5071,	696,	65,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5072,	696,	86,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5073,	696,	108,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5074,	696,	13,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5075,	696,	15,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5076,	696,	21,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(5077,	696,	30,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
 (5078,	492,	28,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (5079,	492,	60,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (5080,	492,	32,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
@@ -2500,14 +2679,6 @@ INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_
 (5091,	492,	75,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (5092,	492,	30,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (5093,	492,	78,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
-(5102,	699,	36,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5103,	699,	66,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5104,	699,	85,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5105,	699,	27,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5106,	699,	122,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5107,	699,	133,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5108,	699,	17,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(5109,	699,	79,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
 (5110,	491,	36,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (5111,	491,	61,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (5112,	491,	32,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
@@ -2541,21 +2712,70 @@ INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_
 (5140,	479,	21,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
 (5141,	479,	77,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
 (5142,	479,	80,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
-(5191,	703,	39,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5192,	703,	65,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5193,	703,	82,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5194,	703,	109,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5195,	703,	13,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5196,	703,	15,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5197,	703,	17,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(5198,	703,	79,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
 (5367,	732,	40,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (5368,	732,	66,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (5369,	732,	24,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (5370,	732,	110,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (5371,	732,	12,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (5372,	732,	15,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
-(5373,	732,	75,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33');
+(5373,	732,	75,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
+(5423,	747,	36,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5424,	747,	63,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5425,	747,	85,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5426,	747,	108,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5427,	747,	124,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5428,	747,	132,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5429,	747,	21,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(5437,	749,	39,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5438,	749,	65,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5439,	749,	26,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5440,	749,	110,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5441,	749,	123,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5442,	749,	15,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5443,	749,	17,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(5521,	769,	36,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5522,	769,	61,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5523,	769,	66,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5524,	769,	86,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5525,	769,	105,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5526,	769,	123,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5527,	769,	132,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5528,	769,	17,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(5529,	770,	40,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5530,	770,	67,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5531,	770,	24,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5532,	770,	111,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5533,	770,	124,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5534,	770,	133,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5535,	770,	21,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(5550,	775,	41,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5551,	775,	67,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5552,	775,	87,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5553,	775,	105,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5554,	775,	126,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5555,	775,	16,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(5563,	778,	36,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5564,	778,	68,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5565,	778,	24,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5566,	778,	111,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5567,	778,	119,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5568,	778,	124,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5569,	778,	134,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5570,	778,	17,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(5599,	774,	40,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5600,	774,	67,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5601,	774,	26,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5602,	774,	109,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5603,	774,	124,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5604,	774,	15,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5605,	774,	17,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(5606,	787,	40,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5607,	787,	67,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5608,	787,	26,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5609,	787,	109,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5610,	787,	125,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5611,	787,	15,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(5612,	787,	75,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40');
 
 DROP TABLE IF EXISTS `room_extra_option`;
 CREATE TABLE `room_extra_option` (
@@ -2568,14 +2788,17 @@ CREATE TABLE `room_extra_option` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_extra_option` (`id`, `ext_opt_name`, `ext_opt_price`, `ext_opt_type`, `room_id`, `status`, `created_at`, `updated_at`) VALUES
 (79,	'name1',	100,	'single_fee',	76,	1,	'2022-07-02 11:50:36',	'2022-07-02 11:50:36'),
 (80,	'opt 999',	100,	'single_fee',	84,	1,	'2022-07-02 11:51:03',	'2022-07-02 11:51:03'),
 (126,	'room ext 11',	100,	'single_fee',	118,	1,	'2022-07-27 08:44:23',	'2022-07-27 08:44:23'),
 (128,	'extra bed',	500,	'per_night',	491,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
-(129,	'extra beds',	500,	'single_fee',	479,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10');
+(129,	'extra beds',	500,	'single_fee',	479,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
+(132,	'Extra bed',	500,	'single_fee',	769,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(133,	'Extra bed',	500,	'single_fee',	775,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(134,	'Extra bed',	500,	'per_night_per_guest',	778,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18');
 
 DROP TABLE IF EXISTS `room_features`;
 CREATE TABLE `room_features` (
@@ -2586,7 +2809,7 @@ CREATE TABLE `room_features` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=654 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=690 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_features` (`id`, `room_id`, `feature_id`, `status`, `created_at`, `updated_at`) VALUES
 (196,	191,	5,	1,	'2022-07-01 11:01:22',	'2022-07-01 11:01:22'),
@@ -2615,17 +2838,22 @@ INSERT INTO `room_features` (`id`, `room_id`, `feature_id`, `status`, `created_a
 (563,	445,	4,	1,	'2022-08-01 11:01:14',	'2022-08-01 11:01:14'),
 (610,	693,	4,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
 (611,	693,	27,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
-(612,	691,	5,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(614,	696,	4,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
 (615,	492,	6,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (616,	492,	27,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
-(618,	699,	5,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
 (619,	491,	3,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (620,	491,	27,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (621,	479,	6,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
 (622,	479,	29,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
-(629,	703,	5,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(652,	732,	6,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33');
+(652,	732,	6,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
+(660,	747,	7,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(662,	749,	4,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(674,	769,	6,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(675,	769,	29,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(676,	770,	6,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(679,	775,	7,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(681,	778,	5,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(687,	774,	3,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(688,	787,	6,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40');
 
 DROP TABLE IF EXISTS `room_gallery`;
 CREATE TABLE `room_gallery` (
@@ -2637,7 +2865,7 @@ CREATE TABLE `room_gallery` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1310 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1454 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_gallery` (`id`, `room_id`, `image`, `is_featured`, `status`, `created_at`, `updated_at`) VALUES
 (314,	137,	'1656760087_pexels-malidate-van-833045-hotelMainImg-1656582429.jpg',	0,	1,	'2022-07-02 11:08:07',	'2022-07-02 11:08:07'),
@@ -2727,42 +2955,58 @@ INSERT INTO `room_gallery` (`id`, `room_id`, `image`, `is_featured`, `status`, `
 (918,	589,	'1659164569_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-07-30 07:02:49',	'2022-07-30 07:02:49'),
 (919,	589,	'1659164569_pexels-elina-sazonova-1838554.jpg',	0,	1,	'2022-07-30 07:02:49',	'2022-07-30 07:02:49'),
 (920,	589,	'1659164569_pexels-pixabay-261395.jpg',	0,	1,	'2022-07-30 07:02:49',	'2022-07-30 07:02:49'),
-(1196,	691,	'1659603970_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
-(1197,	691,	'1659603970_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
-(1198,	691,	'1659603970_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
-(1199,	691,	'1659603970_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
-(1200,	691,	'1659603970_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
-(1201,	691,	'1659603970_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-04 09:06:10',	'2022-08-04 09:06:10'),
 (1202,	693,	'1659605724_1654856361_images.jpg',	0,	1,	'2022-08-04 09:35:24',	'2022-08-04 09:35:24'),
 (1203,	693,	'1659605724_1654856361_room.jpg',	0,	1,	'2022-08-04 09:35:24',	'2022-08-04 09:35:24'),
 (1204,	693,	'1659605724_1654856361_rooms1.jpg',	0,	1,	'2022-08-04 09:35:24',	'2022-08-04 09:35:24'),
 (1205,	693,	'1659605724_1654856361_rooms2.jpg',	0,	1,	'2022-08-04 09:35:24',	'2022-08-04 09:35:24'),
-(1206,	696,	'1659676595_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1207,	696,	'1659676595_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1208,	696,	'1659676595_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1209,	696,	'1659676595_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1210,	696,	'1659676595_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1211,	696,	'1659676595_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:16:35'),
-(1212,	699,	'1659677339_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1213,	699,	'1659677339_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1214,	699,	'1659677339_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1215,	699,	'1659677339_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1216,	699,	'1659677339_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1217,	699,	'1659677339_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:28:59'),
-(1223,	703,	'1659689583_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-05 08:53:03',	'2022-08-05 08:53:03'),
-(1224,	703,	'1659689583_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-05 08:53:03',	'2022-08-05 08:53:03'),
-(1225,	703,	'1659689583_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-05 08:53:03',	'2022-08-05 08:53:03'),
-(1286,	729,	'1659779039_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-06 09:43:59',	'2022-08-06 09:43:59'),
-(1287,	729,	'1659779039_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-06 09:43:59',	'2022-08-06 09:43:59'),
-(1288,	729,	'1659779039_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-06 09:43:59',	'2022-08-06 09:43:59'),
-(1289,	729,	'1659779039_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-06 09:43:59',	'2022-08-06 09:43:59'),
-(1290,	729,	'1659779039_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-06 09:43:59',	'2022-08-06 09:43:59'),
 (1299,	732,	'1659782133_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (1300,	732,	'1659782133_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (1301,	732,	'1659782133_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (1302,	732,	'1659782133_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (1303,	732,	'1659782133_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
-(1304,	732,	'1659782133_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33');
+(1304,	732,	'1659782133_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
+(1337,	747,	'1660037150_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1338,	747,	'1660037150_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1339,	747,	'1660037150_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1340,	747,	'1660037150_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1341,	747,	'1660037150_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1342,	747,	'1660037150_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:25:50'),
+(1343,	749,	'1660039465_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1344,	749,	'1660039465_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1345,	749,	'1660039465_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1346,	749,	'1660039465_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1347,	749,	'1660039465_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1348,	749,	'1660039465_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1349,	749,	'1660039465_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1350,	749,	'1660039465_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:25'),
+(1398,	769,	'1660122081_pexels-donald-tong-189296.jpg',	0,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1399,	769,	'1660122081_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1400,	769,	'1660122081_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1401,	769,	'1660122081_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1402,	769,	'1660122081_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1403,	770,	'1660122274_pexels-donald-tong-189296.jpg',	0,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1404,	770,	'1660122274_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1405,	770,	'1660122274_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1406,	770,	'1660122274_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1407,	770,	'1660122274_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1412,	774,	'1660125700_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-10 10:01:40',	'2022-08-10 10:01:40'),
+(1413,	774,	'1660125700_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-10 10:01:40',	'2022-08-10 10:01:40'),
+(1414,	774,	'1660125700_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-10 10:01:40',	'2022-08-10 10:01:40'),
+(1415,	774,	'1660125700_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-10 10:01:40',	'2022-08-10 10:01:40'),
+(1416,	774,	'1660125700_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-10 10:01:40',	'2022-08-10 10:01:40'),
+(1417,	775,	'1660126136_pexels-donald-tong-189296.jpg',	0,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1418,	775,	'1660126136_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1419,	775,	'1660126136_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1420,	775,	'1660126136_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1421,	775,	'1660126136_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1422,	778,	'1660129758_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(1423,	778,	'1660129758_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(1424,	778,	'1660129758_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(1444,	787,	'1660626220_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(1445,	787,	'1660626220_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(1446,	787,	'1660626220_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(1447,	787,	'1660626220_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(1448,	787,	'1660626220_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40');
 
 DROP TABLE IF EXISTS `room_list`;
 CREATE TABLE `room_list` (
@@ -2807,7 +3051,7 @@ CREATE TABLE `room_list` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=737 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=790 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_list` (`id`, `hotel_id`, `room_types_id`, `name`, `image`, `description`, `notes`, `max_adults`, `max_childern`, `number_of_rooms`, `price_per_night`, `tax_percentage`, `price_per_night_7d`, `price_per_night_30d`, `is_guest_allow`, `extra_guest_per_night`, `is_above_guest_cap`, `is_pay_by_num_guest`, `room_size`, `type_of_price`, `cleaning_fee`, `cleaning_fee_type`, `city_fee`, `city_fee_type`, `earlybird_discount`, `min_days_in_advance`, `bed_type`, `private_bathroom`, `private_entrance`, `optional_services`, `family_friendly`, `outdoor_facilities`, `extra_people`, `breakfast_availability`, `breakfast_price_inclusion`, `breakfast_cost`, `breakfast_type`, `status`, `created_at`, `updated_at`) VALUES
 (37,	90,	2,	'Standard Double Room',	'pexels-deno-wang-11671086-roomMainImg-1656761958.jpg',	'Swimming Pool View Queen Bed Air Conditioning',	'Free Breakfast',	15,	7,	5,	1500,	NULL,	9000,	30000,	0,	0,	0,	0,	366,	'per_night_per_guest',	500,	'per_night_per_guest',	500,	'per_night_per_guest',	NULL,	NULL,	'Double bed',	1,	1,	'yes',	1,	'Yes',	'Yes',	NULL,	NULL,	NULL,	NULL,	1,	'2022-06-16 10:09:51',	'2022-07-04 13:31:19'),
@@ -2868,18 +3112,23 @@ INSERT INTO `room_list` (`id`, `hotel_id`, `room_types_id`, `name`, `image`, `de
 (630,	330,	NULL,	'Double with Park View',	'room_default_img.jpg',	'this is the room',	'this is our notes',	1,	2,	5,	1200,	20,	5000,	60000,	0,	0,	0,	0,	5,	'per_night',	200,	'per_night',	NULL,	'per_night',	10,	3,	'Single bed',	1,	1,	NULL,	1,	'parking',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-02 06:07:50',	'2022-08-02 06:08:25'),
 (658,	321,	NULL,	NULL,	'room_default_img.jpg',	'this the best room to stay in',	'please consider these notes',	2,	2,	5,	1200,	20,	5000,	6000,	0,	0,	0,	0,	5,	'per_night',	200,	'per_night',	NULL,	'per_night',	10,	NULL,	'Single bed',	1,	1,	NULL,	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	0,	'2022-08-03 08:49:50',	'2022-08-03 08:49:50'),
 (661,	321,	NULL,	'Single Room with Shower',	'room_default_img.jpg',	'this the best room to stay in',	'please consider these notes',	2,	2,	5,	1200,	20,	5000,	6000,	0,	0,	0,	0,	5,	'per_night',	200,	'per_night',	NULL,	'per_night',	10,	NULL,	'Single bed',	1,	1,	NULL,	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-03 08:57:18',	'2022-08-03 08:57:57'),
-(691,	380,	NULL,	'Budget Single Room',	NULL,	'room description',	'notes',	10,	5,	2,	550,	1,	3500,	15000,	0,	0,	0,	0,	365,	'per_night',	100,	'per_night',	100,	'per_night',	1,	1,	'Bunk bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-04 09:06:10',	'2022-08-04 12:56:11'),
 (693,	78,	NULL,	'Studio Room with Pool View',	'1655718930_24trending-shophotels1-superJumbo-roomMainImg-1659605724.jpg',	'Swimming Pool View Queen Bed Air Conditioning',	'Free Breakfast',	2,	1,	5,	500,	NULL,	450,	400,	0,	0,	0,	0,	450,	'single_fee',	0,	'single_fee',	0,	'single_fee',	NULL,	NULL,	'Double bed',	1,	0,	'No',	1,	'No',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-04 09:34:06',	'2022-08-04 12:55:00'),
-(694,	380,	NULL,	'Single Room with Shower',	NULL,	'room description',	'notes',	10,	5,	2,	550,	1,	3500,	15000,	0,	0,	0,	0,	365,	'per_night',	100,	'per_night',	100,	'per_night',	1,	1,	'Bunk bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-04 10:32:08',	'2022-08-04 11:01:30'),
-(696,	380,	NULL,	'Standard Single Room with Shower',	'pexels-asad-photo-maldives-2549018-roomMainImg-1659676595.jpg',	'description',	'notes',	10,	5,	3,	500,	1,	3500,	15000,	0,	0,	0,	0,	256,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-05 05:16:35',	'2022-08-05 05:17:03'),
-(699,	380,	NULL,	'Single Room with Terrace',	'pexels-amar-saleem-70441-roomMainImg-1659677339.jpg',	'description',	'notes',	10,	5,	3,	1000,	1,	7000,	30000,	0,	0,	0,	0,	356,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'3',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-05 05:28:59',	'2022-08-05 05:40:00'),
 (700,	311,	NULL,	NULL,	'room_default_img.jpg',	'This is the room with all the required facilities',	'These are our notes',	1,	1,	5,	500,	20,	600,	2000,	1,	3,	NULL,	1,	5,	'single_fee',	200,	'single_fee',	NULL,	NULL,	10,	3,	'Double bed',	1,	1,	NULL,	1,	'parking, playground',	'2',	NULL,	NULL,	NULL,	NULL,	0,	'2022-08-05 06:03:53',	'2022-08-05 06:03:53'),
-(703,	380,	NULL,	'Single Room with Shared Toilet',	NULL,	'description',	'notes',	8,	5,	5,	100,	10,	7000,	3000,	0,	0,	0,	0,	111,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-05 08:53:03',	'2022-08-05 09:40:32'),
-(729,	380,	1,	'Deluxe Single Room',	'pexels-deno-wang-11671086-roomMainImg-1659779039.jpg',	'description',	'notes',	10,	5,	5,	1000,	1,	7000,	30000,	0,	NULL,	NULL,	NULL,	111,	'single_fee',	100,	'single_fee',	100,	'single_fee',	100,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-06 09:43:59',	'2022-08-06 10:28:10'),
 (732,	306,	1,	'Budget Single Room',	'pexels-ben-cheung-441379-roomMainImg-1659782133.jpg',	'description',	'notes',	10,	2,	3,	500,	1,	3500,	15000,	0,	NULL,	NULL,	NULL,	256,	'single_fee',	1000,	'single_fee',	50,	'single_fee',	4,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
 (733,	306,	2,	'Standard Double Room',	'room_default_img.jpg',	'description',	'notes',	10,	2,	3,	500,	1,	3500,	15000,	0,	0,	0,	0,	256,	'single_fee',	1000,	'single_fee',	50,	'single_fee',	4,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-06 10:35:41',	'2022-08-06 10:36:08'),
-(734,	306,	6,	'Standard Family Room',	'room_default_img.jpg',	'description',	'notes',	10,	2,	3,	500,	1,	3500,	15000,	0,	0,	0,	0,	256,	'single_fee',	1000,	'single_fee',	50,	'single_fee',	4,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-06 10:36:19',	'2022-08-06 10:36:55'),
-(736,	394,	NULL,	'Single Room with Shower',	'room_default_img.jpg',	'description',	'notes',	10,	10,	6,	100,	1,	700,	3000,	0,	0,	0,	0,	122,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'3',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-06 10:51:55',	'2022-08-06 10:52:32');
+(747,	399,	NULL,	'Budget Single Room',	'pexels-asad-photo-maldives-2549018-roomMainImg-1660037150.jpg',	'description',	'notes',	5,	5,	5,	500,	1,	3500,	15000,	0,	0,	0,	0,	252,	'single_fee',	50,	'single_fee',	50,	'single_fee',	1,	1,	'Double bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-09 09:25:50',	'2022-08-09 09:29:14'),
+(748,	399,	NULL,	'Superior Single Room',	'room_default_img.jpg',	'description',	'notes',	5,	5,	5,	500,	1,	3500,	15000,	0,	0,	0,	0,	252,	'single_fee',	50,	'single_fee',	50,	'single_fee',	1,	1,	'Double bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-09 09:28:19',	'2022-08-09 09:29:03'),
+(749,	400,	1,	'Single Room with Shower',	NULL,	'room description',	'notes',	10,	5,	5,	100,	1,	700,	3000,	0,	0,	0,	0,	224,	'single_fee',	10,	'single_fee',	10,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-09 10:04:25',	'2022-08-09 10:04:48'),
+(750,	400,	1,	'Single Room with Pool View',	NULL,	'room description',	'notes',	10,	5,	5,	100,	1,	700,	3000,	0,	0,	0,	0,	224,	'single_fee',	10,	'single_fee',	10,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-09 10:04:55',	'2022-08-10 09:36:02'),
+(769,	331,	3,	'Twin with Park View',	'pexels-pixabay-271639-roomMainImg-1660122081.jpg',	'this is the room',	'this is our notes',	2,	2,	2,	2000,	10,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	'single_fee',	200,	'single_fee',	100,	'single_fee',	10,	2,	'Double bed',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(770,	331,	2,	'Standard Double Room',	'room_default_img.jpg',	'this is the room',	'this is our notes',	2,	2,	2,	2000,	10,	14000,	60000,	0,	0,	0,	0,	5,	'single_fee',	200,	'single_fee',	100,	'single_fee',	10,	2,	'Double bed',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 09:02:48',	'2022-08-10 09:04:34'),
+(774,	408,	NULL,	'Budget Single Room',	NULL,	'descriptiomn',	'notes',	10,	10,	5,	100,	1,	700,	3000,	0,	0,	0,	0,	111,	'single_fee',	50,	'single_fee',	50,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'6',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 10:01:40',	'2022-08-10 13:14:51'),
+(775,	409,	1,	'Budget Single Room',	'pexels-donald-tong-189296-roomMainImg-1660126136.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	2,	2,	2,	2000,	10,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	'per_night_per_guest',	200,	'single_fee',	100,	'single_fee',	10,	2,	'Single bed',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(777,	409,	NULL,	NULL,	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	2,	2,	2,	2000,	10,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	'per_night_per_guest',	200,	'single_fee',	100,	'single_fee',	10,	2,	'Single bed',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	0,	'2022-08-10 10:14:52',	'2022-08-10 10:14:52'),
+(778,	409,	2,	'Standard Double Room',	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	2,	2,	2,	2000,	10,	14000,	60000,	0,	0,	0,	0,	5,	'per_night_per_guest',	200,	'per_night_per_guest',	100,	'per_night_per_guest',	10,	2,	'Single bed',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 10:52:53',	'2022-08-10 11:09:18'),
+(783,	408,	NULL,	'Single Room with Shared Bathroom',	'room_default_img.jpg',	'description',	'notes',	10,	7,	4,	100,	1,	700,	3000,	0,	0,	0,	0,	111,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-10 12:00:29',	'2022-08-10 12:01:04'),
+(787,	413,	1,	'Budget Single Room',	'pexels-amar-saleem-91628-roomMainImg-1660626220.jpg',	'description',	'notes',	10,	5,	4,	500,	1,	3500,	15000,	0,	NULL,	NULL,	NULL,	122,	'single_fee',	50,	'single_fee',	50,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(788,	413,	NULL,	'Deluxe Single Room',	'room_default_img.jpg',	'description',	'notes',	10,	5,	4,	500,	1,	3500,	15000,	0,	0,	0,	0,	122,	'single_fee',	50,	'single_fee',	50,	'single_fee',	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-08-16 05:03:46',	'2022-08-16 05:04:14');
 
 DROP TABLE IF EXISTS `room_name_list`;
 CREATE TABLE `room_name_list` (
@@ -3219,7 +3468,7 @@ CREATE TABLE `room_services` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1228 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1296 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_services` (`id`, `room_id`, `room_service_id`, `status`, `created_at`, `updated_at`) VALUES
 (333,	191,	2,	1,	'2022-07-01 11:01:22',	'2022-07-01 11:01:22'),
@@ -3268,16 +3517,10 @@ INSERT INTO `room_services` (`id`, `room_id`, `room_service_id`, `status`, `crea
 (1142,	693,	3,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
 (1143,	693,	5,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
 (1144,	693,	8,	1,	'2022-08-04 12:55:00',	'2022-08-04 12:55:00'),
-(1145,	691,	3,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(1146,	691,	8,	1,	'2022-08-04 12:56:11',	'2022-08-04 12:56:11'),
-(1149,	696,	2,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
-(1150,	696,	6,	1,	'2022-08-05 05:17:03',	'2022-08-05 05:17:03'),
 (1151,	492,	2,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (1152,	492,	4,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (1153,	492,	6,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
 (1154,	492,	9,	1,	'2022-08-05 05:23:07',	'2022-08-05 05:23:07'),
-(1157,	699,	2,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
-(1158,	699,	8,	1,	'2022-08-05 05:40:00',	'2022-08-05 05:40:00'),
 (1159,	491,	1,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (1160,	491,	3,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
 (1161,	491,	8,	1,	'2022-08-05 05:49:40',	'2022-08-05 05:49:40'),
@@ -3285,10 +3528,24 @@ INSERT INTO `room_services` (`id`, `room_id`, `room_service_id`, `status`, `crea
 (1163,	479,	2,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
 (1164,	479,	4,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
 (1165,	479,	5,	1,	'2022-08-05 06:33:10',	'2022-08-05 06:33:10'),
-(1178,	703,	2,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
-(1179,	703,	10,	1,	'2022-08-05 09:40:32',	'2022-08-05 09:40:32'),
 (1224,	732,	3,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
-(1225,	732,	10,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33');
+(1225,	732,	10,	1,	'2022-08-06 10:35:33',	'2022-08-06 10:35:33'),
+(1240,	747,	3,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(1241,	747,	7,	1,	'2022-08-09 09:29:14',	'2022-08-09 09:29:14'),
+(1244,	749,	3,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(1245,	749,	6,	1,	'2022-08-09 10:04:48',	'2022-08-09 10:04:48'),
+(1268,	769,	2,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1269,	769,	6,	1,	'2022-08-10 09:01:21',	'2022-08-10 09:01:21'),
+(1270,	770,	2,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1271,	770,	10,	1,	'2022-08-10 09:04:34',	'2022-08-10 09:04:34'),
+(1276,	775,	4,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1277,	775,	11,	1,	'2022-08-10 10:08:56',	'2022-08-10 10:08:56'),
+(1280,	778,	3,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(1281,	778,	11,	1,	'2022-08-10 11:09:18',	'2022-08-10 11:09:18'),
+(1290,	774,	3,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(1291,	774,	9,	1,	'2022-08-10 13:14:51',	'2022-08-10 13:14:51'),
+(1292,	787,	2,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40'),
+(1293,	787,	7,	1,	'2022-08-16 05:03:40',	'2022-08-16 05:03:40');
 
 DROP TABLE IF EXISTS `room_type_categories`;
 CREATE TABLE `room_type_categories` (
@@ -3302,7 +3559,7 @@ CREATE TABLE `room_type_categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_type_categories` (`id`, `title`, `details`, `status`, `created_at`, `updated_at`) VALUES
-(1,	'Single',	'Single',	1,	'2022-06-07 08:39:16',	'2022-08-06 10:52:49'),
+(1,	'Single',	'Single',	1,	'2022-06-07 08:39:16',	'2022-08-10 12:01:15'),
 (2,	'Double',	'Double',	1,	'2022-06-07 08:39:42',	'2022-06-21 10:55:22'),
 (3,	'Twin',	'Twin',	1,	'2022-06-07 08:40:04',	'2022-06-07 08:40:04'),
 (4,	'Twin/Double',	'Twin/Double',	1,	'2022-06-07 08:40:48',	'2022-06-07 08:40:48'),
@@ -3368,9 +3625,9 @@ CREATE TABLE `space` (
   `checkin_hr` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `checkout_hr` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `late_checkin` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `cleaning_fee` double DEFAULT NULL,
+  `cleaning_fee` double NOT NULL DEFAULT '0',
   `cleaning_fee_type` enum('single_fee','per_night','per_guest','per_night_per_guest') CHARACTER SET utf8 DEFAULT NULL,
-  `city_fee` double DEFAULT NULL,
+  `city_fee` double NOT NULL DEFAULT '0',
   `city_fee_type` enum('single_fee','per_night','per_guest','per_night_per_guest') CHARACTER SET utf8 DEFAULT NULL,
   `security_deposite` int(11) DEFAULT NULL,
   `earlybird_discount` int(11) DEFAULT NULL,
@@ -3396,10 +3653,10 @@ CREATE TABLE `space` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`space_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space` (`space_id`, `category_id`, `sub_category_id`, `space_user_id`, `is_admin`, `space_name`, `image`, `description`, `notes`, `space_document`, `scout_id`, `payment_mode`, `booking_option`, `reserv_date_change_allow`, `guest_number`, `price_per_night`, `tax_percentage`, `price_per_night_7d`, `price_per_night_30d`, `is_guest_allow`, `extra_guest_per_night`, `is_above_guest_cap`, `is_pay_by_num_guest`, `room_size`, `room_number`, `bedroom_number`, `bathroom_number`, `checkin_hr`, `checkout_hr`, `late_checkin`, `cleaning_fee`, `cleaning_fee_type`, `city_fee`, `city_fee_type`, `security_deposite`, `earlybird_discount`, `min_days_in_advance`, `bed_type`, `private_bathroom`, `private_entrance`, `optional_services`, `family_friendly`, `outdoor_facilities`, `extra_people`, `cancellation`, `space_address`, `space_country`, `city`, `neighbor_area`, `zip_code`, `province`, `space_latitude`, `space_longitude`, `status`, `copy_status`, `created_at`, `updated_at`) VALUES
-(270,	30,	13,	1,	1,	'New Wonder Space',	'3-hotelMainImg-1656594224-spaceMainImg-1658317272.png',	'Property Description',	'Private Notes describe here',	NULL,	477,	1,	1,	1,	23,	500,	2,	3200,	12000,	0,	0,	0,	0,	1500,	12,	5,	13,	'12',	'21',	'12',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'Double bed',	1,	1,	NULL,	1,	'asdasd',	'1',	NULL,	'USA Fitness/Outdoor Gym - Sylmar Super Center, Foothill Boulevard, Sylmar, CA, USA',	231,	'Los Angeles County',	NULL,	'91342',	'California',	'34.3075453',	'-118.4309508',	1,	1,	'2022-07-20 11:41:12',	'2022-07-29 06:44:42'),
+(270,	30,	13,	1,	1,	'New Wonder Space',	'3-hotelMainImg-1656594224-spaceMainImg-1658317272.png',	'Property Description',	'Private Notes describe here',	NULL,	477,	1,	1,	1,	23,	500,	2,	3200,	12000,	0,	0,	0,	0,	1500,	12,	5,	13,	'12',	'21',	'12',	0,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	'Double bed',	1,	1,	NULL,	1,	'asdasd',	'1',	NULL,	'USA Fitness/Outdoor Gym - Sylmar Super Center, Foothill Boulevard, Sylmar, CA, USA',	231,	'Los Angeles County',	NULL,	'91342',	'California',	'34.3075453',	'-118.4309508',	1,	1,	'2022-07-20 11:41:12',	'2022-07-29 06:44:42'),
 (272,	30,	13,	1,	1,	'Resort – Basic, 5 Kumrat Glamping',	'photo-1638474751432-d73571bba430-spaceMainImg-1658380881.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	'Spaces Notes',	NULL,	477,	0,	2,	1,	20,	100000,	18000,	95000,	80000,	0,	0,	0,	0,	3000,	20,	15,	18,	'11 AM',	'12 PM',	'1 Hr',	2000,	'single_fee',	1000,	'single_fee',	NULL,	5,	15,	'Double bed',	1,	1,	NULL,	1,	'Swimming Pool',	'5',	NULL,	'PAC College, Gurumangat Road, Block T Gulberg 2, Lahore, Pakistan',	166,	'Lahore',	'Gulberg 2',	'54000',	'Punjab',	'31.5194317',	'74.3582019',	1,	1,	'2022-07-21 05:21:21',	'2022-07-25 09:42:38'),
 (273,	30,	13,	1,	1,	'space 1 test',	'photo-1429962714451-bb934ecdc4ec-spaceMainImg-1658406555.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'Spaces Notes',	NULL,	477,	1,	1,	0,	20,	100000,	18000,	95000,	80000,	0,	0,	0,	0,	3000,	20,	15,	18,	NULL,	NULL,	NULL,	2000,	'single_fee',	1000,	'single_fee',	NULL,	5,	15,	'Double bed',	1,	1,	NULL,	1,	'Swimming Pool',	'5',	NULL,	'Shreevardhan Complex, Rabindranath Tagore Marg, South Tukoganj, Indore, Madhya Pradesh, India',	101,	'Indore',	'South Tukoganj',	'452001',	'Madhya Pradesh',	'22.7178592',	'75.873064',	1,	1,	'2022-07-21 10:58:24',	'2022-07-29 06:58:56'),
 (297,	29,	13,	336,	0,	'space 12 test',	'photo-1641230539674-c9aae87f6e24-spaceMainImg-1658410629.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'notes',	NULL,	477,	0,	2,	0,	20,	500,	2,	3200,	12000,	0,	0,	0,	0,	450,	12,	NULL,	NULL,	NULL,	NULL,	NULL,	100,	'single_fee',	10,	'single_fee',	1000,	NULL,	NULL,	'Double bed',	1,	1,	NULL,	1,	'asdasd',	'1',	NULL,	'Japan-Restaurant Manyo, Schertlinstraße, A, Germany',	82,	'Schwaben',	'Antonsviertel',	'86159',	'Bayern',	'48.3530667',	'10.8911528',	1,	1,	'2022-07-21 13:37:09',	'2022-07-29 08:33:16'),
@@ -3408,21 +3665,23 @@ INSERT INTO `space` (`space_id`, `category_id`, `sub_category_id`, `space_user_i
 (362,	30,	10,	877,	0,	'New Hasan Villa',	'3-roomMainImg-1656497288-spaceMainImg-1658925154.png',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'n',	NULL,	557,	1,	1,	0,	1,	356,	1,	2000,	9000,	0,	0,	0,	0,	366,	5,	4,	3,	NULL,	NULL,	NULL,	50,	'single_fee',	50,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'Yes',	'Yes',	NULL,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-07-27 08:37:41',	'2022-07-29 09:08:43'),
 (367,	23,	10,	1,	1,	'Lower Space',	'pexels-pixabay-261395-spaceMainImg-1658925540.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'notes',	'Admin  Dashboard (2)-1658925540.pdf',	557,	1,	1,	0,	2147483647,	500,	1,	3000,	10000,	0,	0,	0,	0,	356,	2,	4,	3,	'1',	'1',	'1',	100,	'single_fee',	100,	'single_fee',	1,	1,	2,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	'yes',	'Saudi German Hospital Dubai - Dubai - United Arab Emirates',	229,	'indore',	'Al Barsha',	'452001',	'Dubai',	'25.097098',	'55.184156',	1,	1,	'2022-07-27 12:39:00',	'2022-07-29 09:07:47'),
 (375,	23,	10,	877,	0,	'New Avenue',	'pexels-elina-sazonova-1838554-spaceMainImg-1659005211.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'notes',	'Admin  Dashboard (2)-1659005211.pdf',	477,	1,	1,	1,	2147483647,	500,	1,	3000,	10000,	0,	0,	0,	0,	111,	2,	4,	4,	'1',	'1',	'1',	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Bunk bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	'yes',	'Liverpool Street Station, London, UK',	230,	'Greater London',	NULL,	'EC2M 7QA',	'England',	'51.51925079999999',	'-0.0810913',	1,	1,	'2022-07-28 10:46:51',	'2022-08-01 11:53:09'),
-(401,	23,	10,	877,	0,	'new 2121',	'1655705317_rooms1-spaceMainImg-1659523008.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially',	'notes',	NULL,	477,	1,	1,	0,	2147483647,	500,	1,	3000,	10000,	0,	0,	0,	0,	111,	2,	4,	4,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Bunk bed',	1,	1,	NULL,	1,	'Yes',	'1',	NULL,	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-01 10:15:04',	'2022-08-03 10:36:48'),
 (403,	23,	11,	877,	0,	'sp4141',	'pexels-amar-saleem-70441-spaceMainImg-1659359403.jpg',	'description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659359403.pdf',	557,	1,	1,	1,	2147483647,	500,	1,	3000,	15000,	0,	NULL,	NULL,	NULL,	250,	2,	1,	3,	'1',	'1',	'1',	100,	'single_fee',	100,	'single_fee',	500,	1,	1,	'Single bed',	1,	1,	'Yes',	0,	'Yes',	'Yes',	'yes',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-01 13:10:03',	'2022-08-01 13:10:03'),
-(406,	28,	13,	833,	0,	'New Huwaii Space',	'24trending-shophotels1-superJumbo-roomMainImg-1656573483-spaceMainImg-1659421958.jpg',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'',	477,	0,	2,	0,	20,	2500,	3,	3200,	12000,	0,	NULL,	NULL,	NULL,	1500,	12,	5,	13,	NULL,	NULL,	NULL,	100,	'single_fee',	NULL,	NULL,	1000,	1,	NULL,	'Double bed',	1,	1,	NULL,	1,	'Pool',	'1',	NULL,	'Srinagar Highway, Islamabad, Pakistan',	166,	'Islamabad',	NULL,	NULL,	'Islamabad Capital Territory',	'33.648875',	'72.9798769',	1,	1,	'2022-08-02 06:32:38',	'2022-08-02 06:32:38'),
-(408,	28,	13,	1,	1,	'sp5151',	'1655357028_MAIN_HEADER_SLIDER_2-spaceMainImg-1659522513.jpg',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	NULL,	477,	1,	1,	0,	20,	2500,	3,	3200,	12000,	0,	0,	0,	0,	1500,	12,	5,	13,	NULL,	NULL,	NULL,	100,	'single_fee',	NULL,	NULL,	1000,	1,	NULL,	'Double bed',	1,	1,	NULL,	1,	'Pool',	'1',	NULL,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-02 08:30:29',	'2022-08-03 10:28:33'),
+(406,	28,	13,	833,	0,	'New Huwaii Space',	'24trending-shophotels1-superJumbo-roomMainImg-1656573483-spaceMainImg-1659421958.jpg',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'',	477,	0,	2,	0,	20,	2500,	3,	3200,	12000,	0,	NULL,	NULL,	NULL,	1500,	12,	5,	13,	NULL,	NULL,	NULL,	100,	'single_fee',	0,	NULL,	1000,	1,	NULL,	'Double bed',	1,	1,	NULL,	1,	'Pool',	'1',	NULL,	'Srinagar Highway, Islamabad, Pakistan',	166,	'Islamabad',	NULL,	NULL,	'Islamabad Capital Territory',	'33.648875',	'72.9798769',	1,	1,	'2022-08-02 06:32:38',	'2022-08-02 06:32:38'),
 (410,	23,	10,	877,	0,	'abc',	'pexels-asad-photo-maldives-2549018-spaceMainImg-1659430445.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (1)-1659430445.csv',	557,	1,	1,	1,	2147483647,	1000,	1,	7000,	30000,	0,	NULL,	NULL,	NULL,	356,	5,	1,	4,	'1',	'1',	'1',	500,	'single_fee',	500,	'single_fee',	1000,	100,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-02 08:54:05',	'2022-08-02 08:54:05'),
 (411,	24,	10,	877,	0,	'sp3',	'pexels-amar-saleem-70441-spaceMainImg-1659432624.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659432624.pdf',	557,	1,	1,	1,	2147483647,	500,	1,	3500,	15000,	0,	0,	0,	0,	356,	5,	4,	3,	'1',	'1',	'1',	350,	'per_night',	350,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'Yes',	'yes',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-02 09:30:24',	'2022-08-03 06:37:49'),
-(412,	28,	13,	833,	0,	'Medison Space',	'1654856361_images-spaceMainImg-1659435256.jpg',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	NULL,	477,	1,	1,	0,	20,	2500,	3,	3200,	12000,	0,	0,	0,	0,	1500,	12,	5,	13,	NULL,	NULL,	NULL,	100,	'single_fee',	NULL,	NULL,	1000,	1,	1,	'Double bed',	1,	1,	NULL,	1,	'Pool',	'1',	NULL,	'Madison Square Garden, Pennsylvania Plaza, New York, NY, USA',	231,	'New York County',	'Manhattan',	'10001',	'New York',	'40.7505045',	'-73.9934387',	1,	1,	'2022-08-02 10:10:50',	'2022-08-02 10:14:16'),
-(414,	23,	10,	877,	0,	'sp5',	'pexels-asad-photo-maldives-2549018-spaceMainImg-1659515331.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659515331.pdf',	557,	1,	1,	1,	2147483647,	1000,	1,	7000,	30000,	0,	0,	0,	0,	256,	5,	4,	4,	'1',	'1',	'1',	250,	'single_fee',	250,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'3',	'yes',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-03 08:28:51',	'2022-08-03 10:03:37'),
-(418,	23,	10,	877,	0,	'sp6',	'pexels-amar-saleem-91628-spaceMainImg-1659521953.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659521953.pdf',	477,	1,	1,	1,	2147483647,	1000,	1,	7000,	30000,	0,	0,	0,	0,	144,	4,	1,	4,	'1',	'1',	'1',	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Sofa',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-03 10:19:13',	'2022-08-04 08:47:01'),
-(425,	23,	10,	1,	1,	'sp7',	'pexels-amar-saleem-70441-spaceMainImg-1659603002.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659603002.pdf',	557,	1,	1,	1,	2147483647,	500,	1,	3500,	15000,	0,	NULL,	NULL,	NULL,	444,	4,	4,	6,	'1',	'1',	'1',	500,	'single_fee',	500,	'single_fee',	500,	1,	1,	'Futon Mat',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(427,	23,	10,	877,	0,	'sp8',	'pexels-ben-cheung-441379-spaceMainImg-1659604822.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659604822.pdf',	557,	1,	1,	1,	2147483647,	500,	1,	3500,	15000,	0,	0,	0,	0,	225,	1,	2,	1,	'1',	'1',	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Futon Mat',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-04 09:20:22',	'2022-08-05 05:55:59'),
-(431,	23,	10,	877,	0,	'sp9',	'room_default_img.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	NULL,	557,	1,	1,	0,	2147483647,	500,	1,	3500,	15000,	0,	0,	0,	0,	225,	1,	2,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Futon Mat',	1,	1,	NULL,	1,	'Yes',	'4',	NULL,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-05 05:56:27',	'2022-08-05 10:07:30'),
-(432,	23,	10,	877,	0,	'sp10',	'pexels-amar-saleem-70441-spaceMainImg-1659694236.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659694236.pdf',	557,	1,	1,	1,	2147483647,	200,	1,	3500,	20000,	0,	0,	0,	0,	111,	2,	4,	3,	'1',	'1',	'1',	250,	'single_fee',	250,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'1',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-05 10:10:36',	'2022-08-05 11:46:47'),
-(434,	23,	11,	1,	1,	'Space Test tESTJ',	'1649150813_fd06191f-8c6c-436c-a3af-5f2a6a17184c-spaceMainImg-1659695931.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	'Test %4643645324',	'event detail-1659695931.pdf',	477,	0,	2,	0,	10,	300000,	20,	240000,	200000,	0,	0,	0,	0,	4000,	10,	10,	5,	'10',	'10',	'10',	200,	'per_night',	200,	'per_night',	10000,	20,	5,	'Single bed',	1,	1,	'tets',	1,	'test',	'1',	'test TESTUGSA',	'Lahore, Pakistan',	166,	'Lahore',	'Lahore',	'868979',	'Punjab',	'31.5203696',	'74.35874729999999',	1,	1,	'2022-08-05 10:38:51',	'2022-08-05 10:43:42'),
-(435,	23,	10,	877,	0,	'sp11',	'room_default_img.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	NULL,	557,	1,	1,	0,	2147483647,	200,	1,	3500,	20000,	0,	0,	0,	0,	111,	2,	4,	3,	NULL,	NULL,	NULL,	250,	'single_fee',	250,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'Yes',	'4',	NULL,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-06 05:56:54',	'2022-08-06 05:57:21');
+(412,	28,	13,	833,	0,	'Medison Space',	'1654856361_images-spaceMainImg-1659435256.jpg',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',	NULL,	477,	1,	1,	0,	20,	2500,	3,	3200,	12000,	0,	0,	0,	0,	1500,	12,	5,	13,	NULL,	NULL,	NULL,	100,	'single_fee',	0,	NULL,	1000,	1,	1,	'Double bed',	1,	1,	NULL,	1,	'Pool',	'1',	NULL,	'Madison Square Garden, Pennsylvania Plaza, New York, NY, USA',	231,	'New York County',	'Manhattan',	'10001',	'New York',	'40.7505045',	'-73.9934387',	1,	1,	'2022-08-02 10:10:50',	'2022-08-02 10:14:16'),
+(432,	23,	10,	877,	0,	'sp10',	'pexels-amar-saleem-70441-spaceMainImg-1659694236.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1659694236.pdf',	557,	1,	1,	1,	2147483647,	200,	1,	3500,	20000,	0,	0,	0,	0,	111,	2,	4,	3,	'1',	'1',	'1',	250,	'single_fee',	250,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'1',	'rnt road',	101,	'indore',	NULL,	'452001',	'madhya pradesh',	NULL,	NULL,	1,	1,	'2022-08-05 10:10:36',	'2022-08-06 11:39:31'),
+(434,	23,	11,	1,	1,	'Space Test tESTJ',	'1649150813_fd06191f-8c6c-436c-a3af-5f2a6a17184c-spaceMainImg-1659695931.jpg',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',	'Test %4643645324',	'event detail-1659695931.pdf',	477,	0,	2,	0,	10,	300000,	20,	240000,	200000,	0,	0,	0,	0,	4000,	10,	10,	5,	'10',	'10',	'10',	200,	'per_night',	200,	'per_night',	10000,	20,	5,	'Single bed',	1,	1,	'tets',	1,	'test',	'1',	'test TESTUGSA',	'Lahore, Pakistan',	166,	'Lahore',	'Lahore',	'868979',	'Punjab',	'31.5203696',	'74.35874729999999',	1,	1,	'2022-08-05 10:38:51',	'2022-08-06 11:39:29'),
+(449,	23,	10,	1,	1,	'space12345',	'pexels-amar-saleem-91628-spaceMainImg-1659789926.jpg',	'property description property description property description property description property description property description property description property description property description property description property description',	'Notes',	'Admin  Dashboard (4)-1659789926.pdf',	557,	1,	1,	1,	2147483647,	200,	3,	1400,	6000,	0,	NULL,	NULL,	NULL,	150,	4,	3,	4,	'12',	'10',	'1',	10,	'single_fee',	10,	'single_fee',	50,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(454,	23,	10,	1,	1,	'spp147258',	'pexels-ben-cheung-441379-spaceMainImg-1660038315.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1660038315.pdf',	557,	1,	1,	1,	2147483647,	200,	1,	1400,	6000,	0,	NULL,	NULL,	NULL,	144,	5,	4,	4,	'1',	'1',	'1',	50,	'single_fee',	50,	'single_fee',	1000,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(455,	23,	10,	1,	1,	'spk147',	'pexels-elina-sazonova-1838554-spaceMainImg-1660038542.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1660038542.pdf',	557,	1,	1,	1,	2147483647,	300,	1,	2100,	9000,	0,	NULL,	NULL,	NULL,	172,	4,	4,	4,	'1',	'1',	'1',	10,	'single_fee',	10,	'single_fee',	1000,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(471,	23,	10,	877,	0,	'sp15',	'pexels-ben-cheung-441379-spaceMainImg-1660124724.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1660124724.pdf',	557,	1,	1,	1,	2147483647,	1000,	1,	7000,	30000,	0,	0,	0,	0,	366,	5,	2,	4,	'1',	'1',	'1',	100,	'single_fee',	100,	'single_fee',	1000,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'1',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:46:00'),
+(472,	23,	10,	877,	0,	'sp16',	'pexels-amar-saleem-70441-spaceMainImg-1660125471.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1660125471.pdf',	557,	1,	1,	1,	2147483647,	500,	1,	3500,	15000,	0,	NULL,	NULL,	NULL,	222,	1,	1,	1,	'1',	'1',	'1',	50,	'single_fee',	50,	'single_fee',	1,	1,	1,	'Single bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(473,	23,	13,	934,	0,	'Apartment1',	'pexels-pixabay-164595-spaceMainImg-1660131932.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'allscreen-1660131932.pdf',	477,	2,	2,	1,	12,	2000,	1500,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	5,	3,	5,	'7am',	'6pm',	'10am',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	'board games',	1,	'parking',	'2',	'1000',	'Minar-e-Pakistan, Circular Road, Walled City of Lahore, Lahore, Pakistan',	166,	'Lahore',	'Walled City of Lahore',	'54000',	'Punjab',	'31.5925148',	'74.309485',	1,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(474,	23,	14,	934,	0,	'Apartment2',	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'allscreen-1660132102.pdf',	477,	2,	1,	0,	12,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	5,	3,	5,	NULL,	NULL,	NULL,	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	NULL,	1,	'parking',	'2',	NULL,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	166,	'Lahore',	'Gulberg III',	NULL,	'Punjab',	'31.5106497',	'74.34073769999999',	1,	1,	'2022-08-10 11:46:04',	'2022-08-10 11:48:22'),
+(475,	30,	11,	934,	0,	'testproperty',	'293848405_10224494646425027_1819643226865062111_n-spaceMainImg-1660132917.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"',	'allscreen-1660132917.pdf',	477,	2,	1,	0,	12,	2000,	1500,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	5,	3,	5,	'7am',	'6pm',	'10am',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Single bed',	1,	1,	'board games',	1,	'parking',	'2',	'1000',	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	166,	'Lahore',	'Gulberg III',	NULL,	'Punjab',	'31.5106497',	'74.34073769999999',	1,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(476,	23,	10,	1,	1,	'hs1111',	'pexels-ben-cheung-441379-spaceMainImg-1660627165.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionvdescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	'Admin  Dashboard (4)-1660627165.pdf',	557,	1,	1,	1,	2147483647,	1000,	1,	7000,	30000,	0,	NULL,	NULL,	NULL,	366,	5,	4,	3,	'1',	'8',	'1',	100,	'single_fee',	100,	'single_fee',	500,	1,	1,	'Sofa',	1,	1,	'Yes',	1,	'Yes',	'1',	'1',	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(477,	23,	10,	1,	1,	'hs2222',	'room_default_img.jpg',	'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionvdescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription',	'notes',	NULL,	557,	1,	1,	0,	2147483647,	1000,	1,	7000,	30000,	0,	0,	0,	0,	366,	5,	4,	3,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	500,	1,	1,	'Sofa',	1,	1,	NULL,	1,	'Yes',	'1',	NULL,	'RNT Marg, Murai Mohalla, Chhawni, Indore, Madhya Pradesh, India',	101,	'Indore',	'Chhawni',	'452001',	'Madhya Pradesh',	'22.7097071',	'75.87578169999999',	1,	1,	'2022-08-16 05:19:34',	'2022-08-16 05:19:59');
 
 DROP TABLE IF EXISTS `space_amenities`;
 CREATE TABLE `space_amenities` (
@@ -3479,7 +3738,7 @@ CREATE TABLE `space_booking` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_booking` (`id`, `space_booking_id`, `space_id`, `user_id`, `check_in_date`, `check_out_date`, `total_days`, `total_room`, `total_member`, `total_amount`, `payment_id`, `payment_token`, `payer_id`, `payment_type`, `payment_status`, `booking_status`, `created_at`, `updated_at`) VALUES
 (60,	'RnS-B-INRBH',	412,	678,	'2022-07-28',	'2022-07-31',	3,	12,	20,	7603.00,	'PAYID-MLUQ26Y9LS82120704165006',	'EC-6G744809K9557401G',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-02 11:42:08',	'2022-08-02 11:42:08'),
@@ -3494,7 +3753,27 @@ INSERT INTO `space_booking` (`id`, `space_booking_id`, `space_id`, `user_id`, `c
 (69,	'RnS-B-GTDG7',	272,	754,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'PAYID-MLWPCBA8TF42185N56687615',	'EC-4U04867752889011H',	'K8U5YWR2AB2N8',	'paypal',	'successful',	'pending',	'2022-08-05 10:29:57',	'2022-08-05 10:29:57'),
 (70,	'RnS-B-NZ3ZQ',	270,	678,	'2022-07-28',	'2022-07-31',	3,	12,	23,	1502.00,	'PAYID-MLWQFIQ9GP86090P49597616',	'EC-8D306086D67178821',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-05 11:44:56',	'2022-08-05 11:44:56'),
 (71,	'RnS-B-LY98E',	270,	678,	'2022-07-28',	'2022-07-31',	3,	12,	23,	1502.00,	'PAYID-MLXA2RY4FT74055M76835920',	'EC-0B5329481X703152D',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 06:43:11',	'2022-08-06 06:43:11'),
-(72,	'RnS-B-260EE',	273,	837,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'PAYID-MLXA7TQ30K911946R053532D',	'EC-4AT09045SL0631439',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25');
+(72,	'RnS-B-260EE',	273,	837,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'PAYID-MLXA7TQ30K911946R053532D',	'EC-4AT09045SL0631439',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 06:53:25',	'2022-08-06 06:53:25'),
+(73,	'RnS-B-X2DQA',	273,	837,	'2022-08-09',	'2022-08-10',	1,	20,	20,	121000.00,	'PAYID-MLZALNI6UD15469NA9697004',	'EC-9S2950018C8694835',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 06:59:32',	'2022-08-09 06:59:32'),
+(74,	'RnS-B-A1M27',	451,	678,	'2022-08-09',	'2022-08-10',	1,	4,	2147483647,	2001.00,	'PAYID-MLZAU3Q6CN50923Y67449909',	'EC-8RM64635UG7645030',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 07:19:53',	'2022-08-09 07:19:53'),
+(75,	'RnS-B-QLEGA',	362,	837,	'2022-08-09',	'2022-08-10',	1,	5,	1,	457.00,	'PAYID-MLZBYEY44W68432M2557092V',	'EC-2VB49674VE938480D',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 08:34:49',	'2022-08-09 08:34:49'),
+(76,	'RnS-B-Z5VWC',	434,	678,	'2022-09-05',	'2022-09-06',	1,	10,	10,	300420.00,	'PAYID-MLZC3FA5DR99693MS101380J',	'EC-7GS08009MC0885211',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 09:49:41',	'2022-08-09 09:49:41'),
+(77,	'RnS-B-GSX3M',	455,	837,	'2022-08-09',	'2022-08-10',	1,	4,	2147483647,	321.00,	'PAYID-MLZDXYQ7G125810LU480520A',	'EC-8LR83628YW9552639',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 10:50:31',	'2022-08-09 10:50:31'),
+(78,	'RnS-B-SOUI1',	465,	678,	'2022-08-10',	'2022-08-11',	1,	5,	2147483647,	1021.00,	'PAYID-MLZUMDI325349420X2022051',	'EC-2VC07059FV631781E',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 05:46:18',	'2022-08-10 05:46:18'),
+(79,	'RnS-B-BM042',	434,	837,	'2022-08-12',	'2022-08-13',	1,	10,	10,	300420.00,	'PAYID-MLZUU2Y6AC73788K9176144E',	'EC-0YU32574L7998312D',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 06:04:54',	'2022-08-10 06:04:54'),
+(80,	'RnS-B-66L6O',	465,	837,	'2022-08-11',	'2022-08-12',	1,	5,	2147483647,	1021.00,	'PAYID-MLZUVFA03K15883A0497954J',	'EC-2LN27079B0614314V',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 06:05:41',	'2022-08-10 06:05:41'),
+(81,	'RnS-B-0A2JV',	465,	837,	'2022-08-11',	'2022-08-12',	1,	5,	2147483647,	1021.00,	'PAYID-MLZVANA05462400B2620194J',	'EC-7AY70112PB088961X',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 06:29:30',	'2022-08-10 06:29:30'),
+(82,	'RnS-B-FYXKI',	273,	678,	'2022-08-10',	'2022-08-11',	1,	20,	20,	121000.00,	'PAYID-MLZVKKI51922837Y6881911K',	'EC-3WD67364JU9966537',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 06:50:50',	'2022-08-10 06:50:50'),
+(83,	'RnS-B-4ECXC',	470,	837,	'2022-08-10',	'2022-08-11',	1,	1,	2147483647,	1201.00,	'PAYID-MLZXARA80W13920YT849602L',	'EC-1VX81186691884737',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 08:46:17',	'2022-08-10 08:46:17'),
+(84,	'RnS-B-DQ8T0',	472,	678,	'2022-08-10',	'2022-08-11',	1,	1,	2147483647,	601.00,	'PAYID-MLZYMJA4VR71345R5499374F',	'EC-1AC61715VD352964P',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 10:19:53',	'2022-08-10 10:19:53'),
+(85,	'RnS-B-XRN8Y',	410,	678,	'2022-08-10',	'2022-08-11',	1,	5,	2147483647,	2001.00,	'PAYID-MLZZSYA8DS195349A795241N',	'EC-5D958704K4165423B',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 11:41:57',	'2022-08-10 11:41:57'),
+(86,	'RnS-B-GCQAS',	474,	934,	'2022-08-10',	'2022-08-11',	1,	5,	12,	3800.00,	'PAYID-MLZZYHI9Y265967U62610639',	'EC-9ES28961P1143233J',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 11:54:12',	'2022-08-10 11:54:12'),
+(87,	'RnS-B-WWF8C',	272,	837,	'2022-08-10',	'2022-08-11',	1,	20,	20,	121000.00,	'PAYID-MLZ2RAI6AD4133880257231U',	'EC-2WU571408P9321406',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 12:46:22',	'2022-08-10 12:46:22'),
+(88,	'RnS-B-GJW5U',	449,	678,	'2022-08-10',	'2022-08-11',	1,	4,	2147483647,	223.00,	'PAYID-MLZ2TTI78013648UE078860C',	'EC-20U85869N8794734B',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 12:52:00',	'2022-08-10 12:52:00'),
+(89,	'RnS-B-K8A3E',	449,	934,	'2022-08-10',	'2022-08-11',	1,	4,	2147483647,	223.00,	'PAYID-MLZ2XXY61M43895TK478905N',	'EC-0VM746671D074545G',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 13:00:46',	'2022-08-10 13:00:46'),
+(90,	'RnS-B-NDU0W',	272,	678,	'2022-09-01',	'2022-09-02',	1,	20,	20,	121000.00,	'PAYID-ML3FRSY5WN906779W4214629',	'EC-57675949984590102',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-12 13:45:08',	'2022-08-12 13:45:08'),
+(91,	'RnS-B-H7S3B',	273,	678,	'2022-08-16',	'2022-08-17',	1,	20,	20,	121000.00,	'PAYID-ML5SDFQ4UH30810N2217850C',	'EC-18107282LA250715R',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-16 04:48:46',	'2022-08-16 04:48:46'),
+(92,	'RnS-B-H8HIL',	362,	678,	'2022-08-16',	'2022-08-17',	1,	5,	1,	457.00,	'PAYID-ML5SEAY2ND66139G3141954L',	'EC-1SS39834B71900712',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-16 04:50:35',	'2022-08-16 04:50:35');
 
 DROP TABLE IF EXISTS `space_booking_temp`;
 CREATE TABLE `space_booking_temp` (
@@ -3513,7 +3792,7 @@ CREATE TABLE `space_booking_temp` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id`, `user_id`, `space_id`, `space_start_date`, `space_end_date`, `total_days`, `total_room`, `total_member`, `total_amount`, `created_at`, `updated_at`) VALUES
 (66,	'PAYID-MLUQ5UI4N2762295D3020707',	'A21AALkAlIRsUCH1u2F9vmzaFeTUh9mbmwD4num3C7Glori3NenWMhLlBhmlZUYVV4GLf7wnyfhPElOJFUadLaTDF3HMhz74A',	'EC-87U18261S00480937',	NULL,	412,	'2022-07-28',	'2022-07-31',	3,	12,	20,	7603.00,	'2022-08-02 11:47:29',	'2022-08-02 11:47:29'),
@@ -3535,7 +3814,28 @@ INSERT INTO `space_booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id
 (82,	'PAYID-MLW7LZQ243435832V366315D',	'A21AALy8pPdgQYMHZjkpdyb_1qI0U7wwUNA9Jh8YNEWGBq4zzq5NLzhrwgmnKOwD98CMvbuB6avTZdP_o3Yqt_IW7YZbsMl9A',	'EC-51Y230922K111950V',	1,	406,	'2022-07-28',	'2022-07-31',	3,	12,	20,	7603.00,	'2022-08-06 05:02:30',	'2022-08-06 05:02:30'),
 (83,	'PAYID-MLXA2RY4FT74055M76835920',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	'EC-0B5329481X703152D',	NULL,	270,	'2022-07-28',	'2022-07-31',	3,	12,	23,	1502.00,	'2022-08-06 06:42:15',	'2022-08-06 06:42:15'),
 (84,	'PAYID-MLXA7TQ30K911946R053532D',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	'EC-4AT09045SL0631439',	1,	273,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'2022-08-06 06:53:02',	'2022-08-06 06:53:02'),
-(85,	'PAYID-MLXCGLY9YY16593RH3613332',	'A21AALftoFCp3FCRmzJVVViPmHyO3gRwIp6vSVOwVfJkPoirRM6M5QLpth_0KWLx_wju2bThEIfWpYkRo3nffKk5GlEObqxkg',	'EC-15715430B3216241C',	NULL,	273,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'2022-08-06 08:15:43',	'2022-08-06 08:15:43');
+(85,	'PAYID-MLXCGLY9YY16593RH3613332',	'A21AALftoFCp3FCRmzJVVViPmHyO3gRwIp6vSVOwVfJkPoirRM6M5QLpth_0KWLx_wju2bThEIfWpYkRo3nffKk5GlEObqxkg',	'EC-15715430B3216241C',	NULL,	273,	'2022-07-28',	'2022-07-31',	3,	20,	20,	321000.00,	'2022-08-06 08:15:43',	'2022-08-06 08:15:43'),
+(86,	'PAYID-MLZALNI6UD15469NA9697004',	'A21AAJ74-4vsbkD8WU_SPYKo6abSAZZtpOyoAURecrCjzdP4aOBdyog8xb20V_8VXu7j6R6tgQl15KKc-TqRiVgFmXkP-6d6g',	'EC-9S2950018C8694835',	1,	273,	'2022-08-09',	'2022-08-10',	1,	20,	20,	121000.00,	'2022-08-09 06:59:02',	'2022-08-09 06:59:02'),
+(87,	'PAYID-MLZAU3Q6CN50923Y67449909',	'A21AAJiMw7apV7r_AlghGThPJtbAYKKyfzqDOy7ligpbeYtAbRDTZxstElNz90BzL76YFmp8_wysL7maqIT94cR7_qwX7ARoA',	'EC-8RM64635UG7645030',	NULL,	451,	'2022-08-09',	'2022-08-10',	1,	4,	2147483647,	2001.00,	'2022-08-09 07:19:10',	'2022-08-09 07:19:10'),
+(88,	'PAYID-MLZBYEY44W68432M2557092V',	'A21AAIlkeQgm0j3E9ps8n7jLAbSjtx1gXuFgQzMNXEFM_b-enDLORn4kUT6oGRhZOA02Qd7j2l5oA6A5NHTP6HZu_uI0el5HQ',	'EC-2VB49674VE938480D',	1,	362,	'2022-08-09',	'2022-08-10',	1,	5,	1,	457.00,	'2022-08-09 08:34:27',	'2022-08-09 08:34:27'),
+(89,	'PAYID-MLZC3FA5DR99693MS101380J',	'A21AAL1ZVQFhY8Oai5IkySO7IKWFi1evgvN3ZXefyjgXr8f_hwn6S8xfN1Nwgz8OY30hMQzrXGCIs6uQUIAEFejC6ZMT1rG6w',	'EC-7GS08009MC0885211',	NULL,	434,	'2022-09-05',	'2022-09-06',	1,	10,	10,	300420.00,	'2022-08-09 09:49:09',	'2022-08-09 09:49:09'),
+(90,	'PAYID-MLZDXYQ7G125810LU480520A',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	'EC-8LR83628YW9552639',	1,	455,	'2022-08-09',	'2022-08-10',	1,	4,	2147483647,	321.00,	'2022-08-09 10:50:10',	'2022-08-09 10:50:10'),
+(91,	'PAYID-MLZUMDI325349420X2022051',	'A21AALDl6mulCXLrNB3cnbeYgAlzozK5C6sTHIUC9Al-ZRteyXhRstOEvVUmf6V26joAYFUkHTfGpR5DQiWhmMaLVMC3WDMPQ',	'EC-2VC07059FV631781E',	NULL,	465,	'2022-08-10',	'2022-08-11',	1,	5,	2147483647,	1021.00,	'2022-08-10 05:45:50',	'2022-08-10 05:45:50'),
+(92,	'PAYID-MLZUU2Y6AC73788K9176144E',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-0YU32574L7998312D',	1,	434,	'2022-08-12',	'2022-08-13',	1,	10,	10,	300420.00,	'2022-08-10 06:04:27',	'2022-08-10 06:04:27'),
+(93,	'PAYID-MLZUVFA03K15883A0497954J',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-2LN27079B0614314V',	1,	465,	'2022-08-11',	'2022-08-12',	1,	5,	2147483647,	1021.00,	'2022-08-10 06:05:09',	'2022-08-10 06:05:09'),
+(94,	'PAYID-MLZVANA05462400B2620194J',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-7AY70112PB088961X',	1,	465,	'2022-08-11',	'2022-08-12',	1,	5,	2147483647,	1021.00,	'2022-08-10 06:29:08',	'2022-08-10 06:29:08'),
+(95,	'PAYID-MLZVKKI51922837Y6881911K',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-3WD67364JU9966537',	NULL,	273,	'2022-08-10',	'2022-08-11',	1,	20,	20,	121000.00,	'2022-08-10 06:50:17',	'2022-08-10 06:50:17'),
+(96,	'PAYID-MLZXARA80W13920YT849602L',	'A21AAKxwdeWmpI2rdSiBI7qAvvWC0qu0aKmmKKZiW9MFmqfVwkQAHSK5s4DuaoEw86xDNmy-8eAFps7rihwrSEwqrDIrXEyeA',	'EC-1VX81186691884737',	1,	470,	'2022-08-10',	'2022-08-11',	1,	1,	2147483647,	1201.00,	'2022-08-10 08:45:57',	'2022-08-10 08:45:57'),
+(97,	'PAYID-MLZXILY6X3028312L484582W',	'A21AAIS0jjhtWMCG5XeudT0XHo-T9pbBm2Kj0qwUgZyFR0Dfx83v6Q8vk1LzBumky9DESU5_YTO_Uz7DfBovo0g9kC4sYIp1g',	'EC-54320466P1275463M',	NULL,	410,	'2022-08-10',	'2022-08-11',	1,	5,	2147483647,	2001.00,	'2022-08-10 09:02:39',	'2022-08-10 09:02:39'),
+(98,	'PAYID-MLZYMJA4VR71345R5499374F',	'A21AAKEK2pDvDKuS8GkljvSXJlH8ne26Gn5FD63C05k_7iV7Ls8I8U3jnnnO6b6BD_DZZS4_bteJHQS9ptE_epAvJCdtifqrw',	'EC-1AC61715VD352964P',	NULL,	472,	'2022-08-10',	'2022-08-11',	1,	1,	2147483647,	601.00,	'2022-08-10 10:19:17',	'2022-08-10 10:19:17'),
+(99,	'PAYID-MLZZSYA8DS195349A795241N',	'A21AAKcdFq8v00UxjayKQ82Zq0MC9YlqWJKp511eBmXhEyD7H2aQ8HtlPX27KFx1FsJEoI7Z2AqaT2UCark24ViA6tSMylGSQ',	'EC-5D958704K4165423B',	NULL,	410,	'2022-08-10',	'2022-08-11',	1,	5,	2147483647,	2001.00,	'2022-08-10 11:41:21',	'2022-08-10 11:41:21'),
+(100,	'PAYID-MLZZYHI9Y265967U62610639',	'A21AAKcdFq8v00UxjayKQ82Zq0MC9YlqWJKp511eBmXhEyD7H2aQ8HtlPX27KFx1FsJEoI7Z2AqaT2UCark24ViA6tSMylGSQ',	'EC-9ES28961P1143233J',	1,	474,	'2022-08-10',	'2022-08-11',	1,	5,	12,	3800.00,	'2022-08-10 11:53:01',	'2022-08-10 11:53:01'),
+(101,	'PAYID-MLZ2RAI6AD4133880257231U',	'A21AALmnJQ7kEIx45Lgs99efszWdkIFCQYvtcubpvDIvKLGRI6UypneC1sSoWMqToE85uZA-02WH45zOTG0o6FuJCkexR1alg',	'EC-2WU571408P9321406',	1,	272,	'2022-08-10',	'2022-08-11',	1,	20,	20,	121000.00,	'2022-08-10 12:45:53',	'2022-08-10 12:45:53'),
+(102,	'PAYID-MLZ2TTI78013648UE078860C',	'A21AALmnJQ7kEIx45Lgs99efszWdkIFCQYvtcubpvDIvKLGRI6UypneC1sSoWMqToE85uZA-02WH45zOTG0o6FuJCkexR1alg',	'EC-20U85869N8794734B',	NULL,	449,	'2022-08-10',	'2022-08-11',	1,	4,	2147483647,	223.00,	'2022-08-10 12:51:25',	'2022-08-10 12:51:25'),
+(103,	'PAYID-MLZ2XXY61M43895TK478905N',	'A21AAJE6IIMj6x9nDD0Pqkkl9ERUyH34IdDU0tIbwm7xVK1K37Bd_z1FlSBMisu_kjvY4ioAJAVIwGRsg9BgPtmoV00Mklv2Q',	'EC-0VM746671D074545G',	1,	449,	'2022-08-10',	'2022-08-11',	1,	4,	2147483647,	223.00,	'2022-08-10 13:00:15',	'2022-08-10 13:00:15'),
+(104,	'PAYID-ML3FRSY5WN906779W4214629',	'A21AAJlDFiKhcjAOuQrMzNLZ9RWH_cQ5nuoAaAkpi8I3c3Q6O5aRqEv51cXXGLLBPwZHESHRfKSPXvAWnKxxrnTC2t7MtQUzQ',	'EC-57675949984590102',	NULL,	272,	'2022-09-01',	'2022-09-02',	1,	20,	20,	121000.00,	'2022-08-12 13:42:35',	'2022-08-12 13:42:35'),
+(105,	'PAYID-ML5SDFQ4UH30810N2217850C',	'A21AAI7jLR1gca6Bla0pZRTRhTc0lOekh14pzEQBTMtVKf1QcgNW4R-fKshGqycnix2YkUgpAWvi3xlisBFro-q4nrvhB58Gg',	'EC-18107282LA250715R',	NULL,	273,	'2022-08-16',	'2022-08-17',	1,	20,	20,	121000.00,	'2022-08-16 04:48:22',	'2022-08-16 04:48:22'),
+(106,	'PAYID-ML5SEAY2ND66139G3141954L',	'A21AAI7jLR1gca6Bla0pZRTRhTc0lOekh14pzEQBTMtVKf1QcgNW4R-fKshGqycnix2YkUgpAWvi3xlisBFro-q4nrvhB58Gg',	'EC-1SS39834B71900712',	NULL,	362,	'2022-08-16',	'2022-08-17',	1,	5,	1,	457.00,	'2022-08-16 04:50:11',	'2022-08-16 04:50:11');
 
 DROP TABLE IF EXISTS `space_categories`;
 CREATE TABLE `space_categories` (
@@ -3569,17 +3869,9 @@ CREATE TABLE `space_custom_details` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`custom_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_custom_details` (`custom_id`, `custom_label`, `custom_quantity`, `space_id`, `status`, `created_at`, `updated_at`) VALUES
-(100,	'Water Purifier',	2,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(101,	'Fan',	20,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(102,	'Fridge',	9,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(103,	'Exhaust Fan',	6,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(104,	'Dining Table',	5,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(105,	'Geyser',	5,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(106,	'Stove',	5,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(107,	'Light',	8,	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
 (108,	'Water Purifier',	2,	270,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
 (109,	'Fan',	3,	270,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
 (110,	'Fridge',	9,	270,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
@@ -3598,7 +3890,19 @@ INSERT INTO `space_custom_details` (`custom_id`, `custom_label`, `custom_quantit
 (137,	'custom 1',	2,	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
 (138,	'Fan',	20,	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
 (139,	'Fridge',	9,	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
-(140,	'Exhaust Fan',	6,	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50');
+(140,	'Exhaust Fan',	6,	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
+(141,	'abcdefgi',	1,	449,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(142,	'pqrs',	2,	449,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(143,	'Water Purifier',	2,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(144,	'Fan',	20,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(145,	'Fridge',	9,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(146,	'Exhaust Fan',	6,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(147,	'Dining Table',	5,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(148,	'Geyser',	5,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(149,	'Stove',	5,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(150,	'Light',	8,	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(151,	'Ayesha Zahid',	2,	473,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(152,	'Ayesha Zahid',	2,	475,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57');
 
 DROP TABLE IF EXISTS `space_extra_option`;
 CREATE TABLE `space_extra_option` (
@@ -3611,12 +3915,9 @@ CREATE TABLE `space_extra_option` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ext_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_extra_option` (`ext_id`, `ext_opt_name`, `ext_opt_price`, `ext_opt_type`, `space_id`, `status`, `created_at`, `updated_at`) VALUES
-(106,	'room ext opt 12',	200,	'single_fee',	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(107,	'room ext opt 13',	101,	'single_fee',	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(108,	'room ext opt 14',	102,	'single_fee',	272,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
 (109,	'name1',	200,	'per_guest',	270,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
 (120,	'room ext 11',	200,	'single_fee',	273,	1,	'2022-07-29 06:58:56',	'2022-07-29 06:58:56'),
 (122,	'Airport Pickup',	200,	'single_fee',	367,	1,	'2022-07-29 09:07:47',	'2022-07-29 09:07:47'),
@@ -3628,7 +3929,13 @@ INSERT INTO `space_extra_option` (`ext_id`, `ext_opt_name`, `ext_opt_price`, `ex
 (128,	'room ext opt 12',	101,	'single_fee',	406,	1,	'2022-08-02 06:32:38',	'2022-08-02 06:32:38'),
 (132,	'4003_wxtra',	100,	'single_fee',	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
 (133,	'room ext 12',	101,	'single_fee',	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
-(134,	'room ext opt 14',	102,	'per_night',	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50');
+(134,	'room ext opt 14',	102,	'per_night',	412,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
+(135,	'pqrs',	50,	'single_fee',	449,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(136,	'room ext opt 12',	200,	'single_fee',	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(137,	'room ext opt 13',	101,	'single_fee',	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(138,	'room ext opt 14',	102,	'single_fee',	272,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(139,	'Extra bed',	500,	'single_fee',	473,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(140,	'Extra bed',	500,	'per_guest',	475,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57');
 
 DROP TABLE IF EXISTS `space_features`;
 CREATE TABLE `space_features` (
@@ -3639,14 +3946,9 @@ CREATE TABLE `space_features` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=401 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_features` (`id`, `space_id`, `space_feature_id`, `status`, `created_at`, `updated_at`) VALUES
-(125,	272,	16,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(126,	272,	19,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(127,	272,	21,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(128,	272,	27,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
-(129,	272,	29,	1,	'2022-07-25 10:39:32',	'2022-07-25 10:39:32'),
 (168,	270,	4,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
 (169,	270,	9,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
 (170,	270,	27,	1,	'2022-07-29 06:44:42',	'2022-07-29 06:44:42'),
@@ -3713,16 +4015,28 @@ INSERT INTO `space_features` (`id`, `space_id`, `space_feature_id`, `status`, `c
 (321,	412,	14,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
 (322,	412,	27,	1,	'2022-08-02 10:20:50',	'2022-08-02 10:20:50'),
 (323,	411,	4,	1,	'2022-08-03 05:21:45',	'2022-08-03 05:21:45'),
-(325,	414,	5,	1,	'2022-08-03 08:59:03',	'2022-08-03 08:59:03'),
-(337,	418,	5,	1,	'2022-08-04 08:47:01',	'2022-08-04 08:47:01'),
-(338,	425,	6,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(342,	427,	4,	1,	'2022-08-05 05:56:17',	'2022-08-05 05:56:17'),
 (347,	434,	3,	1,	'2022-08-05 10:43:42',	'2022-08-05 10:43:42'),
 (348,	434,	27,	1,	'2022-08-05 10:43:42',	'2022-08-05 10:43:42'),
 (349,	434,	28,	1,	'2022-08-05 10:43:42',	'2022-08-05 10:43:42'),
 (350,	434,	6,	1,	'2022-08-05 10:43:42',	'2022-08-05 10:43:42'),
 (351,	432,	5,	1,	'2022-08-05 11:46:47',	'2022-08-05 11:46:47'),
-(353,	435,	5,	1,	'2022-08-06 05:57:35',	'2022-08-06 05:57:35');
+(369,	449,	5,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(372,	454,	5,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(373,	455,	5,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(375,	272,	16,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(376,	272,	19,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(377,	272,	21,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(378,	272,	27,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(379,	272,	29,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(392,	471,	5,	1,	'2022-08-10 09:46:00',	'2022-08-10 09:46:00'),
+(393,	472,	6,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(394,	473,	27,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(395,	473,	29,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(396,	473,	28,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(397,	473,	26,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(398,	475,	3,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(399,	475,	26,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(400,	476,	2,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25');
 
 DROP TABLE IF EXISTS `space_features_list`;
 CREATE TABLE `space_features_list` (
@@ -3777,7 +4091,7 @@ CREATE TABLE `space_gallery` (
   PRIMARY KEY (`id`),
   KEY `space_id` (`space_id`),
   CONSTRAINT `space_gallery_ibfk_1` FOREIGN KEY (`space_id`) REFERENCES `space` (`space_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=768 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=877 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space_gallery` (`id`, `space_id`, `image`, `is_featured`, `status`, `created_at`, `updated_at`) VALUES
 (446,	270,	'1658378949_pexels-donald-tong-189296-hotelMainImg-1656499675.jpg',	0,	1,	'2022-07-21 04:49:09',	'2022-07-21 04:49:09'),
@@ -3828,34 +4142,6 @@ INSERT INTO `space_gallery` (`id`, `space_id`, `image`, `is_featured`, `status`,
 (658,	412,	'1659435256_1654856361_rooms1.jpg',	0,	1,	'2022-08-02 10:14:16',	'2022-08-02 10:14:16'),
 (659,	412,	'1659435256_1654856361_rooms2.jpg',	0,	1,	'2022-08-02 10:14:16',	'2022-08-02 10:14:16'),
 (660,	412,	'1659435256_1655105064_photo2.png',	0,	1,	'2022-08-02 10:14:16',	'2022-08-02 10:14:16'),
-(661,	414,	'1659515331_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(662,	414,	'1659515331_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(663,	414,	'1659515331_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(664,	414,	'1659515331_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(665,	414,	'1659515331_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(666,	414,	'1659515331_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(667,	414,	'1659515331_pexels-pixabay-261327.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(668,	414,	'1659515331_pexels-pixabay-261395.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(669,	414,	'1659515331_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(670,	414,	'1659515331_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-03 08:28:51',	'2022-08-03 08:28:51'),
-(683,	418,	'1659521953_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(684,	418,	'1659521953_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(685,	418,	'1659521953_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(686,	418,	'1659521953_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(687,	418,	'1659521953_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(688,	418,	'1659521953_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(689,	418,	'1659521953_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(690,	418,	'1659521953_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-03 10:19:13',	'2022-08-03 10:19:13'),
-(703,	425,	'1659603002_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(704,	425,	'1659603002_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(705,	425,	'1659603002_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(706,	425,	'1659603002_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(707,	425,	'1659603002_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-04 08:50:02',	'2022-08-04 08:50:02'),
-(708,	427,	'1659604822_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-04 09:20:22',	'2022-08-04 09:20:22'),
-(709,	427,	'1659604822_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-04 09:20:22',	'2022-08-04 09:20:22'),
-(710,	427,	'1659604822_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-04 09:20:22',	'2022-08-04 09:20:22'),
-(711,	427,	'1659604822_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-04 09:20:22',	'2022-08-04 09:20:22'),
-(712,	427,	'1659604822_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-04 09:20:22',	'2022-08-04 09:20:22'),
 (713,	432,	'1659694236_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-05 10:10:36',	'2022-08-05 10:10:36'),
 (714,	432,	'1659694236_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-05 10:10:36',	'2022-08-05 10:10:36'),
 (715,	432,	'1659694236_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-05 10:10:36',	'2022-08-05 10:10:36'),
@@ -3864,7 +4150,54 @@ INSERT INTO `space_gallery` (`id`, `space_id`, `image`, `is_featured`, `status`,
 (718,	432,	'1659694236_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-05 10:10:36',	'2022-08-05 10:10:36'),
 (719,	434,	'1659695931_1649150813_fd06191f-8c6c-436c-a3af-5f2a6a17184c.jpg',	0,	1,	'2022-08-05 10:38:51',	'2022-08-05 10:38:51'),
 (720,	434,	'1659695931_1649151380_decor 1.jpg',	0,	1,	'2022-08-05 10:38:51',	'2022-08-05 10:38:51'),
-(721,	434,	'1659695931_1649151380_decor_1.jpg',	0,	1,	'2022-08-05 10:38:51',	'2022-08-05 10:38:51');
+(721,	434,	'1659695931_1649151380_decor_1.jpg',	0,	1,	'2022-08-05 10:38:51',	'2022-08-05 10:38:51'),
+(768,	449,	'1659789926_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(769,	449,	'1659789926_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(770,	449,	'1659789926_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(771,	449,	'1659789926_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(772,	449,	'1659789926_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-06 12:45:26',	'2022-08-06 12:45:26'),
+(783,	454,	'1660038315_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(784,	454,	'1660038315_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(785,	454,	'1660038315_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(786,	454,	'1660038315_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(787,	454,	'1660038315_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 09:45:15',	'2022-08-09 09:45:15'),
+(788,	455,	'1660038542_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(789,	455,	'1660038542_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(790,	455,	'1660038542_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(791,	455,	'1660038542_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(792,	455,	'1660038542_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(793,	455,	'1660038542_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(794,	455,	'1660038542_pexels-prime-cinematics-2057610.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(795,	455,	'1660038542_pexels-quang-nguyen-vinh-3355732.jpg',	0,	1,	'2022-08-09 09:49:02',	'2022-08-09 09:49:02'),
+(803,	272,	'1660040119_istockphoto-615422436-612x612-1648716188.jpg',	0,	1,	'2022-08-09 10:15:19',	'2022-08-09 10:15:19'),
+(849,	471,	'1660124724_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:45:24'),
+(850,	471,	'1660124724_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:45:24'),
+(851,	471,	'1660124724_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:45:24'),
+(852,	471,	'1660124724_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:45:24'),
+(853,	471,	'1660124724_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-10 09:45:24',	'2022-08-10 09:45:24'),
+(854,	472,	'1660125471_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(855,	472,	'1660125471_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(856,	472,	'1660125471_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(857,	472,	'1660125471_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(858,	472,	'1660125471_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(859,	472,	'1660125471_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-10 09:57:51',	'2022-08-10 09:57:51'),
+(860,	473,	'1660131932_pexels-donald-tong-189296.jpg',	0,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(861,	473,	'1660131932_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(862,	473,	'1660131932_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(863,	473,	'1660131932_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(864,	473,	'1660131932_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 11:45:32',	'2022-08-10 11:45:32'),
+(865,	474,	'1660132102_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 11:48:22',	'2022-08-10 11:48:22'),
+(866,	474,	'1660132102_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 11:48:22',	'2022-08-10 11:48:22'),
+(867,	474,	'1660132102_pexels-pixabay-271639.jpg',	0,	1,	'2022-08-10 11:48:22',	'2022-08-10 11:48:22'),
+(868,	475,	'1660132917_pexels-pixabay-164595.jpg',	0,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(869,	475,	'1660132917_pexels-pixabay-258154.jpg',	0,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(870,	475,	'1660132917_pexels-pixabay-271624.jpg',	0,	1,	'2022-08-10 12:01:57',	'2022-08-10 12:01:57'),
+(871,	476,	'1660627165_pexels-amar-saleem-70441.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(872,	476,	'1660627165_pexels-amar-saleem-91628.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(873,	476,	'1660627165_pexels-asad-photo-maldives-2549018.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(874,	476,	'1660627165_pexels-ben-cheung-441379.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(875,	476,	'1660627165_pexels-deno-wang-11671086.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25'),
+(876,	476,	'1660627165_pexels-donald-tong-133920.jpg',	0,	1,	'2022-08-16 05:19:25',	'2022-08-16 05:19:25');
 
 DROP TABLE IF EXISTS `space_sub_categories`;
 CREATE TABLE `space_sub_categories` (
@@ -3898,7 +4231,7 @@ CREATE TABLE `tour_booking` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_booking` (`id`, `tour_id`, `user_id`, `total_amount`, `payment_id`, `payment_token`, `payer_id`, `payment_type`, `payment_status`, `booking_status`, `created_at`, `updated_at`) VALUES
 (1,	54,	678,	2050.00,	'PAYID-MLR33DQ8J526278MA307715P',	'EC-80A10261HD8245451',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-07-29 11:03:57',	'2022-07-29 11:03:57'),
@@ -3934,7 +4267,21 @@ INSERT INTO `tour_booking` (`id`, `tour_id`, `user_id`, `total_amount`, `payment
 (31,	108,	837,	10000.00,	'PAYID-MLVYOCI8L299148PT348650V',	'EC-1UW87925DT806291Y',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-04 08:45:19',	'2022-08-04 08:45:19'),
 (32,	110,	837,	10000.00,	'PAYID-MLVZGZQ90S0472770960543H',	'EC-32906615R7786552U',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-04 09:38:36',	'2022-08-04 09:38:36'),
 (33,	73,	877,	20000.00,	'PAYID-MLWQEJA4XA26423HU0476808',	'EC-6SE095693P364422C',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-05 11:43:00',	'2022-08-05 11:43:00'),
-(34,	73,	678,	20000.00,	'PAYID-MLXA3HY78W41825MS016953S',	'EC-95F91600809853330',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 06:44:05',	'2022-08-06 06:44:05');
+(34,	73,	678,	20000.00,	'PAYID-MLXA3HY78W41825MS016953S',	'EC-95F91600809853330',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 06:44:05',	'2022-08-06 06:44:05'),
+(35,	51,	678,	225000.00,	'PAYID-MLXGB4A5Y18003149859644R',	'EC-34P73730DR383720X',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-06 12:39:45',	'2022-08-06 12:39:45'),
+(36,	120,	837,	15000.00,	'PAYID-MLZAJKA98297993JA073771J',	'EC-1JG71186XT204280U',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 06:54:55',	'2022-08-09 06:54:55'),
+(37,	20,	837,	29000.00,	'PAYID-MLZBU6A4B267773XJ5958641',	'EC-1XD582909V415442H',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 08:28:15',	'2022-08-09 08:28:15'),
+(38,	120,	837,	15000.00,	'PAYID-MLZBXAQ6444340801706911V',	'EC-67M15376RB769950V',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 08:32:27',	'2022-08-09 08:32:27'),
+(39,	122,	678,	5000.00,	'PAYID-MLZDPLA4HV71477F4304590J',	'EC-36M58668NT981115B',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 10:32:59',	'2022-08-09 10:32:59'),
+(40,	18,	837,	9950.00,	'PAYID-MLZDWQA23704123KV7129017',	'EC-4B0527563U592472E',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 10:47:52',	'2022-08-09 10:47:52'),
+(41,	122,	837,	5000.00,	'PAYID-MLZFFDI8JH472061Y4843016',	'EC-8MS62001R2192901N',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-09 12:27:15',	'2022-08-09 12:27:15'),
+(42,	129,	837,	15000.00,	'PAYID-MLZVBYI33J54414JF9919319',	'EC-6P285050BF564803E',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 06:32:22',	'2022-08-10 06:32:22'),
+(43,	127,	837,	10000.00,	'PAYID-MLZWWFA99A61295Y4428110Y',	'EC-3WK604557U599101D',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 08:24:10',	'2022-08-10 08:24:10'),
+(44,	128,	837,	15000.00,	'PAYID-MLZW75A62L41028NR4400724',	'EC-4T075870PA914152P',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 08:45:06',	'2022-08-10 08:45:06'),
+(45,	128,	837,	15000.00,	'PAYID-MLZXCXY9CH98280SA101412A',	'EC-61F71638FT395770V',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 08:51:00',	'2022-08-10 08:51:00'),
+(46,	52,	678,	52250.00,	'PAYID-MLZYXQY1DF965644A441951P',	'EC-1X541595BG031402H',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 10:43:47',	'2022-08-10 10:43:47'),
+(47,	53,	837,	25000.00,	'PAYID-MLZ2SGQ00B52813Y4836773A',	'EC-9722037920335845V',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-10 12:48:50',	'2022-08-10 12:48:50'),
+(48,	54,	837,	50000.00,	'PAYID-ML5SCDA4F312583VT092082G',	'EC-70085189ND187472S',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-16 04:46:28',	'2022-08-16 04:46:28');
 
 DROP TABLE IF EXISTS `tour_booking_temp`;
 CREATE TABLE `tour_booking_temp` (
@@ -3950,7 +4297,7 @@ CREATE TABLE `tour_booking_temp` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_booking_temp` (`id`, `user_id`, `payment_id`, `paccess_token`, `token_id`, `tour_id`, `tour_start_date`, `tour_end_date`, `total_amount`, `created_at`, `updated_at`) VALUES
 (1,	NULL,	'PAYID-MLR33DQ8J526278MA307715P',	'A21AAKK24S8iMbd6P1U_fPLgPvuGWrpuhLr4sMtxhktUEqXjVULdj5rH4OV6_PTcUKblTyz2aKYiD_F3GaYU7QaSyuuROqw6A',	'EC-80A10261HD8245451',	54,	'2022-08-01',	'2022-08-05',	99999999.99,	'2022-07-29 10:59:26',	'2022-07-29 10:59:26'),
@@ -4003,7 +4350,26 @@ INSERT INTO `tour_booking_temp` (`id`, `user_id`, `payment_id`, `paccess_token`,
 (48,	1,	'PAYID-MLWNQUY0882956752953093N',	'A21AAL7ZjDmgik4mAHbzlaCwI1AkS5tjgZhdQd0wJhgurV8tEb2aGLihERpKwdJXxDTd7TmuJFWq2odmNKQ9-sdxaTX7wtxKw',	'EC-54X17239YX038883G',	73,	'2022-07-27',	'2022-08-03',	20000.00,	'2022-08-05 08:44:03',	'2022-08-05 08:44:03'),
 (49,	1,	'PAYID-MLWOR6I40T683183E6885820',	'A21AAKMWtKZnMC5SCxmDcX55dTKDjnLQsvjrNDtlJdDXg_aDMMzFYTRZ8Ivjgw1PzIDW8yCn_YTdtv3tsjxCLE-Y6gsMDDWMA',	'EC-4K790689PX2253705',	73,	'2022-07-27',	'2022-08-03',	20000.00,	'2022-08-05 09:55:05',	'2022-08-05 09:55:05'),
 (50,	1,	'PAYID-MLWQEJA4XA26423HU0476808',	'A21AAKxNo7chRrEKGYBtNaQWUrcC1BGhuUbZ4bwHHhjqbnNAZmKOHQS6QmP7cA1FQ8UCQDBiVVEsVRT84wlQymCxjngexxFSg',	'EC-6SE095693P364422C',	73,	'2022-07-27',	'2022-08-03',	20000.00,	'2022-08-05 11:42:28',	'2022-08-05 11:42:28'),
-(51,	NULL,	'PAYID-MLXA3HY78W41825MS016953S',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	'EC-95F91600809853330',	73,	'2022-07-27',	'2022-08-03',	20000.00,	'2022-08-06 06:43:43',	'2022-08-06 06:43:43');
+(51,	NULL,	'PAYID-MLXA3HY78W41825MS016953S',	'A21AALOND7Pq7xuwDQA1bTEWLI4GwTa2Xwp9nSqnhCoxolhhhljVcrSCGSs1noAm2JBWoI6DtKQu3hzRGHDngz7ghFJnMJh6g',	'EC-95F91600809853330',	73,	'2022-07-27',	'2022-08-03',	20000.00,	'2022-08-06 06:43:43',	'2022-08-06 06:43:43'),
+(52,	NULL,	'PAYID-MLXGB4A5Y18003149859644R',	'A21AAKmlDAGue4x2oV1bM9UFLA4nm_wIix8KRQ6R1-MoONoWoiznB1aRGxdLu5H4q3R0oz5hcFl4BVVNvjWVJIOke5ZAbns1A',	'EC-34P73730DR383720X',	51,	'2022-08-01',	'2022-08-15',	225000.00,	'2022-08-06 12:39:12',	'2022-08-06 12:39:12'),
+(53,	1,	'PAYID-MLZAJKA98297993JA073771J',	'A21AAJ74-4vsbkD8WU_SPYKo6abSAZZtpOyoAURecrCjzdP4aOBdyog8xb20V_8VXu7j6R6tgQl15KKc-TqRiVgFmXkP-6d6g',	'EC-1JG71186XT204280U',	120,	'2022-08-09',	'2022-08-10',	15000.00,	'2022-08-09 06:54:32',	'2022-08-09 06:54:32'),
+(54,	1,	'PAYID-MLZAKDY64G64161JH084262T',	'A21AAJ74-4vsbkD8WU_SPYKo6abSAZZtpOyoAURecrCjzdP4aOBdyog8xb20V_8VXu7j6R6tgQl15KKc-TqRiVgFmXkP-6d6g',	'EC-7J687459RS767143G',	120,	'2022-08-09',	'2022-08-10',	15000.00,	'2022-08-09 06:56:15',	'2022-08-09 06:56:15'),
+(55,	1,	'PAYID-MLZBU2Q9EV76864X9021604X',	'A21AAIlkeQgm0j3E9ps8n7jLAbSjtx1gXuFgQzMNXEFM_b-enDLORn4kUT6oGRhZOA02Qd7j2l5oA6A5NHTP6HZu_uI0el5HQ',	'EC-1UX85204XB871741F',	20,	'2022-08-01',	'2022-08-06',	29000.00,	'2022-08-09 08:27:22',	'2022-08-09 08:27:22'),
+(56,	1,	'PAYID-MLZBU6A4B267773XJ5958641',	'A21AAIlkeQgm0j3E9ps8n7jLAbSjtx1gXuFgQzMNXEFM_b-enDLORn4kUT6oGRhZOA02Qd7j2l5oA6A5NHTP6HZu_uI0el5HQ',	'EC-1XD582909V415442H',	20,	'2022-08-01',	'2022-08-06',	29000.00,	'2022-08-09 08:27:36',	'2022-08-09 08:27:36'),
+(57,	1,	'PAYID-MLZBXAQ6444340801706911V',	'A21AAIlkeQgm0j3E9ps8n7jLAbSjtx1gXuFgQzMNXEFM_b-enDLORn4kUT6oGRhZOA02Qd7j2l5oA6A5NHTP6HZu_uI0el5HQ',	'EC-67M15376RB769950V',	120,	'2022-08-09',	'2022-08-10',	15000.00,	'2022-08-09 08:32:02',	'2022-08-09 08:32:02'),
+(58,	NULL,	'PAYID-MLZDPLA4HV71477F4304590J',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	'EC-36M58668NT981115B',	122,	'2022-08-09',	'2022-08-10',	5000.00,	'2022-08-09 10:32:13',	'2022-08-09 10:32:13'),
+(59,	1,	'PAYID-MLZDWPQ24986451GY0434441',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	'EC-7HU46733TW323091V',	18,	'2022-07-31',	'2022-08-03',	9950.00,	'2022-08-09 10:47:26',	'2022-08-09 10:47:26'),
+(60,	1,	'PAYID-MLZDWQA23704123KV7129017',	'A21AALfIghrtRPpdLHskUMCEPoTEHDWjXQvFiFmAe0qGTUdXknFrV5BWwWK6fMMpFxyomK8KZxwkRlPb0vSc7DqzHOu0OvZzg',	'EC-4B0527563U592472E',	18,	'2022-07-31',	'2022-08-03',	9950.00,	'2022-08-09 10:47:28',	'2022-08-09 10:47:28'),
+(61,	1,	'PAYID-MLZFFDI8JH472061Y4843016',	'A21AAJ8u7mEp3c5Hb-_dzWgP5rzd9ueSaUn3fgWDHTf32zeBv6BrdRcGSMTV6uSMtgkmoEE9f1Q_sslp9aTYqtbmfPXxWRW0A',	'EC-8MS62001R2192901N',	122,	'2022-08-09',	'2022-08-10',	5000.00,	'2022-08-09 12:26:53',	'2022-08-09 12:26:53'),
+(62,	NULL,	'PAYID-MLZGALY33U24634CH239402D',	'A21AAIY3qskk1Nbx-BApx6NFI6XeBzjcQpZcXpG5buPRUEVz8lD1_mB6okUrbaEU--eOMzBR2SKLwZhcJ24JFXbFhkqe-btJg',	'EC-57R19849UB335501Y',	52,	'2022-08-10',	'2022-08-15',	52250.00,	'2022-08-09 13:25:03',	'2022-08-09 13:25:03'),
+(63,	NULL,	'PAYID-MLZU3YQ2V51816329708162M',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-40Y773014X8672414',	50,	'2022-08-09',	'2022-08-15',	190000.00,	'2022-08-10 06:19:14',	'2022-08-10 06:19:14'),
+(64,	1,	'PAYID-MLZVBYI33J54414JF9919319',	'A21AAI7xd_JnBVQT2mG_dJ6PAlMiY1Kban6vHZ_oT0bcpi26sexHr9aZ8fRxaRCE_DU46syUggpQxXv3vMjuQp4KsYwMr92aQ',	'EC-6P285050BF564803E',	129,	'2022-08-10',	'2022-08-20',	15000.00,	'2022-08-10 06:32:02',	'2022-08-10 06:32:02'),
+(65,	1,	'PAYID-MLZWWFA99A61295Y4428110Y',	'A21AAKxwdeWmpI2rdSiBI7qAvvWC0qu0aKmmKKZiW9MFmqfVwkQAHSK5s4DuaoEw86xDNmy-8eAFps7rihwrSEwqrDIrXEyeA',	'EC-3WK604557U599101D',	127,	'2022-08-15',	'2022-08-18',	10000.00,	'2022-08-10 08:23:48',	'2022-08-10 08:23:48'),
+(66,	1,	'PAYID-MLZW75A62L41028NR4400724',	'A21AAKxwdeWmpI2rdSiBI7qAvvWC0qu0aKmmKKZiW9MFmqfVwkQAHSK5s4DuaoEw86xDNmy-8eAFps7rihwrSEwqrDIrXEyeA',	'EC-4T075870PA914152P',	128,	'2022-08-15',	'2022-08-17',	15000.00,	'2022-08-10 08:44:36',	'2022-08-10 08:44:36'),
+(67,	1,	'PAYID-MLZXCXY9CH98280SA101412A',	'A21AAKxwdeWmpI2rdSiBI7qAvvWC0qu0aKmmKKZiW9MFmqfVwkQAHSK5s4DuaoEw86xDNmy-8eAFps7rihwrSEwqrDIrXEyeA',	'EC-61F71638FT395770V',	128,	'2022-08-15',	'2022-08-17',	15000.00,	'2022-08-10 08:50:39',	'2022-08-10 08:50:39'),
+(68,	NULL,	'PAYID-MLZYXQY1DF965644A441951P',	'A21AAKEK2pDvDKuS8GkljvSXJlH8ne26Gn5FD63C05k_7iV7Ls8I8U3jnnnO6b6BD_DZZS4_bteJHQS9ptE_epAvJCdtifqrw',	'EC-1X541595BG031402H',	52,	'2022-08-10',	'2022-08-15',	52250.00,	'2022-08-10 10:43:15',	'2022-08-10 10:43:15'),
+(69,	1,	'PAYID-MLZ2SGQ00B52813Y4836773A',	'A21AALmnJQ7kEIx45Lgs99efszWdkIFCQYvtcubpvDIvKLGRI6UypneC1sSoWMqToE85uZA-02WH45zOTG0o6FuJCkexR1alg',	'EC-9722037920335845V',	53,	'2022-08-01',	'2022-08-04',	25000.00,	'2022-08-10 12:48:26',	'2022-08-10 12:48:26'),
+(70,	1,	'PAYID-ML5SCDA4F312583VT092082G',	'A21AAI7jLR1gca6Bla0pZRTRhTc0lOekh14pzEQBTMtVKf1QcgNW4R-fKshGqycnix2YkUgpAWvi3xlisBFro-q4nrvhB58Gg',	'EC-70085189ND187472S',	54,	'2022-08-01',	'2022-08-05',	50000.00,	'2022-08-16 04:46:04',	'2022-08-16 04:46:04');
 
 DROP TABLE IF EXISTS `tour_gallery`;
 CREATE TABLE `tour_gallery` (
@@ -4014,7 +4380,7 @@ CREATE TABLE `tour_gallery` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=593 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_gallery` (`id`, `tour_id`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (34,	17,	'1658380954_pexels-dsd-1829980.jpg',	1,	'2022-07-21 05:22:34',	'2022-07-21 05:22:34'),
@@ -4092,7 +4458,7 @@ CREATE TABLE `tour_itinerary` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_itinerary` (`id`, `tour_id`, `title`, `activities`, `trip_detail`, `status`, `created_at`, `updated_at`) VALUES
 (103,	18,	'Day 01 :: Get a flight from Indore to Goa',	NULL,	'[\"start for Hotel \\/ Resort in a Car. Same day check in and Tour rest and North Goa Tour\"]',	1,	'2022-07-22 12:34:47',	'2022-07-22 12:34:47'),
@@ -4201,7 +4567,7 @@ CREATE TABLE `tour_list` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_list` (`id`, `vendor_id`, `scout_id`, `tour_code`, `tour_start_day`, `tour_start_date`, `tour_end_date`, `tour_feature_image`, `tour_package_name`, `tour_title`, `tour_type`, `tour_price`, `tour_days`, `tour_duration`, `tour_price_others`, `tour_locations`, `tour_services_includes`, `tour_services_not_includes`, `tour_activities`, `tour_payment_term`, `tour_description`, `booking_contact_no`, `tour_term_condition`, `tour_document`, `contact_name`, `contact_num`, `alternate_num`, `bank_name`, `account_holder`, `account_number`, `branch_name`, `jazz_cash`, `easypaisa`, `address`, `latitude`, `longitude`, `neighb_area`, `city`, `country_id`, `booking_option`, `payment_mode`, `facebook`, `instagram`, `tiktok`, `tour_status`, `created_at`, `updated_at`) VALUES
 (17,	877,	557,	'CY123',	NULL,	'2022-07-26',	'2022-07-31',	'pexels-pixabay-87777-tourMainImg-1658380954.jpg',	'Chardham Yatra',	'Indore to Gangotri',	'standard',	12000,	'6',	NULL,	NULL,	'Uttrakhand',	'Entry tickets and maintenance charges',	'Lunch',	NULL,	NULL,	'duration-12N/13D',	'7419874562',	'a) The request for name change will be treated as a fresh booking where confirmation will be subject to availability. Please note all bookings confirmed are non-transferable and will invite a cancellation charge as applicable.',	NULL,	'Rajesh sharma',	'9874556478',	'4564645645',	'ICICI BANK',	'Test Account',	'787895544445777',	'Indore Main Branch',	'456486456546',	'45654456456456',	'rnt road',	NULL,	NULL,	NULL,	'indore',	99,	2,	0,	NULL,	NULL,	NULL,	1,	'2022-07-21 05:22:34',	'2022-07-21 05:22:34'),
@@ -4285,7 +4651,7 @@ CREATE TABLE `users` (
   `purches_for` varchar(255) DEFAULT NULL,
   `otp` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1016 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1033 DEFAULT CHARSET=latin1;
 
 INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `contact_number`, `password`, `role_id`, `is_verify_email`, `is_verify_contact`, `my_referral_code`, `user_referral_id`, `wallet_balance`, `profile_pic`, `resume`, `gender`, `user_plan`, `user_language`, `user_categories`, `user_company_name`, `user_company_number`, `user_company_address`, `notification`, `activation_code`, `dob`, `user_country`, `state_id`, `user_city`, `postal_code`, `latitude`, `longitude`, `address`, `ship_id`, `shipping_price`, `shipping_currency`, `parent_id`, `social_id`, `register_by`, `website`, `about`, `device_id`, `device_token`, `device_type`, `vrfn_code`, `card_status`, `status`, `job-status`, `user_rec_promo`, `user_rec_outdoor_promo`, `user_signup_method`, `auth_check`, `sms_check`, `act_link`, `last_login`, `is_online`, `publishonhome`, `toprated`, `user_profile_pic`, `businessID`, `social_login`, `created_at`, `updated_at`, `remember_token`, `braintree_token`, `guest_login`, `purches_for`, `otp`) VALUES
 (336,	'service_provider',	'service',	'provider',	'rahulservpro@gmail.com',	'3453453450',	'$2y$10$waQDdN.xm59bmVv2x9EWKepMkjSjvGCeUpB.3Kf97/PwW/ke.n9ze',	4,	1,	0,	'YVVyZGE4Rm8wY2FPWnN3Q2oyd09mUT09',	NULL,	0,	'avatar5-1657169063.png',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452009,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'kK40jc',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-05-25 11:41:12',	'2022-06-20 05:24:45',	NULL,	NULL,	NULL,	NULL,	NULL),
@@ -4298,7 +4664,7 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `con
 (354,	'normal_user',	'Muhammad Khalid',	'demo',	'mkakhi@yahoo.com',	'0503589372',	'$2y$10$IBJySupEyRUT4rRrKx5fuOuO/kNkLvgb1PGQU1x/yquog0Nt38gT6',	2,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-05-27 20:36:30',	'2022-05-27 20:36:30',	NULL,	NULL,	NULL,	NULL,	NULL),
 (477,	'scout',	'Swayam',	'demo',	'scout@gmail.com',	'09425095449',	'$2y$10$qBKV3v2DLktHo4xBehGiE.lLbuz0YRF913QHqNtrcYKTe7hLm8OxC',	3,	1,	0,	'T0dCTkttMXl0MXFnUmJjb28wN1RjQT09',	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'yFv0op',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-09 10:38:27',	'2022-08-05 06:36:19',	NULL,	NULL,	NULL,	NULL,	NULL),
 (484,	'service_provider',	'spfn',	'demo',	'spfn@gmail.com',	'9874563214',	'$2y$10$w2rLUrh9Z/26TKnCBHO3u.gR.JGZrPqp5LNoGvjbg1LmuPRPOlPZq',	4,	1,	0,	'eXFoTHU5bFdIcG1sMkdQTFJjYkVCdz09',	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'nqRA5N',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-10 05:32:47',	'2022-06-14 13:25:49',	NULL,	NULL,	NULL,	NULL,	NULL),
-(557,	'scout',	'asc',	'sdsd',	'asc@gmail.com',	'3692581474',	'$2y$10$NMkamgWsYjkbTzx6vSBmmu8Egw7Hb64sNfzSW58PCFmoHETmIrBTS',	3,	1,	0,	'bGpiK211SjNVWENVK29WR2xkUWgrQT09',	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'quZetW',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-15 12:01:42',	'2022-08-05 06:36:40',	NULL,	NULL,	NULL,	NULL,	NULL),
+(557,	'scout',	'asc',	'sdsd',	'asc@gmail.com',	'3692581474',	'$2y$10$NMkamgWsYjkbTzx6vSBmmu8Egw7Hb64sNfzSW58PCFmoHETmIrBTS',	3,	1,	0,	'bGpiK211SjNVWENVK29WR2xkUWgrQT09',	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'quZetW',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-15 12:01:42',	'2022-08-10 12:37:01',	NULL,	NULL,	NULL,	NULL,	NULL),
 (615,	'normal_user',	'ankit',	'demo',	'votiveankit@yopmail.com',	'9425095332',	'$2y$10$Jw8FvWrqKdASeJrsyxPIJOMFjbxo/bzSkcQNSt/RuLZx9NVas3fvu',	2,	0,	0,	'ZjZxZ3FIWGJsQmFIQ05aa3VKekRlUT09',	'',	0,	'http://votivelaravel.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	'0',	'0',	'0',	'S73y8D',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 05:24:43',	'2022-06-23 05:24:43',	NULL,	NULL,	NULL,	NULL,	NULL),
 (627,	'normal_user',	'ankit',	'test',	'votiveankit1@yopmail.com',	'9425095331',	'$2y$10$X6VzSjzM72R/YQkxUH2Qj.KkCanNV.ASJ/hrf68PhGxsTOp6hDke2',	2,	1,	0,	'ZzZxbkpNYklqcEpveVRNQnpVWkF6UT09',	'',	0,	'http://votivelaravel.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	'adad',	'adad',	'ada',	'Z4c6zV',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 07:03:00',	'2022-06-23 07:03:00',	NULL,	NULL,	NULL,	NULL,	NULL),
 (637,	'normal_user',	'ankit',	'test',	'votivemobile.ankit@gmail.com',	'94250235651',	'$2y$10$03iG.JCAxHX62byXe.TvAukz9J.aF61NdRSgTzqY11wd6FqVj7soe',	2,	1,	0,	'VkJmZ3kwQ2ZsNFMzUE4rL0FsSFNrQT09',	'',	0,	'http://votivelaravel.in/roadNstays/public/uploads/profile_image/1656149554.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	'ss',	'ss',	'Ios',	'fGUO0w',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 09:39:39',	'2022-06-23 12:28:30',	NULL,	NULL,	NULL,	NULL,	'5401'),
@@ -4314,14 +4680,14 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `con
 (790,	'normal_user',	'devid',	'dhawan',	'votivedeepak11.php@gmail.com',	'8978971117',	'$2y$10$sh3/paT.wVQk.F848BtgzewDd4hVBMMPGvnyqVsnuv7OS82M/wocq',	2,	1,	0,	'TGNieGJTdzM4ZFJmK2lUK202LzhtUT09',	'',	0,	'https://votivetechnologies.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	'123',	'14566',	'android',	'TdOCHQ',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-08 06:02:23',	'2022-07-08 06:02:23',	NULL,	NULL,	NULL,	NULL,	NULL),
 (791,	'normal_user',	'devid',	'dhawan',	'votivedeepak110.php@gmail.com',	'8978978817',	'$2y$10$021kPZF26DUzhfYu/8FBoOQIc3.aSgBxGQBSBe9kRSGxRuWXGe4fq',	2,	1,	0,	'dmd5QjRzQ0lqd0lWYlljbk9DU2dYdz09',	'',	0,	'https://votivetechnologies.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	'123',	'14566',	'android',	'bh3Pm7',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-08 06:05:28',	'2022-07-08 06:05:28',	NULL,	NULL,	NULL,	NULL,	NULL),
 (819,	'normal_user',	'Pushpendra',	'Jha',	'pushpendrajha88@gmail.com',	'9179004123',	'$2y$10$7Y7QGobXjBeOVOWCNYKrkOFfPPUPDCTcsL5hBCXN2Zg0d09Ig3rVe',	2,	0,	0,	NULL,	NULL,	0,	'13-i-day-15-1502781235_1632378217-1657519719.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'Madhya Pradesh',	'Indore',	452001,	NULL,	NULL,	'Indore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-11 06:06:08',	'2022-07-11 06:06:08',	NULL,	NULL,	NULL,	NULL,	NULL),
-(832,	'normal_user',	'rahul',	'solanki',	'votivephp.rahulraj@gmail.com',	'9425095440',	'$2y$10$l.fzvC9KxnvwSDS6Z77IIekU9OMKL977YJ2DPWT6xI24kfO3UbCOW',	2,	1,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 09:53:45',	'2022-08-03 13:08:13',	NULL,	NULL,	NULL,	NULL,	NULL),
+(832,	'normal_user',	'rahul',	'solanki',	'votivephp.rahulraj@gmail.com',	'9425095440',	'$2y$10$l.fzvC9KxnvwSDS6Z77IIekU9OMKL977YJ2DPWT6xI24kfO3UbCOW',	2,	1,	0,	NULL,	NULL,	0,	'user-dummy-1660029133.png',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'Madhya Pradesh',	'Indore',	452009,	NULL,	NULL,	'shree vardhan complex',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 09:53:45',	'2022-08-03 13:08:13',	NULL,	NULL,	NULL,	NULL,	NULL),
 (833,	'service_provider',	'rahul',	'solanki',	'votivephp.rahul@gmail.com',	'9425095440',	'$2y$10$eR3wnYu0BGkjZgekUnssXOVRuaXhPOEmYsuG7mJD/CrzkGh4vmWSq',	4,	1,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 10:05:14',	'2022-07-12 10:26:21',	NULL,	NULL,	NULL,	NULL,	NULL),
 (834,	'service_provider',	'Pushpendra',	'Jha',	'votivephppushpendra@gmail.com',	'9179004123',	'$2y$10$ckRPMs1uuAB77Os.KV9Whe.pPVUVCe7iuRxTJBZ9IJpWbwbNc84US',	4,	1,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 10:09:51',	'2022-07-14 13:20:39',	NULL,	NULL,	NULL,	NULL,	NULL),
-(837,	'normal_user',	'srb',	'sahu',	'votivetester.saurabh@gmail.com',	'9874562585',	'$2y$10$AL2yru1D8rwRN/WkzV5/PuHtr3j9qX/xf/4ZHf1Ly67FnJezCTyLe',	2,	0,	0,	NULL,	NULL,	0,	'pexels-amar-saleem-70441-1659774839.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	'rnt road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-13 05:03:05',	'2022-07-25 12:16:27',	NULL,	NULL,	NULL,	NULL,	'7174'),
-(877,	'service_provider',	'saurabh',	'sahu',	'ssnothinginlife@gmail.com',	'9874562584',	'$2y$10$1Bfqpt6bBVZwVJWrxzUcROU4P7Gfv.AXYqfQdWPg1TM0wGnuz4CUq',	4,	0,	0,	NULL,	NULL,	0,	'pexels-jean-van-der-meulen-1457845-1659781267.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	'rnt road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-16 06:16:02',	'2022-08-06 09:36:34',	NULL,	NULL,	NULL,	NULL,	NULL),
+(837,	'normal_user',	'srb',	'sahu',	'votivetester.saurabh@gmail.com',	'9874562585',	'$2y$10$AL2yru1D8rwRN/WkzV5/PuHtr3j9qX/xf/4ZHf1Ly67FnJezCTyLe',	2,	0,	0,	NULL,	NULL,	0,	'pexels-jean-van-der-meulen-1457845-1660131583.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	'rnt road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-13 05:03:05',	'2022-07-25 12:16:27',	NULL,	NULL,	NULL,	NULL,	'7174'),
+(877,	'service_provider',	'saurabh',	'sahu',	'ssnothinginlife@gmail.com',	'9874562584',	'$2y$10$1Bfqpt6bBVZwVJWrxzUcROU4P7Gfv.AXYqfQdWPg1TM0wGnuz4CUq',	4,	0,	0,	NULL,	NULL,	0,	'pexels-jean-van-der-meulen-1457845-1660124947.jpg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	'rnt road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-16 06:16:02',	'2022-08-06 09:36:34',	NULL,	NULL,	NULL,	NULL,	NULL),
 (934,	'service_provider',	'Ayesha',	'Zahid',	'ayeshazahid913@gmail.com',	'0123456789',	'$2y$10$GPIqIveEMXHl9.n.Maa.wekVj5284xVvGBiA7LYCsgeJHvhSaAo0q',	4,	1,	0,	'M3ZMdE9qZVlvMnJpV1d5RlUwcWNQUT09',	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	'lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	'TYRTli',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-26 10:58:01',	'2022-08-05 10:53:04',	NULL,	NULL,	NULL,	NULL,	NULL),
-(938,	'normal_user',	'ayesha',	'zahid',	'ayesharoadnstay@gmail.com',	'0123566895',	'$2y$10$DEdt0vNDqk8BGccNrOMpFOScxlok9tKIs5d3rSeCY1XaSeIhiis9K',	2,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	'lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-26 19:42:53',	'2022-08-05 10:01:58',	NULL,	NULL,	NULL,	NULL,	NULL),
-(1012,	'normal_user',	'saurabh',	'sahu',	'sahu@saurabh',	'9874562584',	'$2y$10$RSYaf7I91ma76QlYUySoO.1GO1LN5PbgSoa3N3kpPnWDXMePS/DIu',	2,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	'rnt road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-06 04:50:59',	'2022-08-06 04:50:59',	NULL,	NULL,	NULL,	NULL,	NULL),
-(1015,	'service_provider',	'g',	'h',	'g@h',	'9874562587',	'$2y$10$mw7R8Bure2qxKRpIzLxizeZjJwpaaLIJbmbyTATAhfVWYp6UALTJC',	4,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-06 08:24:51',	'2022-08-06 08:24:51',	NULL,	NULL,	NULL,	NULL,	NULL);
+(938,	'normal_user',	'ayesha',	'zahid',	'ayesharoadnstay@gmail.com',	'0123566895',	'$2y$10$q1NzGlFXxdh6DeD.c9RxeuKLVSebu0E0riL9J3FceHsFz3r7Q3Ub2',	2,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	'lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-26 19:42:53',	'2022-08-06 12:49:31',	NULL,	NULL,	NULL,	NULL,	NULL),
+(1031,	'normal_user',	'r',	's',	'r@s',	'9874562587',	'$2y$10$XkyVMdo2PdvNma9xfrnQZOn4RgfqC0jlLaT3xIRAOPJzTtInMYlIW',	2,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-16 04:52:06',	'2022-08-16 04:52:06',	NULL,	NULL,	NULL,	NULL,	NULL),
+(1032,	'service_provider',	'a',	'b',	'b@a',	'9874562587',	'$2y$10$9wF.6a.mDBXWQXa/9topIe4gO.ODPpeAHBya2smCzxbH7HFEc6aXy',	4,	0,	0,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-16 04:55:11',	'2022-08-16 04:55:11',	NULL,	NULL,	NULL,	NULL,	NULL);
 
--- 2022-08-06 11:03:23
+-- 2022-08-16 05:20:06

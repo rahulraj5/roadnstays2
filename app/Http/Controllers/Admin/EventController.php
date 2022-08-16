@@ -36,25 +36,27 @@ class EventController extends Controller
 	{  
         if (!empty($_FILES["event_img"]["name"])) {
             $imgname = $_FILES["event_img"]["name"];
-            $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
+            $imgurl = "public/uploads/event_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/" . time() . '_' . $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/".$_FILES['event_img']['name']);
         }else{ $imgname = '';}
-        
+
         $adminevent = new Events; 
         $adminevent->title = $request->title;
         $adminevent->description = $request->description;
-        $adminevent->image  = $imgname;
-        $adminevent->start_date= date('Y-m-d', strtotime($request->start_date));
-        $adminevent->start_time= date("H:i:s",strtotime($request->start_time));
-        $adminevent->end_date  =   date('Y-m-d', strtotime($request->end_date));
-        $adminevent->end_time  =   date("H:i:s",strtotime($request->end_time));
-        $adminevent->address   =    $request->address;
+        $adminevent->price  =  $request->price;
+        $adminevent->ticket_qty=  $request->ticket_qty;
+        $adminevent->image     =  time() .$imgname;
+        $adminevent->start_date=  date('Y-m-d', strtotime($request->start_date));
+        $adminevent->start_time=  date("H:i:s",strtotime($request->start_time));
+        $adminevent->end_date  =  date('Y-m-d', strtotime($request->end_date));
+        $adminevent->end_time  =  date("H:i:s",strtotime($request->end_time));
+        $adminevent->address   =  $request->address;
         $adminevent->latitude  =  $request->latitude;
-        $adminevent->longitude = $request->longitude;
-        $adminevent->hotel_ids = json_encode($request->hotelname);
-        $adminevent->space_ids = json_encode($request->spacename);
-        $adminevent->status    =    1;
+        $adminevent->longitude =  $request->longitude;
+        $adminevent->hotel_ids =  json_encode($request->hotelname);
+        $adminevent->space_ids =  json_encode($request->spacename);
+        $adminevent->status    =  1;
         $adminevent->save();  
         $adminevent_id = $adminevent->id;
        
@@ -77,9 +79,14 @@ class EventController extends Controller
 
     public function edit_event($id)
     {
-    	$id = base64_decode($id);
+    	$id = base64_decode($id); 
+        $data['hotelList'] = Hotel::where('hotel_status',1)->orderby('created_at', 'DESC')->get();
+        $data['spaceList'] = Space::where('status',1)->orderby('created_at', 'DESC')->get();
+
     	$data['event'] = Events::where('id',$id)->orderby('created_at', 'DESC')->first();
-		return view('admin/event/editevent')->with($data);
+		
+        //echo "<pre>";print_r($data['event']);die;
+        return view('admin/event/editevent')->with($data);
     }
 
     public function updateEvent(Request $request)
@@ -88,18 +95,24 @@ class EventController extends Controller
             $imgname = $_FILES["event_img"]["name"];
             $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/" . time() . '_' . $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/".$_FILES['event_img']['name']);
         }else{ $imgname = $request->old_event_image;}
        
        	Events::where('id', $request->event_id)
        ->update([
            'title' => $request->title,
            'description' => $request->description,
+           'price' => $request->price,
+           'ticket_qty' => $request->ticket_qty,
            'image' => $imgname,
            'start_date' =>date('Y-m-d', strtotime($request->start_date)),
            'start_time' =>date("H:i:s",strtotime($request->start_time)),
            'end_date'  =>date('Y-m-d', strtotime($request->end_date)),
            'end_time' => date("H:i:s",strtotime($request->end_time)),
+           'latitude' =>  $request->latitude,
+           'longitude' => $request->longitude,
+           'hotel_ids' => json_encode($request->hotelname),
+           'space_ids' => json_encode($request->spacename),
            'address' => $request->address
         ]);
 

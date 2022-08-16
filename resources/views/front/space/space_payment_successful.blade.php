@@ -41,17 +41,17 @@
 
                         <div class="booker-d">
                             <h6>Details: <span>{{ $order_info->space_name }}</span></h6>
-                            <h6>Ocassion: <span>Beach Party</span></h6>
+                            <!-- <h6>Ocassion: <span>Beach Party</span></h6> -->
                         </div>
                         <div class="booker-d">
                             <h6>Name: <span>{{ $order_info->first_name }} {{ $order_info->last_name }}</span></h6>
-                            <h6>Identity Card: <span>Driving License</span></h6>
+                            <!-- <h6>Identity Card: <span>Driving License</span></h6> -->
                         </div>
-<img src="https://votivetechnologies.in/roadNstays/resources/assets/img/vecteezy_tourists-with-luggage-at-the-airport-set-collection-of_3857409.jpg" alt="">
-<ul class="contact">
-    <li><h6><i class='bx bx-phone'></i>Our Helpline : 909009000</h6></li>
-    <li><h6><i class='bx bxs-envelope' ></i>Contact Us : admin@gmail.com</h6></li>
-</ul>
+                            <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/vecteezy_tourists-with-luggage-at-the-airport-set-collection-of_3857409.jpg" alt="">
+                            <ul class="contact">
+                                <li><h6><i class='bx bx-phone'></i>Our Helpline : 909009000</h6></li>
+                                <li><h6><i class='bx bxs-envelope' ></i>Contact Us : admin@gmail.com</h6></li>
+                            </ul>
 
                     </div>
                 </div>

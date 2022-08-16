@@ -22,6 +22,8 @@ class Events extends Authenticatable
     protected $fillable = [
         'title',
         'description',
+        'hotel_ids',
+        'space_ids',
     ];
 
     

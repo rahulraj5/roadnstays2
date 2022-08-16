@@ -6,12 +6,14 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 
 <link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
 @endsection
 
 @section('current_page_js')
 <script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
-
+<script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
   $("#updateEvent_form").validate({
     debug: false,
@@ -88,6 +90,14 @@
         $('#end_time').timepicker();
     });
     
+    $("select").on("select2:select", function(evt) {
+      var element = evt.params.data.element;
+      var $element = $(element);
+
+      $element.detach();
+      $(this).append($element);
+      $(this).trigger("change");
+    });
     
 </script>
 @endsection
@@ -121,7 +131,7 @@
           <div class="card-header">
             <h3 class="card-title">Edit Event</h3>
           </div>
-
+          
           <!-- /.card-header -->
           <div class="card-body">
             <form  method="POST" id="updateEvent_form" enctype="multipart/form-data">
@@ -152,6 +162,18 @@
                       </div>
                     </div>
                   @endif
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter price" value="{{$event['price']}}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Ticket Qty.</label>
+                    <input type="text" class="form-control" name="ticket_qty" id="ticket_qty" placeholder="Enter ticket qty" value="{{$event['ticket_qty']}}">
+                  </div>            
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
@@ -189,8 +211,40 @@
                     <input type="text" class="form-control timepicker" name="end_time" id="end_time" placeholder="Enter end time" required="" value="{{$event['end_time']}}">
                   </div>
                 </div>
+                <?php $hotel_ids[] = $event['hotel_ids']; ?>
+                <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Hotels</label>
+                      <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;">
+                        @if (!$hotelList->isEmpty())
+                        @foreach ($hotelList as $hotel)
+                        <option value="{{ $hotel->hotel_id }}" <?php if (in_array($hotel->hotel_id, $hotel_ids )) {
+                                                                  echo 'selected';
+                                                                } ?>>{{ $hotel->hotel_name }}</option>
+                        @endforeach
+                        @endif
+                      </select>
+                    </div>
+                  </div> 
+                  <?php $space_ids[] = $event['space_ids']; ?>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Spaces</label>
+                      <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;">
+                        @if (!$spaceList->isEmpty())
+                        @foreach ($spaceList as $space)
+
+                        
+                        <option value="{{ $space->space_id }}" <?php if (in_array($space->space_id, $space_ids )) {
+                                                                  echo 'selected';
+                                                                } ?>>{{ $space->space_name }}</option>
+                        @endforeach
+                        @endif
+                      </select>
+                    </div>
+                  </div>
                 <div class="col-12">
-                  <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
+                <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
                 </div>
               </div>
             </form>

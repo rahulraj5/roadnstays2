@@ -290,11 +290,12 @@ $(window).scroll(function(){
    </section>
     <!-- slider -->
     <main id="main">
-        <section class="user-section" style="padding-top: 100px; background-color: #f6f6f6;">
+        <section class="user-section">
             <div class="container-fluid">
                 <!-- <div class="row gird-event"  id="filterdata"> -->
                 <div class="row filter-row">
-                <div class="col-md-3 sticky-spaclist">
+                    
+                <div class="sticky-spaclist">
     <h6>Filter - Space</h6>
     <div class="category category-1">
     <p>Private Space</p>
@@ -361,8 +362,7 @@ $(window).scroll(function(){
         </ul>
     </div>
     </div>
-
-                    <div class="col-md-9">
+    <div class="col-md-9">
                         <div class="space-category">
                             <!-- <h3 class="mb-4">126 results |Coworking Space in Indore</h3> -->
                             <h3 class="mb-4">{{ count($spaceList) }} results | {{$space_cat_name}}</h3>
@@ -468,6 +468,9 @@ $(window).scroll(function(){
                         </div>
                         
                     </div>
+</div>
+
+                    
                     <!-- <div class="col-md-9">
                         <div class="">{{ $spaceList->links() }}</div>
                     </div> -->

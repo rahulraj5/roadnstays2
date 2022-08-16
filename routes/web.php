@@ -80,7 +80,8 @@ Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confi
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
 Route::post('/room_details_ajax','HomeController@room_details_ajax')->name('user.room_details_ajax');
 Route::get('/events','HomeController@events')->name('user.events');
-Route::get('/event_details','HomeController@event_details')->name('user.event_details');
+Route::get('/event_details','Home\SpaceController@event_details')->name('user.event_details');
+Route::get('/event_details/{id?}','HomeController@event_details')->name('user.event_details');
 Route::get('/tour','HomeController@tour')->name('user.tour');
 Route::get('/tour_list_country/{id?}','HomeController@tour_list_country')->name('user.tour_list_country');
 Route::get('/tour_details/{id?}','HomeController@tour_details')->name('user.tour_details');
@@ -91,6 +92,11 @@ Route::get('/space-details/{id?}','Home\SpaceController@space_details')->name('u
 Route::get('/spaceList/{name?}','Home\SpaceController@space_search_list');
 Route::get('/space-details','Home\SpaceController@space_details')->name('user.space_details');
 Route::get('/space-detail/{id?}','Home\SpaceController@space_detail')->name('user.space_detail');
+Route::get('/test-space-detail/{id?}','Home\SpaceController@space_detail_test')->name('user.test_space_detail');
+
+Route::any('/changeDaterange', 'Home\SpaceController@change_daterange_session')->name('user.changeDaterange');	
+Route::any('/updateDaterange', 'Home\SpaceController@update_daterange_session')->name('user.updateDaterange');	
+
 Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_list')->name('user.space_category_list');
 Route::get('/space-checkout/{name?}','Home\SpaceController@checkout')->name('user.space_checkout');
 Route::get('/space-city-wise/{id?}','Home\SpaceController@space_city_wise')->name('user.space_city_wise');
@@ -119,9 +125,16 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 
     // booking 
     Route::any('user/bookingList', 'Home\BookingController@booking_list');	
+    Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');	
+    Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
     // Route::any('user/bookingDetails', 'Home\BookingController@booking_details');	
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::get('user/bookingDetailCancelled/{id}', 'Home\BookingController@booking_canceled_detail');	
+
+    Route::get('user/spaceBookingDetails/{id}', 'Home\BookingController@space_booking_detail');	
+    Route::get('user/cancelledSpaceBooking/{id}', 'Home\BookingController@space_booking_canceled');	
+    Route::get('user/tourBookingDetails/{id}', 'Home\BookingController@tour_booking_detail');	
+    Route::get('user/cancelledTourBooking/{id}', 'Home\BookingController@tour_booking_canceled');	
 });	
 
 // vendor route start here

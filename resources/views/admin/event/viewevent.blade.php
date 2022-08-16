@@ -151,6 +151,18 @@
                     </div>
                   @endif
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter price" value="{{$event['price']}}" readonly="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Ticket Qty.</label>
+                    <input type="text" class="form-control" name="ticket_qty" id="ticket_qty" placeholder="Enter ticket qty" value="{{$event['ticket_qty']}}" readonly="">
+                  </div>            
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Description</label>

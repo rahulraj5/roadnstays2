@@ -58,52 +58,71 @@
    }
 </script>
 <script>
-   var today = new Date(); 
-   var dd = today.getDate(); 
-   var mm = today.getMonth()+1; //January is 0! 
-   var yyyy = today.getFullYear(); 
-   if(dd<10){ dd='0'+dd } 
-   if(mm<10){ mm='0'+mm } 
-   let today_date = dd+'/'+mm+'/'+yyyy;
-   // alert(today);
+   var today = new Date();
 
    $(function() {
-       
-      $('#reservation').daterangepicker({
-         // minDate:new Date(),
-         dateFormat: "dd-M-yy",
-         minDate: 1,
-         defaultDate: new Date(),
-         // minDate: today_date,
-         // opens: 'right'
+
+      $('.space_date_range').daterangepicker({
+         autoApply: true,
+         autoUpdateInput: true,
+         minDate: today,
+         locale: {
+               format: 'DD-MM-YYYY'
+         },
+         "opens": "center",
+         "drops": "auto"
       }, function(start, end, label) {
-            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
-            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+         $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+         $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+
+         console.log('what is wrong with you today');
+
+         var date = $("#space_checkin_date").val();
+         console.log(date);
       });
    });
 </script>
 <script>
+   var today = new Date();
+
    $(function() {
-      $('.reserved').daterangepicker({
-         opens: 'right'
+      $('.hotel_date_range').daterangepicker({
+         autoApply: true,
+         autoUpdateInput: true,
+         minDate: today,
+         locale: {
+               format: 'DD-MM-YYYY'
+         },
+         "opens": "center",
+         "drops": "auto"
       }, function(start, end, label) {
-            $('#date1').val(start.format('DD-MM-YYYY'));
-            $('#date2').val(end.format('DD-MM-YYYY'));
+         $('#date1').val(start.format('DD-MM-YYYY'));
+         $('#date2').val(end.format('DD-MM-YYYY'));
       });
    });
 </script>
 <script>
+   var today = new Date();
+
    $(function() {
-      $('.tourdater').daterangepicker({
-         opens: 'right'
+      $('.tour_date_range').daterangepicker({
+         autoApply: true,
+         autoUpdateInput: true,
+         minDate: today,
+         locale: {
+               format: 'DD-MM-YYYY'
+         },
+         "opens": "center",
+         "drops": "auto"
       }, function(start, end, label) {
-            $('#tour_check_in').val(start.format('DD-MM-YYYY'));
-            $('#tour_check_out').val(end.format('DD-MM-YYYY'));
+         $('#tour_check_in').val(start.format('DD-MM-YYYY'));
+         $('#tour_check_out').val(end.format('DD-MM-YYYY'));
       });
    });
 </script>
+
 <script>
-   var placeSearch, autocomplete;
+   var placeSearch, autocompleteloc;
    var componentForm = {
       // street_number: 'long_name',
       // route: 'long_name',
@@ -111,23 +130,23 @@
       // postal_code: 'short_name'
    };
 
-   function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete(
-         (document.getElementById('autocomplete')), {
-            types: ['(cities)']
+   function initAutocompleteloc() {
+      autocompleteloc = new google.maps.places.Autocomplete(
+         (document.getElementById('autocompleteloc')), {
+            types: ['geocode']
          });
-      autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
+      autocompleteloc.addListener('place_changed', function() {
+         var place = autocompleteloc.getPlace();
          console.log(place);
          document.getElementById('hotel_latitude').value = place.geometry.location.lat();
          document.getElementById('hotel_longitude').value = place.geometry.location.lng();
-         fillInAddress(autocomplete, "");
+         fillInAddressloc(autocompleteloc, "");
       });
    }
 
-   function fillInAddress(autocomplete, unique) {
+   function fillInAddressloc(autocompleteloc, unique) {
 
-      var place = autocomplete.getPlace();
+      var place = autocompleteloc.getPlace();
       for (var component in componentForm) {
          if (!!document.getElementById(component + unique)) {
             document.getElementById(component + unique).value = '';
@@ -143,7 +162,7 @@
          }
       }
    }
-   google.maps.event.addDomListener(window, "load", initAutocomplete);
+   google.maps.event.addDomListener(window, "load", initAutocompleteloc);
 
    function geolocate() {
       if (navigator.geolocation) {
@@ -156,13 +175,15 @@
                center: geolocation,
                radius: position.coords.accuracy
             });
-            autocomplete.setBounds(circle.getBounds());
+            autocompleteloc.setBounds(circle.getBounds());
          });
       }
    }
 </script>
+
+
 <script>
-   var placeSearch, autocomplete;
+   var placeSearch, autocompletespace;
    var componentForm = {
       // street_number: 'long_name',
       // route: 'long_name',
@@ -170,23 +191,23 @@
       // postal_code: 'short_name'
    };
 
-   function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete(
+   function initAutocompletespace() {
+      autocompletespace = new google.maps.places.Autocomplete(
          (document.getElementById('autocomplete_space')), {
             types: ['(cities)']
          });
-      autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
+      autocompletespace.addListener('place_changed', function() {
+         var place = autocompletespace.getPlace();
          console.log(place);
          document.getElementById('space_latitude').value = place.geometry.location.lat();
          document.getElementById('space_longitude').value = place.geometry.location.lng();
-         fillInAddress(autocomplete, "");
+         fillInAddress(autocompletespace, "");
       });
    }
 
-   function fillInAddress(autocomplete, unique) {
+   function fillInAddressSpace(autocompletespace, unique) {
 
-      var place = autocomplete.getPlace();
+      var place = autocompletespace.getPlace();
       for (var component in componentForm) {
          if (!!document.getElementById(component + unique)) {
             document.getElementById(component + unique).value = '';
@@ -202,7 +223,8 @@
          }
       }
    }
-   google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+   google.maps.event.addDomListener(window, "load", initAutocompletespace);
 
    function geolocate() {
       if (navigator.geolocation) {
@@ -215,7 +237,7 @@
                center: geolocation,
                radius: position.coords.accuracy
             });
-            autocomplete.setBounds(circle.getBounds());
+            autocompletespace.setBounds(circle.getBounds());
          });
       }
    }
@@ -268,7 +290,7 @@
                         Make Your Trip Fun & Noted
                      </h2>
                   </div>
-                  <p class="animate__animated animate__fadeInUp mb-3">
+                  <p class="animate__animated animate__fadeInUp mb-3 text-con">
                      Travel has helped us to understand the meaning of life and it has helped us become better people. Each time we travel..<a href="#" class="more-tag"> More </a>
                      <box-icon name='search'></box-icon>
                   </p>
@@ -276,21 +298,22 @@
                      <div class="card-header">
                         <ul class="nav nav-tabs justify-content-center" role="tablist">
                            <li class="nav-item">
-                              <a class="nav-link active" data-toggle="tab" href="#home" role="tab">
-                                 <div class="select-tab">
-                                    <img src="{{ asset('resources/assets/img/event.png')}}">
-                                    <span> Event</span>
-                                 </div>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                              <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/hotel.png')}}">
                                     Hotel
                                  </div>
                               </a>
                            </li>
+                           <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#home" role="tab">
+                                 <div class="select-tab">
+                                    <img src="{{ asset('resources/assets/img/event.png')}}">
+                                    <span> Event</span>
+                                 </div>
+                              </a>
+                           </li>
+
                            <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
                                  <div class="select-tab">
@@ -310,104 +333,43 @@
                         </ul>
                      </div>
                      <!-- Tab panes -->
+
                      <div class="tab-content text-center">
-                        <div class="tab-pane active" id="home" role="tabpanel">
-                           <div class="booking-type">
-                              <!-- <h6> make a Reservation</h6> -->
-                              <h4> Event</h4>
-                              <div class="d-flex justify-content-center align-self-center">
-                                 <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
-                                    <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
-                                 <input type="submit" value="Find" class="btn btn-primary-event pull-right">
-                              </div>
-                              <div class="event-avlabel">
-                                 <div class="event-box">
-                                    <div class="ev-img">
-                                       <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
-                                    </div>
-                                    <h3>The conference planners expo'22 </h3>
-                                    <!--   <div class="paner-vcox">
-                                       <h5>PKR 125/- </h5>
-                                       </div>
-                                       <div class="time-event">
-                                       <span>Tue, 9:45AM 3 sessions </span>
-                                       <span><i class='bx bx-stopwatch'></i> 3</span>
-                                       </div> -->
-                                 </div>
-                                 <div class="event-box">
-                                    <div class="ev-img">
-                                       <img src="{{ asset('resources/assets/img/art.jpg')}}">
-                                    </div>
-                                    <h3>Modern Art Fair </h3>
-                                    <!--   <div class="paner-vcox">
-                                       <h5>PKR 125/- </h5>
-                                       </div>
-                                       <div class="time-event">
-                                       <span>Tue, 9:45AM 3 sessions </span>
-                                       <span><i class='bx bx-stopwatch'></i> 3</span>
-                                       </div> -->
-                                 </div>
-                                 <div class="event-box">
-                                    <div class="ev-img">
-                                       <img src="{{ asset('resources/assets/img/bmw.png')}}">
-                                    </div>
-                                    <h3>BMW 3 and 6 Series Gran </h3>
-                                    <!--   <div class="paner-vcox">
-                                       <h5>PKR 125/- </h5>
-                                       </div>
-                                       <div class="time-event">
-                                       <span>Tue, 9:45AM 3 sessions </span>
-                                       <span><i class='bx bx-stopwatch'></i> 3</span>
-                                       </div> -->
-                                 </div>
-                                 <div class="event-box">
-                                    <div class="ev-img">
-                                       <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
-                                    </div>
-                                    <h3>The conference planners expo'22 </h3>
-                                    <!--<div class="paner-vcox">
-                                       <h5>PKR 125/- </h5>
-                                       </div>
-                                       <div class="time-event">
-                                       <span>Tue, 9:45AM 3 sessions </span>
-                                       <span><i class='bx bx-stopwatch'></i> 3</span>
-                                       </div> -->
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="tab-pane" id="profile" role="tabpanel">
-                           <div class="booking-type">
-                              <h4> Hotel</h4>
+                        <div class="tab-pane active" id="profile" role="tabpanel">
+                           <div class="booking-type hotel-book1">
                               <form method="GET" action="{{url('hotelList')}}">
                                  @csrf
                                  <div class="row">
-                                    <div class="col-md-3 filter_01 pr-0 h-hotel ">
-                                       <!-- <p>Where To</p>  -->
-                                       <span class="span3 hotel-searchbar"><i class="bx bx-map"></i>
-                                          <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="">
+                                    <div class="col-md-4 filter_01 pr-0 h-hotel ">
+                                       <p>CITY, LOCATION...</p>
+                                       <span class="hotel-searchbar"><i class="bx bx-map"></i>
+                                          <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocompleteloc" required="">
                                           <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
                                           <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
                                        </span>
                                     </div>
-                                    <div class="col-md-2 filter_01 pr-0 reserved reserved1">
-                                       <!-- <p>Check_in</p> -->
+                                    <div class="col-md-2 filter_01 pr-0 reserved reserved1 hotel_date_range">
+                                       <p>Check_in</p>
                                        <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="<?php echo date("d-M-y"); ?>">
+                                       <span class="to-date"><i class="bx bx-transfer"></i></span>
                                     </div>
-                                    <span class="to-date"><i class="bx bx-transfer"></i></span>
-                                    <div class="col-md-2 filter_01 pr-0 reserved reserved2">
-                                       <!-- <p>Check_out</p> -->
+
+                                    <div class="col-md-2 filter_01 pr-0 reserved reserved2 hotel_date_range">
+                                       <p>Check_out</p>
                                        <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>">
                                     </div>
-                                    <div class="col-md-2 filter_01 pr-0 ">
-                                       <!-- <p>Person</p> -->
+                                    <div class="col-md-4 filter_01 pr-0 guest-no">
+                                       <p>Person</p>
                                        <select class="h-siz" name="person">
-                                          <option>1 Person </option>
+                                          <option>1 Person</option>
                                           <option>2 Person</option>
                                           <option>3 Person</option>
                                           <option>Couple</option>
                                           <option>Family</option>
+                                          <option>Other</option>
+
                                        </select>
+
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0">
                                        <input type="submit" value="Find" class="hotel-btn pull-right">
@@ -416,34 +378,104 @@
                               </form>
                            </div>
                         </div>
-                        <div class="tab-pane" id="messages" role="tabpanel">
-                           <div class="booking-type">
-                              <h4> Tour</h4>
-                              <form>
-                                 <input type="text" name="firstname" placeholder="Place name" class="span3 form-control">
+                        <div class="tab-pane" id="home" role="tabpanel">
+                           <div class="booking-type event-book1">
+                              <!-- <h6> make a Reservation</h6> -->
 
-                                 <span class="tourdater">
+                              <div class="d-flex justify-content-center align-self-center">
+                                 <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
+                                    <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
+                                 <input type="submit" value="Find" class="btn btn-primary-event pull-right hotel-btn">
+                              </div>
+                              <div class="event-avlabel">
+                                 <div class="event-box">
+                                    <div class="ev-img">
+                                       <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
+                                    </div>
+                                    <h3>The conference planners expo'22 </h3>
+
+                                 </div>
+                                 <div class="event-box">
+                                    <div class="ev-img">
+                                       <img src="{{ asset('resources/assets/img/art.jpg')}}">
+                                    </div>
+                                    <h3>Modern Art Fair </h3>
+
+                                 </div>
+                                 <div class="event-box">
+                                    <div class="ev-img">
+                                       <img src="{{ asset('resources/assets/img/bmw.png')}}">
+                                    </div>
+                                    <h3>BMW 3 and 6 Series Gran </h3>
+
+                                 </div>
+                                 <div class="event-box">
+                                    <div class="ev-img">
+                                       <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
+                                    </div>
+                                    <h3>The conference planners expo'22 </h3>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="tab-pane" id="messages" role="tabpanel">
+                           <div class="booking-type tour-book1">
+
+                              <form>
+
+                                 <div class="col-md-6 filter_01 pr-0 h-hotel ">
+                                    <p>CITY, LOCATION...</p>
+                                    <span class="hotel-searchbar"><i class="bx bx-map"></i>
+                                       <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocompleteloc" required="">
+                                       <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
+                                       <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
+                                    </span>
+                                 </div>
+
+                                 <div class="col-md-3 filter_01 pr-0 tourdater tourdater1 reserved reserved1 tour_date_range">
+                                    <p>Check_in</p>
+                                    <input id="tour_check_in" placeholder="Date" class="span3 min_date">
+                                    <span class="to-date"><i class="bx bx-transfer"></i></span>
+                                 </div>
+
+                                 <div class="col-md-3 tourdater tourdater2 reserved tour_date_range">
+                                    <p>Check_out</p>
+                                    <input id="tour_check_out" placeholder="Date" class="span3 min_date">
+                                 </div>
+
+                                 <!-- <span class="tourdater">
                                     <input id="tour_check_in" placeholder="Date" class="span3 form-control min_date">
                                     <span class="to-date"><i class='bx bx-transfer'></i></span>
                                     <input id="tour_check_out" placeholder="Date" class="span3 form-control min_date">
-                                 </span>
+                                 </span> -->
 
-                                 <span class="span3 form-control-lo"><i class='bx bx-map'></i>
-                                 <input type="location" name="tour_location" placeholder="Destination" class="locatin-fil"></span>
-                                 <input type="submit" value="Find" class="btn btn-primary pull-right">
+
+                                 <div class="col-md-2 filter_01 pr-0">
+                                    <input type="submit" value="Find" class="hotel-btn pull-right">
+                                 </div>
                               </form>
                            </div>
                         </div>
                         <div class="tab-pane" id="settings" role="tabpanel">
-                           <div class="booking-type">
-                              <h4> Space</h4>
+                           <div class="booking-type space-book1">
+
                               <!-- <form> -->
                               <form method="GET" action="{{url('spaceList')}}">
                                  @csrf
                                  <!-- <input type="text" name="location" placeholder="Space name" class="span3 form-control"> -->
-                                 <input type="location" name="space_location" placeholder="Location, City, Place" class="span3 space-control" id="autocomplete_space" required="">
-                                 <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
-                                 <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+
+
+
+                                 <div class="col-md-6 filter_01 pr-0 h-hotel ">
+                                    <p>CITY, LOCATION...</p>
+                                    <span class="hotel-searchbar"><i class="bx bx-map"></i>
+                                       <input type="location" name="space_location" placeholder="Location, City, Place" class="span3 space-control" id="autocomplete_space" required="">
+                                       <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
+                                       <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+                                    </span>
+                                 </div>
 
                                  <!-- <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
                                  <span class="to-date"><i class='bx bx-transfer'></i></span> -->
@@ -452,24 +484,31 @@
                                  <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkin" id="reservation"> to  -->
                                  <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkout" id="reservation"> -->
 
-                                 
+
                                  <!-- <span class="" id="reservation">
                                     <input id="date-range200" class="span3 min_dat" value="" placeholder="Choose_a_date">
                                  </span> -->
-                                 <span class="reservation1" id="reservation">
-                                 <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
-                     
-                                 </span>
-                                 <span class="to-date"><i class="bx bx-transfer"></i></span>
-                                 <span class="reservation2" id="reservation">
-                                    <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
-                                 </span>
-                                 
 
-                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y");?>" placeholder="Select Date"> -->
-                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y", strtotime("+ 1 day"));?>" placeholder="Select Date"> -->
+                                 <div class="col-md-3 filter_01 pr-0 tourdater tourdater1 reserved reserved1">
+                                    <p>Check_in</p>
+                                    <span class="reservation1 reservation space_date_range">
+                                       <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
+                                    </span>
+                                    <span class="to-date"><i class="bx bx-transfer"></i></span>
+                                 </div>
 
-                                 <input type="submit" value="Find" class="btn btn-primary pull-right space-button">
+                                 <div class="col-md-3 tourdater tourdater2 reserved">
+                                    <p>Check_out</p>
+                                    <span class="reservation2 reservation space_date_range">
+                                       <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
+                                    </span>
+                                 </div>
+
+
+                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y"); ?>" placeholder="Select Date"> -->
+                                 <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" placeholder="Select Date"> -->
+
+                                 <input type="submit" value="Find" class="btn btn-primary pull-right space-button hotel-btn">
                               </form>
                            </div>
                         </div>

@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Validated;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Events;
+use App\Models\Hotel;
+use App\Models\Space;
 use DB;
 use Session;
 
@@ -18,7 +20,8 @@ class EventController extends Controller
 	{   
         $data['page_heading_name'] = 'Events List';
         $vendor_id = Auth::id();
-		$data['eventList'] = Events::where('id',$vendor_id)->where('status',1)->orderby('created_at', 'DESC')->get(); 
+		$data['eventList'] = Events::where('vendor_id',$vendor_id)->where('status',1)->orderby('created_at', 'DESC')->get(); 
+
 		return view('vendor/event/event_list')->with($data);
 	}
 
@@ -26,7 +29,9 @@ class EventController extends Controller
 	{   
         $data['page_heading_name'] = 'Add Event';
         $vendor_id = Auth::id();
-		return view('vendor/event/addevent');
+        $data['hotelList'] = Hotel::where('hotel_status',1)->orderby('created_at', 'DESC')->get();
+        $data['spaceList'] = Space::where('status',1)->orderby('created_at', 'DESC')->get();
+		return view('vendor/event/addevent')->with($data);
 	}
 
 	public function submitEvent(Request $request)
@@ -37,10 +42,11 @@ class EventController extends Controller
             $imgname = $_FILES["event_img"]["name"];
             $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/" . time() . '_' . $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/". $_FILES['event_img']['name']);
         }else{ $imgname = '';}
 
         $adminevent = new Events; 
+        $adminevent->vendor_id = $vendor_id;
         $adminevent->title = $request->title;
         $adminevent->description = $request->description;
         $adminevent->image  = $imgname;
@@ -78,6 +84,8 @@ class EventController extends Controller
         $data['page_heading_name'] = 'Events List';
         $vendor_id = Auth::id();
     	$id = base64_decode($id);
+        $data['hotelList'] = Hotel::where('hotel_status',1)->orderby('created_at', 'DESC')->get();
+        $data['spaceList'] = Space::where('status',1)->orderby('created_at', 'DESC')->get();
     	$data['event'] = Events::where('id',$id)->orderby('created_at', 'DESC')->first();
 		return view('vendor/event/editevent')->with($data);
     }
@@ -88,7 +96,7 @@ class EventController extends Controller
             $imgname = $_FILES["event_img"]["name"];
             $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/" . time() . '_' . $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/". $_FILES['event_img']['name']);
         }else{ $imgname = $request->old_event_image;}
        
        	Events::where('id', $request->event_id)
@@ -109,7 +117,10 @@ class EventController extends Controller
     public function view_event($id)
     {
     	$id = base64_decode($id);
+        $data['hotelList'] = Hotel::where('hotel_status',1)->orderby('created_at', 'DESC')->get();
+        $data['spaceList'] = Space::where('status',1)->orderby('created_at', 'DESC')->get();
     	$data['event'] = Events::where('id',$id)->orderby('created_at', 'DESC')->first();
+        $data['page_heading_name'] = 'View Event';
     	//echo "<pre>";print_r($data);die;
 		return view('vendor/event/viewevent')->with($data);
     }

@@ -26,6 +26,12 @@
       event_img: {
         required: true,
       },
+      price: {
+        required: true,
+      },
+      ticket_qty: {
+        required: true,
+      },
       address: {
         required: true,
       },
@@ -98,9 +104,7 @@
     $(this).append($element);
     $(this).trigger("change");
   });
-</script>
-
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>-->
+</script> 
 <script type="text/javascript">
   function initialize() {
     var input = document.getElementById('address');
@@ -189,6 +193,18 @@
                         <input type="file" class="custom-file-input" id="event_img" name="event_img">
                         <label class="custom-file-label" for="customFile">Choose file</label>
                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Price</label>
+                      <input type="text" class="form-control" name="price" id="price" placeholder="Enter price">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Ticket Qty.</label>
+                      <input type="text" class="form-control" name="ticket_qty" id="ticket_qty" placeholder="Enter ticket qty">
                     </div>
                   </div>
                   <div class="col-md-12">

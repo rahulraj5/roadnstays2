@@ -38,6 +38,7 @@ class SpaceController extends Controller
 
     public function space()
     {
+        Session::flush();
         $data['spaceList'] = DB::table('space')
             ->join('space_categories', 'space.category_id', 'space_categories.scat_id')
             ->where('space.status', 1)
@@ -89,7 +90,72 @@ class SpaceController extends Controller
         $data['space_features'] = DB::table('space_features')
             ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
             ->where('space_id', $space_id)->get();
+
+        $data['check_in'] = Session::get('space_check_in_date');
+        $data['check_out'] = Session::get('space_check_out_date');
+
+        // echo "<pre>";print_r($data);
+        // die;   
         return view('front/space/space_details')->with($data);
+    }
+
+    public function change_daterange_session(Request $request)
+    {
+        $checkin_date = date('Y-m-d', strtotime($request->space_checkin_date));
+        $checkout_date = date('Y-m-d', strtotime($request->space_checkout_date));;
+        $spaceIdd = $request->spaceIdd;
+        $booked_space_id = DB::table('space_booking')
+                    ->where("space_id", $spaceIdd)
+                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
+                    ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
+                    ->get();
+        // echo "<pre>";print_r($checkin_date);
+        // echo "<pre>";print_r($booked_space_id);
+        // echo "<pre>";print_r(count($booked_space_id));
+        // die;      
+        if(count($booked_space_id) === 0) {                  
+            Session::put('space_check_in_date', $request->space_checkin_date);
+            Session::put('space_check_out_date', $request->space_checkout_date);
+
+            return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
+        }else {
+            $request->session()->forget('space_check_in_date');
+            $request->session()->forget('space_check_out_date');
+            return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
+        }
+
+    }
+
+    public function update_daterange_session(Request $request)
+    {
+        $checkin_date = date('Y-m-d', strtotime($request->space_start_date));
+        $checkout_date = date('Y-m-d', strtotime($request->space_end_date));;
+        $spaceIdd = $request->spaceIdd;
+        $booked_space_id = DB::table('space_booking')
+                    ->where("space_id", $spaceIdd)
+                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
+                    ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
+                    ->get();
+        // echo "<pre>";print_r($checkin_date);
+        // echo "<pre>";print_r($booked_space_id);
+        // echo "<pre>";print_r(count($booked_space_id));
+        // die;      
+        if(count($booked_space_id) === 0) {                  
+            Session::put('space_check_in_date', $request->space_start_date);
+            Session::put('space_check_out_date', $request->space_end_date);
+
+            return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
+        }else {
+            $request->session()->forget('space_check_in_date');
+            $request->session()->forget('space_check_out_date');
+            return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
+        }
+
+    }
+
+    public function event_details()
+    {
+        return view('front/event/event_details');
     }
 
     public function space_detail($id)
@@ -112,8 +178,34 @@ class SpaceController extends Controller
             ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
             ->where('space_id', $space_id)->get();
         // echo "<pre>";print_r($data['space_user_details']);
+        // echo "<pre>";print_r($data);
         // die;
         return view('front/space_details')->with($data);
+    }
+
+    public function space_detail_test($id)
+    {
+        $space_id = base64_decode($id);
+        $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
+        $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
+        $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
+        $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
+        if ($data['space_details']->space_user_id == 1) {
+            $data['admin_user_details'] = DB::table('admins')->where('id', 1)->first();
+        } else {
+            $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
+        }
+        $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
+        $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
+        $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
+
+        $data['space_features'] = DB::table('space_features')
+            ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
+            ->where('space_id', $space_id)->get();
+        // echo "<pre>";print_r($data['space_user_details']);
+        // echo "<pre>";print_r($data);
+        // die;
+        return view('front/test_space_details')->with($data);
     }
 
     public function space_city_wise($id)
@@ -214,7 +306,7 @@ class SpaceController extends Controller
             $distance = 30;
             $results = DB::select(DB::raw('SELECT space_id, ( 3959 * acos( cos( radians(' . $space_latitude . ') ) * cos( radians( space_latitude ) ) * cos( radians( space_longitude ) - radians(' . $space_longitude . ') ) + sin( radians(' . $space_latitude . ') ) * sin( radians(space_latitude) ) ) ) AS distance FROM space HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
             // echo Session::get('space_location');echo "<pre>";print_r($results);
-            
+
             $not_booked_id = array();
 
             foreach ($results as $key => $value) {
@@ -238,30 +330,28 @@ class SpaceController extends Controller
                 //                 })->get();
 
                 $booked_space_id = DB::table('space_booking')
-                                ->where("space_id", $value->space_id)
-                                ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
-                                ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
-                                // ->whereNotBetween('check_out_date', [$checkin_date, $checkout_date])
-                                ->get();                  
+                    ->where("space_id", $value->space_id)
+                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
+                    ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
+                    // ->whereNotBetween('check_out_date', [$checkin_date, $checkout_date])
+                    ->get();
 
                 // echo "<pre>";print_r($booked_space_id);
 
-                $space_booked_id = array();                
+                $space_booked_id = array();
 
-                foreach ($booked_space_id as $space_book)
-                {
+                foreach ($booked_space_id as $space_book) {
                     $space_booked_id[] = $space_book->space_id;
                 }
 
                 $space_avail_id = DB::table('space')->where('space_id', $value->space_id)->whereNotIn("space_id", $space_booked_id)->get();
                 // echo "<pre>";print_r($space_avail_id);
-                foreach ($space_avail_id as $space_get_book_id)
-                {
+                foreach ($space_avail_id as $space_get_book_id) {
                     $not_booked_id[] = $space_get_book_id->space_id;
                 }
-
             }
             $space_available = DB::table('space')->whereIn("space_id", $not_booked_id)->groupBy('space_id')->where("status", 1)->paginate(10);
+            $features = DB::table('space_features_list')->where('status', '=', 1)->get();
 
             $data['spaceList'] = $space_available;
             $data['space_check_in_date'] = $checkin_date;
@@ -271,12 +361,318 @@ class SpaceController extends Controller
             $data['space_latitude'] = $space_latitude;
             $data['space_longitude'] = $space_longitude;
 
-            // echo "<pre>";print_r($data['spaceList']);die;
+            $data['categories'] = DB::table('space_categories')->where('status', 1)->get();
+            $data['subcategories'] = DB::table('space_sub_categories')->where('status', 1)->get();
+            $data['features'] = $features;
+
+            // $data['space_country_wise'] = DB::table('space')
+            //     ->select('space.*', 'countries.name as country_name')
+            //     ->join('countries', 'space.space_country', '=', 'countries.id')
+            //     ->orderby('countries.name', 'ASC')
+            //     ->groupby('space.space_country')
+            //     ->take(11)
+            //     ->get();
+
+            $data['space_country'] = DB::table('space')
+                ->select(
+                    'space.space_country as country_id',
+                    'countries.name as country_name'
+                )
+                ->selectRaw('count(*) as space_count_in_city, space_country')
+                ->join('countries', 'space.space_country', '=', 'countries.id')
+                ->whereNotNull('space_name')
+                ->groupBy('space.space_country')
+                ->orderby('space_count_in_city', 'DESC')
+                ->take(11)
+                ->get();
+
+            // $data['space_country'] = DB::table('countries')->get();
+
+            // echo "<pre>";print_r($data['space_country']);die;
             return view('front.space.space_search_list')->with($data);
         } else {
             return redirect('/');
         }
     }
+
+    public function space_list_ajax(Request $request)
+    {
+        $gdistance = $request->distance;
+        $budget = $request->budget;
+        $star = $request->star;
+        $roomwise = $request->roomwise;
+        $emenites = $request->emenites;
+        $property = $request->property;
+
+        Session::put('gdistance', $gdistance);
+        Session::put('budget', $budget);
+        Session::put('star', $star);
+        Session::put('roomwise', $roomwise);
+        Session::put('emenites', $emenites);
+        Session::put('property', $property);
+
+        if (!empty($gdistance)) {
+
+            $distance = max($gdistance);
+        } else {
+
+            $distance = 30;
+        }
+
+        $min_price1 = '';
+        $min_price2 = '';
+        $min_price3 = '';
+        $min_price4 = '';
+        $min_price5 = '';
+        $max_price1 = '';
+        $max_price2 = '';
+        $max_price3 = '';
+        $max_price4 = '';
+        $max_price5 = '';
+
+        if (!empty($budget)) {
+            foreach ($budget as $key => $price) {
+                if ($price == 1) {
+                    $min_price1 = 0;
+                    $max_price1 = 5000;
+                }
+                if ($price == 2) {
+                    $min_price2 = 5000;
+                    $max_price2 = 10000;
+                }
+                if ($price == 3) {
+                    $min_price3 = 10000;
+                    $max_price3 = 15000;
+                }
+                if ($price == 4) {
+                    $min_price4 = 15000;
+                    $max_price4 = 20000;
+                }
+                if ($price == 5) {
+                    $min_price5 = 20000;
+                    $max_price5 = 500000;
+                }
+            }
+        }
+
+        $hotel_latitude = Session::get('hotel_latitude');
+        $hotel_longitude = Session::get('hotel_longitude');
+        $location = Session::get('location');
+        $hotel_name = Session::get('hotel_name');
+        $person = Session::get('person');
+        $checkin_date = Session::get('checkin_date');
+        $checkout_date = Session::get('checkout_date');
+        $hotel_city = explode(',', $location);
+        $date1_ts = strtotime($checkin_date);
+        $date2_ts = strtotime($checkout_date);
+        $diff = $date2_ts - $date1_ts;
+        $booking_days =  round($diff / 86400);
+
+        $results = DB::select(DB::raw('SELECT hotel_id, ( 3959 * acos( cos( radians(' . $hotel_latitude . ') ) * cos( radians( hotel_latitude ) ) * cos( radians( hotel_longitude ) - radians(' . $hotel_longitude . ') ) + sin( radians(' . $hotel_latitude . ') ) * sin( radians(hotel_latitude) ) ) ) AS distance FROM hotels HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
+
+        $hotelids = array();
+        foreach ($results as $key => $value) {
+            $booking = DB::table('booking')
+                ->where("hotel_id", $value->hotel_id)
+                ->whereBetween('check_in', [$checkin_date, $checkout_date])
+                ->orWhereBetween('check_out', [$checkin_date, $checkout_date])
+                //->whereNotBetween('check_out', [$checkin_date, $checkout_date])
+                ->get();
+
+            $bookroomids = array();
+            foreach ($booking as $key => $bookvalue) {
+                $roomid = $bookvalue->room_id;
+                $totalbookroom = $bookvalue->total_room;
+                $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
+                if ($totalbookroom >= $nofroom) {
+                    $bookroomids[] = $bookvalue->room_id;
+                }
+            }
+
+            $room_list = DB::table('room_list')
+                ->where("hotel_id", $value->hotel_id)
+                ->where(function ($query) use ($roomwise) {
+                    if (!empty($roomwise)) {
+                        $query->whereIn("room_types_id", $roomwise);
+                    }
+                })
+                ->whereNotIn("id", $bookroomids)
+                ->get();
+
+            //$totalroom = count($room_list); 
+
+            $total_memeber = 0;
+            $total_room = 0;
+            foreach ($room_list as $key => $roomlvalue) {
+                $total_memeber = $total_memeber + $roomlvalue->max_adults;
+            }
+            if ($person <= $total_memeber) {
+                $hotelids[] = $value->hotel_id;
+            }
+        }
+
+        // get eminites data
+
+        $hotelamenities = '';
+        $amhotelids = array();
+        if (!empty($emenites)) {
+            $hotelamenities = DB::table('hotel_amenities')
+                ->whereIn("amenity_id", $emenites)
+                ->where("status", 1)
+                ->get();
+
+            if (!empty($hotelamenities)) {
+
+                foreach ($hotelamenities as $key => $valueam) {
+
+                    $amhotel_ids[] = $valueam->hotel_id;
+                }
+
+                $amhotelids = array_unique($amhotel_ids);
+            }
+        }
+
+        if (!empty($amhotelids)) {
+
+            $hotelids = array_intersect($hotelids, $amhotelids);
+        }
+
+        // close table    
+
+        $hotel_data = DB::table('hotels')
+            ->whereIn("hotel_id", $hotelids)
+            //->whereIn("hotel_rating",$star)
+            ->where(function ($query) use ($star) {
+                if (!empty($star)) {
+                    $query->whereIn("hotel_rating", $star);
+                }
+            })
+            ->where(function ($query) use ($property) {
+                if (!empty($property)) {
+                    $query->whereIn("property_type", $property);
+                }
+            })
+
+            ->where(function ($query) use ($min_price1, $max_price1, $min_price2, $max_price2, $min_price3, $max_price3, $min_price4, $max_price4, $min_price5, $max_price5, $budget) {
+
+                if (!empty($budget)) {
+
+                    $query->where(function ($query) use ($min_price1, $max_price1) {
+                        $query->where('stay_price', '>=', $min_price1);
+                        $query->where('stay_price', '<=', $max_price1);
+                    });
+
+                    $query->orWhere(function ($query) use ($min_price2, $max_price2) {
+                        $query->where('stay_price', '>=', $min_price2);
+                        $query->where('stay_price', '<=', $max_price2);
+                    });
+
+                    $query->orWhere(function ($query) use ($min_price3, $max_price3) {
+                        $query->where('stay_price', '>=', $min_price3);
+                        $query->where('stay_price', '<=', $max_price3);
+                    });
+
+                    $query->orWhere(function ($query) use ($min_price4, $max_price4) {
+                        $query->where('stay_price', '>=', $min_price4);
+                        $query->where('stay_price', '<=', $max_price4);
+                    });
+
+                    $query->orWhere(function ($query) use ($min_price5, $max_price5) {
+                        $query->where('stay_price', '>=', $min_price5);
+                        $query->where('stay_price', '<=', $max_price5);
+                    });
+                }
+            })
+            ->where("hotel_status", 1)
+            ->groupBy('hotel_id')
+            ->paginate(10);
+        //->get();
+
+
+        $hoteldata = array();
+
+        //echo "<pre>";print_r($data);die;
+        foreach ($hotel_data as $key => $value) {
+            $gallary = DB::table('hotel_gallery')->where('hotel_id', '=', $value->hotel_id)->get();
+
+            $Img = array();
+            $baseurl = url('/public/uploads/hotel_gallery/');
+            foreach ($gallary as $key => $IMG) {
+                $Img[] = array(
+                    'img_id' => $IMG->id,
+                    'img_name' => $baseurl . '/' . $IMG->image,
+                    'is_featured' => $IMG->is_featured,
+                    'status' => $IMG->status,
+                );
+            }
+
+            $amenities = DB::table('hotel_amenities')
+                ->join('H2_Amenities', 'hotel_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+                ->where('hotel_amenities.hotel_id', '=', $value->hotel_id)
+                ->select('H2_Amenities.*', 'hotel_amenities.amenity_id')
+                ->limit('10')
+                ->get();
+
+
+            $hoteldata[] = array(
+
+                'hotel_id' => $value->hotel_id,
+                'hotel_user_id' => $value->hotel_user_id,
+                'hotel_name' => $value->hotel_name,
+                'hotel_content' => $value->hotel_content,
+                'property_contact_name' => $value->property_contact_name,
+                'property_contact_num' => $value->property_contact_num,
+                'property_alternate_num' => isset($value->property_alternate_num) ? $value->property_alternate_num : "",
+                'cat_listed_room_type' => isset($value->cat_listed_room_type) ? $value->cat_listed_room_type : 0,
+                'hotel_rating' => $value->hotel_rating,
+                'checkin_time' =>  isset($value->checkin_time) ? $value->checkin_time : "",
+                'checkout_time' =>  isset($value->checkout_time) ? $value->checkout_time : "",
+                'stay_price' => isset($value->stay_price) ? $value->stay_price : "",
+                'hotel_address' => isset($value->hotel_address) ? $value->hotel_address : "",
+                'hotel_city' => isset($value->hotel_city) ? $value->hotel_city : "",
+                'hotel_country' => isset($value->hotel_country) ? $value->hotel_country : "",
+                'hotel_latitude' => isset($value->hotel_latitude) ? $value->hotel_latitude : "",
+                'hotel_longitude' => isset($value->hotel_longitude) ? $value->hotel_longitude : "",
+                'hotel_gallery' => isset($value->hotel_gallery) ? $value->hotel_gallery : "",
+                'hotel_amenities' => $amenities,
+                'gallary' => $Img
+            );
+        }
+
+        $data['hotel_data'] = $hoteldata;
+
+        $room_wise = DB::table('room_type_categories')->where('status', '=', 1)->get();
+
+        $emenites = DB::table('H2_Amenities')->where('status', '=', 1)->get();
+
+        $property_type = DB::table('H1_Hotel_and_other_Stays')->where('status', '=', 1)->get();
+
+        //echo "<pre>"; print_r($property_type); die;
+
+        $data['hotel_data'] = $hoteldata;
+        $data['hotels'] = $hotel_data;
+        $data['hotelcount'] = count($hoteldata);
+        $data['location'] = $hotel_city[0];
+        $data['check_in'] = $checkin_date;
+        $data['check_out'] = $checkout_date;
+        $data['person'] = $person;
+        $data['booking_days'] = $booking_days;
+        $data['hotel_latitude'] = $hotel_latitude;
+        $data['hotel_longitude'] = $hotel_longitude;
+        $data['room_wise'] = $room_wise;
+        $data['emenites'] = $emenites;
+        $data['property_type'] = $property_type;
+
+        $returnHTML = view('front.space.space_list_ajax')->with($data)->render();;
+
+        return response()->json($returnHTML);
+    }
+
+
+
+
+
+
 
     // public function space_search_list(Request $request)
     // {
@@ -340,7 +736,7 @@ class SpaceController extends Controller
     //         $distance = 30;
     //         $results = DB::select(DB::raw('SELECT space_id, ( 3959 * acos( cos( radians(' . $space_latitude . ') ) * cos( radians( space_latitude ) ) * cos( radians( space_longitude ) - radians(' . $space_longitude . ') ) + sin( radians(' . $space_latitude . ') ) * sin( radians(space_latitude) ) ) ) AS distance FROM space HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
     //         // echo Session::get('space_location');echo "<pre>";print_r($results);
-            
+
     //         $not_booked_id = array();
 
     //         foreach ($results as $key => $value) {
@@ -497,7 +893,7 @@ class SpaceController extends Controller
     //         $distance = 30;
     //         $results = DB::select(DB::raw('SELECT space_id, ( 3959 * acos( cos( radians(' . $space_latitude . ') ) * cos( radians( space_latitude ) ) * cos( radians( space_longitude ) - radians(' . $space_longitude . ') ) + sin( radians(' . $space_latitude . ') ) * sin( radians(space_latitude) ) ) ) AS distance FROM space HAVING distance < ' . $distance . ' ORDER BY distance ASC'));
     //         // echo Session::get('space_location');echo "<pre>";print_r($results);
-            
+
     //         // $booked_id = array();
 
     //         foreach ($results as $key => $value) {
@@ -1039,7 +1435,7 @@ class SpaceController extends Controller
     //             foreach ($booking as $key => $bookvalue) {
 
     //                 $bookspaceids[] = $bookvalue->space_id;
-                  
+
     //             }
     //             // echo "<pre>";print_r($bookspaceids); 
 
@@ -1050,7 +1446,7 @@ class SpaceController extends Controller
     //             // echo "<pre>";print_r($space_list);
     //             // $spaceids[] = $value->space_id;
     //         }
-            
+
     //         $space_data = DB::table('space')->whereIn("space_id", $spaceids)->where("status", 1)->groupBy('space_id')->paginate(10);
     //         // echo "<pre>";print_r($space_data);
     //         // die;

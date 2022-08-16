@@ -70,10 +70,50 @@
     }
 </style>
 
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 
 @endsection
 
 @section('current_page_js')
+
+<script>
+    $(document).ready(function() {
+        const maxLoad = 4
+
+        function showEl(el) {
+            return el.removeClass('hidden')
+        }
+
+        function showMore(el) {
+            return el.addClass('last-galimg')
+        }
+
+        function showSecond(el) {
+            return el.addClass('third-galimg')
+        }
+
+        $('.hidden').each(function(index) {
+            if (index < maxLoad) {
+                if (index < 3) {
+                    showEl($(this));
+                }
+                if (index === 1) {
+                    showSecond($(this));
+                }
+                if (index === 3) {
+                    showEl($(this));
+                    showMore($(this));
+                    $('<a href="#">see more</a>').insertAfter('img:eq(5)');
+                }
+            }
+        })
+    });
+</script>
+
 <script type="text/javascript">
     $(function() {
         // ADDING DATA
@@ -212,119 +252,509 @@
 
     });
 </script>
+<script>
+    // var today = new Date();
+    // var tomorrow = new Date();
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+    // console.log(tomorrow);
+</script>
+<!-- <script>
+    var spaceCheckInDate = $('#spaceCheckInDate').val();
+    var spaceSessionCheckInDate = $('#spaceSessionCheckInDate').val();
+    
+    var today = new Date();
+
+    $(function() {
+        $('.reserved').daterangepicker({
+            "autoApply": true,
+            "autoUpdateInput": true,
+            minDate: today,
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            "opens": "center",
+            "drops": "auto"
+        }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+            console.log('what is wrong with you today');
+        });  
+    });
+</script> -->
+<script>
+    var spaceCheckInDate = $('#spaceCheckInDate').val();
+    var spaceSessionCheckInDate = $('#spaceSessionCheckInDate').val();
+
+    var today = new Date();
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    // var dd = today.getDate();
+    // var mm = today.getMonth() + 1; //January is 0! 
+    // var yyyy = today.getFullYear();
+    // if (dd < 10) {
+    //     dd = '0' + dd
+    // }
+    // if (mm < 10) {
+    //     mm = '0' + mm
+    // }
+    // let today_date = dd + '/' + mm + '/' + yyyy;
+    // alert(today);
+
+    $(function() {
+
+        $('.reserved').daterangepicker({
+            // linkedCalendars: true,
+            // "startDate": today,
+            // "endDate": tomorrow,
+            "autoApply": true,
+            "autoUpdateInput": true,
+            minDate: today,
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            // defaultDate: new Date(),
+            // minDate: today_date,
+            "opens": "center",
+            "drops": "auto"
+        }, function(start, end, label) {
+            console.log(end.format('DD-MM-YYYY'));
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+
+            let space_start_date = start.format('DD-MM-YYYY');
+            let space_end_date = end.format('DD-MM-YYYY');
+
+            chekchange(space_start_date, space_end_date);
+            // console.log('what is wrong with you today');
+
+            // var date = $("#space_checkin_date").val();
+            // console.log(date);
+            // console.log($.session.get("space_check_in_date"));
+            // console.log(start.format('DD-MM-YYYY'));
+            // var checkinspace = start.format('DD-MM-YYYY');
+            // var checkoutspace = end.format('DD-MM-YYYY');
+            // $.session.set("space_check_in_date", start);
+            // $.session.set("space_check_out_date", end);
+            // }).on("change", function(){
+            //     alert('changed');
+            //     console.log('why it is not working');
+        // }).on("change", function() {
+        //     console.log("Got change event from field");
+        });
+        
+
+        // var startDate = $('#space_checkin_date').val();
+        // var endDate = $('#space_checkout_date').val();
+        // console.log(startDate);    
+        // console.log(endDate);    
+
+        // $('.reserved').daterangepicker({
+        //     locale: { cancelLabel: 'Clear' }  
+        // });
+
+        // $('.reserved').on('Clear.daterangepicker', function(ev, picker) {
+        //     //do something, like clearing an input
+        //     // $('.space_checkin_date').val('');
+        // });
+
+        // var drp = $('.reserved').data('daterangepicker');
+        // console.log('get the data of daterangepicker');
+        // console.log(drp);
+    });
+
+    // $('#space_checkin_date').keyup(function() {
+    //     alert('sdf');
+    //     let space_start_date = $('#space_checkin_date').val();
+    //     let space_end_date = $('#space_checkout_date').val();
+    //     console.log(space_start_date);
+    //     console.log(space_end_date);
+    //     sessionStorage.removeItem('space_check_in_date'); 
+    //     sessionStorage.getItem("space_check_in_date");
+    //     console.log(sessionStorage.getItem("space_check_in_date"));
+    //     // $.session.remove('space_check_in_date');
+    //     // $.session.set('space_check_in_date');
+    //     // $.session.remove('space_check_out_date');
+    //     // $.session.set('space_check_out_date');
+    //     // $.session.set("space_check_in_date", space_start_date);
+    //     // $.session.set("space_check_out_date", space_end_date);
+
+    //     // console.log($.session.get("space_check_in_date"));
+    //     // console.log($.session.get("space_check_out_date"));
+    // });
+
+    function chekchange(start, end){
+        let space_start_date = start;
+        let space_end_date = end;
+        // console.log(space_start_date);
+        // console.log(space_end_date);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{url('/updateDaterange')}}",
+            data: {
+                space_start_date: space_start_date, space_end_date: space_end_date,
+                _token: CSRF_TOKEN
+            },
+            dataType: 'JSON',
+            success: function(results) {
+                // console.log(results);
+                success_noti(results.msg);
+                setTimeout(function() {window.location.reload()}, 1000);
+            }
+        });
+        // sessionStorage.removeItem('space_check_in_date'); 
+        // sessionStorage.getItem("space_check_in_date");
+        // console.log("{{ Session::get('space_check_in_date') }}");
+        // console.log("{{ Session::get('space_check_in_date') }}");
+    }
+</script>
+
+<script>
+    // $('#space_checkin_date').change(function() {
+    //     alert('dfdf');
+    // });
+</script>
+<script>
+    // $('.daterange_detail').on('change', function(e) {
+$(".daterange_detail_btn").click(function(e) {
+    var form = $("#space_booking_detail_form");
+    form.validate({
+      rules: {
+        space_checkin_date: {
+          required: true,
+        },
+        space_checkout_date: {
+          required: true,
+        },
+      },
+    });
+    if (form.valid() === true) {
+        // e.preventDefault();
+        // $('#space_submit').prop('disabled', true);
+        // $('#space_submit').html(
+        //     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+        // );
+        // var site_url = $("#baseUrl").val();
+        var formData = $(form).serialize();
+        $(form).ajaxSubmit({
+            type: 'POST',
+            url: "{{url('changeDaterange')}}",
+            data: formData,
+            success: function(response) {
+                console.log(response);
+                if (response.status == 'success') {
+                    success_noti(response.msg);
+                    setTimeout(function() {window.location.reload();});
+                } else if(response.status == 'notAvailable') {
+                    error_noti(response.msg);
+                } else {
+                    console.log('error');
+                }        
+
+                // if (response.status == 'success') {
+                //     // $('#space_submit').prop('disabled', true);
+                //     // $('#space_submit').html(
+                //     //   `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+                //     // );
+                //     success_noti(response.msg);
+                //     setTimeout(function() {
+                //         window.location.href = site_url + "/admin/space-list"
+                //     }, 1000);
+                // } else {
+                //     error_noti(response.msg);
+                //     $('#space_submit').html(
+                //         `<span class=""></span>Submit`
+                //     );
+                //     $('#space_submit').prop('disabled', false);
+                // }
+            }
+        });
+    } else {
+      e.dismiss;
+    }
+});
+</script>
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#filterform').on('change', function() {
+
+            var $this = $(this);
+            var frmValues = $this.serialize();
+
+            $('#loading-image').show();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: 'POST',
+                url: "{{url('hote_list_ajax')}}",
+                data: frmValues,
+                dataType: 'json',
+                success: function(response) {
+                    //console.log(response);
+                    $('#filterdata').html(response);
+                    $('#loading-image').hide();
+
+                }
+            });
+
+        });
+
+    });
+</script> -->
+
 @endsection
 
 @section('content')
 <main id="main" class="main-body">
+    <section class="spaced-sec" style="padding-top: 100px;">
+        <div class="container">
+            <div class="row spaced-row">
+                <h4>{{$space_details->space_name}}</h4>
+                <div class="top-spac">
+                    <!-- <div class="s-details">
+                        <ul>
+                            <li>.<i class='bx bxs-star'></i> 5.0</li>
+                            <li>.<a href="#">11 reviews</a></li>
+                            <li>.Best collection</li>
+                            <li>.<a href="#">North Block, Sudan</a></li>
+                        </ul>
+                    </div>
+                    <div class="like">
+                        <a href="#"><i class='bx bx-heart'></i>
+                            <p>Save</p>
+                        </a>
+                        <a href="#"><i class='bx bx-share-alt'></i>
+                            <p> Share</p>
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+            <div class="gallery-row row">
+                <div class="col-md-6 gallery-col1">
+
+                    @if($space_details->image)
+                    <img src="{{ url('public/uploads/space_images')}}/{{$space_details->image}}" alt="">
+                    @endif
+                </div>
+                @if($space_gallery)
+                <div class="col-md-6 gallery-col2">
+                    <div class="row">
+                        @foreach($space_gallery as $space_image)
+                        <div class="col-md-6 gallery-col hidden">
+                            <img src="{{ url('public/uploads/space_images')}}/{{$space_image->image}}" alt="">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        </div>
+
+    </section>
     <!-- paste here html code -->
-    <section class="user-section" style="padding-top: 100px; background-color: #f6f6f6 !important; ">
+    <section class="hosted-sp">
+        <div class="container">
+            <div class="row hosted-row">
+                <div class="space-content">
+                    <div class="spaced-row">
+
+                        <div class="top-spac">
+                            <div class="s-details">
+                                <h4>{{$space_details->space_name}}</h4>
+                                <ul>
+                                    <li>.{{$space_details->guest_number}} Guests</li>
+                                    <li>.{{$space_details->bedroom_number}} bedroom</li>
+                                    <li>.+30 Bed</li>
+                                    <li>.{{$space_details->bathroom_number}} Bathroom</li>
+                                </ul>
+                            </div>
+                            <div class="organizer">
+                                <img src="https://a0.muscache.com/im/pictures/user/0ea3cd74-7ce9-4f59-bf57-334651d552c6.jpg?aki_policy=profile_large" alt="">
+                            </div>
+                        </div>
+                        <div class="co-overlay-text">
+                            <div class="d-flex justify-content-start w-100 about-space">
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/area.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-3">
+                                        <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Configuration </h4>
+                                        <p>{{$space_details->room_number}} Bedrooms ,{{$space_details->bedroom_number}} Bedrooms , {{$space_details->bathroom_number}} Bathrooms, {{$space_details->outdoor_facilities}}, Others</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/rentsq.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-3">
+                                        <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Rent </h4>
+                                        <p>PKR {{$space_details->price_per_night}}/-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start w-100 about-space">
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/plot.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-3">
+                                        <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Area </h4>
+                                        <!-- <p> Built Up area: 1800 sq.ft. (167.23 sq.m.)<br>
+                                            Carpet area: 1750 sq.ft. (162.58 sq.m.) </p> -->
+                                        <p> Built Up area: {{$space_details->room_size}} sq.ft.<br>
+                                            <!-- Carpet area: 1750 sq.ft. (162.58 sq.m.)  -->
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/areaq.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-3">
+                                        <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Address </h4>
+                                        <p>{{$space_details->space_address}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start w-100 about-space">
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/calendar.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-3">
+                                        <h4 class="motn-text  d-flex align-items-center mt-2"> Available From </h4>
+                                        <p>Immediate </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-50">
+                                    <div>
+                                        <img src="{{ url('resources/assets/img/calendra.png')}}" class="mr-3">
+                                    </div>
+                                    <div class="mr-4">
+                                        <h4 class="motn-text d-flex align-items-center mt-2"> Posted By and On </h4>
+                                        <p>@if(!empty($space_user_details)){{$space_user_details->first_name}} {{$space_user_details->last_name}} on {{ date('M d, Y', strtotime($space_user_details->created_at)) }} @else {{ $admin_user_details->name }} on {{ date('M d, Y', strtotime($admin_user_details->created_at)) }} @endif</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14721.698887855493!2d75.86500349999999!3d22.71244985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd166aed3e83%3A0x1e7d346e04a1b812!2sHotel%20Balwas%20International!5e0!3m2!1sen!2sin!4v1659937701338!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="space-form">
+                    <div class="form">
+                        <ul>
+                            <li>
+                                <h5>PKR {{$space_details->price_per_night}}/- <span>night</span></h5>
+                            </li>
+
+                        </ul>
+                        @php @endphp
+                        <form action="" id="space_booking_detail_form">
+                            @csrf
+                            <div class="select-date reserved daterange_detail">
+                                <div class="date">
+                                    <p>Check in</p>
+                                    <input type="text" id="space_checkin_date" class="daterange_detail" value="{{ $check_in }}" name="space_checkin_date" required placeholder="Add Date">
+                                    <input type="hidden" id="spaceCheckInDate" value="{{ $check_in }}" name="spaceCheckInDate">
+                                    <input type="hidden" id="spaceSessionCheckInDate" name="spaceSessionCheckInDate" value="{{ Session::get('space_check_in_date') }}">
+                                    <input type="hidden" id="spaceIdd" value="{{ $space_details->space_id }}" name="spaceIdd">
+                                </div>
+                                <div class="date">
+                                    <p>Check Out</p>
+                                    <input type="text" id="space_checkout_date" class="daterange_detail" value="{{ $check_out }}" name="space_checkout_date" required placeholder="Add Date">
+                                    <input type="hidden" id="spaceCheckOutDate" name="spaceCheckOutDate" value="{{ $check_out }}">
+                                    <input type="hidden" id="spaceSessionCheckOutDate" name="spaceSessionCheckOutDate" value="{{ Session::get('space_check_out_date') }}">
+                                </div>
+
+                            </div>
+                            </form>
+                            <!-- <div class="space-sele">
+                                <p>Guests</p>
+                                <select class="s-siz" name="person">
+                                    <option>1 Person </option>
+                                    <option>2 Person</option>
+                                    <option>3 Person</option>
+                                    <option>Couple</option>
+                                    <option>Family</option>
+                                </select>
+                            </div> -->
+
+                            @php
+                            $date1_ts = strtotime($check_in);
+                            $date2_ts = strtotime($check_out);
+                            $diff = $date2_ts - $date1_ts;
+                            $booking_days = round($diff / 86400);
+                            @endphp
+                            @php $total_amount = ($booking_days*$space_details->price_per_night)+$space_details->cleaning_fee+$space_details->city_fee+$space_details->tax_percentage; @endphp
+                            @if(!empty($check_in))
+                                <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Reserve</button></a>
+                            @else
+                                <button type="button" class="daterange_detail_btn">Check Availability</button>
+                            @endif
+                            
+                            <p class="charge-yet">You won't be charged yet</p>
+                            <div class="charges">
+                                <ul>
+                                    <li>PKR {{$space_details->price_per_night}}x{{ $booking_days }} Nights</li>
+                                    <li>PKR {{$space_details->price_per_night*$booking_days }}/-</li>
+                                </ul>
+                                <ul>
+                                    <li>Cleaning Fee</li>
+                                    <li>{{$space_details->cleaning_fee}}</li>
+                                </ul>
+                                <ul>
+                                    <li>City Fee</li>
+                                    <li>{{$space_details->city_fee}}</li>
+                                </ul>
+                                <ul>
+                                    <li>Service tax</li>
+                                    <li>{{$space_details->tax_percentage}}</li>
+                                </ul>
+                            </div>
+                            <div class="total">
+                                <ul>
+                                    <li>total with Taxes</li>
+                                    <li>PKR {{ $total_amount }}</li>
+                                </ul>
+                            </div>
+                        
+                    </div>
+                    <div class="ktext">
+                        <p><span>Lorem ipsum dolor sit</span>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, velit.</p>
+                        <img src="https://cf.bstatic.com/static/img/genius-globe-with-badge_desktop/d807514761b3684aedebced9265c5548a063b7a0.png" alt="">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="user-section" style=" background-color: #f6f6f6 !important; ">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="space-category">
                         <!-- <h3 class="mb-4">126 results |Coworking Space in Indore</h3> -->
-                        <div class="d-flex justify-content-between cosmall-text align-items-center mb-3 mt-4">
-                            <div class="d-flex justify-content-start align-items-center per-squer">
-                                <h3 class="mr-4 h-25">{{$space_details->room_size}}<small>@ per sq.ft</small> </h3>
-                                <h3 class="mr-4 h-25">{{$space_details->bedroom_number}} Bedrooms<p class="m-0">{{$space_details->space_name}},<br> <small>@
-                                            {{$space_details->bathroom_number}} Baths</small></p>
-                                </h3>
-                                <h3 class="mr-4 h-25">{{$space_details->room_size}}<small>@ per sq.ft</small> </h3>
-                            </div>
-                            @php $check_in=date('2022-07-28'); $check_out=date('2022-07-31'); @endphp
-                            <div class="">
-                                <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}" type="button" class="contact-oprator mr-auto">Book Now</a>
-                                <!-- <button type="button" data-toggle="modal" data-target="#openEditor" class="contact-oprator mr-auto">Contact Operator</button> -->
-                            </div>
-                        </div>
 
 
-                        <div class="d-flex justify-content-center detail-persquar">
 
-                            <div class="cate-text-detail">
-                                <div class="cate-text-icon-img">
-                                    <div class="owl-carousel owl-theme">
-                                        <!-- <div class="item"> <img src="{{ url('resources/assets/img/a3.png')}}"> </div> -->
-                                        @if($space_details->image)
-                                        <div class="item"><img src="{{ url('public/uploads/space_images')}}/{{$space_details->image}}"> </div>
-                                        @endif
 
-                                        @if($space_gallery)
-                                        @foreach($space_gallery as $space_image)
-                                        <div class="item"><img src="{{ url('public/uploads/space_images')}}/{{$space_image->image}}"> </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="co-overlay-text">
-                                <div class="d-flex justify-content-start w-100 about-space">
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/area.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-3">
-                                            <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Configuration </h4>
-                                            <p>{{$space_details->room_number}} Bedrooms ,{{$space_details->bedroom_number}} Bedrooms , {{$space_details->bathroom_number}} Bathrooms, {{$space_details->outdoor_facilities}}, Others</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/rentsq.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-3">
-                                            <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Rent </h4>
-                                            <p>PKR {{$space_details->price_per_night}}/-</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start w-100 about-space">
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/plot.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-3">
-                                            <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Area </h4>
-                                            <!-- <p> Built Up area: 1800 sq.ft. (167.23 sq.m.)<br>
-                                                Carpet area: 1750 sq.ft. (162.58 sq.m.) </p> -->
-                                            <p> Built Up area: {{$space_details->room_size}} sq.ft.<br>
-                                                <!-- Carpet area: 1750 sq.ft. (162.58 sq.m.)  -->
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/areaq.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-3">
-                                            <h4 class="motn-text w-50 d-flex align-items-center mt-2"> Address </h4>
-                                            <p>{{$space_details->space_address}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start w-100 about-space">
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/calendar.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-3">
-                                            <h4 class="motn-text  d-flex align-items-center mt-2"> Available From </h4>
-                                            <p>Immediate </p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex w-50">
-                                        <div>
-                                            <img src="{{ url('resources/assets/img/calendra.png')}}" class="mr-3">
-                                        </div>
-                                        <div class="mr-4">
-                                            <h4 class="motn-text d-flex align-items-center mt-2"> Posted By and On </h4>
-                                            <p>@if(!empty($space_user_details)){{$space_user_details->first_name}} {{$space_user_details->last_name}} on {{ date('M d, Y', strtotime($space_user_details->created_at)) }} @else {{ $admin_user_details->name }} on {{ date('M d, Y', strtotime($admin_user_details->created_at)) }} @endif</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- <div class="botm-info mt-4">
                             <div class="btom-text">

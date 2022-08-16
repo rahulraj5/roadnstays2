@@ -62,6 +62,45 @@
         text-decoration: none;
     }
 </style>
+
+<style type="text/css">
+  #profile-description {
+    max-width: 400px;
+    position: relative;
+  }
+
+  #profile-description .text {
+    /*   width: 660px;  */
+    margin-bottom: 5px;
+    color: #777;
+    padding: 0 15px;
+    position: relative;
+    font-family: Arial;
+    font-size: 14px;
+    display: block;
+  }
+
+  #profile-description .show-more {
+    /*   width: 690px;  */
+    color: #777;
+    position: relative;
+    font-size: 12px;
+    padding-top: 5px;
+    height: 20px;
+    text-align: center;
+    background: #f1f1f1;
+    cursor: pointer;
+  }
+
+  #profile-description .show-more:hover {
+    color: #1779dd;
+  }
+
+  #profile-description .show-more-height {
+    height: 200px;
+    overflow: hidden;
+  }
+</style>
 @endsection
 
 @section('current_page_js')
@@ -281,6 +320,52 @@
       }
    }
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#spaceFilterFormR').on('change', function() {
+
+      var $this = $(this);
+      var frmValues = $this.serialize();
+
+      $('#loading-image').show();
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $.ajax({
+        method: 'POST',
+        url: "{{url('space_list_ajax')}}",
+        data: frmValues,
+        dataType: 'json',
+        success: function(response) {
+          //console.log(response);
+          $('#filterspacedata').html(response);
+          $('#loading-image').hide();
+
+        }
+      });
+
+    });
+
+  });
+</script>
+
+<script type="text/javascript">
+  $(".show-more").click(function() {
+    if ($(".text").hasClass("show-more-height")) {
+      $(this).text("Show less");
+    } else {
+      $(this).text("Show all");
+    }
+
+    $(".text").toggleClass("show-more-height");
+  });
+</script>
 @endsection
 
 @section('content')
@@ -293,7 +378,7 @@
                 <div class="event-locaatio">
                     <!-- <small><a href="#"> Home </a>/ <a href="#"> Event </a> </small> -->
                     <div class="hotel-typ">
-                        <h3 id="locat-h">space in Indore </h3>
+                        <h3 id="locat-h">space in {{ $space_city }} </h3>
                         <form method="GET" action="{{url('spaceList')}}">
                             @csrf
                             <div id="hotel-form1" class="row  align-items-center hotel-form1">
@@ -329,75 +414,83 @@
     <!-- slider -->
     <main id="main">
         <section class="user-section" style="padding-top: 10px; background-color: #f6f6f6;">
-            <div class="container-fluid">
-                <!-- <div class="row gird-event"  id="filterdata"> -->
+            <div class="container-fluid" id="filterspacedata">
+                <!-- <div class="row gird-event"  id="filterspacedata"> -->
+                <span><img id="loading-image" src="{{asset('resources/assets/img/loading.gif')}}" style="display: none;"></span>
                 <div class="row filter-row">
                     <div class="col-md-3 sticky-spaclist">
-                        <h6>Filter - Space</h6>
-                        <div class="category category-1">
-                            <p>Private Space</p>
-                            <ul>
-                                <li><input type="checkbox" name="Wedding" id="">Wedding</li>
-                                <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
-                                <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
-                                <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
-                                <li><input type="checkbox" name="Business'" id="">Business'</li>
-                                <li><input type="checkbox" name="Schools" id="">Schools</li>
-                                <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li>
-                            </ul>
-                        </div>
+                        <form method="POST" id="spaceFilterForm" action="" enctype="multipart/form-data">
+                        <!-- put it in action -->
+                        <!--{{ url('space_list_ajax') }}-->
+                        @csrf
+                            <h6>Filter - Space</h6>
+                            <div class="category category-0">
+                                <p>Distance</p>
+                                <ul>
+                                <li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
+                                <li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
+                                <li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
+                                <li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
 
-                        <div class="category category-2">
-                            <p>CORPORATE</p>
-                            <ul>
-                                <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
-                                <li><input type="checkbox" name="Conferences" id="">Conferences</li>
-                                <li><input type="checkbox" name="Networking events" id="">Networking events</li>
-                                <li><input type="checkbox" name="Seminars" id="">Seminars</li>
-                                <li><input type="checkbox" name="Product launches" id="">Product launches</li>
-                                <li><input type="checkbox" name="Meetings" id="">Meetings</li>
-                                <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
-                                <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
-                            </ul>
-                        </div>
+                                </ul>
+                            </div>
+                            <div class="category category-1">
+                                <p>Space Type</p>
+                                <ul>
+                                    @foreach($categories as $category)
+                                    <li><input type="checkbox" name="categories[]" value="{{$category->category_name}}" id="">{{$category->category_name}}</li>
+                                    @endforeach 
+                                </ul>
+                            </div>
 
-                        <div class="category category-3">
-                            <p>CHARITY/FUNDRAISING</p>
-                            <ul>
-                                <li><input type="checkbox" name="Society balls" id="">Society balls</li>
-                                <li><input type="checkbox" name="Sports events" id="">Sports events</li>
-                                <li><input type="checkbox" name="Charitable auctions" id="">Charitable auctions</li>
-                                <li><input type="checkbox" name="Sponsored runs" id="">Sponsored runs</li>
-                                <li><input type="checkbox" name="Sponsored cycling" id="">Sponsored cycling</li>
-                                <li><input type="checkbox" name="Sponsored skydiving" id="">Sponsored skydiving</li>
-                                <li><input type="checkbox" name="Sponsored walks" id="">Sponsored walks</li>
+                            <div class="category category-2">
+                                <p>Listed Wise</p>
+                                <ul>
+                                    @foreach($subcategories as $subcategory)
+                                        <li><input type="checkbox" name="subcategories[]" value="{{$subcategory->sub_category_name}}" id="">{{$subcategory->sub_category_name}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
-                            </ul>
-                        </div>
+                            <!-- <div class="category category-4">
+                                <p>LIVE </p>
+                                <ul>
+                                    <li><input type="checkbox" name="Music events" id="">Music events</li>
+                                    <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
+                                    <li><input type="checkbox" name="Festivals" id="">Festivals</li>
+                                </ul>
+                            </div>
+                            <div class="category category-4">
+                                <p>Date</p>
+                                <input type="date" name="" id="" placeholder="select a date">
 
-                        <div class="category category-4">
-                            <p>LIVE </p>
-                            <ul>
-                                <li><input type="checkbox" name="Music events" id="">Music events</li>
-                                <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
-                                <li><input type="checkbox" name="Festivals" id="">Festivals</li>
-                            </ul>
-                        </div>
-                        <div class="category category-4">
-                            <p>Date</p>
-                            <input type="date" name="" id="" placeholder="select a date">
+                            </div> -->
+                            <div class="category category-5">
+                                <p>space City</p>
+                                <ul>
+                                    @foreach($space_country as $country)
+                                        <li><input type="checkbox" name="countries[]" value="{{ $country->country_id }}" id="">{{ $country->country_name }}</li>
+                                    @endforeach 
+                                </ul>
+                            </div>
 
-                        </div>
-                        <div class="category category-5">
-                            <p>space Venue</p>
-                            <ul>
-                                <li><input type="checkbox" name="" id="">Delhi</li>
-                                <li><input type="checkbox" name="" id="">islamabad</li>
-                                <li><input type="checkbox" name="" id="">Dubai</li>
-                                <li><input type="checkbox" name="" id="">Pakistan</li>
-                                <li><input type="checkbox" name="" id="">peshawar</li>
-                            </ul>
-                        </div>
+                            <div class="category category-3">
+                                <p>Features</p>
+                                <div id="profile-description">
+                                    <div class="text show-more-height">
+                                        <ul>
+                                            <?php foreach ($features as $key => $value) { ?>
+
+                                                <li><label><input type="checkbox" name="emenites[]" id="" value="{{$value->space_feature_id}}">{{$value->space_feature_name}}</label></li>
+
+                                            <?php } ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="show-more">Show all</div>
+                                </div>        
+                            </div>
+                        </form>
                     </div>
 
                     <div class="col-md-9">

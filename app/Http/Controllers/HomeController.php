@@ -50,9 +50,20 @@ class HomeController extends Controller
     {
         return view('front/hotel/room_details');
     }
+    public function event_details($id)
+    {
+        $id = base64_decode($id);
+        $data['event_data'] = DB::table('events')->where('id',$id)->orderby('id','DESC')->first();
+        $data['hotel_data'] = DB::table('hotels')->orderby('hotel_id','DESC')->get();
+        $data['space_data'] = DB::table('space')->orderby('space_id','DESC')->get();
+        //echo "<pre>"; print_r($data);die;
+        return view('front/hotel/event_details')->with($data);
+    }
     public function events()
     {
-        return view('front/hotel/events');
+        $data['events_data'] = DB::table('events')->orderby('id','DESC')->get();
+        //echo "<pre>"; print_r($data);die;
+        return view('front/hotel/events')->with($data);
     }
 
     public function tour()
@@ -574,7 +585,11 @@ class HomeController extends Controller
 
     public function userProfile(Request $request)
     {
+        $data['profile_detail'] = DB::table('users')
+                                ->join('country', 'users.user_country', 'country.id')
+                                ->where('users.id', Auth::user()->id)->first();
         $data['countries'] = DB::table('country')->orderby('name', 'ASC')->get();
+        // echo "<pre>";print_r($data['profile_detail']);die;
         return view('front.dashboard')->with($data);
     }
 

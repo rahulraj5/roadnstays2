@@ -35,13 +35,24 @@
 
     }
 
-
+    // function readProfileHeaderURL(input) {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             $('#imagePreviewHeader').css('background-image', 'url(' + e.target.result + ')');
+    //             $('#imagePreviewHeader').hide();
+    //             $('#imagePreviewHeader').fadeIn(650);
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 
     $("#imageUpload").change(function(data) {
 
 
 
         readURL(this);
+        // readProfileHeaderURL(this);
 
         var imageFile = data.target.files[0];
 
@@ -78,6 +89,7 @@
             success: function(response) {
 
                 success_noti(response.msg);
+                setTimeout(function(){window.location.reload()},1000);
 
             }
 
@@ -139,7 +151,7 @@
 
                                     @if(is_null(Auth::user()->profile_pic))
 
-                                    <div id="imagePreview" style="background-image: url('{{ asset('/public/img/user1.jpg') }}');"></div>
+                                    <div id="imagePreview" style="background-image: url('{{ asset('/public/img/user.png') }}');"></div>
 
                                     @else
 
@@ -159,9 +171,10 @@
 
                             <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user'></i> <span> Profile </span></a> </li>
 
-                            <li><a href="#"><i class='bx bxs-detail'></i><span> Change Password </span></a> </li>
+                            <li><a class="modal-btn2" data-toggle="modal" data-target="#exampleModal2"><i class='bx bxs-detail'></i><span> Change Password </span>
+</a> </li>
 
-                            <li><a href="{{ url('/user/bookingList') }}"><i class='bx bx-copy-alt'></i><span> Booking </span></a> </li>
+                            <!-- <li><a href="{{ url('/user/bookingList') }}"><i class='bx bx-copy-alt'></i><span> Booking </span></a> </li> -->
 
 
 
@@ -288,7 +301,7 @@
                             <div class="col-md-6">
 
                                 <p>
-                                    {{ Auth::user()->address }} @if(!empty(Auth::user()->user_city)),@endif {{ Auth::user()->user_city }} @if(!empty(Auth::user()->state_id)),@endif {{ Auth::user()->state_id }} @if(!empty(Auth::user()->user_country)),@endif {{ Auth::user()->user_country }} @if(!empty(Auth::user()->postal_code)),@endif {{ Auth::user()->postal_code }}
+                                    {{ Auth::user()->address }} @if(!empty(Auth::user()->user_city)),@endif {{ Auth::user()->user_city }} @if(!empty(Auth::user()->state_id)),@endif {{ Auth::user()->state_id }} @if(!empty(Auth::user()->user_country)),@endif {{ $profile_detail->nicename }} @if(!empty(Auth::user()->postal_code)),@endif {{ Auth::user()->postal_code }}
 
                                 </p>
 
@@ -468,6 +481,69 @@
     </div>
 
 </div>
+
+
+
+
+<!-- ===================================================== second modal====================================================== -->
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content change-pass">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create A new password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="avatar-preview">
+
+                                    
+<div id="imagePreview" style="background-image: url('https://votivetechnologies.in/roadNstays/public/uploads/profile_img/13-i-day-15-1502781235_1632378217-1657519719.jpg');"></div>
+
+
+</div>
+<form id="passwordUpdate_form" method="POST" novalidate="novalidate">
+
+                                    <input type="hidden" name="_token" value="1pp13z0pvKhtVVuN6gWA1ChPiW2AlXZc4huAtObU">
+
+                                    <div class="form-group">
+
+                                        <input type="email" class="form-control" name="puemail" id="puemail" value="pushpendrajha88@gmail.com" placeholder="Email Address" readonly="">
+
+                                    </div>
+
+                                    
+
+                                     <div class="form-group">
+
+                                        <input type="password" class="form-control" name="pupassword" id="pupassword" placeholder="Password">
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <input type="password" class="form-control" name="puconfirm_password" id="puconfirm_password" placeholder="Confirm password">
+
+                                    </div> 
+
+                                    <button type="submit" class="btn btn-primary">Update</button>
+
+                                </form>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ===================================================== second modal====================================================== -->
 
 
 
