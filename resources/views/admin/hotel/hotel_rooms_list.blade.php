@@ -266,13 +266,13 @@
 
                                                         <div class="btn-group btn-group-sm">
 
-                                                            <a href="{{url('/admin/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                                                        <a href="{{url('/admin/roomPriceCalendar')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-calendar-alt" alt="calendar" title="calendar"></i></a>
 
-                                                            <a href="{{url('/admin/editHotelRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
+                                                            <a href="{{url('/admin/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye" alt="view" title="view"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
+                                                            <a href="{{url('/admin/editHotelRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt" alt="edit" title="edit"></i></a>
 
-
+                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="delete" title="delete"></i></a>
 
                                                             <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
 

@@ -60,7 +60,15 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $data['hotel_count'] = DB::table('hotels')->count();
+        $data['room_count'] = DB::table('room_list')->where('name','!=',null)->count();
+        $data['space_count'] = DB::table('space')->where('space_name','!=',null)->count();
+        $data['tour_count'] = DB::table('tour_list')->count();
+        $data['event_count'] = DB::table('events')->count();
+        $data['user_count'] = DB::table('users')->where('user_type', 'normal_user')->count();
+        $data['vendor_count'] = DB::table('users')->where('user_type', 'service_provider')->count();
+        $data['scout_count'] = DB::table('users')->where('user_type', 'scout')->count();
+        return view('admin.dashboard')->with($data);
 
         // if(Auth::check()){
         //     return view('admin.dashboard');

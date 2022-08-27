@@ -33,6 +33,8 @@ class BookingController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    // HOTEL booking start here 
+
     public function booking_list(Request $request)
     {
         $u_id = Auth::user()->id;
@@ -90,113 +92,7 @@ class BookingController extends Controller
         // echo "<pre>";print_r($data['canceledList']);die;
         return view('front/booking/booking_list')->with($data);
     }
-
-    public function space_booking_list(Request $request)
-    {
-        $u_id = Auth::user()->id;
-        $data['bookingList'] = DB::table('space_booking')
-            ->join('users', 'space_booking.user_id', '=', 'users.id')
-            ->join('space', 'space_booking.space_id', '=', 'space.space_id')
-            ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
-            ->select('space_booking.*',
-                    'users.user_type',
-                    'users.first_name as user_first_name',
-                    'users.last_name as user_last_name',
-                    'users.email as user_email',
-                    'users.contact_number as user_contact_num',
-                    'users.role_id as user_role_id',
-                    'users.is_verify_email as user_email_is_verify_email',
-                    'users.is_verify_contact as user_contact_is_verify_contact',
-                    'space.space_name',
-                    'space.space_user_id as space_vendor_id',
-                    'space.space_address',
-                    'space.city',
-                    'space_categories.category_name',
-            )
-            ->where('space_booking.user_id', $u_id)   
-            ->orderby('space_booking.id', 'DESC')
-            ->paginate(10);
-
-        $data['upcomingBookingList'] = DB::table('space_booking')
-                    ->join('users', 'space_booking.user_id', '=', 'users.id')
-                    ->join('space', 'space_booking.space_id', '=', 'space.space_id')
-                    ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
-                    ->select('space_booking.*',
-                            'users.user_type',
-                            'users.first_name as user_first_name',
-                            'users.last_name as user_last_name',
-                            'users.email as user_email',
-                            'users.contact_number as user_contact_num',
-                            'users.role_id as user_role_id',
-                            'users.is_verify_email as user_email_is_verify_email',
-                            'users.is_verify_contact as user_contact_is_verify_contact',
-                            'space.space_name',
-                            'space.space_user_id as space_vendor_id',
-                            'space.space_address',
-                            'space.city',
-                            'space_categories.category_name',
-                    )
-                    ->where('space_booking.user_id', $u_id)   
-                    ->orderby('space_booking.id', 'DESC')
-                    ->paginate(10);
-        // echo "<pre>";print_r($data['bookingList']);die;
-        return view('front/booking/space_booking_list')->with($data);
-    }
-
-    public function tour_booking_list(Request $request)
-    {
-        $u_id = Auth::user()->id;
-        $data['bookingList'] = DB::table('tour_booking')
-                ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                ->join('country', 'tour_list.country_id', '=', 'country.id')
-                ->select(
-                    'tour_booking.*',
-                    'tour_list.tour_title',
-                    'tour_list.vendor_id',
-                    'tour_list.tour_code',
-                    'tour_list.tour_type',
-                    'tour_list.address',
-                    'tour_list.city',
-                    'tour_list.tour_start_date',
-                    'tour_list.tour_end_date',
-                    'country.nicename as tour_country',
-                )
-                ->where('tour_booking.user_id', $u_id)   
-                ->orderby('tour_booking.id', 'DESC')
-                ->paginate(10);
-
-        // echo "<pre>";print_r($data['bookingList']);die; 
-            
-
-        $data['upcomingBookingList'] = DB::table('tour_booking')
-                ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                ->join('country', 'tour_list.country_id', '=', 'country.id')
-                ->select(
-                    'tour_booking.*',
-                    'tour_list.tour_title',
-                    'tour_list.vendor_id',
-                    'tour_list.tour_code',
-                    'tour_list.tour_type',
-                    'tour_list.address',
-                    'tour_list.city',
-                    'tour_list.tour_start_date',
-                    'tour_list.tour_end_date',
-                    'country.nicename as tour_country',
-                )
-                ->where('tour_booking.user_id', $u_id)   
-                ->orderby('tour_booking.id', 'DESC')
-                ->paginate(10);
-        // echo "<pre>";print_r($data['canceledList']);die;
-        return view('front/booking/tour_booking_list')->with($data);
-    }
-
-    public function booking_details(Request $request)
-    {
-        return view('front/booking/booking_details');
-    } 
-
+    
     public function booking_detail($id)
     {
         $booking_id = base64_decode($id);
@@ -287,8 +183,60 @@ class BookingController extends Controller
         return view('front/booking/booking_canceled_detail')->with($data);
     }
 
-    // working on 10/08/2022
+    // SPACE booking start here
 
+    public function space_booking_list(Request $request)
+    {
+        $u_id = Auth::user()->id;
+        $data['bookingList'] = DB::table('space_booking')
+            ->join('users', 'space_booking.user_id', '=', 'users.id')
+            ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+            ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+            ->select('space_booking.*',
+                    'users.user_type',
+                    'users.first_name as user_first_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.contact_number as user_contact_num',
+                    'users.role_id as user_role_id',
+                    'users.is_verify_email as user_email_is_verify_email',
+                    'users.is_verify_contact as user_contact_is_verify_contact',
+                    'space.space_name',
+                    'space.space_user_id as space_vendor_id',
+                    'space.space_address',
+                    'space.city',
+                    'space_categories.category_name',
+            )
+            ->where('space_booking.user_id', $u_id)   
+            ->orderby('space_booking.id', 'DESC')
+            ->paginate(10);
+
+        $data['upcomingBookingList'] = DB::table('space_booking')
+                    ->join('users', 'space_booking.user_id', '=', 'users.id')
+                    ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                    ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                    ->select('space_booking.*',
+                            'users.user_type',
+                            'users.first_name as user_first_name',
+                            'users.last_name as user_last_name',
+                            'users.email as user_email',
+                            'users.contact_number as user_contact_num',
+                            'users.role_id as user_role_id',
+                            'users.is_verify_email as user_email_is_verify_email',
+                            'users.is_verify_contact as user_contact_is_verify_contact',
+                            'space.space_name',
+                            'space.space_user_id as space_vendor_id',
+                            'space.space_address',
+                            'space.city',
+                            'space_categories.category_name',
+                    )
+                    ->where('space_booking.user_id', $u_id)   
+                    ->orderby('space_booking.id', 'DESC')
+                    ->paginate(10);
+        // echo "<pre>";print_r($data['bookingList']);die;
+        return view('front/booking/space_booking_list')->with($data);
+    }
+    
     public function space_booking_detail($id)
     {
         $booking_id = base64_decode($id);
@@ -372,6 +320,57 @@ class BookingController extends Controller
         $data['scoutDetails'] = DB::table('users')->where('id', $data['bookingDetails']->scout_id)->first();    
 
         return view('front/booking/space_booking_canceled_detail')->with($data);
+    }
+
+    // TOUR booking start here
+
+    public function tour_booking_list(Request $request)
+    {
+        $u_id = Auth::user()->id;
+        $data['bookingList'] = DB::table('tour_booking')
+                ->join('users', 'tour_booking.user_id', '=', 'users.id')
+                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+                ->join('country', 'tour_list.country_id', '=', 'country.id')
+                ->select(
+                    'tour_booking.*',
+                    'tour_list.tour_title',
+                    'tour_list.vendor_id',
+                    'tour_list.tour_code',
+                    'tour_list.tour_type',
+                    'tour_list.address',
+                    'tour_list.city',
+                    'tour_list.tour_start_date',
+                    'tour_list.tour_end_date',
+                    'country.nicename as tour_country',
+                )
+                ->where('tour_booking.user_id', $u_id)   
+                ->orderby('tour_booking.id', 'DESC')
+                ->paginate(10);
+
+        // echo "<pre>";print_r($data['bookingList']);die; 
+            
+
+        $data['upcomingBookingList'] = DB::table('tour_booking')
+                ->join('users', 'tour_booking.user_id', '=', 'users.id')
+                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+                ->join('country', 'tour_list.country_id', '=', 'country.id')
+                ->select(
+                    'tour_booking.*',
+                    'tour_list.tour_title',
+                    'tour_list.vendor_id',
+                    'tour_list.tour_code',
+                    'tour_list.tour_type',
+                    'tour_list.address',
+                    'tour_list.city',
+                    'tour_list.tour_start_date',
+                    'tour_list.tour_end_date',
+                    'country.nicename as tour_country',
+                )
+                ->where('tour_booking.user_id', $u_id)   
+                ->orderby('tour_booking.id', 'DESC')
+                ->paginate(10);
+        // echo "<pre>";print_r($data['canceledList']);die;
+        return view('front/booking/tour_booking_list')->with($data);
     }
 
     public function tour_booking_detail($id)
@@ -464,4 +463,5 @@ class BookingController extends Controller
 
         return view('front/booking/tour_booking_canceled_detail')->with($data);
     }
+
 }

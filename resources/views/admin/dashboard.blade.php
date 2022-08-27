@@ -1,28 +1,16 @@
 @extends('admin.layout.layout')
 
-
-
 @section('title', 'User - Profile')
-
-
 
 @section('current_page_css')
 
 @endsection
 
-
-
 @section('current_page_js')
 
 @endsection
 
-
-
-
-
 @section('content')
-
-
 
   <!-- Content Wrapper. Contains page content -->
 
@@ -62,8 +50,6 @@
 
     <!-- /.content-header -->
 
-
-
     <!-- Main content -->
 
     <section class="content">
@@ -82,21 +68,19 @@
 
               <div class="inner">
 
-                <h3>150</h3>
+                <h3>{{$hotel_count}}</h3>
 
-
-
-                <p>New Orders</p>
+                <p>Hotels</p>
 
               </div>
 
               <div class="icon">
 
-                <i class="ion ion-bag"></i>
-
+                <!-- <i class="ion ion-bag"></i> -->
+                <i class="fas fa-hotel"></i>
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/admin/hotelList') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -112,21 +96,21 @@
 
               <div class="inner">
 
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
+                <h3>{{$space_count}}</h3>
 
-
-
-                <p>Bounce Rate</p>
+                <p>Spaces</p>
 
               </div>
 
               <div class="icon">
 
-                <i class="ion ion-stats-bars"></i>
+                <!-- <i class="ion ion-stats-bars"></i> -->
+                <i class="fas fa-bus"></i>
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{url('/admin/space-list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -142,21 +126,20 @@
 
               <div class="inner">
 
-                <h3>44</h3>
+                <h3>{{$tour_count}}</h3>
 
-
-
-                <p>User Registrations</p>
+                <p>Tours</p>
 
               </div>
 
               <div class="icon">
 
-                <i class="ion ion-person-add"></i>
+                <!-- <i class="ion ion-person-add"></i> -->
+                <i class="fas fa-calendar-alt"></i>
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{url('/admin/tourList')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -172,21 +155,22 @@
 
               <div class="inner">
 
-                <h3>65</h3>
+                <h3>{{$event_count}}</h3>
 
 
 
-                <p>Unique Visitors</p>
+                <p>Events</p>
 
               </div>
 
               <div class="icon">
-
-                <i class="ion ion-pie-graph"></i>
+              
+                <!-- <i class="ion ion-pie-graph"></i> -->
+                <i class="fas fa-archway"></i>
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{url('/admin/events_list')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -197,6 +181,76 @@
         </div>
 
         <!-- /.row -->
+
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-bed"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Rooms</span>
+                <span class="info-box-number">
+                  {{$room_count}}
+                  <!-- <small>%</small> -->
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1">
+                <!-- <i class="fas fa-shopping-cart"></i> -->
+                <i class="fas fa-user"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Scouts</span>
+                <span class="info-box-number">{{$scout_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1">
+                <!-- <i class="fas fa-thumbs-up"></i> -->
+                <i class="fas fa-store"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Vendors</span>
+                <span class="info-box-number">{{$vendor_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">{{$user_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
 
         <!-- Main row -->
 

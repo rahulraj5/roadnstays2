@@ -90,7 +90,46 @@
 
     });
 </script>
+<script>
+    $("#passwordUpdate_form").validate({
+        debug: false,
+        rules: {
+            old_password: {
+                required: true
+            },
+            user_password: {
+                required: true
+            },
+            user_confirm_password: {
+                required: true,
+                equalTo: "#user_password"
+            }
+        },
 
+        submitHandler: function(form) {
+            var site_url = $("#baseUrl").val();
+            // alert(site_url);
+            var formData = $(form).serialize();
+            $(form).ajaxSubmit({
+                type: 'POST',
+                url: "{{ url('/servicepro/updatePassword') }}",
+                data: formData,
+                success: function(response) {
+                    if (response.status == 'success') {
+                        success_noti(response.msg);
+                        // setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 1000);
+                    } else {
+                        error_noti(response.msg);
+                    }
+                }
+            });
+            // event.preventDefault();
+        }
+    });
+</script>
 <script>
     $(function() {
         //Initialize Select2 Elements
@@ -160,13 +199,14 @@
 
                         <h2 class="usern"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2>
 
-                        <ul>
+                        <!-- <ul> -->
 
-                            <li><a href="#"><i class='bx bx-user'></i> <span> Profile </span></a> </li>
+                            <!-- <li><a href="#"><i class='bx bx-user'></i> <span> Profile </span></a> </li> -->
 
-                            <li><a href="#"><i class='bx bxs-detail'></i><span> Change Password </span></a> </li>
-
-                            <li><a href="#"><i class='bx bx-copy-alt'></i><span> Save Travellers </span></a> </li>
+                            <!-- <li><a href="#"><i class='bx bxs-detail'></i><span> Change Password </span></a> </li> -->
+                            <!-- <li><a class="modal-btn2" data-toggle="modal" data-target="#exampleModal2"><i class='bx bxs-detail'></i><span> Change Password </span> -->
+                                </a> </li>
+                            <!-- <li><a href="#"><i class='bx bx-copy-alt'></i><span> Save Travellers </span></a> </li> -->
 
 
 
@@ -174,11 +214,11 @@
 
                             @if(Auth::user()->user_type == "normal_user")
 
-                            <li><a href="{{ route('user.logout') }}"><i class='bx bx-reply'></i><span> Logout </a> </span></li>
+                            <!-- <li><a href="{{ route('user.logout') }}"><i class='bx bx-reply'></i><span> Logout </a> </span></li> -->
 
                             @elseif(Auth::user()->user_type == "service_provider")
 
-                            <li><a href="{{ route('servicepro.logout') }}"><i class='bx bx-reply'></i><span> Logout </a> </span></li>
+                            <!-- <li><a href="{{ route('servicepro.logout') }}"><i class='bx bx-reply'></i><span> Logout </a> </span></li> -->
 
                             @else
 
@@ -186,7 +226,7 @@
 
                             @endif
 
-                        </ul>
+                        <!-- </ul> -->
 
 
 
@@ -474,6 +514,58 @@
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content change-pass">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create A new password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="passwordUpdate_form">
+                    @csrf                                                                                            
 
+                    <!-- <input type="hidden" name="_token" value="1pp13z0pvKhtVVuN6gWA1ChPiW2AlXZc4huAtObU"> -->
+
+                    <div class="form-group">
+
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="{{ Auth::user()->email }}" placeholder="Email Address" readonly="">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Old Password">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" name="user_password" id="user_password" placeholder="Current Password">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" name="user_confirm_password" id="user_confirm_password" placeholder="Confirm password">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ===================================================== second modal====================================================== -->
 
 @endsection

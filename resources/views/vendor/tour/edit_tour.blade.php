@@ -310,11 +310,38 @@
     var form = $("#updateTourContext_form");
     form.validate({
       rules: {
-        hotel_address: {
-          required: true
+        address: {
+          required: true,
         },
-        hotel_city: {
-          required: true
+        city: {
+          required: true,
+        },
+        latitude: {
+          number: true,
+        },
+        longitude: {
+          number: true,
+        },
+        country_id: {
+          required: true,
+        },
+        bank_name: {
+          required: true,
+        },
+        account_title: {
+          required: true,
+        },
+        account_number: {
+          required: true,
+        },
+        branch_name: {
+          required: true,
+        },
+        easypaisa: {
+          required: true,
+        },
+        jazz_cash: {
+          required: true,
         }
       },
       messages: {
@@ -349,12 +376,9 @@
     var form = $("#updateTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
+        "itinerary[]": {
           required: true,
-        },
-        entertain_service2: {
-          required: true,
-        },
+        }
       },
     });
     if (form.valid() === true) {
@@ -380,7 +404,7 @@
       });
     }
   });
-</script> 
+</script>
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -412,7 +436,7 @@
     $(addButton).click(function() {
       if (x < maxField) {
         x++;
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><input type="text" class="form-control" name="itinerary[' + x + '][name]" placeholder="Enter Name" value="" /><ul style="padding: 3px; margin-top: 12px;" class="itinerary'+x+'"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+x+'][services][0]" placeholder="services"><a href="javascript:void(0);" class="add_button_ser'+x+'" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-2"><input type="text" class="form-control  mr-2" name="itinerary['+x+'][name]" placeholder="Enter Day" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control  mr-2" name="itinerary['+x+'][place_from]" placeholder="Enter place form" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control  mr-2" name="itinerary['+x+'][place_to]" placeholder="Enter place to" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control  mr-2" name="itinerary['+x+'][hotel]" placeholder="Enter hotel" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control  mr-2" name="itinerary['+x+'][transport]" placeholder="Enter transport" value="" required="" /></div><div class="col-md-2"><select class="form-control  mr-2" name="itinerary['+x+'][night_stay]" id="" required=""><option value="0">No</option><option value="1">Yes</option></select></div></div><ul style="padding: 3px;  margin-top: 12px;" class="itinerary'+x+' mb-0"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+x+'][services][0]" placeholder="services" required=""><a href="javascript:void(0);" class="add_button_ser'+x+' btn-desing" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button remove_button_it">Remove</a></span></div>');
       }
     });
 
@@ -430,14 +454,14 @@
      inc++;
       if(id > 0){
          $(".add_button_ser"+id).attr("onclick","addtrips('"+id+"','"+inc+"')");
-        $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>');
+        $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>');
       
         $(".itinerary"+id).on('click','.remove_button_ser'+id,function(){
         $(this).parents('li').remove();
         });
       }else{ 
          $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
-        $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
+        $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
         $(".itinerary").on('click','.remove_button_ser',function(){
         $(this).parents('li').remove();
         });
@@ -563,14 +587,14 @@
                     <div class="step" data-target="#hotel-policy-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
                         <span class="bs-stepper-circle">2</span>
-                        <span class="bs-stepper-label">Payment Mode & Bank Details</span>
+                        <span class="bs-stepper-label">Tour Capacity & Reservations</span>
                       </button>
                     </div>
                     <div class="line"></div>
                     <div class="step" data-target="#facility-service-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
                         <span class="bs-stepper-circle">3</span>
-                        <span class="bs-stepper-label">Tour Itinerary</span>
+                        <span class="bs-stepper-label">Tour Details & Services</span>
                       </button>
                     </div>
                   </div>
@@ -598,51 +622,186 @@
                             <!-- </div> -->
                           </div>
 
-                          <div class="col-md-12">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Vendor</label>
+                              <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;" disabled="">
+                                <option value="">Select Vendors</option>
+                                @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
+                                @foreach ($vendors as $value)
+                                <option value="{{ $value->id }}" @php if($tour_info->vendor_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Name</label>
                               <input type="text" class="form-control" name="tour_title" id="tour_title" placeholder="Enter Name" value="{{$tour_info->tour_title}}">
                             </div>
                           </div>
-
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Status</label>
+                              <select class="form-control select2bs4" name="tour_status" id="tour_status" style="width: 100%;">
+                                <option value="">Select Status</option>
+                                <option value="available" @php if($tour_info->tour_status == 'available'){echo "selected";} @endphp>Available</option>
+                                <option value="booked" @php if($tour_info->tour_status == 'booked'){echo "selected";} @endphp>Booked</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Price</label>
+                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" required="">
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
                               <textarea class="form-control" id="summernoteRemoved" name="tour_description" required>{{$tour_info->tour_description}}</textarea>
                             </div>
                           </div>
+                          
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+                           <div class="col-md-6">
+                            <div class="form-group">
+                              <label>City</label>
+                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " value="{{$tour_info->city}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " value="{{$tour_info->address}}" >
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Latitude</label>
+                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter " value="{{$tour_info->latitude}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Longitude</label>
+                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter " value="{{$tour_info->longitude}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Neighborhood / Area</label>
+                              <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address" value="{{$tour_info->neighb_area}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Country</label>
+                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" required="required">
+                                <!-- <option value="">Select Country</option> -->
+                                @foreach ($countries as $cont)
+                                <option value="{{ $cont->id }}" @php if($tour_info->country_id == $cont->id){echo "selected";} @endphp >{{ $cont->name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Start Date</label>
+                              <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Enter start date" value="{{$tour_info->tour_start_date}}">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>End Date</label>
+                              <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Enter end date" value="{{$tour_info->tour_end_date}}">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Type</label>
+                              <select class="form-control select2bs4" name="tour_type" id="tour_type" style="width: 100%;">
+                                <option value="">Select Tour Type</option>
+                                <option value="adventure" @php if($tour_info->tour_type == 'adventure'){echo "selected";} @endphp>Adventure</option>
+                                <option value="sightseeing" @php if($tour_info->tour_type == 'sightseeing'){echo "selected";} @endphp>Sightseeing</option>
+                                <option value="adventure_sightseeing" @php if($tour_info->tour_type == 'adventure_sightseeing'){echo "selected";} @endphp>Adventure + Sightseeing</option>
+                                <option value="honeymoon" @php if($tour_info->tour_type == 'honeymoon'){echo "selected";} @endphp>Honeymoon</option>
+                                <option value="school_trip" @php if($tour_info->tour_type == 'school_trip'){echo "selected";} @endphp>School Trip</option>
+                                <option value="corporate_trip" @php if($tour_info->tour_type == 'corporate_trip'){echo "selected";} @endphp>Corporate Trip</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Sub Type</label>
+                              <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
+                                <option value="standard"  @php if($tour_info->tour_sub_type == 'standard'){echo "selected";} @endphp>Standard</option>
+                                <option value="deluxe" @php if($tour_info->tour_sub_type == 'deluxe'){echo "selected";} @endphp>Deluxe</option>
+                                <option value="exclusive" @php if($tour_info->tour_sub_type == 'exclusive'){echo "selected";} @endphp>Exclusive</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Days</label>
+                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days" required="" value="{{$tour_info->tour_days}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Price Other (extra charges per person)</label>
+                              <input type="text" class="form-control" name="tour_price_others" id="tour_price_others" placeholder="Enter " value="{{$tour_info->tour_price_others}}">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Discount</label>
+                              <input type="text" class="form-control" name="tour_discount" id="tour_discount" placeholder="Enter tour discount" required="" value="{{$tour_info->tour_discount}}">
+                            </div>
+                          </div>
 
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Tour Locations</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" required>{{$tour_info->tour_locations}}</textarea>
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Children Policy</h4>
+                              </p>
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Tour Locations</label>
-                              <textarea class="form-control" id="tour_activities" name="tour_activities" required>{{$tour_info->tour_activities}}</textarea>
+                              <label>Children Policy</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="children_policy" >{{$tour_info->children_policy}}</textarea>
                             </div>
                           </div>
+                           
+                          
+                          <div class="col-12">
+                            <a class="btn btn-primary btn-dark button">Next</a>
+                          </div>
+                        </div>
+                      </div>
 
-                          <!-- <div class="col-md-12"> -->
-                            
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Tour Package Name</label>
-                                  <input type="text" class="form-control" id="tour_package_name" name="tour_package_name" value="{{$tour_info->tour_package_name}}">
-                              </div>
-                            </div>
+                      <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
+                        <!-- <form method="POST" id="addHotelPolicy_form"> -->
+                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Tour Code</label>
-                                  <input type="text" class="form-control" id="tour_code" name="tour_code" value="{{$tour_info->tour_code}}">
-                              </div>
-                            </div>
-                          <!-- </div> -->
-
+                        <div class="row">
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label for="customFile">Tour Gallery</label>
@@ -664,8 +823,6 @@
                               @endforeach
                             </div>
                           </div>
-
-
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="customFile">Tour Featured/Main Image</label>
@@ -683,54 +840,27 @@
                               </div>
                             </div>
                             @endif
-                          </div>  
-                          
-                          <!-- <div class="col-md-12">
-                            <div class="col" id="hotelGalleryPreview"></div>
-                          </div> -->
-
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
+                          </div>
+                           <div class="col-md-12">
+                            <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Contact Details for this Tour</h4>
+                              <h4>Tour capacity</h4>
                               </p>
                             </div>
-                          </div>
+                          </div> 
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Contact Name</label>
-                              <input type="text" class="form-control" name="contact_name" id="contact_name" placeholder="Enter Contact Name" value="{{$tour_info->contact_name}}">
+                              <label>Min</label>
+                              <input type="text" class="form-control" name="min" id="min" placeholder="Enter " required="" value="{{$tour_info->tour_min_capacity}}">
                             </div>
                           </div>
-
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Contact Number</label>
-                              <input type="text" class="form-control" name="contact_num" id="contact_num" placeholder="Enter Contact Number" value="{{$tour_info->contact_num}}">
+                              <label>Max</label>
+                              <input type="text" class="form-control" name="max" id="max" placeholder="Enter " required="" value="{{$tour_info->tour_max_capacity}}">
                             </div>
                           </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Alternate Number</label>
-                              <input type="text" class="form-control" name="alternate_num" id="alternate_num" placeholder="Enter Alternate Number" value="{{$tour_info->alternate_num}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Document</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="tour_document" id="tour_document">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                 @if((!empty($tour_info->tour_document)))
-                                <a href="{{ url('public/uploads/tour_document') }}/{{ $tour_info->tour_document }}" download>{{ $tour_info->tour_document }}</a>
-                                @endif
-                              </div>
-                            </div>
-                          </div>
-
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Scouts</label>
@@ -743,105 +873,12 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Vendor</label>
-                              <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;">
-                                <option value="">Select Vendors</option>
-                                @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
-                                @foreach ($vendors as $value)
-                                <option value="{{ $value->id }}" @php if($tour_info->vendor_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Tour Term & Condition</label>
-                              <textarea class="form-control" id="summernote1Removed" name="tour_term_condition">{{$tour_info->tour_term_condition}}</textarea>
+                              <label>Tour Policy</label>
+                              <textarea class="form-control" id="summernoteRemoved12" name="tour_policy" required="">{{$tour_info->tour_policy}}</textarea>
                             </div>
-                          </div> 
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
-                              <p class="lead mb-0">
-                              <h4>Tour Start/End Date</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Start Date</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Enter start date" required value="{{$tour_info->tour_start_date}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>End Date</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Enter end date" required value="{{$tour_info->tour_end_date}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tour Days</label>
-                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days" value="{{$tour_info->tour_days}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tour Price</label>
-                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter tour price" value="{{$tour_info->tour_price}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <!-- <label>Tour services includes</label> -->
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden="">{{$tour_info->tour_services_includes}}</textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <!-- <label>Tour services not includes</label> -->
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden="">{{$tour_info->tour_services_not_includes}}</textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tour Type</label>
-                              <select class="form-control select2bs4" name="tour_type" id="tour_type" style="width: 100%;">
-                                <option value="">Select Tour Type</option>
-                                <option value="standard"  @php if($tour_info->tour_type == 'standard'){echo "selected";} @endphp>Standard</option>
-                                <option value="deluxe" @php if($tour_info->tour_type == 'deluxe'){echo "selected";} @endphp>Deluxe</option>
-                                <option value="exclusive" @php if($tour_info->tour_type == 'exclusive'){echo "selected";} @endphp>Exclusive</option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Booking Contact Mobile Nubmer</label>
-                              <input type="text" name="booking_contact" id="booking_contact" placeholder="Please enter mobile number" class="form-control" value="{{$tour_info->booking_contact_no}}">
-                            </div>
-                          </div>
-
-                          <div class="col-12">
-                            <a class="btn btn-primary btn-dark button">Next</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger">
-                        <!-- <form method="POST" id="addHotelPolicy_form"> -->
-                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-
-                        <div class="row">
-
+                          </div>  
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
@@ -878,7 +915,12 @@
                               </div>
                             </div>
                           </div>
-
+                           <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Cancellation and Refund</label>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="">{{$tour_info->cancellation_and_refund}}</textarea>
+                            </div>
+                          </div>
                           <div class="col-sm-6">
                             <label>Booking Option</label>
                             <div class="row">
@@ -906,134 +948,23 @@
                           </div>
 
                           <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Tour Address</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>Address</label>
-                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " required="required" value="{{$tour_info->address}}">
-                            </div>
-                          </div>
-
-                          <!-- <p>The geographic coordinate</p> -->
-
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Latitude</label>
-                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter " value="{{$tour_info->latitude}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Longitude</label>
-                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter " value="{{$tour_info->longitude}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>City</label>
-                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " required="required" value="{{$tour_info->city}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Neighborhood / Area</label>
-                              <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address" value="{{$tour_info->neighb_area}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Country</label>
-                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" required="required">
-                                <!-- <option value="">Select Country</option> -->
-                                @foreach ($countries as $cont)
-                                <option value="{{ $cont->id }}" @php if($tour_info->country_id == $cont->id){echo "selected";} @endphp >{{ $cont->name }}</option>
-                                @endforeach
-                              </select>
+                              <label>Tour Locations</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" required>{{$tour_info->tour_locations}}</textarea>
                             </div>
                           </div>
 
                           <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Pricing</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour Price others</label>
-                              <input type="text" class="form-control" name="tour_price_others" id="tour_price_others" placeholder="Enter " value="{{$tour_info->tour_price_others}}">
+                              <label>Tour Activities</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" >{{$tour_info->tour_activities}}</textarea>
                             </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>You can deposit money from any Bank</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Bank Name</label>
-                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name " value="{{$tour_info->bank_name}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Account Title</label>
-                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name " value="{{$tour_info->account_holder}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Account Number</label>
-                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number" value="{{$tour_info->account_number}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Branch Name</label>
-                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name" value="{{$tour_info->branch_name}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>You can also deposit money through Easypaisa and Jazz Cash</h4>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Easypaisa</label>
-                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number" value="{{$tour_info->easypaisa}}">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Jazz Cash</label>
-                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number" value="{{$tour_info->jazz_cash}}">
-                            </div>
-                          </div> 
-                          <div class="col-12"> 
+                        
+                          <div class="col-12">
+                            <!-- <button type="submit" id="step_btn2" class="btn btn-primary">Submit</button> -->
+                            <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn2" type="submit">Submit</button> -->
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <a class="btn btn-primary btn-dark button">Next</a>
                           </div>
@@ -1056,9 +987,38 @@
                               <label>Itinerary</label>
                               <?php $i = 0; $len = count($tour_itinerary); ?>
                               @foreach($tour_itinerary as $key => $itinerary)
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][name]" placeholder="Enter title" value="{{$itinerary->title}}" />
+                              <div class="row mb-4">
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <label>Day</label>
+                                      <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][name]" placeholder="Enter day" value="{{$itinerary->title}}" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label>Place From</label>
+                                      <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][place_from]" placeholder="Enter place from" value="{{$itinerary->place_from}}" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label>Place To</label>
+                                      <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][place_to]" placeholder="Enter place to" value="{{$itinerary->place_to}}" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label>Hotel Name</label>
+                                      <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][hotel]" placeholder="Enter hotel" value="{{$itinerary->hotel}}" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label>Transport</label>
+                                      <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][transport]" placeholder="Enter transport" value="{{$itinerary->transport}}" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label>Night Stay</label>
+                                      <select class="form-control mr-2" name="itinerary[{{$key}}][night_stay]" id="" required="">
+                                        <option value="0" @php if($itinerary->night_stay == 0){echo 'selected';} @endphp>No</option>
+                                        <option value="1" @php if($itinerary->night_stay == 1){echo 'selected';} @endphp>Yes</option>
+                                      </select>
+                                      <!-- <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][night_stay]" placeholder="Enter title" value="@php if($itinerary->night_stay == 1){echo "Yes";} else{echo "No";}@endphp" required="" /> -->
+                                    </div>
+                                  </div>
                                   <?php if($i > 0) {?>
                                   <ul style="padding: 3px; margin-top: 12px;" class="itinerary<?php echo $i;?>">
                                   <?php }else{ ?>
@@ -1070,13 +1030,13 @@
                                   ?>
                                   @foreach(json_decode($itinerary->trip_detail) as $key1 => $detail)
                                   
-                                    <li class="d-flex  mb-2" style="align-items: center;"> 
-                                     <input type="text" class="form-control mr-2" name="itinerary[{{$key}}][services][{{$key1}}]" placeholder="services" value="{{$detail}}">
+                                    <li class="d-flex mb-2" style="align-items: center;"> 
+                                     <input type="text" class="form-control w-50 mr-2" name="itinerary[{{$key}}][services][{{$key1}}]" placeholder="services" value="{{$detail}}">
                                      @if($j == 0) 
                                      <?php if($i > 0) {?>
                                       <a href="javascript:void(0);" class="add_button_ser<?php echo $i;?>" style="padding: 5px; top: 0px;" onclick="addtrips(<?php echo $key;?>,<?php echo $lastkey;?>)">Button </a>
                                       <?php }else{ ?>
-                                      <a href="javascript:void(0);" class="add_button_ser" style="padding: 5px; top: 0px;" onclick="addtrips(<?php echo $key;?>,<?php echo $lastkey;?>)">Button </a>
+                                      <a href="javascript:void(0);" class="add_button_ser btn-desing" style="padding: 5px; top: 0px;" onclick="addtrips(<?php echo $key;?>,<?php echo $lastkey;?>)">Button </a>
                                       <?php } ?>
                                      @else
                                      <a href="javascript:void(0);" class="remove_button remove_button_ser<?php echo $key;?>" style="padding: 5px; top: 0px;">Remove</a>
@@ -1089,14 +1049,26 @@
                                 @if($i == 0) 
                                    <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
                                 @else
-                                    <span><a href="javascript:void(0);" class="remove_button">Remove</a></span>
+                                    <span><a href="javascript:void(0);" class="remove_button remove_button_it">Remove</a></span>
                                 @endif
                                 
                               </div>
                               <?php $i++;?>
                               @endforeach
                             </div>
-                          </div>
+                          </div> 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Services Includes</label>
+                              <textarea class="form-control" id="summernoteRemoved47" name="tour_services_includes" >{{$tour_info->tour_services_includes}}</textarea>
+                            </div>
+                          </div> 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Services Not Includes</label>
+                              <textarea class="form-control" id="summernoteRemoved85" name="tour_services_not_includes" >{{$tour_info->tour_services_not_includes}}</textarea>
+                            </div>
+                          </div> 
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>

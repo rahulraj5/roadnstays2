@@ -182,7 +182,7 @@
 
                                             <th>Tour Name</th>
 
-                                            <th>Package Name</th>
+                                            <th>Tour Type</th>
 
                                             <th>Tour Code</th>
 
@@ -212,7 +212,7 @@
 
                                                     <td>{{ $arr->tour_title }}</td>
 
-                                                    <td>{{ $arr->tour_package_name }}</td>
+                                                    <td>{{ $arr->tour_type }}</td>
 
                                                     <td>{{ $arr->tour_code }}</td>
 

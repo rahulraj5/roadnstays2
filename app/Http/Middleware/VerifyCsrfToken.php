@@ -15,6 +15,6 @@ class VerifyCsrfToken extends Middleware
     'shows/*',
     'episode/*',
     'genre/*',
-    'https://votivetechnologies.in/roadNstays/api/*',
+    'https://roadnstays.com/api/*',
     ];
 }

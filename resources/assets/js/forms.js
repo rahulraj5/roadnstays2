@@ -382,6 +382,8 @@ $("#profileUpdate_form").validate({
 });
 
 
+
+
 $("#userLogin_form").validate({
 
     debug: false,

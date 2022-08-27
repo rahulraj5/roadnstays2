@@ -13,6 +13,7 @@ use App\Helpers\Helper;
 use Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Pagination\Paginator;
 use LDAP\Result;
 
@@ -35,10 +36,63 @@ class SpaceController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    public function removeSpaceDateSession(Request $request)
+    {
+        Session::forget('space_check_in_date');
+        Session::forget('space_check_out_date');
+        echo 'Space Date Session has been destroyed';
+        
+        // $data['get_date'] = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '>=', Carbon::today())->get(); 
+        // $data['get_date'] = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->get(array('check_in_date', 'check_out_date'));
+
+
+        // $data['get_date'] = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->pluck('check_in_date','check_out_date')->get();
+
+        // DB::table('table')->get(array('check_in_date', 'check_out_date', 'column3'));
+        // dd($data['get_date'][0]);   
+        // $array = array_values($data['get_date']);
+        // dd($data['get_date']);
+
+        // $data=Array(); //associative array
+        // $simple_array = array(); //simple array
+        // foreach($data['get_date'] as $d)
+        // {
+        //     $simple_array[]=$d['check_in_date'];   
+        // }
+        // dd($simple_array);
+
+
+        // $space_id = 272;
+        // $data['get_date'] = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '>=', Carbon::today())->get(['check_in_date','check_out_date']); 
+        // dd($data['get_date']);
+        // $get_date1 = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->select('check_in_date','check_out_date')->get(); 
+        // $get_date2 = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->pluck('check_in_date','check_out_date')->toArray(); 
+        // $get_date = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->get(['check_in_date','check_out_date']);
+        // $what_date = $get_date->toArray();
+        // echo "<pre>";print_r($get_date1);
+        // echo "<pre>";print_r($get_date2);
+        // echo "<pre>";print_r($get_date3);
+        // echo "<pre>";print_r($what_date);
+        // die;
+
+        // testing working code
+        // $get_date = DB::table('space_booking')->where('space_id', $space_id)->where('check_in_date', '<=', Carbon::today())->get(['check_in_date','check_out_date']);
+        // $what_date = $get_date->toArray();
+        // $val = array();
+
+        // foreach ($what_date as $value) { 
+        //     $period = CarbonPeriod::create($value->check_in_date, $value->check_out_date);
+        //     foreach ($period as $date) {
+        //         array_push($val, $date->format('Y-m-d'));
+        //     }
+        // }
+        // dd($val);
+    }
+
 
     public function space()
     {
-        Session::flush();
+        // Session::flush();
         $data['spaceList'] = DB::table('space')
             ->join('space_categories', 'space.category_id', 'space_categories.scat_id')
             ->where('space.status', 1)
@@ -83,6 +137,8 @@ class SpaceController extends Controller
         } else {
             $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
         }
+        // // echo "<pre>";print_r($data['admin_user_details']);
+        // echo "<pre>";print_r($data['space_user_details']);die;
         $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
         $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
         $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
@@ -91,39 +147,27 @@ class SpaceController extends Controller
             ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
             ->where('space_id', $space_id)->get();
 
+
+        $get_date_range = DB::table('space_booking')->where('space_id', $space_id)->where('check_out_date', '>=', Carbon::today())->get(['check_in_date','check_out_date']);
+        $get_date_range_array = $get_date_range->toArray();
+        // print_r($get_date_range_array);die;
+        $space_booked_date = array();
+
+        foreach ($get_date_range_array as $value) { 
+            $period = CarbonPeriod::create($value->check_in_date, $value->check_out_date);
+            
+            foreach ($period as $date) {
+                // print_r($date);
+                array_push($space_booked_date, $date->format('m/d/Y')); 
+            }
+        }  
+
+        // echo "<pre>";print_r($space_booked_date);die;
+        $data['space_booked_date'] = json_encode($space_booked_date);
+        // echo "<pre>";print_r($data['space_booked_date']);die;
         $data['check_in'] = Session::get('space_check_in_date');
-        $data['check_out'] = Session::get('space_check_out_date');
-
-        // echo "<pre>";print_r($data);
-        // die;   
+        $data['check_out'] = Session::get('space_check_out_date');  
         return view('front/space/space_details')->with($data);
-    }
-
-    public function change_daterange_session(Request $request)
-    {
-        $checkin_date = date('Y-m-d', strtotime($request->space_checkin_date));
-        $checkout_date = date('Y-m-d', strtotime($request->space_checkout_date));;
-        $spaceIdd = $request->spaceIdd;
-        $booked_space_id = DB::table('space_booking')
-                    ->where("space_id", $spaceIdd)
-                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
-                    ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
-                    ->get();
-        // echo "<pre>";print_r($checkin_date);
-        // echo "<pre>";print_r($booked_space_id);
-        // echo "<pre>";print_r(count($booked_space_id));
-        // die;      
-        if(count($booked_space_id) === 0) {                  
-            Session::put('space_check_in_date', $request->space_checkin_date);
-            Session::put('space_check_out_date', $request->space_checkout_date);
-
-            return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
-        }else {
-            $request->session()->forget('space_check_in_date');
-            $request->session()->forget('space_check_out_date');
-            return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
-        }
-
     }
 
     public function update_daterange_session(Request $request)
@@ -131,15 +175,13 @@ class SpaceController extends Controller
         $checkin_date = date('Y-m-d', strtotime($request->space_start_date));
         $checkout_date = date('Y-m-d', strtotime($request->space_end_date));;
         $spaceIdd = $request->spaceIdd;
+        // echo "<pre>";print_r($spaceIdd);
         $booked_space_id = DB::table('space_booking')
                     ->where("space_id", $spaceIdd)
                     ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
-                    ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
+                    ->WhereBetween('check_out_date', [$checkin_date, $checkout_date])
                     ->get();
-        // echo "<pre>";print_r($checkin_date);
-        // echo "<pre>";print_r($booked_space_id);
-        // echo "<pre>";print_r(count($booked_space_id));
-        // die;      
+        // echo "<pre>";print_r($booked_space_id);die;  
         if(count($booked_space_id) === 0) {                  
             Session::put('space_check_in_date', $request->space_start_date);
             Session::put('space_check_out_date', $request->space_end_date);
@@ -153,60 +195,83 @@ class SpaceController extends Controller
 
     }
 
+    public function change_daterange_session(Request $request)
+    {
+        $checkin_date = date('Y-m-d', strtotime($request->space_checkin_date));
+        $checkout_date = date('Y-m-d', strtotime($request->space_checkout_date));;
+        $spaceIdd = $request->spaceIdd;
+        $booked_space_id = DB::table('space_booking')
+                    ->where("space_id", $spaceIdd)
+                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
+                    ->WhereBetween('check_out_date', [$checkin_date, $checkout_date])
+                    ->get();   
+                  
+        if(count($booked_space_id) === 0) {                  
+            Session::put('space_check_in_date', $request->space_checkin_date);
+            Session::put('space_check_out_date', $request->space_checkout_date);
+
+            return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
+        }else {
+            $request->session()->forget('space_check_in_date');
+            $request->session()->forget('space_check_out_date');
+            return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
+        }
+    }
+
     public function event_details()
     {
         return view('front/event/event_details');
     }
 
-    public function space_detail($id)
-    {
-        $space_id = base64_decode($id);
-        $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
-        $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
-        $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
-        $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
-        if ($data['space_details']->space_user_id == 1) {
-            $data['admin_user_details'] = DB::table('admins')->where('id', 1)->first();
-        } else {
-            $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
-        }
-        $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
-        $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
-        $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
+    // public function space_detail($id)
+    // {
+    //     $space_id = base64_decode($id);
+    //     $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
+    //     $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
+    //     $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
+    //     $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
+    //     if ($data['space_details']->space_user_id == 1) {
+    //         $data['admin_user_details'] = DB::table('admins')->where('id', 1)->first();
+    //     } else {
+    //         $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
+    //     }
+    //     $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
+    //     $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
+    //     $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
 
-        $data['space_features'] = DB::table('space_features')
-            ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
-            ->where('space_id', $space_id)->get();
-        // echo "<pre>";print_r($data['space_user_details']);
-        // echo "<pre>";print_r($data);
-        // die;
-        return view('front/space_details')->with($data);
-    }
+    //     $data['space_features'] = DB::table('space_features')
+    //         ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
+    //         ->where('space_id', $space_id)->get();
+    //     // echo "<pre>";print_r($data['space_user_details']);
+    //     // echo "<pre>";print_r($data);
+    //     // die;
+    //     return view('front/space_details')->with($data);
+    // }
 
-    public function space_detail_test($id)
-    {
-        $space_id = base64_decode($id);
-        $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
-        $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
-        $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
-        $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
-        if ($data['space_details']->space_user_id == 1) {
-            $data['admin_user_details'] = DB::table('admins')->where('id', 1)->first();
-        } else {
-            $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
-        }
-        $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
-        $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
-        $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
+    // public function space_detail_test($id)
+    // {
+    //     $space_id = base64_decode($id);
+    //     $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
+    //     $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
+    //     $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
+    //     $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
+    //     if ($data['space_details']->space_user_id == 1) {
+    //         $data['admin_user_details'] = DB::table('admins')->where('id', 1)->first();
+    //     } else {
+    //         $data['space_user_details'] = DB::table('users')->where('id', $data['space_details']->space_user_id)->first();
+    //     }
+    //     $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
+    //     $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
+    //     $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
 
-        $data['space_features'] = DB::table('space_features')
-            ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
-            ->where('space_id', $space_id)->get();
-        // echo "<pre>";print_r($data['space_user_details']);
-        // echo "<pre>";print_r($data);
-        // die;
-        return view('front/test_space_details')->with($data);
-    }
+    //     $data['space_features'] = DB::table('space_features')
+    //         ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
+    //         ->where('space_id', $space_id)->get();
+    //     // echo "<pre>";print_r($data['space_user_details']);
+    //     // echo "<pre>";print_r($data);
+    //     // die;
+    //     return view('front/test_space_details')->with($data);
+    // }
 
     public function space_city_wise($id)
     {
@@ -1016,8 +1081,11 @@ class SpaceController extends Controller
         $mobile = $request->mobile;
         $status = 1;
 
-        $client = "AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
-        $secret = "EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+        // $client = "AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
+        // $secret = "EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+
+        $client = "AVEgpnihV9nIWSO15Cg-SWM-TcA9_nKFqH_xA_gzoRmdpRw_dQNlB65G-fzbjr6dz5tUTr-ITCLbJ2Yn";
+        $secret = "EFB-JdeQkwgkqOf7fAf5wIIDC1ed_67MDjU_2SSySwnzTnQu4v-DciM75nirTa7qJGeXL4_cdmIK6HEh";
 
         $ch = curl_init();
 

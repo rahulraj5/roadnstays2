@@ -143,11 +143,11 @@
 
           <div class="social-links mt-3 footer-newsletter">
 
-            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="https://www.youtube.com/channel/UCnYwJuD_-gTvBNnUVYLibvA" class="youtube" target="_blank"><i class="bx bxl-youtube"></i></a>
 
-            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="https://www.facebook.com/RoadnStayscom-113429408032932" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>
 
-            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCnYwJuD_-gTvBNnUVYLibvA" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
 
             <!--   <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
 

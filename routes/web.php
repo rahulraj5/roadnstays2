@@ -80,8 +80,9 @@ Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confi
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
 Route::post('/room_details_ajax','HomeController@room_details_ajax')->name('user.room_details_ajax');
 Route::get('/events','HomeController@events')->name('user.events');
-Route::get('/event_details','Home\SpaceController@event_details')->name('user.event_details');
+Route::get('/event_details','Home\HomeController@event_details')->name('user.event_details');
 Route::get('/event_details/{id?}','HomeController@event_details')->name('user.event_details');
+Route::get('/eventBooking/{name?}','HomeController@eventBooking')->name('user.eventBooking');
 Route::get('/tour','HomeController@tour')->name('user.tour');
 Route::get('/tour_list_country/{id?}','HomeController@tour_list_country')->name('user.tour_list_country');
 Route::get('/tour_details/{id?}','HomeController@tour_details')->name('user.tour_details');
@@ -96,6 +97,7 @@ Route::get('/test-space-detail/{id?}','Home\SpaceController@space_detail_test')-
 
 Route::any('/changeDaterange', 'Home\SpaceController@change_daterange_session')->name('user.changeDaterange');	
 Route::any('/updateDaterange', 'Home\SpaceController@update_daterange_session')->name('user.updateDaterange');	
+Route::any('/delete_space_date_session', 'Home\SpaceController@removeSpaceDateSession')->name('user.delete_space_date_session');	
 
 Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_list')->name('user.space_category_list');
 Route::get('/space-checkout/{name?}','Home\SpaceController@checkout')->name('user.space_checkout');
@@ -112,6 +114,10 @@ Route::get('payment-successful','HomeController@payment_successful')->name('user
 
 Route::post('/tourBookingOrder','HomeController@tourBookingOrder')->name('user.tourBookingOrder');
 Route::get('tour-payment-successful','HomeController@tour_payment_successful')->name('user.tour_payment_successful');
+
+Route::post('/eventBookingOrder','HomeController@eventBookingOrder')->name('user.eventBookingOrder');
+Route::get('event-payment-successful','HomeController@event_payment_successful')->name('user.event_payment_successful');
+
 // Route::get('/two','HomeController@two')->name('user.two');
 // Route::get('/three','HomeController@three')->name('user.three');
 
@@ -119,6 +125,7 @@ Route::get('tour-payment-successful','HomeController@tour_payment_successful')->
 Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function () {
     Route::get('user/profile','HomeController@userProfile')->name('user.profile');
     Route::any('user/changePassword', 'HomeController@change_password');
+    Route::any('user/updatePassword', 'Home\UserController@update_password');
     Route::any('user/logout', 'HomeController@userLogout')->name('user.logout');
 
     // Route::get('user/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
@@ -127,12 +134,13 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     Route::any('user/bookingList', 'Home\BookingController@booking_list');	
     Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');	
     Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
-    // Route::any('user/bookingDetails', 'Home\BookingController@booking_details');	
+
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::get('user/bookingDetailCancelled/{id}', 'Home\BookingController@booking_canceled_detail');	
 
     Route::get('user/spaceBookingDetails/{id}', 'Home\BookingController@space_booking_detail');	
     Route::get('user/cancelledSpaceBooking/{id}', 'Home\BookingController@space_booking_canceled');	
+    
     Route::get('user/tourBookingDetails/{id}', 'Home\BookingController@tour_booking_detail');	
     Route::get('user/cancelledTourBooking/{id}', 'Home\BookingController@tour_booking_canceled');	
 });	
@@ -141,6 +149,22 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function () {
     Route::get('servicepro/dashboard','Vendor\VendorController@serviceProDashboard')->name('servicepro.dashboard');
     Route::any('servicepro/profile', 'HomeController@serviceProProfile'); 
+
+    Route::any('servicepro/hotel-reservation-list', 'Vendor\ReservationController@hotel_reservation');	
+    Route::any('servicepro/space-reservation-list', 'Vendor\ReservationController@space_reservation');	
+    Route::any('servicepro/tour-reservation-list', 'Vendor\ReservationController@tour_reservation');	
+
+    Route::get('servicepro/hotel-reservation-details/{id}', 'Vendor\ReservationController@hotel_reservation_detail');	
+    Route::get('servicepro/hotel-reservation-cancel-details/{id}', 'Vendor\ReservationController@hotel_reservation_canceled_detail');	
+
+    Route::get('servicepro/space-reservation-details/{id}', 'Vendor\ReservationController@space_reservation_detail');	
+    Route::get('servicepro/space-reservation-cancel-details/{id}', 'Vendor\ReservationController@space_reservation_canceled');	
+
+    Route::get('servicepro/tour-reservation-details/{id}', 'Vendor\ReservationController@tour_reservation_detail');	
+    Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');	
+
+
+    Route::any('servicepro/updatePassword', 'Home\UserController@update_password');
     Route::any('servicepro/logout', 'HomeController@serviceProLogout')->name('servicepro.logout');	 
     Route::get('servicepro/hotelList', 'Vendor\VendorController@hotel_list');
     Route::get('servicepro/viewHotel/{id}', 'Vendor\VendorController@view_hotel');
@@ -265,6 +289,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/roomlist', 'Admin\RoomController@room_list');
         Route::get('/addroom', 'Admin\RoomController@add_room');
         Route::get('/addroom/{id}', 'Admin\RoomController@add_room');
+        Route::post('/roomCustomPriceUpdate', 'Admin\RoomController@room_custom_price_update');
+        Route::get('/roomPriceCalendar/{id}', 'Admin\RoomController@room_price_calendar');
         Route::get('/addroomtest', 'Admin\RoomController@add_room_test');
         Route::any('/submitroom', 'Admin\RoomController@submit_room');
         Route::get('/changeRoomStatus', 'Admin\RoomController@change_room_status');
@@ -406,7 +432,6 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/spaceBookingDetails/{id}', 'Admin\SpaceController@booking_details');
         Route::get('/transactionHistory', 'Admin\BookingController@transaction_history');
         Route::get('/transactionHistoryView/{id}', 'Admin\BookingController@view_transaction_history');
-
         Route::get('/events_list', 'Admin\EventController@events_list');
         Route::get('/addEvent', 'Admin\EventController@addEvent');
         Route::post('/submitEvent', 'Admin\EventController@submitEvent');
@@ -415,14 +440,19 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/updateEvent', 'Admin\EventController@updateEvent');
         Route::any('/view-event/{id}', 'Admin\EventController@view_event');
         Route::post('/deleteEvent', 'Admin\EventController@delete_event');
+        Route::any('/deleteEventSingleImage', 'Admin\EventController@delete_event_single_image');
+        Route::any('/eventMileData', 'Admin\EventController@event_mile_data');
+
     });
 });
 
 
 Route::group(['prefix' => 'scout'], function(){
-    Route::group(['middleware' => 'scout.guest'], function(){ 
-        Route::get('/login', [ScoutUserController::class, 'login'])->name('scout.login');	
-        Route::post('/loginPost', [ScoutUserController::class, 'postLogin']);	
+    Route::group(['middleware' => 'scout.guest'], function(){ 	
+        // Route::get('/login', [Scout\ScoutUserController::class, 'login'])->name('scout.login');	
+        // Route::post('/loginPost', [Scout\ScoutUserController::class, 'postLogin']);	
+        Route::get('/login', 'Scout\ScoutUserController@login')->name('scout.login');	
+        Route::post('/loginPost', 'Scout\ScoutUserController@postLogin');
     });
     Route::group(['middleware' => 'scout.auth'], function(){
         Route::get('/dashboard','Scout\ScoutUserController@dashboard')->name('scout.dashboard');
@@ -431,6 +461,7 @@ Route::group(['prefix' => 'scout'], function(){
         Route::any('/logout', 'Scout\ScoutUserController@scoutLogout')->name('scout.logout');	
     });
 });
+
 
 /* start web services api */
 

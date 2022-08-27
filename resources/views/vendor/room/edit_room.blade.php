@@ -412,8 +412,10 @@
                         @csrf
 
                         <input type="hidden" name="hotel_name" id="hotel_name" value="{{$room_data->hotel_id}}">
-
+                        <input type="hidden" name="old_room_image" id="old_room_image" value="@if(!empty($room_data->id)){{ $room_data->image }}@endif" />
                         <input type="hidden" name="room_id" id="room_id" value="{{$room_data->id}}">
+
+                        <input type="hidden" name="old_room_type" id="old_room_type" value="{{$room_data->room_types_id}}">
 
                         <div class="row">
 
@@ -453,7 +455,7 @@
 
                               <label>Room type</label>
 
-                              <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;">
+                              <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;" disabled>
 
                                 <option value="">Select Hotel</option>
 
@@ -477,7 +479,7 @@
 
                               <label>Room name</label>
 
-                              <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}">
+                              <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
 
                             </div>
 
@@ -783,10 +785,16 @@
                               </p>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <div class="form-group">
                               <label>Size in ft2</label>
                               <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2." value="{{$room_data->room_size}}">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Number of Beds</label>
+                              <input type="text" class="form-control" name="num_of_beds" id="num_of_beds" value="{{$room_data->num_of_beds}}" placeholder="Enter Number of Beds">
                             </div>
                           </div>
 
@@ -914,7 +922,7 @@
                             <div class="form-group">
                               <div class="field" align="left">
                                 <label>Upload room featured images</label>
-                                <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" />
+                                <input type="file" id="roomFeaturedImg" name="roomFeaturedImg"  <?php if($room_data->image==='room_default_img.jpg'){echo 'required';} ?>/>
                               </div>
                             </div>
                           </div>

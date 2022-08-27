@@ -275,6 +275,22 @@
     // $("#breakfast_price_type_div").removeClass('d-none');
     $("#breakfast_cost_div").removeClass('d-none');
   });
+
+
+  $("#cancellation_mode1").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode2").click(function() {
+    $("#cancel_num_of_days_div").removeClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode3").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").removeClass('d-none');
+  });
 </script>
 <!-- <script>
   $('#step_btn9').click(function() {
@@ -521,12 +537,18 @@
     }
   });
 </script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
     var addAttrButton = $('.add_attraction_button');
     var attrWrapper = $('.field_wrapper_attraction');
-    var x = $('#attraction_count').val() - 1;
+    var attractionCount = $('#attraction_count').val();
+    if(attractionCount > 0){
+      var x = attractionCount - 1;
+    }else{
+      var x = attractionCount;
+    }
 
     $(addAttrButton).click(function() {
       if (x < maxField) {
@@ -547,7 +569,12 @@
     var maxField = 10;
     var addServButton = $('.add_service_button');
     var servWrapper = $('.field_wrapper_service');
-    var x = $('#serv_fee_count').val() - 1;
+    var servFeeCount = $('#serv_fee_count').val();
+    if(servFeeCount > 0){
+      var x = servFeeCount - 1;
+    }else{
+      var x = servFeeCount;
+    }
 
     $(addServButton).click(function() {
       if (x < maxField) {
@@ -569,7 +596,12 @@
     var maxField = 10;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
-    var x = $('#extra_option_count').val() - 1;
+    var extraOptionCount = $('#extra_option_count').val();
+    if(extraOptionCount > 0){
+      var x = extraOptionCount - 1;
+    }else{
+      var x = extraOptionCount;
+    }
 
     $(addButton).click(function() {
       if (x < maxField) {
@@ -1051,6 +1083,100 @@
                         </div>
                       </div>
                     </div>
+                    <!-- cancellation & policy start here -->
+
+                    <div class="col-md-12">
+                      <div class="tab-custom-content">
+                        <p class="lead mb-0">
+                        <h4>Cancellation and Refund</h4>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label>Cancellation and Refund</label>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <div class="custom-control custom-radio">
+                              <input class="custom-control-input" type="radio" id="cancellation_mode1" name="cancellation_mode" value="0" @php if($hotel_info->cancellation_mode == 0){echo 'checked';} @endphp>
+                              <label for="cancellation_mode1" class="custom-control-label">Free cancellation</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <div class="custom-control custom-radio">
+                              <input class="custom-control-input" type="radio" id="cancellation_mode2" name="cancellation_mode" value="1" @php if($hotel_info->cancellation_mode == 1){echo 'checked';} @endphp>
+                              <label for="cancellation_mode2" class="custom-control-label">value (no. of day)</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <div class="custom-control custom-radio">
+                              <input class="custom-control-input" type="radio" id="cancellation_mode3" name="cancellation_mode" value="2" @php if($hotel_info->cancellation_mode == 2){echo 'checked';} @endphp>
+                              <label for="cancellation_mode3" class="custom-control-label">Cancellation time period</label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 <? if ($hotel_info->cancellation_mode != 1) {
+                                                echo 'd-none';
+                                              } ?>" id="cancel_num_of_days_div">
+                          <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-sm-5">
+                              <div class="form-group">
+                                <label>No. of Days</label>
+                                <input type="text" class="form-control" name="cancel_num_of_days" id="cancel_num_of_days" value="{{(!empty($hotel_info->num_of_days_cancellation) ? $hotel_info->num_of_days_cancellation : '')}}" placeholder="no. of days">
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 <? if ($hotel_info->cancellation_mode != 2) {
+                                                echo 'd-none';
+                                              } ?>" id="cancel_time_period_div">
+                          <div class="row">
+                            <div class="col-sm-8">
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="row">
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="cancel_time_period1" name="cancel_time_period" value="1" @php if($hotel_info->cancel_time_period == 1){echo 'checked';} @endphp>
+                                      <label for="cancel_time_period1" class="custom-control-label">24hrs</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="cancel_time_period2" name="cancel_time_period" value="2" @php if($hotel_info->cancel_time_period == 2){echo 'checked';} @endphp>
+                                      <label for="cancel_time_period2" class="custom-control-label">48hrs</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                      <input class="custom-control-input" type="radio" id="cancel_time_period3" name="cancel_time_period" value="3" @php if($hotel_info->cancel_time_period == 3){echo 'checked';} @endphp>
+                                      <label for="cancel_time_period3" class="custom-control-label">7 days</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- cancellation & policy end here -->
 
                     <div class="col-md-12">
                       <div class="tab-custom-content">
@@ -1119,54 +1245,54 @@
                     <div class="col-md-12 field_wrapper_attraction">
                       <div class="form-group" id="attraction">
                         <label>Attractions Details</label>
-                        
-                          @if(count($hotel_attraction) > 0)
 
-                          @foreach ($hotel_attraction as $key=>$value)
-                          <div class="col-md-12">
-                            <div class="row">
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" />
-                              </div>
-                              @if($key == 0)
-                              <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
-                              @else
-                              <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field">Remove</a></span>
-                              @endif
+                        @if(count($hotel_attraction) > 0)
+
+                        @foreach ($hotel_attraction as $key=>$value)
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" />
                             </div>
-                          </div>
-
-                          @endforeach
-
-                          @else
-                          <div class="col-md-12">
-                            <div class="row">
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
-                              </div>
-                              <div class="col-md-5 form-group">
-                                <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" />
-                              </div>
-                              <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" />
                             </div>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" />
+                            </div>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" />
+                            </div>
+                            @if($key == 0)
+                            <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                            @else
+                            <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field">Remove</a></span>
+                            @endif
                           </div>
+                        </div>
 
-                          @endif
+                        @endforeach
+
+                        @else
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
+                            </div>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
+                            </div>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
+                            </div>
+                            <div class="col-md-5 form-group">
+                              <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" />
+                            </div>
+                            <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                          </div>
+                        </div>
+
+                        @endif
                       </div>
                     </div>
 

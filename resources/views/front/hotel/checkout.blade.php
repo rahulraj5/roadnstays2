@@ -15,7 +15,7 @@
          <div class="col-md-9">
             <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingRoomOrder')}}">
             @csrf
-            <?php $total_amount =  ($booking_days*$room_data->price_per_night)+$room_data->cleaning_fee+$room_data->city_fee+$room_data->tax_percentage; ?>
+            <?php $total_amount =  ($total_room_num*($booking_days*$room_data->price_per_night))+$total_room_num*($room_data->cleaning_fee)+$total_room_num*($room_data->city_fee)+$total_room_num*($room_data->tax_percentage); ?>
 
             <input type="hidden" name="user_id" value="{{Auth::check()}}">
             <input type="hidden" name="hotel_id" value="{{$hotel_data->hotel_id}}">
@@ -26,8 +26,8 @@
             <input type="hidden" name="city_fee" value="{{$room_data->city_fee}}">
             <input type="hidden" name="tax_percentage" value="{{$room_data->tax_percentage}}">
             <input type="hidden" name="total_days" value="{{$booking_days}}">
-            <input type="hidden" name="total_room" value="1">
-            <input type="hidden" name="total_member" value="2">
+            <input type="hidden" name="total_room" value="{{ $total_room_num }}">
+            <input type="hidden" name="total_member" value="{{ $person }}">
             <input type="hidden" name="total_amount" value="{{$total_amount}}">
             <div class="infobox">
                <div class="revie-box">
@@ -56,11 +56,12 @@
                      <small>{{$end_day}}</small>
                   </div>
                   <div class="date2">
-                     <h6>	2 Adults | 1 Room</h6>
+                     <!-- <h6>	2 Adults | 1 Room</h6> -->
+                     <h6>	{{$person}} Person | {{$total_room_num}} Room</h6>
                   </div>
                </div>
                <div class="room-praci">
-                  <h5>{{$room_data->name}} ({{$room_data->room_type}})<br><small>2 Adults</small></h5>
+                  <h5>{{$room_data->name}} ({{$room_data->room_type}})<br><small>{{$person}} Person</small></h5>
                   <div class="">
                      <h5 class="mt-3">Price Includes </h5>
                      <ul>
@@ -84,7 +85,7 @@
                   <div class="col-md-12 p-0 mt-3">
                      <div class="bankpay">
                         <h4 class="mt-2">
-                           <i class='bx bxs-user-badge'></i><b> Room 1:</b>  2 Adults {{$room_data->bed_type}}
+                           <i class='bx bxs-user-badge'></i><b> Room {{$total_room_num}}:</b> {{$person}} Person {{$room_data->bed_type}}
                         </h4>
                         <ul class="brekfasr">
                            @foreach($room_amenities as $amenities)
@@ -144,8 +145,7 @@
                               <div id="home" class="container tab-pane active">
                                  <br>
                                  <img src="{{url('resources/assets/img/banke.png')}}" class="mb-3 " style="">
-                                 <!-- <form id="member-registration" method="post" class="form-validate form-horizontal well" >
-                                 -->    
+                                 <!-- <form id="member-registration" method="post" class="form-validate form-horizontal well" > -->    
                                  <!-- <fieldset>
                                        <div class="form-group">
                                           <label for="exampleInputPassword1">Name on Card*</label>
@@ -237,30 +237,30 @@
                   <h4>PRICE BREAK-UP</h4>
                </div>
                <div class="price-left">
-                  <h5> 1 Room x {{$booking_days}} Night<br> <small> Base Price {{$room_data->price_per_night}} Per Night</small></h5>
-                  <h6>PKR <?php echo $booking_days*$room_data->price_per_night;?> </h6>
+                  <h5> {{$total_room_num}} Room x {{$booking_days}} Night<br> <small> Base Price {{$room_data->price_per_night}} Per Night</small></h5>
+                  <h6>PKR <?php echo $total_room_num*($booking_days*$room_data->price_per_night);?> </h6>
                </div>
                @if($room_data->cleaning_fee > 0)
                <div class="price-left">
                   <h5> Clening Charge</h5>
-                  <h6>PKR {{$room_data->cleaning_fee}} </h6>
+                  <h6>PKR {{$total_room_num*$room_data->cleaning_fee}} </h6>
                </div>
                @endif
                @if($room_data->city_fee > 0)
                <div class="price-left">
                   <h5> City Charge</h5>
-                  <h6>PKR {{$room_data->city_fee}}</h6>
+                  <h6>PKR {{$total_room_num*$room_data->city_fee}}</h6>
                </div>
                @endif
                @if($room_data->tax_percentage > 0)
                <div class="price-left">
                   <h5> Taxes & Service Fees</h5>
-                  <h6>PKR {{$room_data->tax_percentage}}</h6>
+                  <h6>PKR {{$total_room_num*$room_data->tax_percentage}}</h6>
                </div>
                @endif
                <div class="price-left">
                   <h5> <b>Total Amount to be paid </b></h5>
-                  <h6><b>PKR <?php echo ($booking_days*$room_data->price_per_night)+$room_data->cleaning_fee+$room_data->city_fee+$room_data->tax_percentage; ?></b></h6>
+                  <h6><b>PKR <?php echo ($total_room_num*($booking_days*$room_data->price_per_night))+$total_room_num*($room_data->cleaning_fee)+$total_room_num*($room_data->city_fee)+$total_room_num*($room_data->tax_percentage); ?></b></h6>
                </div>
             </div>
          </div>

@@ -363,6 +363,8 @@
             <input type="hidden" name="hotel_name" id="hotel_id" value="{{$room_data->hotel_id}}">
             <input type="hidden" name="old_room_image" id="old_room_image" value="@if(!empty($room_data->hotel_id)){{ $room_data->image }}@endif" />
             <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($room_extra_option) }}">
+
+            <input type="hidden" name="old_room_type" id="old_room_type" value="{{$room_data->room_types_id}}">
             <div class="row">
 
               <!-- <div class="col-md-6">
@@ -731,13 +733,18 @@
                   </p>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Size in ft2</label>
                   <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2." value="{{$room_data->room_size}}">
                 </div>
               </div>
-
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Number of Beds</label>
+                  <input type="text" class="form-control" name="num_of_beds" id="num_of_beds" value="{{$room_data->num_of_beds}}" placeholder="Enter Number of Beds">
+                </div>
+              </div>
 
 
               <div class="col-md-6">
@@ -848,7 +855,7 @@
                 <div class="form-group">
                   <div class="field" align="left">
                     <label>Upload room featured images</label>
-                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" />
+                    <input type="file" id="roomFeaturedImg" name="roomFeaturedImg" <?php if($room_data->image==='room_default_img.jpg'){echo 'required';} ?>/>
                   </div>
                 </div>
               </div>

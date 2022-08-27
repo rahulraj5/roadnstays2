@@ -1,6 +1,10 @@
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
+<style>
+
+</style>
+
 @endsection
 @section('current_page_js')
 <script>
@@ -67,7 +71,7 @@
          autoUpdateInput: true,
          minDate: today,
          locale: {
-               format: 'DD-MM-YYYY'
+            format: 'DD-MM-YYYY'
          },
          "opens": "center",
          "drops": "auto"
@@ -91,7 +95,7 @@
          autoUpdateInput: true,
          minDate: today,
          locale: {
-               format: 'DD-MM-YYYY'
+            format: 'DD-MM-YYYY'
          },
          "opens": "center",
          "drops": "auto"
@@ -110,7 +114,7 @@
          autoUpdateInput: true,
          minDate: today,
          locale: {
-               format: 'DD-MM-YYYY'
+            format: 'DD-MM-YYYY'
          },
          "opens": "center",
          "drops": "auto"
@@ -275,6 +279,31 @@
       });
    });
 </script>
+
+<script>
+   $(document).ready(function() {
+      $('.minus').click(function() {
+         var $input = $(this).parent().find('input');
+         var count = parseInt($input.val()) - 1;
+         count = count < 1 ? 1 : count;
+         $input.val(count);
+         $("#guest_number").val(count);
+         $("#btnGuestNumber").html(count+" Person");
+         $input.change();
+         return false;
+      });
+      $('.plus').click(function() {
+         var $input = $(this).parent().find('input');
+         $input.val(parseInt($input.val()) + 1);
+         $("#guest_number").val(parseInt($("#guest_number").val()) + 1);
+         var count = $("#guest_number").val();
+         $("#btnGuestNumber").html(count.toString()+" Person");
+         $input.change();
+         return false;
+      });
+   });
+</script>
+
 @endsection
 @section('content')
 <!-- slider -->
@@ -359,16 +388,54 @@
                                        <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>">
                                     </div>
                                     <div class="col-md-4 filter_01 pr-0 guest-no">
-                                       <p>Person</p>
-                                       <select class="h-siz" name="person">
-                                          <option>1 Person</option>
-                                          <option>2 Person</option>
-                                          <option>3 Person</option>
-                                          <option>Couple</option>
-                                          <option>Family</option>
-                                          <option>Other</option>
+                                       <p>Add Guest</p>
+                                       <div class="dropdown">
+                                          <button class="btn dropdown-toggle" id="btnGuestNumber" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                             <?php if(!empty($person)){ echo $person ;}else{ echo "1";} ?> Person
+                                          </button>
+                                          <input type="hidden" id="guest_number" name="person" value="1">
+                                          <ul class="dropdown-menu">
+                                             <li><a class="dropdown-item" href="#"><span>Adult(12+ Years)</span>
+                                                   <div class="number">
+                                                      <button class="minus" data-quantity="minus" data-field="quantity">-</button>
+                                                      <input type="text" value="1" />
+                                                      <button class="plus" data-quantity="plus" data-field="quantity">+</button>
+                                                   </div>
+                                                </a>
+                                             </li>
+                                             <!-- <li><a class="dropdown-item" href="#"><span>Child(0-12 Years)</span>
+                                                   <div class="number">
+                                                      <span class="minus">-</span>
+                                                      <input type="text" value="1" />
+                                                      <span class="plus">+</span>
+                                                   </div>
+                                                </a>
+                                             </li> -->
+                                          </ul>
+                                       </div>
 
-                                       </select>
+                                       <!-- <div class="dropdown show">
+                                          <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             People, Guest No.
+                                          </a>
+
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                             <a class="dropdown-item" href="#">
+                                                Adult
+                                                <div class="number">
+                                             <span class="minus">-</span>
+                                             <input type="text" value="1"/>
+                                             <span class="plus">+</span>
+                                          </div></a>
+                                          <a class="dropdown-item" href="#">
+                                             Child <div class="number">
+                                             <span class="minus">-</span>
+                                             <input type="text" value="1"/>
+                                             <span class="plus">+</span>
+                                          </div></a>
+                                             
+                                          </div>
+                                       </div> -->
 
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0">
@@ -1045,5 +1112,7 @@
       </div>
    </section>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 <!-- End #main -->
 @endsection

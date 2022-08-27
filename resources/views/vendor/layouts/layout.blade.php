@@ -6,6 +6,7 @@
    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
    <title>Road n stays</title>
+   <link rel="shortcut icon" href="{{url('/')}}/public/img/favicon-icin.png" type="image/x-icon">
    <meta content="" name="description">
    <meta content="" name="keywords">
    <!-- CSRF Token -->

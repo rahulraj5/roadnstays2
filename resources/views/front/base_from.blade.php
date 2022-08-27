@@ -1,10 +1,39 @@
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
 @endsection
 
 @section('current_page_js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+   const phoneInputField = document.querySelector("#phone");
+   const phoneInput = window.intlTelInput(phoneInputField, {
+        preferredCountries: ["us", "pk", "in", "de"],
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    })
+
+    function getIp(callback) {
+        fetch('https://ipinfo.io/json?token=a1bc0bab615274', { headers: { 'Accept': 'application/json' }})
+        .then((resp) => resp.json())
+        .catch(() => {
+            return {
+            country: 'us',
+            };
+        }).then((resp) => callback(resp.country));
+    }
+
+    const info = document.querySelector(".alert-info");
+    function process(event) {
+        event.preventDefault();
+        const phoneNumber = phoneInput.getNumber();
+        info.style.display = "";
+        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+    }    
+ </script>
 <script>
     // $('input[name="dates"]').daterangepicker();
 </script>
@@ -56,14 +85,22 @@
 
                 </div>
                 <!-- /.col (right) -->
+
+                <div class="col-md-6">
+                    
+                </div>
             </div>
-
-            
-
-            
 
         </div>
         <!-- /.container-fluid -->
+        <div class="container">
+            <form id="login" onsubmit="process(event)">
+                <p>Enter your phone number:</p>
+                <input id="phone" type="tel" name="phone" />
+                <input type="submit" class="btn" value="Verify" />
+            </form>
+            <div class="alert alert-info" style="display: none;"></div>
+        </div>
     </section>
     <!-- /.content -->
 

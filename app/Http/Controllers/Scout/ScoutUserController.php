@@ -29,13 +29,14 @@ class ScoutUserController extends Controller
 
     public function postLogin(Request $request)
     {
+        // echo "<pre>";print_r($request->all());die;
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
         // echo "<pre>";print_r((Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])));die;
         
-        if(Auth::guard('users')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
+        if(Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
             // echo "<pre>";print_r('inside');die;
             // $userName = Auth::guard('scout')->user()->name;
             // echo "<pre>";print_r($userName);die;
@@ -53,7 +54,11 @@ class ScoutUserController extends Controller
 
     public function dashboard()
     {
-        return view('scout.dashboard');
+        // echo Auth::user_type();
+        // echo Auth::first_name();
+        // echo Auth::user()->id;
+        $data['page_heading_name'] = 'Dashboard';
+        return view('scout.dashboard')->with($data);
 
         // if(Auth::check()){
         //     return view('admin.dashboard');
@@ -64,10 +69,11 @@ class ScoutUserController extends Controller
 
     public function profile(Request $request)
     {
+        $scout_id = Auth::user()->id;
         // dd($request->all());
         if(!empty($request->id))
         {
-            $updata = DB::table('users')->where('id', $request->id)->update(['name' => $request->name]);
+            $updata = DB::table('users')->where('id', $request->id)->update(['first_name' => $request->first_name, 'last_name' => $request->last_name]);
             if(!empty($updata))
             {
                 return response()->json(['status' => 'success', 'msg' => 'Profile Updated Successfully']);
@@ -76,21 +82,22 @@ class ScoutUserController extends Controller
             }
         }
 
-        $data['profile_detail'] = DB::table('Scout')->get();
+        $data['profile_detail'] = DB::table('users')->where('id',$scout_id)->get();
         // echo "<pre>";print_r($profile_detail);die;
         return view('scout/profile')->with($data);
     }
 
     public function change_password(Request $request)
     {
+        $user_id = Auth::user()->id;
         // dd($request->all());
         // echo "<pre>";print_r(Auth::user());die;
         $data = $request->all(); 
         
-        $user_obj = Scout::where('id', '=', 1)->first();
+        $user_obj = DB::table('users')->where('id', $user_id)->first();
         if(!empty($data)){
               
-            if (!empty($user_obj->id) and $user_obj->id == 1) {
+            if (!empty($user_obj)) {
                 // echo "<pre>";print_r($data);
                 // echo "<pre>";print_r($user_obj);
                 // $check_pwd = Hash::make($data['old_password']);
@@ -103,7 +110,7 @@ class ScoutUserController extends Controller
                     $user_id = $user_obj->id;
                     $password = bcrypt($request->input('new_password'));
                     // echo "<pre>";print_r($request->input('new_password'));die; 
-                    $checkda = DB::update('update users set password = ? where id = 1',[$password]);
+                    $checkda = DB::update('update users set password = ? where id = 0',[$password]);
                     if($checkda){
                         // echo "<pre>";print_r($checkda);die;
                     }else{

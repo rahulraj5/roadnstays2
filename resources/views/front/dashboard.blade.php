@@ -89,7 +89,9 @@
             success: function(response) {
 
                 success_noti(response.msg);
-                setTimeout(function(){window.location.reload()},1000);
+                setTimeout(function() {
+                    window.location.reload()
+                }, 1000);
 
             }
 
@@ -97,12 +99,59 @@
 
     });
 </script>
+<script>
+    $("#passwordUpdate_form").validate({
+        debug: false,
+        rules: {
+            old_password: {
+                required: true
+            },
+            user_password: {
+                required: true
+            },
+            user_confirm_password: {
+                required: true,
+                equalTo: "#user_password"
+            }
+        },
 
+        submitHandler: function(form) {
+            var site_url = $("#baseUrl").val();
+            // alert(site_url);
+            var formData = $(form).serialize();
+            $(form).ajaxSubmit({
+                type: 'POST',
+                url: "{{ url('/user/updatePassword') }}",
+                data: formData,
+                success: function(response) {
+                    if (response.status == 'success') {
+                        success_noti(response.msg);
+                        // setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 1000);
+                    } else {
+                        error_noti(response.msg);
+                    }
+                }
+            });
+            // event.preventDefault();
+        }
+    });
+</script>
 <script>
     $(function() {
         //Initialize Select2 Elements
         $('.select2bs4').select2({
             theme: 'bootstrap4'
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() {
+            $(".panela").slideToggle("slow");
         });
     });
 </script>
@@ -116,8 +165,6 @@
 
 
 <main id="main">
-
-
 
     <section class="user-section" style="padding-top: 100px; background-color: #f6f6f6;">
 
@@ -136,8 +183,6 @@
                                 <div class="avatar-edit">
 
                                     <form method="post" id="form-image" enctype="multipart/form-data">
-
-
 
                                         <input type='file' name="imageUpload" id="imageUpload" accept=".png, .jpg, .jpeg" />
 
@@ -164,17 +209,57 @@
                             </div>
 
                         </div>
+                        <style type="text/css">
+                            div.panela,
+                            li.flip {
+                                margin: 0px;
+                                padding: 5px;
+                                text-align: center;
+                                background: #ffffff;
+                                border: solid 1px #fff;
+                            }
 
+                            div.panela {
+                                width: 100%;
+                                min-height: 147px;
+                                display: none;
+                                background: #f8f8f8;
+                            }
+
+                            .user-bar ul {
+                                list-style: none;
+                                padding: 3px 5px;
+                                line-height: 33px;
+                            }
+
+                            .flip span {
+                                margin-right: 13px;
+                            }
+                        </style>
                         <h2 class="usern"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2>
 
                         <ul>
 
-                            <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user'></i> <span> Profile </span></a> </li>
+                            <!-- <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user'></i> <span> Profile </span></a> </li> -->
+                            <li class="flip"><a href="#"><i class='bx bxs-buildings'></i> <span> My Booking </span> <i class='bx bx-chevron-down'></i></a>
+                            </li>
+                            <div class="panela">
+
+                                <ul>
+                                    <li><a href="{{ url('user/bookingList') }}"><i class='bx bxs-buildings'></i> <span> Hotel Booking </span><!--  <i class='bx bx-chevron-down'></i> --></a>
+                                    </li>
+
+                                    <li><a href="{{ url('/user/spaceBookingList') }}"><i class='bx bxs-city'></i> <span> Space Booking </span></a> </li>
+                                    <li><a href="{{ url('/user/tourBookingList') }}"><i class='bx bxs-car'></i> <span> Tour Booking </span></a> </li>
+                                    
+
+                                </ul>
+
+                            </div>
 
                             <li><a class="modal-btn2" data-toggle="modal" data-target="#exampleModal2"><i class='bx bxs-detail'></i><span> Change Password </span>
-</a> </li>
-
-                            <!-- <li><a href="{{ url('/user/bookingList') }}"><i class='bx bx-copy-alt'></i><span> Booking </span></a> </li> -->
+                                        </a></li>
+                            <!-- <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user-circle'></i><span> Profile </span></a> </li> -->
 
 
 
@@ -196,13 +281,7 @@
 
                         </ul>
 
-
-
-
-
                     </div>
-
-
 
                 </div>
 
@@ -218,13 +297,9 @@
 
                                 <p> Basic info, for a faster booking experience</p>
 
-
-
                             </div> <a href="" data-toggle="modal" data-target="#profileModal-edit"><button type="button" class="prifle"> <i class='bx bx-edit-alt'></i> Edit</button></a>
 
                         </div>
-
-
 
                         <!-- <div class="row">
 
@@ -427,12 +502,12 @@
 
                                             <!-- <option value="{{ $cont->id }}">{{ $cont->name }}</option> -->
                                             <option value="<?php echo $cont->id; ?>" <?php if (Auth::user()->user_country == $cont->id) {
-                                                                                                echo "selected";
-                                                                                                } ?>><?php echo $cont->name; ?></option>
+                                                                                            echo "selected";
+                                                                                        } ?>><?php echo $cont->name; ?></option>
 
                                             @endforeach
 
-                                        
+
                                         </select>
 
                                     </div>
@@ -491,54 +566,52 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content change-pass">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create A new password</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="avatar-preview">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content change-pass">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create A new password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="passwordUpdate_form">
+                    @csrf
 
-                                    
-<div id="imagePreview" style="background-image: url('https://votivetechnologies.in/roadNstays/public/uploads/profile_img/13-i-day-15-1502781235_1632378217-1657519719.jpg');"></div>
+                    <!-- <input type="hidden" name="_token" value="1pp13z0pvKhtVVuN6gWA1ChPiW2AlXZc4huAtObU"> -->
 
+                    <div class="form-group">
 
-</div>
-<form id="passwordUpdate_form" method="POST" novalidate="novalidate">
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="{{ Auth::user()->email }}" placeholder="Email Address" readonly="">
 
-                                    <input type="hidden" name="_token" value="1pp13z0pvKhtVVuN6gWA1ChPiW2AlXZc4huAtObU">
+                    </div>
 
-                                    <div class="form-group">
+                    <div class="form-group">
 
-                                        <input type="email" class="form-control" name="puemail" id="puemail" value="pushpendrajha88@gmail.com" placeholder="Email Address" readonly="">
+                        <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Old Password">
 
-                                    </div>
+                    </div>
 
-                                    
+                    <div class="form-group">
 
-                                     <div class="form-group">
+                        <input type="password" class="form-control" name="user_password" id="user_password" placeholder="Current Password">
 
-                                        <input type="password" class="form-control" name="pupassword" id="pupassword" placeholder="Password">
+                    </div>
 
-                                    </div>
+                    <div class="form-group">
 
-                                    <div class="form-group">
+                        <input type="password" class="form-control" name="user_confirm_password" id="user_confirm_password" placeholder="Confirm password">
 
-                                        <input type="password" class="form-control" name="puconfirm_password" id="puconfirm_password" placeholder="Confirm password">
+                    </div>
 
-                                    </div> 
+                    <button type="submit" class="btn btn-primary">Update</button>
 
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
 
-                                </form>
-        
-      </div>
-      
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
 

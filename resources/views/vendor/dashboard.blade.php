@@ -58,24 +58,11 @@
                                 <div class="rating-das">
                                     <div class="Budget">
                                         <div class="rt">
-                                            <p class="p-0">Total Booking</p>
-                                            <h3>{{ $total_booking}} <small> Since last month</small></h3>
+                                            <p class="p-0">Total Hotel </p>
+                                            <h3>{{ $total_hotel}} <small> Since last month</small> </h3>
                                         </div>
                                         <div class="icon-vb">
-                                            <i class='bx bx-book-content'></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="rating-das">
-                                    <div class="Budget">
-                                        <div class="rt">
-                                            <p class="p-0">Total Tour</p>
-                                            <h3>{{ $total_tour}} <small> Since last month</small></h3>
-                                        </div>
-                                        <div class="icon-vb">
-                                            <i class='bx bxs-car'></i>
+                                            <i class='bx bx-buildings'></i>
                                         </div>
                                     </div>
                                 </div>
@@ -97,17 +84,30 @@
                                 <div class="rating-das">
                                     <div class="Budget">
                                         <div class="rt">
-                                            <p class="p-0">Total Hotel </p>
-                                            <h3>{{ $total_hotel}} <small> Since last month</small> </h3>
+                                            <p class="p-0">Total Tour</p>
+                                            <h3>{{ $total_tour}} <small> Since last month</small></h3>
                                         </div>
                                         <div class="icon-vb">
-                                            <i class='bx bx-buildings'></i>
+                                            <i class='bx bxs-car'></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="rating-das">
+                                    <div class="Budget">
+                                        <div class="rt">
+                                            <p class="p-0">Total Event</p>
+                                            <h3>{{ $total_event}} <small> Since last month</small></h3>
+                                        </div>
+                                        <div class="icon-vb">
+                                            <i class='bx bx-book-content'></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-striped mt-3">
+                                <!-- <table class="table table-bordered table-striped mt-3">
                                     <thead>
                                         <tr>
                                             <th>Firstname</th>
@@ -132,7 +132,8 @@
                                             <td>july@example.com</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
+
                             </div>
                         </div>
                     </div>

@@ -54,8 +54,12 @@ $("#adminLogin_form").validate({
   },
   submitHandler: function (form) {
     var site_url = $("#baseUrl").val();
-    // alert(site_url);
-    var formData = $(form).serialize();
+    var formData = $(form).serialize(); 
+    $.ajaxSetup({ 
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $(form).ajaxSubmit({
       type: 'POST',
       url: site_url + '/admin/loginPost',
@@ -408,12 +412,12 @@ $("#servProAdmin_form").validate({
       required: true,
       email:true,
     },
-    contact_number: {
-      required: true,
-      number:true,
-      // minlength: 10,
-      // maxlength: 10,
-    },
+    // contact_number: {
+    //   required: true,
+    //   number:true,
+    //   // minlength: 10,
+    //   // maxlength: 10,
+    // },
     password: {
         required: true
     },

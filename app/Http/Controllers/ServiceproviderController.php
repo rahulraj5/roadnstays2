@@ -32,6 +32,7 @@ class ServiceproviderController extends Controller
 
     public function submit_serv_provider(Request $request)
     {
+        // echo "<pre>";print_r($request->all());die;
         $fname = $request->fname;
         $lname = $request->lname;
         $email = $request->email;
@@ -70,6 +71,8 @@ class ServiceproviderController extends Controller
             $obj->user_country = $user_country;
             $obj->user_city = $user_city;
             $obj->address = $address;
+            $obj->num_dialcode_1 = $request->country_dialcode;
+            $obj->country_iso2_code1 = $request->countryCode;
             $obj->contact_number = $contact_number;
             $obj->password = bcrypt($password);
             $obj->role_id = 4;
@@ -78,9 +81,110 @@ class ServiceproviderController extends Controller
             $obj->wallet_balance = 0;
             $obj->register_by = 'web';
             $obj->vrfn_code = $vrfn_code;
+
+            $obj->landline_number = $request->landline_number;
+            $obj->about_me = $request->about_me;
+            $obj->i_speak = $request->i_speak;
+            $obj->payment_info = $request->payment_info;
+
+            $obj->tour_op_img = $request->tour_operator_img;
+            $obj->tour_op_id_front_img = $request->tour_operator_id_front_img;
+            $obj->tour_op_id_back_img = $request->tour_operator_id_back_img;
+            $obj->tour_op_id_number = $request->tour_operator_id_number;
+
+            $obj->tour_op_name = $request->tour_operator_name;
+            $obj->tour_op_contact_name = $request->tour_operator_contact_name;
+
+            $obj->num_dialcode_2 = $request->country_dialcode1;
+            $obj->country_iso2_code2 = $request->countryCode1;
+            $obj->tour_op_contact_num = $request->tour_operator_contact_num;
+            $obj->tour_op_email = $request->tour_operator_email;
+
+            $obj->num_dialcode_3 = $request->country_dialcode2;
+            $obj->country_iso2_code3 = $request->countryCode2;
+            $obj->tour_op_booking_num = $request->tour_operator_booking_num;
+
+            $obj->tour_office_address = $request->tour_office_address;
+            $obj->tour_op_instagram = $request->tour_operator_instagram;
+            $obj->tour_op_facebook = $request->tour_operator_facebook;
+            $obj->tour_op_web_add = $request->tour_operator_web_add;
+            $obj->tour_op_tiktok = $request->tour_operator_tiktok;
+            $obj->tour_op_youtube = $request->tour_operator_youtube;
+            $obj->tour_op_bank_name = $request->tour_operator_bank_name;
+            $obj->tour_op_account_title = $request->tour_operator_account_title;
+            $obj->tour_op_account_num = $request->tour_operator_account_num;
+            $obj->tour_op_branch = $request->tour_operator_branch;
+            $obj->tour_op_easypaisa_num = $request->tour_operator_easypaisa_num;
+            $obj->tour_op_easypaisa_name = $request->tour_operator_easypaisa_name;
+            $obj->tour_op_jazzcash_num = $request->tour_operator_jazzcash_num;
+            $obj->tour_op_jazzcash_name = $request->tour_operator_jazzcash_name;
+            $obj->tour_op_notes = $request->tour_operator_notes;
+            // $obj->tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
+            if(!empty($request->contract_date)){
+                $tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
+            }else{
+                $tour_contract_date = NULL;
+            }
+            $obj->tour_contract_date = $tour_contract_date;
+            $obj->tour_contract_terms = $request->tour_operator_terms;
+
             $obj->status = 1;
             $obj->created_at = date('Y-m-d H:i:s');
             $obj->updated_at = date('Y-m-d H:i:s');
+
+            // 1. Document upload
+            if ($request->hasFile('tour_operator_document')) {
+                $image_nam2 = $request->file('tour_operator_document')->getClientOriginalName();
+                $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+                $image_ex2 = $request->file('tour_operator_document')->getClientOriginalExtension();
+                $tour_operator_document = $filenam2 . '-' . time() . '.' . $image_ex2;
+                $pat2 = base_path() . '/public/uploads/vendor_document';
+                $request->file('tour_operator_document')->move($pat2, $tour_operator_document);
+            } else {
+                $tour_operator_document = '';
+            }
+            $obj->tour_op_document = $tour_operator_document;
+
+            // 2. image upload
+            if ($request->hasFile('tour_operator_img')) {
+                $image_nam2 = $request->file('tour_operator_img')->getClientOriginalName();
+                $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+                $image_ex2 = $request->file('tour_operator_img')->getClientOriginalExtension();
+                $tour_operator_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+                $pat2 = base_path() . '/public/uploads/vendor_document/img';
+                $request->file('tour_operator_img')->move($pat2, $tour_operator_img);
+            } else {
+                $tour_operator_img = '';
+            }
+            $obj->tour_op_img = $tour_operator_img;
+
+            // 3. id front image upload
+            if ($request->hasFile('tour_operator_id_front_img')) {
+                if(!empty($request->old_id_front_img))
+                $image_nam2 = $request->file('tour_operator_id_front_img')->getClientOriginalName();
+                $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+                $image_ex2 = $request->file('tour_operator_id_front_img')->getClientOriginalExtension();
+                $tour_operator_id_front_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+                $pat2 = base_path() . '/public/uploads/vendor_document/img';
+                $request->file('tour_operator_id_front_img')->move($pat2, $tour_operator_id_front_img);
+            } else {
+                $tour_operator_id_front_img = '';
+            }
+            $obj->tour_op_id_front_img = $tour_operator_id_front_img;
+
+            // 4. id back image upload
+            if ($request->hasFile('tour_operator_id_back_img')) {
+                $image_nam2 = $request->file('tour_operator_id_back_img')->getClientOriginalName();
+                $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+                $image_ex2 = $request->file('tour_operator_id_back_img')->getClientOriginalExtension();
+                $tour_operator_id_back_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+                $pat2 = base_path() . '/public/uploads/vendor_document/img';
+                $request->file('tour_operator_id_back_img')->move($pat2, $tour_operator_id_back_img);
+            } else {
+                $tour_operator_id_back_img = '';
+            }
+            $obj->tour_op_id_back_img = $tour_operator_id_back_img;
+
             $res = $obj->save();
 
             if ($res) {
@@ -103,7 +207,11 @@ class ServiceproviderController extends Controller
     public function edit_serv_provider(Request $request){
     	// $user_id = base64_decode($request->id);
     	$user_id = $request->id;
-    	$data['user_info'] = User::find($user_id);
+    	// $data['user_info'] = User::find($user_id)->join('vendor_profile', 'user.id', 'vendor_profile.user_id');
+    	$data['user_info'] = DB::table('users')->where('id', $user_id)
+                                    ->join('vendor_profile', 'users.id', 'vendor_profile.user_id')
+                                    ->first();
+        // echo "<pre>";print_r($data['user_info']);die;                                    
         $countries = DB::select('select * from country');
     	return view('admin/servicepro/edit_servicepro',["countries"=>$countries])->with($data) ;
     }
@@ -121,7 +229,6 @@ class ServiceproviderController extends Controller
     	$contact_number = $request->input('contact_numberup') ;
 
     	$userData = User::where('id', $user_id)->first();
-    
         $userData->first_name = $fname;
     	$userData->last_name = $lname;
         if($request->passwordup){
@@ -131,8 +238,134 @@ class ServiceproviderController extends Controller
         $userData->user_country = $user_country;
         $userData->user_city = $city;
         $userData->address = $address;
+        $userData->num_dialcode_1 = $request->country_dialcode;
+        $userData->country_iso2_code1 = $request->countryCode;
     	$userData->contact_number = $contact_number;
     	$userData->updated_at = date('Y-m-d H:i:s');
+
+        $userData->landline_number = $request->landline_number;
+        $userData->about_me = $request->about_me;
+        $userData->i_speak = $request->i_speak;
+        $userData->payment_info = $request->payment_info;
+        $userData->tour_op_id_number = $request->tour_operator_id_number;
+
+        $userData->tour_op_name = $request->tour_operator_name;
+        $userData->tour_op_contact_name = $request->tour_operator_contact_name;
+        $userData->num_dialcode_2 = $request->country_dialcode1;
+        $userData->country_iso2_code2 = $request->countryCode1;
+        $userData->tour_op_contact_num = $request->tour_operator_contact_num;
+        $userData->tour_op_email = $request->tour_operator_email;
+        $userData->num_dialcode_3 = $request->country_dialcode2;
+        $userData->country_iso2_code3 = $request->countryCode2;
+        $userData->tour_op_booking_num = $request->tour_operator_booking_num;
+        $userData->tour_office_address = $request->tour_office_address;
+        $userData->tour_op_instagram = $request->tour_operator_instagram;
+        $userData->tour_op_facebook = $request->tour_operator_facebook;
+        $userData->tour_op_web_add = $request->tour_operator_web_add;
+        $userData->tour_op_tiktok = $request->tour_operator_tiktok;
+        $userData->tour_op_youtube = $request->tour_operator_youtube;
+        $userData->tour_op_bank_name = $request->tour_operator_bank_name;
+        $userData->tour_op_account_title = $request->tour_operator_account_title;
+        $userData->tour_op_account_num = $request->tour_operator_account_num;
+        $userData->tour_op_branch = $request->tour_operator_branch;
+        $userData->tour_op_easypaisa_num = $request->tour_operator_easypaisa_num;
+        $userData->tour_op_easypaisa_name = $request->tour_operator_easypaisa_name;
+        $userData->tour_op_jazzcash_num = $request->tour_operator_jazzcash_num;
+        $userData->tour_op_jazzcash_name = $request->tour_operator_jazzcash_name;
+        $userData->tour_op_notes = $request->tour_operator_notes;
+        if(!empty($request->contract_date)){
+            $tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
+        }else{
+            $tour_contract_date = NULL;
+        }
+        $userData->tour_contract_date = $tour_contract_date;
+        // $userData->tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
+        $userData->tour_contract_terms = $request->tour_operator_terms;
+
+        // 1. document upload
+        if ($request->hasFile('tour_operator_document')) {
+            if(!empty($request->old_vendor_document))
+            {
+                $filePath = public_path('uploads/vendor_document/'. $request->old_vendor_document);
+                if(file_exists($filePath)){
+                    $oldImagePath = './public/uploads/vendor_document/' . $request->old_vendor_document;
+                    unlink($oldImagePath);
+                }
+            }
+            $image_nam2 = $request->file('tour_operator_document')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('tour_operator_document')->getClientOriginalExtension();
+            $tour_operator_document = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/vendor_document';
+            $request->file('tour_operator_document')->move($pat2, $tour_operator_document);
+        } else {
+            $tour_operator_document = $request->old_vendor_document;
+        }
+        $userData->tour_op_document = $tour_operator_document;
+
+        // 2. image upload
+        if ($request->hasFile('tour_operator_img')) {
+            if(!empty($request->old_operator_img))
+            {
+                $filePath = public_path('uploads/vendor_document/img/'. $request->old_operator_img);
+                if(file_exists($filePath)){
+                    $oldImagePath = './public/uploads/vendor_document/img/' . $request->old_operator_img;
+                    unlink($oldImagePath);
+                }
+            }
+            $image_nam2 = $request->file('tour_operator_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('tour_operator_img')->getClientOriginalExtension();
+            $tour_operator_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/vendor_document/img';
+            $request->file('tour_operator_img')->move($pat2, $tour_operator_img);
+        } else {
+            $tour_operator_img = $request->old_operator_img;
+        }
+        $userData->tour_op_img = $tour_operator_img;
+
+        // 3. id front image upload
+        if ($request->hasFile('tour_operator_id_front_img')) {
+            if(!empty($request->old_id_front_img))
+            {
+                $filePath = public_path('uploads/vendor_document/img/'. $request->old_id_front_img);
+                if(file_exists($filePath)){
+                    $oldImagePath = './public/uploads/vendor_document/img/' . $request->old_id_front_img;
+                    unlink($oldImagePath);
+                }
+            }
+            $image_nam2 = $request->file('tour_operator_id_front_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('tour_operator_id_front_img')->getClientOriginalExtension();
+            $tour_operator_id_front_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/vendor_document/img';
+            $request->file('tour_operator_id_front_img')->move($pat2, $tour_operator_id_front_img);
+        } else {
+            $tour_operator_id_front_img = $request->old_id_front_img;
+        }
+        $userData->tour_op_id_front_img = $tour_operator_id_front_img;
+
+        // 4. id back image upload
+        if ($request->hasFile('tour_operator_id_back_img')) {
+            if(!empty($request->old_id_back_img))
+            {
+                $filePath = public_path('uploads/vendor_document/img/'. $request->old_id_back_img);
+                if(file_exists($filePath)){
+                    $oldImagePath = './public/uploads/vendor_document/img/' . $request->old_id_back_img;
+                    unlink($oldImagePath);
+                }
+            }
+            $image_nam2 = $request->file('tour_operator_id_back_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('tour_operator_id_back_img')->getClientOriginalExtension();
+            $tour_operator_id_back_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/vendor_document/img';
+            $request->file('tour_operator_id_back_img')->move($pat2, $tour_operator_id_back_img);
+        } else {
+            $tour_operator_id_back_img = $request->old_id_back_img;
+        }
+        $userData->tour_op_id_back_img = $tour_operator_id_back_img;
+
     	$res = $userData->save();
 
     	if($res){

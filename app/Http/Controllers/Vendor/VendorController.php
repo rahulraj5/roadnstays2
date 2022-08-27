@@ -25,9 +25,10 @@ class VendorController extends Controller
         // $data['room_total'] = Room::where('id', $user_id)->count(); 
         $data['total_tour'] = Tour::where('vendor_id', $user_id)->count(); 
         // dd($data['total_tour']);
-        $data['total_space'] = Space::where('space_user_id', $user_id)->count(); 
-        $data['total_event'] = 0;
-        $data['total_booking'] = 0; 
+        $data['total_space'] = Space::where('space_user_id', $user_id)->where('space_name','!=',null)->count(); 
+        $data['total_event'] = DB::table('events')->where('vendor_id', $user_id)->count();
+        $data['total_booking'] = 0;
+        
         // Model::where('id', $id)->count() 
         // Model::where('price', '>', 100)->count();
         $data['page_heading_name'] = 'Dashboard';
@@ -139,6 +140,10 @@ class VendorController extends Controller
             $adminhotel->hotel_city = $request->hotel_city;
             $adminhotel->neighb_area = $request->neighb_area;
             $adminhotel->hotel_country = $request->hotel_country;
+
+            $adminhotel->cancellation_mode = $request->cancellation_mode;
+            $adminhotel->num_of_days_cancellation = $request->cancel_num_of_days;
+            $adminhotel->cancel_time_period = $request->cancel_time_period;
 
             // $adminhotel->attraction_name = $request->attraction_name;
             // $adminhotel->attraction_content = $request->attraction_content;
@@ -375,10 +380,9 @@ class VendorController extends Controller
                     'neighb_area' => $request->neighb_area,
                     'hotel_country' => $request->hotel_country,
 
-                    // 'attraction_name' => $request->attraction_name,
-                    // 'attraction_content' => $request->attraction_content,
-                    // 'attraction_distance' => $request->attraction_distance,
-                    // 'attraction_type' => $request->attraction_type,
+                    'cancellation_mode' => $request->cancellation_mode,
+                    'num_of_days_cancellation' => $request->cancel_num_of_days,
+                    'cancel_time_period' => $request->cancel_time_period,
 
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,

@@ -929,7 +929,7 @@
                 <div class="form-group">
                   <div class="field" align="left">
                     <label>Upload room featured images</label>
-                    <input type="file" id="spaceFeaturedImg" name="spaceFeaturedImg" />
+                    <input type="file" id="spaceFeaturedImg" name="spaceFeaturedImg"  <?php if($space_data->image==='room_default_img.jpg'){echo 'required';} ?>/>
                   </div>
                 </div>
               </div>

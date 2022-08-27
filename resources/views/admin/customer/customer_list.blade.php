@@ -315,6 +315,7 @@
 
                                             <th>SNo.</th>
 
+                                            <th>Id</th>
                                             <th>Name</th>
 
                                             <!-- <th>Last Name</th> -->
@@ -348,6 +349,7 @@
                                                 <tr id="row{{ $arr->id }}">
 
                                                     <td>{{ $i }}</td>
+                                                    <td>Rns-U-{{$arr->id}}</td>
 
                                                     <td>{{ $arr->first_name }}</td>
 

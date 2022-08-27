@@ -3,6 +3,13 @@
 @section('current_page_css')
 @endsection
 @section('current_page_js')
+
+<script>
+   $('.hidden-menu').hide()
+jQuery('accordion-thumb').on('click',function(){
+  jQuery('.hidden-menu').show();
+})
+</script>
 @endsection
 @section('content')
 
@@ -16,7 +23,7 @@
                   <div class="tour-name">
                      <div class="left-part">
                         <div class="tour-value">
-                           <a href="#" class="tour-type">{{$tour_details->tour_type}}</a>
+                           <a href="#" class="tour-type">{{$tour_details->tour_sub_type}}</a>
                         </div>
                         <div class="top">
                            <h2>{{$tour_details->tour_title}}</h2>
@@ -40,7 +47,7 @@
                         <?php  $nights = $tour_details->tour_days-1; ?>
                         <div class="btm-info d_n">
                            <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$tour_details->tour_days}} Days & {{$nights}} Nights</p>
-                           <a href="#" class="tour-type">Adventure</a>
+                           <a href="#" class="tour-type">{{$tour_details->tour_type}}</a>
                         </div>
                         <div class="facility-detail">
                            <a href="#">free wifi</a>
@@ -63,247 +70,200 @@
       <div class="container-fluid ">
          <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-12">
-               <div class="slide-property-detail">
-                  <div class="slide-property-first">
-                     <div class="description-section tab-section">
-                        <div class="row">
-                           <!-- Single Items -->
-                           <div class="col-xs-6 col-lg-3 col-md-6">
-                              <div class="singles_item">
-                                 <div class="icon">
-                                    <i class="icofont-stopwatch"></i>
-                                 </div>
-                                 <div class="info">
-                                    <h4 class="name">Duration</h4>
-                                    <p class="value">{{$tour_details->tour_days}} days</p>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Single Items -->
-                           <div class="col-xs-6 col-lg-3 col-md-6">
-                              <div class="singles_item">
-                                 <div class="icon">
-                                    <i class="icofont-beach"></i>
-                                 </div>
-                                 <div class="info">
-                                    <h4 class="name">Tour Type</h4>
-                                    <p class="value">{{$tour_details->tour_type}}</p>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Single Items -->
-                           <div class="col-xs-6 col-lg-3 col-md-6">
-                              <div class="singles_item">
-                                 <div class="icon">
-                                    <i class="icofont-travelling"></i>
-                                 </div>
-                                 <div class="info">
-                                    <h4 class="name">Tour start day</h4>
-                                    <p class="value">Every Friday</p>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Single Items -->
-                           <div class="col-xs-6 col-lg-3 col-md-6">
-                              <div class="singles_item">
-                                 <div class="icon">
-                                    <i class="icofont-island"></i>
-                                 </div>
-                                 <div class="info">
-                                    <h4 class="name">Location</h4>
-                                    <p class="value">{{$tour_details->city}},{{$country_name->name}}</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+              <div class="slide-property-detail">
+                <div class="slide-property-first">
+                  <div class="description-section tab-section">
+                    <div class="row">
+                       <!-- Single Items -->
+                       <div class="col-xs-6 col-lg-3 col-md-6">
+                          <div class="singles_item">
+                             <div class="icon">
+                                <i class="icofont-stopwatch"></i>
+                             </div>
+                             <div class="info">
+                                <h4 class="name">Duration</h4>
+                                <p class="value">{{$tour_details->tour_days}} days</p>
+                             </div>
+                          </div>
+                       </div>
+                       <!-- Single Items -->
+                       <div class="col-xs-6 col-lg-3 col-md-6">
+                          <div class="singles_item">
+                             <div class="icon">
+                                <i class="icofont-beach"></i>
+                             </div>
+                             <div class="info">
+                                <h4 class="name">Tour Type</h4>
+                                <p class="value">{{$tour_details->tour_type}}</p>
+                             </div>
+                          </div>
+                       </div>
+                       <?php $timestamp = strtotime($tour_details->tour_start_date); ?>
+                       <!-- Single Items -->
+                       <div class="col-xs-6 col-lg-3 col-md-6">
+                          <div class="singles_item">
+                             <div class="icon">
+                                <i class="icofont-travelling"></i>
+                             </div>
+                             <div class="info">
+                                <h4 class="name">Tour start day</h4>
+                                <p class="value"><?php echo date('l', $timestamp);?></p>
+                             </div>
+                          </div>
+                       </div>
+                       <!-- Single Items -->
+                       <div class="col-xs-6 col-lg-3 col-md-6">
+                          <div class="singles_item">
+                             <div class="icon">
+                                <i class="icofont-island"></i>
+                             </div>
+                             <div class="info">
+                                <h4 class="name">Location</h4>
+                                <p class="value">{{$tour_details->city}},{{$country_name->name}}</p>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="description-details">
+                  <div class="desc-box">
+                      <h4 class="content-title"><i class='bx bx-clipboard'></i> Description</h4>
+                      <div class="menu-part mt-0 about-tour" id="description">
+                         <div class="about-sec">
+                            <p>{{$tour_details->tour_description}}</p>
+                         </div>
+                      </div>
+                  </div>
+                  <div class="desc-box">
+
+      <div id="Itinerary">
+               <div class="itinerary-cont accordion-box">
+                  <h3>Itinerary</h3>
+                  <div class="itinerary-cont-box accordion-item is-active" id="show-hidden-menu">
+                     <span>Day 1</span>
+                           <div class="accordion-thumb">
+                        <h4>Delhi – (Manali) 570 kms [10-12 hours drive]</h4>
+                        <ul class="tags">
+                           <li>Arrival Transfer</li>
+                           <li>Sightseeing tour</li>                           
+                           <li>Lunch</li>
+                           <li>Dinner</li>
+                        </ul>
+                     </div>
+                     <div class="accordion-panel hidden-menu" style="display:block">
+                        <h5>Other Benfits (On Arrival) </h5>
+                        <ul class="Benfits">
+                           <li><img src="https://www.tourmyindia.com/states/himachal/image/meal.svg" alt="meal">
+                              Breakfast
+                           </li>
+                           <li><img src="https://www.tourmyindia.com/states/himachal/image/transport.svg" alt="transport">
+                              Transfers
+                           </li>
+                           <li><img src="https://www.tourmyindia.com/states/himachal/image/3-star.svg" alt="star hotel">
+                              Stay Included
+                           </li>
+                        </ul>
+                         <p>Arrive Delhi airport train station and drive to Manali. Manali is an important hill station of northern India and is the destination of thousands of tourists every year. Its cool atmosphere provides a perfect haven for the ones afflicted by the hot Indian summers. Besides offering quite a few places for sightseeing, Manali is also famous for adventure sports like skiing, hiking, mountaineering, paragliding, rafting, trekking, kayaking, and mountain biking. En- route visit Hanogi Mata Temple. Overnight stay at hotel in Manali.</p>
+                     </div>                    
+                  </div>
+                   <div class="itinerary-cont-box accordion-item">
+                     <span>Day 2</span>
+                           <div class="accordion-thumb">
+                        <h4>Manali - Rohtang Pass - Manali [Closed on Tuesday]</h4>
+                     </div>
+                     <div class="accordion-panel hidden-menu">
+                        <p>Today full day excursion visiting Kothi Gorge, Gulaba, Marhi, Rohtang Pass (Upto Snow Line in case Rohtang is closed due to snow fall. Come back to Manali Later in evening half day tour of Manali visiting newly constructed Buddhist Monastery. Hadimba Devi temple-It is small temple situated in the dense forest is very interesting. Hadimba is said to be the wife of Bhima from the epic of Mahabharata. Vashisht, it is an extremely picturesque little place clinging to the steep hill side. On the way up to the village you come upon the Vashisht hot baths where a natural sulphar spring is piped into a modern bath -house. Overnight sat at the hotel.</p>
                      </div>
                   </div>
-
-
-
-                  <div class="description-details">
-                     <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bx-clipboard'></i> Description</h4>
-                        <div class="menu-part mt-0 about-tour" id="description">
-                           <div class="about-sec">
-                              <p>{{$tour_details->tour_description}}</p>
-                           </div>
-                        </div>
+                  <div class="itinerary-cont-box accordion-item">
+                     <span>Day 3</span>
+                           <div class="accordion-thumb">
+                        <h4>Manali – Chamunda – Dharamshala (260 km)</h4>
                      </div>
-                     <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bx-trip'></i> Trip details</h4>
-                        <!-- <div class="menu-part accordion" id="trip-detail">
-                           <div id="accordion" class="accordion-plan it-info">
-                              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                 @foreach($tour_itinerary as $key=> $trip)
-                                 <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="heading{{$key}}">
-                                       <h4 class="panel-title">
-                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="true" aria-controls="collapse{{$key}}">
-                                          {{$trip->title}}
-                                          </a>
-                                       </h4>
-                                    </div>
-                                    <div id="collapse{{$key}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{$key}}">
-                                       <div class="panel-body">
-                                          <div class="about-sec-list-tab">
-                                             <ul>
-                                                @foreach (json_decode($trip->trip_detail) as $details)
-                                                <li>{{$details}}</li>
-                                                @endforeach
-                                             </ul>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 @endforeach
-                              </div>
-                           </div>
-                        </div> -->
-
-                        <div class="accordion for-mobile new-collaps mt-2" id="accordionExample">
-                          @foreach($tour_itinerary as $key=> $trip)
-                          <div class="card">
-                            <div class="card-header" id="heading{{$key}}">
-                              <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse{{$key}}" aria-expanded="true" aria-controls="collapse{{$key}}">
-                                 <b>{{$trip->title}}</b>
-                                </button>
-                              </h2>
-                            </div>
-                            <div id="collapse{{$key}}" class="collapse" aria-labelledby="heading{{$key}}" data-parent="#accordionExample">
-                              <div class="card-body">
-                                <nav class="nav flex-column">
-                                @foreach (json_decode($trip->trip_detail) as $details)
-                                 <a class="nav-link" href="#">{{$details}}</a>
-                                @endforeach
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          @endforeach
-                          <!-- <div class="card">
-                            <div class="card-header" id="headingTwo">
-                              <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                 <b>MARKETING</b>
-                                </button>
-                              </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                              <div class="card-body">
-                               <nav class="nav flex-column">
-                                 <a class="nav-link" href="#">Managed SEO</a>
-                                 <a class="nav-link" href="#">Pay-Per-Click (PPC) Solutions</a>
-                                 <a class="nav-link" href="#">Backlink Booster</a>
-                                 <a class="nav-link" href="#">Premium Blog Writing Service</a>
-                                 <a class="nav-link" href="#">Contextual Link Building</a>
-                                 <a class="nav-link" href="#">Visitor Retargeting</a>
-                                 <a class="nav-link" href="#">Social Media Ads Management</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card">
-                            <div class="card-header" id="headingThree">
-                              <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                 <b>SUPPORT</b>
-                                </button>
-                              </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                              <div class="card-body">
-                                <nav class="nav flex-column">
-                                 <a class="nav-link" href="#">Free Consultation</a>
-                                 <a class="nav-link" href="#">FAQs</a>
-                                 <a class="nav-link" href="#">Support Center</a>
-                                 <a class="nav-link" href="#">Ticket Center</a>
-                                 <a class="nav-link" href="#">Contact Us</a>
-                                 <a class="nav-link" href="#"
-                                    target='_blank'>Client Control Panel</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card">
-                            <div class="card-header" id="headingFour">
-                              <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-                                 <b>INFO</b>
-                                </button>
-                              </h2>
-                            </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                              <div class="card-body">
-                                <nav class="nav flex-column">
-                                 <a class="nav-link" href="#">Testimonials</a>
-                                 <a class="nav-link" href="#">News & Media</a>
-                                 <a class="nav-link" href="#">Referral Program</a>
-                                 <a class="nav-link" href="#">Affiliate Program</a>
-                                 <a class="nav-link" href="#">Newsletter</a>
-                                 <a class="nav-link" href="#">Contact Us</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div> -->
-                        </div>
-
-
+                     <div class="accordion-panel hidden-menu">                        
+                        <p>After breakfast, proceed for Dharamshala. En-route visit Chamunda Devi Temple. Check in to the hotel. Evening at leisure. Overnight stay at hotel.</p>
                      </div>
-                     <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bxs-location-plus'></i> Location's</h4>
-                        <div class="menu-part" id="locations">
-                           <div class="info-locat">
-                              <p>{{$tour_details->tour_locations}}</p>
-                           </div>
-                        </div>
+                  </div>  
+                  <div class="itinerary-cont-box accordion-item">
+                     <span>Day 4</span>
+                           <div class="accordion-thumb">
+                        <h4>Dharamshala – Dalhousie. (140 kms)</h4>
                      </div>
-                      <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bx-accessibility'></i> Activities </h4>
-                        <div class="menu-part" id="locations">
-                           <div class="info-locat">
-                              <p> Cultural Events – Historical Visit to forts – Hiking.</p>
-                           </div>
-                        </div>
+                     <div class="accordion-panel hidden-menu">                        
+                        <p>After breakfast visit Bhudhist Monastery, Bhagsunag Temple. Enjoy the scenic beauty of Dharamshala. Later drive to Dalhousie. Check in to the hotel. Overnight stay at the hotel.</p>
                      </div>
-                    
-                    
-                     <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bx-receipt'></i> Terms & Conditions</h4>
-                        <div class="menu-part mt-0 about-tour" id="terms-conditions">
-                           <div class="about-sec-list">
-                              <ul>{{$tour_details->tour_term_condition}}</ul>
-                           </div>
-                        </div>
+                  </div>    
+                  <div class="itinerary-cont-box accordion-item">
+                     <span>Day 5</span>
+                           <div class="accordion-thumb">
+                        <h4>Dalhousie - Khajjiar- Dalhousie</h4>
                      </div>
+                     <div class="accordion-panel hidden-menu">                        
+                        <p>Afte having breakfast, visit Khajjiar (Khajjiar is closed some time in Dec-Jan due to heavy snow) the mini Switzerland, Kalatop, Satdhara and Gandhi Chowk. Evening free. Overnight stay at the hotel.</p>
+                     </div>
+                  </div> 
+                  <div class="itinerary-cont-box accordion-item">
+                     <span>Day 6</span>
+                           <div class="accordion-thumb">
+                        <h4>Dalhousie - Chandigarh</h4>
+                     </div>
+                     <div class="accordion-panel hidden-menu">                        
+                        <p>After breakfast proceed to Chandigarh. On arrival check in to the hotel. Evening free to explore the local markets. Overnight stay at the hotel.</p>
+                     </div>
+                  </div> 
+                  <div class="itinerary-cont-box accordion-item">
+                     <span>Day 7</span>
+                           <div class="accordion-thumb ">
+                        <h4>Chandigarh to Delhi (250 kms)</h4>
+                     </div>
+                     <div class="accordion-panel hidden-menu">                        
+                        <p>After having breakfast, sightseeing of Chandigarh visit Rock garden. Rose Garden and Sukhna Lake and transfer to Delhi. On arrival transfer to train station/ airport for onward destination. </p>
+                        <p><strong>Tour and Services ends</strong></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
 
-                      <div class="desc-box">
-                        <h4 class="content-title"><i class='bx bx-images' ></i> Gallery</h4>
-                        <div class="menu-part">
-                           <div class="info-locat">
-                              <div class="row">
-                                @foreach($tour_gallery as $key=> $gallery)
-                             <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
-                                <a href="#lightbox" data-slide-to="0"><img src="{{url('/')}}/public/uploads/tour_gallery/{{$gallery->image}}" class="img-thumbnail my-3"></a>
+
+
+                  </div>
+                  <div class="desc-box">
+                      <h4 class="content-title"><i class='bx bxs-location-plus'></i> Location's</h4>
+                      <div class="menu-part" id="locations">
+                         <div class="info-locat">
+                            <p>{{$tour_details->tour_locations}}</p>
+                         </div>
+                      </div>
+                  </div>
+                  <div class="desc-box">
+                      <h4 class="content-title"><i class='bx bx-accessibility'></i> Activities </h4>
+                      <div class="menu-part" id="locations">
+                         <div class="info-locat">
+                            <p> Cultural Events – Historical Visit to forts – Hiking.</p>
+                         </div>
+                      </div>
+                  </div> 
+                  <div class="desc-box">
+                      <h4 class="content-title"><i class='bx bx-receipt'></i> Terms & Conditions</h4>
+                      <div class="menu-part mt-0 about-tour" id="terms-conditions">
+                         <div class="about-sec-list">
+                            <ul>{{$tour_details->tour_term_condition}}</ul>
+                         </div>
+                      </div>
+                  </div> 
+                  <div class="desc-box">
+                      <h4 class="content-title"><i class='bx bx-images' ></i> Gallery</h4>
+                      <div class="menu-part">
+                         <div class="info-locat">
+                            <div class="row">
+                              @foreach($tour_gallery as $key=> $gallery)
+                              <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
+                              <a href="#lightbox" data-slide-to="0"><img src="{{url('/')}}/public/uploads/tour_gallery/{{$gallery->image}}" class="img-thumbnail my-3"></a>
                               </div>
-                              @endforeach
-<!--     <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
-      <a href="#lightbox" data-slide-to="1"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="img-thumbnail my-3"></a>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
-      <a href="#lightbox" data-slide-to="2"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="img-thumbnail my-3"></a>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
-      <a href="#lightbox" data-slide-to="3"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="img-thumbnail my-3"></a>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 pr-1" data-toggle="modal" data-target="#modal">
-      <a href="#lightbox" data-slide-to="4"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="img-thumbnail my-3"></a>
-    </div> -->
-
- </div>
-
-    <!-- Modal -->
+                              @endforeach 
+                            </div>
+                          <!-- Modal -->
                           <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Lightbox Gallery by Bootstrap 4" aria-hidden="true">
                              <div class="modal-dialog modal-dialog-centered " role="document">
                                 <div class="modal-content">
@@ -319,12 +279,6 @@
                                             <div class="carousel-item @if($key == 0) active @endif"><img src="{{url('/')}}/public/uploads/tour_gallery/{{$gallery->image}}" class="w-100"
                                                 alt=""></div>
                                             @endforeach
-                                            <!-- <div class="carousel-item"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="w-100"
-                                                alt=""></div>
-                                            <div class="carousel-item"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="w-100"
-                                                alt=""></div>
-                                            <div class="carousel-item"><img src="https://votivetechnologies.in/roadNstays/public/uploads/tour_gallery/pexels-mehmet-turgut-kirkgoz-5865861-tourMainImg-1658816190.jpg" class="w-100"
-                                                alt=""></div> -->
                                             </div>
                                          <a class="carousel-control-prev" href="#lightbox" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
                                          <a class="carousel-control-next" href="#lightbox" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
@@ -332,27 +286,29 @@
                                    </div>
                                 </div>
                              </div>
-                          </div>
-
-
-
-                           </div>
-                        </div>
-                     </div>
+                          </div> 
+                         </div>
+                      </div>
                   </div>
-               </div>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d945185.2755575953!2d75.09153876182457!3d22.273065524645048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x3962fcad1b410ddb%3A0x96ec4da356240f4!2sindore!3m2!1d22.7195687!2d75.8577258!4m5!1s0x3bd885c4bd93b163%3A0xae95ec27b40bf31d!2skhargone!3m2!1d21.833524399999998!2d75.61498929999999!5e0!3m2!1sen!2sin!4v1661252086781!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+                </div>
+              </div>
             </div>
-             @php $vendor = DB::table('users')->where('id', $tour_details->vendor_id)->first(); @endphp
+            @if($tour_details->vendor_id == 1)
+               @php $vendor = DB::table('admins')->where('id', $tour_details->vendor_id)->first(); @endphp 
+            @else
+               @php $vendor = DB::table('users')->where('id', $tour_details->vendor_id)->join('vendor_profile', 'users.id', 'vendor_profile.user_id')->first(); @endphp 
+            @endif 
             <div class="col-xl-4 col-lg-4 col-md-12">
                <div class="sticky-cls-top">
                   <div class="card-org overflow-hidden">
-                     <div class="card-header">
-                        <h3 class="card-title">Tour Operator Name</h3>
-                     </div>
+                    <div class="card-header">
+                      <h3 class="card-title">Tour Operator Name</h3>
+                    </div>
                      @php $vendor_counrty = DB::table('country')->where('id', $vendor->user_country)->first(); @endphp
-                     <div class="card-body item-user">
+                    <div class="card-body item-user">
                         <div class="profile-details">
-                           <div class="profile-pic mb-0 mx-5"> <img src="{{url('/')}}/resources/assets/img/gilgit.jpg" class="brround w-150 h-150" alt="user">
+                           <div class="profile-pic mb-0 mx-5"> <img src="{{url('/')}}/public/uploads/vendor_document/img/{{$vendor->tour_op_img}}" class="brround w-150 h-150" alt="user">
                            </div>
                         </div>
                         <div class="text-center mt-2">
@@ -362,123 +318,109 @@
                            <span class="text-muted mt-1">Tour Organizer <b> Since November 2008</b></span>
                            <small class="text-muted">Tour Operator ID <b>TO-101</b></small>
                         </div>
-                     </div>
-                     <div class="profile-user-tabs">
-                        <div class="tabs-menu1">
-                           <ul class="nav nav-tabs cont-tab" role="tablist">
-                              <li class="">
-                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Contact</a>
-                              </li>
-                              <!-- <li class="">
-                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">New Tours</a>
-                              </li> -->
-                           </ul>
-                           <!-- Tab panes -->
+                    </div>
+                    <div class="profile-user-tabs">
+                      <div class="tabs-menu1">
+                        <!-- <ul class="nav nav-tabs cont-tab" role="tablist">
+                          <li class="">
+                             <a class="" data-toggle="tab" href="#tabs-1" role="tab">Contact</a>
+                          </li> 
+                        </ul>   -->
+                         <!-- Tab panes --> 
+                        <div class="tab-content"> 
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                               <div class="item-user details_cont">
+                                  <h4 class="mb-4">Contact Info</h4>
+                                  <div>
+                                     <h6><span class="font-weight-semibold"><i class="bx bx-map"></i></span><a href="#" class="text-body"> {{$vendor->address}},{{$vendor->user_city}},{{$vendor->state_id}},{{$vendor_counrty->name}} </a></h6>
+                                     <h6><span class="font-weight-semibold"><i class="bx bx-mail-send"></i></span><a href="#" class="text-body"> {{$vendor->email}}</a></h6>
+                                     <h6><span class="font-weight-semibold"><i class="bx bx-phone"></i></span>{{ $vendor->tour_op_contact_num }}</h6>
+                                     <h6><span class="font-weight-semibold"><i class="bx bx-link"></i></span><a href="{{ $vendor->tour_op_web_add }}" class="text-secondary">{{ $vendor->tour_op_web_add }}</a></h6>
+                                  </div>
+                                  <div class="social-info-adv">
+                                     <h4 class="mb-4">Social Info</h4>
+                                     <a href="{{ $vendor->tour_op_facebook }}" target="_blank"><i class="bx bxl-facebook"></i></a>
+                                     <a href="{{ $vendor->tour_op_instagram }}" target="_blank"><i class="bx bxl-instagram"></i></a>
+                                     <a href="{{ $vendor->tour_op_youtube }}" target="_blank"><i class="bx bxl-youtube"></i></a>
+                                     <a href="{{ $vendor->tour_op_tiktok }}"  target="_blank" class="tiktok">
+                                        <img src="{{url('/')}}/resources/assets/img/tiktok.png" alt="user" width="15" ></a>		
+                                  </div>
+                               </div>
+                            </div>
                            
-                           <div class="tab-content">
-                              <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                 <div class="card-body item-user details_cont">
-                                    <h4 class="mb-4">Contact Info</h4>
-                                    <div>
-                                       <h6><span class="font-weight-semibold"><i class="bx bx-map"></i></span><a href="#" class="text-body"> {{$vendor->address}},{{$vendor->user_city}},{{$vendor->state_id}},{{$vendor_counrty->name}} </a></h6>
-                                       <h6><span class="font-weight-semibold"><i class="bx bx-mail-send"></i></span><a href="#" class="text-body"> {{$vendor->email}}</a></h6>
-                                       <h6><span class="font-weight-semibold"><i class="bx bx-phone"></i></span>{{$tour_details->contact_num}}, {{$tour_details->alternate_num}}</h6>
-                                       <h6><span class="font-weight-semibold"><i class="bx bx-link"></i></span><a href="#" class="text-secondary">www.gbtourism.com</a></h6>
-                                    </div>
-                                    <div class="social-info-adv">
-                                       <h4 class="mb-4">Social Info</h4>
-                                       <a href="{{$tour_details->facebook}}" target="_blank"><i class="bx bxl-facebook"></i></a>
-                                       <a href="{{$tour_details->instagram}}" target="_blank"><i class="bx bxl-instagram"></i></a>
-                                       <a href="{{$tour_details->tiktok}}"  target="_blank" class="tiktok">
-                                          <img src="{{url('/')}}/resources/assets/img/tiktok.png" alt="user" width="15" ></a>		
-                                    </div>
-                                 </div>
-                              </div>
-                             
-                              <div class="card-footer btns-combo">
-                                 <div class="btns-chats">
-                                    <a href="#" class="btn btn-secondary mt-1 mb-1"><i class="bx bx-user-circle"></i> Contact Me</a>		
-                                 </div>
-                              </div>
-                           </div>
+                            
                         </div>
-                     </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="card-org overflow-hidden">
-                     <div class="card-header">
-                        <h3 class="card-title">Tour Operator Contact Name</h3>
-                     </div>
-                     <div class="card-body item-user">
-                        <div class="profile-details">
-                           <div class="profile-pic mb-0 mx-5"> <img src="{{url('/')}}/resources/assets/img/gilgit.jpg" class="brround w-150 h-150" alt="user">
-                           </div>
-                        </div>
-                        <div class="text-center mt-2 details_cont">
-                           <a href="#" class="text-dark text-center">
-                              <h4 class="mt-0 mb-1 pro-name">{{$tour_details->contact_name}}</h4>
-                           </a>
-                           <span class="text-muted mt-1"><strong>Gilgit Baltistan Tourism Club</strong></span>
-                           <div class=" opr-cont">
-                              <h6><span class="font-weight-semibold"><i class="bx bx-mail-send"></i></span><a href="#" class="text-body"> jumailhaider04@gmail.com</a></h6>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="card-footer btns-combo">
-                        <div class="btns-chats">
-                           <a href="tel:+{{$tour_details->contact_num}}" class="btn btn-secondary mt-1 mb-1"><i class="bx bx-user-circle"></i> Contact Me</a>		
-                        </div>
-                     </div>
+                    <div class="card-header">
+                      <h3 class="card-title">Tour Operator Contact Name</h3>
+                    </div>
+                    <div class="card-body item-user">
+                      <div class="profile-details">
+                         <div class="profile-pic mb-0 mx-5"> <img src="{{url('/')}}/public/uploads/vendor_document/img/{{$vendor->tour_op_img}}" class="brround w-150 h-150" alt="user">
+                         </div>
+                      </div>
+                      <div class="text-center mt-2 details_cont">
+                         <a href="#" class="text-dark text-center">
+                            <h4 class="mt-0 mb-1 pro-name">{{$vendor->tour_op_name}}</h4>
+                         </a>
+                         <span class="text-muted mt-1"><strong>{{$vendor->tour_op_contact_name}}</strong></span>
+                         <div class=" opr-cont">
+                            <h6><span class="font-weight-semibold"><i class="bx bx-mail-send"></i></span><a href="#" class="text-body"> {{$vendor->tour_op_email}}</a></h6>
+                         </div>
+                      </div>
+                    </div>
+                    
                   </div>
                   <div class="card-org overflow-hidden">
-                     <div class="card-header">
-                        <h3 class="card-title">Tour Operator Account (Main)</h3>
-                     </div>
-                     <div class="card-body toa item-user">
-                        <div class="about-sec-list-bank">
-                           <ul>
-                              <li><i class='bx bxs-bank'></i> Bank Name: <strong>{{$tour_details->bank_name}}</strong></li>
-                              <li><i class='bx bxs-user-account' ></i> Account Title: <strong>{{$tour_details->account_holder}}</strong></li>
-                              <li><i class='bx bx-credit-card-front'></i> Account Number: <strong>{{$tour_details->account_number}}</strong></li>
-                              <li><i class='bx bx-building-house'></i> Branch: <strong>{{$tour_details->branch_name}}</strong></li>
-                           </ul>
-                        </div>
-                     </div>
-                     
-                     <div class="card-footer btns-combo">
-                        <div class="note-info">
-                           <p>Submit Advance by any Method & send screenshot through WhatsApp on this number <i class="bx bxl-whatsapp"></i> <strong class="whtapp-num"><a href="tel:{{$tour_details->booking_contact_no}}">{{$tour_details->booking_contact_no}}</a></strong></p>
-                        </div>
-                     </div>
+                    <div class="card-header">
+                      <h3 class="card-title">Tour Operator Account (Main)</h3>
+                    </div>
+                    <div class="card-body toa item-user">
+                      <div class="about-sec-list-bank">
+                        <ul>
+                          <li><i class='bx bxs-bank'></i> Bank Name: <strong>{{$vendor->tour_op_bank_name}}</strong></li>
+                          <li><i class='bx bxs-user-account' ></i> Account Title: <strong>{{$vendor->tour_op_account_title}}</strong></li>
+                          <li><i class='bx bx-credit-card-front'></i> Account Number: <strong>{{$vendor->tour_op_account_num}}</strong></li>
+                          <li><i class='bx bx-building-house'></i> Branch: <strong>{{$vendor->tour_op_branch}}</strong></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-footer btns-combo">
+                      <div class="note-info">
+                        <p>Submit Advance by any Method & send screenshot through WhatsApp on this number <i class="bx bxl-whatsapp"></i> <strong class="whtapp-num"><a href="tel:{{$vendor->tour_op_booking_num}}">{{$vendor->tour_op_booking_num}}</a></strong></p>
+                      </div>
+                    </div>
                   </div>
                   <div class="card-org overflow-hidden">
-                     <div class="card-header">
-                        <h3 class="card-title">Pay with Easypaisa and Jazz Cash</h3>
-                     </div>
-                     <div class="card-body toa item-user">
-                        <div class="about-sec-list-bank">
-                           <ul>
-                               <li><i class='bx bx-credit-card-front'></i> Name  <strong>{{$tour_details->contact_name}}:</strong></li>
-                              <li><i class='bx bxs-bank'></i> Easypaisa: <strong>{{$tour_details->easypaisa}}</strong></li>
-                              <li><i class='bx bxs-user-account' ></i> Jazz Cash: <strong>{{$tour_details->jazz_cash}}</strong></li>
-                              <li><i class='bx bx-building-house'></i> No: <strong> {{$tour_details->booking_contact_no}}</strong></li>
-                           </ul>
-                        </div>
-                     </div>
-                     
-                     <div class="card-footer btns-combo">
-                        <div class="note-info">
-                           <p>Submit Advance by any Method & send screenshot through WhatsApp on this number <i class="bx bxl-whatsapp"></i> <strong class="whtapp-num"><a href="tel:{{$tour_details->booking_contact_no}}">{{$tour_details->booking_contact_no}}</a></strong></p>
-                        </div>
-                     </div>
+                    <div class="card-header">
+                      <h3 class="card-title">Pay with Easypaisa and Jazz Cash</h3>
+                    </div>
+                    <div class="card-body toa item-user">
+                      <div class="about-sec-list-bank">
+                         <ul>
+                             <li><i class='bx bx-credit-card-front'></i> Name  <strong>{{$vendor->tour_op_easypaisa_name}}</strong></li>
+                            <li><i class='bx bxs-bank'></i> Easypaisa: <strong>{{$vendor->tour_op_easypaisa_num}}</strong></li>
+                            <li><i class='bx bxs-user-account' ></i> Jazz Cash: <strong>{{$vendor->tour_op_jazzcash_num}}</strong></li>
+                            <li><i class='bx bx-building-house'></i> No: <strong> 4545457878</strong></li>
+                         </ul>
+                      </div>
+                    </div>
+                    <div class="card-footer btns-combo">
+                      <div class="note-info">
+                         <p>Submit Advance by any Method & send screenshot through WhatsApp on this number <i class="bx bxl-whatsapp"></i> <strong class="whtapp-num"><a href="tel:{{$vendor->tour_op_booking_num}}">{{$vendor->tour_op_booking_num}}</a></strong></p>
+                      </div>
+                    </div>
                   </div>
                   <div class="card-org overflow-hidden">
-                     <div class="card-header payment-heding ">
-                        <h3 class="card-title pl-3"><i class='bx bx-notepad'></i> Payment Term</h3>
-                     </div>
-                     <div class="card-body item-user">
-                            <h6 class="text-default font-weight-bold mt-1 boking-heading">For Booking make Payment of 50% advance / Per Head </h6>
-                          
-                     </div>
+                    <div class="card-header payment-heding ">
+                       <h3 class="card-title pl-3"><i class='bx bx-notepad'></i> Payment Term</h3>
+                    </div>
+                    <div class="card-body item-user">
+                      <h6 class="text-default font-weight-bold mt-1 boking-heading">For Booking make Payment of 50% advance / Per Head </h6>
+                    </div>
                   </div>
                   <div class="card-org overflow-hidden">
                      <div class="card-header">
@@ -487,7 +429,7 @@
                      <div class="card-body item-user">
                         <div class="support-service">
                            <i class="bx bx-phone"></i>
-                           <h6 class="text-default font-weight-bold mt-1">+00 12-345-6789</h6>
+                           <h6 class="text-default font-weight-bold mt-1">{{$vendor->tour_op_booking_num}}</h6>
                            <p class="text-default mb-0 fs-12">Free Support!</p>
                         </div>
                      </div>

@@ -546,6 +546,22 @@
     // $("#breakfast_price_type_div").removeClass('d-none');
     $("#breakfast_cost_div").removeClass('d-none');
   });
+
+
+  $("#cancellation_mode1").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode2").click(function() {
+    $("#cancel_num_of_days_div").removeClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode3").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").removeClass('d-none');
+  });
 </script>
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>-->
 
@@ -1069,6 +1085,104 @@
                           </div>
                         </div>
                       </div>
+
+                      <!-- cancellation & policy start here -->
+
+                      <div class="col-md-12">
+                        <div class="tab-custom-content">
+                          <p class="lead mb-0">
+                          <h4>Cancellation and Refund</h4>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label>Cancellation and Refund</label>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="cancellation_mode1" name="cancellation_mode" value="0" checked>
+                                <label for="cancellation_mode1" class="custom-control-label">Free cancellation</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="cancellation_mode2" name="cancellation_mode" value="1">
+                                <label for="cancellation_mode2" class="custom-control-label">value (no. of day)</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="cancellation_mode3" name="cancellation_mode" value="2">
+                                <label for="cancellation_mode3" class="custom-control-label">Cancellation time period</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- cancel day limit -->
+
+                          <div class="col-sm-12 d-none" id="cancel_num_of_days_div">
+                            <div class="row">
+                              <div class="col-sm-4">
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label>No. of Days</label>
+                                  <input type="text" class="form-control" name="cancel_num_of_days" id="cancel_num_of_days" placeholder="no. of days">
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                              </div>
+                            </div>  
+                          </div>
+
+                          <!-- cancel time period limit -->
+
+                          <div class="col-sm-12 d-none" id="cancel_time_period_div">
+                            
+                            <div class="row">
+                              <div class="col-sm-8">
+                              </div>
+                              <div class="col-sm-4">
+                                <label>Select Cancellation Time Period</label>
+                                <div class="row">
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" id="cancel_time_period1" name="cancel_time_period" value="1">
+                                        <label for="cancel_time_period1" class="custom-control-label">24hrs</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" id="cancel_time_period2" name="cancel_time_period" value="2">
+                                        <label for="cancel_time_period2" class="custom-control-label">48hrs</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" id="cancel_time_period3" name="cancel_time_period" value="3" checked>
+                                        <label for="cancel_time_period3" class="custom-control-label">7 days</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>  
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <!-- cancellation & policy end here -->
 
                       <div class="col-md-12">
                         <div class="tab-custom-content">

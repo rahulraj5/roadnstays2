@@ -39,25 +39,54 @@ class EventController extends Controller
         $vendor_id = Auth::id();
 
         if (!empty($_FILES["event_img"]["name"])) {
-            $imgname = $_FILES["event_img"]["name"];
+            $imgname = time() . '_' .$_FILES["event_img"]["name"];
             $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/". $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/".time() . '_' . $_FILES['event_img']['name']);
         }else{ $imgname = '';}
 
+        if($request->type == 'paid') {
+            $event_price = $request->price;
+        }else{
+            $event_price = 0;
+        }
         $adminevent = new Events; 
         $adminevent->vendor_id = $vendor_id;
         $adminevent->title = $request->title;
+        $adminevent->type = $request->type;
         $adminevent->description = $request->description;
-        $adminevent->image  = $imgname;
-        $adminevent->start_date = date('Y-m-d', strtotime($request->start_date));
-        $adminevent->start_time = date("H:i:s",strtotime($request->start_time));
-        $adminevent->end_date =   date('Y-m-d', strtotime($request->end_date));
-        $adminevent->end_time =   date("H:i:s",strtotime($request->end_time));
-        $adminevent->address  =    $request->address;
-        $adminevent->status   =    1;
+        $adminevent->price  =  $event_price;
+        $adminevent->ticket_qty=  $request->ticket_qty;
+        $adminevent->image     =  $imgname;
+        $adminevent->start_date=  date('Y-m-d', strtotime($request->start_date));
+        $adminevent->start_time=  date("H:i:s",strtotime($request->start_time));
+        $adminevent->end_date  =  date('Y-m-d', strtotime($request->end_date));
+        $adminevent->end_time  =  date("H:i:s",strtotime($request->end_time));
+        $adminevent->address   =  $request->address;
+        $adminevent->latitude  =  $request->latitude;
+        $adminevent->longitude =  $request->longitude;
+        $adminevent->hotel_ids =  json_encode($request->hotelname);
+        $adminevent->space_ids =  json_encode($request->spacename);
+        $adminevent->status    =  1;
         $adminevent->save();  
         $adminevent_id = $adminevent->id;
+        if (!empty($_FILES["eventGallery"]["name"])) {
+            foreach ($_FILES["eventGallery"]["name"] as $key => $error) {
+                $imgname = $_FILES["eventGallery"]["name"][$key];
+                $imgurl = "public/uploads/event_gallery/" . time() . '_' . $imgname;
+                $name = $_FILES["eventGallery"]["name"];
+                move_uploaded_file($_FILES["eventGallery"]["tmp_name"][$key], "public/uploads/event_gallery/" . time() . '_' . $_FILES['eventGallery']['name'][$key]);
+
+                $Img = array(
+                    'image' => time() . '_' . $imgname,
+                    'event_id' => $adminevent_id,
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
+                $up = DB::table('event_gallery')->insert($Img);
+            }
+        }
        
         return response()->json(['status' => 'success', 'msg' => 'Event Added Successfully']);
 	}
@@ -92,24 +121,55 @@ class EventController extends Controller
 
     public function updateEvent(Request $request)
     {
+
     	if (!empty($_FILES["event_img"]["name"])) {
-            $imgname = $_FILES["event_img"]["name"];
+            $imgname = time() . '_' .$_FILES["event_img"]["name"];
             $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
             $name = $_FILES["event_img"]["name"];
-            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/". $_FILES['event_img']['name']);
+            move_uploaded_file($_FILES["event_img"]["tmp_name"], "public/uploads/event_gallery/". time() . '_' .$_FILES['event_img']['name']);
         }else{ $imgname = $request->old_event_image;}
        
        	Events::where('id', $request->event_id)
        ->update([
            'title' => $request->title,
+           'type' => $request->type,
            'description' => $request->description,
+           'price' => $request->price,
+           'ticket_qty' => $request->ticket_qty,
            'image' => $imgname,
            'start_date' =>date('Y-m-d', strtotime($request->start_date)),
            'start_time' =>date("H:i:s",strtotime($request->start_time)),
            'end_date'  =>date('Y-m-d', strtotime($request->end_date)),
            'end_time' => date("H:i:s",strtotime($request->end_time)),
+           'latitude' =>  $request->latitude,
+           'longitude' => $request->longitude,
+           'hotel_ids' => json_encode($request->hotelname),
+           'space_ids' => json_encode($request->spacename),
            'address' => $request->address
         ]);
+
+        $adminevent_id = $request->event_id;
+
+        if (!empty($_FILES["eventGallery"]["name"])) {
+
+            $event_delete = DB::table('event_gallery')->where('event_id', '=', $request->event_id)->delete();
+            
+            foreach ($_FILES["eventGallery"]["name"] as $key => $error) {
+                $imgname = $_FILES["eventGallery"]["name"][$key];
+                $imgurl = "public/uploads/event_gallery/" . time() . '_' . $imgname;
+                $name = $_FILES["eventGallery"]["name"];
+                move_uploaded_file($_FILES["eventGallery"]["tmp_name"][$key], "public/uploads/event_gallery/" . time() . '_' . $_FILES['eventGallery']['name'][$key]);
+
+                $Img = array(
+                    'image' => time() . '_' . $imgname,
+                    'event_id' => $request->event_id,
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
+                $up = DB::table('event_gallery')->insert($Img);
+            }
+        }
 
         return response()->json(['status' => 'success', 'msg' => 'Event Updated Successfully']);
     }
@@ -129,11 +189,38 @@ class EventController extends Controller
     {
     	$eventId = $request->id;
         $event_data = Events::where('id', $eventId)->first();
+        $image_data = DB::table('event_gallery')->where('event_id', $eventId)->get();
+        foreach ($image_data as $key => $value) {
+           $filePath = public_path('uploads/event_gallery/'. $value->image);
+            if(file_exists($filePath)){
+                $Path = './public/uploads/event_gallery/' . $value->image;
+                unlink($Path);
+            }
+            $image_delete = DB::table('event_gallery')->where('id', '=', $value->id)->delete();
+        }
 		if ($event_data) {
 			$event_delete = Events::where('id', '=', $eventId)->delete();
 			return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
 		} else {
 			return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
 		}
+    }
+
+    public function delete_event_single_image(Request $request)
+    {
+        $imageId = $request->id;
+        // $hotelID = $request->hotel_id;
+        $image_data = DB::table('event_gallery')->where('id', $imageId)->first();
+        if ($image_data) {
+            $filePath = public_path('uploads/event_gallery/'. $image_data->image);
+            if(file_exists($filePath)){
+                $Path = './public/uploads/event_gallery/' . $image_data->image;
+                unlink($Path);
+            }
+            $image_delete = DB::table('event_gallery')->where('id', '=', $imageId)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
     }
 }

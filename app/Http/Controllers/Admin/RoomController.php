@@ -117,6 +117,7 @@ class RoomController extends Controller
 
             $adminroom->room_size = $request->room_size;
             $adminroom->bed_type = $request->bed_type;
+            $adminroom->num_of_beds = $request->num_of_beds;
             $adminroom->private_bathroom = $request->private_bathroom;
             $adminroom->private_entrance = $request->private_entrance;
             $adminroom->optional_services = $request->optional_services;
@@ -300,9 +301,15 @@ class RoomController extends Controller
                 $roomFeaturedImg = $request->old_room_image;
             }
 
+            if(!empty($request->old_room_type)){
+                $room_type_id = $request->old_room_type;
+            }else{
+                $room_type_id = $request->room_type;
+            }
+
             $room_data = array(
                 'hotel_id' => $request->hotel_name,
-                'room_types_id' => $request->room_type,
+                'room_types_id' => $room_type_id,
                 'name' => $request->room_name,
                 'image' => $roomFeaturedImg,
                 'max_adults' => $request->max_adults,
@@ -330,6 +337,7 @@ class RoomController extends Controller
 
                 'room_size' => $request->room_size,
                 'bed_type' => $request->bed_type,
+                'num_of_beds' => $request->num_of_beds,
                 'private_bathroom' => $request->private_bathroom,
                 'private_entrance' => $request->private_entrance,
                 'optional_services' => $request->optional_services,
@@ -489,8 +497,15 @@ class RoomController extends Controller
             }else{
                 $roomFeaturedImg = $request->old_room_image;
             }
+
+            if(!empty($request->old_room_type)){
+                $room_type_id = $request->old_room_type;
+            }else{
+                $room_type_id = $request->room_typeh;
+            }
+
             $room_data = array(
-                'room_types_id' => $request->room_typeh,
+                'room_types_id' => $room_type_id,
                 // 'hotel_id' => $request->hotel_name,
                 'image' => $roomFeaturedImg,
                 'name' => $request->room_nameh,
@@ -519,6 +534,7 @@ class RoomController extends Controller
 
                 'room_size' => $request->room_sizeh,
                 'bed_type' => $request->bed_typeh,
+                'num_of_beds' => $request->num_of_beds,
                 'private_bathroom' => $request->private_bathroomh,
                 'private_entrance' => $request->private_entranceh,
                 'optional_services' => $request->optional_services,
@@ -620,6 +636,58 @@ class RoomController extends Controller
         }     
     }
 
+    public function room_price_calendar($id)
+    {
+        $data['room_data'] = DB::table('room_list')
+                            ->join('hotels', 'room_list.hotel_id', 'hotels.hotel_id')
+                            ->select('room_list.*', 'hotels.hotel_name')
+                            ->where('room_list.id',$id)
+                            ->first();
+
+        $data['room_price_data'] = DB::table('room_custom_price')
+                            ->where('room_id', $id)
+                            ->get();
+
+        // echo "<pre>";print_r($data['room_price_data']);die;
+
+        // $data['hotels'] = DB::table('hotels')->orderby('created_at', 'ASC')->get();
+        // $data['room_type_categories'] = DB::table('room_type_categories')->orderby('created_at', 'ASC')->get();
+        // $data['amenity_type'] = DB::table('amenities_type')->orderby('id', 'ASC')->where('status', 1)->get();
+        // $data['service_type'] = DB::table('services_type')->orderby('id', 'ASC')->where('status', 1)->get();
+        // $data['hotel_services'] = DB::table('H3_Services')->orderby('id', 'ASC')->where('status', 1)->get();
+
+        return view('admin/room/room_price_calendar')->with($data);
+    }
+
+    public function room_custom_price_update(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
+        $room_custom_price = array(
+            'room_id' => $request->room_id,
+            'hotel_id' => $request->hotel_id,
+            'price_start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'price_end_date' => date('Y-m-d', strtotime($request->end_date)),
+            'new_price' => $request->new_price,
+            'extra_price' => $request->extra_price,
+            'price_per_night_7d' => $request->price_per_night_7d,
+            'price_per_night_30d' => $request->price_per_night_30d,
+            'price_per_weekend' => $request->price_per_weekend,
+            'min_day_of_booking' => $request->min_day_of_booking,
+            'status' => 1,
+        );
+
+        $roomCustomPriceData = DB::table('room_custom_price')->insert($room_custom_price);
+
+        if(!empty($roomCustomPriceData)){
+            return response()->json(['status' => 'success', 'msg' => 'Price updated successfully']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'Something went Wrong']);
+        }
+
+    }
+
+
+
     public function change_room_status(Request $request)
     {
         $id = $request->id;
@@ -691,14 +759,12 @@ class RoomController extends Controller
         return response()->json(['success' => 'status change successfully.']);
     }
 
-
     public function room_name(Request $request)
     {
         $room_type_id = $request->room_type_id;
         $data['room_name_list'] = DB::table('room_name_list')->where('room_type_id', $room_type_id)->orderby('created_at', 'ASC')->get();
         return response()->json($data);
     }
-
 
     public function delete_room_single_image(Request $request)
 	{
@@ -727,7 +793,13 @@ class RoomController extends Controller
             $get_room_detail = DB::table('room_list')->where('id', '=', $room_id)->first();
             // echo $get_room_detail[0]->id;die;
             $get_room_gallery = DB::table('room_gallery')->where('room_id', '=', $get_room_detail->id)->get();
-            // echo count($get_room_gallery);die;
+
+            $get_room_amenities = DB::table('room_amenities')->where('room_id', $room_id)->pluck('amenity_id')->toArray();
+            $get_room_services = DB::table('room_services')->where('room_id', $room_id)->pluck('room_service_id')->toArray();
+            $get_room_features = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
+
+            // echo count($get_room_amenities);die;
+            // echo "<pre>";print_r($get_room_amenities);die;
 
             if (!empty($get_room_detail)) {
                 // echo "<pre>";print_r($get_room_detail);die;
@@ -757,6 +829,7 @@ class RoomController extends Controller
 
                     'room_size'    => $get_room_detail->room_size,
                     'bed_type'    => $get_room_detail->bed_type,
+                    'num_of_beds' => $request->num_of_beds,
                     'private_bathroom'    => $get_room_detail->private_bathroom,
                     'private_entrance'    => $get_room_detail->private_entrance,
                     'optional_services'    => $get_room_detail->optional_services,
@@ -766,6 +839,47 @@ class RoomController extends Controller
                     'status' => 0,
                     'created_at'    => date('Y-m-d H:i:s'),
                 ));
+
+                // echo $getid;die;
+
+                if (!empty($get_room_amenities)) {
+                    foreach ($get_room_amenities as $amenity_id) {
+                        $ameni = array(
+                            'room_id' => $getid,
+                            'amenity_id' => $amenity_id,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('room_amenities')->insert($ameni);
+                    }
+                }
+    
+                if (!empty($get_room_services)) {
+                    foreach ($get_room_services as $service_id) {
+                        $serv = array(
+                            'room_id' => $getid,
+                            'room_service_id' => $service_id,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('room_services')->insert($serv);
+                    }
+                }
+    
+                if (!empty($get_room_features)) {
+                    foreach ($get_room_features as $features_id) {
+                        $serv = array(
+                            'room_id' => $getid,
+                            'feature_id' => $features_id,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('room_features')->insert($serv);
+                    }
+                }
 
                 // if ($getid) {
                 //     if(count($get_room_gallery) > 0)

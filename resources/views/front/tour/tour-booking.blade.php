@@ -2,146 +2,141 @@
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
 <style type="text/css">
-   .bed-room h3 {
-   font-size: 19px;
-   color: #000;
-   font-weight: 700;
-   }
-   .ami-pol-room {
-   display: flex;
-   align-items: center;
-   vertical-align: middle;
-   margin-top: 4px;
-   margin-right: 3px;
-   text-align: center;
-   justify-content: normal;
-   width: 100%;
-   border-bottom: 1px solid #ccc;
-   padding-bottom: 16px;
-   }
-   .ami-pol-detail {
-   display: flex;
-   align-items: center;
-   vertical-align: middle;
-   margin-top: 14px;
-   margin-right: 20px;
-   text-align: center;
-   justify-content: left;
-   width: 17%;
-   }
-   .ami-pol-detail i {
-   font-size: 27px;
-   border: 1px solid #126c62;
-   color: #126c62;
-   padding: 8px;
-   margin-bottom: 8px;
-   border-radius: 7px;
-   margin-right: 8px;
-   }
-   .ami-pol-detail h5 {
-   margin-bottom: 0px;
-   text-align: center;
-   font-size: 14px;
-   font-weight: bold;
-   }
-   .all-detail-rom {
-   border-bottom: 1px solid #ededed;
-   padding: 10px 3px;
-   }
-   .check-makr i{
-   margin-right: 6px;
-   }
-   .check-makr span {
-   font-weight: 500;
-   font-size: 14px;
-   }
-   .check-makr {
-   display: flex;
-   align-items: center;
-   margin-bottom: 0px;
-   margin-top: 4px;
-   }
-   h3.gust-rom {
-   color: #3e3e3e;
-   font-weight: 600;
-   font-size: 17px;
-   }
-   /*#roomdetails .owl-nav{
-   display: none;
-   }*/
-   #roomdetails .owl-dots{
-   display: none;
-   }
-   .roomdetails .owl-nav button {
-   border: none;
-   background: #126c62;
-   color: #FFF;
-   font-size: 26px;
-   }
-   .roomdetails .owl-nav .owl-next{
-   float: right;
-   }
-   .roomdetails .owl-nav {
-   bottom: 206px;
-   position: relative;
-   /* background: #ccc; */
-   }
-   #roomdetails .owl-dot.active {
-   background-color: #126c62 !important;
-   }
-   .heig-fic-room img{
-   height: 100%;
-   }
-   .heig-fic-room {
-   height: 380px;
-   background: #ccc;
-   overflow: hidden;
-   /* border-radius: 10px; */
-   /* margin-bottom: 24px; */
-   border: 3px solid #126c62;
-   }   /* margin-bottom: 24px;*/
-   .side-bar-rom {
-   border: 1px solid #eaeaea;
-   padding: 20px 12px;
-   min-height: 350px;
-   border-radius: 7px;
-   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-   background: #FFF;
-   position: sticky;
-   top: 96px;
-   float: left;
-   }
-   .check-in-out h4 small {
-   margin-bottom: 7px;
-   float: left;
-   }
+  .bed-room h3 {
+  font-size: 19px;
+  color: #000;
+  font-weight: 700;
+  }
+  .ami-pol-room {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-top: 4px;
+  margin-right: 3px;
+  text-align: center;
+  justify-content: normal;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+  }
+  .ami-pol-detail {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-top: 14px;
+  margin-right: 20px;
+  text-align: center;
+  justify-content: left;
+  width: 17%;
+  }
+  .ami-pol-detail i {
+  font-size: 27px;
+  border: 1px solid #126c62;
+  color: #126c62;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 7px;
+  margin-right: 8px;
+  }
+  .ami-pol-detail h5 {
+  margin-bottom: 0px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  }
+  .all-detail-rom {
+  border-bottom: 1px solid #ededed;
+  padding: 10px 3px;
+  }
+  .check-makr i{
+  margin-right: 6px;
+  }
+  .check-makr span {
+  font-weight: 500;
+  font-size: 14px;
+  }
+  .check-makr {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-top: 4px;
+  }
+  h3.gust-rom {
+  color: #3e3e3e;
+  font-weight: 600;
+  font-size: 17px;
+  }
+  /*#roomdetails .owl-nav{
+  display: none;
+  }*/
+  #roomdetails .owl-dots{
+  display: none;
+  }
+  .roomdetails .owl-nav button {
+  border: none;
+  background: #126c62;
+  color: #FFF;
+  font-size: 26px;
+  }
+  .roomdetails .owl-nav .owl-next{
+  float: right;
+  }
+  .roomdetails .owl-nav {
+  bottom: 206px;
+  position: relative;
+  /* background: #ccc; */
+  }
+  #roomdetails .owl-dot.active {
+  background-color: #126c62 !important;
+  }
+  .heig-fic-room img{
+  height: 100%;
+  }
+  .heig-fic-room {
+  height: 380px;
+  background: #ccc;
+  overflow: hidden;
+  /* border-radius: 10px; */
+  /* margin-bottom: 24px; */
+  border: 3px solid #126c62;
+  }   /* margin-bottom: 24px;*/
+  .side-bar-rom {
+  border: 1px solid #eaeaea;
+  padding: 20px 12px;
+  min-height: 350px;
+  border-radius: 7px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  background: #FFF;
+  position: sticky;
+  top: 96px;
+  float: left;
+  }
+  .check-in-out h4 small {
+  margin-bottom: 7px;
+  float: left;
+  }
 </style>
 @endsection
 @section('current_page_js')
-<script type="text/javascript">
-   // $('.portfolio-item').isotope({
-       //    itemSelector: '.item',
-       //    layoutMode: 'fitRows'
-       //  });
-        $('.portfolio-menu ul li').click(function(){
-         $('.portfolio-menu ul li').removeClass('active');
-         $(this).addClass('active');
-         
-         var selector = $(this).attr('data-filter');
-         $('.portfolio-item').isotope({
-           filter:selector
-         });
-         return  false;
-        });
-        $(document).ready(function() {
-        var popup_btn = $('.popup-btn');
-        popup_btn.magnificPopup({
-        type : 'image',
-        gallery : {
-         enabled : true
-        }
-        });
-        });
+<script type="text/javascript"> 
+  $('.portfolio-menu ul li').click(function(){
+    $('.portfolio-menu ul li').removeClass('active');
+    $(this).addClass('active');
+    var selector = $(this).attr('data-filter');
+    $('.portfolio-item').isotope({
+      filter:selector
+    });
+    return  false;
+  });
+  $(document).ready(function() {
+    var popup_btn = $('.popup-btn');
+    popup_btn.magnificPopup({
+      type : 'image',
+      gallery : {
+       enabled : true
+      }
+    });
+  });
 </script>
 <!-- Vendor JS Files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
@@ -158,54 +153,51 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 <script type="text/javascript">
-   $(function () {
-     // ADDING DATA
-     (function () {
-         var inc = 0;
-         $('.sc-sp-data-dis').each(function () {
-             $(this).attr('data-scsp', "data" + inc)
-             inc++;
-         });
-     })();
-     (function () {
-         var inc = 0;
-         $('.sc-sp-list').each(function (ev) {
-             $(this).attr('data-scsp', "data" + inc)
-             inc++;
-         });
-     })();
-   
-     $(window).on("load scroll", function () {
-         var windowScroll = $(this).scrollTop();
-         $(".sc-sp-data-dis").each(function () {
-             var thisOffsetTop = Math.round($(this).offset().top - 30);
-   
-             if (windowScroll >= thisOffsetTop) {
-                 var thisAttr = $(this).attr('data-scsp');
-                 $('.sc-sp-list').parent().removeClass("active");
-                 $('.sc-sp-list[data-scsp="' + thisAttr + '"]').parent().addClass("active");
-             }
-         });
-     });
-   
-     $('.sc-sp-list').click(function (ev) {
-         ev.preventDefault();
-         var thisAttr = $(this).attr("data-scsp");
-         var scrollTo = $('.sc-sp-data-dis[data-scsp="' + thisAttr + '"]').offset().top;
-   
-         $(this).parent().addClass("active").siblings().removeClass("active");
-   
-         $(".sc-sp-data-dis").removeClass("active");
-         $('.sc-sp-data-dis[data-scsp="' + thisAttr + '"]').addClass("active");
-   
-         $('html, body').animate({
-             scrollTop: scrollTo - 5
-         }, 150);
-     });
-   
-   
-   
-   });
+  $(function () {
+    // ADDING DATA
+    (function () {
+       var inc = 0;
+       $('.sc-sp-data-dis').each(function () {
+           $(this).attr('data-scsp', "data" + inc)
+           inc++;
+       });
+    })();
+    (function () {
+       var inc = 0;
+       $('.sc-sp-list').each(function (ev) {
+           $(this).attr('data-scsp', "data" + inc)
+           inc++;
+       });
+    })();
+ 
+    $(window).on("load scroll", function () {
+       var windowScroll = $(this).scrollTop();
+       $(".sc-sp-data-dis").each(function () {
+           var thisOffsetTop = Math.round($(this).offset().top - 30);
+ 
+           if (windowScroll >= thisOffsetTop) {
+               var thisAttr = $(this).attr('data-scsp');
+               $('.sc-sp-list').parent().removeClass("active");
+               $('.sc-sp-list[data-scsp="' + thisAttr + '"]').parent().addClass("active");
+           }
+       });
+    });
+ 
+    $('.sc-sp-list').click(function (ev) {
+       ev.preventDefault();
+       var thisAttr = $(this).attr("data-scsp");
+       var scrollTo = $('.sc-sp-data-dis[data-scsp="' + thisAttr + '"]').offset().top;
+ 
+       $(this).parent().addClass("active").siblings().removeClass("active");
+ 
+       $(".sc-sp-data-dis").removeClass("active");
+       $('.sc-sp-data-dis[data-scsp="' + thisAttr + '"]').addClass("active");
+ 
+       $('html, body').animate({
+           scrollTop: scrollTo - 5
+       }, 150);
+    });
+  }); 
 </script>
 <script type="text/javascript">
    function readURL(input) {
@@ -300,6 +292,10 @@
                   <h5>Tour type</h5>
                   <ul>
                      <li> {{$tour_details->tour_type}}</li>
+                  </ul>
+                  <h5>Tour Sub type</h5>
+                  <ul>
+                     <li> {{$tour_details->tour_sub_type}}</li>
                   </ul>
                   <div class="">
                      <h5 class="mt-3">Activities </h5>

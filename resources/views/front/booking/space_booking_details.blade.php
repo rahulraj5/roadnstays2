@@ -561,8 +561,8 @@
             <div class="col-md-12 bread-col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <!-- <li class="breadcrumb-item"><a href="{{ url('/user/profile') }}">Profile</a></li> -->
-                        <li class="breadcrumb-item"><a href="{{ url('/user/spaceBookingDetails') }}">My Space Booking</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/user/profile') }}">Profile</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/user/spaceBookingList') }}">Space Booking</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Booking ID: #VXMN{{ $bookingDetails->space_booking_id }}</li>
                     </ol>
                 </nav>
@@ -610,9 +610,9 @@
                         <p>{{ $bookingDetails->space_name }}</p>
 
                     </div>
-                    <!-- <div class="down-i">
-                            <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
-                        </div> -->
+                    <div class="down-i">
+                        <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                    </div>
 
                 </div>
                 <div class="side-b">
@@ -655,9 +655,9 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <!-- <ul>
-                                <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
-                            </ul> -->
+                        <ul>
+                            <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
+                        </ul>
                     </div>
                 </div>
 

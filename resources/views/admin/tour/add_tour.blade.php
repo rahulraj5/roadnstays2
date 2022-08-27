@@ -163,32 +163,24 @@
         tour_description: {
           required: true,
         },
-        "tourGallery[]": {
-          required: true,
-          extension: "jpg|jpeg|png",
-          // filesize: 20971520, 
+        tour_status:{
+          required:true,
         },
-        tourFeaturedImg: {
-          required: true,
-          extension: "jpg|jpeg|png",
-        },
-        tour_locations: {
+        address: {
           required: true,
         },
-        tour_package_name: {
+        city: {
           required: true,
         },
-        contact_name: {
-          required: true,
-        },
-        contact_num: {
+        latitude: {
           required: true,
           number: true,
         },
-        alternate_num: {
+        longitude: {
+          required: true,
           number: true,
         },
-        scout_id: {
+        country_id: {
           required: true,
         },
         vendor_id: {
@@ -199,37 +191,27 @@
         },
         end_date: {
           required: true,
-        },
-        tour_code: {
-          required: true, 
-        },
-        min_day_stays: {
-          required: true,
-          number: true,
         }, 
         tour_type: {
           required: true,
         },
+        tour_sub_type: {
+          required: true,
+        },
         tour_days: {
           required: true,
-        },
-        booking_contact: {
-          required: true,
-          number: true,
-        },
+        }, 
         tour_price: {
           required: true,
           number: true,
         },
-        extra_price: {
-          number: true,
-        },
-        service_fee: {
-          number: true,
-        },
-        property_type: {
+        tour_price_others: {
           required: true,
+          number: true,
         },
+        children_policy: {
+          required: true,
+        }, 
 
       }, 
       errorElement: 'span',
@@ -256,49 +238,46 @@
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        address: {
+        "tourGallery[]": {
+          required: true,
+          extension: "jpg|jpeg|png",
+        },
+        tourFeaturedImg: {
+          required: true,
+          extension: "jpg|jpeg|png",
+        },
+        tour_locations: {
           required: true,
         },
-        city: {
+        min: {
           required: true,
-        },
-        latitude: {
           number: true,
         },
-        longitude: {
-          number: true,
+        max:{
+          required:true,
+          number:true,
+          max: function(){ return $("#min").val();}
         },
-        country_id: {
+        scout_id: {
           required: true,
         },
-        bank_name: {
+        tour_policy: {
           required: true,
         },
-        account_title: {
+        payment_mode: {
           required: true,
         },
-        account_number: {
+        booking_option: {
           required: true,
         },
-        branch_name: {
+        tour_locations:{
           required: true,
         },
-        easypaisa: {
-          required: true,
-        },
-        jazz_cash: {
-          required: true,
+        tour_activities:{
+          required:true,
         }
       },
-      messages: {
-        address: {
-          required: "Please enter a Your Office Address"
-        },
-        city: {
-          required: "Please provide a City",
-        },
-        // terms: "Please accept our terms"
-      },
+      
       errorElement: 'span',
       errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
@@ -324,6 +303,12 @@
       rules: {
         "itinerary[]": {
           required: true,
+        },
+        tour_services_includes:{
+          required:true,
+        },
+        tour_services_not_includes:{
+          required:true,
         }
       },
     });
@@ -382,7 +367,7 @@
     $(addButton).click(function() {
       if (x < maxField) { 
         x++;
-        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><input type="text" class="form-control" name="itinerary[' + x + '][name]" placeholder="Enter Name" value="" /><ul style="padding: 3px; margin-top: 12px;" class="itinerary'+x+'"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+x+'][services][0]" placeholder="services"><a href="javascript:void(0);" class="add_button_ser'+x+'" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button">Remove</a></span></div></div>');
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][name]" placeholder="Enter Day" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][place_from]" placeholder="Enter place form" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][place_to]" placeholder="Enter place to" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][hotel]" placeholder="Enter hotel" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][transport]" placeholder="Enter transport" value="" required="" /></div><div class="col-md-2"><select class="form-control mr-2" name="itinerary['+x+'][night_stay]" id="" required=""><option value="0">No</option><option value="1">Yes</option></select></div></div><ul style="padding: 3px;  margin-top: 12px;" class="itinerary'+x+' mb-0"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+x+'][services][0]" placeholder="services" required=""><a href="javascript:void(0);" class="add_button_ser'+x+' btn-desing" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button remove_button_it">Remove</a></span></div>');
       }
     });
 
@@ -400,14 +385,13 @@
      inc++;
       if(id > 0){
         $(".add_button_ser"+id).attr("onclick","addtrips('"+id+"','"+inc+"')");
-        $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>');
-      
+        $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>'); 
         $(".itinerary"+id).on('click','.remove_button_ser'+id,function(){
         $(this).parents('li').remove();
         });
       }else{ 
-         $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
-        $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
+        $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
+        $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
         $(".itinerary").on('click','.remove_button_ser',function(){
         $(this).parents('li').remove();
         });
@@ -480,7 +464,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <a href="{{url('/admin/tourList')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/admin/tourList')}}" class="balc-btn"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>Add Tour</h1>
         </div>
         <div class="col-sm-6">
@@ -535,14 +519,14 @@
                     <div class="step" data-target="#hotel-policy-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="hotel-policy-part" id="hotel-policy-part-trigger">
                         <span class="bs-stepper-circle">2</span>
-                        <span class="bs-stepper-label">Payment Mode & Bank Details</span>
+                        <span class="bs-stepper-label">Tour Capacity & Reservations</span>
                       </button>
                     </div>
                     <div class="line"></div>
                     <div class="step" data-target="#facility-service-part">
                       <button type="button" class="step-trigger" role="tab" aria-controls="facility-service-part" id="facility-service-part-trigger">
                         <span class="bs-stepper-circle">3</span>
-                        <span class="bs-stepper-label">Tour Itinerary</span>
+                        <span class="bs-stepper-label">Tour Details & Services</span>
                       </button>
                     </div>
                   </div>
@@ -565,127 +549,6 @@
                             </p>
                             <!-- </div> -->
                           </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Tour Name</label>
-                              <input type="text" class="form-control" name="tour_title" id="tour_title" placeholder="Enter Name">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Tour Description</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="tour_description" ></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Tour Locations</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="tour_locations" ></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Tour Activities</label>
-                              <textarea class="form-control" id="tour_activities" name="tour_activities" ></textarea>
-                            </div>
-                          </div>
-
-                          <!-- <div class="col-md-12"> -->
-                            
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Tour Package Name</label>
-                                  <input type="text" class="form-control" id="tour_package_name" name="tour_package_name">
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Tour Code</label>
-                                  <input type="text" class="form-control" id="tour_code" name="tour_code">
-                              </div>
-                            </div>
-                          <!-- </div> -->
-
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                <label for="customFile">Tour Gallery</label>
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="tourGallery" name="tourGallery[]" multiple>
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
-                              </div>
-                          </div> 
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Tour Featured/Main Image</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" >
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                              </div>
-                            </div>
-                          </div>  
-                          
-                          <div class="col-md-12">
-                            <div class="col" id="hotelGalleryPreview"></div>
-                          </div>
-
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
-                              <p class="lead mb-0">
-                              <h4>Contact Details for this Tour</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Contact Name</label>
-                              <input type="text" class="form-control" name="contact_name" id="contact_name" placeholder="Enter Contact Name">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Contact Number</label>
-                              <input type="text" class="form-control" name="contact_num" id="contact_num" placeholder="Enter Contact Number">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Alternate Number</label>
-                              <input type="text" class="form-control" name="alternate_num" id="alternate_num" placeholder="Enter Alternate Number">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="customFile">Document</label>
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="tour_document" id="tour_document">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Scouts</label>
-                              <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
-                                <option value="">Select Scouts</option>
-                                @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
-                                @foreach ($scouts as $value)
-                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Vendor</label>
@@ -698,19 +561,89 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-md-12">
+
+                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour Term & Condition</label>
-                              <textarea class="form-control" id="summernote1Removed" name="tour_term_condition"></textarea>
+                              <label>Tour Name</label>
+                              <input type="text" class="form-control" name="tour_title" id="tour_title" placeholder="Enter Name">
                             </div>
                           </div>
 
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Status</label>
+                              <select class="form-control select2bs4" name="tour_status" id="tour_status" style="width: 100%;">
+                                <option value="">Select Status</option>
+                                <option value="available">Available</option>
+                                <option value="booked">Booked</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Price</label>
+                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name"  required="">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Description</label>
+                              <textarea class="form-control" id="summernoteRemoved1" name="tour_description" ></textarea>
+                            </div>
+                          </div>
 
-                          <div class="col-md-12 mt-0">
-                            <div class="tab-custom-content mt-0">
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Tour Start/End Date</h4>
+                              <h4>Pickup Locations</h4>
                               </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>City</label>
+                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " >
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " >
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Latitude</label>
+                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter ">
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Longitude</label>
+                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter ">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Neighborhood / Area</label>
+                              <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Country</label>
+                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" >
+                                <!-- <option value="">Select Country</option> -->
+                                @foreach ($countries as $cont)
+                                <option value="{{ $cont->id }}">{{ $cont->name }}</option>
+                                @endforeach
+                              </select>
                             </div>
                           </div>
 
@@ -730,37 +663,24 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour Days</label>
-                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days" required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tour Price</label>
-                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter tour price">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <!-- <label>Tour services includes</label> -->
-                             <textarea class="form-control" name="tour_services_includes" id="tour_services_includes" hidden=""></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                             <!--  <label>Tour services not includes</label> -->
-                              <textarea class="form-control" name="tour_services_not_includes" id="tour_services_not_includes" hidden=""></textarea>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
                               <label>Tour Type</label>
                               <select class="form-control select2bs4" name="tour_type" id="tour_type" style="width: 100%;">
                                 <option value="">Select Tour Type</option>
+                                <option value="adventure">Adventure</option>
+                                <option value="sightseeing">Sightseeing</option>
+                                <option value="adventure_sightseeing">Adventure + Sightseeing</option>
+                                <option value="honeymoon">Honeymoon</option>
+                                <option value="school_trip">School Trip</option>
+                                <option value="corporate_trip">Corporate Trip</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Sub Type</label>
+                              <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
+                                <option value="">Select Sub Tour Type</option>
                                 <option value="standard">Standard</option>
                                 <option value="deluxe">Deluxe</option>
                                 <option value="exclusive">Exclusive</option>
@@ -770,10 +690,40 @@
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Booking Contact Mobile Nubmer</label>
-                              <input type="text" name="booking_contact" id="booking_contact" placeholder="Please enter mobile number" class="form-control">
+                              <label>Tour Days</label>
+                              <input type="text" class="form-control" name="tour_days" id="tour_days" placeholder="Enter tour days" required="">
                             </div>
                           </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Price Other (extra charges per person)</label>
+                              <input type="text" class="form-control" name="tour_price_others" id="tour_price_others" placeholder="Enter ">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Discount</label>
+                              <input type="text" class="form-control" name="tour_discount" id="tour_discount" placeholder="Enter tour discount" required="">
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Children Policy</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Children Policy</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="children_policy" ></textarea>
+                            </div>
+                          </div>
+                          
                           <div class="col-12">
                             <a class="btn btn-primary btn-dark button">Next</a>
                           </div>
@@ -782,6 +732,69 @@
 
                       <div id="hotel-policy-part" class="content slide two" role="tabpanel" aria-labelledby="hotel-policy-part-trigger"> 
                         <div class="row">
+                          
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="customFile">Tour Gallery</label>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="tourGallery" name="tourGallery[]" multiple required="">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="customFile">Tour Featured/Main Image</label>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="tourFeaturedImg" name="tourFeaturedImg" required="">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                              </div>
+                            </div>
+                          </div>  
+                          <div class="col-md-12">
+                            <div class="col" id="hotelGalleryPreview"></div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Tour capacity</h4>
+                              </p>
+                            </div>
+                          </div> 
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Min</label>
+                              <input type="text" class="form-control" name="min" id="min" placeholder="Enter " required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Max</label>
+                              <input type="text" class="form-control" name="max" id="max" placeholder="Enter " required="">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Scouts</label>
+                              <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;" required="">
+                                <option value="">Select Scouts</option>
+                                @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                                @foreach ($scouts as $value)
+                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Policy</label>
+                              <textarea class="form-control" id="summernoteRemoved12" name="tour_policy" required=""></textarea>
+                            </div>
+                          </div>
 
                           <div class="col-md-12">
                             <div class="tab-custom-content">
@@ -820,6 +833,13 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Cancellation and Refund</label>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required=""></textarea>
+                            </div>
+                          </div>
+
                           <div class="col-sm-6">
                             <label>Booking Option</label>
                             <div class="row">
@@ -830,13 +850,11 @@
                                     <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
                                     <label for="booking_option1" class="custom-control-label">Instant booking</label>
                                   </div>
-
                                 </div>
                               </div>
                               <div class="col-sm-6">
                                 <!-- radio -->
-                                <div class="form-group">
-
+                                <div class="form-group"> 
                                   <div class="custom-control custom-radio">
                                     <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
@@ -844,137 +862,20 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-
+                          </div> 
                           <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Tour Address</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>Address</label>
-                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " >
+                              <label>Tour Locations</label>
+                              <textarea class="form-control" id="summernoteRemoved45" name="tour_locations" required=""></textarea>
                             </div>
-                          </div>
-
-                          <!-- <p>The geographic coordinate</p> -->
-
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Latitude</label>
-                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label>Longitude</label>
-                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter ">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>City</label>
-                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " >
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Neighborhood / Area</label>
-                              <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Country</label>
-                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" >
-                                <!-- <option value="">Select Country</option> -->
-                                @foreach ($countries as $cont)
-                                <option value="{{ $cont->id }}">{{ $cont->name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-
+                          </div> 
                           <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>Pricing</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
                             <div class="form-group">
-                              <label>Tour Price others</label>
-                              <input type="text" class="form-control" name="tour_price_others" id="tour_price_others" placeholder="Enter ">
+                              <label>Tour Activities</label>
+                              <textarea class="form-control" id="tour_activities" name="tour_activities" required=""></textarea>
                             </div>
                           </div>
 
-                         
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>You can deposit money from any Bank</h4>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Bank Name</label>
-                              <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Enter Bank Name " required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Account Title</label>
-                              <input type="text" class="form-control" name="account_title" id="account_title" placeholder="Enter Account Holder Name " required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Account Number</label>
-                              <input type="text" class="form-control" name="account_number" id="account_number" placeholder="Enter Account Number" required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Branch Name</label>
-                              <input type="text" class="form-control" name="branch_name" id="branch_name" placeholder="Enter Branch Name" required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="tab-custom-content">
-                              <p class="lead mb-0">
-                              <h4>You can also deposit money through Easypaisa and Jazz Cash</h4>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Easypaisa</label>
-                              <input type="text" class="form-control" name="easypaisa" id="easypaisa" placeholder="Enter easypaisa number" required="">
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Jazz Cash</label>
-                              <input type="text" class="form-control" name="jazz_cash" id="jazz_cash" placeholder="Enter jazz cash number" required="">
-                            </div>
-                          </div>
                           <div class="col-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <a class="btn btn-primary btn-dark button">Next</a>
@@ -994,19 +895,52 @@
                           <div class="col-md-12 field_wrapper">
                             <div class="form-group" id="extra">
                               <label>Itinerary</label>
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <input type="text" class="form-control mr-2" name="itinerary[0][name]" placeholder="Enter title" value="" required="" />
-                                  <ul style="padding: 3px; margin-top: 12px;" class="itinerary">
-                                    <li class="d-flex  mb-2" style="align-items: center;"> 
-                                     <input type="text" class="form-control mr-2" name="itinerary[0][services][0]" placeholder="services" required="">
-                                      <a href="javascript:void(0);" class="add_button_ser" style="padding: 5px; top: 0px;" onclick="addtrips(0,0)">Button </a>
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control mr-2" name="itinerary[0][name]" placeholder="Enter day" value="" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control mr-2" name="itinerary[0][place_from]" placeholder="Enter place from" value="" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control mr-2" name="itinerary[0][place_to]" placeholder="Enter place to" value="" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control mr-2" name="itinerary[0][hotel]" placeholder="Enter hotel" value="" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control mr-2" name="itinerary[0][transport]" placeholder="Enter transport" value="" required="" />
+                                    </div>
+                                    <div class="col-md-2">
+                                      <select class="form-control mr-2" name="itinerary[0][night_stay]" id="" required="">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <ul style="padding: 3px;  margin-top: 12px;" class="itinerary mb-0">
+                                    <li class="d-flex mb-2" style="align-items: center;"> 
+                                     <input type="text" class="form-control w-50 mr-2" name="itinerary[0][services][0]" placeholder="services" required="">
+                                     <a href="javascript:void(0);" class="add_button_ser btn-desing" style="padding: 5px; top: 0px;" onclick="addtrips(0,0)">Button </a>
                                     </li>
-                                 <!-- <li class="d-flex mb-2" style="align-items: center;"> <input type="text" class="form-control mr-2" name=""><a href="" class="add_button" style="padding: 5px; top: 0px;">Button </a></li> -->
-                                   </ul>
-                                </div>
-                                <span><a href="javascript:void(0);" class="add_button" title="Add field">Add</a></span>
+                                  </ul> 
+                                </div> 
+                                <span><a href="javascript:void(0);" class="add_button mb-4" title="Add field">Add</a></span>
                               </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Services Includes</label>
+                              <textarea class="form-control" id="summernoteRemoved47" name="tour_services_includes" ></textarea>
+                            </div>
+                          </div> 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tour Services Not Includes</label>
+                              <textarea class="form-control" id="summernoteRemoved85" name="tour_services_not_includes" ></textarea>
                             </div>
                           </div> 
                           <div class="col-md-12">

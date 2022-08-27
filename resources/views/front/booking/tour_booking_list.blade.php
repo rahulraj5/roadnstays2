@@ -749,7 +749,7 @@
             <div class="col-md-12 bread-col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="">My Booking</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/user/profile') }}">Profile</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tour Booking</li>
                     </ol>
                 </nav>

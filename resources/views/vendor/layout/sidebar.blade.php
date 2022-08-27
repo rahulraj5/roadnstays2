@@ -8,36 +8,61 @@
               <div class="vend-stays"> Road N Stays</div>
               <li class="active-bg"> <a href="{{ url('servicepro/dashboard') }}" class="collapsed"> <i class='bx bx-home-circle'></i> <span class="nav-label"> Dashboard </span> </a>
               </li>
-              <li> <a href="#" data-toggle="collapse" data-target="#hotels" class="collapsed"> <i class='bx bx-buildings'></i> <span class="nav-label"> Hotel Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
+
+              <!-- <li> <a href="#" data-toggle="collapse" data-target="#hotels" class="collapsed"> <i class='bx bx-buildings'></i> <span class="nav-label"> Hotel Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="hotels">
                   <li class="active"><a href="{{ url('servicepro/hotelList') }}"><i class='bx bx-chevron-left'></i>Hotels List</a></li>
-                  <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
                 </ul>
               </li>
               <li> <a href="#" data-toggle="collapse" data-target="#space" class="collapsed"> <i class='bx bxs-city'></i> <span class="nav-label"> Space Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="space">
                   <li class="active"><a href="{{ url('servicepro/space-list') }}"><i class='bx bx-chevron-left'></i>Space List</a></li>
-                  <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
                 </ul>
               </li>
               <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> <i class='bx bx-car'></i> <span class="nav-label">Tour Management</span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="products">
                   <li class="active"><a href="{{ url('servicepro/tourList') }}"> <i class='bx bx-chevron-left'></i> Tour List</a></li>
-                  <li class="active"><a href="{{ url('servicepro/tourbooking_list') }}"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
+                </ul>
+              </li> -->
+
+
+              <li> <a href="#" data-toggle="collapse" data-target="#mylisting" class="collapsed"> <i class='bx bx-map'></i> <span class="nav-label"> My Listings </span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                <ul class="sub-menu collapse" id="mylisting">
+                  <li class="active"><a href="{{ url('servicepro/hotelList') }}"><i class='bx bx-chevron-left'></i>Hotels List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/space-list') }}"><i class='bx bx-chevron-left'></i>Space List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/tourList') }}"><i class='bx bx-chevron-left'></i>Tour List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/events_list') }}"> <i class='bx bx-chevron-left'></i> Event List</a></li>
                 </ul>
               </li>
+
+
+              <!-- <li> <a href="#" data-toggle="collapse" data-target="#event" class="collapsed"> <i class='bx bx-calendar'></i> <span class="nav-label">Event Management</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                <ul class="sub-menu collapse" id="event">
+                  <li class="active"><a href="{{ url('servicepro/events_list') }}"> <i class='bx bx-chevron-left'></i> Event List</a></li>
+                </ul>
+              </li> -->
+
+              <li> <a href="#" data-toggle="collapse" data-target="#booking" class="collapsed"> <i class='bx bx-calendar-check'></i> <span class="nav-label">My Bookings</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                <ul class="sub-menu collapse" id="booking">
+                  <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
+                  <li class="active"><a href="#"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
+                </ul>
+              </li>
+              <li> <a href="#" data-toggle="collapse" data-target="#reservations" class="collapsed"> <i class='bx bx-folder-open'></i> <span class="nav-label">My Reservations</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                <ul class="sub-menu collapse" id="reservations">
+                  <li class="active"><a href="{{ url('servicepro/hotel-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Hotel Reservation</a></li>
+                  <li class="active"><a href="{{ url('servicepro/space-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Space Reservation</a></li>
+                  <li class="active"><a href="{{ url('servicepro/tour-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Tour Reservation</a></li>
+                </ul>
+              </li>
+
               <li> <a href="#" data-toggle="collapse" data-target="#transacation" class="collapsed"> <i class='bx bx-transfer'></i> <span class="nav-label">Transacation History</span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="transacation">
                   <li class="active"><a href="{{ url('servicepro/transactionHistory') }}"> <i class='bx bx-chevron-left'></i> Transacation List</a></li>
                 </ul>
               </li>
-              <li> <a href="#" data-toggle="collapse" data-target="#event" class="collapsed"> <i class='bx bx-calendar'></i> <span class="nav-label">Event Management</span> <i class='bx bx-chevron-right pull-r'></i> </a>
-                <ul class="sub-menu collapse" id="event">
-                  <li class="active"><a href="{{ url('servicepro/events_list') }}"> <i class='bx bx-chevron-left'></i> Event List</a></li>
-                </ul>
-              </li>
-              <li> <a href="{{ url('servicepro/profile') }}" class="collapsed"> <i class='bx bx-user-circle'></i> <span class="nav-label"> Profile </span> </a>
-              </li>
+              <li> <a href="{{ url('servicepro/profile') }}" class="collapsed"> <i class='bx bx-user-circle'></i> <span class="nav-label"> Profile </span> </a></li>
               
             </ul>
           </div>
@@ -73,24 +98,53 @@
                     <li class="active-bg">
                       <a href="{{ url('servicepro/dashboard') }}" class="collapsed active"> <i class='bx bx-home-circle'></i> <span class="nav-label"> Dashboard </span> </a>
                     </li>
-                    <li>
+
+                    <!-- <li>
                       <a href="#" data-toggle="collapse" data-target="#hotels" class="collapsed"> <i class='bx bx-buildings'></i> <span class="nav-label"> Hotel Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                       <ul class="sub-menu collapse" id="hotels">
                         <li class="active"><a href="{{ url('servicepro/hotelList') }}"><i class='bx bx-chevron-left'></i>Hotels List</a></li>
-                        <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
                       </ul>
                     </li>
                     <li>
                       <a href="#" data-toggle="collapse" data-target="#space" class="collapsed"> <i class='bx bxs-city'></i> <span class="nav-label">Space Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                       <ul class="sub-menu collapse" id="space">
                       <li class="active"><a href="{{ url('servicepro/space-list') }}"><i class='bx bx-chevron-left'></i>Space List</a></li>
-                      <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
                       </ul>
                     </li>
                     <li><a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> <i class='bx bx-car'></i> <span class="nav-label">Tour Management </span> <i class='bx bx-chevron-right pull-r'></i> </a>
                       <ul class="sub-menu collapse" id="products">
                         <li class="active"><a href="{{ url('servicepro/tourList') }}"> <i class='bx bx-chevron-left'></i> Tour List</a></li> 
-                        <li class="active"><a href="{{ url('servicepro/tourbooking_list') }}"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
+                      </ul>
+                    </li> -->
+
+                    <li> <a href="#" data-toggle="collapse" data-target="#mylisting" class="collapsed"> <i class='bx bx-map'></i> <span class="nav-label"> My Listings </span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                      <ul class="sub-menu collapse" id="mylisting">
+                        <li class="active"><a href="{{ url('servicepro/hotelList') }}"><i class='bx bx-chevron-left'></i>Hotels List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/space-list') }}"><i class='bx bx-chevron-left'></i>Space List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/tourList') }}"><i class='bx bx-chevron-left'></i>Tour List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/events_list') }}"> <i class='bx bx-chevron-left'></i> Event List</a></li>
+                      </ul>
+                    </li>
+
+                    <li> <a href="#" data-toggle="collapse" data-target="#booking" class="collapsed"> <i class='bx bx-calendar-check'></i> <span class="nav-label">My Bookings</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                      <ul class="sub-menu collapse" id="booking">
+                        <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
+                        <li class="active"><a href="#"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
+                      </ul>
+                    </li>
+
+                    <li> <a href="#" data-toggle="collapse" data-target="#reservations" class="collapsed"> <i class='bx bx-folder'></i> <span class="nav-label">My Reservations</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                      <ul class="sub-menu collapse" id="reservations">
+                        <li class="active"><a href="{{ url('servicepro/hotel-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Hotel Reservation</a></li>
+                        <li class="active"><a href="{{ url('servicepro/space-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Space Reservation</a></li>
+                        <li class="active"><a href="{{ url('servicepro/tour-reservation-list') }}"> <i class='bx bx-chevron-left'></i> Tour Reservation</a></li>
+                      </ul>
+                    </li>
+
+                    <li> <a href="#" data-toggle="collapse" data-target="#transacation" class="collapsed"> <i class='bx bx-transfer'></i> <span class="nav-label">Transacation History</span> <i class='bx bx-chevron-right pull-r'></i> </a>
+                      <ul class="sub-menu collapse" id="transacation">
+                        <li class="active"><a href="{{ url('servicepro/transactionHistory') }}"> <i class='bx bx-chevron-left'></i> Transacation List</a></li>
                       </ul>
                     </li>
                     <li><a href="{{ url('servicepro/profile') }}" class="collapsed"> <i class='bx bx-user-circle'></i> <span class="nav-label"> Profile </span> </a></li>
@@ -101,12 +155,13 @@
                 <nav class=" vendor-nav d-lg-block">
                   <ul>
                     <li><a href="{{ url('/') }}"><i class='bx bxs-home'></i></a></li>
-                    <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a>
-                    </li>
-                    <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li>
+                    <!-- <li><a href=""><i class='bx bxs-bell'></i> <span class="n-numbr">2</span></a></li> -->
+                    <!-- <li><a href="#"><i class='bx bxs-conversation'></i> <span class="n-numbr">4</span></a></li> -->
                     <li class="drop-down"><a href="#"><i class='bx bxs-user-circle'></i></a>
                       <ul>
-                        <li><a href="{{ route('servicepro.logout') }}">Logout </a></li>
+                        <li><a href="{{ url('servicepro/profile') }}"><i class='bx bxs-user'></i>&nbsp;<span> Profile </span></a></li>
+                        <li><a  class="modal-btn2" data-toggle="modal" data-target="#exampleModal2"><i class='bx bxs-detail'></i>&nbsp;<span> Change Password </span></a></li>
+                        <li><a href="{{ route('servicepro.logout') }}"><i class='bx bx-reply'></i><span> Logout </span></a></li>
                       </ul>
                     </li>
                   </ul>

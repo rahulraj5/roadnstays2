@@ -1,7 +1,3 @@
-
-
-
-
 @extends('admin.layout.layout')
 @section('title', 'User - Profile')
 @section('current_page_css')
@@ -10,6 +6,8 @@
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}">
+<!-- fullCalendar -->
+<link rel="stylesheet" href="{{ asset('resources/plugins/fullcalendar/main.css')}}">
 <style type="text/css">
   input[type="file"] {
     display: block;
@@ -52,6 +50,587 @@
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- Summernote -->
 <script src="{{ asset('resources/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- fullCalendar 2.2.5 -->
+<!-- <script src="../plugins/moment/moment.min.js"></script> -->
+<script src="{{ asset('resources/plugins/fullcalendar/main.js')}}"></script>
+<!-- Page specific script -->
+
+<!-- calendar script start here -->
+
+<!-- <script>
+  var date = new Date();
+  var d    = date.getDate();
+      m    = date.getMonth();
+      y    = date.getFullYear();
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar1');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      themeSystem: 'bootstrap',
+      initialView: 'dayGridMonth',
+
+      navLinks: true, // can click day/week names to navigate views
+
+      weekNumbers: true,
+      weekNumberCalculation: 'ISO',
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        // omitZeroMinute: true,
+        meridiem: 'short'
+      },
+      selectable: true,
+      selectMirror: true,
+      select: function(arg) {
+        console.log(arg);
+
+        // var check = convert(arg.start);
+        // var today = convert(new Date());
+        var check = arg.start;
+        var today = new Date();
+        // console.log(check);
+        // console.log(today);
+        var new_check = arg.start;
+        var new_today = new Date();
+        new_today.setHours(0, 0, 0, 0);
+
+        if (new_check < new_today) {
+          error_noti("You can't select previous date.");
+          // alert("You can't select previous date.");
+        } else {
+          // alert("You have selected date successfully.");
+          // success_noti("You have selected date successfully.");
+          openModal1();
+        }
+        calendar.unselect();
+      },
+      editable: true,      
+      events: [
+        {
+          title          : 'PKR 1500',
+          start          : new Date(y, m, 1),
+          backgroundColor: '#f56954', //red
+          borderColor    : '#f56954', //red
+          allDay         : true
+        },
+        {
+          title          : 'PKR 2000',
+          start          : new Date(y, m, d - 5),
+          // start          : new Date(y, m, d),
+          end            : new Date(y, m, d + 2),
+          // end            : new Date(y, m, d),
+          backgroundColor: '#f39c12', //yellow
+          borderColor    : '#f39c12' //yellow
+        },
+        // {
+        //   title          : 'Meeting',
+        //   start          : new Date(y, m, d, 10, 30),
+        //   allDay         : false,
+        //   backgroundColor: '#0073b7', //Blue
+        //   borderColor    : '#0073b7' //Blue
+        // },
+        // {
+        //   title          : 'Lunch',
+        //   start          : new Date(y, m, d, 12, 0),
+        //   end            : new Date(y, m, d, 14, 0),
+        //   allDay         : false,
+        //   backgroundColor: '#00c0ef', //Info (aqua)
+        //   borderColor    : '#00c0ef' //Info (aqua)
+        // },
+        // {
+        //   title          : 'Birthday Party',
+        //   start          : new Date(y, m, d + 1, 19, 0),
+        //   end            : new Date(y, m, d + 1, 22, 30),
+        //   allDay         : false,
+        //   backgroundColor: '#00a65a', //Success (green)
+        //   borderColor    : '#00a65a' //Success (green)
+        // },
+        // {
+        //   title          : 'Click for Google',
+        //   start          : new Date(y, m, 28),
+        //   end            : new Date(y, m, 29),
+        //   url            : 'https://www.google.com/',
+        //   backgroundColor: '#3c8dbc', //Primary (light-blue)
+        //   borderColor    : '#3c8dbc' //Primary (light-blue)
+        // }
+      ],
+      eventClick: function(arg){
+
+      },
+    });
+    calendar.render();
+  });
+</script> -->
+
+<script>
+    $('.modal-trigger').leanModal();
+
+    function openModal1() {
+      //open the modal
+      $('#modal1').openModal({
+        dismissible: false
+      });
+    };
+</script>
+
+<!-- this script with theme start here -->
+<!-- 1. full calendar with theme default start -->
+<!-- <script>
+  $(function () {
+
+    /* initialize the external events
+     -----------------------------------------------------------------*/
+    function ini_events(ele) {
+      ele.each(function () {
+
+        // create an Event Object (https://fullcalendar.io/docs/event-object)
+        // it doesn't need to have a start or end
+        var eventObject = {
+          title: $.trim($(this).text()) // use the element's text as the event title
+        }
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject)
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+          zIndex        : 1070,
+          revert        : true, // will cause the event to go back to its
+          revertDuration: 0  //  original position after the drag
+        })
+
+      })
+    }
+
+    ini_events($('#external-events div.external-event'))
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+
+    var Calendar = FullCalendar.Calendar;
+    var Draggable = FullCalendar.Draggable;
+
+    var containerEl = document.getElementById('external-events');
+    var checkbox = document.getElementById('drop-remove');
+    var calendarEl = document.getElementById('calendar');
+    // alert(calendarEl);
+
+    // initialize the external events
+    // -----------------------------------------------------------------
+
+    new Draggable(containerEl, {
+      itemSelector: '.external-event',
+      eventData: function(eventEl) {
+        return {
+          title: eventEl.innerText,
+          backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
+          borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
+          textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
+        };
+      }
+    });
+
+    var calendar = new Calendar(calendarEl, {
+      headerToolbar: {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      themeSystem: 'bootstrap',
+      //Random default events
+      events: [
+        {
+          title          : 'All Day Event',
+          start          : new Date(y, m, 1),
+          backgroundColor: '#f56954', //red
+          borderColor    : '#f56954', //red
+          allDay         : true
+        },
+        {
+          title          : 'Long Event',
+          start          : new Date(y, m, d - 5),
+          end            : new Date(y, m, d - 2),
+          backgroundColor: '#f39c12', //yellow
+          borderColor    : '#f39c12' //yellow
+        },
+        {
+          title          : 'Meeting',
+          start          : new Date(y, m, d, 10, 30),
+          allDay         : false,
+          backgroundColor: '#0073b7', //Blue
+          borderColor    : '#0073b7' //Blue
+        },
+        {
+          title          : 'Lunch',
+          start          : new Date(y, m, d, 12, 0),
+          end            : new Date(y, m, d, 14, 0),
+          allDay         : false,
+          backgroundColor: '#00c0ef', //Info (aqua)
+          borderColor    : '#00c0ef' //Info (aqua)
+        },
+        {
+          title          : 'Birthday Party',
+          start          : new Date(y, m, d + 1, 19, 0),
+          end            : new Date(y, m, d + 1, 22, 30),
+          allDay         : false,
+          backgroundColor: '#00a65a', //Success (green)
+          borderColor    : '#00a65a' //Success (green)
+        },
+        {
+          title          : 'Click for Google',
+          start          : new Date(y, m, 28),
+          end            : new Date(y, m, 29),
+          url            : 'https://www.google.com/',
+          backgroundColor: '#3c8dbc', //Primary (light-blue)
+          borderColor    : '#3c8dbc' //Primary (light-blue)
+        }
+      ],
+      editable  : true,
+      droppable : true, // this allows things to be dropped onto the calendar !!!
+      drop      : function(info) {
+        // is the "remove after drop" checkbox checked?
+        if (checkbox.checked) {
+          // if so, remove the element from the "Draggable Events" list
+          info.draggedEl.parentNode.removeChild(info.draggedEl);
+        }
+      }
+    });
+
+    calendar.render();
+    // $('#calendar').fullCalendar()
+
+    /* ADDING EVENTS */
+    var currColor = '#3c8dbc' //Red by default
+    // Color chooser button
+    $('#color-chooser > li > a').click(function (e) {
+      e.preventDefault()
+      // Save color
+      currColor = $(this).css('color')
+      // Add color effect to button
+      $('#add-new-event').css({
+        'background-color': currColor,
+        'border-color'    : currColor
+      })
+    })
+    $('#add-new-event').click(function (e) {
+      e.preventDefault()
+      // Get value and make sure it is not null
+      var val = $('#new-event').val()
+      if (val.length == 0) {
+        return
+      }
+
+      // Create events
+      var event = $('<div />')
+      event.css({
+        'background-color': currColor,
+        'border-color'    : currColor,
+        'color'           : '#fff'
+      }).addClass('external-event')
+      event.text(val)
+      $('#external-events').prepend(event)
+
+      // Add draggable funtionality
+      ini_events(event)
+
+      // Remove event from text input
+      $('#new-event').val('')
+    })
+  })
+</script> -->
+<!-- 1. full calendar with theme default end -->
+<!-- this script with theme end here -->
+
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() 
+  {
+    var calendarButton = document.getElementById('calendarButton');
+    var calendarEl = document.getElementById('schedule_calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      defaultView: 'dayGridMonth',
+      defaultDate: new Date(),
+      navLinks: true, // can click day/week names to navigate views
+
+      weekNumbers: true,
+      weekNumbersWithinDays: true,
+      weekNumberCalculation: 'ISO',
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        // omitZeroMinute: true,
+        meridiem: 'short'
+      },
+      selectable: true,
+      selectMirror: true,
+      select: function(arg) {
+        console.log(arg);
+
+        var check = convert(arg.start);
+        var today = convert(new Date());
+
+        var new_check = arg.start;
+        var new_today = new Date();
+        new_today.setHours(0, 0, 0, 0);
+
+        if (new_check < new_today) {
+          alert("You can't create lesson in previous date.");
+        } else {
+          $("#lesson_date").val(convert_formate(arg.start));
+          openModal1();
+        }
+        calendar.unselect();
+      },
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      eventRender: function(info) {
+        info.el.classList.add("tooltipped");
+        info.el.setAttribute("data-tooltip", info.event.title);
+      },
+      events: [
+        <?php
+        if (!empty($schedule_list)) {
+          foreach ($schedule_list as $key => $value) {
+            echo "{
+                        id: '" . $value->id . "',
+                        groupId: '" . $value->id . "_" . date('d M, Y', strtotime($value->lesson_date)) . "_" . date('H:iA', strtotime($value->time_from)) . "_" . date('H:iA', strtotime($value->time_until)) . "_" . $value->invite_type . "_" . $value->school . "_" . $value->grade . "_" . $value->section . "',
+                        title: '" . trim(str_replace("'", "", $value->description)) . "',
+                        start: '" . $value->lesson_date . "T" . $value->time_from . "',
+                        end: '" . $value->lesson_date . "T" . $value->time_until . "'
+                      },";
+          }
+        }
+        ?>
+      ],
+      eventClick: function(arg) {
+        var comma_str = arg.event.groupId;
+        console.log(comma_str);
+        var result = comma_str.split('_');
+        var description = arg.event.title;
+        $("#lesson_id").val(result[0]);
+        $("#lesson_date").val(result[1]);
+        var strarray = grade_id = result[6];
+        var strar = strarray.split(',');
+        $("#schoolFilterID").val(result[5]);
+        var from_time = changeTimeFormate(result[2]);
+        var until_time = changeTimeFormate(result[3]);
+        $("#from").val(from_time);
+        $("#until").val(until_time);
+        $("#description").val(description);
+        $("#lesson_id_group").val(result[0]);
+        $("#lesson_date_group").val(result[1]);
+        $("#from_group").val(from_time);
+        $("#until_group").val(until_time);
+        $("#grade_group").val(strar[0]);
+        $("#description_group").val(description);
+        var section_id = result[7];
+        var lesson_id = result[0];
+
+        if (result[4] == 4) {
+          getLessonData(lesson_id);
+
+        } else {
+          getSectionGrade(section_id, grade_id);
+        }
+
+
+        if (result[5] != '') {
+          $("#modal2 select#schoolFilterID option").each(function() {
+
+            if ($(this).val() == result[5]) {
+              $(this).attr("selected", "selected");
+            }
+          });
+        }
+
+        if (strar[0] != '') {
+          $("#modal2 select#gradeFilterID option").each(function() {
+
+            if ($(this).val() == strar[0]) {
+              $(this).attr("selected", "selected");
+            }
+          });
+        }
+
+        if (result[7] != '') {
+          $("#modal2 select#sectionFilterID option").each(function() {
+            if ($(this).val() == result[7]) {
+              $(this).attr("selected", "selected");
+            }
+          });
+        }
+
+        $("#edit_lesson_id").val(result[0]);
+        $("#edit_lesson_date").val(result[1]);
+        var strarray = grade_id = result[6];
+        var strar = strarray.split(',');
+        $("#edit_schoolFilterID").val(result[5]);
+        var from_time = changeTimeFormate(result[2]);
+        var until_time = changeTimeFormate(result[3]);
+        $("#edit_from").val(from_time);
+        $("#edit_until").val(until_time);
+        $("#edit_description").val(description);
+
+        $('#edit_re_school_id').val(result[5]);
+        $('#edit_re_grade_id').val(result[6]);
+        $('#edit_re_section_id').val(result[7]);
+
+        $('#edit_from_label').addClass('active');
+        $('#edit_until_label').addClass('active');
+        //alert(result[7]);
+        if (result[4] == 4) {
+          openModalModal4();
+        } else {
+          openModal2();
+        }
+
+
+        $("#lesson_date_label").addClass("active");
+        $("#from_label").addClass("active");
+        $("#until_label").addClass("active");
+        $("#description_label").addClass("active");
+
+        if (result[0] != '' || result[0] != null) {
+          $("#invite_class_btn").html('Update').css('background-color', 'green');
+          $("#session_delete_box").html('<button type="button" lesson_attr="' + result[0] + '" id="delete_session" class="waves-effect waves-light btn" style="background-color:#ee6e73 !important;">Delete</button>');
+          $("#session_delete_box_recuring").html('<button type="button" lesson_attr="' + result[0] + '" id="delete_session" class="waves-effect waves-light btn" style="background-color:#ee6e73 !important;">Delete</button>');
+
+        } else {
+          $("#invite_class_btn").html('Invite Class');
+        }
+      }
+    });
+    calendar.render();
+  });
+
+  function ShowCal() {
+    // setTimeout(function () {
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarButton = document.getElementById('calendarButton');
+      var calendarEl = document.getElementById('schedule_calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        defaultView: 'timeGridWeek',
+        defaultDate: new Date(),
+        navLinks: true, // can click day/week names to navigate views
+
+        weekNumbers: true,
+        weekNumbersWithinDays: true,
+        weekNumberCalculation: 'ISO',
+
+        selectable: true,
+        selectMirror: true,
+        select: function(arg) {
+          console.log(arg);
+
+          var check = convert(arg.start);
+          var today = convert(new Date());
+
+          var new_check = arg.start;
+          var new_today = new Date();
+          new_today.setHours(0, 0, 0, 0);
+
+          if (new_check < new_today) {
+            // Previous Day. 
+            alert("You can't create lesson in previous date.");
+          } else {
+            // Right Date
+            $("#lesson_date").val(convert_formate(arg.start));
+            openModal1();
+          }
+
+          calendar.fullCalendar('unselect');
+        },
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        eventRender: function(info) {
+          info.el.classList.add("tooltipped");
+          info.el.setAttribute("data-tooltip", info.event.title);
+        },
+        events: [
+          <?php
+          if (!empty($schedule_list)) {
+            foreach ($schedule_list as $key => $value) {
+              echo "{
+                                    id: '" . $value->id . "',
+                                    groupId: '" . $value->id . "_" . date('d M, Y', strtotime($value->lesson_date)) . "_" . date('H:iA', strtotime($value->time_from)) . "_" . date('H:iA', strtotime($value->time_until)) . "_" . $value->grade . "',
+                                    title: '" . trim(str_replace("'", "", $value->description)) . "',
+                                    start: '" . $value->lesson_date . "T" . $value->time_from . "',
+                                    end: '" . $value->lesson_date . "T" . $value->time_until . "'
+                                  },";
+            }
+          }
+          ?>
+        ],
+        eventClick: function(arg) {
+          var comma_str = arg.event.groupId;
+          var result = comma_str.split('_');
+          var description = arg.event.title;
+
+          $("#lesson_id").val(result[0]);
+          $("#lesson_date").val(result[1]);
+          $("#from").val(result[2]);
+          $("#until").val(result[3]);
+          $("#grade").val(result[4]);
+          $("#description").val(description);
+
+          openModal2();
+
+          $("#lesson_date_label").addClass("active");
+          $("#from_label").addClass("active");
+          $("#until_label").addClass("active");
+          $("#description_label").addClass("active");
+
+          $('select[name^="grade"] option[value="' + result[4] + '"]').attr("selected", "selected");
+          if (result[0] != '' || result[0] != null) {
+            $("#invite_class_btn").html('Update').css('background-color', 'green');
+            $("#session_delete_box").html('<button type="button" lesson_attr="' + result[0] + '" id="delete_session" class="waves-effect waves-light btn" style="background-color:#ee6e73 !important;">Delete</button>');
+          } else {
+            $("#invite_class_btn").html('Invite Class');
+          }
+        }
+      });
+
+      calendar.render();
+    });
+    $("button.fc-dayGridMonth-button").click();
+    $("button.fc-timeGridWeek-button").click();
+    // }, 200);   
+  }
+
+  function changeTimeFormate(time) {
+    var timeString = time;
+    var hourEnd = timeString.indexOf(":");
+    var H = +timeString.substr(0, hourEnd);
+    var h = H % 12 || 12;
+    var ampm = H < 12 ? "AM" : "PM";
+    return timeString = h + timeString.substr(hourEnd, 3) + ampm;
+  }
+</script> -->
+
+<!-- calendar script end here -->
+
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
@@ -261,7 +840,30 @@
 </script>
 @endsection
 @section('content')
-
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <div class="close_com">
+      <a class="close_clear modal-close"><i class="material-icons dp48">clear</i></a>
+    </div>
+    <h4> Date Modal</h4>
+    <div id="modal_content" class="row" style="text-align: center;">
+      <div class="invite" style="width: 48%; float: left;">
+        <img class="img_invImg" src="<?php if (!empty($manage_icon) && $manage_icon[0]) { ?> {{url('/public/uploads/icon/'.$manage_icon[0])}}<?php } ?>">
+        <br>
+        <button class="waves-effect waves-light btn" onclick="openModal2();blankModal();"> Button 1</button>
+      </div>
+      <div class="recurring" style="width: 48%; float: left;">
+        <img class="img_invImg" src="<?php if (!empty($manage_icon) && $manage_icon[1]) { ?> {{url('/public/uploads/icon/'.$manage_icon[1])}}<?php } ?>">
+        <br>
+        <button class="waves-effect waves-light btn" onclick="openModal4();blankModal();">Button 2</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"> Cancel 1</a>
+    </div>
+  </div>
+</div>
 <!-- Content Wrapper. Contains page content -->
 
 <div class="content-wrapper">
@@ -670,10 +1272,16 @@
                   </p>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Size in ft2</label>
                   <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2.">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Number of Beds</label>
+                  <input type="text" class="form-control" name="num_of_beds" id="num_of_beds" placeholder="Enter Number of Beds">
                 </div>
               </div>
               <div class="col-md-6">
@@ -859,6 +1467,90 @@
                 </div>
               </div>
 
+              <!-- full calendar start here -->
+
+              <!-- <div class="col-md-12">
+                <div class="tab-custom-content">
+                  <p class="lead mb-0">
+                  <h4>Price Adjustments Calendar</h4>
+                  </p>
+                </div>
+              </div> -->
+
+              <!-- 2. default full calendar with theme start -->
+
+              <!-- <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="sticky-top mb-3">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">Price Dragger</h4>
+                        </div>
+                        <div class="card-body">
+                          <div id="external-events">
+                            <div class="external-event bg-success">PKR 5000</div>
+                            <div class="external-event bg-warning">PKR 10000</div>
+                            <div class="external-event bg-info">PKR 15000</div>
+                            <div class="external-event bg-primary">PKR 20000</div>
+                            <div class="external-event bg-danger">PKR 25000</div>
+                            <div class="checkbox">
+                              <label for="drop-remove">
+                                <input type="checkbox" id="drop-remove">
+                                remove after drop
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Create Price</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                            <ul class="fc-color-picker" id="color-chooser">
+                              <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
+                              <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
+                              <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
+                              <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
+                              <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
+                            </ul>
+                          </div>
+                          <div class="input-group">
+                            <input id="new-event" type="text" class="form-control" placeholder="Event Title">
+
+                            <div class="input-group-append">
+                              <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="card card-primary">
+                      <div class="card-body p-0">
+                        <div id="calendar"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+              <!-- 2. default full calendar with theme end -->
+
+              <!-- <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-primary">
+                      <div class="card-body p-0">
+                        <div id="calendar1"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
 
               <div class="col-12">
 

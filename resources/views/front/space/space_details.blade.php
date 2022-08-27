@@ -74,6 +74,9 @@
     .hidden {
         display: none;
     }
+    .hiddenPrice {
+        display: none;
+    }
 </style>
 
 @endsection
@@ -252,65 +255,42 @@
 
     });
 </script>
-<script>
-    // var today = new Date();
-    // var tomorrow = new Date();
-    // tomorrow.setDate(tomorrow.getDate() + 1);
-    // console.log(tomorrow);
-</script>
-<!-- <script>
-    var spaceCheckInDate = $('#spaceCheckInDate').val();
-    var spaceSessionCheckInDate = $('#spaceSessionCheckInDate').val();
-    
-    var today = new Date();
 
-    $(function() {
-        $('.reserved').daterangepicker({
-            "autoApply": true,
-            "autoUpdateInput": true,
-            minDate: today,
-            locale: {
-                format: 'DD-MM-YYYY'
-            },
-            "opens": "center",
-            "drops": "auto"
-        }, function(start, end, label) {
-            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
-            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
-            console.log('what is wrong with you today');
-        });  
-    });
-</script> -->
 <script>
-    var spaceCheckInDate = $('#spaceCheckInDate').val();
-    var spaceSessionCheckInDate = $('#spaceSessionCheckInDate').val();
-
     var today = new Date();
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    // var dd = today.getDate();
-    // var mm = today.getMonth() + 1; //January is 0! 
-    // var yyyy = today.getFullYear();
-    // if (dd < 10) {
-    //     dd = '0' + dd
-    // }
-    // if (mm < 10) {
-    //     mm = '0' + mm
-    // }
-    // let today_date = dd + '/' + mm + '/' + yyyy;
-    // alert(today);
-
+    
+    // var disabledArr1 = ["09/01/2022","09/02/2022"];
+    var disabledArr = JSON.parse('<?php echo $space_booked_date; ?>');
     $(function() {
-
         $('.reserved').daterangepicker({
+            isInvalidDate: function(arg){
+                var thisMonth = arg._d.getMonth()+1; 
+                if (thisMonth<10){
+                    thisMonth = "0"+thisMonth;
+                }
+                var thisDate = arg._d.getDate();
+                if (thisDate<10){
+                    thisDate = "0"+thisDate;
+                }
+                var thisYear = arg._d.getYear()+1900; 
+                var thisCompare = thisMonth +"/"+ thisDate +"/"+ thisYear;
+                if($.inArray(thisCompare,disabledArr)!=-1){
+                    return true;
+                }
+            },
             // linkedCalendars: true,
             // "startDate": today,
             // "endDate": tomorrow,
+            // datesDisabled:["08/17/2022","08/28/2022","08/02/2022","08/23/2022"],  
             "autoApply": true,
             "autoUpdateInput": true,
             minDate: today,
             locale: {
-                format: 'DD-MM-YYYY'
+                format: 'DD-MM-YYYY',
+                cancelLabel: 'Clear',
+                customRangeLabel: 'Custom'
             },
             // defaultDate: new Date(),
             // minDate: today_date,
@@ -325,188 +305,77 @@
             let space_end_date = end.format('DD-MM-YYYY');
 
             chekchange(space_start_date, space_end_date);
-            // console.log('what is wrong with you today');
-
-            // var date = $("#space_checkin_date").val();
-            // console.log(date);
-            // console.log($.session.get("space_check_in_date"));
-            // console.log(start.format('DD-MM-YYYY'));
-            // var checkinspace = start.format('DD-MM-YYYY');
-            // var checkoutspace = end.format('DD-MM-YYYY');
-            // $.session.set("space_check_in_date", start);
-            // $.session.set("space_check_out_date", end);
-            // }).on("change", function(){
-            //     alert('changed');
-            //     console.log('why it is not working');
         // }).on("change", function() {
         //     console.log("Got change event from field");
         });
-        
-
-        // var startDate = $('#space_checkin_date').val();
-        // var endDate = $('#space_checkout_date').val();
-        // console.log(startDate);    
-        // console.log(endDate);    
-
-        // $('.reserved').daterangepicker({
-        //     locale: { cancelLabel: 'Clear' }  
-        // });
-
-        // $('.reserved').on('Clear.daterangepicker', function(ev, picker) {
-        //     //do something, like clearing an input
-        //     // $('.space_checkin_date').val('');
-        // });
-
-        // var drp = $('.reserved').data('daterangepicker');
-        // console.log('get the data of daterangepicker');
-        // console.log(drp);
     });
-
-    // $('#space_checkin_date').keyup(function() {
-    //     alert('sdf');
-    //     let space_start_date = $('#space_checkin_date').val();
-    //     let space_end_date = $('#space_checkout_date').val();
-    //     console.log(space_start_date);
-    //     console.log(space_end_date);
-    //     sessionStorage.removeItem('space_check_in_date'); 
-    //     sessionStorage.getItem("space_check_in_date");
-    //     console.log(sessionStorage.getItem("space_check_in_date"));
-    //     // $.session.remove('space_check_in_date');
-    //     // $.session.set('space_check_in_date');
-    //     // $.session.remove('space_check_out_date');
-    //     // $.session.set('space_check_out_date');
-    //     // $.session.set("space_check_in_date", space_start_date);
-    //     // $.session.set("space_check_out_date", space_end_date);
-
-    //     // console.log($.session.get("space_check_in_date"));
-    //     // console.log($.session.get("space_check_out_date"));
-    // });
 
     function chekchange(start, end){
         let space_start_date = start;
         let space_end_date = end;
-        // console.log(space_start_date);
-        // console.log(space_end_date);
+        let spaceIdd = $('#spaceIdd').val();
+        // alert(spaceIdd);
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: 'POST',
             url: "{{url('/updateDaterange')}}",
             data: {
-                space_start_date: space_start_date, space_end_date: space_end_date,
+                space_start_date: space_start_date, space_end_date: space_end_date, spaceIdd: spaceIdd,
                 _token: CSRF_TOKEN
             },
             dataType: 'JSON',
-            success: function(results) {
-                // console.log(results);
-                success_noti(results.msg);
-                setTimeout(function() {window.location.reload()}, 1000);
+            success: function(response) {
+                if (response.status == 'success') {
+                    success_noti(response.msg);
+                    setTimeout(function() {window.location.reload()}, 1000);
+                } else if(response.status == 'notAvailable') {
+                    error_noti(response.msg);
+                    setTimeout(function() {window.location.reload()}, 1000);
+                } else {
+                    console.log('error');
+                }    
             }
         });
-        // sessionStorage.removeItem('space_check_in_date'); 
-        // sessionStorage.getItem("space_check_in_date");
-        // console.log("{{ Session::get('space_check_in_date') }}");
-        // console.log("{{ Session::get('space_check_in_date') }}");
     }
-</script>
-
-<script>
-    // $('#space_checkin_date').change(function() {
-    //     alert('dfdf');
-    // });
 </script>
 <script>
     // $('.daterange_detail').on('change', function(e) {
-$(".daterange_detail_btn").click(function(e) {
-    var form = $("#space_booking_detail_form");
-    form.validate({
-      rules: {
-        space_checkin_date: {
-          required: true,
+    $(".daterange_detail_btn").click(function(e) {
+        var form = $("#space_booking_detail_form");
+        form.validate({
+        rules: {
+            space_checkin_date: {
+            required: true,
+            },
+            space_checkout_date: {
+            required: true,
+            },
         },
-        space_checkout_date: {
-          required: true,
-        },
-      },
-    });
-    if (form.valid() === true) {
-        // e.preventDefault();
-        // $('#space_submit').prop('disabled', true);
-        // $('#space_submit').html(
-        //     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
-        // );
-        // var site_url = $("#baseUrl").val();
-        var formData = $(form).serialize();
-        $(form).ajaxSubmit({
-            type: 'POST',
-            url: "{{url('changeDaterange')}}",
-            data: formData,
-            success: function(response) {
-                console.log(response);
-                if (response.status == 'success') {
-                    success_noti(response.msg);
-                    setTimeout(function() {window.location.reload();});
-                } else if(response.status == 'notAvailable') {
-                    error_noti(response.msg);
-                } else {
-                    console.log('error');
-                }        
-
-                // if (response.status == 'success') {
-                //     // $('#space_submit').prop('disabled', true);
-                //     // $('#space_submit').html(
-                //     //   `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
-                //     // );
-                //     success_noti(response.msg);
-                //     setTimeout(function() {
-                //         window.location.href = site_url + "/admin/space-list"
-                //     }, 1000);
-                // } else {
-                //     error_noti(response.msg);
-                //     $('#space_submit').html(
-                //         `<span class=""></span>Submit`
-                //     );
-                //     $('#space_submit').prop('disabled', false);
-                // }
-            }
         });
-    } else {
-      e.dismiss;
-    }
-});
-</script>
-<!-- <script type="text/javascript">
-    $(document).ready(function() {
-
-        $('#filterform').on('change', function() {
-
-            var $this = $(this);
-            var frmValues = $this.serialize();
-
-            $('#loading-image').show();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                method: 'POST',
-                url: "{{url('hote_list_ajax')}}",
-                data: frmValues,
-                dataType: 'json',
+        if (form.valid() === true) {
+            // e.preventDefault();
+            var formData = $(form).serialize();
+            $(form).ajaxSubmit({
+                type: 'POST',
+                url: "{{url('changeDaterange')}}",
+                data: formData,
                 success: function(response) {
-                    //console.log(response);
-                    $('#filterdata').html(response);
-                    $('#loading-image').hide();
-
+                    console.log(response);
+                    if (response.status == 'success') {
+                        success_noti(response.msg);
+                        setTimeout(function() {window.location.reload();});
+                    } else if(response.status == 'notAvailable') {
+                        error_noti(response.msg);
+                    } else {
+                        console.log('error');
+                    }        
                 }
             });
-
-        });
-
+        } else {
+        e.dismiss;
+        }
     });
-</script> -->
+</script>
 
 @endsection
 
@@ -640,7 +509,7 @@ $(".daterange_detail_btn").click(function(e) {
                                     </div>
                                     <div class="mr-4">
                                         <h4 class="motn-text d-flex align-items-center mt-2"> Posted By and On </h4>
-                                        <p>@if(!empty($space_user_details)){{$space_user_details->first_name}} {{$space_user_details->last_name}} on {{ date('M d, Y', strtotime($space_user_details->created_at)) }} @else {{ $admin_user_details->name }} on {{ date('M d, Y', strtotime($admin_user_details->created_at)) }} @endif</p>
+                                        <p>@if(!empty($space_user_details)){{$space_user_details->first_name}} {{$space_user_details->last_name}} on {{ date('M d, Y', strtotime($space_user_details->created_at)) }} @elseif(!empty($admin_user_details)) {{ $admin_user_details->name }} on {{ date('M d, Y', strtotime($admin_user_details->created_at)) }} @else @endif</p>
                                     </div>
                                 </div>
                             </div>
@@ -653,6 +522,7 @@ $(".daterange_detail_btn").click(function(e) {
 
 
                 </div>
+                
                 <div class="space-form">
                     <div class="form">
                         <ul>
@@ -661,7 +531,7 @@ $(".daterange_detail_btn").click(function(e) {
                             </li>
 
                         </ul>
-                        @php @endphp
+                        <!-- @php echo $space_booked_date @endphp -->
                         <form action="" id="space_booking_detail_form">
                             @csrf
                             <div class="select-date reserved daterange_detail">
@@ -705,8 +575,8 @@ $(".daterange_detail_btn").click(function(e) {
                                 <button type="button" class="daterange_detail_btn">Check Availability</button>
                             @endif
                             
-                            <p class="charge-yet">You won't be charged yet</p>
-                            <div class="charges">
+                            <!-- <p class="charge-yet">You won't be charged yet</p> -->
+                            <div class="charges <?php if(empty($check_out)){ echo "hiddenPrice";} ?>">
                                 <ul>
                                     <li>PKR {{$space_details->price_per_night}}x{{ $booking_days }} Nights</li>
                                     <li>PKR {{$space_details->price_per_night*$booking_days }}/-</li>
@@ -724,7 +594,7 @@ $(".daterange_detail_btn").click(function(e) {
                                     <li>{{$space_details->tax_percentage}}</li>
                                 </ul>
                             </div>
-                            <div class="total">
+                            <div class="total <?php if(empty($check_out)){ echo "hiddenPrice";} ?>">
                                 <ul>
                                     <li>total with Taxes</li>
                                     <li>PKR {{ $total_amount }}</li>
@@ -751,10 +621,6 @@ $(".daterange_detail_btn").click(function(e) {
                 <div class="col-md-12">
                     <div class="space-category">
                         <!-- <h3 class="mb-4">126 results |Coworking Space in Indore</h3> -->
-
-
-
-
 
                         <!-- <div class="botm-info mt-4">
                             <div class="btom-text">

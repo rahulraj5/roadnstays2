@@ -144,6 +144,10 @@ class HotelController extends Controller
             $adminhotel->neighb_area = $request->neighb_area;
             $adminhotel->hotel_country = $request->hotel_country;
 
+            $adminhotel->cancellation_mode = $request->cancellation_mode;
+            $adminhotel->num_of_days_cancellation = $request->cancel_num_of_days;
+            $adminhotel->cancel_time_period = $request->cancel_time_period;
+
             // $adminhotel->attraction_name = $request->attraction_name;
             // $adminhotel->attraction_content = $request->attraction_content;
             // $adminhotel->attraction_distance = $request->attraction_distance;
@@ -173,24 +177,6 @@ class HotelController extends Controller
             $adminhotel->save();
 
             $adminhotel_id = $adminhotel->id;
-            if (!empty($_FILES["hotelGallery"]["name"])) {
-                foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
-                    $imgname = $_FILES["hotelGallery"]["name"][$key];
-                    $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
-                    $name = $_FILES["hotelGallery"]["name"];
-                    move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][$key], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][$key]);
-
-                    $Img = array(
-                        'image' => time() . '_' . $imgname,
-                        'hotel_id' => $adminhotel_id,
-                        'is_featured' => 0,
-                        'status' => 1,
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    );
-                    $up = DB::table('hotel_gallery')->insert($Img);
-                }
-            }
 
             if (!empty($request->amenity)) {
                 foreach ($request->amenity as $amenity_id) {
@@ -267,6 +253,25 @@ class HotelController extends Controller
                         'updated_at' => date('Y-m-d H:i:s')
                     );
                     $up = DB::table('hotel_attraction')->insert($google_attraction);
+                }
+            }
+            
+            if (!empty($_FILES["hotelGallery"]["name"])) {
+                foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
+                    $imgname = $_FILES["hotelGallery"]["name"][$key];
+                    $imgurl = "public/uploads/hotel_gallery/" . time() . '_' . $imgname;
+                    $name = $_FILES["hotelGallery"]["name"];
+                    move_uploaded_file($_FILES["hotelGallery"]["tmp_name"][$key], "public/uploads/hotel_gallery/" . time() . '_' . $_FILES['hotelGallery']['name'][$key]);
+
+                    $Img = array(
+                        'image' => time() . '_' . $imgname,
+                        'hotel_id' => $adminhotel_id,
+                        'is_featured' => 0,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('hotel_gallery')->insert($Img);
                 }
             }
 
@@ -393,10 +398,9 @@ class HotelController extends Controller
                     'neighb_area' => $request->neighb_area,
                     'hotel_country' => $request->hotel_country,
 
-                    // 'attraction_name' => $request->attraction_name,
-                    // 'attraction_content' => $request->attraction_content,
-                    // 'attraction_distance' => $request->attraction_distance,
-                    // 'attraction_type' => $request->attraction_type,
+                    'cancellation_mode' => $request->cancellation_mode,
+                    'num_of_days_cancellation' => $request->cancel_num_of_days,
+                    'cancel_time_period' => $request->cancel_time_period,
 
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,

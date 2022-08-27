@@ -85,7 +85,22 @@
 <script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
-
+<script>
+   $(document).ready(function() {
+     // Select2 Multiple
+     $('.select2bs4').select2({
+       theme: 'bootstrap4'
+     })
+   });
+   $("select").on("select2:select", function(evt) {
+     var element = evt.params.data.element;
+     var $element = $(element);
+   
+     $element.detach();
+     $(this).append($element);
+     $(this).trigger("change");
+   });
+</script>
 <script>
   $("#updateEvent_form").validate({
     debug: false,
@@ -242,9 +257,42 @@
                     <div class="form-group">
                       <label for="customFile">Event Image</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="event_img" name="event_img">
+                        <input type="file" class="custom-file-input" id="event_img" name="event_img" disabled="">
                         <label class="custom-file-label" for="customFile">Choose file</label>
                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="customFile">Event Gallery</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="eventGallery" name="eventGallery[]" multiple disabled="">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Event Type</label>
+                      <select class="form-control" id="type-dropdown" name="type" disabled="">
+                        <option>Select Type</option>
+                        <option value="free" <?php if ($event['type'] == 'free') { echo 'selected';} ?>>Free</option>
+                        <option value="free_booking" <?php if ($event['type'] == 'free_booking') { echo 'selected';} ?>> Free Booking</option>
+                        <option value="paid" <?php if ($event['type'] == 'paid') { echo 'selected';} ?>>Paid</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="d-flex flex-wrap">
+                      @php $event_gallery = DB::table('event_gallery')->orderby('id', 'ASC')->where('event_id', $event->id)->get(); 
+                      @endphp
+                      @foreach($event_gallery as $image)
+                      <div class="image-gridiv" id="hotelGalleryPreview">
+                        <span class="pip" id="remove_img_{{$image->id}}">
+                          <img class="imageThumb" src="{{url('public/uploads/event_gallery/')}}/{{$image->image}}">
+                          <br /><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
+                      </div>
+                      @endforeach
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -256,7 +304,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Ticket Qty.</label>
-                      <input type="text" class="form-control" name="ticket_qty" id="ticket_qty" placeholder="Enter ticket qty" value="{{$event->ticket_qty}}">
+                      <input type="text" class="form-control" name="ticket_qty" id="ticket_qty" placeholder="Enter ticket qty" value="{{$event->ticket_qty}}" readonly="">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -296,34 +344,50 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>End time</label>
-                      <input type="text" class="form-control timepicker" name="end_time" id="end_time" placeholder="Enter end time" required="" value="{{$event->end_time}}">
+                      <input type="text" class="form-control timepicker" name="end_time" id="end_time" placeholder="Enter end time" required="" value="{{$event->end_time}}" disabled="">
                     </div>
                   </div> 
-                  
+                   <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Select Distance</label>
+                      <select class="form-control" id="mile-dropdown" disabled="">
+                        <option>Select Distance</option>
+                        <option value="1"> 1 Mile</option>
+                        <option value="2"> 2 Mile</option>
+                        <option value="3"> 3 Mile</option>
+                        <option value="4"> 4 Mile</option>
+                        <option value="5"> 5 Mile</option>
+                      </select>
+                    </div>
+                  </div>
+                  <?php $hotel_ids = json_decode($event['hotel_ids']);?>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Hotels</label>
-                      <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;">
+                      <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;" disabled="">
                         @if (!$hotelList->isEmpty())
                         @foreach ($hotelList as $hotel)
-                        <option value="{{ $hotel->hotel_id }}">{{ $hotel->hotel_name }}</option>
+                        <option value="{{ $hotel->hotel_id }}"  <?php if (in_array($hotel->hotel_id, $hotel_ids )) { echo 'selected';} ?>>{{ $hotel->hotel_name }}</option>
                         @endforeach
                         @endif
                       </select>
                     </div>
                   </div> 
+                  <?php $space_ids = json_decode($event['space_ids']);?>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Spaces</label>
-                      <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;">
+                      <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;" disabled="">
                         @if (!$spaceList->isEmpty())
                         @foreach ($spaceList as $space)
-                        <option value="{{ $space->space_id }}">{{ $space->space_name }}</option>
+                        <option value="{{ $space->space_id }}" <?php if (in_array($space->space_id, $space_ids)) {echo 'selected';} ?>>{{ $space->space_name }}</option>
                         @endforeach
                         @endif
                       </select>
                     </div>
                   </div> 
+                  
+                 
                   <!-- <div class="col-12"> 
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Update</button>
                   </div> -->

@@ -565,7 +565,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/user/profile') }}">Profile</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('/user/bookingList') }}">My Booking</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/user/tourBookingList') }}">Tour Booking</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Booking Code: #{{ $bookingDetails->tour_code }}</li>
                     </ol>
                 </nav>
@@ -613,9 +613,9 @@
                         <p>{{ $bookingDetails->neighb_area }}</p>
 
                     </div> -->
-                    <!-- <div class="down-i">
-                            <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
-                        </div> -->
+                    <div class="down-i">
+                        <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                    </div>
 
                 </div>
                 <div class="side-b">
@@ -658,9 +658,9 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <!-- <ul>
-                                <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
-                            </ul> -->
+                        <ul>
+                            <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
+                        </ul>
                     </div>
                 </div>
 

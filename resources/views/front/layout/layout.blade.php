@@ -3,25 +3,23 @@
 
 <head>
    <meta charset="utf-8">
-   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"> 
    <title>Road n stays</title>
+   <link rel="shortcut icon" href="{{url('/')}}/public/img/favicon-icin.png" type="image/x-icon">
    <meta content="" name="description">
    <meta content="" name="keywords">
    <!-- CSRF Token -->
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <!-- Favicons -->
    <link href = "{{ asset('resources/assets/img/favicon.png')}}" rel="icon">
-   <link href = "{{ asset('resources/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
-
-   <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
-
-   <link href="http://fonts.cdnfonts.com/css/cosmith" rel="stylesheet">
+   <link href = "{{ asset('resources/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> 
+   <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> --> 
+   <link href="https://fonts.cdnfonts.com/css/cosmith" rel="stylesheet">
    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
    <!-- Vendor CSS Files -->
-   <link href="http://fonts.cdnfonts.com/css/requited-script-demo" rel="stylesheet">
+   <link href="https://fonts.cdnfonts.com/css/requited-script-demo" rel="stylesheet">
 
-   <link href = "{{ asset('resources/assets/vendor/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+   <link href="{{asset('resources/assets/vendor/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
    <link href = "{{ asset('resources/assets/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -29,49 +27,19 @@
    <link href = "{{ asset('resources/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/venobox/venobox.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/owl.carousel/assets/owl.carousel.css')}}" rel="stylesheet">
-   <link href = "{{ asset('resources/assets/vendor/aos/aos.css')}}" rel="stylesheet">
-
+   <link href = "{{ asset('resources/assets/vendor/aos/aos.css')}}" rel="stylesheet"> 
    <link href = "{{ asset('resources/assets/css/style.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/css/my-style.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/css/responsive.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/css/all.css')}}" rel="stylesheet">
-   <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
-   
- 
-  
-   
-
-    
-
-  <!-- Daterange picker -->
-  <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/daterangepicker/daterangepicker.css')}}"> -->
-  <!-- summernote -->
-  <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}"> -->
-
-    <!-- Select2 -->
-    <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}"> -->
-    <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}"> -->
-
-   <!-- DataTables -->
-   <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-   <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-   <link rel="stylesheet" href="{{ asset('resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"> -->
-
-   <!-- <link rel="stylesheet" href="{{url('/')}}/resources/css/custom.css"> -->
+   <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet"> 
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css">
 
-   <link href="{{ asset('resources/css/notification-custom.css') }}" rel="stylesheet" />
-   <!-- <link href="{{ asset('resources/css/raone/jquery-ui.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('resources/js/raone/jquery.min.js') }}" rel="stylesheet" />
-   <link href="{{ asset('resources/js/raone/jquery-ui.min.js') }}" rel="stylesheet" /> -->
-
-
-
+   <link href="{{ asset('resources/css/notification-custom.css') }}" rel="stylesheet" /> 
    @yield('current_page_css')
 
-   <style type="text/css">
-
+   <style type="text/css"> 
       .nav-item .nav-link,
       .nav-tabs .nav-link {
       -webkit-transition: all 300ms ease 0s;
@@ -146,8 +114,7 @@
       }
       .disshow {
       display: block;
-      }
-
+      } 
    </style>
 </head>
 

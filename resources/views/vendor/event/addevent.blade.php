@@ -64,11 +64,11 @@
 <!-- Tempusdominus Bootstrap 4 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 <!-- Datetime picker -->
-<link rel="stylesheet" href="{{ asset('resources/css/bootstrap-datetimepicker.min.css')}}">
 <!-- BS Stepper -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}">
+<link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
 @endsection
 @section('current_page_js')
 
@@ -77,7 +77,6 @@
 <!-- Select2 -->
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- datetimepicker -->
-<script src="{{ asset('resources/js/bootstrap-datetimepicker.min.js')}}"></script>
 <!-- BS-Stepper -->
 <script src="{{ asset('resources/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
 <!-- Summernote -->
@@ -85,6 +84,7 @@
 <!-- Multi-form -->
 <script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+<script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 
 <script>
@@ -119,6 +119,7 @@
       },
       price: {
         required: true,
+        min:1
       },
       ticket_qty: {
         required: true,
@@ -138,6 +139,12 @@
       end_time: {
         required: true,
       },
+      "hotelname[]":{
+        required:true,
+      },
+      "spacename[]":{
+        required:true,
+      }
     },
     submitHandler: function (form) {
       var site_url = $("#baseUrl").val();
@@ -232,6 +239,81 @@
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.File && window.FileList && window.FileReader) {
+      $("#eventGallery").on("change", function(e) {
+        var files = e.target.files,
+          filesLength = files.length;
+        for (var i = 0; i < filesLength; i++) {
+          var f = files[i]
+          var fileReader = new FileReader();
+          fileReader.onload = (function(e) {
+            var file = e.target;
+            $("<span class=\"pip\">" +
+              "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+              "<br/><span class=\"remove\">Remove image</span>" +
+              "</span>").insertAfter("#hotelGalleryPreview");
+            $(".remove").click(function() {
+              $(this).parent(".pip").remove();
+            });
+          });
+          fileReader.readAsDataURL(f);
+        }
+      });
+    } else {
+      alert("Your browser doesn't support to File API")
+    }
+  });
+</script>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#mile-dropdown').on('change', function() {
+        var mile = this.value;
+        var latitude = $('#latitude').val();
+        var longitude = $('#longitude').val();
+        if(latitude === '' || longitude === '' ){
+          alert('Please enter address first');
+          return false;
+        } 
+        $("#hotelname").html('');
+        $("#spacename").html('');
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{url('/admin/eventMileData')}}",
+            data: {
+                mile: mile,
+                latitude: latitude,
+                longitude: longitude,
+                _token: CSRF_TOKEN
+            },
+            dataType: 'json',
+            success: function(result) {
+
+              $('#hotelname').html('<option value="">Select Hotels</option>'); 
+              $.each(result.hotelList,function(key,value){
+              $("#hotelname").append('<option value="'+value.hotel_id+'">'+value.hotel_name+'</option>');
+              });
+
+              $('#spacename').html('<option value="">Select Spaces</option>'); 
+              $.each(result.spaceList,function(key1,value1){
+              $("#spacename").append('<option value="'+value1.space_id+'">'+value1.space_name+'</option>');
+              });
+            }
+        });
+    });
+  });          
+ $(document).ready(function(){
+  $('#type-dropdown').on('change', function(){
+    var value = $(this).val(); 
+     if (value == 'paid') {
+      $('#price').prop("disabled", false);
+     }
+  });
+ });
+</script>
+
 @endsection
 @section('content')
 <div class="row d-flex flex-wrap p-3">
@@ -268,9 +350,32 @@
                                  </div>
                               </div>
                               <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="customFile">Event Gallery</label>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="eventGallery" name="eventGallery[]" multiple>
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Event Type</label>
+                                  <select class="form-control" id="type-dropdown" name="type">
+                                    <option>Select Type</option>
+                                    <option value="free">Free</option>
+                                    <option value="free_booking"> Free Booking</option>
+                                    <option value="paid">Paid</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col" id="hotelGalleryPreview"></div>
+                              </div>
+                              <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Price</label>
-                                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter price">
+                                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter price" disabled="" value="">
                                  </div>
                               </div>
                               <div class="col-md-6">
@@ -319,10 +424,24 @@
                                     <input type="text" class="form-control timepicker" name="end_time" id="end_time" placeholder="Enter end time" required="">
                                  </div>
                               </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Select Distance</label>
+                                  <select class="form-control" id="mile-dropdown" name="distance">
+                                    <option>Select Distance</option>
+                                    <option value="1"> 1 Mile</option>
+                                    <option value="2"> 2 Mile</option>
+                                    <option value="3"> 3 Mile</option>
+                                    <option value="4"> 4 Mile</option>
+                                    <option value="5"> 5 Mile</option>
+                                  </select>
+                                </div>
+                              </div>
+
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>Hotels</label>
-                                    <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;">
+                                    <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;" required="">
                                        @if (!$hotelList->isEmpty())
                                        @foreach ($hotelList as $hotel)
                                        <option value="{{ $hotel->hotel_id }}">{{ $hotel->hotel_name }}</option>
@@ -334,7 +453,7 @@
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>Spaces</label>
-                                    <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;">
+                                    <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;" required="">
                                        @if (!$spaceList->isEmpty())
                                        @foreach ($spaceList as $space)
                                        <option value="{{ $space->space_id }}">{{ $space->space_name }}</option>

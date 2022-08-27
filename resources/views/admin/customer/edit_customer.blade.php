@@ -172,7 +172,7 @@
 
                     <div class="form-group">
 
-                      <label>Update Password</label>
+                      <label>Temporary Password</label>
 
                       <input type="password" class="form-control" name="passwordup" id="password" placeholder="Enter Password" autocomplete="new-password">
 

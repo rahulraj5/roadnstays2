@@ -69,6 +69,31 @@
 <link rel="stylesheet" href="{{ asset('resources/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}">
+<style type="text/css">
+  .image-gridiv {
+    width: 155px;
+    overflow: hidden;
+    margin-left: 12px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 11px;
+    padding: 5px;
+    border-radius: 6px;
+    height: 155px;
+}
+.image-gridiv img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+.removeImage {
+    display: block;
+    background: #2a7b72 !important;
+    border: 1px solid #126c62 !important;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+</style>
 @endsection
 @section('current_page_js')
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
@@ -85,7 +110,22 @@
 <script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
-
+<script>
+   $(document).ready(function() {
+     // Select2 Multiple
+     $('.select2bs4').select2({
+       theme: 'bootstrap4'
+     })
+   });
+   $("select").on("select2:select", function(evt) {
+     var element = evt.params.data.element;
+     var $element = $(element);
+   
+     $element.detach();
+     $(this).append($element);
+     $(this).trigger("change");
+   });
+</script>
 <script>
   $("#updateEvent_form").validate({
     debug: false,
@@ -96,9 +136,9 @@
       description: {
         required: true,
       },
-      event_img: {
-        required: true,
-      },
+      // event_img: {
+      //   required: true,
+      // },
       price: {
         required: true,
       },
@@ -177,6 +217,41 @@
     $(this).append($element);
     $(this).trigger("change");
   });
+</script>
+<script>
+  function deleteConfirmation(Id) {
+    toastDelete.fire({}).then(function(e) {
+      if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/admin/deleteEventSingleImage')}}",
+          data: {
+            'id': Id,
+            _token: CSRF_TOKEN
+          },
+          dataType: 'JSON',
+          success: function(data) {
+            $("#remove_img_" + Id).parent('div').remove();
+            success_noti(data.msg);
+          },
+          error: function(errorData) {
+            console.log(errorData);
+            alert('Please refresh page and try again!');
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+  $(".removeImage").click(function() {
+    var Id = $(this).attr('id');
+    var event_id = $('#event_id').val();
+    deleteConfirmation(Id);
+  });
 </script> 
 <script type="text/javascript">
   function initialize() {
@@ -216,6 +291,84 @@
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.File && window.FileList && window.FileReader) {
+      $("#eventGallery").on("change", function(e) {
+        var files = e.target.files,
+          filesLength = files.length;
+        for (var i = 0; i < filesLength; i++) {
+          var f = files[i]
+          var fileReader = new FileReader();
+          fileReader.onload = (function(e) {
+            var file = e.target;
+            $("<span class=\"pip\">" +
+              "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+              "<br/><span class=\"remove\">Remove image</span>" +
+              "</span>").insertAfter("#hotelGalleryPreview");
+            $(".remove").click(function() {
+              $(this).parent(".pip").remove();
+            });
+          });
+          fileReader.readAsDataURL(f);
+        }
+      });
+    } else {
+      alert("Your browser doesn't support to File API")
+    }
+  });
+</script>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#mile-dropdown').on('change', function() {
+        var mile = this.value;
+        var latitude = $('#latitude').val();
+        var longitude = $('#longitude').val();
+        if(latitude === '' || longitude === '' ){
+          alert('Please enter address first');
+          return false;
+        }
+        $("#hotelname").html('');
+        $("#spacename").html('');
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{url('/admin/eventMileData')}}",
+            data: {
+                mile: mile,
+                latitude: latitude,
+                longitude: longitude,
+                _token: CSRF_TOKEN
+            },
+            dataType: 'json',
+            success: function(result) {
+
+              $('#hotelname').html('<option value="">Select Hotels</option>'); 
+              $.each(result.hotelList,function(key,value){
+              $("#hotelname").append('<option value="'+value.hotel_id+'">'+value.hotel_name+'</option>');
+              });
+
+              $('#spacename').html('<option value="">Select Spaces</option>'); 
+              $.each(result.spaceList,function(key1,value1){
+              $("#spacename").append('<option value="'+value1.space_id+'">'+value1.space_name+'</option>');
+              });
+            }
+        });
+    });
+  });   
+  $(document).ready(function(){
+    $('#type-dropdown').on('change', function(){
+      var value = $(this).val(); 
+       if (value == 'paid') {
+        $('#price').prop("disabled", false);
+        $('#price').val("<?php echo $event['price']?>");
+       }else{
+        $('#price').prop("disabled", true);
+        $('#price').val("");
+       }
+    });
+  });
+</script>
 @endsection
 @section('content')
     <!-- Main content -->
@@ -236,6 +389,8 @@
                     <div class="form-group">
                       <label>Title</label>
                       <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" value="{{$event->title}}">
+                      <input type="hidden" name="event_id" id="event_id" value="{{$event->id}}">
+                      <input type="hidden" name="old_event_image" id="old_event_image" value="{{$event->image}}">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -246,11 +401,53 @@
                         <label class="custom-file-label" for="customFile">Choose file</label>
                       </div>
                     </div>
+                    @if((!empty($event['image'])))
+                    <div class="col-md-12">
+                      <div class="d-flex flex-wrap">
+                        <div class="image-gridiv">
+                          <img src="{{url('public/uploads/event_gallery/')}}/{{$event['image']}}">
+                        </div>
+                      </div>
+                    </div>
+                    @endif
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="customFile">Event Gallery</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="eventGallery" name="eventGallery[]" multiple>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Event Type</label>
+                      <select class="form-control" id="type-dropdown" name="type">
+                        <option>Select Type</option>
+                        <option value="free" <?php if ($event['type'] == 'free') { echo 'selected';} ?>>Free</option>
+                        <option value="free_booking" <?php if ($event['type'] == 'free_booking') { echo 'selected';} ?>> Free Booking</option>
+                        <option value="paid" <?php if ($event['type'] == 'paid') { echo 'selected';} ?>>Paid</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="d-flex flex-wrap">
+                      @php $event_gallery = DB::table('event_gallery')->orderby('id', 'ASC')->where('event_id', $event->id)->get(); 
+                      @endphp
+                      @foreach($event_gallery as $image)
+                      <div class="image-gridiv" id="hotelGalleryPreview">
+                        <span class="pip" id="remove_img_{{$image->id}}">
+                          <img class="imageThumb" src="{{url('public/uploads/event_gallery/')}}/{{$image->image}}">
+                          <br /><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
+                      </div>
+                      @endforeach
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Price</label>
-                      <input type="text" class="form-control" name="price" id="price" placeholder="Enter price" value="{{$event->price}}">
+                      <input type="text" class="form-control" name="price" id="price" placeholder="Enter price" value="{{$event->price}}" disabled="">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -299,26 +496,40 @@
                       <input type="text" class="form-control timepicker" name="end_time" id="end_time" placeholder="Enter end time" required="" value="{{$event->end_time}}">
                     </div>
                   </div> 
-                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Select Distance</label>
+                      <select class="form-control" id="mile-dropdown">
+                        <option>Select Distance</option>
+                        <option value="1"> 1 Mile</option>
+                        <option value="2"> 2 Mile</option>
+                        <option value="3"> 3 Mile</option>
+                        <option value="4"> 4 Mile</option>
+                        <option value="5"> 5 Mile</option>
+                      </select>
+                    </div>
+                  </div>
+                  <?php $hotel_ids = json_decode($event['hotel_ids']);?>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Hotels</label>
-                      <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;">
+                      <select class="form-control select2bs4" multiple="multiple" name="hotelname[]"data-placeholder="Select Hotels"style="width: 100%;" required="">
                         @if (!$hotelList->isEmpty())
                         @foreach ($hotelList as $hotel)
-                        <option value="{{ $hotel->hotel_id }}">{{ $hotel->hotel_name }}</option>
+                        <option value="{{ $hotel->hotel_id }}" <?php if (in_array($hotel->hotel_id, $hotel_ids )) { echo 'selected';} ?>>{{ $hotel->hotel_name }}</option>
                         @endforeach
                         @endif
                       </select>
                     </div>
                   </div> 
+                  <?php $space_ids = json_decode($event['space_ids']);?>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Spaces</label>
-                      <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;">
+                      <select class="form-control select2bs4" multiple="multiple" name="spacename[]"data-placeholder="Select Spaces" style="width: 100%;" required="">
                         @if (!$spaceList->isEmpty())
                         @foreach ($spaceList as $space)
-                        <option value="{{ $space->space_id }}">{{ $space->space_name }}</option>
+                        <option value="{{ $space->space_id }}" <?php if (in_array($space->space_id, $space_ids)) {echo 'selected';} ?>>{{ $space->space_name }}</option>
                         @endforeach
                         @endif
                       </select>

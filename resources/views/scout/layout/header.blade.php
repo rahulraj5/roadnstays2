@@ -6,7 +6,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/dashboard') }}" class="nav-link">Home</a>
+        <a href="{{ url('/') }}" class="nav-link">Home</a>
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -16,7 +16,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -35,7 +35,7 @@
             </div>
           </form>
         </div>
-      </li>
+      </li> -->
 
       <!-- Messages Dropdown Menu -->
       <!-- <li class="nav-item dropdown">
@@ -155,7 +155,7 @@
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-          <a href="{{url('/vendor/profile')}}" class="dropdown-item">
+          <a href="{{url('/scout/profile')}}" class="dropdown-item">
 
               <i class="fas fa-user mr-2"></i> Change Profile
 
@@ -163,7 +163,7 @@
 
           <div class="dropdown-divider"></div>
 
-          <a href="{{url('/vendor/changePassword')}}" class="dropdown-item">
+          <a href="{{url('/scout/changePassword')}}" class="dropdown-item">
 
               <i class="fas fa-lock mr-2"></i> Change Password
 
@@ -174,7 +174,7 @@
             if(Auth::user()){
               // echo Auth::user();
           ?>
-          <a href="{{url('/vendor/logout')}}" class="dropdown-item">
+          <a href="{{url('/scout/logout')}}" class="dropdown-item">
             <i class="fas fa-sign-out-alt mr-2"></i> Logout
           </a>
           <?php  

@@ -108,7 +108,7 @@ return [
 
         'scout' => [
             'driver' => 'eloquent',
-            'table' => App\Models\Scout::class,
+            'table' => App\Models\User::class,
         ],
 
         // 'users' => [

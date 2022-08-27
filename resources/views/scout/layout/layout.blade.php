@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Service Provider | Dashboard</title>
+  <title>Scout | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -65,13 +65,13 @@
 
          <!-- Navbar Header -->
 
-         @include('vendor.layout.header')
+         @include('scout.layout.header')
 
 
 
          <!-- Main Sidebar Container -->         
 
-         @include('vendor.layout.sidebar')
+         @include('scout.layout.sidebar')
 
          
 
@@ -81,7 +81,7 @@
 
          <!-- /.Footer -->
 
-         @include('vendor.layout.footer')
+         @include('scout.layout.footer')
 
          
 

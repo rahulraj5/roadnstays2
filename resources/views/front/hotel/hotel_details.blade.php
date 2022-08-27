@@ -252,7 +252,7 @@
                           <b>+PKR {{$room['city_fee']}} city & fees</b>
                           @endif
                        </div>
-                       <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}&check_in={{$check_in}}&check_out={{$check_out}}" class="select-room mt-3">Room Book</a>
+                       <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}&check_in={{$check_in}}&check_out={{$check_out}}&person={{$person}}" class="select-room mt-3">Room Book</a>
                     </div>
                  </div>
               </div>

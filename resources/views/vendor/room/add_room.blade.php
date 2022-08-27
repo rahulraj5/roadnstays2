@@ -720,10 +720,16 @@
                                     </p>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                   <div class="form-group">
                                     <label>Size in ft2</label>
                                     <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2.">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>Number of Beds</label>
+                                    <input type="text" class="form-control" name="num_of_beds" id="num_of_beds" placeholder="Enter Number of Beds">
                                   </div>
                                 </div>
                                 <div class="col-md-6">

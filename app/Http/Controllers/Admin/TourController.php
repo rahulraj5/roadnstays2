@@ -33,8 +33,7 @@ class TourController extends Controller
 
 
     public function submit_tour(Request $request)
-    {
-        //print_r($request->all()); die;
+    { 
 
         if($request->hasFile('tourFeaturedImg'))
         {
@@ -60,46 +59,37 @@ class TourController extends Controller
 
         $admintour = new Tour; 
         $admintour->vendor_id = $request->vendor_id;
-        $admintour->scout_id = $request->scout_id;
-        $admintour->tour_code= $request->tour_code;
-        $admintour->tour_start_day = $request->tour_start_day;
+        $admintour->tour_title = $request->tour_title;
+        $admintour->tour_status= $request->tour_status;
+        $admintour->tour_description = $request->tour_description;
+        $admintour->city = $request->city;
+        $admintour->address = $request->address;
+        $admintour->latitude = $request->latitude;
+        $admintour->longitude = $request->longitude;
+        $admintour->neighb_area = $request->neighb_area;
+        $admintour->country_id = $request->country_id;
         $admintour->tour_start_date = date('Y-m-d', strtotime($request->start_date));
         $admintour->tour_end_date = date('Y-m-d', strtotime($request->end_date));
         $admintour->tour_feature_image = $tourFeaturedImg;
-        $admintour->tour_package_name = $request->tour_package_name;
-        $admintour->tour_title = $request->tour_title;
         $admintour->tour_type = $request->tour_type;
-        $admintour->tour_price = $request->tour_price;
+        $admintour->tour_sub_type = $request->tour_sub_type;
         $admintour->tour_days = $request->tour_days;
-        $admintour->tour_duration =$request->tour_duration;
-        $admintour->tour_price_others = $request->tour_price_others;
+        $admintour->tour_price = $request->tour_price;
+        $admintour->tour_price_others =$request->tour_price_others;
+        $admintour->tour_discount = $request->tour_discount;
+        $admintour->children_policy = $request->children_policy;
+        $admintour->tour_min_capacity = $request->min;
+        $admintour->tour_max_capacity = $request->max;
+        $admintour->scout_id = $request->scout_id;
+        $admintour->tour_policy = $request->tour_policy;
+        $admintour->payment_mode = $request->payment_mode;
+        $admintour->cancellation_and_refund = $request->cancellation_and_refund;
+        $admintour->booking_option = $request->booking_option;
         $admintour->tour_locations = $request->tour_locations;
         $admintour->tour_activities = $request->tour_activities;
         $admintour->tour_services_includes = $request->tour_services_includes;
         $admintour->tour_services_not_includes = $request->tour_services_not_includes;
-        $admintour->tour_payment_term = $request->tour_payment_term;
-        $admintour->tour_description = $request->tour_description;
-        $admintour->tour_term_condition = $request->tour_term_condition;
-        $admintour->bank_name = $request->bank_name;
-        $admintour->account_holder = $request->account_title;
-        $admintour->account_number = $request->account_number;
-        $admintour->branch_name = $request->branch_name;
-        $admintour->tour_document = $request->tour_document;
-        $admintour->easypaisa = $request->easypaisa;
-        $admintour->jazz_cash = $request->jazz_cash;
-        $admintour->booking_contact_no = $request->booking_contact;
-        $admintour->contact_name = $request->contact_name;
-        $admintour->contact_num = $request->contact_num;
-        $admintour->alternate_num = $request->alternate_num;
-        $admintour->country_id = $request->country_id;
-        $admintour->address = $request->address;
-        $admintour->latitude = $request->latitude;
-        $admintour->longitude = $request->longitude;
-        $admintour->city = $request->city;
-        $admintour->neighb_area = $request->neighb_area;
-        $admintour->booking_option = $request->booking_option;
-        $admintour->payment_mode = $request->payment_mode;
-        $admintour->tour_status = 1;
+        $admintour->status = 1;
         $admintour->save();  
         $admintour_id = $admintour->id;
 
@@ -128,6 +118,11 @@ class TourController extends Controller
                 $trip_itinerary = array(
                     'tour_id' => $admintour_id,
                     'title' => $itinerary['name'],
+                    'place_from' => $itinerary['place_from'],
+                    'place_to' => $itinerary['place_to'],
+                    'hotel' => $itinerary['hotel'],
+                    'transport' => $itinerary['transport'],
+                    'night_stay' => $itinerary['night_stay'],
                     'trip_detail' => $trip_detail,
                     'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
@@ -231,52 +226,41 @@ class TourController extends Controller
         }
 
         if (!empty($tour_id)) {
-            DB::table('tour_list')
-
-                ->where('id', $tour_id)
-
+            DB::table('tour_list') 
+                ->where('id', $tour_id) 
                 ->update([
                     'vendor_id'=> $request->vendor_id,
-                    'scout_id' => $request->scout_id,
-                    'tour_code'=> $request->tour_code,
-                    'tour_start_day' => $request->tour_start_day,
+                    'tour_status' => $request->tour_status,
+                    'tour_title'=> $request->tour_title,
+                    'tour_description' => $request->tour_description,
+                    'city' => $request->city,   
+                    'address' => $request->address,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
+                    'neighb_area' => $request->neighb_area,
+                    'country_id' => $request->country_id,
                     'tour_start_date' => date('Y-m-d', strtotime($request->start_date)),
                     'tour_end_date' => date('Y-m-d', strtotime($request->end_date)),
                     'tour_feature_image' => $tourFeaturedImg,
-                    'tour_package_name' => $request->tour_package_name,
-                    'tour_title' => $request->tour_title,
-                    'tour_type' =>  $request->tour_type,
-                    'tour_price' => $request->tour_price,
+                    'tour_type' => $request->tour_type,
+                    'tour_sub_type' =>  $request->tour_sub_type,
                     'tour_days' =>  $request->tour_days,
-                    'tour_duration' => $request->tour_duration,
+                    'tour_price' => $request->tour_price,
                     'tour_price_others' => $request->tour_price_others,
+                    'tour_discount' => $request->tour_discount,
+                    'children_policy' => $request->children_policy,
+                    'tour_min_capacity' => $request->min,
+                    'tour_max_capacity' => $request->max,
+                    'scout_id' => $request->scout_id,
+                    'tour_policy' => $request->tour_policy,
+                    'payment_mode' => $request->payment_mode,
+                    'cancellation_and_refund' => $request->cancellation_and_refund,
+                    'booking_option' => $request->booking_option,
                     'tour_locations' => $request->tour_locations,
                     'tour_activities' => $request->tour_activities,
                     'tour_services_includes' => $request->tour_services_includes,
                     'tour_services_not_includes' => $request->tour_services_not_includes,
-                    'tour_payment_term' => $request->tour_payment_term,
-                    'tour_description' => $request->tour_description,
-                    'tour_term_condition' => $request->tour_term_condition,
-                    'bank_name' => $request->bank_name,
-                    'account_holder' => $request->account_title,
-                    'account_number' => $request->account_number,
-                    'branch_name' => $request->branch_name,
-                    'tour_document' => $request->tour_document,
-                    'easypaisa' => $request->easypaisa,
-                    'jazz_cash' => $request->jazz_cash,
-                    'booking_contact_no' => $request->booking_contact,
-                    'contact_name' => $request->contact_name,
-                    'contact_num' => $request->contact_num,
-                    'alternate_num' => $request->alternate_num,
-                    'country_id' => $request->country_id,
-                    'address' => $request->address,
-                    'latitude' => $request->latitude,
-                    'longitude' => $request->longitude,
-                    'city' => $request->city,
-                    'neighb_area' => $request->neighb_area,
-                    'booking_option' => $request->booking_option,
-                    'payment_mode' => $request->payment_mode,
-                    'tour_status' => 1,
+                    'status' => 1,
                 ]);
 
             if (!empty($_FILES["tourGallery"]["name"])) {
@@ -297,6 +281,7 @@ class TourController extends Controller
                 }
             }
 
+            //print_r($request->itinerary);die;
             DB::table('tour_itinerary')->where('tour_id', '=', $tour_id)->delete();
             if (!empty($request->itinerary)) {
                 foreach ($request->itinerary as $itinerary) {
@@ -304,6 +289,11 @@ class TourController extends Controller
                     $trip_itinerary = array(
                         'tour_id' => $tour_id,
                         'title' => $itinerary['name'],
+                        'place_from' => $itinerary['place_from'],
+                        'place_to' => $itinerary['place_to'],
+                        'hotel' => $itinerary['hotel'],
+                        'transport' => $itinerary['transport'],
+                        'night_stay' => $itinerary['night_stay'],
                         'trip_detail' => $trip_detail,
                         'status' => 1,
                         'created_at' => date('Y-m-d H:i:s'),
@@ -313,7 +303,7 @@ class TourController extends Controller
                 }
             }
 
-            return response()->json(['status' => 'success', 'msg' => 'Hotel Updated Successfully']);
+            return response()->json(['status' => 'success', 'msg' => 'Tour Updated Successfully']);
         }
     }
 

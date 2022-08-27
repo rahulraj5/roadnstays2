@@ -59,7 +59,42 @@
   <input type="hidden" value="{{url('/')}}" id="baseUrl" name="baseUrl">
 
   <input type="hidden" value="{{ csrf_token() }}" id="csrfToken" name="csrfToken">
+<style type="text/css">
+  
+.btn-primary {
+  color: #fff;
+  background-color: #126c62;
+  border-color: #126c62;
+  box-shadow: none;
+}
 
+.btn:hover {
+background-color: #16897c;
+border-color: #126c62;
+}
+
+.login-logo a, .register-logo a {
+  color: #FFF;
+}
+
+.login-box-msg{
+  margin: 0;
+  padding: 0 20px 20px;
+  text-align: center;
+  color: #126c62;
+}
+
+.fas {
+  font-weight: 900;
+  color: #126c62;
+}
+
+body{
+background-image: url('https://votivetechnologies.in/roadNstays/resources/assets/img/admin-bg.png');
+background-size: cover;
+}
+
+</style>
 </head>
 
 <body class="hold-transition login-page">
