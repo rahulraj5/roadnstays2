@@ -4,8 +4,6 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}">
 <!-- fullCalendar -->
 <link rel="stylesheet" href="{{ asset('resources/plugins/fullcalendar/main.css')}}">
 
@@ -51,8 +49,6 @@
 @section('current_page_js')
 <!-- Select2 -->
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ asset('resources/plugins/summernote/summernote-bs4.min.js')}}"></script>
 
 <!-- <script src="{{url('/')}}/resources/assets/js/materialize.min.js"></script> -->
 <!-- fullCalendar 2.2.5 -->
@@ -95,8 +91,8 @@
             selectable: true,
             selectMirror: true,
             select: function(arg) {
-                console.log('selected date range arg 1');
-                console.log(arg);
+                // console.log('selected date range arg 1');
+                // console.log(arg);
 
                 // var check = convert(arg.start);
                 // var today = convert(new Date());
@@ -133,6 +129,10 @@
                     <?php } ?>                     
                 <?php } ?>
             ],
+            dayClick: function(date, jsEvent, view) {
+                console.log('clicked on ' + date.format());
+                // alert('clicked');
+            },
             eventClick: function(arg) {
                 console.log('event click arg 2');
                 console.log(arg);
@@ -143,11 +143,14 @@
 </script>
 
 <script>
-    $('.modal-trigger').leanModal();
+    // $('.modal-trigger').leanModal();
 
     function openModal1() {
         //open the modal
         $('#modal1').modal('show');
+        
+        // var month = $('#calendar1').fullCalendar('getView').intervalStart.format('MM');
+        // console.log(month);
         //   $('#modal1').openModal({
         //     dismissible: false
         //   });
@@ -530,7 +533,7 @@
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Price Adjustments Calendar for &nbsp;&nbsp;- &nbsp;&nbsp; <b>{{ $room_data->name }}</b> ({{ $room_data->hotel_name }})</h3>
+                    <h3 class="card-title">Price Adjustments Calendar for &nbsp;&nbsp;- &nbsp;&nbsp; <b>{{ $room_data->name ?? '' }}</b> ({{ $room_data->hotel_name ?? ''}})</h3>
                 </div>
                 <!-- /.card-header -->
 

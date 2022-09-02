@@ -151,10 +151,7 @@
                  </div>
               </div>
            </div>
-        </section>
-
-
-
+        </section> 
         <section id="3">
            <div class="container">
               @foreach($room_data as $room)
@@ -281,19 +278,19 @@
         <section class="overview" id="4">
            <div class="container">
               <div class="row over-row">
-                 <div class="col-md-12 p-0">
-                    <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
-                    <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                 </div>
+                <div class="col-md-12 p-0">
+                  <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
+                  <!-- <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php //echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                </div>
               </div>
+              <iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
            </div>
         </section>
         <section class="policy" id="6">
            <div class="container">
               <h1 class="mt-0">Hotel Policy</h1>
               <div class="row policy-row">
-                 {{strip_tags($hotel_data->hotel_notes)}}
-
+                 {{strip_tags($hotel_data->hotel_notes)}} 
               </div>
            </div>
      </div>
@@ -338,14 +335,14 @@
                                       <input id="ratings-hidden" name="rating" type="hidden">
                                       <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
                                       <div class="d-flex justify-content-end align-items-center mt-4">
-                                         <div class="d-flex mr-2 tating-size">
-                                            <a href="#"><i class='bx bxs-star'></i></a>
-                                            <a href="#"><i class='bx bxs-star'></i></a>
-                                            <a href="#"><i class='bx bxs-star'></i></a>
-                                            <a href="#"><i class='bx bxs-star'></i></a>
-                                            <a href="#"><i class='bx bxs-star'></i></a>
-                                         </div>
-                                         <button class="btn btn-success-text" type="submit">Save</button>
+                                        <div class="d-flex mr-2 tating-size">
+                                          <a href="#"><i class='bx bxs-star'></i></a>
+                                          <a href="#"><i class='bx bxs-star'></i></a>
+                                          <a href="#"><i class='bx bxs-star'></i></a>
+                                          <a href="#"><i class='bx bxs-star'></i></a>
+                                          <a href="#"><i class='bx bxs-star'></i></a>
+                                        </div>
+                                        <button class="btn btn-success-text" type="submit">Save</button>
                                       </div>
                                    </form>
                                 </div>

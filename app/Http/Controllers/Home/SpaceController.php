@@ -176,23 +176,28 @@ class SpaceController extends Controller
         $checkout_date = date('Y-m-d', strtotime($request->space_end_date));;
         $spaceIdd = $request->spaceIdd;
         // echo "<pre>";print_r($spaceIdd);
-        $booked_space_id = DB::table('space_booking')
-                    ->where("space_id", $spaceIdd)
-                    ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
-                    ->WhereBetween('check_out_date', [$checkin_date, $checkout_date])
-                    ->get();
-        // echo "<pre>";print_r($booked_space_id);die;  
-        if(count($booked_space_id) === 0) {                  
-            Session::put('space_check_in_date', $request->space_start_date);
-            Session::put('space_check_out_date', $request->space_end_date);
-
-            return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
-        }else {
+        if($checkin_date === $checkout_date){
             $request->session()->forget('space_check_in_date');
             $request->session()->forget('space_check_out_date');
-            return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
-        }
+            return response()->json(['status' => 'notAvailable', 'msg' => 'Chekin Date and Checkout date are not same']);
+        }else{
+            $booked_space_id = DB::table('space_booking')
+            ->where("space_id", $spaceIdd)
+            ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
+            ->WhereBetween('check_out_date', [$checkin_date, $checkout_date])
+            ->get();
+            // echo "<pre>";print_r($booked_space_id);die;  
+            if(count($booked_space_id) === 0) {                  
+                Session::put('space_check_in_date', $request->space_start_date);
+                Session::put('space_check_out_date', $request->space_end_date);
 
+                return response()->json(['status' => 'success', 'msg' => 'Space is Available']);
+            }else {
+                $request->session()->forget('space_check_in_date');
+                $request->session()->forget('space_check_out_date');
+                return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
+            }
+        }    
     }
 
     public function change_daterange_session(Request $request)

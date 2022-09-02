@@ -200,19 +200,20 @@
                               <div id="menu1" class="tab-pane fade bankinfo">
                                  <h3 class="mt-3">Important information about your booking</h3>
                                  <p>Important: You will be redirected to your bank's website to securely complete your payment. You will have 30 minutes to pay for your booking.</p>
-                                 <!-- <a href="#" class="paynow-btn">Continue To Your Bank </a> -->
                               </div>
                            </div>
                         </div>
                         <div class="col-md-12 text-center d-flex p-4">
-                           <input type="submit" name="paynow" class="paynow-btn" value="Paynow">
-                           <!-- <a href="#" class="paynow-btn">Paynow </a> -->
+                           <input type="submit" name="paynow" class="paynow-btn" value="Paynow"> 
                         </div>
-                         </form>
+                        </form>
                      </div>
                   </div>
                </div>
             </div>
+            <h3>Google Map</h3>
+            <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
+            <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
          </div>
          <div class="col-md-3 pl-0">
             <div class="revie-box-boxi">

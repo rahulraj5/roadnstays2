@@ -40,6 +40,61 @@ class RoomController extends Controller
         return view('admin/room/room_type_categories')->with($data);
     }
 
+    public function add_Room_type_category(Request $request)
+    {
+        return view('admin/room/add_room_type');
+    }
+
+    public function submit_room_type_category(Request $request)
+    {
+        $data = DB::table('room_type_categories')->insert(['title' => trim($request->roomCategoryName),
+                                                    'details' => $request->roomCategoryDetail]);
+        if ($data) {
+            return response()->json(['status' => 'success', 'msg' => 'Item Added successfully.']);
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+        }
+    }
+
+    public function edit_room_type_category(Request $request)
+    {
+    	$id = base64_decode($request->id);
+        $data['roomTypeCategories'] = DB::table('room_type_categories')->where('id',$id)->first();
+    	return view('admin/room/edit_room_type')->with($data) ;
+    }
+    
+    public function update_room_type_category(Request $request)
+    {
+        $id = $request->id;
+        $roomCategoryName = $request->roomCategoryName;
+        $roomCategoryDetail = $request->roomCategoryDetail;
+
+        $data = DB::table('room_type_categories')
+                    ->where('id', $id)
+                    ->update(['title' => trim($roomCategoryName),
+                            'details' => $roomCategoryDetail,]);
+
+    	if($data){
+            return response()->json(['status' => 'success', 'msg' => 'Item Updated successfully.']);
+    	}else{
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+    	} 
+    }
+
+    
+    public function delete_room_type_category(Request $request)
+    {
+        $id = $request->id;
+
+        $res = DB::table('room_type_categories')->where('id', '=', $id)->delete();
+
+        if ($res) {
+            return json_encode(array('status' => 'success', 'msg' => 'Room Category has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
     public function add_room_test()
     {
 
@@ -685,8 +740,6 @@ class RoomController extends Controller
         }
 
     }
-
-
 
     public function change_room_status(Request $request)
     {

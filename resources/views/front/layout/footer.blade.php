@@ -7,95 +7,77 @@
       <div class="container">
 
         <div class="row">
-
-
-
+ 
           <div class="col-lg-3 col-md-3 footer-links">
 
             <div class="footer-info">
 
               <h4>ROAD N STAYS</h4>
-
-
-
+ 
               <ul>
 
-                <li> <a href="#">About Us</a></li>
+                <li> <a href="{{url('/about-us')}}">About Us</a></li>
 
-                <li> <a href="#">Business</a></li>
-
-                <li> <a href="#">Leisure</a></li>
-
-                <li> <a href="#">Student</a></li>
-
+                <li> <a href="{{url('/list-your-property')}}">List Your Property</a></li>
+                @if(Auth::check())
+                @if(Auth::user()->user_type == "normal_user")
+                <li> <a href="{{ url('/user/profile') }}">User Profile</a></li>
+                @else
+                <li> <a data-toggle="modal" data-target="#exampleModal-log-in">User Login</a></li>
+                @endif
+                @else 
+                <li> <a data-toggle="modal" data-target="#exampleModal-log-in">User Login</a></li>
+               @endif
                 <li> <a href="#">Religion</a></li>
-
-                <li> <a href="#">Pre / post booking</a></li>
-
-                <li> <a href="#">Premises support through scouts</a></li>
-
-
 
               </ul>
 
             </div>
 
           </div>
-
-
-
+ 
           <div class="col-lg-3 col-md-3 footer-links">
 
             <h4>Explore</h4>
 
             <ul>
-            @if(Auth::check())
-              @if(Auth::user()->user_type == "service_provider")
-                <li> <a href="{{ url('/servicepro/dashboard') }}">Service Provider Dashboard</a></li>
-              @else
+              @if(Auth::check())
+                @if(Auth::user()->user_type == "service_provider")
+                  <li> <a href="{{ url('/servicepro/dashboard') }}">Service Provider Dashboard</a></li>
+                @else
+                  <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signin">Service Provider Login</a></li>
+                @endif
+              @else  
                 <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signin">Service Provider Login</a></li>
               @endif
-            @else  
-              <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#vendorModal-signin" id="vendor_Signin">Service Provider Login</a></li>
-            @endif
               
               <li> <a href="#">Weather</a></li>
 
               <li> <a href="#">Packages</a></li>
 
-              <li> <a href="#">Blogs</a></li>
-
-              <li> <a href="#">Guest Houses </a></li>
-
-              <li> <a href="#">Business Advantage</a></li>
+              <li> <a href="#">Blogs</a></li> 
 
             </ul>
 
           </div>
-
-
-
-
-
-
-
+ 
           <div class="col-lg-3 col-md-3  footer-links">
 
             <h4>Terms and policies</h4>
 
             <ul>
 
-              <li> <a href="#">Privacy statement</a></li>
+              <li> <a href="{{url('/terms_&_condition')}}">Terms & Condition</a></li>
 
-              <li> <a href="#">Terms of use</a></li>
+              <li> <a href="{{url('/cancellation-policy')}}">Cancellation Policy</a></li>
 
+              <li> <a href="{{url('/privacy-policy')}}">Privacy Policy</a></li>
 
-
+              <li> <a href="{{url('/cookie-policy')}}">Cookie Policy</a></li>
+ 
             </ul>
 
-          </div>
-
-
+          </div> 
 
           <div class="col-lg-3 col-md-3 footer-links">
 
@@ -103,28 +85,20 @@
 
             <ul>
 
+              <li> <a href="{{url('/contact-us')}}">Contact Us</a></li>
+
               <li> <a href="#">Supports</a></li>
-
-              <li> <a href="#" style="line-height: 24px;">Cancel your hotel or vaca-
-
-                  tion rental booking</a></li>
-
-              <li> <a href="#">Cancel your Trip</a></li>
 
             </ul>
 
-          </div>
-
-
+          </div> 
 
         </div>
 
       </div>
 
     </div>
-
-
-
+ 
     <div class="container">
 
       <div class="row">
@@ -147,18 +121,16 @@
 
             <a href="https://www.facebook.com/RoadnStayscom-113429408032932" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>
 
-            <a href="https://www.youtube.com/channel/UCnYwJuD_-gTvBNnUVYLibvA" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
+            <a href="https://www.instagram.com/roadnstays/" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
 
-            <!--   <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <!--  <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
 
               <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
 
           </div>
 
         </div>
-
-
-
+ 
       </div>
 
   </footer>
@@ -194,9 +166,7 @@
               <div class="login-form">
 
                 <div class="main-div">
-
-                  
-
+ 
                   <div class="panel">
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -247,9 +217,7 @@
                     <button type="submit" class="btn btn-primary">Login</button>
 
                   </form>
-
-
-
+ 
                 </div>
 
               </div>
@@ -334,6 +302,16 @@
 
                     <input type="password" class="form-control" name="sconfirm_password" id="sconfirm_password" placeholder="Confirm password">
 
+                  </div>
+
+                  <div class="form-group">
+                    <select class="form-control" name="user_country"  id="user_country">
+                      <option value="">Select Country</option>
+                      @php $countries = DB::table('country')->get(); @endphp
+                      @foreach ($countries as $cont)
+                        <option value="{{ $cont->id }}">{{ $cont->nicename }}</option>
+                      @endforeach
+                    </select>
                   </div>
 
                   <div class="input-group">
@@ -490,6 +468,15 @@
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control" name="vsconfirm_password" id="vsconfirm_password" placeholder="Confirm password">
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" name="vendor_country"  id="vendor_country">
+                      <option value="">Select Country</option>
+                      @php $countries = DB::table('country')->get(); @endphp
+                      @foreach ($countries as $cont)
+                        <option value="{{ $cont->id }}">{{ $cont->nicename }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="input-group">
                     <div class="checkbox">

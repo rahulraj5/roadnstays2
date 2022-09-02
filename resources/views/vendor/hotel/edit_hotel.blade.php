@@ -1198,14 +1198,14 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Latitude</label>
-                        <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}">
+                        <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_latitude) ? $hotel_info->hotel_latitude : '')}}" required="required">
                       </div>
                     </div>
 
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Longitude</label>
-                        <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}">
+                        <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" placeholder="Enter " value="{{(!empty($hotel_info->hotel_longitude) ? $hotel_info->hotel_longitude : '')}}" required="required">
                       </div>
                     </div>
 

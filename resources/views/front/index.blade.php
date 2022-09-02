@@ -314,7 +314,7 @@
          <div class=" carousel-item active" style="">
             <div class="carousel-container">
                <div class="container search-bar">
-                  <div class="mt-3 mb-2">
+                  <div class="mt-3">
                      <h2 class="animate__animated animate__fadeInDown">
                         Make Your Trip Fun & Noted
                      </h2>
@@ -334,14 +334,14 @@
                                  </div>
                               </a>
                            </li>
-                           <li class="nav-item">
+                           <!-- <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#home" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/event.png')}}">
                                     <span> Event</span>
                                  </div>
                               </a>
-                           </li>
+                           </li> -->
 
                            <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
@@ -351,14 +351,14 @@
                                  </div>
                               </a>
                            </li>
-                           <li class="nav-item">
+                           <!-- <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/space.png')}}">
                                     Space
                                  </div>
                               </a>
-                           </li>
+                           </li> -->
                         </ul>
                      </div>
                      <!-- Tab panes -->
@@ -370,9 +370,9 @@
                                  @csrf
                                  <div class="row">
                                     <div class="col-md-4 filter_01 pr-0 h-hotel ">
-                                       <p>CITY, LOCATION...</p>
+                                       <p>CITY, LOCATION</p>
                                        <span class="hotel-searchbar"><i class="bx bx-map"></i>
-                                          <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocompleteloc" required="">
+                                          <input type="location" name="location" placeholder="Location, City, Place..." class="locatin-hotel" id="autocompleteloc" required="">
                                           <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
                                           <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
                                        </span>
@@ -490,9 +490,39 @@
                         <div class="tab-pane" id="messages" role="tabpanel">
                            <div class="booking-type tour-book1">
 
-                              <form>
+                           <form method="GET" action="{{url('tour-list')}}">
+                              @csrf
 
                                  <div class="col-md-6 filter_01 pr-0 h-hotel ">
+                                    <p>Destination</p>
+                                    <span class="hotel-searchbar"><i class="bx bx-map"></i>
+                                       <!-- <input type="location" name="location" placeholder="Enter Destination" class="locatin-hotel" id="autocompleteloc" required=""> -->
+                                       @php $get_tour = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->get()->unique('country_id'); @endphp
+                                       <select class="locatin-hotel" name="destination" id="destination">
+                                          <option value="">Select Destination</option>
+                                          @foreach($get_tour as $tour_data)
+                                             @php $get_country = DB::table('country')->where('id', $tour_data->country_id)->first(); @endphp
+                                             <option value="{{ base64_encode($get_country->id) ?? '' }}">{{ $get_country->nicename ?? '' }}</option>
+                                          @endforeach
+                                       </select>
+                                    </span>
+                                 </div>
+
+                                 <div class="col-md-6 filter_01 pr-0 h-hotel ">
+                                    <p>Duration</p>
+                                    <span class="hotel-searchbar"><i class="bx bx-time"></i>
+                                       <!-- <input type="location" name="location" placeholder="Enter Destination" class="locatin-hotel" id="autocompleteloc" required=""> -->
+                                       <select class="locatin-hotel" name="duration" id="duration">
+                                          <option value=""> Select Duration </option>
+                                          @php $get_tour = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->orderBy('tour_days', 'ASC')->get()->unique('tour_days'); @endphp
+                                          @foreach($get_tour as $tour_data)
+                                             <option value="{{ base64_encode($tour_data->tour_days) }}"> {{ $tour_data->tour_days-1 }} Nights / {{ $tour_data->tour_days }} Days</option>
+                                          @endforeach   
+                                       </select>
+                                    </span>
+                                 </div>
+
+                                 <!-- <div class="col-md-6 filter_01 pr-0 h-hotel ">
                                     <p>CITY, LOCATION...</p>
                                     <span class="hotel-searchbar"><i class="bx bx-map"></i>
                                        <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocompleteloc" required="">
@@ -510,7 +540,7 @@
                                  <div class="col-md-3 tourdater tourdater2 reserved tour_date_range">
                                     <p>Check_out</p>
                                     <input id="tour_check_out" placeholder="Date" class="span3 min_date">
-                                 </div>
+                                 </div> -->
 
                                  <!-- <span class="tourdater">
                                     <input id="tour_check_in" placeholder="Date" class="span3 form-control min_date">
@@ -596,75 +626,176 @@
             <h3> Book flights to a destination popular with travelers from Pakistan</h3>
          </div>
          <div class="owl-carousel testimonials-carousel">
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+
+            @if(count($tour_list) > 0)
+               <!-- @php echo 'first' @endphp -->
+               @foreach($tour_list as $tour)
+                  @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
+                  @php $nights = $tour->tour_days-1; @endphp
+                  <div class="testimonial-wrap">
+                     <div class="testimonial-item">
+                        <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}" class="testimonial-img" alt="" style="height: 218px;"></a>
+                        <div class="world-class">
+                           <a href="#" class="city-nam"><i class='bx bx-map'></i> {{ ucfirst(strtolower(trans($country_name->name))) }} </a>
+                           <h3> {{ $tour->city }} </h3>
+                           <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><p> {{ $tour->tour_title }}</p></a>
+
+                           <a href="#" class="date-trip"> {{$tour->tour_days}} Days,{{$nights}} Nights</a>
+                        </div>
+                     </div>
+                  </div>
+               @endforeach      
+            @endif   
+
+            @if(count($tour_list) == 2) 
+               <!-- @php echo 'second' @endphp -->
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                        <h3> Jama Masjid, Delhi </h3>
+                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+            @endif   
+
+            @if(count($tour_list) == 1) 
+               <!-- @php echo 'third' @endphp -->
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/3.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
-                     <h3> Piazza Castello </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                        <h3> Jama Masjid, Delhi </h3>
+                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+            @endif   
+
+            @if(count($tour_list) == 0)   
+               <!-- @php echo 'fourth' @endphp -->
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                        <h3> Jama Masjid, Delhi </h3>
+                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
-                     <h3> Jama Masjid, Delhi </h3>
-                     <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/3.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                        <h3> Piazza Castello </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
+            @endif   
+         
+               <!-- <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/3.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                        <h3> Piazza Castello </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/2.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                        <h3> Jama Masjid, Delhi </h3>
+                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <img src="{{ asset('resources/assets/img/1.png')}}" class="testimonial-img" alt="">
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div> -->
+
          </div>
       </div>
    </section>
+
    <section class="truely-dedicated">
       <div class="container" data-aos="fade-up">
          <div class="row">
@@ -700,6 +831,7 @@
          </div>
       </div>
    </section>
+
    <section id="featured" class="testimonials">
       <div class="container" data-aos="fade-up">
          <div class="section-title trending-city">
@@ -707,6 +839,137 @@
             <h3> These are the most recent properties added, with featured listed firstworld-class-feature</h3>
          </div>
          <div class="owl-carousel featured">
+
+         @if(count($hotel_list) > 0)
+            
+            @foreach($hotel_list as $hotel)
+               @php $country_name = DB::table('country')->where('id', $hotel->hotel_country)->value('nicename'); @endphp
+               <!-- @php echo $country_name; @endphp -->
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <div class="imgae-rid">
+                        <img src="{{ asset('public/uploads/hotel_gallery')}}/{{$hotel->hotel_gallery}}" class="testimonial-img" alt="">
+                        <div class="wht-text-r">
+                           <h4> PKR {{ $hotel->stay_price }} <small>/Night</small></h4>
+                        </div>
+                     </div>
+                     <div class="world-class-feature">
+                        <h3> {{ $hotel->hotel_name }} </h3>
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i>  {{ $country_name }}  </a>
+                        <div class="city-nam"><i class='bx bx-home-alt'></i>  {{ $hotel->hotel_address }}</div>
+                     </div>
+                  </div>
+               </div>
+            @endforeach
+
+         @endif 
+         
+         @if(count($hotel_list) == 3)
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a1.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Holiday Inn Swat, Family Room-11
+                        Hotel
+                     </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath</div>
+                  </div>
+               </div>
+            </div>
+         @endif 
+
+         @if(count($hotel_list) == 2)
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a1.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Holiday Inn Swat, Family Room-11
+                        Hotel
+                     </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath</div>
+                  </div>
+               </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a2.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Kumrat Glamping Resort – Basic, 5 </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath </div>
+                  </div>
+               </div>
+            </div>
+         @endif 
+
+         @if(count($hotel_list) == 1)
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a1.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Holiday Inn Swat, Family Room-11
+                        Hotel
+                     </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath</div>
+                  </div>
+               </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a2.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Kumrat Glamping Resort – Basic, 5 </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private room w. bath </div>
+                  </div>
+               </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="imgae-rid">
+                     <img src="{{ asset('resources/assets/img/a3.png')}}" class="testimonial-img" alt="">
+                     <div class="wht-text-r">
+                        <h4> PKR 4562 <small>/Night</small></h4>
+                     </div>
+                  </div>
+                  <div class="world-class-feature">
+                     <h3> Calaca, Philippines </h3>
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Dennis Canonizado </a>
+                     <div class="city-nam"><i class='bx bx-home-alt'></i> Hotal/Private roomPrivate patio or ba.. </div>
+                  </div>
+               </div>
+            </div>
+         @endif 
+
+         @if(count($hotel_list) == 0)
             <div class="testimonial-wrap">
                <div class="testimonial-item">
                   <div class="imgae-rid">
@@ -801,9 +1064,12 @@
                   </div>
                </div>
             </div>
+         @endif 
+
          </div>
       </div>
    </section>
+
    <section id="religious" class="testimonials">
       <div class="container" data-aos="fade-up">
          <div class="section-title trending-city">
@@ -811,87 +1077,158 @@
             <h3> The existence of a large number of temples, mosques, churches, Gurudwaras and monasteries in world beckons the traveler to visit that is tolerant, spiritual and most of all diverse yet united.</h3>
          </div>
          <div class="owl-carousel testimonials-carousel">
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+
+            @if(count($tour_list) > 0)
+               @foreach($tour_list as $tour)
+                  @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
+                  @php $nights = $tour->tour_days-1; @endphp
+
+                  <div class="testimonial-wrap">
+                     <div class="testimonial-item ">
+                        <div class="heig-fic">
+                           <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}" class="testimonial-img" alt=""></a>
+                        </div>
+                        <div class="world-class">
+                           <a href="#" class="city-nam"><i class='bx bx-map'></i> {{ ucfirst(strtolower(trans($country_name->name))) }} </a>
+                           <h3> {{ $tour->city }} </h3>
+                           <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><p> {{ $tour->tour_title }}</p></a>
+                           <a href="#" class="date-trip"> {{$tour->tour_days}} Days,{{$nights}} Nights</a>
+                        </div>
+                     </div>
                   </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                  </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item ">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g3.png')}}" class="testimonial-img" alt="">
-                  </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
-                     <h3> Piazza Castello </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+               @endforeach      
+            @endif  
+
+            @if(count($tour_list) == 2)
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                  </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                  </div>
-               </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                  </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
-                     <h3> Jama Masjid, Delhi </h3>
-                     <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+            @endif  
+
+            @if(count($tour_list) == 1)
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="testimonial-wrap">
-               <div class="testimonial-item">
-                  <div class="heig-fic">
-                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                  </div>
-                  <div class="world-class">
-                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                     <h3> Islamabad </h3>
-                     <p> Flights from Devi Ahilyabai Holkar International</p>
-                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
                   </div>
                </div>
-            </div>
+            @endif
+            
+            @if(count($tour_list) == 0)
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item ">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g3.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                        <h3> Piazza Castello </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                        <h3> Jama Masjid, Delhi </h3>
+                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                     <div class="heig-fic">
+                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                     </div>
+                     <div class="world-class">
+                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                        <h3> Islamabad </h3>
+                        <p> Flights from Devi Ahilyabai Holkar International</p>
+                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
+                     </div>
+                  </div>
+               </div>
+            @endif
+
          </div>
       </div>
    </section>
+
    <section class="special-offer">
       <div class="container">
          <div class="row">
@@ -903,14 +1240,17 @@
             </div>
          </div>
       </div>
-      <div class="d-flex justify-content-between bor-botm">
+
+      <div class="container-fluid">
+         <div class="d-flex justify-content-between bor-botm">
          <div class="w-50">
             <div class="container">
                <div class="row">
                   <div class="col-md-11 m-auto p-0">
-                     <div id="offernew" class="offer-tex">
+                     <div id="offernew" class="offer-tex ofr">
                         <div class="container p-0" data-aos="fade-up">
                            <div class="owl-carousel testimonials-carousel">
+
                               <div class="testimonial-wrap">
                                  <div class="testimonial-item ">
                                     <div class="offer-grid">
@@ -1061,6 +1401,7 @@
                                     </div>
                                  </div>
                               </div>
+
                            </div>
                         </div>
                      </div>
@@ -1076,7 +1417,12 @@
             </div>
          </div>
       </div>
-      </div>
+   
+</div>
+
+      
+      
+
    </section>
    <section>
       <div class="container">
@@ -1115,4 +1461,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 <!-- End #main -->
+
+
+<script>
+   
+</script>
+
+
+
 @endsection

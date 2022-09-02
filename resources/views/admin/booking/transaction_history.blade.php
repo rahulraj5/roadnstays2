@@ -46,7 +46,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script type="text/javascript">
-  $('#example1').dataTable( {
+  $('#example2').dataTable( {
       "pageLength": 50,
       retrieve: true,
       paging: true
@@ -181,7 +181,7 @@
 
             <div class="card-body new-color">
 
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped">
 
                 <thead>
 

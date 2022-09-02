@@ -357,6 +357,12 @@
             rules: {
                 hotel_address: {
                     required: true
+                },
+                hotel_latitude: {
+                    number: true,
+                },
+                hotel_longitude: {
+                    number: true,
                 }
             },
             messages: {
@@ -1111,14 +1117,14 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Latitude</label>
-                                                <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" value="">
+                                                <input type="text" class="form-control" name="hotel_latitude" id="hotel_latitude" value="" required="required">
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Longitude</label>
-                                                <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" value="">
+                                                <input type="text" class="form-control" name="hotel_longitude" id="hotel_longitude" value="" required="required">
                                             </div>
                                         </div>
 

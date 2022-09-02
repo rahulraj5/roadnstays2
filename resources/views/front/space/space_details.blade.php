@@ -74,6 +74,7 @@
     .hidden {
         display: none;
     }
+
     .hiddenPrice {
         display: none;
     }
@@ -260,23 +261,23 @@
     var today = new Date();
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     // var disabledArr1 = ["09/01/2022","09/02/2022"];
     var disabledArr = JSON.parse('<?php echo $space_booked_date; ?>');
     $(function() {
         $('.reserved').daterangepicker({
-            isInvalidDate: function(arg){
-                var thisMonth = arg._d.getMonth()+1; 
-                if (thisMonth<10){
-                    thisMonth = "0"+thisMonth;
+            isInvalidDate: function(arg) {
+                var thisMonth = arg._d.getMonth() + 1;
+                if (thisMonth < 10) {
+                    thisMonth = "0" + thisMonth;
                 }
                 var thisDate = arg._d.getDate();
-                if (thisDate<10){
-                    thisDate = "0"+thisDate;
+                if (thisDate < 10) {
+                    thisDate = "0" + thisDate;
                 }
-                var thisYear = arg._d.getYear()+1900; 
-                var thisCompare = thisMonth +"/"+ thisDate +"/"+ thisYear;
-                if($.inArray(thisCompare,disabledArr)!=-1){
+                var thisYear = arg._d.getYear() + 1900;
+                var thisCompare = thisMonth + "/" + thisDate + "/" + thisYear;
+                if ($.inArray(thisCompare, disabledArr) != -1) {
                     return true;
                 }
             },
@@ -305,12 +306,12 @@
             let space_end_date = end.format('DD-MM-YYYY');
 
             chekchange(space_start_date, space_end_date);
-        // }).on("change", function() {
-        //     console.log("Got change event from field");
+            // }).on("change", function() {
+            //     console.log("Got change event from field");
         });
     });
 
-    function chekchange(start, end){
+    function chekchange(start, end) {
         let space_start_date = start;
         let space_end_date = end;
         let spaceIdd = $('#spaceIdd').val();
@@ -320,20 +321,26 @@
             type: 'POST',
             url: "{{url('/updateDaterange')}}",
             data: {
-                space_start_date: space_start_date, space_end_date: space_end_date, spaceIdd: spaceIdd,
+                space_start_date: space_start_date,
+                space_end_date: space_end_date,
+                spaceIdd: spaceIdd,
                 _token: CSRF_TOKEN
             },
             dataType: 'JSON',
             success: function(response) {
                 if (response.status == 'success') {
                     success_noti(response.msg);
-                    setTimeout(function() {window.location.reload()}, 1000);
-                } else if(response.status == 'notAvailable') {
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 2000);
+                } else if (response.status == 'notAvailable') {
                     error_noti(response.msg);
-                    setTimeout(function() {window.location.reload()}, 1000);
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 2000);
                 } else {
                     console.log('error');
-                }    
+                }
             }
         });
     }
@@ -343,14 +350,14 @@
     $(".daterange_detail_btn").click(function(e) {
         var form = $("#space_booking_detail_form");
         form.validate({
-        rules: {
-            space_checkin_date: {
-            required: true,
+            rules: {
+                space_checkin_date: {
+                    required: true,
+                },
+                space_checkout_date: {
+                    required: true,
+                },
             },
-            space_checkout_date: {
-            required: true,
-            },
-        },
         });
         if (form.valid() === true) {
             // e.preventDefault();
@@ -363,16 +370,19 @@
                     console.log(response);
                     if (response.status == 'success') {
                         success_noti(response.msg);
-                        setTimeout(function() {window.location.reload();});
-                    } else if(response.status == 'notAvailable') {
+                        setTimeout(function() { window.location.reload();},2000);
+                    } else if (response.status == 'notAvailable') {
                         error_noti(response.msg);
+                        setTimeout(function() {
+                            window.location.reload()
+                        }, 2000);
                     } else {
                         console.log('error');
-                    }        
+                    }
                 }
             });
         } else {
-        e.dismiss;
+            e.dismiss;
         }
     });
 </script>
@@ -522,7 +532,7 @@
 
 
                 </div>
-                
+
                 <div class="space-form">
                     <div class="form">
                         <ul>
@@ -550,8 +560,8 @@
                                 </div>
 
                             </div>
-                            </form>
-                            <!-- <div class="space-sele">
+                        </form>
+                        <!-- <div class="space-sele">
                                 <p>Guests</p>
                                 <select class="s-siz" name="person">
                                     <option>1 Person </option>
@@ -562,45 +572,49 @@
                                 </select>
                             </div> -->
 
-                            @php
-                            $date1_ts = strtotime($check_in);
-                            $date2_ts = strtotime($check_out);
-                            $diff = $date2_ts - $date1_ts;
-                            $booking_days = round($diff / 86400);
-                            @endphp
-                            @php $total_amount = ($booking_days*$space_details->price_per_night)+$space_details->cleaning_fee+$space_details->city_fee+$space_details->tax_percentage; @endphp
-                            @if(!empty($check_in))
-                                <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Reserve</button></a>
-                            @else
-                                <button type="button" class="daterange_detail_btn">Check Availability</button>
-                            @endif
-                            
-                            <!-- <p class="charge-yet">You won't be charged yet</p> -->
-                            <div class="charges <?php if(empty($check_out)){ echo "hiddenPrice";} ?>">
-                                <ul>
-                                    <li>PKR {{$space_details->price_per_night}}x{{ $booking_days }} Nights</li>
-                                    <li>PKR {{$space_details->price_per_night*$booking_days }}/-</li>
-                                </ul>
-                                <ul>
-                                    <li>Cleaning Fee</li>
-                                    <li>{{$space_details->cleaning_fee}}</li>
-                                </ul>
-                                <ul>
-                                    <li>City Fee</li>
-                                    <li>{{$space_details->city_fee}}</li>
-                                </ul>
-                                <ul>
-                                    <li>Service tax</li>
-                                    <li>{{$space_details->tax_percentage}}</li>
-                                </ul>
-                            </div>
-                            <div class="total <?php if(empty($check_out)){ echo "hiddenPrice";} ?>">
-                                <ul>
-                                    <li>total with Taxes</li>
-                                    <li>PKR {{ $total_amount }}</li>
-                                </ul>
-                            </div>
-                        
+                        @php
+                        $date1_ts = strtotime($check_in);
+                        $date2_ts = strtotime($check_out);
+                        $diff = $date2_ts - $date1_ts;
+                        $booking_days = round($diff / 86400);
+                        @endphp
+                        @php $total_amount = ($booking_days*$space_details->price_per_night)+$space_details->cleaning_fee+$space_details->city_fee+$space_details->tax_percentage; @endphp
+                        @if(!empty($check_in))
+                        <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Reserve</button></a>
+                        @else
+                        <button type="button" class="daterange_detail_btn">Check Availability</button>
+                        @endif
+
+                        <!-- <p class="charge-yet">You won't be charged yet</p> -->
+                        <div class="charges <?php if (empty($check_out)) {
+                                                echo "hiddenPrice";
+                                            } ?>">
+                            <ul>
+                                <li>PKR {{$space_details->price_per_night}}x{{ $booking_days }} Nights</li>
+                                <li>PKR {{$space_details->price_per_night*$booking_days }}/-</li>
+                            </ul>
+                            <ul>
+                                <li>Cleaning Fee</li>
+                                <li>{{$space_details->cleaning_fee}}</li>
+                            </ul>
+                            <ul>
+                                <li>City Fee</li>
+                                <li>{{$space_details->city_fee}}</li>
+                            </ul>
+                            <ul>
+                                <li>Service tax</li>
+                                <li>{{$space_details->tax_percentage}}</li>
+                            </ul>
+                        </div>
+                        <div class="total <?php if (empty($check_out)) {
+                                                echo "hiddenPrice";
+                                            } ?>">
+                            <ul>
+                                <li>total with Taxes</li>
+                                <li>PKR {{ $total_amount }}</li>
+                            </ul>
+                        </div>
+
                     </div>
                     <div class="ktext">
                         <p><span>Lorem ipsum dolor sit</span>

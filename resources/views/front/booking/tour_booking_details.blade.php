@@ -552,7 +552,54 @@
 @endsection
 
 @section('current_page_js')
-
+<script>
+    $("#cancelbtn").click(function() {
+        // alert('shdfsd');
+        var form = $("#tourBookingCancel_form");
+        form.validate({
+            rules: {
+                cancel_reason: {
+                    required: true,
+                },
+            },
+            messages: {
+                cancel_reason: "Please Choose One Reason for Cancel."
+            },
+        });
+        if (form.valid() === true) {
+            var site_url = $("#baseUrl").val();
+            // alert(site_url);
+            var formData = $(form).serialize();
+            $('#cancelbtn').prop('disabled', true);
+            $('#cancelbtn').html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+            );
+            // alert(formData);
+            $(form).ajaxSubmit({
+                type: 'POST',
+                url: site_url + '/user/cancelTourBooking',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == 'success') {
+                        success_noti(response.msg);
+                        setTimeout(function() {
+                            window.location.reload()
+                            window.location.href = site_url + "/user/tourBookingList";
+                        }, 1000);
+                    } else {
+                        error_noti(response.msg);
+                        $('#cancelbtn').html(
+                            `<span class=""></span>Submit`
+                        );
+                        $('#cancelbtn').prop('disabled', false);
+                    }
+                }
+            });
+            // event.preventDefault();
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -659,7 +706,7 @@
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
                         <ul>
-                            <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>
+                            <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_tour">Cancel your Booking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -708,4 +755,64 @@
 </section>
 
 
+<!-- modal popup text here -->
+
+<div class="modal fade" id="exampleModalCenter_tour" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-cancel">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cancel Your Booking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-textcancel">
+
+                <div class="canceltop">
+                    <h5>Cancellation Policy</h5>
+                    <ul>
+                        <li>{{ $bookingDetails->tour_title }}</li>
+                        <li>free</li>
+                    </ul>
+                    <ul>
+                        <li>Total</li>
+                        <li>free</li>
+                    </ul>
+                </div>
+                <div class="cancelmiddle">
+                    <h6>Tell us the reason for canceling</h6>
+                    <p>Please complete your Cancelation Process to choose one Option.</p>
+                    <form action="" id="tourBookingCancel_form">
+                        @csrf
+                        <!-- <fieldset> -->
+                        <input type="hidden" name="booking_id" value="{{$bookingDetails->id}}">
+
+                        <input type="radio" id="travelers" name="cancel_reason" value="Change in the number or needs of travelers">
+                        <label for="travelers">Change in the number or needs of travelers</label><br>
+                        <input type="radio" id="destination" name="cancel_reason" value="Change of dates or destination">
+                        <label for="destination">Change of dates or destination</label><br>
+                        <input type="radio" id="reason" name="cancel_reason" value="Unable to travel due to Personal reason">
+                        <label for="reason">Unable to travel due to Personal reason</label><br>
+                        <input type="radio" id="accommodation" name="cancel_reason" value="Found a different accommodation option">
+                        <label for="accommodation">Found a different accommodation option</label><br>
+                        <input type="radio" id="need" name="cancel_reason" value="Made bookings for same dates - canceled the ones I don't need">
+                        <label for="need">Made bookings for same dates - canceled the ones I don't need</label><br>
+                        <input type="radio" id="off" name="cancel_reason" value="Personal reasons/Trip called off">
+                        <label for="off">Personal reasons/Trip called off</label><br>
+                        <input type="radio" id="none" name="cancel_reason" value="None of the above">
+                        <label for="none">None of the above</label><br>
+                        <label for="cancel_reason" class="error" style="display:none;">Please choose one.</label><br>
+                        <label for="detail">Please Tell us in detail-</label><br>
+                        <textarea name="cancel_details" id="" cols="51" rows="4" placeholder="Write from here..."></textarea>
+                        <!-- </fieldset>     -->
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn cancelbtn" id="cancelbtn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

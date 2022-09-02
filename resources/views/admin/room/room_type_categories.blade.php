@@ -53,7 +53,7 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
-          url: "{{url('/admin/deleteHotel')}}",
+          url: "{{url('/admin/deleteRoomTypeCategory')}}",
           data: {
             id: id,
             _token: CSRF_TOKEN
@@ -157,7 +157,7 @@
 
             <div class="col-md-11"></div>
 
-            <!-- <div class="col-md-1"><a href="{{ url('/admin/addRoomType') }}" class="btn btn-block btn-dark">Add</a></div> -->
+            <div class="col-md-1"><a href="{{ url('/admin/addRoomTypeCategory') }}" class="btn btn-block btn-dark">Add</a></div>
 
           </div>
 
@@ -166,13 +166,8 @@
           <div class="card">
 
             <!-- <div class="card-header">
-
-                                    <h3 class="card-title">DataTable</h3>
-
-                                  </div> -->
-
-
-
+              <h3 class="card-title">DataTable</h3>
+            </div> -->
             <!-- /.card-header -->
 
             <div class="card-body">
@@ -225,15 +220,15 @@
 
                         <!-- <a href="#" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a> -->
 
-                        <a href="" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="{{url('/admin/editRoomTypeCategory')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
-                        <a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash" alt="user" title="user"></i></a>
+                        <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash" alt="user" title="user"></i></a>
 
                         <!-- onclick="deleteConfirmation('<?php echo $arr->id; ?>');" -->
 
                         <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
+                              <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
 
                       </div>
 

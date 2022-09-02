@@ -333,100 +333,100 @@
 
 
     .profile {
-  margin: 20px 0;
-}
+        margin: 20px 0;
+    }
 
-/* Profile sidebar */
-.profile-sidebar {
-  padding: 20px 0 10px 0;
-  background: #fff;
-}
+    /* Profile sidebar */
+    .profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #fff;
+    }
 
-.profile-userpic img {
-  float: none;
-  margin: 0 auto;
-  width: 50%;
-  height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
-}
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
 
-.profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
-}
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-.profile-usertitle-name {
-  color: #5a7391;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
-}
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
 
-.profile-usertitle-job {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
 
-.profile-userbuttons {
-  text-align: center;
-  margin-top: 10px;
-}
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
 
-.profile-userbuttons .btn {
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 6px 15px;
-  margin-right: 5px;
-}
+    .profile-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 15px;
+        margin-right: 5px;
+    }
 
-.profile-userbuttons .btn:last-child {
-  margin-right: 0px;
-}
-    
-.profile-usermenu {
-  margin-top: 30px;
-}
+    .profile-userbuttons .btn:last-child {
+        margin-right: 0px;
+    }
 
-.profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
-}
+    .profile-usermenu {
+        margin-top: 30px;
+    }
 
-.profile-usermenu ul li:last-child {
-  border-bottom: none;
-}
+    .profile-usermenu ul li {
+        border-bottom: 1px solid #f0f4f7;
+    }
 
-.profile-usermenu ul li a {
-  color: #93a3b5;
-  font-size: 14px;
-  font-weight: 400;
-}
+    .profile-usermenu ul li:last-child {
+        border-bottom: none;
+    }
 
-.profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 14px;
-}
+    .profile-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 14px;
+        font-weight: 400;
+    }
 
-.profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
-}
+    .profile-usermenu ul li a i {
+        margin-right: 8px;
+        font-size: 14px;
+    }
 
-.profile-usermenu ul li.active {
-  border-bottom: none;
-}
+    .profile-usermenu ul li a:hover {
+        background-color: #fafcfd;
+        color: #5b9bd1;
+    }
 
-.profile-usermenu ul li.active a {
-  color: #5b9bd1;
-  background-color: #f6f9fb;
-  border-left: 2px solid #5b9bd1;
-  margin-left: -2px;
-}
+    .profile-usermenu ul li.active {
+        border-bottom: none;
+    }
+
+    .profile-usermenu ul li.active a {
+        color: #5b9bd1;
+        background-color: #f6f9fb;
+        border-left: 2px solid #5b9bd1;
+        margin-left: -2px;
+    }
 
 
     /* =====================================================responsive css below 768px =======================================================*/
@@ -702,7 +702,7 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         // var url = document.location.toString();
         // if (url.match('#')) {
@@ -727,21 +727,17 @@
             // console.log(url.split('#')[1]);
             console.log('.tabs__radio-tabs a[href="#' + url.split('#')[1] + '"]');
             $('.tabs__radio-tabs a[href="#' + url.split('#')[1] + '"]')[0].click();
-        } 
+        }
 
         //To make sure that the page always goes to the top
-        setTimeout(function () {
+        setTimeout(function() {
             window.scrollTo(0, 0);
-        },200);
+        }, 200);
 
 
 
 
     });
-
-
-
-
 </script>
 
 @endsection
@@ -752,7 +748,7 @@
 <section class="bread-sec">
     <div class="container">
         <div class="row bread-row">
-        
+
             <div class="col-md-12 bread-col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -767,9 +763,9 @@
 </section>
 
 <section class="tab-listsec">
-    
+
     <div class="container">
-    <!--  -->
+        <!--  -->
         <div class="tabs">
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
             <label for="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
@@ -777,95 +773,95 @@
 
                 @if (!$bookingList->isEmpty())
 
-                    @if(count($bookingList) > 0)
+                @if(count($bookingList) > 0)
 
-                        @foreach ($bookingList as $arr)
+                @foreach ($bookingList->where('booking_status', '!=' ,'canceled') as $arr)
 
-                            <!-- @if($arr->check_in_date > Carbon\Carbon::today()->format('Y-m-d'))
+                <!-- @if($arr->check_in_date > Carbon\Carbon::today()->format('Y-m-d'))
                                 @php echo 'upcoming' @endphp
                             @else
                                 @php echo 'past' @endphp
                             @endif -->
 
-                            <div class="content">
-                                <div class="text-detail">
-                                    <div class="icontext">
-                                        <i class='bx bxs-hotel'></i>
-                                        <div class="text">
-                                            <h3>{{ $arr->space_name }}</h3>
-                                            <p>{{ $arr->space_address }}, </p>
-                                        </div>
-                                    </div>
-
-                                    <ul>
-                                        <li>Booking ID - {{ $arr->id }}</li>
-                                        <li>{{ $arr->payment_status }}</li>
-                                    </ul>
-                                    <div class="btn-detail">
-                                        <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-
-                                    </div>
-                                </div>
-
-                                <div class="row user-detail-row ">
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-calendar'></i>FROM</p>
-                                        <h6>{{ $arr->check_in_date }} <span></span></h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-calendar'></i>TO</p>
-                                        <h6>{{ $arr->check_out_date }} <span></span></h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
-
-                                    
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-store'></i>Space Type</p>
-                                        <h6>{{ $arr->category_name }} </h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
-
-                                    
-                                </div>
-                            </div>
-
-                        @endforeach
-                        <div class="row gird-event"  id="filterdata">
-                            <div class="col-md-12">
-                                <div class="">{{ $bookingList->fragment('tab1')->links() }}</div>
-                            </div>
-                        </div>
-                        
-                    @else
-
-                        <div class="row upcom-row">
-                            <div class="col-md-3 upcom-img">
-                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                            </div>
-                            <div class="col-md-9 upcom-text">
-                                <h5>Looks empty, you've no bookings.</h5>
-                                <p>When you book a trip, you will see your itinerary here.</p>
-                                <a href="#">PLAN A TRIP</a>
+                <div class="content">
+                    <div class="text-detail">
+                        <div class="icontext">
+                            <i class='bx bxs-hotel'></i>
+                            <div class="text">
+                                <h3>{{ $arr->space_name }}</h3>
+                                <p>{{ $arr->space_address }}, </p>
                             </div>
                         </div>
 
-                    @endif
+                        <ul>
+                            <li>Booking ID - {{ $arr->id }}</li>
+                            <li>{{ $arr->payment_status }}</li>
+                        </ul>
+                        <div class="btn-detail">
+                            <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+
+                        </div>
+                    </div>
+
+                    <div class="row user-detail-row ">
+                        <div class="col-md-3 user-detail">
+                            <p><i class='bx bxs-calendar'></i>FROM</p>
+                            <h6>{{ $arr->check_in_date }} <span></span></h6>
+                            <!-- <strong>new Delhi</strong> -->
+                        </div>
+                        <div class="col-md-3 user-detail">
+                            <p><i class='bx bxs-calendar'></i>TO</p>
+                            <h6>{{ $arr->check_out_date }} <span></span></h6>
+                            <!-- <strong>new Delhi</strong> -->
+                        </div>
+
+
+                        <div class="col-md-3 user-detail">
+                            <p><i class='bx bxs-store'></i>Space Type</p>
+                            <h6>{{ $arr->category_name }} </h6>
+                            <!-- <strong>new Delhi</strong> -->
+                        </div>
+
+
+                    </div>
+                </div>
+
+                @endforeach
+                <div class="row gird-event" id="filterdata">
+                    <div class="col-md-12">
+                        <!-- <div class=""> bookingList->fragment('tab1')->links() </div> -->
+                    </div>
+                </div>
 
                 @else
 
-                    <div class="row upcom-row">
-                        <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
 
-                        </div>
-                        <div class="col-md-9 upcom-text">
-                            <h5>Looks empty, you've no bookings.</h5>
-                            <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="#">PLAN A TRIP</a>
-                        </div>
                     </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
+
+                @endif
+
+                @else
+
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                    </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
 
                 @endif
             </div>
@@ -876,88 +872,90 @@
             <div class="tabs__content">
 
                 @if (!$upcomingBookingList->isEmpty())
-                    @if(count($upcomingBookingList->where('check_out_date', '>', Carbon\Carbon::today()->format('Y-m-d'))) > 0)
+                
+                    @if(count($upcomingBookingList->where('check_out_date', '>', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
 
                         @foreach ($upcomingBookingList->where('check_out_date', '>', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
 
-                            <div class="content">
-                                <div class="text-detail">
-                                    <div class="icontext">
-                                        <i class='bx bxs-hotel'></i>
-                                        <div class="text">
-                                            <h3>{{ $arr->space_name }}</h3>
-                                            <p>{{ $arr->space_address }}, </p>
-                                        </div>
-                                    </div>
-
-                                    <ul>
-                                        <li>Booking ID - {{ $arr->id }}</li>
-                                        <li>{{ $arr->payment_status }}</li>
-                                    </ul>
-                                    <div class="btn-detail">
-                                        <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-
+                        <div class="content">
+                            <div class="text-detail">
+                                <div class="icontext">
+                                    <i class='bx bxs-hotel'></i>
+                                    <div class="text">
+                                        <h3>{{ $arr->space_name }}</h3>
+                                        <p>{{ $arr->space_address }}, </p>
                                     </div>
                                 </div>
 
-                                <div class="row user-detail-row ">
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-calendar'></i>FROM</p>
-                                        <h6>{{ $arr->check_in_date }} <span></span></h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-calendar'></i>TO</p>
-                                        <h6>{{ $arr->check_out_date }} <span></span></h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
+                                <ul>
+                                    <li>Booking ID - {{ $arr->id }}</li>
+                                    <li>{{ $arr->payment_status }}</li>
+                                </ul>
+                                <div class="btn-detail">
+                                    <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
 
-                                    
-                                    <div class="col-md-3 user-detail">
-                                        <p><i class='bx bxs-store'></i>Space Type</p>
-                                        <h6>{{ $arr->category_name }} </h6>
-                                        <!-- <strong>new Delhi</strong> -->
-                                    </div>
-
-                                    
                                 </div>
                             </div>
 
-                        @endforeach
-                            <div class="row gird-event"  id="filterdata">
-                                <div class="col-md-12">
-                                    <div class="">{{ $bookingList->fragment('tab2') }}</div>
+                            <div class="row user-detail-row ">
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-calendar'></i>FROM</p>
+                                    <h6>{{ $arr->check_in_date }} <span></span></h6>
+                                    <!-- <strong>new Delhi</strong> -->
                                 </div>
-                            </div>
-                    @else
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-calendar'></i>TO</p>
+                                    <h6>{{ $arr->check_out_date }} <span></span></h6>
+                                    <!-- <strong>new Delhi</strong> -->
+                                </div>
 
-                        <div class="row upcom-row">
-                            <div class="col-md-3 upcom-img">
-                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
 
-                            </div>
-                            <div class="col-md-9 upcom-text">
-                                <h5>Looks empty, you've no upcoming bookings.</h5>
-                                <p>When you book a trip, you will see your itinerary here.</p>
-                                <a href="#">PLAN A TRIP</a>
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-store'></i>Space Type</p>
+                                    <h6>{{ $arr->category_name }} </h6>
+                                    <!-- <strong>new Delhi</strong> -->
+                                </div>
+
+
                             </div>
                         </div>
 
-                    @endif
+                        @endforeach
+                        <div class="row gird-event" id="filterdata">
+                            <div class="col-md-12">
+                                <!-- <div class=""> bookingList->fragment('tab2') </div> -->
+                            </div>
+                        </div>
+                       
+                @else
+
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                    </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no upcoming bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
+
+                @endif
 
                 @else
 
-                    <div class="row upcom-row">
-                        <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
 
-                        </div>
-                        <div class="col-md-9 upcom-text">
-                            <h5>Looks empty, you've no upcoming bookings.</h5>
-                            <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="#">PLAN A TRIP</a>
-                        </div>
                     </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no upcoming bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
 
                 @endif
 
@@ -984,8 +982,8 @@
                                 </div>
 
                                 <ul>
-                                    <li>Cancelled on {{ date('d-m-Y' , strtotime($arr->created_at)) }}</li>
-                                    <li>Booking ID - {{ $arr->id }}</li>
+                                    <li>Cancelled on {{ date('d-m-Y' , strtotime($arr->updated_at)) }}</li>
+                                    <li>Booking ID - {{ $arr->space_booking_id }}</li>
                                     <li>{{ $arr->payment_status }}</li>
                                 </ul>
                                 <div class="btn-detail">
@@ -1015,30 +1013,15 @@
                         @endforeach
                         <!-- <div class="row gird-event"  id="filterdata">
                             <div class="col-md-12">
-                                <div class="">{{ $bookingList->links() }}</div>
+                                <div class=""> bookingList->links() </div>
                             </div>
                         </div> -->
                     @else
 
-                        <div class="row upcom-row">
-                            <div class="col-md-3 upcom-img">
-                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                            </div>
-                            <div class="col-md-9 upcom-text">
-                                <h5>Looks empty, you've no canceled bookings.</h5>
-                                <p>When you book a trip, you will see your itinerary here.</p>
-                                <a href="#">PLAN A TRIP</a>
-                            </div>
-                        </div>
-
-                    @endif
-
-                @else
-
                     <div class="row upcom-row">
                         <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="150px">
+                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
                         </div>
                         <div class="col-md-9 upcom-text">
                             <h5>Looks empty, you've no canceled bookings.</h5>
@@ -1047,93 +1030,108 @@
                         </div>
                     </div>
 
+                    @endif
+
+                @else
+
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="150px">
+                    </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no canceled bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
+
                 @endif
 
             </div>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <label for="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label>
+            <!-- <label for="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
             <div class="tabs__content">
 
                 @if (!$bookingList->isEmpty())
 
-                    @if(count($bookingList->where('booking_status', 'failed')) > 0)
+                @if(count($bookingList->where('booking_status', 'failed')) > 0)
 
-                        @foreach ($bookingList->where('booking_status', 'failed') as $arr)
+                @foreach ($bookingList->where('booking_status', 'failed') as $arr)
 
-                        <div class="content failed-content">
-                            <div class="text-detail">
-                                <div class="icontext">
-                                    <i class='bx bxs-hotel'></i>
-                                    <div class="text">
-                                        <h3>{{ $arr->space_name }}</h3>
-                                        <p>{{ $arr->space_address }}, </p>
-                                    </div>
-                                </div>
-
-                                <ul>
-                                    <li>Booking ID - {{ $arr->id }}</li>
-                                    <li>{{ $arr->payment_status }}</li>
-                                </ul>
-                                <div class="btn-detail">
-                                    <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-
-                                </div>
-                            </div>
-
-                            <div class="row user-detail-row ">
-                                <div class="col-md-12 progress-ba">
-                                    <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
-                                    <ul class="multi-step-bar">
-                                        <li class="active">Booking Cancelled</li>
-                                        <li>Refund Processed</li>
-                                        <li>Credit in Account</li>
-                                    </ul>
-
-
-                                </div>
-                                <ul class="hint-text">
-                                    <li>
-                                        <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
-                                    </li>
-                                </ul>
+                <div class="content failed-content">
+                    <div class="text-detail">
+                        <div class="icontext">
+                            <i class='bx bxs-hotel'></i>
+                            <div class="text">
+                                <h3>{{ $arr->space_name }}</h3>
+                                <p>{{ $arr->space_address }}, </p>
                             </div>
                         </div>
 
-                        @endforeach
+                        <ul>
+                            <li>Booking ID - {{ $arr->id }}</li>
+                            <li>{{ $arr->payment_status }}</li>
+                        </ul>
+                        <div class="btn-detail">
+                            <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
 
-                        <!-- <div class="row gird-event"  id="filterdata">
+                        </div>
+                    </div>
+
+                    <div class="row user-detail-row ">
+                        <div class="col-md-12 progress-ba">
+                            <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
+                            <ul class="multi-step-bar">
+                                <li class="active">Booking Cancelled</li>
+                                <li>Refund Processed</li>
+                                <li>Credit in Account</li>
+                            </ul>
+
+
+                        </div>
+                        <ul class="hint-text">
+                            <li>
+                                <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                @endforeach
+
+                <!-- <div class="row gird-event"  id="filterdata">
                             <div class="col-md-12">
                                 <div class="">{{ $bookingList->links() }}</div>
                             </div>
                         </div> -->
-                    @else
+                @else
 
-                    <div class="row upcom-row">
-                        <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-                        </div>
-                        <div class="col-md-9 upcom-text">
-                            <h5>Looks empty, you've no failed bookings.</h5>
-                            <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="#">PLAN A TRIP</a>
-                        </div>
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
                     </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no failed bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
 
-                    @endif
+                @endif
 
                 @else
 
-                    <div class="row upcom-row">
-                        <div class="col-md-3 upcom-img">
-                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-                        </div>
-                        <div class="col-md-9 upcom-text">
-                            <h5>Looks empty, you've no failed bookings.</h5>
-                            <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="#">PLAN A TRIP</a>
-                        </div>
+                <div class="row upcom-row">
+                    <div class="col-md-3 upcom-img">
+                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
                     </div>
+                    <div class="col-md-9 upcom-text">
+                        <h5>Looks empty, you've no failed bookings.</h5>
+                        <p>When you book a trip, you will see your itinerary here.</p>
+                        <a href="#">PLAN A TRIP</a>
+                    </div>
+                </div>
                 @endif
 
             </div>

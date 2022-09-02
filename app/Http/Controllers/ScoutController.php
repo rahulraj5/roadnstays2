@@ -74,27 +74,18 @@ class ScoutController extends Controller
             $obj->password = bcrypt($password);
             $obj->role_id = 3;
             $obj->is_verify_email = 1;
-            $obj->is_verify_contact = 0;
-            $obj->wallet_balance = 0;
-            $obj->register_by = 'web';
+            $obj->is_verify_contact = 0; 
+            $obj->register_by = 'web'; 
             $obj->vrfn_code = $vrfn_code;
             $obj->status = 1;
             $obj->created_at = date('Y-m-d H:i:s');
             $obj->updated_at = date('Y-m-d H:i:s');
             $res = $obj->save();
 
-            if ($res) {
-                $users = User::where('email','=',$email)->first();
-                $my_referral_code = Helper::my_simple_crypt($users->id,'e');
-                $users->my_referral_code = $my_referral_code;
-                $users->save();
-                return response()->json(['status' => 'success', 'msg' => 'Scout has been created successfully.']);
-                // session::flash('message', 'User has been created successfully.');
-                // return redirect('admin/customer_management');
+            if ($res) { 
+                return response()->json(['status' => 'success', 'msg' => 'Scout has been created successfully.']); 
             } else {
-                return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
-                // session::flash('error', 'OOPs! Some internal issue occured.');
-                // return redirect('admin/customer_management');
+                return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']); 
             }
         } 
 

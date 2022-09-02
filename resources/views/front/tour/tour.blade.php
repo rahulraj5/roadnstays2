@@ -91,8 +91,8 @@
 @endsection
 @section('content')
 <main id="main">
-   <section class="info-slides" style="padding-top: 50px; padding-bottom: 0px; background-color: #f6f6f6;">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+   <section class="info-slides" style="padding-top: 77px; padding-bottom: 0px; background-color: #f6f6f6;">
+   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
          <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -100,13 +100,25 @@
          </ol>
          <div class="carousel-inner">
             <div class="carousel-item active">
-               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/1a.jpg" alt="First slide">
+               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour3.jpg" alt="First slide">
+               <div class="carousel-caption1  d-md-block">
+    <h5>Tour</h5>
+   
+  </div>
             </div>
             <div class="carousel-item">
-               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/2a.jpg" alt="Second slide">
+               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour2.jpg" alt="Second slide">
+               <div class="carousel-caption1  d-md-block">
+    <h5>Tour</h5>
+   
+  </div>
             </div>
             <div class="carousel-item">
-               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/3a.jpg" alt="Third slide">
+               <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour1.jpg" alt="Third slide">
+               <div class="carousel-caption1  d-md-block">
+    <h5>Tour</h5>
+   
+  </div>
             </div>
          </div>
          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

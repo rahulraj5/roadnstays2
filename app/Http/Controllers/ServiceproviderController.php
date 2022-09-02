@@ -41,6 +41,48 @@ class ServiceproviderController extends Controller
         $address = $request->address;
         $password = $request->password;
         $contact_number = $request->contact_number;
+
+        $landline_number = $request->landline_number;
+        $about_me = $request->about_me;
+        $i_speak = $request->i_speak;
+        $payment_info = $request->payment_info;
+        $tour_operator_id_number = $request->tour_op_id_number;
+        $tour_operator_name = $request->tour_op_name;
+        $tour_operator_contact_name = $request->tour_op_contact_name;
+        $country_dialcode1 = $request->num_dialcode_2;
+        $countryCode1 = $request->country_iso2_code2;
+        $tour_operator_contact_num = $request->tour_op_contact_num;
+        $tour_operator_email = $request->tour_op_email;
+        $country_dialcode2 = $request->num_dialcode_3;
+        $countryCode2 = $request->country_iso2_code3;
+        $tour_operator_booking_num = $request->tour_op_booking_num;
+        $tour_office_address = $request->tour_office_address;
+        $tour_operator_instagram = $request->tour_op_instagram;
+        $tour_operator_facebook = $request->tour_op_facebook;
+        $tour_operator_web_add = $request->tour_op_web_add;
+        $tour_operator_tiktok = $request->tour_op_tiktok;
+        $tour_operator_youtube = $request->tour_op_youtube;
+        $tour_operator_bank_name = $request->tour_op_bank_name;
+        $tour_operator_account_title = $request->tour_op_account_title;
+        $tour_operator_account_num = $request->tour_op_account_num;
+        $tour_operator_branch = $request->tour_op_branch;
+        $tour_operator_easypaisa_num = $request->tour_op_easypaisa_num;
+
+        $tour_operator_easypaisa_name = $request->tour_op_easypaisa_name;
+        $tour_operator_jazzcash_num = $request->tour_op_jazzcash_num;
+        $tour_operator_jazzcash_name = $request->tour_op_jazzcash_name;
+        $tour_operator_notes = $request->tour_op_notes;
+        if(!empty($request->contract_date)){
+            $tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
+        }else{
+            $tour_contract_date = NULL;
+        }
+        $tour_operator_terms = $request->tour_contract_terms;
+        $tour_operator_document = $request->tour_op_document;
+        $tour_operator_img = $request->tour_op_img;
+        $tour_operator_id_front_img = $request->tour_op_id_front_img;
+        $tour_operator_id_back_img = $request->tour_op_id_back_img;
+
         // $validator = Validator::make($request->all(), [
         //     'fname' => 'required',
         //     'lname' => 'required',
@@ -82,55 +124,22 @@ class ServiceproviderController extends Controller
             $obj->register_by = 'web';
             $obj->vrfn_code = $vrfn_code;
 
-            $obj->landline_number = $request->landline_number;
-            $obj->about_me = $request->about_me;
-            $obj->i_speak = $request->i_speak;
-            $obj->payment_info = $request->payment_info;
-
-            $obj->tour_op_img = $request->tour_operator_img;
-            $obj->tour_op_id_front_img = $request->tour_operator_id_front_img;
-            $obj->tour_op_id_back_img = $request->tour_operator_id_back_img;
-            $obj->tour_op_id_number = $request->tour_operator_id_number;
-
-            $obj->tour_op_name = $request->tour_operator_name;
-            $obj->tour_op_contact_name = $request->tour_operator_contact_name;
-
-            $obj->num_dialcode_2 = $request->country_dialcode1;
-            $obj->country_iso2_code2 = $request->countryCode1;
-            $obj->tour_op_contact_num = $request->tour_operator_contact_num;
-            $obj->tour_op_email = $request->tour_operator_email;
-
-            $obj->num_dialcode_3 = $request->country_dialcode2;
-            $obj->country_iso2_code3 = $request->countryCode2;
-            $obj->tour_op_booking_num = $request->tour_operator_booking_num;
-
-            $obj->tour_office_address = $request->tour_office_address;
-            $obj->tour_op_instagram = $request->tour_operator_instagram;
-            $obj->tour_op_facebook = $request->tour_operator_facebook;
-            $obj->tour_op_web_add = $request->tour_operator_web_add;
-            $obj->tour_op_tiktok = $request->tour_operator_tiktok;
-            $obj->tour_op_youtube = $request->tour_operator_youtube;
-            $obj->tour_op_bank_name = $request->tour_operator_bank_name;
-            $obj->tour_op_account_title = $request->tour_operator_account_title;
-            $obj->tour_op_account_num = $request->tour_operator_account_num;
-            $obj->tour_op_branch = $request->tour_operator_branch;
-            $obj->tour_op_easypaisa_num = $request->tour_operator_easypaisa_num;
-            $obj->tour_op_easypaisa_name = $request->tour_operator_easypaisa_name;
-            $obj->tour_op_jazzcash_num = $request->tour_operator_jazzcash_num;
-            $obj->tour_op_jazzcash_name = $request->tour_operator_jazzcash_name;
-            $obj->tour_op_notes = $request->tour_operator_notes;
-            // $obj->tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
-            if(!empty($request->contract_date)){
-                $tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
-            }else{
-                $tour_contract_date = NULL;
-            }
-            $obj->tour_contract_date = $tour_contract_date;
-            $obj->tour_contract_terms = $request->tour_operator_terms;
+            $obj->landline_number = $landline_number;
+            $obj->about_me = $about_me;
+            $obj->i_speak = $i_speak;
+            $obj->payment_info = $payment_info;
 
             $obj->status = 1;
             $obj->created_at = date('Y-m-d H:i:s');
             $obj->updated_at = date('Y-m-d H:i:s');
+                                
+            $res = $obj->save();
+            $insertedId = $obj->id;
+            // dd($insertedId);
+
+            $vendor_id = DB::table('vendor_profile')->insertGetId([
+                'user_id' => $insertedId
+            ]);
 
             // 1. Document upload
             if ($request->hasFile('tour_operator_document')) {
@@ -143,7 +152,6 @@ class ServiceproviderController extends Controller
             } else {
                 $tour_operator_document = '';
             }
-            $obj->tour_op_document = $tour_operator_document;
 
             // 2. image upload
             if ($request->hasFile('tour_operator_img')) {
@@ -156,7 +164,6 @@ class ServiceproviderController extends Controller
             } else {
                 $tour_operator_img = '';
             }
-            $obj->tour_op_img = $tour_operator_img;
 
             // 3. id front image upload
             if ($request->hasFile('tour_operator_id_front_img')) {
@@ -170,7 +177,6 @@ class ServiceproviderController extends Controller
             } else {
                 $tour_operator_id_front_img = '';
             }
-            $obj->tour_op_id_front_img = $tour_operator_id_front_img;
 
             // 4. id back image upload
             if ($request->hasFile('tour_operator_id_back_img')) {
@@ -183,15 +189,47 @@ class ServiceproviderController extends Controller
             } else {
                 $tour_operator_id_back_img = '';
             }
-            $obj->tour_op_id_back_img = $tour_operator_id_back_img;
 
-            $res = $obj->save();
+            $vendor_data = DB::table('vendor_profile')
+                                ->where('vendor_id', $vendor_id)
+                                ->update(['tour_op_id_number' => $tour_operator_id_number,
+                                        'tour_op_name' => $tour_operator_name,
+                                        'tour_op_contact_name' => $tour_operator_contact_name,
+                                        'num_dialcode_2' => $country_dialcode1,
+                                        'country_iso2_code2' => $countryCode1,
+                                        'tour_op_contact_num' => $tour_operator_contact_num,
+                                        'tour_op_email' => $tour_operator_email,
+                                        'num_dialcode_3' => $country_dialcode2,
+                                        'country_iso2_code3' => $countryCode2,
+                                        'tour_op_booking_num' => $tour_operator_booking_num,
+                                        'tour_office_address' => $tour_office_address,
+                                        'tour_op_instagram' => $tour_operator_instagram,
+                                        'tour_op_facebook' => $tour_operator_facebook,
+                                        'tour_op_web_add' => $tour_operator_web_add,
+                                        'tour_op_tiktok' => $tour_operator_tiktok,
+                                        'tour_op_youtube' => $tour_operator_youtube,
+                                        'tour_op_bank_name' => $tour_operator_bank_name,
+                                        'tour_op_account_title' => $tour_operator_account_title,
+                                        'tour_op_account_num' => $tour_operator_account_num,
+                                        'tour_op_branch' => $tour_operator_branch,
+                                        'tour_op_easypaisa_num' => $tour_operator_easypaisa_num,
+                                        'tour_op_easypaisa_name' => $tour_operator_easypaisa_name,
+                                        'tour_op_jazzcash_num' => $tour_operator_jazzcash_num,
+                                        'tour_op_jazzcash_name' => $tour_operator_jazzcash_name,
+                                        'tour_op_notes' => $tour_operator_notes,
+                                        'tour_contract_date' => $tour_contract_date,
+                                        'tour_contract_terms' => $tour_operator_terms,
+                                        'tour_op_document' => $tour_operator_document,
+                                        'tour_op_img' => $tour_operator_img,
+                                        'tour_op_id_front_img' => $tour_operator_id_front_img,
+                                        'tour_op_id_back_img' => $tour_operator_id_back_img,
+                                        ]);
 
-            if ($res) {
-                $users = User::where('email','=',$email)->first();
-                $my_referral_code = Helper::my_simple_crypt($users->id,'e');
-                $users->my_referral_code = $my_referral_code;
-                $users->save();
+            if ($vendor_data) {
+                // $users = User::where('email','=',$email)->first();
+                // $my_referral_code = Helper::my_simple_crypt($users->id,'e');
+                // $users->my_referral_code = $my_referral_code;
+                // $users->save();
                 return response()->json(['status' => 'success', 'msg' => 'User has been created successfully.']);
                 // session::flash('message', 'User has been created successfully.');
                 // return redirect('admin/customer_management');
@@ -212,7 +250,8 @@ class ServiceproviderController extends Controller
                                     ->join('vendor_profile', 'users.id', 'vendor_profile.user_id')
                                     ->first();
         // echo "<pre>";print_r($data['user_info']);die;                                    
-        $countries = DB::select('select * from country');
+        // $countries = DB::select('select * from country');
+        $countries = DB::table('country')->get();
     	return view('admin/servicepro/edit_servicepro',["countries"=>$countries])->with($data) ;
     }
 
@@ -229,6 +268,8 @@ class ServiceproviderController extends Controller
     	$contact_number = $request->input('contact_numberup') ;
 
     	$userData = User::where('id', $user_id)->first();
+    	// $userData = DB::table('users')->where('id', $user_id)->first();
+        // echo "<pre>";print_r($userData);die;
         $userData->first_name = $fname;
     	$userData->last_name = $lname;
         if($request->passwordup){
@@ -247,40 +288,17 @@ class ServiceproviderController extends Controller
         $userData->about_me = $request->about_me;
         $userData->i_speak = $request->i_speak;
         $userData->payment_info = $request->payment_info;
-        $userData->tour_op_id_number = $request->tour_operator_id_number;
+        // dd($userData);
+        $res = $userData->save();
+        // $res = DB::table('users')->where('id', $user_id)->update($userData);
+        // dd($res);
 
-        $userData->tour_op_name = $request->tour_operator_name;
-        $userData->tour_op_contact_name = $request->tour_operator_contact_name;
-        $userData->num_dialcode_2 = $request->country_dialcode1;
-        $userData->country_iso2_code2 = $request->countryCode1;
-        $userData->tour_op_contact_num = $request->tour_operator_contact_num;
-        $userData->tour_op_email = $request->tour_operator_email;
-        $userData->num_dialcode_3 = $request->country_dialcode2;
-        $userData->country_iso2_code3 = $request->countryCode2;
-        $userData->tour_op_booking_num = $request->tour_operator_booking_num;
-        $userData->tour_office_address = $request->tour_office_address;
-        $userData->tour_op_instagram = $request->tour_operator_instagram;
-        $userData->tour_op_facebook = $request->tour_operator_facebook;
-        $userData->tour_op_web_add = $request->tour_operator_web_add;
-        $userData->tour_op_tiktok = $request->tour_operator_tiktok;
-        $userData->tour_op_youtube = $request->tour_operator_youtube;
-        $userData->tour_op_bank_name = $request->tour_operator_bank_name;
-        $userData->tour_op_account_title = $request->tour_operator_account_title;
-        $userData->tour_op_account_num = $request->tour_operator_account_num;
-        $userData->tour_op_branch = $request->tour_operator_branch;
-        $userData->tour_op_easypaisa_num = $request->tour_operator_easypaisa_num;
-        $userData->tour_op_easypaisa_name = $request->tour_operator_easypaisa_name;
-        $userData->tour_op_jazzcash_num = $request->tour_operator_jazzcash_num;
-        $userData->tour_op_jazzcash_name = $request->tour_operator_jazzcash_name;
-        $userData->tour_op_notes = $request->tour_operator_notes;
+
         if(!empty($request->contract_date)){
             $tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
         }else{
             $tour_contract_date = NULL;
         }
-        $userData->tour_contract_date = $tour_contract_date;
-        // $userData->tour_contract_date = date('Y-m-d', strtotime($request->contract_date));
-        $userData->tour_contract_terms = $request->tour_operator_terms;
 
         // 1. document upload
         if ($request->hasFile('tour_operator_document')) {
@@ -301,7 +319,6 @@ class ServiceproviderController extends Controller
         } else {
             $tour_operator_document = $request->old_vendor_document;
         }
-        $userData->tour_op_document = $tour_operator_document;
 
         // 2. image upload
         if ($request->hasFile('tour_operator_img')) {
@@ -322,7 +339,6 @@ class ServiceproviderController extends Controller
         } else {
             $tour_operator_img = $request->old_operator_img;
         }
-        $userData->tour_op_img = $tour_operator_img;
 
         // 3. id front image upload
         if ($request->hasFile('tour_operator_id_front_img')) {
@@ -343,7 +359,6 @@ class ServiceproviderController extends Controller
         } else {
             $tour_operator_id_front_img = $request->old_id_front_img;
         }
-        $userData->tour_op_id_front_img = $tour_operator_id_front_img;
 
         // 4. id back image upload
         if ($request->hasFile('tour_operator_id_back_img')) {
@@ -364,9 +379,42 @@ class ServiceproviderController extends Controller
         } else {
             $tour_operator_id_back_img = $request->old_id_back_img;
         }
-        $userData->tour_op_id_back_img = $tour_operator_id_back_img;
 
-    	$res = $userData->save();
+
+        $vendor_data = DB::table('vendor_profile')
+                        ->where('vendor_id', $user_id)
+                        ->update(['tour_op_id_number' => $request->tour_operator_id_number,
+                                'tour_op_name' => $request->tour_operator_name,
+                                'tour_op_contact_name' => $request->tour_operator_contact_name,
+                                'num_dialcode_2' => $request->country_dialcode1,
+                                'country_iso2_code2' => $request->countryCode1,
+                                'tour_op_contact_num' => $request->tour_operator_contact_num,
+                                'tour_op_email' => $request->tour_operator_email,
+                                'num_dialcode_3' => $request->country_dialcode2,
+                                'country_iso2_code3' => $request->countryCode2,
+                                'tour_op_booking_num' => $request->tour_operator_booking_num,
+                                'tour_office_address' => $request->tour_office_address,
+                                'tour_op_instagram' => $request->tour_operator_instagram,
+                                'tour_op_facebook' => $request->tour_operator_facebook,
+                                'tour_op_web_add' => $request->tour_operator_web_add,
+                                'tour_op_tiktok' => $request->tour_operator_tiktok,
+                                'tour_op_youtube' => $request->tour_operator_youtube,
+                                'tour_op_bank_name' => $request->tour_operator_bank_name,
+                                'tour_op_account_title' => $request->tour_operator_account_title,
+                                'tour_op_account_num' => $request->tour_operator_account_num,
+                                'tour_op_branch' => $request->tour_operator_branch,
+                                'tour_op_easypaisa_num' => $request->tour_operator_easypaisa_num,
+                                'tour_op_easypaisa_name' => $request->tour_operator_easypaisa_name,
+                                'tour_op_jazzcash_num' => $request->tour_operator_jazzcash_num,
+                                'tour_op_jazzcash_name' => $request->tour_operator_jazzcash_name,
+                                'tour_op_notes' => $request->tour_operator_notes,
+                                'tour_contract_date' => $tour_contract_date,
+                                'tour_contract_terms' => $request->tour_contract_terms,
+                                'tour_op_document' => $tour_operator_document,
+                                'tour_op_img' => $tour_operator_img,
+                                'tour_op_id_front_img' => $tour_operator_id_front_img,
+                                'tour_op_id_back_img' => $tour_operator_id_back_img,
+                                ]);
 
     	if($res){
             return response()->json(['status' => 'success', 'msg' => 'User has been updated successfully.']);

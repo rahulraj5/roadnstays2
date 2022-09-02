@@ -32,8 +32,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('front/index');
+        $data['hotel_list'] = DB::table('hotels')->where('hotel_status',1)->get();
+        // echo "<pre>";print_r($data['hotel_list']);die;
+        $data['tour_list'] = DB::table('tour_list')->where('status',1)->get();
+        // echo "<pre>";print_r($data['tour_list']);die;
+        return view('front/index')->with($data);
     }
 
     public function baseForm()
@@ -50,6 +53,41 @@ class HomeController extends Controller
     {
         return view('front/hotel/room_details');
     }
+
+    public function about_us()
+    {
+       return view('front/about_us');
+    }
+
+    public function contact_us()
+    {
+       return view('front/contact_us');
+    }
+
+    public function terms_and_condition()
+    {
+        return view('front/terms_and_condition');
+    }
+
+    public function cookie_policy()
+    {
+        return view('front/cookie_policy');
+    }
+    public function privacy_policy()
+    {
+        return view('front/privacy_policy');
+    }
+
+    public function cancellation_policy()
+    {
+        return view('front/cancellation_policy');
+    }
+
+    public function list_your_property($value='')
+    {
+        return view('front/list_your_property');
+    }
+
     public function event_details($id)
     {
         $id = base64_decode($id);
@@ -419,6 +457,39 @@ class HomeController extends Controller
             ->groupBy('tour_list.country_id')->get();
         //echo "<pre>"; print_r($data);die;
         return view('front/tour/tour')->with($data);
+    }
+    
+    public function tour_list(Request $request)
+    {
+        if (count($request->all()) >= 1) {
+            if (isset($request->destination)) {
+                $destination = base64_decode($request->destination);
+            } else {
+                $destination = Session::get('destination');
+            }
+
+            if (isset($request->duration)) {
+                $duration = base64_decode($request->duration);
+            } else {
+                $duration = Session::get('duration');
+            }
+
+            Session::put('destination', $destination);
+            Session::put('duration', $duration);
+
+            $data['tour_data'] = DB::table('tour_list')
+                ->where('country_id', 'like', '%' . $destination . '%')
+                ->where('tour_days', 'like', '%' . $duration . '%')
+                ->where('status', '=', 1)
+                ->where('tour_status', '=', 'available')
+                ->orderby('id', 'DESC')
+                ->get();
+
+            // echo "<pre>";print_r($data['tour_data']);die;
+            return view('front.tour.tour_list')->with($data);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function tour_list_country($id)
@@ -805,6 +876,7 @@ class HomeController extends Controller
         return view('front/terms_condition');
     }
 
+    
     public function blogs()
     {
         return view('front/blog/blogs');
@@ -820,6 +892,7 @@ class HomeController extends Controller
             $user->last_name = $request->lastname;
             $user->email = $request->semail;
             $user->contact_number = $request->phone_no;
+            $user->user_country = $request->user_country;
             $user->password = bcrypt($request->spassword);
             $user->user_type = "normal_user";
             $user->role_id = 2;
@@ -913,12 +986,14 @@ class HomeController extends Controller
             $user->last_name = $request->vslname;
             $user->email = $request->vsemail;
             $user->contact_number = $request->vsphone_no;
+            $user->user_country = $request->vendor_country;
             $user->password = bcrypt($request->vspassword);
             $user->user_type = "service_provider";
             $user->role_id = 4;
             $addUser = $user->save();
+            $user->id;
             if ($addUser) {
-                // Auth::guard("web")->login($user);
+                $id = DB::table('vendor_profile')->insert(['user_id' => $user->id]);
                 return response()->json(['status' => 'success', 'msg' => 'User Created Successfully']);
             }
         } else {

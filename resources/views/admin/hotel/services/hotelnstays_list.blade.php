@@ -287,14 +287,13 @@
 
                                                             <a href="{{url('/admin/editHotelAndStays')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a>
-
-
+                                                            <a href="javascript:void(0)" class="btn btn-danger" style="margin-right: 3px;" onclick="deleteConfirmation('<?php echo $arr->id; ?>');"><i class="fas fa-trash"  alt="user" title="user"></i></a>
+                                                            
 
                                                             <!-- <a href="{{url('/admin/edit_user')}}/{{base64_encode($arr->id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
 
                                                             <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
-
+                                                            <!-- onclick="deleteConfirmation('<?php echo $arr->id; ?>');" -->
                                                         </div>
 
                                                     </td>

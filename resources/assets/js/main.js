@@ -291,29 +291,7 @@
     }
   });
 
-    $(".offer-tex").owlCarousel({
-    autoplay: true,
-    dots: false,
-    loop: true,
-     responsive: {
-      0: {
-        items: 1
-      },
-      768: {
-        items: 1
-      },
-      900: {
-        items: 2
-      },
-       1024: {
-        items: 2
-
-      }
-    }
-  });
-
-
-
+   
   $('.testimonials-carousel').owlCarousel({
     loop:true,
     margin:10,
@@ -328,7 +306,7 @@
             items:1
         },
         1000:{
-            items:3
+            items:2
         }
     }
   })

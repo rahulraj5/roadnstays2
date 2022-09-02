@@ -1,8 +1,7 @@
 <?php
  
-
-Auth::routes();
-// Auth::routes(['verify' => true]);
+	Auth::routes();
+	// Auth::routes(['verify' => true]);
 
 	Route::get('/clear', function () {
     $exitCode = Artisan::call('view:clear', []);   
@@ -11,8 +10,7 @@ Auth::routes();
     Route::get('/config-cache', function() {
         $exitCode = Artisan::call('config:cache');
         $exitCode = Artisan::call('config:clear');
-          return '<h1>config cache cleared</h1>';
-    
+          return '<h1>config cache cleared</h1>'; 
     });
     Route::get('/view-clear', function() {
         $exitCode = Artisan::call('view:clear');
@@ -22,7 +20,7 @@ Auth::routes();
 
 Route::any("/test",function ()
 {	 	
-	try {
+	try{
 		Mail::send("emails.test",[],function($message){
 
 			// $message->from(config("app.webmail"), config("app.mailname"));
@@ -51,6 +49,13 @@ Route::fallback(function () {
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/about-us', 'HomeController@about_us')->name('user.about_us');
+Route::get('/contact-us', 'HomeController@contact_us')->name('user.contact_us');
+Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
+Route::get('/cookie-policy', 'HomeController@cookie_policy')->name('user.cookie_policy');
+Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('user.privacy_policy');
+Route::get('/cancellation-policy', 'HomeController@cancellation_policy')->name('user.cancellation_policy');
+Route::get('/list-your-property','HomeController@list_your_property')->name('user.list_your_property');
 Route::get('/baseForm', 'HomeController@baseForm');
 
 Route::post('/updateProfile', 'HomeController@updateProfile');
@@ -84,6 +89,7 @@ Route::get('/event_details','Home\HomeController@event_details')->name('user.eve
 Route::get('/event_details/{id?}','HomeController@event_details')->name('user.event_details');
 Route::get('/eventBooking/{name?}','HomeController@eventBooking')->name('user.eventBooking');
 Route::get('/tour','HomeController@tour')->name('user.tour');
+Route::get('/tour-list/{name?}','HomeController@tour_list')->name('user.tour-list');
 Route::get('/tour_list_country/{id?}','HomeController@tour_list_country')->name('user.tour_list_country');
 Route::get('/tour_details/{id?}','HomeController@tour_details')->name('user.tour_details');
 Route::get('/tourBooking/{name?}','HomeController@tourBooking')->name('user.tourBooking');
@@ -106,7 +112,7 @@ Route::post('/bookingSpaceOrder','Home\SpaceController@spaceBookingOrder')->name
 Route::get('/space-payment-successful','Home\SpaceController@space_payment_successful')->name('user.space_payment_successful');
 
 Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
-Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
+
 Route::get('/blogs','HomeController@blogs')->name('user.blogs');
 
 Route::post('/bookingRoomOrder','HomeController@booking_room_order')->name('user.booking_room_order');
@@ -136,12 +142,15 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
 
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
+    Route::post('user/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');	
     Route::get('user/bookingDetailCancelled/{id}', 'Home\BookingController@booking_canceled_detail');	
 
     Route::get('user/spaceBookingDetails/{id}', 'Home\BookingController@space_booking_detail');	
+    Route::post('user/cancelSpaceBooking','Home\BookingController@cancel_space_booking');
     Route::get('user/cancelledSpaceBooking/{id}', 'Home\BookingController@space_booking_canceled');	
     
-    Route::get('user/tourBookingDetails/{id}', 'Home\BookingController@tour_booking_detail');	
+    Route::get('user/tourBookingDetails/{id}', 'Home\BookingController@tour_booking_detail');
+    Route::post('user/cancelTourBooking','Home\BookingController@cancel_tour_booking');	
     Route::get('user/cancelledTourBooking/{id}', 'Home\BookingController@tour_booking_canceled');	
 });	
 
@@ -305,6 +314,13 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::get('/changeRoomTypeStatus', 'Admin\RoomController@change_room_type_status');
         Route::get('/room_type_categories', 'Admin\RoomController@room_type_categories');
+
+        Route::get('/addRoomTypeCategory', 'Admin\RoomController@add_Room_type_category');
+        Route::any('/submitRoomTypeCategory', 'Admin\RoomController@submit_room_type_category');
+        Route::get('/editRoomTypeCategory/{id}', 'Admin\RoomController@edit_room_type_category');
+        Route::any('/updateRoomTypeCategory', 'Admin\RoomController@update_room_type_category');
+        Route::post('/deleteRoomTypeCategory', 'Admin\RoomController@delete_room_type_category');
+
         Route::post('/room_name', 'Admin\RoomController@room_name');
 
         Route::any('/deleteRoomSingleImage', 'Admin\RoomController@delete_room_single_image');
@@ -449,7 +465,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::group(['prefix' => 'scout'], function(){
     Route::group(['middleware' => 'scout.guest'], function(){ 	
-        // Route::get('/login', [Scout\ScoutUserController::class, 'login'])->name('scout.login');	
+        // Route::get('/login', [Scout\ScoutUserController::class, 'login'])->name('scout.login');
         // Route::post('/loginPost', [Scout\ScoutUserController::class, 'postLogin']);	
         Route::get('/login', 'Scout\ScoutUserController@login')->name('scout.login');	
         Route::post('/loginPost', 'Scout\ScoutUserController@postLogin');

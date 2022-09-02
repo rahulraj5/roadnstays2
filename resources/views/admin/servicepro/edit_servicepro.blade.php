@@ -707,7 +707,7 @@
 
                     <option value="">Select Country</option>
                     <?php
-                    //print_r($country);
+                    //print_r($countries);
                     foreach ($countries as $value1) {
                     ?>
                       <option value="<?php echo $value1->id; ?>" <?php if ($user_info->user_country == $value1->id) {
