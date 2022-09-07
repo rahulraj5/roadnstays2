@@ -141,9 +141,15 @@ class VendorController extends Controller
             $adminhotel->neighb_area = $request->neighb_area;
             $adminhotel->hotel_country = $request->hotel_country;
 
-            $adminhotel->cancellation_mode = $request->cancellation_mode;
-            $adminhotel->num_of_days_cancellation = $request->cancel_num_of_days;
-            $adminhotel->cancel_time_period = $request->cancel_time_period;
+            // $adminhotel->cancellation_mode = $request->cancellation_mode;
+            // $adminhotel->num_of_days_cancellation = $request->cancel_num_of_days;
+            // $adminhotel->cancel_time_period = $request->cancel_time_period;
+
+            $adminhotel->cancel_policy = $request->cancel_policy;
+            $adminhotel->min_hrs = $request->min_hrs;
+            $adminhotel->min_hrs_percentage = $request->min_hrs_percentage;
+            $adminhotel->max_hrs = $request->max_hrs;
+            $adminhotel->max_hrs_percentage = $request->max_hrs_percentage;
 
             // $adminhotel->attraction_name = $request->attraction_name;
             // $adminhotel->attraction_content = $request->attraction_content;
@@ -380,9 +386,15 @@ class VendorController extends Controller
                     'neighb_area' => $request->neighb_area,
                     'hotel_country' => $request->hotel_country,
 
-                    'cancellation_mode' => $request->cancellation_mode,
-                    'num_of_days_cancellation' => $request->cancel_num_of_days,
-                    'cancel_time_period' => $request->cancel_time_period,
+                    // 'cancellation_mode' => $request->cancellation_mode,
+                    // 'num_of_days_cancellation' => $request->cancel_num_of_days,
+                    // 'cancel_time_period' => $request->cancel_time_period,
+
+                    'cancel_policy' => $request->cancel_policy,
+                    'min_hrs' => $request->min_hrs,
+                    'min_hrs_percentage' => $request->min_hrs_percentage,
+                    'max_hrs' => $request->max_hrs,
+                    'max_hrs_percentage' => $request->max_hrs_percentage,
 
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,

@@ -370,9 +370,10 @@
                     </div>
                  </div>
           </form>
-          <h3>Google Map</h3>
-            <?php $address = $tour_details->address . ',' . $tour_details->city; ?>
-            <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
+            <div class="googl_map"><h3>Google Map</h3>
+               <?php $address = $tour_details->address . ',' . $tour_details->city; ?>
+               <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
+            </div>
         </div>
         <div class="col-md-3 pl-0">
           <div class="revie-box-boxi">

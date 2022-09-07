@@ -261,7 +261,7 @@
         });
     });
   });
-  $(document).ready(function(){
+$(document).ready(function(){
   $('#type-dropdown').on('change', function(){
     var value = $(this).val(); 
      if (value == 'paid') {
@@ -270,7 +270,7 @@
       $('#price').prop("disabled",true);
      }
   });
- });          
+});          
 </script>
 @endsection
 

@@ -702,6 +702,22 @@
 </script>
 
 <script>
+    var site_url = $("#baseUrl").val();
+    $('#tab1').on('click', function() {
+        document.location.href = site_url + "/user/bookingList";
+    })
+    $('#tab2').on('click', function() {
+        document.location.href = site_url + "/user/bookingList-upcoming";
+    })
+    $('#tab3').on('click', function() {
+        document.location.href = site_url + "/user/bookingList-cancel";
+    })
+    // $('.tab4').on('click', function() {
+    //     $(".bread-sec").css('background-color', '#ccc');
+    // })
+</script>
+
+<!-- <script>
     $(document).ready(function() {
 
         // var url = document.location.toString();
@@ -738,7 +754,7 @@
 
 
     });
-</script>
+</script> -->
 
 @endsection
 
@@ -767,8 +783,18 @@
     <div class="container">
         <!--  -->
         <div class="tabs">
+            
+
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
+            <!-- <div class="tabs__content"> -->
+
+                
+
+            <!-- </div> -->
+
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
-            <label for="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i>Completed</label>
             <div class="tabs__content">
 
                 @if (!$bookingList->isEmpty())
@@ -777,10 +803,10 @@
 
                 @foreach ($bookingList->where('booking_status', '!=' ,'canceled') as $arr)
 
-                <!-- @if($arr->check_in > Carbon\Carbon::today()->format('Y-m-d'))
-                    @php echo 'upcoming' @endphp
+                <!-- @if($arr->booking_status!='canceled')
+                    @php echo 'canceled'; @endphp
                 @else
-                    @php echo 'past' @endphp
+                    @php echo 'past'; @endphp
                 @endif -->
 
                 <div class="content">
@@ -851,7 +877,7 @@
                 @endforeach
                 <div class="row gird-event" id="filterdata">
                     <div class="col-md-12">
-                        <!-- <div class="">bookingList->fragment('tab1')->links()</div> -->
+                        <div class="">bookingList->fragment('tab1')->links()</div>
                     </div>
                 </div>
 
@@ -865,7 +891,7 @@
                     <div class="col-md-9 upcom-text">
                         <h5>Looks empty, you've no bookings.</h5>
                         <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
+                        <a href="{{ url('/') }}">PLAN A TRIP</a>
                     </div>
                 </div>
 
@@ -881,304 +907,28 @@
                     <div class="col-md-9 upcom-text">
                         <h5>Looks empty, you've no bookings.</h5>
                         <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
+                        <a href="{{ url('/') }}">PLAN A TRIP</a>
                     </div>
                 </div>
 
                 @endif
-            </div>
-
-            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-            <label for="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
-
-            <div class="tabs__content">
-
-                @if (!$upcomingBookingList->isEmpty())
-                    @if(count($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
-
-                        @foreach ($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
-
-                        <div class="content">
-                            <div class="text-detail">
-                                <div class="icontext">
-                                    <i class='bx bxs-hotel'></i>
-                                    <div class="text">
-                                        <h3>{{ $arr->hotel_name }}</h3>
-                                        <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
-                                    </div>
-                                </div>
-
-                                <ul>
-                                    <li>{{ $arr->room_name }}</li>
-                                    <li>Booking ID - VXMN{{ $arr->id }}</li>
-                                    <li>{{ $arr->payment_status }}</li>
-                                </ul>
-                                <div class="btn-detail">
-                                    <a href="{{ url('/user/bookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-
-                                </div>
-                            </div>
-
-                            <div class="row user-detail-row ">
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-calendar'></i>FROM</p>
-                                    <h6>{{ $arr->check_in }} <span>{{ $arr->checkin_time }}</span></h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-calendar'></i>TO</p>
-                                    <h6>{{ $arr->check_out }} <span>{{ $arr->checkout_time }}</span></h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-store'></i>Room Name</p>
-                                    <h6>{{ $arr->room_name }} </h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-                                <div class="col-md-3 user-detail">
-                                    <p><i class='bx bxs-store'></i>Room Type</p>
-                                    <h6>{{ $arr->room_type_name }} </h6>
-                                    <!-- <strong>new Delhi</strong> -->
-                                </div>
-
-                                <!-- <div class="col-md-3 user-detail">
-                                    <div class="dropdown">
-                                        <button class="dropbtn"><i class='bx bxs-store'></i>Room Name
-                                            <i class='bx bx-caret-down'></i>
-                                        </button>
-                                        <div class="dropdown-content">
-                                            <p>Room Name</p>
-                                            <h6>{{ $arr->room_name }}</h6>
-                                            <P>Room Type</P>
-                                            <h6>{{ $arr->room_type_name }}</h6>
-                                        </div>
-                                    </div>
-
-                                    <p> <strong><i class='bx bxs-user-plus'></i>Neeru sharma +2</strong></p>
-                                </div> -->
-                                <!-- <div class="col-md-3 user-detail" style="text-align:center;">
-                                    <a href="#"><i class='bx bx-download'></i> Download Invoice</a>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        @endforeach
-                        <div class="row gird-event" id="filterdata">
-                            <div class="col-md-12">
-                                <!-- <div class="">bookingList->fragment('tab2')</div> -->
-                            </div>
-                        </div>
-                      
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no upcoming bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-                @endif
-
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no upcoming bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-                @endif
-
             </div>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-            <label for="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
-            <div class="tabs__content">
+            <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
+            <!-- <div class="tabs__content">
 
-                @if (!$bookingList->isEmpty())
+                
 
-                @if(count($bookingList->where('booking_status', 'canceled')) > 0)
-
-                @foreach ($bookingList->where('booking_status', 'canceled') as $arr)
-
-                <div class="content cancelled-content">
-                    <div class="text-detail">
-                        <div class="icontext">
-                            <i class='bx bxs-hotel'></i>
-                            <div class="text">
-                                <h3>{{ $arr->hotel_name }}</h3>
-                                <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
-                            </div>
-                        </div>
-
-                        <ul>
-                            <li>Cancelled on {{ date('d-m-Y' , strtotime($arr->created_at)) }}</li>
-                            <li>Booking ID - VXMN{{ $arr->id }}</li>
-                            <li>{{ $arr->payment_status }}</li>
-                        </ul>
-                        <div class="btn-detail">
-                            <a href="{{ url('/user/bookingDetailCancelled') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row user-detail-row ">
-                    <div class="col-md-12 progress-ba">
-                        <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
-                        <ul class="multi-step-bar">
-                            <li class="active">Booking Cancelled</li>
-                            <li>Refund Processed</li>
-                            <li>Credit in Account</li>
-                        </ul>
-
-
-                    </div>
-                    <ul class="hint-text">
-                        <li>
-                            <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                @endforeach
-                <!-- <div class="row gird-event"  id="filterdata">
-                            <div class="col-md-12">
-                                <div class="">bookingList->links()</div>
-                            </div>
-                        </div> -->
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no canceled bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-                @endif
-
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="150px">
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no canceled bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-                @endif
-
-            </div>
+            </div> -->
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <!-- <label for="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
-            <div class="tabs__content">
+            <!-- <label for="tab4" id="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
+            <!-- <div class="tabs__content">
 
-                @if (!$bookingList->isEmpty())
+                
 
-                @if(count($bookingList->where('booking_status', 'failed')) > 0)
-
-                @foreach ($bookingList->where('booking_status', 'failed') as $arr)
-
-                <div class="content failed-content">
-                    <div class="text-detail">
-                        <div class="icontext">
-                            <i class='bx bxs-hotel'></i>
-                            <div class="text">
-                                <h3>{{ $arr->hotel_name }}</h3>
-                                <p>{{ $arr->hotel_city }}, {{ $arr->hotel_country }}</p>
-                            </div>
-                        </div>
-
-                        <ul>
-                            <li>{{ $arr->room_name }}</li>
-                            <li>Booking ID - VXMN{{ $arr->id }}</li>
-                            <li>{{ $arr->payment_status }}</li>
-                        </ul>
-                        <div class="btn-detail">
-                            <a href="{{ url('/user/bookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
-
-                        </div>
-                    </div>
-
-                    <div class="row user-detail-row ">
-                        <div class="col-md-12 progress-ba">
-                            <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
-                            <ul class="multi-step-bar">
-                                <li class="active">Booking Cancelled</li>
-                                <li>Refund Processed</li>
-                                <li>Credit in Account</li>
-                            </ul>
-
-
-                        </div>
-                        <ul class="hint-text">
-                            <li>
-                                <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                @endforeach
-
-                <!-- <div class="row gird-event"  id="filterdata">
-                            <div class="col-md-12">
-                                <div class="">{{ $bookingList->links() }}</div>
-                            </div>
-                        </div> -->
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no failed bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-
-                @endif
-
-                @else
-
-                <div class="row upcom-row">
-                    <div class="col-md-3 upcom-img">
-                        <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
-                    </div>
-                    <div class="col-md-9 upcom-text">
-                        <h5>Looks empty, you've no failed bookings.</h5>
-                        <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="#">PLAN A TRIP</a>
-                    </div>
-                </div>
-                @endif
-
-            </div>
+            </div> -->
         </div>
     </div>
 

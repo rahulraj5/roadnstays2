@@ -14,6 +14,30 @@
 
 @section('current_page_js')
 
+<script src="{{ asset('resources/js/bootstrap-datetimepicker.min.js')}}"></script>
+<script>
+  $('#contract_date').datetimepicker({
+     format: 'YYYY-MM-DD'
+    //  format: 'HH:mm'
+    //format: 'LT'
+  });
+  $('#checkout_time').datetimepicker({
+    //  format: 'hh:mm:ss a'
+    //  format: 'HH:mm'
+    format: 'LT'
+  });
+  $(document).ready(function(){
+    $('#designation').on('change', function(){
+      var value = $(this).val(); 
+       if (value == 'Other') {
+        $('#other').show();
+       }else{
+        $('#other').hide();
+       }
+    });
+  }); 
+</script>
+
 @endsection
 
 
@@ -147,14 +171,38 @@
                   </div>
 
 
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+
+                      <label>Profile Picture</label>
+
+                      <input type="file" class="form-control" name="profile_picture" id="profile_picture" accept="image/*">
+
+                    </div>
+
+                  </div>
+
 
                   <div class="col-md-6">
 
                     <div class="form-group">
 
-                      <label>Number</label>
+                      <label>Mobile Number</label>
 
-                      <input type="number" class="form-control" name="contact_number" id="contact_number" placeholder="Enter Number">
+                      <input type="number" class="form-control" name="contact_number" id="contact_number" placeholder="Enter Mobile Number">
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+
+                      <label>Landline Number</label>
+
+                      <input type="number" class="form-control" name="landline_number" id="landline_number" placeholder="Enter Landline Number">
 
                     </div>
 
@@ -245,19 +293,141 @@
                   </div>
 
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Status</label>
+                        <select class="form-control select2bs4" name="status"  id="status" style="width: 100%;">
+                          <option value="">Select Status</option>
+                          <option value="Active">Active</option>
+                          <option value="Suspended">Suspended</option>
+                        </select>
+                    </div>
+                  </div>
 
-                  <div class="col-12">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Designation</label>
+                        <select class="form-control select2bs4" name="designation"  id="designation" style="width: 100%;">
+                          <option value="">Select Status</option>
+                          <option value="Senior CEX">Senior CEX</option>
+                          <option value="CEX">CEX</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="other" id="other" placeholder="Please enter other" style="margin-top: 10px; display: none;">
+                        </div>
+                    </div>
+                  </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Contract Date</label>
+                      <input type="text" class="form-control" name="contract_date" id="contract_date" placeholder="Contract Date">
+                    </div>
+                  </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>NIC </label>
+                      <input type="text" class="form-control" name="nic" id="nic" placeholder="Enter NIC">
+                    </div>
+                  </div>
 
-                    <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>NIC Upload</label>
+                      <input type="file" class="form-control" name="nic_upload" id="nic_upload">
+                    </div>
+                  </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Contract Upload</label>
+                      <input type="file" class="form-control" name="contract_upload" id="contract_upload">
+                    </div>
+                  </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Basic salary</label>
+                      <input type="text" class="form-control" name="basic_salary" id="basic_salary">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Transport allowance</label>
+                      <input type="text" class="form-control" name="transport_allowance" id="transport_allowance">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Other allowance</label>
+                      <input type="text" class="form-control" name="other_allowance" id="other_allowance">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Other allowance 1</label>
+                      <input type="text" class="form-control" name="other_allowance_1" id="other_allowance_1">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Other allowance 2</label>
+                      <input type="text" class="form-control" name="other_allowance_2" id="other_allowance_2">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Gross salary</label>
+                      <input type="text" class="form-control" name="gross_salary" id="gross_salary">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Other benefits</label>
+                      <input type="text" class="form-control" name="other_benefits" id="other_benefits">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Hotel commission</label>
+                      <input type="text" class="form-control" name="hotel_commission" id="hotel_commission">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Tour commision</label>
+                      <input type="text" class="form-control" name="tour_commision" id="tour_commision">
+                    </div>
+                  </div>
+
+                   <div class="col-md-6">
+                    <div class="form-group">
+
+                      <label>Space commission</label>
+
+                      <input type="text" class="form-control" name="space_commission" id="space_commission">
+
+                    </div>
+
+                  </div>
+                   <div class="col-md-6">
+
+                    <div class="form-group">
+
+                      <label>Event commission</label>
+
+                      <input type="text" class="form-control" name="event_commission" id="event_commission">
+
+                    </div>
 
                   </div>
 
-
-
+                  <div class="col-12"> 
+                    <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> 
+                  </div> 
                 </div>
 
               </form>

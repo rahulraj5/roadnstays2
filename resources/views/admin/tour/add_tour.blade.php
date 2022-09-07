@@ -592,6 +592,46 @@
                             </div>
                           </div>
 
+                          <!-- <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Operator Name</label>
+                              <input type="text" class="form-control" name="tour_operator_name" id="tour_operator_name" placeholder="Enter Tour Operator Name">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Operator Contact Name</label>
+                              <input type="text" class="form-control" name="tour_operator_contact_name" id="tour_operator_contact_name" placeholder="Enter Operator Contact Name">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Operator Contact Number</label>
+                              <input type="hidden" id="country_dialcode1" name="country_dialcode1"/>
+                              <input type="hidden" name="countryCode1" id="countryCode1">
+                              <input type="number" class="form-control" name="tour_operator_contact_num" id="tour_operator_contact_num" placeholder="Enter Operator Contact Number">
+                              <span id="valid-msg1" class="hide-new">✓ Valid</span>
+                              <span id="error-msg1" class="hide-new"></span>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Operator Email</label>
+                              <input type="email" class="form-control" name="tour_operator_email" id="tour_operator_email" placeholder="Enter Email" autocomplete="new-email">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Operator Booking Contact Number</label>
+                              <input type="hidden" id="country_dialcode2" name="country_dialcode2"/>
+                              <input type="hidden" name="countryCode2" id="countryCode2">
+                              <input type="number" class="form-control" name="tour_operator_booking_num" id="tour_operator_booking_num" placeholder="Enter Booking Contact Number">
+                              <span id="valid-msg2" class="hide-new">✓ Valid</span>
+                              <span id="error-msg2" class="hide-new"></span>
+                            </div>
+                          </div> -->
+
+
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">

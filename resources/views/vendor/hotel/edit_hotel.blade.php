@@ -396,6 +396,18 @@
           required: true,
           number: true,
         },
+        min_hrs: {
+          number: true,
+        },
+        min_hrs_percentage: {
+          number: true,
+        },
+        max_hrs: {
+          number: true,
+        },
+        max_hrs_percentage: {
+          number: true,
+        },
         // attraction_distance: {
         //   required: true,
         // },
@@ -1085,7 +1097,7 @@
                     </div>
                     <!-- cancellation & policy start here -->
 
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                       <div class="tab-custom-content">
                         <p class="lead mb-0">
                         <h4>Cancellation and Refund</h4>
@@ -1171,6 +1183,54 @@
                                 </div>
                               </div>
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="col-md-12">
+                      <div class="tab-custom-content">
+                        <p class="lead mb-0">
+                        <h4>Cancellation and Refund</h4>
+                        </p>
+                      </div>
+                    </div>
+                    <!-- <label>Cancellation and Refund</label> -->
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Cancellation Policy</label>
+                        <textarea class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($hotel_info->cancel_policy) ? $hotel_info->cancel_policy : '')}}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="row">                              
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label>First Cancellation Hrs.</label>
+                            <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($hotel_info->min_hrs) ? $hotel_info->min_hrs : '')}}" placeholder="hrs.">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label>Percentage</label>
+                            <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label>Second Cancellation Hrs.</label>
+                            <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($hotel_info->max_hrs) ? $hotel_info->max_hrs : '')}}" placeholder="hrs">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label>Percentage</label>
+                            <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '')}}" placeholder="percentage">
                           </div>
                         </div>
                       </div>

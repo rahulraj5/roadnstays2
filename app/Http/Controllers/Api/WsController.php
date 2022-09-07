@@ -755,7 +755,7 @@ class WsController extends APIBaseController
             'stay_type' => $value->stay_type,
 
             );
-          }
+        }
 
 
         if(count($hotel_type)>0){
@@ -874,5 +874,160 @@ class WsController extends APIBaseController
     }
 
 
+    public function tour_list(Request $request)
+    {   
+
+        $tour_list = DB::table('tour_list')->get(); 
+
+
+        if(count($tour_list)>0){
+        
+            $response['message'] = "Tour List";
+            $response['status'] = 1;
+            $response['data'] = array('tour_list'=>$tour_list);
+
+        }else{
+
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('tour_list'=>$tour_list);
+        }
+        
+        return $response; 
+    }
+
+    public function tour_search_fields(Request $request)
+    {   
+        $get_tour = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->select('tour_list.country_id','country.nicename')->where('tour_list.status',1)->where('tour_list.tour_status', 'available')->get()->unique('tour_list.country_id');
+        
+        $tour_duration = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->orderBy('tour_days', 'ASC')->get()->unique('tour_days'); 
+
+        $tourduration=array();
+
+        foreach ($tour_duration as $key => $value) {
+
+        $tourduration[] = array(  
+
+            'id'=> $value->id,
+            'tour_night' => $value->tour_days-1,
+            'tour_days' => $value->tour_days,
+
+            );
+        }
+
+        if(count($get_tour)>0){
+        
+            $response['message'] = "Country List & Tour Duration";
+            $response['status'] = 1;
+            $response['data'] = array('country_list'=>$get_tour,'tour_duration'=>$tourduration);
+
+        }else{
+
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('country_list'=>$get_tour,'tour_duration'=>$tourduration);
+        }
+        
+        return $response;
+    }
+
+    public function tour_details(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+
+            'tour_id' => 'required'
+
+        ]);
+
+        $tour_id = $request->tour_id;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        } else {
+            $tour_data = DB::table('tour_list')->where('id','=',$tour_id)->first();
+            $tour_itinerary = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
+            $tour_gallery = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
+            $touritinerary = array();
+            foreach($tour_itinerary as $itinerary){
+
+                $trip_detail = json_decode($itinerary->trip_detail);
+                $detail_array = array();
+                foreach($trip_detail as $detail){
+                    $detail_array[] = array('trip_detail'=>$detail);
+                }
+
+                $touritinerary[] = array(
+                    'id' => $itinerary->id, 
+                    'tour_id' => $itinerary->tour_id, 
+                    'title' => $itinerary->title, 
+                    'place_from' => $itinerary->place_from, 
+                    'place_to' => $itinerary->place_to, 
+                    'hotel' => $itinerary->hotel, 
+                    'transport' => $itinerary->transport, 
+                    'night_stay' => $itinerary->night_stay, 
+                    'trip_detail' => $detail_array, 
+                    'picture' => $itinerary->picture, 
+                    'status' => $itinerary->status,
+                    'created_at' => $itinerary->created_at,
+                    'updated_at' => $itinerary->updated_at
+                );
+            }
+            
+
+            //print_r($trip_detail);die;
+            if($tour_data){
+            $response['message'] = "Tour Detail";
+            $response['status'] = 1;
+            $response['data'] = array('tour_data'=>$tour_data,'tour_itinerary'=>$touritinerary,'tour_gallery'=>$tour_gallery);
+            }else{
+
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('tour_data'=>0);
+            }
+        
+            return $response;
+
+        }
+    }
+
+    public function tour_list_search(Request $request)
+    {   
+
+        //print_r($request->all());die;        
+        if (isset($request->destination)) {
+            $destination = $request->destination;
+        } else {
+            $destination = '';
+        }
+
+        if (isset($request->duration)) {
+            $duration = $request->duration;
+        } else {
+            $duration = '';
+        }
+
+
+        $tour_list = DB::table('tour_list')
+                    ->where('country_id', 'like', '%' . $destination . '%')
+                    ->where('tour_days', 'like', '%' . $duration . '%')
+                    ->get(); 
+
+
+        if(count($tour_list)>0){
+        
+            $response['message'] = "Tour List";
+            $response['status'] = 1;
+            $response['data'] = array('tour_list'=>$tour_list);
+
+        }else{
+
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('tour_list'=>$tour_list);
+        }
+        
+        return $response; 
+    }
     
 } 

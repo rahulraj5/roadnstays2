@@ -307,6 +307,18 @@
                 hotel_longitude: {
                     number: true,
                 },
+                min_hrs: {
+                    number: true,
+                },
+                min_hrs_percentage: {
+                    number: true,
+                },
+                max_hrs: {
+                    number: true,
+                },
+                max_hrs_percentage: {
+                    number: true,
+                },
                 // attraction_distance: {
                 //     required: true,
                 // },
@@ -998,10 +1010,58 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- cancellation & policy start here -->
 
                                         <div class="col-md-12">
+                                            <div class="tab-custom-content">
+                                                <p class="lead mb-0">
+                                                <h4>Cancellation and Refund</h4>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- <label>Cancellation and Refund</label> -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Cancellation Policy</label>
+                                                <textarea class="form-control" id="summernote2Removed" name="cancel_policy"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>First Cancellation Hrs.</label>
+                                                        <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="" placeholder="hrs.">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Percentage</label>
+                                                        <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="" placeholder="percentage">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Second Cancellation Hrs.</label>
+                                                        <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="" placeholder="hrs">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Percentage</label>
+                                                        <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="" placeholder="percentage">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-md-12">
                                             <div class="tab-custom-content">
                                                 <p class="lead mb-0">
                                                 <h4>Cancellation and Refund</h4>
@@ -1034,11 +1094,11 @@
                                                             <label for="cancellation_mode3" class="custom-control-label">Cancellation time period</label>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
-                                                <!-- cancel day limit -->
+                                        <!-- cancel day limit -->
 
-                                                <div class="col-sm-12 d-none" id="cancel_num_of_days_div">
+                                        <!-- <div class="col-sm-12 d-none" id="cancel_num_of_days_div">
                                                     <div class="row">
                                                         <div class="col-sm-4">
                                                         </div>
@@ -1051,11 +1111,11 @@
                                                         <div class="col-sm-4">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
-                                                <!-- cancel time period limit -->
+                                        <!-- cancel time period limit -->
 
-                                                <div class="col-sm-12 d-none" id="cancel_time_period_div">
+                                        <!-- <div class="col-sm-12 d-none" id="cancel_time_period_div">
 
                                                     <div class="row">
                                                         <div class="col-sm-8">
@@ -1093,7 +1153,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- cancellation & policy end here -->
 

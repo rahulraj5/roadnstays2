@@ -308,7 +308,7 @@
     $("#breakfast_cost_div").removeClass('d-none');
   });
 
-  
+
   $("#cancellation_mode1").click(function() {
     $("#cancel_num_of_days_div").addClass('d-none');
     $("#cancel_time_period_div").addClass('d-none');
@@ -625,6 +625,18 @@
           required: true,
           number: true,
         },
+        min_hrs: {
+          number: true,
+        },
+        min_hrs_percentage: {
+          number: true,
+        },
+        max_hrs: {
+          number: true,
+        },
+        max_hrs_percentage: {
+          number: true,
+        },
         // attraction_distance: {
         //   required: true,
         // },
@@ -773,9 +785,9 @@
     var addAttrButton = $('.add_attraction_button');
     var attrWrapper = $('.field_wrapper_attraction');
     var attractionCount = $('#attraction_count').val();
-    if(attractionCount > 0){
+    if (attractionCount > 0) {
       var x = attractionCount - 1;
-    }else{
+    } else {
       var x = attractionCount;
     }
     // console.log(x);
@@ -802,12 +814,12 @@
     var servWrapper = $('.field_wrapper_service');
 
     var servFeeCount = $('#serv_fee_count').val();
-    if(servFeeCount > 0){
+    if (servFeeCount > 0) {
       var x = servFeeCount - 1;
-    }else{
+    } else {
       var x = servFeeCount;
     }
-    
+
     $(addServButton).click(function() {
       if (x < maxField) {
         x++;
@@ -830,13 +842,13 @@
     var wrapper = $('.field_wrapper');
 
     var extraOptionCount = $('#extra_option_count').val();
-    if(extraOptionCount > 0){
+    if (extraOptionCount > 0) {
       var x = extraOptionCount - 1;
-    }else{
+    } else {
       var x = extraOptionCount;
     }
 
-    
+
 
     $(addButton).click(function() {
       if (x < maxField) {
@@ -1365,7 +1377,7 @@
 
                           <!-- cancellation & policy start here -->
 
-                          <div class="col-md-12">
+                          <!-- <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
                               <h4>Cancellation and Refund</h4>
@@ -1401,8 +1413,8 @@
                               </div>
 
                               <div class="col-sm-12 <? if ($hotel_info->cancellation_mode != 1) {
-                                          echo 'd-none';
-                                        } ?>" id="cancel_num_of_days_div">
+                                                      echo 'd-none';
+                                                    } ?>" id="cancel_num_of_days_div">
                                 <div class="row">
                                   <div class="col-sm-3">
                                   </div>
@@ -1414,12 +1426,12 @@
                                   </div>
                                   <div class="col-sm-4">
                                   </div>
-                                </div>  
+                                </div>
                               </div>
 
                               <div class="col-sm-12 <? if ($hotel_info->cancellation_mode != 2) {
-                                          echo 'd-none';
-                                        } ?>" id="cancel_time_period_div">
+                                                      echo 'd-none';
+                                                    } ?>" id="cancel_time_period_div">
                                 <div class="row">
                                   <div class="col-sm-8">
                                   </div>
@@ -1449,13 +1461,118 @@
                                           </div>
                                         </div>
                                       </div>
-                                    </div>  
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                          </div> -->
+
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Cancellation and Refund</h4>
+                              </p>
+                            </div>
                           </div>
-                          
+                          <!-- <label>Cancellation and Refund</label> -->
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Cancellation Policy</label>
+                              <textarea class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($hotel_info->cancel_policy) ? $hotel_info->cancel_policy : '')}}</textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="row">                              
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>First Cancellation Hrs.</label>
+                                  <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($hotel_info->min_hrs) ? $hotel_info->min_hrs : '')}}" placeholder="hrs.">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Percentage</label>
+                                  <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Second Cancellation Hrs.</label>
+                                  <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($hotel_info->max_hrs) ? $hotel_info->max_hrs : '')}}" placeholder="hrs">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Percentage</label>
+                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '')}}" placeholder="percentage">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-sm-3">
+                            <div class="form-group">
+                              <label>No. of Days (for 48 hrs)</label>
+                              <input type="text" class="form-control" name="48_cancel_num_of_days" id="48_cancel_num_of_days" value="{{(!empty($hotel_info->num_of_days_cancellation) ? $hotel_info->num_of_days_cancellation : '')}}" placeholder="no. of days">
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="form-group">
+                              <label>Deduction Percentage on cancel</label>
+                              <input type="text" class="form-control" name="48_deduction_percentage" id="48_deduction_percentage" value="{{(!empty($hotel_info->deduction_percentage) ? $hotel_info->deduction_percentage : '')}}" placeholder="percentage">
+                            </div>
+                          </div> -->
+
+
+
+                          <!-- <div class="col-md-12 field_wrapper_refund">
+                            <div class="form-group" id="refund_div">
+                              <label>Refund Policy</label>
+
+                              @if(count($hotel_service_fee) > 0) -->
+                              <!-- hotel_refund -->
+                              <!-- @foreach ($hotel_service_fee as $key=>$value)
+
+                              <div class="row form-group">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][min_refund_day]" placeholder="Enter Day" value="{{ $value->min_refund_day }}" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][deduct_percentage]" placeholder="Enter Percentage" value="{{ $value->deduct_percentage }}" />
+                                </div>
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_refund_button" title="Add field">Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_refund_button" title="Add field">Remove</a></span>
+                                @endif
+                              </div>
+
+                              @endforeach
+
+                              @else
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="refund[0][min_refund_day]" placeholder="Enter Day" value="" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="refund[0][deduct_percentage]" placeholder="Enter Percentage" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_refund_button" title="Add field">Add</a></span>
+                              </div>
+
+                              @endif
+
+                            </div>
+                          </div> -->
+
                           <!-- cancellation & policy end here -->
 
                           <div class="col-md-12">
@@ -1526,52 +1643,52 @@
                           <div class="col-md-12 field_wrapper_attraction">
                             <div class="form-group" id="attraction">
                               <label>Attractions Details</label>
-                              
-                                @if(count($hotel_attraction) > 0)
 
-                                  @foreach ($hotel_attraction as $key=>$value)
-                                  <div class="col-md-12">
-                                    <div class="row">
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" />
-                                      </div>
-                                      @if($key == 0)
-                                      <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
-                                      @else
-                                      <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field">Remove</a></span>
-                                      @endif
-                                    </div>
+                              @if(count($hotel_attraction) > 0)
+
+                              @foreach ($hotel_attraction as $key=>$value)
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->attraction_name }}" />
                                   </div>
-                                  @endforeach
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][content]" placeholder="Enter Content" value="{{ $value->attraction_content }}" />
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][distance]" placeholder="Enter Distance" value="{{ $value->attraction_distance }}" />
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[@php echo $key; @endphp][type]" placeholder="Enter type" value="{{ $value->attraction_type }}" />
+                                  </div>
+                                  @if($key == 0)
+                                  <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                  @else
+                                  <span><a href="javascript:void(0);" class="remove_attraction_button" title="Remove field">Remove</a></span>
+                                  @endif
+                                </div>
+                              </div>
+                              @endforeach
 
-                                @else
-                                  <div class="col-md-12">
-                                    <div class="row">
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
-                                      </div>
-                                      <div class="col-md-5 form-group">
-                                        <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" />
-                                      </div>
-                                      <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
-                                    </div>
-                                  </div>  
-                                @endif
+                              @else
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][name]" placeholder="Enter Name" value="" />
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][content]" placeholder="Enter Content" value="" />
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][distance]" placeholder="Enter Distance" value="" />
+                                  </div>
+                                  <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" name="attraction[0][type]" placeholder="Enter type" value="" />
+                                  </div>
+                                  <span><a href="javascript:void(0);" class="add_attraction_button" title="Add field">Add</a></span>
+                                </div>
+                              </div>
+                              @endif
                             </div>
                           </div>
 

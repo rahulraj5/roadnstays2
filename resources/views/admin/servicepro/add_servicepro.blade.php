@@ -772,13 +772,13 @@
                 </div>
               </div>
 
-              <div class="col-md-12 mt-0">
+              <!-- <div class="col-md-12 mt-0">
                 <div class="tab-custom-content mt-0">
                   <p class="lead mb-2">
                   <h4>Vendor Profile Details for Tour</h4>
                   </p>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-md-6">
                 <div class="form-group">
@@ -827,20 +827,20 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Tour Operator Instagram</label>
-                  <input type="text" class="form-control" name="tour_operator_instagram" id="tour_operator_instagram" placeholder="Enter Operator Instagram">
+                  <label>Instagram Url</label>
+                  <input type="text" class="form-control" name="tour_operator_instagram" id="tour_operator_instagram" placeholder="Enter Instagram Url">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Tour Operator Facebook</label>
-                  <input type="text" class="form-control" name="tour_operator_facebook" id="tour_operator_facebook" placeholder="Enter Operator Facebook">
+                  <label>Facebook Url</label>
+                  <input type="text" class="form-control" name="tour_operator_facebook" id="tour_operator_facebook" placeholder="Enter Facebook Url">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Tour Operator Web Address</label>
-                  <input type="text" class="form-control" name="tour_operator_web_add" id="tour_operator_web_add" placeholder="Enter Operator Web">
+                  <label>Website Address</label>
+                  <input type="text" class="form-control" name="tour_operator_web_add" id="tour_operator_web_add" placeholder="Enter Website Address">
                 </div>
               </div>
               <div class="col-md-6">
@@ -857,7 +857,7 @@
               </div>
 
               <div class="col-md-12">
-                <h5>Tour Operator Account (Main)</h5>
+                <h5>Bank Account (Main)</h5>
               </div>
 
 
@@ -886,7 +886,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <h5>Tour Operator Account (Other)</h5>
+                <h5>Bank Account (Other)</h5>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -914,18 +914,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Note</label>
-                  <textarea class="form-control" name="tour_operator_notes" id="tour_operator_notes" placeholder="Enter Note"></textarea>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Contract Terms</label>
-                  <textarea class="form-control" name="tour_operator_terms" id="tour_operator_terms" placeholder="Enter Contract Terms"></textarea>
-                </div>
-              </div>
+
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Contract Date</label>
@@ -992,6 +981,20 @@
                 </div>
               </div>
 
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Contract Terms</label>
+                  <textarea class="form-control" name="tour_operator_terms" id="tour_operator_terms" placeholder="Enter Contract Terms"></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Note</label>
+                  <textarea class="form-control" name="tour_operator_notes" id="tour_operator_notes" placeholder="Enter Note"></textarea>
+                </div>
+              </div>
+              
               <div class="col-12">
                 <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
               </div>

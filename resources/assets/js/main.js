@@ -182,7 +182,7 @@
   //   }
   // });
   $(".testimonials-carousel").owlCarousel({
-    autoplay: true,
+    autoplay: false,
     dots: true,
     loop: true,
     responsiveClass: true,
@@ -297,7 +297,7 @@
     margin:10,
     nav:true,
     dots: true,
-    
+    autoplay: false,
     responsive:{
         0:{
             items:1

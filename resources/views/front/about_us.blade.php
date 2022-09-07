@@ -22,7 +22,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/about1.jpg" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-md-block">
               <h5>Best Tour Facility</h5>
               <p>Book your Custom tour with us!</p>
             </div>

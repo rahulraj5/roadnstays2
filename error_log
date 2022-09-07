@@ -3654,3 +3654,35 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/roadnstay/public_html/phpinfo.php on line 1
+[03-Sep-2022 08:30:04 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:30:20 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:31:12 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:32:54 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:34:44 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 266342400 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:35:17 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 937
+[03-Sep-2022 08:37:55 UTC] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 48238592 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 939
+[03-Sep-2022 08:37:58 UTC] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 31461376 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 939
+[03-Sep-2022 08:39:09 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 266342400 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/ApiLoginController.php on line 969
+[03-Sep-2022 08:39:20 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 534777856 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/ApiLoginController.php on line 969
+[03-Sep-2022 08:39:29 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 534777856 bytes) in /home/roadnstay/public_html/app/Http/Controllers/Api/ApiLoginController.php on line 969
+[05-Sep-2022 05:09:08 UTC] PHP Warning:  mysqli_get_server_info() expects exactly 1 parameter, 0 given in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:09:08 UTC] PHP Warning:  mysqli_get_server_info() expects exactly 1 parameter, 0 given in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:09:09 UTC] PHP Warning:  mysqli_get_server_info() expects exactly 1 parameter, 0 given in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:09:27 UTC] PHP Warning:  mysqli_get_server_info() expects exactly 1 parameter, 0 given in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:09:29 UTC] PHP Warning:  mysqli_get_server_info() expects exactly 1 parameter, 0 given in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:10:45 UTC] PHP Fatal error:  Uncaught Error: Class 'DB' not found in /home/roadnstay/public_html/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:10:46 UTC] PHP Fatal error:  Uncaught Error: Class 'DB' not found in /home/roadnstay/public_html/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:10:47 UTC] PHP Fatal error:  Uncaught Error: Class 'DB' not found in /home/roadnstay/public_html/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/roadnstay/public_html/index.php on line 2
+[05-Sep-2022 05:10:59 UTC] PHP Fatal error:  Uncaught Error: Class 'DB' not found in /home/roadnstay/public_html/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/roadnstay/public_html/index.php on line 2

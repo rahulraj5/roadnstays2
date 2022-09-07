@@ -898,7 +898,8 @@ class HomeController extends Controller
             $user->role_id = 2;
             $addUser = $user->save();
 
-            $data['check_send_email'] = DB::table('users')->where('email', $request->semail)->first();
+            // $data['check_send_email'] = DB::table('users')->where('email', $request->semail)->first();
+            $data = array('user_id'=>$user->id,'name'=>"User",'first_name'=>$user->first_name,'last_name'=>$user->last_name);
             if ($addUser) {
                 if ($_SERVER['SERVER_NAME'] != 'localhost') {
 
@@ -909,7 +910,7 @@ class HomeController extends Controller
                     Mail::send('emails.signup_template', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'], 'RoadNStays');
                         $message->to($inData['email']);
-                        $message->subject('RoadNStays - New Registration');
+                        $message->subject('RoadNStays - User E-mail Verification');
                     });
                 }
                 // Auth::guard("web")->login($user);
@@ -926,20 +927,20 @@ class HomeController extends Controller
         $user_obj = User::where('email', '=', $request->email)->first();
         if (!empty($user_obj->id)) {
             if ($user_obj->role_id == 2) {
-                // if ($user_obj->is_verify_email == 1) {
-                if ($user_obj->status == 1) {
-                    $credentials = $request->only('email', 'password');
-                    if (Auth::attempt($credentials)) {
-                        return response()->json(['status' => 'success', 'role' => 'user', 'msg' => 'Login Successfully.']);
+                if ($user_obj->is_verify_email == 1) {
+                    if ($user_obj->status == 1) {
+                        $credentials = $request->only('email', 'password');
+                        if (Auth::attempt($credentials)) {
+                            return response()->json(['status' => 'success', 'role' => 'user', 'msg' => 'Login Successfully.']);
+                        } else {
+                            return response()->json(['status' => 'error', 'msg' => 'Invalid Credential.']);
+                        }
                     } else {
-                        return response()->json(['status' => 'error', 'msg' => 'Invalid Credential.']);
+                        return response()->json(['status' => 'error', 'msg' => 'Your account is not activated by Administrator.']);
                     }
-                } else {
-                    return response()->json(['status' => 'error', 'msg' => 'Your account is not activated by Administrator.']);
-                }
-                // }else{
-                //     return response()->json(['status' => 'error' ,'role' => 'user','msg' => 'Please check your email for a verification link.']);
-                // }    
+                }else{
+                    return response()->json(['status' => 'error' ,'role' => 'user','msg' => 'Please check your email for a verification link.']);
+                }    
             } else {
                 return response()->json(['status' => 'error', 'role' => 'other', 'msg' => 'Email address not registered.']);
             }
@@ -956,18 +957,22 @@ class HomeController extends Controller
         if (!empty($user_obj->id)) {
 
             if ($user_obj->role_id == 4) {
-                if ($user_obj->status == 1) {
-                    // $credentials = $request->only('email', 'password');
-                    // auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])
-                    if (Auth::attempt(['email' => $request->input('vlemail'), 'password' => $request->input('vlpassword')])) {
-                        // if (auth()->guard('servicepro')->attempt($credentials)) {
-                        return response()->json(['status' => 'success', 'role' => 'vendor', 'msg' => 'Login Successfully.']);
+                if ($user_obj->is_verify_email == 1) {
+                    if ($user_obj->status == 1) {
+                        // $credentials = $request->only('email', 'password');
+                        // auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])
+                        if (Auth::attempt(['email' => $request->input('vlemail'), 'password' => $request->input('vlpassword')])) {
+                            // if (auth()->guard('servicepro')->attempt($credentials)) {
+                            return response()->json(['status' => 'success', 'role' => 'vendor', 'msg' => 'Login Successfully.']);
+                        } else {
+                            return response()->json(['status' => 'error', 'msg' => 'Invalid Credential.']);
+                        }
                     } else {
-                        return response()->json(['status' => 'error', 'msg' => 'Invalid Credential.']);
+                        return response()->json(['status' => 'error', 'msg' => 'Your account is not activated by Administrator.']);
                     }
-                } else {
-                    return response()->json(['status' => 'error', 'msg' => 'Your account is not activated by Administrator.']);
-                }
+                }else{
+                    return response()->json(['status' => 'error' ,'role' => 'user','msg' => 'Please check your email for a verification link.']);
+                }    
             } else {
                 return response()->json(['status' => 'error', 'role' => 'other', 'msg' => 'Email address not registered.']);
             }
@@ -992,9 +997,29 @@ class HomeController extends Controller
             $user->role_id = 4;
             $addUser = $user->save();
             $user->id;
+
+            // if ($addUser) {
+            //     $id = DB::table('vendor_profile')->insert(['user_id' => $user->id]);
+            //     return response()->json(['status' => 'success', 'msg' => 'Vendor Created Successfully']);
+            // }
+            $data = array('user_id'=>$user->id,'name'=>"Vendor",'first_name'=>$user->first_name,'last_name'=>$user->last_name);
             if ($addUser) {
                 $id = DB::table('vendor_profile')->insert(['user_id' => $user->id]);
-                return response()->json(['status' => 'success', 'msg' => 'User Created Successfully']);
+
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $request->vsemail;
+
+                    Mail::send('emails.signup_template', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'RoadNStays');
+                        $message->to($inData['email']);
+                        $message->subject('RoadNStays - Vendor E-mail Verification');
+                    });
+                }
+                // Auth::guard("web")->login($user);
+                return response()->json(['status' => 'success', 'msg' => 'Vendor Created Successfully']);
             }
         } else {
             return response()->json(['status' => 'error', 'msg' => 'The email has already been taken']);

@@ -49,20 +49,25 @@
                         <h4>Skyler Associates
                         </h4>
                         <div class="d-flex info_single align-items-center">
-                            <i class="fas fa-headset"></i>
+                        <i class='bx bx-phone-call' ></i>
                             @php $admin_details = DB::table('admins')->where('id', 1)->first() @endphp
                             <a href="tel:{{ $admin_details->admin_number }}">{{ $admin_details->admin_number }}</a>
                         </div>
+
                         <div class="d-flex info_single align-items-center">
-                            <i class="fas fa-envelope-open-text"></i>
+                        <i class='bx bxl-whatsapp' ></i>
+                            <a href="mailto: info@roadnstays.com">+92 342 4514629</a>
+                        </div>
+                        <div class="d-flex info_single align-items-center">
+                        <i class='bx bx-envelope' ></i>
                             <a href="mailto: info@roadnstays.com">info@roadnstays.com</a>
                         </div>
                         <div class="d-flex info_single align-items-center">
-                            <i class="fas fa-envelope-open-text"></i>
+                        <i class='bx bx-mail-send' ></i>
                             <a href="mailto: contact@roadnstays.com">contact@roadnstays.com</a>
                         </div>
                         <div class="d-flex info_single align-items-center">
-                            <i class="fas fa-map-marked-alt"></i>
+                        <i class='bx bx-map-alt' ></i>
                             <span>Office No. 34, 2nd floor, Gulf Center, Qurtaba chowk, Main Feiroz pur road Lahore</span>
                         </div>
 
@@ -88,6 +93,7 @@
         </div>
     </div>
 </section>
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 
 
 

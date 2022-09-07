@@ -10,7 +10,7 @@ a:hover {
 }
 .title-h02 h2 {
     font-size: 30px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: '', sans-serif;
     color: #126c62;
     text-align: center;
     letter-spacing: 1px;
@@ -347,6 +347,13 @@ p.sub-txt {
   width: 100%;
   height: auto;
   object-fit: cover;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .tour-body .owl-carousel .item {
@@ -358,10 +365,16 @@ p.sub-txt {
 }
 .tour-body .owl-carousel.owl-drag .owl-item .item .card {
     overflow: hidden;
+    box-shadow: 0 2px 8px #00000026;
 }
 .tour-body .item-card2-img {
     position: relative;
     overflow: hidden;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
 }
 .tour-body .item-card2-img:before {
     background: rgba(113, 103, 255, 0);
@@ -369,16 +382,29 @@ p.sub-txt {
 .tour-body item-card2-img:before {
     overflow: hidden;
 }
-.tour-body .item-card2-img img {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
+.tour-body .item-card2-img:hover img {
+    transform: scale(1.2);
+    filter: grayscale(1);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
 }
 .tour-body .cover-image {
     background-size: cover !important;
     position: relative;
     width: 100%;
+    transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -ms-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    padding: 10px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 
 .tour-body .card-body> :last-child {
@@ -394,12 +420,12 @@ p.sub-txt {
 .tour-body .item-card2-desc i {
     margin: 0 auto;
     text-align: center;
-    font-size: 17px;
-    width: 30px;
-    height: 30px;
+    font-size: 13px;
+    width: 25px;
+    height: 25px;
     color: #126c62;
     background: #ededed;
-    line-height: 30px;
+    line-height: 26px;
     border-radius: 50%;
 }
 .tour-body .item-card2-desc {
@@ -543,7 +569,7 @@ p.sub-txt {
 }
 .mid-block {
     background: #f9f9f9;
-    padding: 15px 10px;
+    padding: 8px 11px;
 }
 .btm-info .item-card2-desc {
     padding: 0px;
@@ -568,15 +594,13 @@ p.sub-txt {
     overflow: hidden;
 }
 .tour-single-section {
-   /* background-image: url(../img/spain4.jpg);*/
     background-size: cover;
-    background-position: bottom;
     background-repeat: no-repeat;
     display: block;
     height: 450px;
     position: relative;
     overflow: hidden;
-	margin-top: 50px;
+	margin-top: 77px;
 }
 .tour-title-section {
     background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.7)), to(rgba(231, 56, 39, 0)));
@@ -686,12 +710,15 @@ h2.price span {
 }
 .right-part a.book-btn {
     background-color: #98d55d;
-   /* -webkit-box-shadow: 1px 11px 20px 0px rgb(239 63 62 / 12%);
-    box-shadow: 1px 11px 20px 0px rgb(239 63 62 / 12%);*/
     border-radius: 100px;
     color: #ffffff;
     padding: 8px 24px !important;
     text-transform: capitalize;
+    margin-top:2px!important;
+}
+.right-part a.book-btn:hover, .btn-success-text:hover{
+    background: #91d550;
+    color: #126c62;
 }
 
 /*Tabs*/
@@ -1327,6 +1354,7 @@ a.tour-type {
 }
 .note-info p {
     font-size: 14px;
+    padding: 0 5px;
 }
 .note-info i {
     font-size: 18px;
@@ -1385,8 +1413,9 @@ a.tour-type {
 .singles_item .info .name {
     font-size: 14px;
     color: #126c62;
-    margin: 0;
+    margin: 0 0 3px 0;
     line-height: 1;
+    font-weight: 700;
 }
 .singles_item .info .value {
     font-size: 14px;

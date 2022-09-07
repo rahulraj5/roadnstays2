@@ -5,7 +5,7 @@ a {
 }
 
 a:hover{
-  text-decoration: none;
+  text-decoration: none!important;
 }
 #hero h2 {
   color: #b1f175;
@@ -15,22 +15,40 @@ a:hover{
   font-weight: 800;
 }
 button:hover, .hotel-book1 .hotel-btn:hover, .btn:hover, .btn-primary-event:hover, .contact-oprator:hover, .profile-user-tabs li a:hover{
-  background: #b1d78c;
+  background: #91d550;
     color: #126c62;
 }
 .event-br .book-btn:hover, .tour-body .card-footer:hover{
-  background: #b1d78c;
+  background: #91d550;
     color: #126c62;
+    
 }
-
+.booking-type .row{
+  display: flex;
+  justify-content: center;
+}
+.googl_map h3{
+    font-size: 18px;
+    padding-top: 10px;
+    font-weight: bold;
+}
 a:hover {
-  color: #234b84;
   text-decoration: none;
 }
 #hero .carousel-item{
   background-position: 100% 0;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.book-btn {
+    background: #217961;
+    margin: auto;
+    padding: 10px;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 /* body {
@@ -121,7 +139,10 @@ color: #898989;
     min-height: 124px;
     padding-top: 3px;
 }
-
+.mobile-nav ul{
+  padding: 0;
+  list-style: none;
+}
 .category label {
     margin-bottom: 0px !important;
     display: flex;
@@ -475,7 +496,7 @@ background-color: #bdf48b;
     padding: 0px 224px;
     text-align: center;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 28px;
 }
 
 @media (min-width: 1200px) {
@@ -2308,10 +2329,9 @@ margin-bottom: 2px;
   color: #b1d78c;
 }
 .offer-btn {
-    background-color: #b1d78c;
+    background-color: #126c62;
     transition: 0.5s;
-    color: #126c62;
-    border: 1px solid #b1d78c;
+    color: #fff;
     padding: 10px 22px;
     border-radius: 30px;
     margin-top: 22px !important;
@@ -2757,7 +2777,7 @@ align-items: center;
 
 #menu ul.menus {
   height: auto;
-  width: 150px;
+  width: 180px;
   background: #126c62;
   position: absolute;
   z-index: 99;
@@ -2819,9 +2839,9 @@ align-items: center;
   height: 0;
   border-width: 6px 5px;
   border-style: solid;
-  border-color: #000 transparent transparent transparent;
+  border-color: #126c62 transparent transparent transparent;
   position: absolute;
-  top: 15px;
+  top: 20px;
   right: 9px
 }
 
@@ -2922,16 +2942,7 @@ align-items: center;
     padding: 0;
     transition: 0.5s;
 }
-.login-form .btn.btn-primary:hover {
-     background: #FFF none repeat scroll 0 0;
-    border-color: #126c62;
-    color: #126c62;
-    font-size: 14px;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-}
+
 .modal-title{
   color: #126c62;
 }
@@ -2958,6 +2969,15 @@ align-items: center;
   line-height: 50px;
   font-weight: bold;
   padding: 0;
+}
+.login-form .btn.btn-primary:hover {
+  background: #c6ff90f2;
+ color: #126c62;
+ font-size: 14px;
+ width: 100%;
+ height: 50px;
+ line-height: 50px;
+ padding: 0;
 }
 .tab-login {
     display: flex;
@@ -3321,6 +3341,7 @@ color: #12a594;
 #hero .text-con{
   padding: 0 10px;
   font-size: 14px;
+  line-height: 21px;
 }
 
 .booking-slot .nav-tabs>.nav-item>.nav-link {
@@ -4495,9 +4516,10 @@ font-size: 17px;
 .exprience-heading ul li a {
   font-size: 16px;
 }
-#hero p {
-  padding: 14px 35px;
+#hero .text-con {
+  padding: 14px 0;
 }
+
 .card.booking-slot {
   width: 100%;
 }
@@ -5145,9 +5167,10 @@ border: 1px solid #126c62;
 .paynow-btn {
     background: #126c62;
     color: #FFF;
-    padding: 6px 62px;
-    font-size: 17px;
+    padding: 6px 56px;
+    font-size: 18px;
     border-radius: 6px;
+    box-shadow: 0px 6px 9px #8b8b8b;
     transition: 0.5s;
     border: 1px solid #126c62;
 }
@@ -5156,7 +5179,9 @@ border: 1px solid #126c62;
     background: #FFF;
     border: 1px solid #126c62;
   }
-
+.listing-tour .tour-body .item{
+    margin-bottom: 20px;
+}
 .runs-andpay {
     display: flex;
     justify-content: start;
@@ -5405,8 +5430,9 @@ color: #126c62;
   font-size: 13px;
 }
 .room-praci h5 {
-    font-size: 16px;
-    color: #000;
+    font-size: 15px;
+    color: #126c62;
+    font-weight: 600;
 }
 .room-praci {
     padding: 15px;
@@ -5437,8 +5463,9 @@ color: #126c62;
     cursor: pointer;
 }
 .citi-omr {
-    font-size: 23px;
-    color: #000;
+    font-size: 20px;
+    color: #126c62;
+    font-weight: bold;
 }
 .page-detail p {
     padding: 4px;
@@ -5582,7 +5609,7 @@ margin-right: 10px;
     margin-bottom: 3px;
 }
 .item-card2-img{
-  height: 265px;
+  height: 200px;
   overflow: hidden;
  
 }
@@ -5614,6 +5641,14 @@ margin-right: 10px;
 .hotel-type {
     min-height: 80px;
 }
+.tour-book1 .locatin-hotel {
+ font-size: 14px;
+  color:#0000009e;
+ 
+}
+.filter_01:hover, .guest-no .dropdown:hover{
+  background-color: aliceblue;
+}
 .locatin-hotel {
     width: 91%;
     border: none;
@@ -5621,7 +5656,9 @@ margin-right: 10px;
     background-color: transparent;
     font-size: 16px;
     color:#495057;
+    height: 35px;
 }
+
 
 .hotel-searchbar, .h-hotel .form-control-lo{
   display: flex;
@@ -5643,7 +5680,7 @@ margin-right: 10px;
     align-items: center;
     border-radius: 50px;
     margin: auto;
-    padding: 8px 0px 8px 5px;
+    padding: 8px 0px 8px 10px;
     box-shadow: 0 1px 7px 0 rgb(0 0 0 / 40%);
     margin:auto!important;
     justify-content: space-between;
@@ -5698,8 +5735,8 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .hotel-book1 .hotel-btn{
   position: absolute;
-  top: 20px;
-  left: 355px;
+  top: 15px;
+  left: 0;
 }
 .event-book1 .hotel-btn{
   width: auto;
@@ -5728,12 +5765,13 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 .booking-slot .tab-content .reserved input{
   border:0px solid #b7abab;
   font-size: 14px;
-color: #00000052;
+color: #0000009e;
+height: 40px;
 }
 .booking-slot .tab-content .h-siz{
   border:0px solid #b7abab;
   font-size: 14px;
-  color: #00000052;
+  color: #0000009e;
 
 }
 .booking-type .row p{
@@ -5758,7 +5796,7 @@ color: #00000052;
 }
 .tour-book1 .hotel-btn{
   position: absolute;
-  top: 20px;
+  top: 19px;
   left: 0;
 }
 .space-book1 .hotel-btn {
@@ -5778,7 +5816,7 @@ text-align: end;
 .booking-slot .tab-content .h-hotel{
   border: solid 1px #e7e7e7;
   padding-top: 10px;
-  border-right: none;
+  /*border-right: none;*/
 }
 .booking-slot .tab-content .reserved1{
   border: solid 1px #e7e7e7;
@@ -5806,11 +5844,11 @@ text-align: end;
 }
 .tour-book1 input::placeholder {
   font-size: 14px;
-  color: #00000052;
+  color: #0000009e;
 }
 .space-book1 input::placeholder {
   font-size: 14px;
-  color: #00000052;
+  color: #0000009e;
 }
 .booking-slot .tab-content .guest-no{
   border: solid 1px #e7e7e7;
@@ -5818,7 +5856,7 @@ text-align: end;
 }
 .booking-type .row input::placeholder{
   font-size: 14px;
-  color: #00000052;
+  color: #0000009e;
 }
 .booking-slot .tab-content #reservation input, .booking-slot .tab-content .space-control{
   border:0px solid #e7e7e7;
@@ -5829,7 +5867,7 @@ text-align: end;
 
 .to-date {
   position: absolute;
-  top: 13px;
+  top: 25px;
   left: 124px;
   font-size: 20px;
   color: #126c62;
@@ -6381,11 +6419,7 @@ width: 80%;
     font-weight: 400;
     font-size: 14px;
 }
-#rating-ability-wrapper {
-    margin-bottom: 15px !important;
-    display: flex !important;
-    align-items: center;
-}
+
 
 .filter_01 {
     padding-right: 0px !important;
@@ -7736,11 +7770,10 @@ address {
   content: "";
   display: block;
   position: absolute;
-
 }
 
 .itinerary-cont .itinerary-cont-box span {
-  position: absolute;
+  /*position: absolute;*/
   left: 0;
   top: 0;
   color: #126c62;
@@ -7749,7 +7782,6 @@ address {
 }
 .itinerary-cont.accordion-box .itinerary-cont-box.accordion-item:nth-child(2) .accordion-thumb {
   border-top: 0;
-  padding-top: 0;
 }
 .itinerary-cont .itinerary-cont-box h4 {
   color: #2d2e32;
@@ -7781,8 +7813,6 @@ address {
   float: left;
   width: 100%;
 }
-
-
 .itinerary-cont .itinerary-cont-box h5 {
   color: #3b404b;
   float: left;
@@ -7803,7 +7833,7 @@ address {
 }
 .itinerary-cont .itinerary-cont-box ul.Benfits li {
     float: left;
-    margin-right: 30px;
+    margin-right: 20px;
     text-align: center;
     color: #000;
     font-size: 14px;
@@ -7813,9 +7843,9 @@ address {
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    box-shadow: 0 0 10px #b2b3b1;
+    box-shadow: 0 0 4px #b2b3b1;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 6px;
     transition:all 0.3s ;
     -webkit-transition:all 0.3s ;
     -moz-transition:all 0.3s ;
@@ -7832,11 +7862,11 @@ address {
   background-color:#f6fff8;
 }
 .itinerary-cont .itinerary-cont-box ul.Benfits li:hover{
-  transform: scale(1.1) translateY(-5px);
-  -webkit-transform: scale(1.1) translateY(-5px);
-  -moz-transform: scale(1.1) translateY(-5px);
-  -ms-transform: scale(1.1) translateY(-5px);
-  -o-transform: scale(1.1) translateY(-5px);
+ transform: scale(1.1) translateY(-5px);
+ -webkit-transform: scale(1.1) translateY(-5px);
+ -moz-transform: scale(1.1) translateY(-5px);
+ -ms-transform: scale(1.1) translateY(-5px);
+ -o-transform: scale(1.1) translateY(-5px);
 }
 .itinerary-cont .itinerary-cont-box p {
   color: #000;
@@ -7844,7 +7874,7 @@ address {
   line-height: 23px;
 }
 .desc-box p{
-  font-size: 14px;
+  font-size: 16px;
 }
 .itinerary-cont .itinerary-cont-box:after {
   background: #c4c4c4;
@@ -7890,6 +7920,7 @@ address {
 
 .desc-box .info-service{
   display: grid;
+  padding: 1px 17px;
 }
 .event-caro h1{
     color: #126c62;
@@ -8012,6 +8043,15 @@ address {
     box-shadow: 3px 14px 25px -10px #92b4d0;
     transition: background 0.5s ease 0s;
 }
+.ofr .owl-carousel .owl-item {
+    width: 12.5% !important;
+}
+.ofr .owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    height: 364px !important;
+}
 .event-caro .owl-controls .owl-buttons .owl-next{
     background: #fff;
     position: absolute;
@@ -8053,7 +8093,7 @@ address {
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border: 1px solid rgba( 255, 255, 255, 0.18 );
-  font-size: 50px;
+  font-size: 36px;
   font-weight: 900;
   padding: 15px 40px;
   position: absolute;
@@ -8305,6 +8345,26 @@ table.dataTable>tbody>tr.child ul.dtr-details {
 .lead{
   font-size: 13px!important;
 }
+.itinerary-cont .itinerary-cont-box{
+  padding-left: 15px;
+}
+.itinerary-cont .itinerary-cont-box:before{
+  left:-10px;
+}
+.itinerary-cont .itinerary-cont-box:after{
+  left:-6px;
+}
+.itinerary-cont .itinerary-cont-box ul.Benfits li{
+  margin-right: 10px;
+  padding: 8px 16px;
+}
+.right-part p{
+  margin-bottom: 10px;
+}
+.description-section .row .col-lg-3 {
+  border-right: 0px dotted #6fd3cf!important;
+  width: 50%;
+}
   }
 
 @media screen and (max-width:1023px) and (min-width:768px){
@@ -8415,6 +8475,7 @@ top: 0;
 .cosmall-text p{
   font-size: 15px;
 }
+
 .customradio {
   display: block;
   position: relative;

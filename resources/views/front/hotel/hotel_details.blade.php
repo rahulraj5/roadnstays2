@@ -17,10 +17,7 @@
         padding-left: 1px !important;
      }
 
-     .sider-page .row label,
-     .row p {
-        padding: 1px;
-     }
+     
   </style>
 
   <!-- slider -->
@@ -120,7 +117,7 @@
                        <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
                        @endif
                     </h3>
-                    <p>{{$hotel_data->hotel_address}},{{$hotel_data->hotel_city}},{{$hotel_data->nicename}}</p>
+                    <h6>({{$hotel_data->hotel_address}},{{$hotel_data->hotel_city}},{{$hotel_data->nicename}})</h6>
                     <p>{{strip_tags($hotel_data->hotel_content)}}</p>
                     <h3 class="higllisght">HIGHLIGHTS</h3>
                     <div class="check-time">

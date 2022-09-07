@@ -251,15 +251,17 @@
 
                                     <li><a href="{{ url('/user/spaceBookingList') }}"><i class='bx bxs-city'></i> <span> Space Booking </span></a> </li>
                                     <li><a href="{{ url('/user/tourBookingList') }}"><i class='bx bxs-car'></i> <span> Tour Booking </span></a> </li>
-                                    
+
 
                                 </ul>
 
                             </div>
 
                             <li><a class="modal-btn2" data-toggle="modal" data-target="#exampleModal2"><i class='bx bxs-detail'></i><span> Change Password </span>
-                                        </a></li>
+                                </a>
+                            </li>
                             <!-- <li><a href="{{ url('/user/profile') }}"><i class='bx bx-user-circle'></i><span> Profile </span></a> </li> -->
+                            <li><a href="{{ url('/cancellation-policy') }}"><i class='bx bx-book'></i><span> Cancellation Policy </span></a> </li>
 
 
 

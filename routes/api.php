@@ -23,9 +23,11 @@ Route::post('hotel_detail','Api\WsController@hotel_details')->middleware('CheckT
 Route::post('room_detail','Api\WsController@room_details')->middleware('CheckToken');
 Route::post('hotel_type','Api\WsController@hotel_type')->middleware('CheckToken');
 Route::post('paypal_payment','Api\WsController@payment')->middleware('CheckToken');
-
 Route::post('hotel_list_test','Api\WsController@hotel_list_test')->middleware('CheckToken');
-
+Route::post('tour_list','Api\WsController@tour_list')->middleware('CheckToken');
+Route::post('tour_details','Api\WsController@tour_details')->middleware('CheckToken');
+Route::post('tour_search_fields','Api\WsController@tour_search_fields')->middleware('CheckToken');
+Route::post('tour_list_search','Api\WsController@tour_list_search')->middleware('CheckToken');
 Route::post('forget_password','Api\ApiLoginController@forgot_password')->middleware('CheckToken');
 Route::post('verify_otp','Api\ApiLoginController@verifyOTP')->middleware('CheckToken');
 Route::post('reset_password','Api\ApiLoginController@resetPassword')->middleware('CheckToken');

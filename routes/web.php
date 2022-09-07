@@ -138,8 +138,14 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
 
     // booking 
     Route::any('user/bookingList', 'Home\BookingController@booking_list');	
-    Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');	
+    Route::any('user/bookingList-upcoming', 'Home\BookingController@booking_list_upcoming');	
+    Route::any('user/bookingList-cancel', 'Home\BookingController@booking_list_cancel');	
+    Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');
+    Route::any('user/spaceBookingList-upcoming', 'Home\BookingController@space_booking_list_upcoming');	
+    Route::any('user/spaceBookingList-cancel', 'Home\BookingController@space_booking_list_cancel');		
     Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
+    Route::any('user/tourBookingList-upcoming', 'Home\BookingController@tour_booking_list_upcoming');	
+    Route::any('user/tourBookingList-cancel', 'Home\BookingController@tour_booking_list_cancel');	
 
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::post('user/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');	
@@ -241,8 +247,7 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/spaceBookingView/{id}', 'Vendor\BookingController@space_booking_view');
 
     Route::get('servicepro/transactionHistory', 'Vendor\BookingController@transaction_history');
-    Route::get('servicepro/transactionHistoryView/{id}', 'Vendor\BookingController@view_transaction_history');
-
+    Route::get('servicepro/transactionHistoryView/{id}', 'Vendor\BookingController@view_transaction_history'); 
     Route::get('servicepro/events_list', 'Vendor\EventController@events_list');
     Route::get('servicepro/addEvent', 'Vendor\EventController@addEvent');
     Route::post('servicepro/submitEvent', 'Vendor\EventController@submitEvent');
@@ -474,7 +479,14 @@ Route::group(['prefix' => 'scout'], function(){
         Route::get('/dashboard','Scout\ScoutUserController@dashboard')->name('scout.dashboard');
         Route::any('/profile', 'Scout\ScoutUserController@profile');
         Route::any('/changePassword', 'Scout\ScoutUserController@change_password');
-        Route::any('/logout', 'Scout\ScoutUserController@scoutLogout')->name('scout.logout');	
+        Route::any('/logout', 'Scout\ScoutUserController@scoutLogout')->name('scout.logout');
+        Route::get('/hotelList', 'Scout\HotelController@hotel_list');
+        Route::get('/viewHotelRooms/{id}', 'Scout\HotelController@hotel_rooms_list');
+        Route::get('/viewHotel/{id}', 'Scout\HotelController@view_hotel');
+        Route::get('/viewHotelRooms/{id}', 'Scout\HotelController@hotel_rooms_list');
+        Route::any('/viewRoom/{id}', 'Scout\HotelController@view_room');
+        Route::get('/tourList', 'Scout\TourController@tour_list');
+        Route::get('/viewTour/{id}', 'Scout\TourController@view_tour');	
     });
 });
 
