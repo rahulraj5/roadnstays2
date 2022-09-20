@@ -30,8 +30,13 @@
                </div>
                <div style=" display:block; overflow:hidden">
                   <p class="parag">Thank you for Signup</p>
+                  @if(!empty($email))
+                  <p class="parag">E-mail - {{$email}}</p>
+                  <p class="parag">Password - {{$password}}</p>
+                  @endif
                   <p class="parag">Almost done!</p>
                   <p class="parag">Click on the button below to verify your account.</p>
+                  
                   <div class="button parag">
                      <a href="{{ url('/api/changeStatus') }}?user_id={{ $user_id }}" target="_blank" style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:Cabin, Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">
                         Click Here

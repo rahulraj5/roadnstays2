@@ -197,266 +197,390 @@
 </script>
 
 <script>
-$(window).scroll(function(){
-    if ($(this).scrollTop() >0) {
-       $('#dynamic').addClass('newClass');
-       $('#locat-h').addClass('hotel-type');
-       $('#header').addClass('hotel-type');
-       
-       
-       $('#hotel-form1').addClass('input-box');
-       
-       $('#logo-s').addClass('logo-z');
-       $('#dynamic').removeClass('sticky-space');
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 0) {
+            $('#dynamic').addClass('newClass');
+            $('#locat-h').addClass('hotel-type');
+            $('#header').addClass('hotel-type');
 
-    } else {
-       $('#dynamic').removeClass('newClass');
-       $('#locat-h').removeClass('hotel-type');
-       $('#header').removeClass('hotel-type');
-       $('#hotel-form1').removeClass('input-box');
-       $('#logo-s').removeClass('logo-z');
-       $('#dynamic').addClass('sticky-space');
-       
-    }
-});
 
+            $('#hotel-form1').addClass('input-box');
+
+            $('#logo-s').addClass('logo-z');
+            $('#dynamic').removeClass('sticky-space');
+
+        } else {
+            $('#dynamic').removeClass('newClass');
+            $('#locat-h').removeClass('hotel-type');
+            $('#header').removeClass('hotel-type');
+            $('#hotel-form1').removeClass('input-box');
+            $('#logo-s').removeClass('logo-z');
+            $('#dynamic').addClass('sticky-space');
+
+        }
+    });
 </script>
 
 <script>
-   	$(document).ready(function() {
-			$('.minus').click(function () {
-				var $input = $(this).parent().find('input');
-				var count = parseInt($input.val()) - 1;
-				count = count < 1 ? 1 : count;
-				$input.val(count);
-				$input.change();
-				return false;
-			});
-			$('.plus').click(function () {
-				var $input = $(this).parent().find('input');
-				$input.val(parseInt($input.val()) + 1);
-				$input.change();
-				return false;
-			});
-		});
-
-
+    $(document).ready(function() {
+        $('.minus').click(function() {
+            var $input = $(this).parent().find('input');
+            var count = parseInt($input.val()) - 1;
+            count = count < 1 ? 1 : count;
+            $input.val(count);
+            $input.change();
+            return false;
+        });
+        $('.plus').click(function() {
+            var $input = $(this).parent().find('input');
+            $input.val(parseInt($input.val()) + 1);
+            $input.change();
+            return false;
+        });
+    });
 </script>
 
+<script>
+    $(function() {
+        $('.space_dater').daterangepicker({
+            opens: 'right'
+        }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+        });
+    });
+</script>
+
+<script>
+    var today = new Date();
+
+    $(function() {
+
+        $('.reserved').daterangepicker({
+            "autoApply": true,
+            "autoUpdateInput": true,
+            minDate: today,
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            "opens": "center",
+            "drops": "auto"
+        }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+            let space_start_date = start.format('DD-MM-YYYY');
+            let space_end_date = end.format('DD-MM-YYYY');
+            checkSameDate(space_start_date, space_end_date);
+        });
+    });
+
+    function checkSameDate(start, end) {
+        let space_start_date = start;
+        let space_end_date = end;
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{url('/checkValidDaterange')}}",
+            data: {
+                space_start_date: space_start_date,
+                space_end_date: space_end_date,
+                _token: CSRF_TOKEN
+            },
+            dataType: 'JSON',
+            success: function(response) {
+                if (response.status == 'sameDateError') {
+                    error_noti(response.msg);
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 2000);
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+    var placeSearch, autocomplete;
+    var componentForm = {
+        // street_number: 'long_name',
+        // route: 'long_name',
+        // locality: 'long_name',
+        // postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete_space')), {
+                types: ['(cities)']
+            });
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            console.log(place);
+            document.getElementById('space_latitude').value = place.geometry.location.lat();
+            document.getElementById('space_longitude').value = place.geometry.location.lng();
+            fillInAddress(autocomplete, "");
+        });
+    }
+
+    function fillInAddress(autocomplete, unique) {
+
+        var place = autocomplete.getPlace();
+        for (var component in componentForm) {
+            if (!!document.getElementById(component + unique)) {
+                document.getElementById(component + unique).value = '';
+                document.getElementById(component + unique).disabled = false;
+            }
+        }
+
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType + unique).value = val;
+            }
+        }
+    }
+    google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+</script>
 @endsection
 
 @section('content')
 <main id="main" class="main-body">
     <!-- paste here html code -->
     <section id="dynamic" class="sticky-space" style="">
-    <div class="logo-s col-md-2" id="logo-s"><a href="https://votivetechnologies.in/roadNstays" class="logo mr-auto"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
-      <div class="container">
-      
-      <div class="row">
-      <div class="col-md-12 ">
-         <div class="event-locaatio">
-            <!-- <small><a href="#"> Home </a>/ <a href="#"> Event </a> </small> -->
-            
-            <div class="hotel-typ">
-            <h3 id ="locat-h">space in Indore </h3>
-            <form method="GET" action="">
-              @csrf
-               <div id="hotel-form1" class="row  align-items-center hotel-form1" >
-                
-                  <div class="col-md-4 filter_01 pr-0 h-hotel pl-0" >
-                 <!-- <p>Where To</p>  -->
-                     <span id="i-1" class="span3 form-control-lo"><i class="bx bx-map"></i>
-                     
-                     <input type="location" name="location" placeholder="Location, City, Place" class="locatin-hotel" id="autocomplete" required="" value="">
-                     <input type="hidden"  name="hotel_latitude" id="hotel_latitude" value="">
-                     <input type="hidden"  name="hotel_longitude" id="hotel_longitude" value="">
-                 	</span>
-                  </div>
+        <div class="logo-s col-md-2" id="logo-s"><a href="{{url('/')}}" class="logo mr-auto"><img src="{{url('/')}}/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
+        <div class="container">
 
-                  <div class="col-md-2 filter_01 pr-0 reserved" >
-                  <!-- <p>Check_in</p> -->
-                  <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="">
-                  
-                  </div>
-                  <div class="col-md-2 filter_01 pr-0 reserved" >
-                  <!-- <p>Check_out</p> -->
-                   <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="">
-                   
-                  </div>
-                  <div class="col-md-2 filter_01 pr-0 guest-no1" >
-                    <!-- <p>Person</p> -->
-                    <div class="dropdown">
-      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        People, Guest No.
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#"><span>Adult(12+)</span>
-          <div class="number">
-      <span class="minus">-</span>
-      <input type="text" value="1"/>
-      <span class="plus">+</span>
-    </div></a></li>
-        <li><a class="dropdown-item" href="#"><span>Child(0-12)</span> <div class="number">
-      <span class="minus">-</span>
-      <input type="text" value="1"/>
-      <span class="plus">+</span>
-    </div></a></li>
-      </ul>
-    </div>
-                  </div>
-                  <div class="col-md-2 filter_01 pr-0" id="i-5">
-                  <button><i class="bx bx-search"></i></button></div>
-                  
-                  
-               </div>
-              
-            </form>
-         </div>
-         </div>
-         
-      </div>
-      </div>
-      </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="event-locaatio">
+                        <!-- <small><a href="#"> Home </a>/ <a href="#"> Event </a> </small> -->
+
+                        <div class="hotel-typ">
+                            <h3 id="locat-h">space in Indore </h3>
+                            <form method="GET" action="{{url('spaceList')}}">
+                                @csrf
+                                <div id="hotel-form1" class="row  align-items-center hotel-form1">
+
+                                    <div class="col-md-4 filter_01 pr-0 h-hotel pl-0">
+                                        <!-- <p>Where To</p>  -->
+                                        <span id="i-1" class="span3 form-control-lo"><i class="bx bx-map"></i>
+                                            <input type="location" name="space_location" placeholder="Location, City, Place" class="locatin-space" id="autocomplete_space" required="">
+                                            <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
+                                            <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+                                        </span>
+                                    </div>
+
+                                    <!-- <div class="col-md-2 filter_01 pr-0 reserved">
+                                        <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="">
+                                    </div>
+                                    <div class="col-md-2 filter_01 pr-0 reserved">
+                                        <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="">
+                                    </div> -->
+
+                                    <div class="col-md-3 pr-0 space_dater reserved">
+                                        <input id="space_checkin_date" placeholder="Check in Date" class="s-siz" value="<?php echo date("d-m-Y"); ?>" name="space_checkin_date">
+                                    </div>
+                                    <div class="col-md-3 pr-0 space_dater reserved">
+                                        <input id="space_checkout_date" placeholder="Check out Date" class="s-siz" value="<?php echo date("d-m-Y", strtotime("+ 1 day")); ?>" name="space_checkout_date">
+                                    </div>
+
+                                    <!-- <div class="col-md-2 filter_01 pr-0 guest-no1">
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                People, Guest No.
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><span>Adult(12+)</span>
+                                                        <div class="number">
+                                                            <span class="minus">-</span>
+                                                            <input type="text" value="1" />
+                                                            <span class="plus">+</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"><span>Child(0-12)</span>
+                                                        <div class="number">
+                                                            <span class="minus">-</span>
+                                                            <input type="text" value="1" />
+                                                            <span class="plus">+</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-2 filter_01 pr-0" id="i-5">
+                                        <button><i class="bx bx-search"></i></button>
+                                    </div>
 
 
-      
-   </section>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
     <!-- slider -->
     <main id="main">
         <section class="user-section">
             <div class="container-fluid">
                 <!-- <div class="row gird-event"  id="filterdata"> -->
                 <div class="row filter-row">
-                    
-                <div class="sticky-spaclist">
-    <h6>Filter - Space</h6>
-    <div class="category category-1">
-    <p>Private Space</p>
-    <ul>
-        <li><input type="checkbox" name="Wedding" id="">Wedding</li>
-        <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
-        <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
-        <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
-        <li><input type="checkbox" name="Business'" id="">Business'</li>
-        <li><input type="checkbox" name="Schools" id="">Schools</li>
-        <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li>
-    </ul>
-    </div>
 
-    <div class="category category-2">
-        <p>CORPORATE</p>
-        <ul>
-            <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
-            <li><input type="checkbox" name="Conferences" id="">Conferences</li>
-            <li><input type="checkbox" name="Networking events" id="">Networking events</li>
-            <li><input type="checkbox" name="Seminars" id="">Seminars</li>
-            <li><input type="checkbox" name="Product launches" id="">Product launches</li>
-            <li><input type="checkbox" name="Meetings" id="">Meetings</li>
-            <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
-            <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
-        </ul>
-    </div>
+                    <div class="sticky-spaclist">
+                        <h6>Filter - Space</h6>
+                        <div class="category category-1">
+                            <p>Private Space</p>
+                            <ul>
+                                <li><input type="checkbox" name="Wedding" id="">Wedding</li>
+                                <li><input type="checkbox" name="Wedding receptions" id="">Wedding receptions</li>
+                                <li><input type="checkbox" name="Birthday parties" id="">Birthday parties</li>
+                                <li><input type="checkbox" name="Festival gatherings" id="">Festival gatherings</li>
+                                <li><input type="checkbox" name="Business'" id="">Business'</li>
+                                <li><input type="checkbox" name="Schools" id="">Schools</li>
+                                <li><input type="checkbox" name="Manufacturers" id="">Manufacturers</li>
+                            </ul>
+                        </div>
 
-    <div class="category category-3">
-        <p>CHARITY/FUNDRAISING</p>
-        <ul>
-            <li><input type="checkbox" name="Society balls" id="">Society balls</li>
-            <li><input type="checkbox" name="Sports events" id="">Sports events</li>
-            <li><input type="checkbox" name="Charitable auctions" id="">Charitable auctions</li>
-            <li><input type="checkbox" name="Sponsored runs" id="">Sponsored runs</li>
-            <li><input type="checkbox" name="Sponsored cycling" id="">Sponsored cycling</li>
-            <li><input type="checkbox" name="Sponsored skydiving" id="">Sponsored skydiving</li>
-            <li><input type="checkbox" name="Sponsored walks" id="">Sponsored walks</li>
-           
-        </ul>
-    </div>
+                        <div class="category category-2">
+                            <p>CORPORATE</p>
+                            <ul>
+                                <li><input type="checkbox" name="Business dinners" id="">Business dinners</li>
+                                <li><input type="checkbox" name="Conferences" id="">Conferences</li>
+                                <li><input type="checkbox" name="Networking events" id="">Networking events</li>
+                                <li><input type="checkbox" name="Seminars" id="">Seminars</li>
+                                <li><input type="checkbox" name="Product launches" id="">Product launches</li>
+                                <li><input type="checkbox" name="Meetings" id="">Meetings</li>
+                                <li><input type="checkbox" name="Ensuring team building exercises" id="">Ensuring team building exercises</li>
+                                <li><input type="checkbox" name="Exhibitions and trade shows" id="">Exhibitions and trade shows</li>
+                            </ul>
+                        </div>
 
-    <div class="category category-4">
-        <p>LIVE </p>
-        <ul>
-            <li><input type="checkbox" name="Music events" id="">Music events</li>
-            <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
-            <li><input type="checkbox" name="Festivals" id="">Festivals</li>
-        </ul>
-    </div>
-    <div class="category category-4">
-        <p>Date</p>
-        <input type="date" name="" id="" placeholder="select a date">
-       
-    </div>
-    <div class="category category-5">
-        <p>space Venue</p>
-        <ul>
-            <li><input type="checkbox" name="" id="">Delhi</li>
-            <li><input type="checkbox" name="" id="">islamabad</li>
-            <li><input type="checkbox" name="" id="">Dubai</li>
-            <li><input type="checkbox" name="" id="">Pakistan</li>
-            <li><input type="checkbox" name="" id="">peshawar</li> 
-        </ul>
-    </div>
-    </div>
-    <div class="col-md-9">
+                        <div class="category category-3">
+                            <p>CHARITY/FUNDRAISING</p>
+                            <ul>
+                                <li><input type="checkbox" name="Society balls" id="">Society balls</li>
+                                <li><input type="checkbox" name="Sports events" id="">Sports events</li>
+                                <li><input type="checkbox" name="Charitable auctions" id="">Charitable auctions</li>
+                                <li><input type="checkbox" name="Sponsored runs" id="">Sponsored runs</li>
+                                <li><input type="checkbox" name="Sponsored cycling" id="">Sponsored cycling</li>
+                                <li><input type="checkbox" name="Sponsored skydiving" id="">Sponsored skydiving</li>
+                                <li><input type="checkbox" name="Sponsored walks" id="">Sponsored walks</li>
+
+                            </ul>
+                        </div>
+
+                        <div class="category category-4">
+                            <p>LIVE </p>
+                            <ul>
+                                <li><input type="checkbox" name="Music events" id="">Music events</li>
+                                <li><input type="checkbox" name="Sporting events" id="">Sporting events</li>
+                                <li><input type="checkbox" name="Festivals" id="">Festivals</li>
+                            </ul>
+                        </div>
+                        <div class="category category-4">
+                            <p>Date</p>
+                            <input type="date" name="" id="" placeholder="select a date">
+
+                        </div>
+                        <div class="category category-5">
+                            <p>space Venue</p>
+                            <ul>
+                                <li><input type="checkbox" name="" id="">Delhi</li>
+                                <li><input type="checkbox" name="" id="">islamabad</li>
+                                <li><input type="checkbox" name="" id="">Dubai</li>
+                                <li><input type="checkbox" name="" id="">Pakistan</li>
+                                <li><input type="checkbox" name="" id="">peshawar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
                         <div class="space-category">
                             <!-- <h3 class="mb-4">126 results |Coworking Space in Indore</h3> -->
                             <h3 class="mb-4">{{ count($spaceList) }} results | {{$space_cat_name}}</h3>
                             @if(!empty($spaceList))
-                                @foreach($spaceList as $space)
-                                <div class="cate-box">
-                                    <!--  <div class="cate-text-icon-img">
+                            @foreach($spaceList as $space)
+                            <div class="cate-box">
+                                <!--  <div class="cate-text-icon-img">
                                                         <img src="{{ url('resources/assets/img/a3.png')}}">
                                                     </div> -->
 
-                                    <div class="cate-text-icon-img">
-                                        <div class="owl-carousel owl-theme">
-                                            @if($space->image)
-                                            <div class="item">
-                                                <img src="{{ url('public/uploads/space_images')}}/{{$space->image}}">
-                                                
-                                         </div>
-                                            @endif
+                                <div class="cate-text-icon-img">
+                                    <div class="owl-carousel owl-theme">
+                                        @if($space->image)
+                                        <div class="item">
+                                            <img src="{{ url('public/uploads/space_images')}}/{{$space->image}}">
 
-                                            @php $space_gallery = DB::table('space_gallery')->where('space_id', $space->space_id)->get(); @endphp
-                                            @if($space_gallery)
-                                            @foreach($space_gallery as $space_image)
-                                            <div class="item"><img src="{{ url('public/uploads/space_images')}}/{{$space_image->image}}"> </div>
-                                            @endforeach
-                                            @endif
-                                            <!-- <div class="item"> <img src="{{ url('resources/assets/img/a3.png')}}"> </div> -->
                                         </div>
-                                    </div>
+                                        @endif
 
-                                    <div class="co-overlay">
-                                        <h3>{{ $space->space_name }}</h3>
-                                        <div class="d-flex justify-content-between w-75">
-                                            <h4 class="motn-text">PKR {{$space->price_per_night}}/-<small>/Per Night</small> </h4>
-                                            <h4 class="motn-text">{{$space->room_size}}<small>/sq.ft.</small> </h4>
-                                            <h4 class="motn-text">{{$space->bedroom_number}} Bedrooms<small>/{{$space->bathroom_number}} Baths</small> </h4>
-                                        </div>
-
-                                        <div class="d-flex justify-content-start hot-desh mt-2">
-                                            <a href="#"> Hot Desk </a>
-                                            <a href="#"> Dedicated Desk </a>
-                                            <a href="#"> Meeting Room </a>
-                                        </div>
-                                        <p class="mt-3 v-text">
-                                            <!-- Virtual coworks indore is a fine modern standalone building with all the facilities under one roof. -->
-                                            {{ Str::limit($space->description, 90) }}
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <div class="social-icon-list">
-                                                <ul>
-                                                    <li> <a href="#"> <i class='bx bxs-star'></i> <!-- <label> 3.0 </label> --></a> </li>
-                                                    <li> <a href="#"><i class='bx bxs-share'></i></a> </li>
-                                                    <li> <a href="#"> <i class='bx bxs-low-vision'></i></a> </li>
-                                                </ul>
-                                            </div>
-                                            <!-- <button type="button" data-toggle="modal" data-target="#openEditor" class="contact-oprator"> Book Now</button> -->
-                                            <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}"><button type="button" class="contact-oprator"> Book Now</button></a>
-                                        </div>
+                                        @php $space_gallery = DB::table('space_gallery')->where('space_id', $space->space_id)->get(); @endphp
+                                        @if($space_gallery)
+                                        @foreach($space_gallery as $space_image)
+                                        <div class="item"><img src="{{ url('public/uploads/space_images')}}/{{$space_image->image}}"> </div>
+                                        @endforeach
+                                        @endif
+                                        <!-- <div class="item"> <img src="{{ url('resources/assets/img/a3.png')}}"> </div> -->
                                     </div>
                                 </div>
 
-                                <!-- <div class="cate-box">
+                                <div class="co-overlay">
+                                    <h3>{{ $space->space_name }}</h3>
+                                    <div class="d-flex justify-content-between w-75">
+                                        <h4 class="motn-text">PKR {{$space->price_per_night}}/-<small>/Per Night</small> </h4>
+                                        <h4 class="motn-text">{{$space->room_size}}<small>/sq.ft.</small> </h4>
+                                        <h4 class="motn-text">{{$space->bedroom_number}} Bedrooms<small>/{{$space->bathroom_number}} Baths</small> </h4>
+                                    </div>
+
+                                    <div class="d-flex justify-content-start hot-desh mt-2">
+                                        <a href="#"> Hot Desk </a>
+                                        <a href="#"> Dedicated Desk </a>
+                                        <a href="#"> Meeting Room </a>
+                                    </div>
+                                    <p class="mt-3 v-text">
+                                        <!-- Virtual coworks indore is a fine modern standalone building with all the facilities under one roof. -->
+                                        {{ Str::limit($space->description, 90) }}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="social-icon-list">
+                                            <ul>
+                                                <li> <a href="#"> <i class='bx bxs-star'></i> <!-- <label> 3.0 </label> --></a> </li>
+                                                <li> <a href="#"><i class='bx bxs-share'></i></a> </li>
+                                                <li> <a href="#"> <i class='bx bxs-low-vision'></i></a> </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <button type="button" data-toggle="modal" data-target="#openEditor" class="contact-oprator"> Book Now</button> -->
+                                        <a href="{{ url('/space-details') }}/{{ base64_encode($space->space_id) }}"><button type="button" class="contact-oprator"> Book Now</button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="cate-box">
                                     <div class="cate-text-icon-img">
                                         <img src="{{ url('resources/assets/img/a3.png')}}">
                                     </div>
@@ -493,8 +617,8 @@ $(window).scroll(function(){
                                     </div>
                                 </div> -->
 
-                                @endforeach
-                                
+                            @endforeach
+
                             @else
                             <div class="cate-box">
                                 <p>Not Found</p>
@@ -502,23 +626,23 @@ $(window).scroll(function(){
                             @endif
 
                         </div>
-                        
-                    </div>
-</div>
 
-                    
-                    <!-- <div class="col-md-9">
+                    </div>
+                </div>
+
+
+                <!-- <div class="col-md-9">
                         <div class="">{{ $spaceList->links() }}</div>
                     </div> -->
+            </div>
+
+            <div class="row gird-event" id="filterdata">
+
+                <div class="col-md-9">
+                    <div class="">{{ $spaceList->links() }}</div>
                 </div>
 
-                <div class="row gird-event"  id="filterdata">
-
-                    <div class="col-md-9">
-                        <div class="">{{ $spaceList->links() }}</div>
-                    </div>
-                    
-                </div>
+            </div>
 
     </main>
     <!-- End #main -->
@@ -811,7 +935,7 @@ $(window).scroll(function(){
         </div>
 
     </div>
-    
+
 
 </main><!-- End #main -->
 

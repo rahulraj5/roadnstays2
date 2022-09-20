@@ -809,12 +809,12 @@
                         </div>
 
                         <ul>
-                            <li>Cancelled on {{ date('d-m-Y' , strtotime($arr->updated_at)) }}</li>
+                            <li>Cancelled on {{ date('d-m-Y' , strtotime($arr->canceled_at)) }}</li>
                             <li>Booking ID - {{ $arr->space_booking_id }}</li>
                             <li>{{ $arr->payment_status }}</li>
                         </ul>
                         <div class="btn-detail">
-                            <a href="{{ url('/user/bookingDetailCancelled') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+                            <a href="{{ url('/user/cancelledSpaceBooking') }}/{{ base64_encode($arr->id) }}">View Booking</a>
                         </div>
                     </div>
 
@@ -823,9 +823,9 @@
                     <div class="col-md-12 progress-ba">
                         <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
                         <ul class="multi-step-bar">
-                            <li class="active">Booking Cancelled</li>
-                            <li>Refund Processed</li>
-                            <li>Credit in Account</li>
+                            <li class="<? if($arr->refund_status=='pending' or $arr->refund_status=='processing' or $arr->refund_status=='confirmed'){ echo "active"; } ?>">Booking Cancelled <br>{{$arr->canceled_at}}</li>
+                            <li class="<? if($arr->refund_status=='processing' or $arr->refund_status=='confirmed'){ echo "active"; } ?>">Refund Processed <br>@if($arr->refund_status=='processing' or $arr->refund_status=='confirmed'){{$arr->refund_processed_at}}@endif</li>
+                            <li class="<? if($arr->refund_status=='confirmed'){ echo "active"; } ?>">Credit in Account <br>@if($arr->refund_status=='confirmed'){{$arr->refund_credited_at}}@endif</li>
                         </ul>
 
 

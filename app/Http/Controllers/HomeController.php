@@ -11,6 +11,7 @@ use App\Helpers\Helper;
 use Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Models\Staticpages;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data['home_content'] = DB::table('home_page')->get();
         $data['hotel_list'] = DB::table('hotels')->where('hotel_status',1)->get();
         // echo "<pre>";print_r($data['hotel_list']);die;
         $data['tour_list'] = DB::table('tour_list')->where('status',1)->get();
@@ -39,9 +41,9 @@ class HomeController extends Controller
         return view('front/index')->with($data);
     }
 
-    public function baseForm()
+    public function apg()
     {
-        return view('front/base_from');
+        return view('front/apg/apg');
     }
 
     public function all_rooms()
@@ -56,7 +58,12 @@ class HomeController extends Controller
 
     public function about_us()
     {
-       return view('front/about_us');
+       $data['banner'] = DB::table('about_us_banner')->get();
+       $data['about_content'] = DB::table('about_us_content_section')->get();
+       $data['chooseus_heading'] = DB::table('why_choose_us_heading')->get();
+       $data['about_choose_us'] = DB::table('about_choose_us')->get();
+       
+       return view('front/about_us')->with($data);
     }
 
     public function contact_us()
@@ -64,28 +71,35 @@ class HomeController extends Controller
        return view('front/contact_us');
     }
 
-    public function terms_and_condition()
+    public function terms_condition()
     {
-        return view('front/terms_and_condition');
+        $data['list_content'] = Staticpages::where('page_url_text','terms_&_condition')->orderby('created_at', 'ASC')->get();
+
+        return view('front/terms_condition')->with($data);
     }
 
     public function cookie_policy()
     {
-        return view('front/cookie_policy');
+        $data['list_content'] = Staticpages::where('page_url_text','cookie-policy')->orderby('created_at', 'ASC')->get();
+        return view('front/cookie_policy')->with($data);
     }
     public function privacy_policy()
     {
-        return view('front/privacy_policy');
+        $data['list_content'] = Staticpages::where('page_url_text','privacy-policy')->orderby('created_at', 'ASC')->get();
+        return view('front/privacy_policy')->with($data);
     }
 
     public function cancellation_policy()
     {
-        return view('front/cancellation_policy');
+        $data['list_content'] = Staticpages::where('page_url_text','cancellation-policy')->orderby('created_at', 'ASC')->get();
+        return view('front/cancellation_policy')->with($data);
     }
 
     public function list_your_property($value='')
     {
-        return view('front/list_your_property');
+        $data['list_content'] = Staticpages::where('page_url_text','list-your-property')->orderby('created_at', 'ASC')->get();
+        
+        return view('front/list_your_property')->with($data);
     }
 
     public function event_details($id)
@@ -125,6 +139,24 @@ class HomeController extends Controller
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $mobile = $request->mobile;
+        $document_type = $request->document_type;
+        $document_number = $request->document_number;
+        if ($request->hasFile('front_document_img')) {
+            $image_name = $request->file('front_document_img')->getClientOriginalName();
+            $filename = pathinfo($image_name, PATHINFO_FILENAME);
+            $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+            $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+            $path = base_path() . '/public/uploads/user_document/';
+            $request->file('front_document_img')->move($path, $front_document_img);
+        }
+        if ($request->hasFile('back_document_img')) {
+            $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+            $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/user_document';
+            $request->file('back_document_img')->move($pat2, $back_document_img);
+        }
         $status = 1;
         //echo "<pre>"; print_r($forminput);die;
         // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
@@ -205,6 +237,11 @@ class HomeController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
+                'payment_id' =>  $payment_id,
+                'document_type' =>  $document_type,
+                'document_number' =>  $document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
                 'status' =>  $status,
                 'created_date' =>  date('Y-m-d H:i:s')
             )
@@ -240,7 +277,9 @@ class HomeController extends Controller
         $paccess_token = '';
         $bookingtemp = DB::table('event_booking_temp')->where('payment_id', '=', $paymentId)->first();
         $eventData = DB::table('events')->where('id', $bookingtemp->event_id)->where('status', 1)->first();
+        $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
         $vendor_id = $eventData->vendor_id;
+        $check_guest_user = 0;
         if (!empty($bookingtemp)) {
             $paccess_token = $bookingtemp->paccess_token;
             $data1 = '{
@@ -265,8 +304,11 @@ class HomeController extends Controller
             $paymethod = $resulspays->payer->payment_method;
 
             $pemail = $resulspays->payer->payer_info->email;
+            $uemail = $userData->email;
             $pfirst_name = $resulspays->payer->payer_info->first_name;
+            $ufirst_name = $userData->first_name;
             $plast_name = $resulspays->payer->payer_info->last_name;
+            $ulast_name = $userData->last_name;
             $payer_id = $resulspays->payer->payer_info->payer_id;
 
             $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
@@ -278,6 +320,7 @@ class HomeController extends Controller
             $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
             $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
             $country_code = $resulspays->payer->payer_info->country_code;
             $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
@@ -286,8 +329,8 @@ class HomeController extends Controller
 
             $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
             $merchant_email = $resulspays->transactions[0]->payee->email;
-            $password = "Admin@123";
-            $password = md5($password);
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
             curl_close($ch);
             if (empty($user_id)) {
 
@@ -296,19 +339,24 @@ class HomeController extends Controller
                 if (!empty($checkuser)) {
 
                     $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
                 } else {
-
+                    $check_guest_user = 1;
                     DB::table('users')->insert(
                         [
-                            'first_name' =>  $pfirst_name,
-                            'last_name' =>  $plast_name,
-                            'email' =>  $pemail,
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
                             'user_type' => 'normal_user',
-                            'contact_number' =>  $phone,
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
                             'password' =>  $password,
                             'role_id' =>  2,
-                            'is_verify_email' => 1,
-                            'register_by' =>  'paypal',
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
                             'status' => 1,
                             'updated_at' => date('Y-m-d H:i:s'),
                             'created_at' =>  date('Y-m-d H:i:s')
@@ -380,6 +428,14 @@ class HomeController extends Controller
                         $message->to($inData['email']);
                         $message->subject('roadNstyas - Event Booking Confirmation Mail');
                     });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
 
                     $data['url'] = url('/admin_login');
 
@@ -420,7 +476,11 @@ class HomeController extends Controller
                     }
                 }
                 Session::get('total_amt');
-                session::flash('message', 'Order created Succesfully.');
+                if($check_guest_user === 0){
+                }else{
+                    session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+                }
+                // session::flash('message', 'Order created Succesfully.');
                 return view('front/event/confirm_booking', $data);
             } else {
                 session::flash('error', 'Record not inserted.');
@@ -543,6 +603,24 @@ class HomeController extends Controller
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $mobile = $request->mobile;
+        $document_type = $request->document_type;
+        $document_number = $request->document_number;
+        if ($request->hasFile('front_document_img')) {
+            $image_name = $request->file('front_document_img')->getClientOriginalName();
+            $filename = pathinfo($image_name, PATHINFO_FILENAME);
+            $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+            $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+            $path = base_path() . '/public/uploads/user_document/';
+            $request->file('front_document_img')->move($path, $front_document_img);
+        }
+        if ($request->hasFile('back_document_img')) {
+            $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+            $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/user_document';
+            $request->file('back_document_img')->move($pat2, $back_document_img);
+        }
         $status = 1;
         //echo "<pre>"; print_r($forminput);die;
         // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
@@ -621,6 +699,11 @@ class HomeController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
+                'payment_id' =>  $payment_id,
+                'document_type' =>  $document_type,
+                'document_number' =>  $document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
                 'status' =>  $status,
                 'created_date' =>  date('Y-m-d H:i:s')
             )
@@ -656,7 +739,9 @@ class HomeController extends Controller
         $paccess_token = '';
         $bookingtemp = DB::table('tour_booking_temp')->where('payment_id', '=', $paymentId)->first();
         $tourData = DB::table('tour_list')->where('id', $bookingtemp->tour_id)->where('tour_status', 1)->first();
+        $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
         $vendor_id = $tourData->vendor_id;
+        $check_guest_user = 0;
         if (!empty($bookingtemp)) {
             $paccess_token = $bookingtemp->paccess_token;
             $data1 = '{
@@ -681,8 +766,11 @@ class HomeController extends Controller
             $paymethod = $resulspays->payer->payment_method;
 
             $pemail = $resulspays->payer->payer_info->email;
+            $uemail = $userData->email;
             $pfirst_name = $resulspays->payer->payer_info->first_name;
+            $ufirst_name = $userData->first_name;
             $plast_name = $resulspays->payer->payer_info->last_name;
+            $ulast_name = $userData->last_name;
             $payer_id = $resulspays->payer->payer_info->payer_id;
 
             $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
@@ -694,6 +782,7 @@ class HomeController extends Controller
             $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
             $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
             $country_code = $resulspays->payer->payer_info->country_code;
             $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
@@ -702,29 +791,33 @@ class HomeController extends Controller
 
             $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
             $merchant_email = $resulspays->transactions[0]->payee->email;
-            $password = "Admin@123";
-            $password = md5($password);
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
             curl_close($ch);
             if (empty($user_id)) {
 
-                $checkuser = DB::table('users')->where('email', $pemail)->first();
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
 
                 if (!empty($checkuser)) {
-
                     $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
                 } else {
-
+                    $check_guest_user = 1;
                     DB::table('users')->insert(
                         [
-                            'first_name' =>  $pfirst_name,
-                            'last_name' =>  $plast_name,
-                            'email' =>  $pemail,
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
                             'user_type' => 'normal_user',
-                            'contact_number' =>  $phone,
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
                             'password' =>  $password,
                             'role_id' =>  2,
-                            'is_verify_email' => 1,
-                            'register_by' =>  'paypal',
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
                             'status' => 1,
                             'updated_at' => date('Y-m-d H:i:s'),
                             'created_at' =>  date('Y-m-d H:i:s')
@@ -796,6 +889,14 @@ class HomeController extends Controller
                         $message->to($inData['email']);
                         $message->subject('roadNstyas - Tour Booking Confirmation Mail');
                     });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
 
                     $data['url'] = url('/admin_login');
 
@@ -834,7 +935,12 @@ class HomeController extends Controller
                     }
                 }
                 Session::get('total_amt');
-                session::flash('message', 'Order created Succesfully.');
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                }else{
+                    session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+                }   
+                // session::flash('message', 'Order created Succesfully.');
                 return view('front/tour/confirm_booking', $data);
             } else {
                 session::flash('error', 'Record not inserted.');
@@ -869,11 +975,6 @@ class HomeController extends Controller
     public function travel_details()
     {
         return view('front/travel/travel_details');
-    }
-
-    public function terms_condition()
-    {
-        return view('front/terms_condition');
     }
 
     
@@ -1148,6 +1249,17 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    public function check_valid_hotel_daterange(Request $request)
+    {
+        $checkin_date = date('Y-m-d', strtotime($request->hotel_start_date));
+        $checkout_date = date('Y-m-d', strtotime($request->hotel_end_date));
+        if($checkin_date === $checkout_date){
+            $request->session()->forget('checkin_date');
+            $request->session()->forget('checkout_date');
+            return response()->json(['status' => 'sameDateError', 'msg' => 'Chekin Date and Checkout date should not be same']);
+        }   
+    }
+
     public function hotel_list_test(Request $request)
     {
         //print_r($request->all());die;
@@ -1328,27 +1440,26 @@ class HomeController extends Controller
                     ->where("hotel_id", $value->hotel_id)
                     ->whereBetween('check_in', [$checkin_date, $checkout_date])
                     ->orWhereBetween('check_out', [$checkin_date, $checkout_date])
-                    //->whereNotBetween('check_out', [$checkin_date, $checkout_date])
                     ->get();
 
                 $bookroomids = array();
 
                 foreach ($booking as $key => $bookvalue) {
-
-                    $roomid = $bookvalue->room_id;
-                    $totalbookroom = $bookvalue->total_room;
-
-                    $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
-
-                    if ($totalbookroom >= $nofroom) {
-
-                        $bookroomids[] = $bookvalue->room_id;
-                    }
+                    if($bookvalue->booking_status != 'canceled'){
+                        $roomid = $bookvalue->room_id;
+                        $totalbookroom = $bookvalue->total_room;
+                        // echo "<pre>";print_r($totalbookroom);
+                        $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
+                        // echo "<pre>";print_r($nofroom);
+                        if ($totalbookroom >= $nofroom) {
+                            $bookroomids[] = $bookvalue->room_id;
+                        }
+                 }
                 }
 
-
+              
                 $room_list = DB::table('room_list')->where("hotel_id", $value->hotel_id)->whereNotIn("id", $bookroomids)->get();
-
+                // echo "<pre>";print_r($room_list);
                 //$totalroom = count($room_list);
 
                 $total_memeber = 0;
@@ -1359,17 +1470,17 @@ class HomeController extends Controller
 
                     $total_memeber = $total_memeber + $roomlvalue->max_adults;
                 }
-
+                // echo "<pre>";print_r($total_memeber);
                 if ($person <= $total_memeber) {
 
                     $hotelids[] = $value->hotel_id;
                 }
             }
-
-            //print_r($hotelids);die;
+           
+            // print_r($hotelids);die;
 
             $hotel_data = DB::table('hotels')->whereIn("hotel_id", $hotelids)->where("hotel_status", 1)->groupBy('hotel_id')->paginate(10);
-
+            // die;
 
             $hoteldata = array();
 
@@ -1407,8 +1518,12 @@ class HomeController extends Controller
                     'property_alternate_num' => isset($value->property_alternate_num) ? $value->property_alternate_num : "",
                     'cat_listed_room_type' => isset($value->cat_listed_room_type) ? $value->cat_listed_room_type : 0,
                     'hotel_rating' => $value->hotel_rating,
+                    'payment_mode' => $value->payment_mode,
                     'checkin_time' =>  isset($value->checkin_time) ? $value->checkin_time : "",
                     'checkout_time' =>  isset($value->checkout_time) ? $value->checkout_time : "",
+                    'stay_price' => isset($value->stay_price) ? $value->stay_price : "",
+                    'stay_price' => isset($value->stay_price) ? $value->stay_price : "",
+                    'stay_price' => isset($value->stay_price) ? $value->stay_price : "",
                     'stay_price' => isset($value->stay_price) ? $value->stay_price : "",
                     'hotel_address' => isset($value->hotel_address) ? $value->hotel_address : "",
                     'hotel_city' => isset($value->hotel_city) ? $value->hotel_city : "",
@@ -1549,15 +1664,16 @@ class HomeController extends Controller
             $bookroomids = array();
 
             foreach ($booking as $key => $bookvalue) {
+                if($bookvalue->booking_status != 'canceled'){
+                    $roomid = $bookvalue->room_id;
+                    $totalbookroom = $bookvalue->total_room;
 
-                $roomid = $bookvalue->room_id;
-                $totalbookroom = $bookvalue->total_room;
+                    $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
 
-                $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
+                    if ($totalbookroom >= $nofroom) {
 
-                if ($totalbookroom >= $nofroom) {
-
-                    $bookroomids[] = $bookvalue->room_id;
+                        $bookroomids[] = $bookvalue->room_id;
+                    }
                 }
             }
 
@@ -1839,15 +1955,16 @@ class HomeController extends Controller
             $bookroomids = array();
 
             foreach ($booking as $key => $bookvalue) {
+                if($bookvalue->booking_status != 'canceled'){
+                    $roomid = $bookvalue->room_id;
+                    $totalbookroom = $bookvalue->total_room;
 
-                $roomid = $bookvalue->room_id;
-                $totalbookroom = $bookvalue->total_room;
+                    $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
 
-                $nofroom = DB::table('room_list')->where("id", $roomid)->value('number_of_rooms');
+                    if ($totalbookroom >= $nofroom) {
 
-                if ($totalbookroom >= $nofroom) {
-
-                    $bookroomids[] = $bookvalue->room_id;
+                        $bookroomids[] = $bookvalue->room_id;
+                    }
                 }
             }
 
@@ -2069,8 +2186,9 @@ class HomeController extends Controller
         $bookroomids = array();
 
         foreach ($booking as $key => $bookvalue) {
-
-            $bookroomids[] = $bookvalue->room_id;
+            if($bookvalue->booking_status != 'canceled'){
+                $bookroomids[] = $bookvalue->room_id;
+            }
         }
 
         $room_data =  DB::table('room_list')->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')->whereNotIn("room_list.id", $bookroomids)->where(['room_list.hotel_id' => $hotel_id, 'room_list.status' => 1])->select('room_list.*', 'room_type_categories.title as room_type')->get();
@@ -2111,6 +2229,7 @@ class HomeController extends Controller
                 'max_childern' => $room->max_childern,
                 'number_of_rooms' => $room->number_of_rooms,
                 'price_per_night' => $room->price_per_night,
+                'projected_price' => $room->projected_price,
                 'tax_percentage' => $room->tax_percentage,
                 'price_per_night_7d' => $room->price_per_night_7d,
                 'price_per_night_30d' => $room->price_per_night_30d,
@@ -2250,6 +2369,7 @@ class HomeController extends Controller
     public function booking_room_order(Request $request)
     {
         $forminput = $request->all();
+        // echo "<pre>";print_r($forminput);die;
         $user_id = $forminput['user_id'];
         $hotel_id = $forminput['hotel_id'];
         $room_id = $forminput['room_id'];
@@ -2266,6 +2386,24 @@ class HomeController extends Controller
         $first_name = $forminput['first_name'];
         $last_name = $forminput['last_name'];
         $mobile = $forminput['mobile'];
+        $document_type = $forminput['document_type'];
+        $document_number = $forminput['document_number'];
+        if ($request->hasFile('front_document_img')) {
+            $image_name = $request->file('front_document_img')->getClientOriginalName();
+            $filename = pathinfo($image_name, PATHINFO_FILENAME);
+            $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+            $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+            $path = base_path() . '/public/uploads/user_document/';
+            $request->file('front_document_img')->move($path, $front_document_img);
+        }
+        if ($request->hasFile('back_document_img')) {
+            $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+            $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/user_document';
+            $request->file('back_document_img')->move($pat2, $back_document_img);
+        }
         $status = 1;
         //echo "<pre>"; print_r($forminput);die;
         // $client = "AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
@@ -2345,6 +2483,11 @@ class HomeController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
+                'payment_id' =>  $payment_id,
+                'document_type' =>  $document_type,
+                'document_number' =>  $document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
                 'status' =>  $status,
                 'created_date' =>  date('Y-m-d H:i:s')
             )
@@ -2370,12 +2513,38 @@ class HomeController extends Controller
                 'created_at' =>  date('Y-m-d H:i:s')
             )
         );
-
         return redirect($link);
     }
 
+    public function ipn(Request $request)
+    {
+        $url = $_GET['url'];
+        $curlSession = curl_init();
+        curl_setopt($curlSession, CURLOPT_URL,  $url);
+        curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        $jsonData = json_decode(curl_exec($curlSession));
+        curl_close($curlSession);
+
+             $result =  json_decode($jsonData);
+        //echo $jsonData."<br>";
+
+        echo "<pre>";print_r($result);
+        echo $result->TransactionStatus;
+    }
     public function payment_successful(Request $request)
     {
+        // print_r($_GET['O']);die;
+        // echo "test";die;
+
+        // $data['order_id'] = $_GET['O'];
+        // $data['MerchantId'] = "19513";
+        // $data['StoreId'] = "024984";
+
+        // return view('front/apg/ipn')->with($data);
+        
+        // die;
         if (Auth::check()) {
             $user_id =  Auth::id();
         } else {
@@ -2387,7 +2556,10 @@ class HomeController extends Controller
         $paccess_token = '';
         $bookingtemp = DB::table('booking_temp')->where('payment_id', '=', $paymentId)->first();
         $hotelData = DB::table('hotels')->where('hotel_id', $bookingtemp->hotel_id)->where('hotel_status', 1)->first();
+        $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
+        // echo "<pre>"; print_r($userData);die;
         $vendor_id = $hotelData->hotel_user_id;
+        $check_guest_user = 0;
         if (!empty($bookingtemp)) {
             $paccess_token = $bookingtemp->paccess_token;
             $data1 = '{
@@ -2404,16 +2576,19 @@ class HomeController extends Controller
             curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $result = curl_exec($ch);
-
+            // echo "<pre>";print_r($result);
             $resulspays = json_decode($result);
-
+            // echo "<pre>";print_r($resulspays);die;
             $cartid = $resulspays->cart;
             $pstatus = $resulspays->state;
             $paymethod = $resulspays->payer->payment_method;
 
             $pemail = $resulspays->payer->payer_info->email;
+            $uemail = $userData->email;
             $pfirst_name = $resulspays->payer->payer_info->first_name;
+            $ufirst_name = $userData->first_name;
             $plast_name = $resulspays->payer->payer_info->last_name;
+            $ulast_name = $userData->last_name;
             $payer_id = $resulspays->payer->payer_info->payer_id;
 
             $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
@@ -2425,6 +2600,7 @@ class HomeController extends Controller
             $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
             $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
             $country_code = $resulspays->payer->payer_info->country_code;
             $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
@@ -2433,29 +2609,33 @@ class HomeController extends Controller
 
             $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
             $merchant_email = $resulspays->transactions[0]->payee->email;
-            $password = "Admin@123";
-            $password = md5($password);
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
             curl_close($ch);
             if (empty($user_id)) {
 
-                $checkuser = DB::table('users')->where('email', $pemail)->first();
-
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
+                
                 if (!empty($checkuser)) {
-
                     $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
                 } else {
-
+                    $check_guest_user = 1;
                     DB::table('users')->insert(
                         [
-                            'first_name' =>  $pfirst_name,
-                            'last_name' =>  $plast_name,
-                            'email' =>  $pemail,
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
                             'user_type' => 'normal_user',
-                            'contact_number' =>  $phone,
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
                             'password' =>  $password,
                             'role_id' =>  2,
-                            'is_verify_email' => 1,
-                            'register_by' =>  'paypal',
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
                             'status' => 1,
                             'updated_at' => date('Y-m-d H:i:s'),
                             'created_at' =>  date('Y-m-d H:i:s')
@@ -2466,6 +2646,7 @@ class HomeController extends Controller
                 }
             }
         }
+        // echo "<pre>"; print_r($check_guest_user);die;
         $checkorder = DB::table('booking')->where('payment_token', '=', $token)->first();
 
         if (empty($checkorder)) {
@@ -2545,6 +2726,14 @@ class HomeController extends Controller
                         $message->to($inData['email']);
                         $message->subject('roadNstyas - Room Booking Confirmation Mail');
                     });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
 
                     $data['url'] = url('/admin_login');
 
@@ -2586,7 +2775,13 @@ class HomeController extends Controller
                     }
                 }
                 Session::get('total_amt');
-                session::flash('message', 'Order created Succesfully.');
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                    // session::flash('message', 'Booking created Succesfully.');
+                }else{
+                    session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+                }
+                // session::flash('message', 'Order created Succesfully.');
                 //return redirect('/category/'.$frame_detail->category_id.'');
                 return view('front/hotel/confirm_booking', $data);
             } else {
@@ -2615,7 +2810,8 @@ class HomeController extends Controller
                 ->limit(5)
                 ->get();
         }
-        session::flash('message', 'Booking created Succesfully.');
+        // session::flash('message', 'Booking created Succesfully.');
+        // session::flash('message', 'To view your booking Please! do signin, after verify your E-mail.');
         //return redirect('/category/'.$frame_detail->category_id.'');
         return view('front/hotel/confirm_booking', $data);
     }

@@ -92,178 +92,130 @@
     });
   })
 </script>
+<script>
+  $('select').on("change", function() {
+    var booking_id = $(this).attr('data-id');
+    var status = this.value;
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "<?php echo url('/admin/changeSpaceBookingStatus'); ?>",
+      data: {
+        'status': status,
+        'booking_id': booking_id
+      },
+      success: function(data) {
+        success_noti(data.msg);
+        setTimeout(function() {
+          window.location.reload()
+        }, 1000);
+      },
+      error: function(errorData) {
+        console.log(errorData);
+        alert('Please refresh page and try again!');
+      }
+    });
+  })
+</script>
 @endsection
 @section('content')
-
 <!-- Content Wrapper. Contains page content -->
-
 <div class="content-wrapper">
-
   <!-- Content Header (Page header) -->
-
   <section class="content-header">
-
     <div class="container-fluid">
-
       <div class="row mb-2">
-
         <div class="col-sm-6">
-
           <h1>Booking List</h1>
-
         </div>
-
         <div class="col-sm-6">
-
           <ol class="breadcrumb float-sm-right">
-
             <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-
             <li class="breadcrumb-item active">Booking List</li>
-
           </ol>
-
         </div>
-
       </div>
-
     </div><!-- /.container-fluid -->
-
   </section>
-
-
 
   <!-- Main content -->
-
   <section class="content">
-
     <div class="container-fluid">
-
       <div class="row">
-
         <div class="col-12">
-
           <div class="row">
-
             <div class="col-md-11"></div>
-
             <!-- <div class="col-md-1"><a href="{{ url('/admin/addHotel') }}" class="btn btn-block btn-dark">Add</a>
             </div> -->
-
           </div>
-
           <div class="card">
-
             <!-- /.card-header -->
-
             <div class="card-body">
-
               <table id="example1" class="table table-bordered table-striped">
-
                 <thead>
-
                   <tr>
-
                     <th>SNo.</th>
-
                     <th>Booking Id</th>
-
                     <th>Space Name</th>
-
                     <th>User Name</th>
-
                     <th>User Contact Info</th>
-
                     <th>Space City</th>
-
                     <th>Payment Type</th>
-
                     <th>Payment Status</th>
-
-                    <th>Status</th>
-
+                    <th>Booking Status</th>
+                    <th>Refund Status</th>
                     <th>Action</th>
-
                   </tr>
-
                 </thead>
-
                 <tbody>
-
                   @if (!$bookingList->isEmpty())
-
                   <?php $i = 1; ?>
-
                   @foreach ($bookingList as $arr)
-
                   <tr id="row{{ $arr->id }}">
-
                     <td>{{ $i }}</td>
-
                     <td>{{ $arr->space_booking_id }}</td>
-
                     <td>{{ $arr->space_name }}</td>
-
                     <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
-
                     <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-
                     <td>{{ $arr->city }}</td>
-
                     <td>{{ $arr->payment_type }}</td>
-
                     <td>{{ $arr->payment_status }}</td>
-
                     <td>{{ $arr->booking_status }}</td>
-
-                    <td class="text-right py-0 align-middle">
-
-                      <div class="btn-group btn-group-sm">
-
-                        <a href="{{url('/admin/spaceViewBooking')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
-
-                      </div>
-
+                    @if($arr->booking_status == 'canceled')
+                    <td>
+                      <select class="form-control" name="order_status" data-id="{{$arr->id}}">
+                        <option value="pending" {{ $arr->refund_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="processing" {{ $arr->refund_status == 'processing' ? 'selected' : '' }}>Processing</option>
+                        <!-- <option value="canceled" {{ $arr->refund_status == 'canceled' ? 'selected' : '' }}>Canceled</option> -->
+                        <option value="confirmed" {{ $arr->refund_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                      </select>
                     </td>
-
+                    @else
+                    <td>Not Yet</td>
+                    @endif
+                    <td class="text-right py-0 align-middle">
+                      <div class="btn-group btn-group-sm">
+                        <a href="{{url('/admin/spaceViewBooking')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                      </div>
+                    </td>
                   </tr>
-
                   <?php $i++; ?>
-
                   @endforeach
-
                   @endif
-
                 </tbody>
-
               </table>
-
             </div>
-
             <!-- /.card-body -->
-
           </div>
-
           <!-- /.card -->
-
         </div>
-
         <!-- /.col -->
-
       </div>
-
       <!-- /.row -->
-
     </div>
-
     <!-- /.container-fluid -->
-
   </section>
-
   <!-- /.content -->
-
 </div>
-
 <!-- /.content-wrapper -->
-
 @endsection

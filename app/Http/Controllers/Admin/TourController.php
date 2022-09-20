@@ -46,7 +46,7 @@ class TourController extends Controller
         }else{
             $tourFeaturedImg = '';
         } 
-        if ($request->hasFile('tour_document')) {
+        if($request->hasFile('tour_document')) {
             $image_nam2 = $request->file('tour_document')->getClientOriginalName();
             $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
             $image_ex2 = $request->file('tour_document')->getClientOriginalExtension();
@@ -88,7 +88,13 @@ class TourController extends Controller
         $admintour->tour_locations = $request->tour_locations;
         $admintour->tour_activities = $request->tour_activities;
         $admintour->tour_services_includes = $request->tour_services_includes;
-        $admintour->tour_services_not_includes = $request->tour_services_not_includes;
+        $admintour->tour_services_not_includes = $request->tour_services_not_includes; 
+        $admintour->operator_name = $request->operator_name;
+        $admintour->operator_contact_name = $request->operator_contact_name;
+        $admintour->operator_contact_num = $request->operator_contact_num;
+        $admintour->operator_email = $request->operator_email;
+        $admintour->operator_booking_num = $request->operator_booking_num;
+
         $admintour->status = 1;
         $admintour->save();  
         $admintour_id = $admintour->id;
@@ -170,7 +176,7 @@ class TourController extends Controller
             DB::table('tour_itinerary')->where('tour_id', '=', $tour_id)->delete();
             DB::table('tour_list')->where('id', '=', $tour_id)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
-        } else {
+        }else{
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
     }
@@ -202,7 +208,7 @@ class TourController extends Controller
         $tour_id = $request->tour_id;
         $user_id = Auth::user()->id;
 
-         if($request->hasFile('tourFeaturedImg'))
+        if($request->hasFile('tourFeaturedImg'))
         {
             $image_name1 = $request->file('tourFeaturedImg')->getClientOriginalName();
             $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
@@ -260,6 +266,12 @@ class TourController extends Controller
                     'tour_activities' => $request->tour_activities,
                     'tour_services_includes' => $request->tour_services_includes,
                     'tour_services_not_includes' => $request->tour_services_not_includes,
+
+                    'operator_name' => $request->operator_name,
+                    'operator_contact_name' => $request->operator_contact_name,
+                    'operator_contact_num' => $request->operator_contact_num,
+                    'operator_email' => $request->operator_email,
+                    'operator_booking_num' => $request->operator_booking_num,
                     'status' => 1,
                 ]);
 

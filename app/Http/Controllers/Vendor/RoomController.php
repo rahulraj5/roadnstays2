@@ -102,8 +102,8 @@ class RoomController extends Controller
             $adminroom->is_pay_by_num_guest = $request->is_pay_by_num_guest;
 
             $adminroom->room_size = $request->room_size;
-            $adminroom->bed_type = $request->bed_type;
-            $adminroom->num_of_beds = $request->num_of_beds;
+            // $adminroom->bed_type = $request->bed_type;
+            // $adminroom->num_of_beds = $request->num_of_beds;
             $adminroom->private_bathroom = $request->private_bathroom;
             $adminroom->private_entrance = $request->private_entrance;
             $adminroom->optional_services = $request->optional_services;
@@ -210,6 +210,22 @@ class RoomController extends Controller
                     $up = DB::table('room_extra_option')->insert($extra_opt);
                 }
             }
+
+            if (!empty($request->bed[0]['type'])) {
+                foreach ($request->bed as $bed_details) {
+                    // echo "<pre>";print_r($bed_details['num']);
+                    $bed_detail = array(
+                        'bed_type' => $bed_details['type'],
+                        'bed_number' => $bed_details['num'],
+                        'room_id' => $room_id,
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('room_bed_details')->insert($bed_detail);
+                }
+            }
+
             return response()->json(['status' => 'success', 'msg' => 'Room Added Successfully', 'hotel_id' => base64_encode($hotel_id)]);
         }else{
             return response()->json(['status' => 'error', 'msg' => 'Room Name Already Exist in Selected Hotel']);
@@ -234,6 +250,7 @@ class RoomController extends Controller
         $data['room_services'] = DB::table('room_services')->where('room_id', $room_id)->pluck('room_service_id')->toArray();
         $data['room_features'] = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
         $data['room_extra_option'] = DB::table('room_extra_option')->where('room_id', $room_id)->where('status', 1)->get();
+        $data['bed_details_option'] = DB::table('room_bed_details')->where('room_id', $room_id)->where('status', 1)->get();
         //echo "<pre>";print_r($data);die;
         return view('vendor/room/view_room')->with($data);
     }
@@ -256,6 +273,7 @@ class RoomController extends Controller
         $data['room_services'] = DB::table('room_services')->where('room_id', $room_id)->pluck('room_service_id')->toArray();
         $data['room_features'] = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
         $data['room_extra_option'] = DB::table('room_extra_option')->where('room_id', $room_id)->where('status', 1)->get();
+        $data['bed_details_option'] = DB::table('room_bed_details')->where('room_id', $room_id)->where('status', 1)->get();
         //echo "<pre>"; print_r($data);die; 
         return view('vendor/room/edit_room')->with($data);
     }
@@ -337,8 +355,8 @@ class RoomController extends Controller
                 'is_pay_by_num_guest' => $is_pay_by_num_guest,
 
                 'room_size' => $request->room_size,
-                'bed_type' => $request->bed_type,
-                'num_of_beds' => $request->num_of_beds,
+                // 'bed_type' => $request->bed_type,
+                // 'num_of_beds' => $request->num_of_beds,
                 'private_bathroom' => $request->private_bathroom,
                 'private_entrance' => $request->private_entrance,
                 'optional_services' => $request->optional_services,
@@ -429,6 +447,25 @@ class RoomController extends Controller
                     $up = DB::table('room_extra_option')->insert($extra_opt);
                 }
             }
+
+            if (!empty($request->bed[0]['type'])) {
+
+                DB::table('room_bed_details')->where('room_id', '=', $room_id)->delete();
+              
+                if (!empty($request->bed[0]['type'])) {
+                    foreach ($request->bed as $bed_details) {
+                        $bed_detail = array(
+                            'bed_type' => $bed_details['type'],
+                            'bed_number' => $bed_details['num'],
+                            'room_id' => $room_id,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('room_bed_details')->insert($bed_detail);
+                    }
+                }
+              }
         
             return response()->json(['status' => 'success', 'msg' => 'Room update Successfully', 'hotel_id' => $hotel_id]);
         }else{
@@ -474,6 +511,7 @@ class RoomController extends Controller
         DB::table('room_extra_option')->where('room_id', '=', $room_id)->delete();
         DB::table('room_features')->where('room_id', '=', $room_id)->delete();
         DB::table('room_services')->where('room_id', '=', $room_id)->delete();
+        DB::table('room_bed_details')->where('room_id', '=', $room_id)->delete();
 
         $res = DB::table('room_list')->where('id', '=', $room_id)->delete();
 
@@ -585,8 +623,8 @@ class RoomController extends Controller
                     'is_pay_by_num_guest'    => $get_room_detail->is_pay_by_num_guest,
 
                     'room_size'    => $get_room_detail->room_size,
-                    'bed_type'    => $get_room_detail->bed_type,
-                    'num_of_beds' => $request->num_of_beds,
+                    // 'bed_type'    => $get_room_detail->bed_type,
+                    // 'num_of_beds' => $request->num_of_beds,
                     'private_bathroom'    => $get_room_detail->private_bathroom,
                     'private_entrance'    => $get_room_detail->private_entrance,
                     'optional_services'    => $get_room_detail->optional_services,
@@ -676,6 +714,7 @@ class RoomController extends Controller
         $data['room_services'] = DB::table('room_services')->where('room_id', $room_id)->pluck('room_service_id')->toArray();
         $data['room_features'] = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
         $data['room_extra_option'] = DB::table('room_extra_option')->where('room_id', $room_id)->where('status', 1)->get();
+        $data['bed_details_option'] = DB::table('room_bed_details')->where('room_id', $room_id)->where('status', 1)->get();
         //echo "<pre>"; print_r($data);die;
         // echo "<pre>"; print_r($data['room_features']);die;
         return view('vendor/room/edit_copy_room')->with($data);

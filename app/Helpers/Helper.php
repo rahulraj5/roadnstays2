@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use GuzzleHttp\Client as GuzzleClient;
-
+use Twilio\Rest\Client;
 class Helper
 
 {
@@ -90,17 +90,17 @@ class Helper
 
       /* End of file common_helper.php */
       // Your Account SID and Auth Token from twilio.com/console
-      $sid = 'ACf3c15917b08e13ca3ae4c5bb91839065';
-      $token = '57bd920870e7a35862931fcf3333cd86';
+      $sid = 'ACf3b3fc329f0580b55940ee53236b9178';
+      $token = 'f5bcaec5d584856a6a994183ed0e5fe6';
       $client = new Client($sid, $token);
 
       // Use the client to do fun stuff like send text messages!
       $client->messages->create(
           // the number you'd like to send the message to
-          '+972'.$mobile,
+          "+966".$mobile,
           array(
               // A Twilio phone number you purchased at twilio.com/console
-              'from' => '+972526285726',
+              'from' => '+18126128552',
               // the body of the text message you'd like to send
               'body' => $otp. "Please verify this otp in RoadNstays"
           )

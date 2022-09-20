@@ -14,7 +14,7 @@
                     <h3>Review your Space Booking</h3>
                 </div>
                 <div class="col-md-9">
-                    <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}">
+                    <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}" enctype="multipart/form-data">
                         @csrf
                         <?php $total_amount =  ($booking_days * $space_data->price_per_night) + $space_data->cleaning_fee + $space_data->city_fee + $space_data->tax_percentage; ?>
 
@@ -102,6 +102,26 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="mobile">Mobile phone number *</label>
                                                     <input type="text" class="form-control" id="mobile" name="mobile" required="">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="mobile">Choose Identity Document *</label>
+                                                    <select class="form-control" name="document_type" id="document_type">
+                                                        <option value="">Select Document Type</option>
+                                                        <option value="Passport">Passport</option>
+                                                        <option value="Voter Id">Voter Id</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="mobile">Document Number *</label>
+                                                    <input type="text" class="form-control" id="document_number" name="document_number" required="">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="mobile">Upload Front Image of Document *</label>
+                                                    <input type="file" class="form-control" id="front_document_img" name="front_document_img" required="">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="mobile">Upload Back Image of Document *</label>
+                                                    <input type="file" class="form-control" id="back_document_img" name="back_document_img" required="">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="terms"> <input type="checkbox" name="terms" value="1">

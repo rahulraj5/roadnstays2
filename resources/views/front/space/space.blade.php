@@ -214,170 +214,196 @@
 </script>
 
 <script>
-   var placeSearch, autocomplete;
-   var componentForm = {
-      // street_number: 'long_name',
-      // route: 'long_name',
-      // locality: 'long_name',
-      // postal_code: 'short_name'
-   };
+  var placeSearch, autocomplete;
+  var componentForm = {
+    // street_number: 'long_name',
+    // route: 'long_name',
+    // locality: 'long_name',
+    // postal_code: 'short_name'
+  };
 
-   function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete(
-         (document.getElementById('autocomplete')), {
-            types: ['(cities)']
-         });
-      autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
-         console.log(place);
-         document.getElementById('space_latitude').value = place.geometry.location.lat();
-         document.getElementById('space_longitude').value = place.geometry.location.lng();
-         fillInAddress(autocomplete, "");
+  function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete')), {
+        types: ['(cities)']
       });
-   }
-
-   function fillInAddress(autocomplete, unique) {
-
+    autocomplete.addListener('place_changed', function() {
       var place = autocomplete.getPlace();
-      for (var component in componentForm) {
-         if (!!document.getElementById(component + unique)) {
-            document.getElementById(component + unique).value = '';
-            document.getElementById(component + unique).disabled = false;
-         }
-      }
+      console.log(place);
+      document.getElementById('space_latitude').value = place.geometry.location.lat();
+      document.getElementById('space_longitude').value = place.geometry.location.lng();
+      fillInAddress(autocomplete, "");
+    });
+  }
 
-      for (var i = 0; i < place.address_components.length; i++) {
-         var addressType = place.address_components[i].types[0];
-         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType + unique).value = val;
-         }
-      }
-   }
-   google.maps.event.addDomListener(window, "load", initAutocomplete);
+  function fillInAddress(autocomplete, unique) {
 
-   function geolocate() {
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-               lat: position.coords.latitude,
-               lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-               center: geolocation,
-               radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-         });
+    var place = autocomplete.getPlace();
+    for (var component in componentForm) {
+      if (!!document.getElementById(component + unique)) {
+        document.getElementById(component + unique).value = '';
+        document.getElementById(component + unique).disabled = false;
       }
-   }
-</script>
+    }
 
-<script>
-   $(function() {
-      $('.space_dater').daterangepicker({
-         opens: 'right'
-      }, function(start, end, label) {
-            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
-            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+        var val = place.address_components[i][componentForm[addressType]];
+        document.getElementById(addressType + unique).value = val;
+      }
+    }
+  }
+  google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
       });
-   });
+    }
+  }
 </script>
 
 <script>
-$(window).scroll(function(){
-    if ($(this).scrollTop() >0) {
-       $('#logo-s').addClass('logo-z');
-       
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 0) {
+      $('#logo-s').addClass('logo-z');
+
 
     } else {
-       $('#logo-s').removeClass('logo-z');
-       
-       
+      $('#logo-s').removeClass('logo-z');
+
+
     }
-});
-
+  });
 </script>
 
 <script>
-  var today = new Date(); 
-
-   $(function() {
-       
-      $('.reserved').daterangepicker({
-        "autoApply": true,
-        "autoUpdateInput": true,
-        minDate: today,
-        locale: {
-            format: 'DD-MM-YYYY'
-        },
-        "opens": "center",
-        "drops": "auto"
-      }, function(start, end, label) {
-          $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
-          $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
-      });
-   });
+  $(function() {
+    $('.space_dater').daterangepicker({
+      opens: 'right'
+    }, function(start, end, label) {
+      $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+      $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+    });
+  });
 </script>
 
 <script>
-   var placeSearch, autocomplete;
-   var componentForm = {
-      // street_number: 'long_name',
-      // route: 'long_name',
-      // locality: 'long_name',
-      // postal_code: 'short_name'
-   };
+  var today = new Date();
 
-   function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete(
-         (document.getElementById('autocomplete_space')), {
-            types: ['(cities)']
-         });
-      autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
-         console.log(place);
-         document.getElementById('space_latitude').value = place.geometry.location.lat();
-         document.getElementById('space_longitude').value = place.geometry.location.lng();
-         fillInAddress(autocomplete, "");
+  $(function() {
+
+    $('.reserved').daterangepicker({
+      "autoApply": true,
+      "autoUpdateInput": true,
+      minDate: today,
+      locale: {
+        format: 'DD-MM-YYYY'
+      },
+      "opens": "center",
+      "drops": "auto"
+    }, function(start, end, label) {
+      $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+      $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+      let space_start_date = start.format('DD-MM-YYYY');
+      let space_end_date = end.format('DD-MM-YYYY');
+      checkSameDate(space_start_date, space_end_date);
+    });
+  });
+
+  function checkSameDate(start, end) {
+    let space_start_date = start;
+    let space_end_date = end;
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+      type: 'POST',
+      url: "{{url('/checkValidDaterange')}}",
+      data: {
+        space_start_date: space_start_date,
+        space_end_date: space_end_date,
+        _token: CSRF_TOKEN
+      },
+      dataType: 'JSON',
+      success: function(response) {
+        if (response.status == 'sameDateError') {
+          error_noti(response.msg);
+          setTimeout(function() {
+            window.location.reload()
+          }, 2000);
+        }
+      }
+    });
+  }
+</script>
+
+<script>
+  var placeSearch, autocomplete;
+  var componentForm = {
+    // street_number: 'long_name',
+    // route: 'long_name',
+    // locality: 'long_name',
+    // postal_code: 'short_name'
+  };
+
+  function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete_space')), {
+        types: ['(cities)']
       });
-   }
-
-   function fillInAddress(autocomplete, unique) {
-
+    autocomplete.addListener('place_changed', function() {
       var place = autocomplete.getPlace();
-      for (var component in componentForm) {
-         if (!!document.getElementById(component + unique)) {
-            document.getElementById(component + unique).value = '';
-            document.getElementById(component + unique).disabled = false;
-         }
-      }
+      console.log(place);
+      document.getElementById('space_latitude').value = place.geometry.location.lat();
+      document.getElementById('space_longitude').value = place.geometry.location.lng();
+      fillInAddress(autocomplete, "");
+    });
+  }
 
-      for (var i = 0; i < place.address_components.length; i++) {
-         var addressType = place.address_components[i].types[0];
-         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType + unique).value = val;
-         }
-      }
-   }
-   google.maps.event.addDomListener(window, "load", initAutocomplete);
+  function fillInAddress(autocomplete, unique) {
 
-   function geolocate() {
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-               lat: position.coords.latitude,
-               lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-               center: geolocation,
-               radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-         });
+    var place = autocomplete.getPlace();
+    for (var component in componentForm) {
+      if (!!document.getElementById(component + unique)) {
+        document.getElementById(component + unique).value = '';
+        document.getElementById(component + unique).disabled = false;
       }
-   }
+    }
+
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+        var val = place.address_components[i][componentForm[addressType]];
+        document.getElementById(addressType + unique).value = val;
+      }
+    }
+  }
+  google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
 </script>
 
 @endsection
@@ -386,21 +412,21 @@ $(window).scroll(function(){
 <main id="main" class="main-body" style="padding-top:77px;">
 
   <section id="space-sticky" class="space-car">
-  
+
     <div class="container-fluid">
       <div class="space-t">
         <div class="owl-carousel owl-theme">
 
-        @foreach($categories as $category)
+          @foreach($categories as $category)
           <div class="item">
             <div class="img-rid">
               <!-- <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/space/cabin.png" alt="" class="img-fluid"> -->
               <a href="{{url('/space-category-list')}}/{{base64_encode($category->scat_id)}}"><img src="{{url('public/uploads/space_images/cat_img/')}}/{{$category->space_cat_image}}" alt="" class="img-fluid"></a>
-              
+
             </div>
             <h6>{{ $category->category_name }}</h6>
           </div>
-        @endforeach  
+          @endforeach
 
           <!-- <div class="item">
             <div class="img-rid">
@@ -488,11 +514,11 @@ $(window).scroll(function(){
     </div>
 
     <div id="search-space-sec" class="space-type">
-    
+
       <form method="GET" action="{{url('spaceList')}}">
         @csrf
         <div class="container">
-        <div class="logo-s" id="logo-s"><a href="{{ url('/') }}" class="logo mr-auto"><img src="{{ url('/') }}/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
+          <div class="logo-s" id="logo-s"><a href="{{ url('/') }}" class="logo mr-auto"><img src="{{ url('/') }}/resources/assets/img/road-logo-white.png" alt="" class="img-fluid"></a></div>
           <div id="space-searc" class="row space-searc">
             <div class="col-md-4 pr-0 h-space">
               <span class="span3 form-control-lo"><i class="bx bx-map"></i>
@@ -502,14 +528,14 @@ $(window).scroll(function(){
                 <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
               </span>
             </div>
-            
+
             <div class="col-md-3 pr-0 space_dater reserved">
-              <input id="space_checkin_date" placeholder="Check in Date" class="s-siz" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date">
-              <!-- <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date"> -->
+              <input id="space_checkin_date" placeholder="Check in Date" class="s-siz" value="<?php echo date("d-m-Y"); ?>" name="space_checkin_date">
+              <!-- <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-m-y"); ?>" name="space_checkin_date" placeholder="Choose a date"> -->
             </div>
             <div class="col-md-3 pr-0 space_dater reserved">
-              <input id="space_checkout_date" placeholder="Check out Date" class="s-siz" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date">
-              <!-- <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date"> -->
+              <input id="space_checkout_date" placeholder="Check out Date" class="s-siz" value="<?php echo date("d-m-Y", strtotime("+ 1 day")); ?>" name="space_checkout_date">
+              <!-- <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-m-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date"> -->
             </div>
 
             <!-- <span class="reservation1" id="reservation">
@@ -578,7 +604,7 @@ $(window).scroll(function(){
               </div>
             </div>
           </section>
-          <h5 class="curated-head">Curated Space collections <br> <span>In karachi</span></h5>
+          <!-- <h5 class="curated-head">Curated Space collections <br> <span>In karachi</span></h5>
           <div class="curated-owl">
             <div class="owl-carousel owl-theme">
               <div class="item">
@@ -627,7 +653,7 @@ $(window).scroll(function(){
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="view-box">
             <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/7g.jpg" alt="">
             <div class="view-text">
@@ -655,7 +681,7 @@ $(window).scroll(function(){
               </div>
             </div>
           </div> -->
-          <div class="segment-space">
+          <!-- <div class="segment-space">
 
 
             <h5> <img src="https://static.99acres.com/universalapp/img/proj_investment_v2.webp" alt="">View Spaces With Budget</h5>
@@ -703,7 +729,7 @@ $(window).scroll(function(){
 
             </div>
 
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -737,7 +763,7 @@ $(window).scroll(function(){
       </div>
     </div>
   </section>
-  <section id="featured-blog" class="testimonials spaceblog-testimonial">
+  <!-- <section id="featured-blog" class="testimonials spaceblog-testimonial">
     <div class="container-fluid" data-aos="">
       <div class="trend-blog">
         <h3 style="text-align: left;">Top Article on some spaces</h3>
@@ -830,6 +856,6 @@ $(window).scroll(function(){
 
 
     </div>
-  </section>
+  </section> -->
 </main><!-- End #main -->
 @endsection

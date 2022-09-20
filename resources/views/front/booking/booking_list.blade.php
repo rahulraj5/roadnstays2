@@ -877,7 +877,7 @@
                 @endforeach
                 <div class="row gird-event" id="filterdata">
                     <div class="col-md-12">
-                        <div class="">bookingList->fragment('tab1')->links()</div>
+                        <div class="">{{$bookingList->fragment('tab1')->links()}}</div>
                     </div>
                 </div>
 

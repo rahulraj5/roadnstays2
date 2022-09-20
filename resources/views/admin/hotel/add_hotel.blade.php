@@ -317,6 +317,9 @@
         max_hrs_percentage: {
           number: true,
         },
+        commission: {
+          number: true,
+        },
         // attraction_distance: {
         //   required: true,
         // },
@@ -338,6 +341,40 @@
         },
         hotel_city: {
           required: true
+        },
+        operator_name: {
+          required: true,
+        },
+        operator_contact_name: {
+          required: true,
+        },
+        operator_contact_num: {
+          required: true,
+          number: true,
+        },
+        operator_email: {
+          required: true,
+          email: true,
+        },
+        operator_booking_num: {
+          required: true,
+          number: true,
+        },
+        online_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
+        },
+        at_desk_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
         },
 
       },
@@ -574,6 +611,18 @@
     $("#cancel_num_of_days_div").addClass('d-none');
     $("#cancel_time_period_div").removeClass('d-none');
   });
+
+  $("#payment_mode1").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
+
+  $("#payment_mode2").click(function() {
+    $("#partial_payment_div").removeClass('d-none');
+  });
+
+  $("#payment_mode3").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
 </script>
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA&libraries=places"></script>-->
 
@@ -616,6 +665,18 @@
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
+<script>
+  $('#online_payment_percentage').keyup(function(){
+    $("#at_desk_payment_percentage").prop('readonly', true);
+    let online_per = parseFloat($('#online_payment_percentage').val());
+    $('#at_desk_payment_percentage').val(100-online_per);
+  });
+  $('#at_desk_payment_percentage').keyup(function(){
+    $("#online_payment_percentage").prop('readonly', true);
+    let offline_per = parseFloat($('#at_desk_payment_percentage').val());
+    $('#online_payment_percentage').val(100-offline_per);
+  });
+</script>
 @endsection
 
 
@@ -1057,7 +1118,7 @@
                             <div class="form-group">
                               <div class="custom-control custom-radio">
                                 <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
-                                <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
+                                <label for="payment_mode2" class="custom-control-label">Partial Payment (Like 30% Online & 70% at Desk )</label>
                               </div>
                             </div>
                           </div>
@@ -1071,6 +1132,23 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="col-md-12">
+                        <div class="row d-none" id="partial_payment_div">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>Online Payment Percentage</label>
+                              <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage">
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>At Desk Payment Percentage</label>
+                              <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage">
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
 
                       <div class="col-sm-6">
                         <label>Booking Option</label>
@@ -1213,13 +1291,13 @@
                         <div class="row">                              
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <label>First Cancellation Hrs.</label>
+                              <label>Min. Hrs. (# of Hours <= from check in)</label>
                               <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="" placeholder="hrs.">
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <label>Percentage</label>
+                              <label>Deduction (%)</label>
                               <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="" placeholder="percentage">
                             </div>
                           </div>
@@ -1229,13 +1307,13 @@
                         <div class="row">
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <label>Second Cancellation Hrs.</label>
+                              <label>Max. Hrs. (# of Hours <= from check in)</label>
                               <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="" placeholder="hrs">
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <label>Percentage</label>
+                              <label>Deduction (%)</label>
                               <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="" placeholder="percentage">
                             </div>
                           </div>
@@ -1243,6 +1321,21 @@
                       </div>
 
                       <!-- cancellation & policy end here -->
+
+                      <div class="col-md-12">
+                        <div class="tab-custom-content">
+                          <p class="lead mb-0">
+                          <h4>Commission</h4>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Commission</label>
+                          <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission">
+                        </div>
+                      </div>
 
                       <div class="col-md-12">
                         <div class="tab-custom-content">
@@ -1584,7 +1677,7 @@
                                 <label for="exampleInputPassword1">Price</label>
                                 <div class="row">
                                   <div class="col-md-6">
-                                    <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR">
+                                    <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="PKR">
                                   </div>
                                   <div class="col-md-6">
                                     <select class="custom-select" name="payment_interval" id="payment_interval">
@@ -1730,6 +1823,44 @@
 
                       </div>
 
+                      <div class="col-md-12 mt-0">
+                        <div class="tab-custom-content mt-0">
+                          <p class="lead mb-0">
+                          <h4>Operator Details</h4>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Operator Name</label>
+                          <input type="text" class="form-control" name="operator_name" id="operator_name" placeholder="Enter Operator Name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Operator Contact Name</label>
+                          <input type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" placeholder="Enter Contact Name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Operator Contact Number</label>
+                          <input type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" placeholder="Enter Contact Number">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Operator Email</label>
+                          <input type="text" class="form-control" name="operator_email" id="operator_email" placeholder="Enter Operator Email">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Operator Booking Number</label>
+                          <input type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" placeholder="Enter Operator Booking Number">
+                        </div>
+                      </div>
+
                       <!-- checking for the other option added end here -->
 
                       <div class="col-md-12">
@@ -1737,6 +1868,7 @@
                         <!-- <button class="btn btn-primary btn-dark float-right" name="submit" id="step_btn3" type="submit">Submit</button> -->
                         <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button"><span class=""></span>Submit</button>
                       </div>
+                      
                     </div>
 
                     <!-- </form> -->

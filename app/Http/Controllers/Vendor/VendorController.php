@@ -133,6 +133,8 @@ class VendorController extends Controller
 
             // step 2
             $adminhotel->payment_mode = $request->payment_mode;
+            $adminhotel->online_payment_percentage = $request->online_payment_percentage;
+            $adminhotel->at_desk_payment_percentage = $request->at_desk_payment_percentage;
             $adminhotel->booking_option = $request->booking_option;
             $adminhotel->hotel_address = $request->hotel_address;
             $adminhotel->hotel_latitude = $request->hotel_latitude;
@@ -150,6 +152,7 @@ class VendorController extends Controller
             $adminhotel->min_hrs_percentage = $request->min_hrs_percentage;
             $adminhotel->max_hrs = $request->max_hrs;
             $adminhotel->max_hrs_percentage = $request->max_hrs_percentage;
+            $adminhotel->commission = $request->commission;
 
             // $adminhotel->attraction_name = $request->attraction_name;
             // $adminhotel->attraction_content = $request->attraction_content;
@@ -175,6 +178,12 @@ class VendorController extends Controller
             $adminhotel->breakfast_price_inclusion = $request->breakfast_price_inclusion;
             $adminhotel->breakfast_cost = $request->breakfast_cost;
             $adminhotel->breakfast_type = json_encode($request->breakfast_type);
+
+            $adminhotel->operator_name = $request->operator_name;
+            $adminhotel->operator_contact_name = $request->operator_contact_name;
+            $adminhotel->operator_contact_num = $request->operator_contact_num;
+            $adminhotel->operator_email = $request->operator_email;
+            $adminhotel->operator_booking_num = $request->operator_booking_num;
 
             $adminhotel->save();
 
@@ -378,6 +387,8 @@ class VendorController extends Controller
 
                     // step 2
                     'payment_mode' => $request->payment_mode,
+                    'online_payment_percentage' => $request->online_payment_percentage,
+                    'at_desk_payment_percentage' => $request->at_desk_payment_percentage,
                     'booking_option' => $request->booking_option,
                     'hotel_address' => $request->hotel_address,
                     'hotel_latitude' => $request->hotel_latitude,
@@ -395,6 +406,7 @@ class VendorController extends Controller
                     'min_hrs_percentage' => $request->min_hrs_percentage,
                     'max_hrs' => $request->max_hrs,
                     'max_hrs_percentage' => $request->max_hrs_percentage,
+                    'commission' => $request->commission,
 
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,
@@ -415,6 +427,12 @@ class VendorController extends Controller
                     'breakfast_price_inclusion' => $request->breakfast_price_inclusion,
                     'breakfast_cost' => $request->breakfast_cost,
                     'breakfast_type' => json_encode($request->breakfast_type),
+
+                    'operator_name' => $request->operator_name,
+                    'operator_contact_name' => $request->operator_contact_name,
+                    'operator_contact_num' => $request->operator_contact_num,
+                    'operator_email' => $request->operator_email,
+                    'operator_booking_num' => $request->operator_booking_num,
 
                     'updated_at' => date('Y-m-d H:i:s'),
 

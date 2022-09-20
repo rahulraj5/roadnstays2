@@ -614,7 +614,7 @@
                         <li class="breadcrumb-item active" aria-current="page">Booking ID: #VXMN{{ $bookingDetails->space_booking_id }}</li>
                     </ol>
                 </nav>
-                <h5>Your Space booking has completed</h5>
+                <h5>Your Space booking has been completed</h5>
                 <div class="id">
                     <div class="id-text">
                         <p>Booking ID# <span>#VXMN{{ $bookingDetails->space_booking_id }}</span> &nbsp; &nbsp; &nbsp;
@@ -655,11 +655,13 @@
                     </div>
                     <div class="deta">
                         <h5>RoadnStays & Co.</h5>
-                        <p>{{ $bookingDetails->space_name }}</p>
+                        <p>E-mail - info@roadnstays.com</p>
+                        <p>What's up - +92 342 4514629</p>
+                        <!-- <p>{{ $bookingDetails->space_name }}</p> -->
 
                     </div>
                     <div class="down-i">
-                        <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                        <a style="text-decoration:none;" target="blank" href="{{ url('/user/spaceBookingInvoice') }}/{{ base64_encode($bookingDetails->id) }}"><i class='bx bx-download'></i>Download Invoice</a>
                     </div>
 
                 </div>
@@ -703,9 +705,11 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <ul>
-                            <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_space">Cancel your Booking</a></li>
-                        </ul>
+                        @if(($bookingDetails->check_in_date) > date('Y-m-d'))
+                            <ul>
+                                <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_space">Cancel your Booking</a></li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
 

@@ -218,7 +218,28 @@
         },
         children_policy: {
           required: true,
-        }, 
+        },
+        tour_services_not_includes:{
+          required:true,
+        },
+        operator_name: {
+          required: true,
+        },
+        operator_contact_name: {
+          required: true,
+        },
+        operator_contact_num: {
+          required: true,
+          number: true,
+        },
+        operator_email: {
+          required: true,
+          email: true,
+        },
+        operator_booking_num: {
+          required: true,
+          number: true,
+        },
 
       }, 
       errorElement: 'span',
@@ -316,7 +337,26 @@
         },
         tour_services_not_includes:{
           required:true,
-        }
+        },
+        operator_name: {
+          required: true,
+          number: true,
+        },
+        operator_contact_name: {
+          required: true,
+        },
+        operator_contact_num: {
+          required: true,
+          number: true,
+        },
+        operator_email: {
+          required: true,
+          number: true,
+        },
+        operator_booking_num: {
+          required: true,
+          number: true,
+        },
       },
     });
     if (form.valid() === true) {
@@ -956,6 +996,45 @@
                               <textarea class="form-control" id="summernoteRemoved85" name="tour_services_not_includes" ></textarea>
                             </div>
                           </div> 
+
+                          <div class="col-md-12 mt-0">
+                            <div class="tab-custom-content mt-0">
+                              <p class="lead mb-0">
+                              <h4>Operator Details</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Operator Name</label>
+                              <input type="text" class="form-control" name="operator_name" id="operator_name" placeholder="Enter Operator Name">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Operator Contact Name</label>
+                              <input type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" placeholder="Enter Contact Name">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Operator Contact Number</label>
+                              <input type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" placeholder="Enter Contact Number"  >
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Operator Email</label>
+                              <input type="text" class="form-control" name="operator_email" id="operator_email" placeholder="Enter Operator Email">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Operator Booking Number</label>
+                              <input type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" placeholder="Enter Operator Booking Number">
+                            </div>
+                          </div>
+
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
                             <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>

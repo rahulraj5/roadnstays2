@@ -96,6 +96,13 @@ public function submit_tour(Request $request)
         $admintour->tour_activities = $request->tour_activities;
         $admintour->tour_services_includes = $request->tour_services_includes;
         $admintour->tour_services_not_includes = $request->tour_services_not_includes;
+
+        $admintour->operator_name = $request->operator_name;
+        $admintour->operator_contact_name = $request->operator_contact_name;
+        $admintour->operator_contact_num = $request->operator_contact_num;
+        $admintour->operator_email = $request->operator_email;
+        $admintour->operator_booking_num = $request->operator_booking_num;
+        
         $admintour->status = 1;
         $admintour->save();  
         $admintour_id = $admintour->id;
@@ -269,6 +276,12 @@ public function submit_tour(Request $request)
                     'tour_activities' => $request->tour_activities,
                     'tour_services_includes' => $request->tour_services_includes,
                     'tour_services_not_includes' => $request->tour_services_not_includes,
+
+                    'operator_name' => $request->operator_name,
+                    'operator_contact_name' => $request->operator_contact_name,
+                    'operator_contact_num' => $request->operator_contact_num,
+                    'operator_email' => $request->operator_email,
+                    'operator_booking_num' => $request->operator_booking_num,
                     'status' => 1,
                 ]);
 

@@ -42,76 +42,7 @@
 
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-<script type="text/javascript">
-
-//  function delete_user(user_id){
-
-//     $.ajaxSetup({
-
-//       headers: {
-
-//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-//       }
-
-//     });
-
-//     $.ajax({
-
-//      type: 'POST',
-
-//      url: "<?php echo url('/admin/deletecustomer'); ?>",
-
-//      enctype: 'multipart/form-data',
-
-//      data:{user_id:user_id,'_token':'<?php echo csrf_token(); ?>'},
-
-//      beforeSend:function(){
-
-//        return confirm("Are you sure you want to delete this user?");
-
-//      },
-
-//      success: function(resultData) { 
-
-//       //  console.log(resultData);
-
-//        var obj = JSON.parse(resultData);
-
-//        console.log(resultData);
-
-//        if (obj.status == 'success') {
-
-//         //  setTimeout(function() {
-
-//         //   $('#success_message').fadeOut("slow");
-
-//         // }, 2000 );
-
-//         // $("#row" + user_id).remove();
-
-//         // success_noti(results.success);
-
-//        } 
-
-//      },
-
-//      error: function(errorData) {
-
-//       console.log(errorData);
-
-//       alert('Please refresh page and try again!');
-
-//     }
-
-//   });
-
-// }
-
-</script>
-
-
-
+ 
 <script type="text/javascript">
 
   function deleteConfirmation(id) {
@@ -314,20 +245,14 @@
 
                                             <th>SNo.</th>
 
-                                            <th>Id</th>
+                                            <th>Scout Id</th>
                                             <th>Name</th>
-
-                                            <!-- <th>Last Name</th> -->
 
                                             <th>Email</th>
 
                                             <th>Contact Number</th>
 
-                                            <!-- <th>Address</th> -->
-
-                                            <!-- <th>City</th> -->
-
-                                            <!-- <th>Country</th> -->
+                                            <th>View Rating</th>
 
                                             <th>Status</th>
 
@@ -348,7 +273,7 @@
                                                 <tr id="row{{ $arr->id }}">
 
                                                     <td>{{ $i }}</td>
-                                                    <td>Rns-S-{{$arr->id}}</td>
+                                                    <td>{{$arr->id}}</td>
                                                     <td>{{ $arr->first_name }}</td>
 
                                                     <!-- <td>{{ $arr->last_name }}</td> -->
@@ -357,7 +282,7 @@
 
                                                     <td>{{ $arr->contact_number }}</td>
 
-                                                    <!-- <td>{{ $arr->address }}</td> -->
+                                                    <td><a href="{{url('/admin/scoutRatingList')}}/{{$arr->id}}" class="btn btn-default btn-sm" style="color: #000;"><i class="fas fa-list"></i>  View</a></td>
 
                                                     <!-- <td>{{ $arr->user_city }}</td> -->
 

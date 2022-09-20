@@ -627,13 +627,9 @@
     }
 </style>
 
-
 @endsection
 
-
-
 @section('current_page_js')
-
 
 @endsection
 
@@ -694,9 +690,9 @@
                         <div class="col-md-12 progress-ba">
                             <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
                             <ul class="multi-step-bar">
-                                <li class="active">Booking Cancelled</li>
-                                <li>Refund Processed</li>
-                                <li>Credit in Account</li>
+                                <li class="<? if($bookingDetails->refund_status=='pending' or $bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){ echo "active"; } ?>">Booking Cancelled <br>{{$bookingDetails->canceled_at}}</li>
+                                <li class="<? if($bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){ echo "active"; } ?>">Refund Processed <br>@if($bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){{$bookingDetails->refund_processed_at}}@endif</li>
+                                <li class="<? if($bookingDetails->refund_status=='confirmed'){ echo "active"; } ?>">Credit in Account <br>@if($bookingDetails->refund_status=='confirmed'){{$bookingDetails->refund_credited_at}}@endif</li>
                             </ul>
 
 
@@ -710,7 +706,9 @@
 
                     <div class="deta">
                         <h5>RoadnStays & Co.</h5>
-                        <p>{{ $bookingDetails->tour_title }}</p>
+                        <p>E-mail - info@roadnstays.com</p>
+                        <p>What's up - +92 342 4514629</p>
+                        <!-- <p>{{ $bookingDetails->tour_title }}</p> -->
 
                     </div>
                     <!-- <div class="down-i">

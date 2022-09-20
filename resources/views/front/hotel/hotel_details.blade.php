@@ -17,7 +17,15 @@
         padding-left: 1px !important;
      }
 
-     
+     .tect-event {
+        font-size: 12px;
+        background: #98d55d;
+        color: #000;
+        padding: 5px 7px;
+        font-weight: 100;
+        border-left: 2px solid #126c62;
+        margin-top: 10px;
+     }
   </style>
 
   <!-- slider -->
@@ -148,7 +156,7 @@
                  </div>
               </div>
            </div>
-        </section> 
+        </section>
         <section id="3">
            <div class="container">
               @foreach($room_data as $room)
@@ -174,8 +182,8 @@
                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                           </ol>
-                           <div class="carousel-inner">
-                              <!-- <div class="carousel-item active">
+                          <div class="carousel-inner">
+                             <!-- <div class="carousel-item active">
                                  <img src="https://source.unsplash.com/random/900×700/?boy, family" class="d-block w-100" alt="First slide">
                               </div>
                               <div class="carousel-item">
@@ -185,17 +193,17 @@
                                  <img src="https://source.unsplash.com/random/900×700/?hotel" class="d-block w-100" alt="Third slide">
                               </div> -->
 
-                              <div class="carousel-item active">
-                                 <img src="{{url('public/uploads/room_images')}}/{{$room['image']}}" class="d-block w-100" alt="slide">
-                              </div>
+                             <div class="carousel-item active">
+                                <img src="{{url('public/uploads/room_images')}}/{{$room['image']}}" class="d-block w-100" alt="slide">
+                             </div>
 
-                              @foreach($room['room_gallery'] as $img)
-                                 <div class="carousel-item">
-                                    <img src="{{url('public/uploads/room_images')}}/{{ $img->image }}" class="d-block w-100" alt="Second slide">
-                                 </div>
-                              @endforeach
+                             @foreach($room['room_gallery'] as $img)
+                             <div class="carousel-item">
+                                <img src="{{url('public/uploads/room_images')}}/{{ $img->image }}" class="d-block w-100" alt="Second slide">
+                             </div>
+                             @endforeach
 
-                           </div>
+                          </div>
                           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                              <span class="sr-only">Previous</span>
@@ -229,22 +237,41 @@
                     <h3 class="mb-0">PRICE</h3>
                     <div class="brakfast-price" style="height: 271px; border: none;">
                        <div class="boking-plo">
-                          <p> Partial payment at the time of booking confirmation (i.e. 30% online payment , 70% payment at the desk)</p>
+
+                          @if($hotel_data->booking_option ==1)
+                          <!-- full payment == 1 -->
+                          <p> 100% Online Payment</p>
+                          @elseif($hotel_data->booking_option ==2)
+                          <!-- partial payment == 2 -->
+                          <p> Partial payment at the time of booking confirmation ({{$hotel_data->online_payment_percentage ?? '30'}}% online payment , {{$hotel_data->at_desk_payment_percentage ?? '70'}}% payment at the desk)</p>
+                          @else
+                          <!-- pay at desk == 0 -->
+                          <p> 100% Offline Payment</p>
+                          @endif
                        </div>
                        <div class="chagr-es">
                           <span>Per Night</span>
                           <br>
-                          <del>PKR {{$room['price_per_night']}}</del><br>
+                          @if(!empty($room['projected_price']))
+                          <del>PKR {{$room['projected_price']}}</del><br>
+                          @endif
+                          <?php $total_amount = $room['price_per_night'] + $room['cleaning_fee'] + $room['city_fee'] + $room['tax_percentage']; ?>
                           <h5>PKR {{$room['price_per_night']}}</h5>
-                          @if($room['tax_percentage'] > 0)
-                          <b>+PKR {{$room['tax_percentage']}} taxes & fees</b>
+                          @if(!empty($room['earlybird_discount']))
+                          @if(now()->diffInDays($check_in) > $room['min_days_in_advance'])
+                          <!-- <b class="tect-event">{{$room['earlybird_discount']}}% Early Bird Discount on Booking before {{$room['min_days_in_advance']}} days</b> -->
+                          <b class="tect-event">Pay before {{$room['min_days_in_advance']}} days to get {{$room['earlybird_discount']}}% Early bird discount</b>
                           @endif
-                          @if($room['cleaning_fee'] > 0)
-                          <b>+PKR {{$room['cleaning_fee']}} Cleaning & fees</b>
                           @endif
-                          @if($room['city_fee'] > 0)
-                          <b>+PKR {{$room['city_fee']}} city & fees</b>
-                          @endif
+                          <!-- @if($room['tax_percentage'] > 0)
+                           <b>+PKR {{$room['tax_percentage']}} taxes & fees</b>
+                           @endif
+                           @if($room['cleaning_fee'] > 0)
+                           <b>+PKR {{$room['cleaning_fee']}} Cleaning & fees</b>
+                           @endif
+                           @if($room['city_fee'] > 0)
+                           <b>+PKR {{$room['city_fee']}} city & fees</b>
+                           @endif -->
                        </div>
                        <a href="{{url('checkout')}}?hotel_id={{$hotel_data->hotel_id}}&room_id={{$room['id']}}&check_in={{$check_in}}&check_out={{$check_out}}&person={{$person}}" class="select-room mt-3">Room Book</a>
                     </div>
@@ -275,10 +302,11 @@
         <section class="overview" id="4">
            <div class="container">
               <div class="row over-row">
-                <div class="col-md-12 p-0">
-                  <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
-                  <!-- <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php //echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                </div>
+                 <div class="col-md-12 p-0">
+                    <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
+                    <!-- <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php //echo str_replace(",", "", str_replace(" ", "+", $address)); 
+                                                                                                                     ?>'&z=14&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                 </div>
               </div>
               <iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
            </div>
@@ -287,7 +315,7 @@
            <div class="container">
               <h1 class="mt-0">Hotel Policy</h1>
               <div class="row policy-row">
-                 {{strip_tags($hotel_data->hotel_notes)}} 
+                 {{strip_tags($hotel_data->hotel_notes)}}
               </div>
            </div>
      </div>
@@ -305,7 +333,7 @@
                  <div class="rie-name">
                     <div class="rating-var">
                        <div class="mb-4 btom-border">
-                          <h3> Puspendra Thakur </h3>
+                          <h3> Puspendra Jha </h3>
                           <span>Business traveller</span>
                           <div><small><i class='bx bxs-calendar'></i> 19 Dec 2021</small>
                              <small><i class='bx bx-time-five'></i> 12:30PM </small>
@@ -315,7 +343,7 @@
                           </div>
                        </div>
                        <div class="mb-4 btom-border">
-                          <h3> Puspendra Thakur </h3>
+                          <h3> Puspendra Jha </h3>
                           <span>Business traveller</span>
                           <div><small><i class='bx bxs-calendar'></i> 19 Dec 2021</small>
                              <small><i class='bx bx-time-five'></i> 12:30PM </small>
@@ -332,14 +360,14 @@
                                       <input id="ratings-hidden" name="rating" type="hidden">
                                       <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
                                       <div class="d-flex justify-content-end align-items-center mt-4">
-                                        <div class="d-flex mr-2 tating-size">
-                                          <a href="#"><i class='bx bxs-star'></i></a>
-                                          <a href="#"><i class='bx bxs-star'></i></a>
-                                          <a href="#"><i class='bx bxs-star'></i></a>
-                                          <a href="#"><i class='bx bxs-star'></i></a>
-                                          <a href="#"><i class='bx bxs-star'></i></a>
-                                        </div>
-                                        <button class="btn btn-success-text" type="submit">Save</button>
+                                         <div class="d-flex mr-2 tating-size">
+                                            <a href="#"><i class='bx bxs-star'></i></a>
+                                            <a href="#"><i class='bx bxs-star'></i></a>
+                                            <a href="#"><i class='bx bxs-star'></i></a>
+                                            <a href="#"><i class='bx bxs-star'></i></a>
+                                            <a href="#"><i class='bx bxs-star'></i></a>
+                                         </div>
+                                         <button class="btn btn-success-text" type="submit">Save</button>
                                       </div>
                                    </form>
                                 </div>

@@ -655,13 +655,14 @@
                             <small>Landmark: {{ $bookingDetails->tour_locations }}</small>
                         </div>
                     </div>
-                    <!-- <div class="deta">
+                    <div class="deta">
                         <h5>RoadnStays & Co.</h5>
-                        <p>{{ $bookingDetails->neighb_area }}</p>
+                        <p>E-mail - info@roadnstays.com</p>
+                        <p>What's up - +92 342 4514629</p>
 
-                    </div> -->
+                    </div>
                     <div class="down-i">
-                        <a style="text-decoration:none;" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                        <a style="text-decoration:none;" target="blank" href="{{ url('/user/tourBookingInvoice') }}/{{ base64_encode($bookingDetails->id) }}"><i class='bx bx-download'></i>Download Invoice</a>
                     </div>
 
                 </div>
@@ -705,9 +706,11 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <ul>
-                            <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_tour">Cancel your Booking</a></li>
-                        </ul>
+                        @if(($bookingDetails->tour_start_date) > date('Y-m-d'))
+                            <ul>
+                                <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_tour">Cancel your Booking</a></li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
 

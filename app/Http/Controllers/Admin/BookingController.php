@@ -52,8 +52,141 @@ class BookingController extends Controller
                                     'room_list.name as room_name')
                                 ->orderby('id', 'DESC')
                                 ->get();
-        // echo "<pre>";print_r($data['bookingList']);die;
+        // if($data['bookingList'][0]->refund_status == 'confirmed'){
+        //     echo "confirmed";
+        // }else{
+        //     echo "error";
+        // }
+        // echo "<pre>";print_r($data['bookingList'][0]->refund_status);die;
         return view('admin/booking/booking_list')->with($data);
+    }
+
+    
+    public function change_booking_status(Request $request)
+    {
+        if($request->status=='processing'){
+            $booking_info = DB::table('booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_processed_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        if($request->status=='confirmed'){
+            $booking_info = DB::table('booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_credited_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        
+        return response()->json(['status' => 'success', 'msg' => 'Status has been changed']);
+
+        // ->find($request->booking_id);
+        // echo "<pre>";print_r($booking_info);die;
+        // $date = $booking_info->created_at;
+        // $booking_info->booking_status = $request->status;
+
+        // $res = $booking_info->save();
+        // if ($res) {
+        //     $users = DB::table('users')->where('id','=',$order_info->user_id)->first(); 
+        //     $username = $users->first_name." ".$users->last_name;
+        //     $title ="Hey ". $username ." your order status is ". $request->status;
+        //     //$device_token ="ftkpkxjW37Q:APA91bE_27LnEi3ziGsQpVbZnvh6MlNxovsEVVQSGPDMlnTYt47IiQP25JuSwC0AqiGeGwHa3LAFZ9mw8IKmRkMD1lzKRSeMEBPNCpvsIkKA4AcNAieLbQ-OFlXq74jiCUo2xfPy2fi8";
+        //     $this->notification($users->device_token, $title, $request->order_id, $date);
+          
+
+                      
+
+        //     if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+        //         $data['url'] = url('/');
+
+        //         $data['status'] = $request->status;
+
+        //         $data['first_name'] = $users->first_name;
+
+        //         $data['last_name'] = $users->last_name;
+
+        //         $data['status'] = $request->status;
+
+        //         $data['order_id'] = $request->order_id;
+
+
+
+
+
+        //         $fromEmail = Helper::getFromEmail();
+
+        //         $inData['from_email'] = $fromEmail;
+
+        //         $inData['email'] = $users->email;
+
+        //         Mail::send('emails.invoice.order_status_template',$data, function ($message) use ($inData) {
+
+        //             $message->from($inData['from_email'],'PIX2ARTS');
+
+        //             $message->to($inData['email']);
+
+        //             $message->subject('PIX2ARTS - Order Status Mail');
+
+        //         });
+
+
+
+        //     }
+
+
+
+        //     return response()->json(['success'=>'Order status change successfully.']);
+
+
+
+        // }   
+
+    }
+
+    public function change_tour_booking_status(Request $request)
+    {
+        if($request->status=='processing'){
+            $booking_info = DB::table('tour_booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_processed_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        if($request->status=='confirmed'){
+            $booking_info = DB::table('tour_booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_credited_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        return response()->json(['status' => 'success', 'msg' => 'Status has been changed']);
+    }
+
+    public function change_space_booking_status(Request $request)
+    {
+        if($request->status=='processing'){
+            $booking_info = DB::table('space_booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_processed_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        if($request->status=='confirmed'){
+            $booking_info = DB::table('space_booking')
+            ->where('id', $request->booking_id)
+            ->update([
+                'refund_status' => $request->status,
+                'refund_credited_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        return response()->json(['status' => 'success', 'msg' => 'Status has been changed']);
     }
 
     // public function booking_list()

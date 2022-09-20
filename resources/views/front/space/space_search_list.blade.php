@@ -64,42 +64,42 @@
 </style>
 
 <style type="text/css">
-  #profile-description {
-    max-width: 400px;
-    position: relative;
-  }
+    #profile-description {
+        max-width: 400px;
+        position: relative;
+    }
 
-  #profile-description .text {
-    /*   width: 660px;  */
-    margin-bottom: 5px;
-    color: #777;
-    padding: 0 15px;
-    position: relative;
-    font-family: Arial;
-    font-size: 14px;
-    display: block;
-  }
+    #profile-description .text {
+        /*   width: 660px;  */
+        margin-bottom: 5px;
+        color: #777;
+        padding: 0 15px;
+        position: relative;
+        font-family: Arial;
+        font-size: 14px;
+        display: block;
+    }
 
-  #profile-description .show-more {
-    /*   width: 690px;  */
-    color: #777;
-    position: relative;
-    font-size: 12px;
-    padding-top: 5px;
-    height: 20px;
-    text-align: center;
-    background: #f1f1f1;
-    cursor: pointer;
-  }
+    #profile-description .show-more {
+        /*   width: 690px;  */
+        color: #777;
+        position: relative;
+        font-size: 12px;
+        padding-top: 5px;
+        height: 20px;
+        text-align: center;
+        background: #f1f1f1;
+        cursor: pointer;
+    }
 
-  #profile-description .show-more:hover {
-    color: #1779dd;
-  }
+    #profile-description .show-more:hover {
+        color: #1779dd;
+    }
 
-  #profile-description .show-more-height {
-    height: 200px;
-    overflow: hidden;
-  }
+    #profile-description .show-more-height {
+        height: 200px;
+        overflow: hidden;
+    }
 </style>
 @endsection
 
@@ -235,142 +235,204 @@
     });
 </script>
 
-<script>
-   var today = new Date(); 
-   var dd = today.getDate(); 
-   var mm = today.getMonth()+1; //January is 0! 
-   var yyyy = today.getFullYear(); 
-   if(dd<10){ dd='0'+dd } 
-   if(mm<10){ mm='0'+mm } 
-   let today_date = dd+'/'+mm+'/'+yyyy;
-   // alert(today);
+<!-- <script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0! 
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    let today_date = dd + '/' + mm + '/' + yyyy;
+    // alert(today);
 
-   $(function() {
-       
-      $('.reserved').daterangepicker({
-         // minDate:new Date(),
-         dateFormat: "dd-M-yy",
-         minDate: 1,
-         defaultDate: new Date(),
-         // minDate: today_date,
-         // opens: 'right'
-      }, function(start, end, label) {
+    $(function() {
+
+        $('.reserved').daterangepicker({
+            // minDate:new Date(),
+            dateFormat: "dd-M-yy",
+            minDate: 1,
+            defaultDate: new Date(),
+            // minDate: today_date,
+            // opens: 'right'
+        }, function(start, end, label) {
             $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
             $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
-      });
-   });
+        });
+    });
+</script> -->
+
+<script>
+    $(function() {
+        $('.space_dater').daterangepicker({
+            opens: 'right'
+        }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+        });
+    });
 </script>
 
 <script>
-   var placeSearch, autocomplete;
-   var componentForm = {
-      // street_number: 'long_name',
-      // route: 'long_name',
-      // locality: 'long_name',
-      // postal_code: 'short_name'
-   };
+    var today = new Date();
 
-   function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete(
-         (document.getElementById('autocomplete_space')), {
-            types: ['(cities)']
-         });
-      autocomplete.addListener('place_changed', function() {
-         var place = autocomplete.getPlace();
-         console.log(place);
-         document.getElementById('space_latitude').value = place.geometry.location.lat();
-         document.getElementById('space_longitude').value = place.geometry.location.lng();
-         fillInAddress(autocomplete, "");
-      });
-   }
+    $(function() {
 
-   function fillInAddress(autocomplete, unique) {
-
-      var place = autocomplete.getPlace();
-      for (var component in componentForm) {
-         if (!!document.getElementById(component + unique)) {
-            document.getElementById(component + unique).value = '';
-            document.getElementById(component + unique).disabled = false;
-         }
-      }
-
-      for (var i = 0; i < place.address_components.length; i++) {
-         var addressType = place.address_components[i].types[0];
-         if (componentForm[addressType] && document.getElementById(addressType + unique)) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType + unique).value = val;
-         }
-      }
-   }
-   google.maps.event.addDomListener(window, "load", initAutocomplete);
-
-   function geolocate() {
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-               lat: position.coords.latitude,
-               lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-               center: geolocation,
-               radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-         });
-      }
-   }
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-
-    $('#spaceFilterFormR').on('change', function() {
-
-      var $this = $(this);
-      var frmValues = $this.serialize();
-
-      $('#loading-image').show();
-
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-      $.ajax({
-        method: 'POST',
-        url: "{{url('space_list_ajax')}}",
-        data: frmValues,
-        dataType: 'json',
-        success: function(response) {
-          //console.log(response);
-          $('#filterspacedata').html(response);
-          $('#loading-image').hide();
-
-        }
-      });
-
+        $('.reserved').daterangepicker({
+            "autoApply": true,
+            "autoUpdateInput": true,
+            minDate: today,
+            locale: {
+                format: 'DD-MM-YYYY'
+            },
+            "opens": "center",
+            "drops": "auto"
+        }, function(start, end, label) {
+            $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
+            $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
+            let space_start_date = start.format('DD-MM-YYYY');
+            let space_end_date = end.format('DD-MM-YYYY');
+            checkSameDate(space_start_date, space_end_date);
+        });
     });
 
-  });
+    function checkSameDate(start, end) {
+        let space_start_date = start;
+        let space_end_date = end;
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: "{{url('/checkValidDaterange')}}",
+            data: {
+                space_start_date: space_start_date,
+                space_end_date: space_end_date,
+                _token: CSRF_TOKEN
+            },
+            dataType: 'JSON',
+            success: function(response) {
+                if (response.status == 'sameDateError') {
+                    error_noti(response.msg);
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 2000);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    var placeSearch, autocomplete;
+    var componentForm = {
+        // street_number: 'long_name',
+        // route: 'long_name',
+        // locality: 'long_name',
+        // postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete_space')), {
+                types: ['(cities)']
+            });
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            console.log(place);
+            document.getElementById('space_latitude').value = place.geometry.location.lat();
+            document.getElementById('space_longitude').value = place.geometry.location.lng();
+            fillInAddress(autocomplete, "");
+        });
+    }
+
+    function fillInAddress(autocomplete, unique) {
+
+        var place = autocomplete.getPlace();
+        for (var component in componentForm) {
+            if (!!document.getElementById(component + unique)) {
+                document.getElementById(component + unique).value = '';
+                document.getElementById(component + unique).disabled = false;
+            }
+        }
+
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType] && document.getElementById(addressType + unique)) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType + unique).value = val;
+            }
+        }
+    }
+    google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
 </script>
 
 <script type="text/javascript">
-  $(".show-more").click(function() {
-    if ($(".text").hasClass("show-more-height")) {
-      $(this).text("Show less");
-    } else {
-      $(this).text("Show all");
-    }
+    $(document).ready(function() {
 
-    $(".text").toggleClass("show-more-height");
-  });
+        $('#spaceFilterFormR').on('change', function() {
+
+            var $this = $(this);
+            var frmValues = $this.serialize();
+
+            $('#loading-image').show();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method: 'POST',
+                url: "{{url('space_list_ajax')}}",
+                data: frmValues,
+                dataType: 'json',
+                success: function(response) {
+                    //console.log(response);
+                    $('#filterspacedata').html(response);
+                    $('#loading-image').hide();
+
+                }
+            });
+
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(".show-more").click(function() {
+        if ($(".text").hasClass("show-more-height")) {
+            $(this).text("Show less");
+        } else {
+            $(this).text("Show all");
+        }
+
+        $(".text").toggleClass("show-more-height");
+    });
 </script>
 @endsection
 
 @section('content')
 <section id="dynamic" class="sticky-space" style="">
-    
+
     <div class="container">
 
         <div class="row">
@@ -390,13 +452,13 @@
                                         <input type="hidden" name="space_longitude" id="space_longitude" value="{{$space_longitude}}">
                                     </span>
                                 </div>
-                                <div class="col-md-2 filter_01 pr-0 reserved">
-                                    <input id="space_checkin_date" class="span3 min_dat minimum_date" value="{{ date('d-M-y', strtotime($space_check_in_date)) ?? '' }}" name="space_checkin_date" placeholder="Choose a date">
+                                <div class="col-md-2 filter_01 pr-0 space_dater reserved">
+                                    <input id="space_checkin_date" class="span3 min_dat minimum_date" value="{{ date('d-m-Y', strtotime($space_check_in_date)) ?? '' }}" name="space_checkin_date" placeholder="Choose a date">
                                 </div>
-                                <div class="col-md-2 filter_01 pr-0 reserved">
-                                    <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="{{ date('d-M-y', strtotime($space_check_out_date)) ?? '' }}" name="space_checkout_date" placeholder="Choose a date">
+                                <div class="col-md-2 filter_01 pr-0 space_dater reserved">
+                                    <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="{{ date('d-m-Y', strtotime($space_check_out_date)) ?? '' }}" name="space_checkout_date" placeholder="Choose a date">
                                 </div>
-                                
+
                                 <div class="col-md-2 filter_01 pr-0" id="i-5">
                                     <button><i class="bx bx-search"></i></button>
                                 </div>
@@ -420,17 +482,17 @@
                 <div class="row filter-row">
                     <div class="col-md-3 sticky-spaclist">
                         <form method="POST" id="spaceFilterForm" action="" enctype="multipart/form-data">
-                        <!-- put it in action -->
-                        <!--{{ url('space_list_ajax') }}-->
-                        @csrf
+                            <!-- put it in action -->
+                            <!--{{ url('space_list_ajax') }}-->
+                            @csrf
                             <h6>Filter - Space</h6>
                             <div class="category category-0">
                                 <p>Distance</p>
                                 <ul>
-                                <li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
-                                <li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
-                                <li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
-                                <li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
+                                    <li><label><input type="checkbox" name="distance[]" id="" value="1">Less than 1 Mile<label></li>
+                                    <li><label><input type="checkbox" name="distance[]" id="" value="3">Less than 3 Mile<label></li>
+                                    <li><label><input type="checkbox" name="distance[]" id="" value="5">Less than 5 Mile<label></li>
+                                    <li><label><input type="checkbox" name="distance[]" id="" value="7">Less than 7 Mile<label></li>
 
                                 </ul>
                             </div>
@@ -439,7 +501,7 @@
                                 <ul>
                                     @foreach($categories as $category)
                                     <li><input type="checkbox" name="categories[]" value="{{$category->category_name}}" id="">{{$category->category_name}}</li>
-                                    @endforeach 
+                                    @endforeach
                                 </ul>
                             </div>
 
@@ -447,7 +509,7 @@
                                 <p>Listed Wise</p>
                                 <ul>
                                     @foreach($subcategories as $subcategory)
-                                        <li><input type="checkbox" name="subcategories[]" value="{{$subcategory->sub_category_name}}" id="">{{$subcategory->sub_category_name}}</li>
+                                    <li><input type="checkbox" name="subcategories[]" value="{{$subcategory->sub_category_name}}" id="">{{$subcategory->sub_category_name}}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -469,8 +531,8 @@
                                 <p>space City</p>
                                 <ul>
                                     @foreach($space_country as $country)
-                                        <li><input type="checkbox" name="countries[]" value="{{ $country->country_id }}" id="">{{ $country->country_name }}</li>
-                                    @endforeach 
+                                    <li><input type="checkbox" name="countries[]" value="{{ $country->country_id }}" id="">{{ $country->country_name }}</li>
+                                    @endforeach
                                 </ul>
                             </div>
 
@@ -488,7 +550,7 @@
                                         </ul>
                                     </div>
                                     <div class="show-more">Show all</div>
-                                </div>        
+                                </div>
                             </div>
                         </form>
                     </div>

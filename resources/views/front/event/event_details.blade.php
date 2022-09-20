@@ -473,31 +473,7 @@
             <img src="{{url('public/uploads/event_gallery')}}/{{$gallery->image}}" alt="Bridge">
 
           </div>
-          @endforeach
-          <!-- <div class="col-sm-6 col-md-4">
-
-            <img src="https://raw.githubusercontent.com/LeshikJanz/libraries/master/Related%20images/Bootstrap%20example/park.jpg" alt="Park">
-
-          </div>
-          <div class="col-sm-6 col-md-4">
-
-            <img src="https://raw.githubusercontent.com/LeshikJanz/libraries/master/Related%20images/Bootstrap%20example/tunnel.jpg" alt="Tunnel">
-
-          </div>
-          <div class="col-sm-12 col-md-8">
-
-            <img src="https://raw.githubusercontent.com/LeshikJanz/libraries/master/Related%20images/Bootstrap%20example/traffic.jpg" alt="Traffic">
-
-          </div>
-          <div class="col-sm-6 col-md-4 image-last">
-
-            <img src="https://raw.githubusercontent.com/LeshikJanz/libraries/master/Related%20images/Bootstrap%20example/rails.jpg" alt="Coast">
-
-
-            <img src="https://raw.githubusercontent.com/LeshikJanz/libraries/master/Related%20images/Bootstrap%20example/coast.jpg" alt="Rails">
-
-          </div>
- -->
+          @endforeach 
 
         </div>
 
@@ -516,9 +492,8 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Luxury Hotels in your city</a>
-            </li>
-
-          </ul><!-- Tab panes -->
+            </li> 
+          </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tabs-1" role="tabpanel">
               <div class="owl-carousel owl-theme">
@@ -533,33 +508,9 @@
                   <p>{{ $hotel_data->hotel_name }}</p></a>
                 </div>
                 @endif
-                @endforeach
-
-                <!-- <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h2.jpg" alt="">
-                  <p>The Leela</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h3.jpg" alt="">
-                  <p>Marriott</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h4.jpg" alt="">
-                  <p>The Grand</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h5.jpg" alt="">
-                  <p>The Elgin</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h6.jpg" alt="">
-                  <p>Esctasy</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h7.jpg" alt="">
-                  <p>C-view 21</p>
-                </div>
-                <div class="item"><img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h8.jpg" alt="">
-                  <p>leon c</p>
-                </div> -->
-
+                @endforeach 
               </div>
-            </div>
-
+            </div> 
             <div class="tab-pane" id="tabs-2" role="tabpanel">
               <div class="owl-carousel owl-theme"> 
                 @php $hotel_id = json_decode($event_data->hotel_ids) @endphp
@@ -567,8 +518,7 @@
 
                   @php $hotel_data = DB::table('hotels')->where('hotel_id', $hotelid)->first() @endphp  
                     @if(!empty($hotel_data))
-                    <div class="item"><a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel_data->hotel_id)}}&check_in={{base64_encode($event_data->start_date)}}&check_out={{base64_encode($event_data->end_date)}}"><img src="{{url('/')}}/public/uploads/hotel_gallery/{{$hotel_data->hotel_gallery}}" alt="">
-                      <p>{{ $hotel_data->hotel_rating }} Star Hotel</p></a>
+                    <div class="item"><a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel_data->hotel_id)}}&check_in={{base64_encode($event_data->start_date)}}&check_out={{base64_encode($event_data->end_date)}}"><img src="{{url('/')}}/public/uploads/hotel_gallery/{{$hotel_data->hotel_gallery}}" alt=""><p>{{ $hotel_data->hotel_rating }} Star Hotel</p></a>
                     </div>
                     @endif
                 @endforeach
@@ -602,69 +552,11 @@
                   <div class="addn-text">
                     <h5>{{ $space_data->space_name }}</h5>
                     <p>{{ $space_data->description }}</p>
-                  </div></a>
+                  </div>
+                  </a>
                 </div>
-                @endif
-
-            @endforeach
-
-            <!-- <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h2.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h3.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h4.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h5.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h6.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h7.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div>
-            <div class="item">
-              <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/h8.jpg" alt="">
-              <div class="addn-text">
-                <h5>Top Luxury Villa</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis facilis architecto aperiam eligendi soluta corporis.</p>
-
-              </div>
-            </div> -->
-
+                @endif 
+            @endforeach 
           </div> 
         </div> 
       </div>

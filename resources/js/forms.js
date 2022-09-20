@@ -397,6 +397,97 @@ $("#scoutUpdateAdmin_form").validate({
   }
 });
 
+
+//scout rating
+
+jQuery.validator.addMethod("checkYear", function(value, element) {
+    var year = $(element).val();
+    return (year > 1950) && (year <= (new Date()).getFullYear());
+}, "Invalid year");
+
+$("#scoutRateAdmin_form").validate({
+  debug: false,
+  rules: {
+    rating: {
+        required: true,
+        number:true,
+        max:5
+    },
+    year: {
+      required: true,
+      checkYear:true
+    },
+    remarks: {
+      required: true,
+    },
+  },
+  submitHandler: function (form) {
+    var site_url = $("#baseUrl").val();
+    // alert(site_url);
+    var formData = $(form).serialize();
+    $(form).ajaxSubmit({
+      type: 'POST',
+      url: site_url + '/admin/submitScoutRating',
+      data: formData,
+      success: function (response) {
+        // console.log(response);
+        if (response.status == 'success') {
+          // $("#register_form")[0].reset();
+          success_noti(response.msg);
+          // setTimeout(function(){window.location.reload()},1000);
+          setTimeout(function(){window.location.href=site_url+"/admin/scoutRatingList"},1000);
+        } else {
+          error_noti(response.msg);
+        }
+
+      }
+    });
+    // event.preventDefault();
+  }
+});
+
+
+$("#updateRateAdmin_form").validate({
+  debug: false,
+  rules: {
+    rating: {
+        required: true,
+        number:true,
+        max:5
+    },
+    year: {
+      required: true,
+      checkYear:true
+    },
+    remarks: {
+      required: true,
+    },
+  },
+  submitHandler: function (form) {
+    var site_url = $("#baseUrl").val();
+    // alert(site_url);
+    var formData = $(form).serialize();
+    $(form).ajaxSubmit({
+      type: 'POST',
+      url: site_url + '/admin/updateScoutRating',
+      data: formData,
+      success: function (response) {
+        // console.log(response);
+        if (response.status == 'success') {
+          // $("#register_form")[0].reset();
+          success_noti(response.msg);
+          // setTimeout(function(){window.location.reload()},1000);
+          setTimeout(function(){window.location.href=site_url+"/admin/scoutRatingList"},1000);
+        } else {
+          error_noti(response.msg);
+        }
+
+      }
+    });
+    // event.preventDefault();
+  }
+});
+
 // service provider
 
 $("#servProAdmin_form").validate({

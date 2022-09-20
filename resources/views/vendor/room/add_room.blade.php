@@ -41,6 +41,27 @@
   .d-none {
     display: none;
   }
+
+  a.add_bed_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 8px 33px;
+    border-radius: 4px;
+    font-size: 16px;
+    top: 7px;
+    left: 12px;
+    margin-left: 11px;
+  }
+
+  a.remove_bed_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+  }
 </style>
 <style>
   .card {
@@ -395,6 +416,28 @@
     });
   });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_bed_button');
+    var wrapper = $('.field_wrapper_bed');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><div class="form-group"><select class="form-control select2bs4" name="bed[' + x + '][type]" style="width: 100%;"><option value="">Select Bed type</option><option value="Single bed">Single bed</option><option value="Double bed">Double bed</option><option value="Bunk bed">Bunk bed</option><option value="Sofa">Sofa</option><option value="Futon Mat">Futon Mat</option><option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option></select></div></div><div class="col-md-3"><input type="text" class="form-control" name="bed[' + x + '][num]" placeholder="Enter Number of Beds" value="" /></div><span><a href="javascript:void(0);" class="remove_bed_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_bed_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
 @endsection
 
 @section('content')
@@ -726,7 +769,7 @@
                         <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2.">
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                       <div class="row">
                         <div class="col-md-3">
                           <div class="form-group">
@@ -747,6 +790,31 @@
                               <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
                             </select>
                           </div>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="col-md-12 field_wrapper_bed">
+                      <div class="form-group" id="bed_detail">
+                        <label>Bed Details</label>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <select class="form-control select2bs4" name="bed[0][type]" style="width: 100%;">
+                                <option value="">Select Bed type</option>
+                                <option value="Single bed">Single bed</option>
+                                <option value="Double bed">Double bed</option>
+                                <option value="Bunk bed">Bunk bed</option>
+                                <option value="Sofa">Sofa</option>
+                                <option value="Futon Mat">Futon Mat</option>
+                                <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <input type="text" class="form-control" name="bed[0][num]" placeholder="Enter Number of Beds" value="" />
+                          </div>
+                          <span><a href="javascript:void(0);" class="add_bed_button" title="Add field">Add</a></span>
                         </div>
                       </div>
                     </div>

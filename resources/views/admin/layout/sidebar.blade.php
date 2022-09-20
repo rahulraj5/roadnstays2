@@ -300,6 +300,56 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                CMS
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/banner_management') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Home Page</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/showStaticData') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Static Pages</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>About Us</p>
+                  <i class="right fas fa-angle-left"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showAboutBanner') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Banner</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showAboutContent') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Content Section</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showChooseUs') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Why Choose Us</p>
+                    </a>
+                  </li>
+                </ul>  
+              </li>
+            </ul>
+          </li>
           <!-- <li class="nav-item">
             <a href="{{ url('/admin/scoutList') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>

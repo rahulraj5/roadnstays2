@@ -51,6 +51,27 @@
     background: #2a7b72 !important;
     color: black;
   }
+
+a.add_bed_button {
+  background: #13544d;
+  color: #ffffff;
+  padding: 8px 33px;
+  border-radius: 4px;
+  font-size: 16px;
+  top: 7px;
+  left: 12px;
+  margin-left: 11px;
+}
+
+a.remove_bed_button {
+  background: #f90e39;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  position: relative;
+  top: 7px;
+  font-size: 14px;
+}
 </style>
 <style>
   .card {
@@ -184,7 +205,13 @@
     var maxField = 10;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
-    var x = 0;
+    // var x = 0;
+    var extraOptionCount = $('#extra_option_count').val();
+    if (extraOptionCount > 0) {
+      var x = extraOptionCount - 1;
+    } else {
+      var x = extraOptionCount;
+    }
 
     $(addButton).click(function() {
       if (x < maxField) {
@@ -194,6 +221,34 @@
     });
 
     $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_bed_button');
+    var wrapper = $('.field_wrapper_bed');
+    // var x = 0;
+    var bedDetailCount = $('#bed_details_option').val();
+    if (bedDetailCount > 0) {
+      var x = bedDetailCount - 1;
+    } else {
+      var x = bedDetailCount;
+    }
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row"><div class="col-md-4"><div class="form-group"><select class="form-control select2bs4" name="bed[' + x + '][type]" style="width: 100%;"><option value="">Select Bed type</option><option value="Single bed">Single bed</option><option value="Double bed">Double bed</option><option value="Bunk bed">Bunk bed</option><option value="Sofa">Sofa</option><option value="Futon Mat">Futon Mat</option><option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option></select></div></div><div class="col-md-3"><input type="text" class="form-control" name="bed[' + x + '][num]" placeholder="Enter Number of Beds" value="" /></div><span><a href="javascript:void(0);" class="remove_bed_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_bed_button', function(e) {
       e.preventDefault();
       $(this).parent().parent('div').remove();
       x--;
@@ -422,6 +477,8 @@
                         <input type="hidden" name="room_id" id="room_id" value="{{$room_data->id}}">
                         <input type="hidden" name="old_room_image" id="old_room_image" value="@if(!empty($room_data->id)){{ $room_data->image }}@endif" />
                         <input type="hidden" name="hotel_name" id="hotel_name" value="{{$room_data->hotel_id}}">
+                        <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($room_extra_option) }}">
+                        <input type="hidden" name="bed_details_option" id="bed_details_option" value="{{ count($bed_details_option ?? '') }}">
 
                         <input type="hidden" name="old_room_type" id="old_room_type" value="{{$room_data->room_types_id}}">
 
@@ -803,21 +860,15 @@
                               <input type="text" class="form-control" name="room_size" id="room_size" placeholder="Enter Size in ft2." value="{{$room_data->room_size}}">
                             </div>
                           </div>
-                          <div class="col-md-3">
+                          <!-- <div class="col-md-3">
                             <div class="form-group">
                               <label>Number of Beds</label>
                               <input type="text" class="form-control" name="num_of_beds" id="num_of_beds" value="{{$room_data->num_of_beds}}" placeholder="Enter Number of Beds">
                             </div>
                           </div>
-
-
-
                           <div class="col-md-6">
-
                             <div class="form-group">
-
                               <label>Bed type</label>
-
                               <select class="form-control select2bs4" name="bed_type" id="bed_type" style="width: 100%;">
                                 <option value="">Select Bed type</option>
                                 <option value="Single bed" {{ $room_data->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
@@ -827,9 +878,69 @@
                                 <option value="Futon Mat" {{ $room_data->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
                                 <option value="Extra-Large double bed (Super - King size)" {{ $room_data->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
                               </select>
+                            </div>
+                          </div> -->
+
+                          <div class="col-md-12 field_wrapper_bed">
+                            <div class="form-group" id="bed_detail">
+                              <label>Bed Details</label>
+
+                              @if(count($bed_details_option) > 0)
+                              @foreach ($bed_details_option as $key=>$value)
+                              <div class="row form-group">
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="bed[@php echo $key; @endphp][type]" style="width: 100%;">
+                                      <option value="">Select Bed type</option>
+
+                                      <option value="Single bed" {{ $value->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
+                                      <option value="Double bed" {{ $value->bed_type == "Double bed" ? 'selected' : '' }}>Double bed</option>
+                                      <option value="Bunk bed" {{ $value->bed_type == "Bunk bed" ? 'selected' : '' }}>Bunk bed</option>
+                                      <option value="Sofa" {{ $value->bed_type == "Sofa" ? 'selected' : '' }}>Sofa</option>
+                                      <option value="Futon Mat" {{ $value->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
+                                      <option value="Extra-Large double bed (Super - King size)" {{ $value->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
+
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="bed[@php echo $key; @endphp][num]" placeholder="Enter Number of Beds" value="{{ $value->bed_number }}" />
+                                </div>
+                                @if($key == 0)
+                                <span><a href="javascript:void(0);" class="add_bed_button" title="Add field">Add</a></span>
+                                @else
+                                <span><a href="javascript:void(0);" class="remove_bed_button" title="Remove field">Remove</a></span>
+                                @endif
+                              </div>
+
+                              @endforeach
+
+                              @else
+
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    <select class="form-control select2bs4" name="bed[0][type]" style="width: 100%;">
+                                      <option value="">Select Bed type</option>
+                                      <option value="Single bed">Single bed</option>
+                                      <option value="Double bed">Double bed</option>
+                                      <option value="Bunk bed">Bunk bed</option>
+                                      <option value="Sofa">Sofa</option>
+                                      <option value="Futon Mat">Futon Mat</option>
+                                      <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <input type="text" class="form-control" name="bed[0][num]" placeholder="Enter Number of Beds" value="" />
+                                </div>
+                                <span><a href="javascript:void(0);" class="add_bed_button" title="Add field">Add</a></span>
+                              </div>
+
+                              @endif
+
 
                             </div>
-
                           </div>
 
                           <div class="col-md-6">

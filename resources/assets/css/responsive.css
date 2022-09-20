@@ -7051,6 +7051,47 @@ font-weight: 800;
    
 }
 
+.modal-textcancel{
+    padding: 15px 20px;
+}
+.canceltop ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 10px 0;
+    border-bottom: 2px dashed #e1dddd;
+}
+.canceltop ul li:nth-child(2){
+    color: #126c62;
+}
+.canceltop h5{
+font-size: 18px;
+font-weight: 700;
+}
+.canceltop p{
+    font-size: 14px;
+}
+.cancelmiddle h6, .modal-cancel h5{
+   
+    font-size: 18px;
+    font-weight: 700;
+}
+.cancelmiddle p{
+    font-size: 14px;
+}
+.cancelmiddle label{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.cancelbtn{
+    background-color: #126c62;
+    color: #fff;
+}
+.cancelmiddle textarea::placeholder{
+    font-size: 14px;
+}
+
 .cancel-sec h5{
     font-size: 18px;
     padding: 20px 0 10px 0;

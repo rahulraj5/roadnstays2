@@ -21,6 +21,14 @@
                </div>
             </div>
             <div class="col-md-12">
+               <div id="loginResBox">
+                  @if(Session::has('message'))
+                  <div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> {{ Session::get('message') }}</div>        
+                  @endif
+                  @if(Session::has('error'))
+                  <div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Opps!</strong> {{ Session::get('error') }}</div>
+                  @endif
+               </div>
             </div>
             <div class="col-md-12">
                <div class="infobox">

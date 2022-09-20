@@ -193,6 +193,15 @@
 </script>
 
 <script>
+  $('#projected_percentage').keyup(function() {
+    var room_price = parseFloat($('#price_per_night').val());
+    var projected_percentage = parseFloat($('#projected_percentage').val());
+    var projectedPrice = ((room_price * (100 + projected_percentage)) / 100);
+    $("#projected_price").val(projectedPrice);
+  });
+</script>
+
+<script>
   function deleteConfirmation(Id) {
     toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
@@ -548,7 +557,45 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <div class="row">
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Type of price </label>
+                      <select class="form-control select2bs4" name="type_of_priceh" id="type_of_price" style="width: 100%;">
+                        <option value="">Select Price type</option>
+                        <option value="single_fee" {{ $room_data->type_of_price == "single_fee" ? 'selected' : '' }}>Single fee</option>
+                        <option value="per_night" {{ $room_data->type_of_price == "per_night" ? 'selected' : '' }}>Per night</option>
+                        <option value="per_guest" {{ $room_data->type_of_price == "per_guest" ? 'selected' : '' }}>Per guest</option>
+                        <option value="per_night_per_guest" {{ $room_data->type_of_price == "per_night_per_guest" ? 'selected' : '' }}>Per night per guest</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Price per night</label>
+                      <input type="text" class="form-control" name="price_per_nighth" id="price_per_night" placeholder="Enter price per night" value="{{$room_data->price_per_night}}">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Projected Percentage</label>
+                      <input type="text" class="form-control" name="projected_percentage" id="projected_percentage" value="{{$room_data->projected_percentage}}" placeholder="Enter percentage">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Projected Price</label>
+                      <input type="text" class="form-control" name="projected_price" id="projected_price" value="{{$room_data->projected_price}}" placeholder="Enter projected percentage to show price" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-md-6">
                 <div class="row">
 
                   <div class="col-md-6">
@@ -571,7 +618,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-md-6">
                 <div class="form-group">

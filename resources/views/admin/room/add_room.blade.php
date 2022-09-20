@@ -781,6 +781,14 @@
   });
 </script>
 
+<script>
+  $('#projected_percentage').keyup(function() {
+    var room_price = parseFloat($('#price_per_night').val());
+    var projected_percentage = parseFloat($('#projected_percentage').val());
+    var projectedPrice = ((room_price * (100+projected_percentage))/100);
+    $("#projected_price").val(projectedPrice);
+  });  
+</script>
 
 <script>
   $("#submit_btn").click(function() {
@@ -799,30 +807,41 @@
         },
         max_adults: {
           required: true,
+          number: true,
         },
         max_childern: {
           required: true,
+          number: true,
         },
         number_of_rooms: {
           required: true,
+          number: true,
         },
         price_per_night: {
           required: true,
+          number: true,
+        },
+        projected_percentage: {
+          number: true,
         },
         type_of_price: {
           required: true,
         },
         tax_percentage: {
           required: true,
+          number: true,
         },
         price_per_night_7d: {
           required: true,
+          number: true,
         },
         price_per_night_30d: {
           required: true,
+          number: true,
         },
         room_size: {
           required: true,
+          number: true,
         },
         bed_type: {
           required: true,
@@ -841,6 +860,19 @@
         },
         extra_people: {
           required: true,
+          number: true,
+        },
+        cleaning_fee: {
+          number: true,
+        },
+        city_fee: {
+          number: true,
+        },
+        earlybird_discount: {
+          number: true,
+        },
+        min_days_in_advance: {
+          number: true,
         },
       },
     });
@@ -1113,17 +1145,10 @@
                   </p>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="row">
 
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Price per night</label>
-                      <input type="text" class="form-control" name="price_per_night" id="price_per_night" placeholder="Enter price per night">
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label>Type of price </label>
                       <select class="form-control select2bs4" name="type_of_price" id="type_of_price" style="width: 100%;">
@@ -1135,13 +1160,26 @@
                       </select>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Taxes in % (percentage)</label>
-                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Price per night</label>
+                      <input type="text" class="form-control" name="price_per_night" id="price_per_night" placeholder="Enter price per night">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Projected Percentage</label>
+                      <input type="text" class="form-control" name="projected_percentage" id="projected_percentage" placeholder="Enter percentage">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Projected Price</label>
+                      <input type="text" class="form-control" name="projected_price" id="projected_price" placeholder="Enter projected percentage to show price" readonly>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1202,6 +1240,13 @@
                       </select>
                     </div>
                   </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Taxes in % (percentage)</label>
+                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %">
                 </div>
               </div>
 

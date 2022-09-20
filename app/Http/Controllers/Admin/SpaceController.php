@@ -108,6 +108,12 @@ class SpaceController extends Controller
             $adminspace->province = $request->province;
             $adminspace->space_latitude = $request->space_latitude;
             $adminspace->space_longitude = $request->space_longitude;
+
+            $adminspace->operator_name = $request->operator_name;
+            $adminspace->operator_contact_name = $request->operator_contact_name;
+            $adminspace->operator_contact_num = $request->operator_contact_num;
+            $adminspace->operator_email = $request->operator_email;
+            $adminspace->operator_booking_num = $request->operator_booking_num;
     
             if ($request->hasFile('space_document')) {
                 $image_nam2 = $request->file('space_document')->getClientOriginalName();
@@ -352,6 +358,12 @@ class SpaceController extends Controller
                 'province' => $request->province,
                 'space_latitude' => $request->space_latitude,
                 'space_longitude' => $request->space_longitude,
+
+                'operator_name' => $request->operator_name,
+                'operator_contact_name' => $request->operator_contact_name,
+                'operator_contact_num' => $request->operator_contact_num,
+                'operator_email' => $request->operator_email,
+                'operator_booking_num' => $request->operator_booking_num,
 
                 'copy_status' => 1,
                 'status' => 1,

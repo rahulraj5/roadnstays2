@@ -97,7 +97,6 @@ class RoomController extends Controller
 
     public function add_room_test()
     {
-
         $data['hotels'] = DB::table('hotels')->orderby('created_at', 'ASC')->get();
         $data['room_type_categories'] = DB::table('room_type_categories')->orderby('created_at', 'ASC')->get();
 
@@ -114,7 +113,6 @@ class RoomController extends Controller
         $data['hotel_id'] = $hotel_id;
         $data['hotels'] = DB::table('hotels')->orderby('created_at', 'ASC')->get();
         $data['room_type_categories'] = DB::table('room_type_categories')->orderby('created_at', 'ASC')->get();
-
 
         $data['amenity_type'] = DB::table('amenities_type')->orderby('id', 'ASC')->where('status', 1)->get();
         $data['service_type'] = DB::table('services_type')->orderby('id', 'ASC')->where('status', 1)->get();
@@ -152,6 +150,8 @@ class RoomController extends Controller
             $adminroom->description   = $request->description;
             $adminroom->notes = $request->notes;
             $adminroom->price_per_night = $request->price_per_night;
+            $adminroom->projected_percentage = $request->projected_percentage;
+            $adminroom->projected_price = $request->projected_price;
             $adminroom->type_of_price = $request->type_of_price;
             $adminroom->tax_percentage = $request->tax_percentage;
             $adminroom->price_per_night_7d = $request->price_per_night_7d;
@@ -391,6 +391,8 @@ class RoomController extends Controller
                 'description' => $request->description,
                 'notes' => $request->notes,
                 'price_per_night' => $request->price_per_night,
+                'projected_percentage' => $request->projected_percentage,
+                'projected_price' => $request->projected_price,
                 'type_of_price' => $request->type_of_price,
                 'tax_percentage' => $request->tax_percentage,
                 'price_per_night_7d' => $request->price_per_night_7d,
@@ -608,6 +610,8 @@ class RoomController extends Controller
                 'description' => $request->descriptionh,
                 'notes' => $request->notesh,
                 'price_per_night' => $request->price_per_nighth,
+                'projected_percentage' => $request->projected_percentage,
+                'projected_price' => $request->projected_price,
                 'type_of_price' => $request->type_of_priceh,
                 'tax_percentage' => $request->tax_percentage,
                 'price_per_night_7d' => $request->price_per_night_7dh,

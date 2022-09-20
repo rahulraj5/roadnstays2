@@ -320,4 +320,102 @@ class ScoutController extends Controller
         }
 
     }
+
+    public function add_scout_rating($scout_id="")
+    {
+      $data['scout_id'] = $scout_id;
+      $data['countries'] = DB::table('country')->orderby('name', 'ASC')->get();
+      return view('admin/scout/add_scout_rating')->with($data);
+    }
+
+    public function submit_scout_rating(Request $request)
+    {
+        $rating = $request->rating;
+        $year = $request->year;
+        $remarks = $request->remarks;
+        $scout_id = $request->scout_id;
+        $scout_details = array(
+                'scout_id'=> $scout_id,
+                'rating' => $rating,
+                'year' => $year,
+                'remarks' => $remarks,
+                'status' => 1,
+                'created_at'=> date('Y-m-d H:i:s')
+            );
+        $id = DB::table('scout_performance_rating')->insertGetId($scout_details);
+        if ($id) { 
+            return response()->json(['status' => 'success', 'msg' => 'Scout rating has been created successfully.']); 
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']); 
+        }
+    }
+
+    public function scout_rating_list($scout_id="")
+    {   
+        $data['scout_id'] = $scout_id;
+        $data['scoutRatingList'] = DB::table('scout_performance_rating')->join('users', 'scout_performance_rating.scout_id', '=', 'users.id')->where('scout_performance_rating.scout_id',$scout_id)->get(['scout_performance_rating.*', 'users.first_name', 'users.last_name']);
+        //echo "<pre>"; print_r($data);die;
+        return view('admin/scout/scout_rating_list')->with($data);
+    }
+
+    public function edit_scout_rating(Request $request)
+    {
+        $id = $request->id;
+        $data['scout_rating'] = DB::table('scout_performance_rating')->where('id',$id)->first();
+        return view('admin/scout/edit_scout_rating')->with($data);
+    }
+
+    public function update_scout_rating(Request $request)
+    {
+        $id = $request->id;
+        $rating = $request->rating;
+        $year = $request->year;
+        $remarks = $request->remarks;
+        $scout_id = $request->scout_id;
+        $scout_details = array(
+                'scout_id'=> $scout_id,
+                'rating' => $rating,
+                'year' => $year,
+                'remarks' => $remarks,
+                'status' => 1,
+                'created_at'=> date('Y-m-d H:i:s')
+            );
+        $id = DB::table('scout_performance_rating')->where('id', $id)
+              ->update($scout_details);
+        if ($id) { 
+            return response()->json(['status' => 'success', 'msg' => 'Scout rating has been updated successfully.']); 
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']); 
+        }
+    }
+
+    public function delete_scout_rating(Request $request)
+    {
+
+        $id = $request->id;
+        $frame_info = DB::table('scout_performance_rating')->where('id',$id)->first();
+        
+        
+        if(!empty($frame_info))
+        {   
+            $res = DB::table('scout_performance_rating')->where('id', '=', $id)->delete();
+        }
+
+        if ($res) {
+            return json_encode(array('status' => 'success','msg' => 'Scout rating has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error','msg' => 'Some internal issue occured.'));
+        }
+    }
+    public function change_scout_rating_status(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        
+        DB::table('scout_performance_rating')->where('id', $id)
+              ->update(['status'=>$status]);
+
+        return response()->json(['success'=>'Scout rating status change successfully.']);
+    }
+
 }

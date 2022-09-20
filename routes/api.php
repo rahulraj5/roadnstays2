@@ -34,6 +34,17 @@ Route::post('reset_password','Api\ApiLoginController@resetPassword')->middleware
 Route::post('get_profile','Api\ApiLoginController@getProfile')->middleware('CheckToken');
 Route::post('edit_profile','Api\ApiLoginController@editProfile')->middleware('CheckToken');
 Route::post('change_password','Api\ApiLoginController@changePassword')->middleware('CheckToken');
+Route::post('events_list','Api\EventController@events_list')->middleware('CheckToken');
+Route::post('event_details','Api\EventController@event_details')->middleware('CheckToken');
+Route::post('event_details_test','Api\EventController@event_details_test')->middleware('CheckToken');
+Route::post('space_type_list','Api\SpaceController@space_type_list')->middleware('CheckToken');
+Route::post('space_country_list','Api\SpaceController@space_coutrywise')->middleware('CheckToken');
+Route::post('spaceListByCity','Api\SpaceController@getSpaceByCity')->middleware('CheckToken');
+Route::post('spaceByCityDate','Api\SpaceController@getSpaceCityByDate')->middleware('CheckToken');
+Route::post('eventsByLocation','Api\SpaceController@searchEvents')->middleware('CheckToken');
+Route::post('getCountries','Api\SpaceController@getCountries')->middleware('CheckToken');
+Route::post('spaceByCity','Api\SpaceController@spaceByCity')->middleware('CheckToken');
+Route::post('spaceById','Api\SpaceController@spaceById')->middleware('CheckToken');
 });
 Route::get('changeStatus','Api\ApiLoginController@changeStatus');
 

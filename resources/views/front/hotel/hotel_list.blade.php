@@ -152,8 +152,35 @@
     }, function(start, end, label) {
       $('#date1').val(start.format('DD-MM-YYYY'));
       $('#date2').val(end.format('DD-MM-YYYY'));
+      let hotel_start_date = start.format('DD-MM-YYYY');
+      let hotel_end_date = end.format('DD-MM-YYYY');
+      checkSameDate(hotel_start_date, hotel_end_date);
     });
   });
+
+  function checkSameDate(start, end) {
+    let hotel_start_date = start;
+    let hotel_end_date = end;
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+      type: 'POST',
+      url: "{{url('/checkValidHotelDaterange')}}",
+      data: {
+        hotel_start_date: hotel_start_date,
+        hotel_end_date: hotel_end_date,
+        _token: CSRF_TOKEN
+      },
+      dataType: 'JSON',
+      success: function(response) {
+        if (response.status == 'sameDateError') {
+          error_noti(response.msg);
+          setTimeout(function() {
+            window.location.reload()
+          }, 2000);
+        }
+      }
+    });
+  }
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -227,23 +254,23 @@
 <script>
   $(document).ready(function() {
     $('.minus').click(function() {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $("#guest_number").val(count);
-        $("#btnGuestNumber").html(count+" Person");
-        $input.change();
-        return false;
+      var $input = $(this).parent().find('input');
+      var count = parseInt($input.val()) - 1;
+      count = count < 1 ? 1 : count;
+      $input.val(count);
+      $("#guest_number").val(count);
+      $("#btnGuestNumber").html(count + " Person");
+      $input.change();
+      return false;
     });
     $('.plus').click(function() {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $("#guest_number").val(parseInt($("#guest_number").val()) + 1);
-        var count = $("#guest_number").val();
-        $("#btnGuestNumber").html(count.toString()+" Person");
-        $input.change();
-        return false;
+      var $input = $(this).parent().find('input');
+      $input.val(parseInt($input.val()) + 1);
+      $("#guest_number").val(parseInt($("#guest_number").val()) + 1);
+      var count = $("#guest_number").val();
+      $("#btnGuestNumber").html(count.toString() + " Person");
+      $input.change();
+      return false;
     });
   });
 </script>
@@ -311,7 +338,11 @@
 
                     <div class="dropdown">
                       <button class="btn dropdown-toggle" type="button" id="btnGuestNumber" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if(!empty($person)){ echo $person ;}else{ echo "1";} ?> Person
+                        <?php if (!empty($person)) {
+                          echo $person;
+                        } else {
+                          echo "1";
+                        } ?> Person
                       </button>
                       <input type="hidden" id="guest_number" name="person" value="{{$person}}">
                       <ul class="dropdown-menu">
@@ -426,15 +457,15 @@
               </div>
 
               <!--<div class="category category-4">
-     <p>Meals</p>
-     <ul>
-         <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
-         <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
-         <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
-         <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
-         
-     </ul>
- </div>-->
+                  <p>Meals</p>
+                  <ul>
+                      <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
+                      <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
+                      <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
+                      <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
+                      
+                  </ul>
+              </div>-->
 
               <div class="category category-4">
                 <p>Emenites</p>
@@ -511,13 +542,13 @@
                       <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}&person={{base64_encode($person)}}" class="book-btn" target="_blank">View Room</a>
 
                       <!-- <div class="review-count">
-       <div class="info_rev">
-         <p>287 reviews</p>
-       </div>
-       <div class="rating_rev">
-         <span>{{$hotel['hotel_rating']}}</span>
-       </div>
-                 </div> -->
+                        <div class="info_rev">
+                          <p>287 reviews</p>
+                        </div>
+                        <div class="rating_rev">
+                          <span>{{$hotel['hotel_rating']}}</span>
+                        </div>
+                      </div> -->
                     </div>
 
                     <div class="mb-1 d-flex" id="rating-ability-wrapper">
@@ -568,7 +599,7 @@
 
 
                       <div class="pric-off">
-                        <span>20% Off</span>
+                        <!-- <span>20% Off</span> -->
                         <h5>PKR {{$hotel['stay_price']}}/- </h5>
                         <!-- <div><small>+₹400 taxes and charges</small></div> -->
                       </div>
@@ -586,57 +617,57 @@
 
               @endif
               <!-- <div class="event-br">
-           <div class="img-list-event">
-              <img src="assets/img/pany.png">
-           </div>
-           <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
-              <div class="mb-auto w-100">
-                 <h3>JW Marriott Hotel New Delhi Aerocity </h3>
-                 <div class="mb-1 d-flex" id="rating-ability-wrapper">
-                    <label class="control-label" for="rating">
-                    <span class="field-label-info"></span>
-                    <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
-                    </label>
-                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                    <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                    <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
-                    <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
-                 </div>
-                 <b> Comfiest Beds, Delicous Breakfast </b>
-                 <p class="p-0">
-                    stay at unbetable reates with complimentary breakfast and wi-fi. free stay for kids below 12 year of age.
-                 </p>
-              </div>
-              <div class="w-100">
-                 <div class="time-event-bn">
-                    <div class="botm-icom">
-                       <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
-                       <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
-                       <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
-                       <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                       <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
+                <div class="img-list-event">
+                    <img src="assets/img/pany.png">
+                </div>
+                <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
+                    <div class="mb-auto w-100">
+                      <h3>JW Marriott Hotel New Delhi Aerocity </h3>
+                      <div class="mb-1 d-flex" id="rating-ability-wrapper">
+                          <label class="control-label" for="rating">
+                          <span class="field-label-info"></span>
+                          <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
+                          </label>
+                          <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
+                          <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
+                          <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
+                          <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
+                          <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
+                      </div>
+                      <b> Comfiest Beds, Delicous Breakfast </b>
+                      <p class="p-0">
+                          stay at unbetable reates with complimentary breakfast and wi-fi. free stay for kids below 12 year of age.
+                      </p>
                     </div>
-                    <div class="pric-off">
-                       <span>20% Off</span>
-                       <h5>PKR 125/- </h5>
+                    <div class="w-100">
+                      <div class="time-event-bn">
+                          <div class="botm-icom">
+                            <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
+                            <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
+                            <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
+                            <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
+                            <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
+                          </div>
+                          <div class="pric-off">
+                            <span>20% Off</span>
+                            <h5>PKR 125/- </h5>
+                          </div>
+                      </div>
                     </div>
-                 </div>
-              </div>
-           </div>
-        </div> -->
+                </div>
+              </div> -->
             </div>
           </div>
 
           <!-- <nav aria-label="Page navigation" class="pagination-list">
-<ul class="pagination">
- <li class="page-item "><a class="page-link" href="#">«</a></li>
- <li class="page-item active"><a class="page-link" href="#">1</a></li>
- <li class="page-item"><a class="page-link" href="#">2</a></li>
- <li class="page-item"><a class="page-link" href="#">3</a></li>
- <li class="page-item"><a class="page-link" href="#">»</a></li>
-</ul>
-</nav> -->
+          <ul class="pagination">
+          <li class="page-item "><a class="page-link" href="#">«</a></li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">»</a></li>
+          </ul>
+          </nav> -->
 
 
 

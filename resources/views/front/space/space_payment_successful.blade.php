@@ -27,6 +27,16 @@
         <section class="con2-sec">
             <div class="container">
                 <div class="row con2-row">
+                    <div class="col-md-12">
+                        <div id="loginResBox">
+                            @if(Session::has('message'))
+                            <div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> {{ Session::get('message') }}</div>        
+                            @endif
+                            @if(Session::has('error'))
+                            <div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Opps!</strong> {{ Session::get('error') }}</div>
+                            @endif
+                        </div>
+                    </div>
                     <div class="col-md-12 con2-col">
                         <p class="p-con2">We are pleased to inform you that your reservation request has been recieved and confirmed.</p>
                         <p>Booking confirmed</p>

@@ -1,21 +1,21 @@
 <?php
  
-	Auth::routes();
-	// Auth::routes(['verify' => true]);
+Auth::routes();
+// Auth::routes(['verify' => true]);
 
-	Route::get('/clear', function () {
-    $exitCode = Artisan::call('view:clear', []);   
-          return '<h1>cache cleared</h1>';
-    });
-    Route::get('/config-cache', function() {
-        $exitCode = Artisan::call('config:cache');
-        $exitCode = Artisan::call('config:clear');
-          return '<h1>config cache cleared</h1>'; 
-    });
-    Route::get('/view-clear', function() {
-        $exitCode = Artisan::call('view:clear');
-        return '<h1>View cache cleared</h1>';
-    });
+Route::get('/clear', function () {
+$exitCode = Artisan::call('view:clear', []);   
+      return '<h1>cache cleared</h1>';
+});
+Route::get('/config-cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('config:clear');
+      return '<h1>config cache cleared</h1>'; 
+});
+Route::get('/view-clear', function() {
+    $exitCode = Artisan::call('view:clear');
+    return '<h1>View cache cleared</h1>';
+});
 
 
 Route::any("/test",function ()
@@ -49,6 +49,9 @@ Route::fallback(function () {
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/apg', 'HomeController@apg')->name('user.apg');
+Route::get('/ipn','HomeController@ipn')->name('user.ipn');
+
 Route::get('/about-us', 'HomeController@about_us')->name('user.about_us');
 Route::get('/contact-us', 'HomeController@contact_us')->name('user.contact_us');
 Route::get('/terms_&_condition','HomeController@terms_condition')->name('user.terms_&_condition');
@@ -72,6 +75,8 @@ Route::post('forgotPassword_action','HomeController@forgotPassword_action');
 Route::any('reset-password/{token}','HomeController@reset_password');
 Route::post('resetPassword_action','HomeController@resetPassword_action');
 
+
+Route::any('/checkValidHotelDaterange', 'HomeController@check_valid_hotel_daterange')->name('user.checkValidHotelDaterange');	
 Route::get('/hotelDetails/{id?}','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/hotelDetails','HomeController@hotel_details')->name('user.hotel_details');
 Route::get('/roomdetails','HomeController@room_details')->name('user.room_details');
@@ -103,6 +108,7 @@ Route::get('/test-space-detail/{id?}','Home\SpaceController@space_detail_test')-
 
 Route::any('/changeDaterange', 'Home\SpaceController@change_daterange_session')->name('user.changeDaterange');	
 Route::any('/updateDaterange', 'Home\SpaceController@update_daterange_session')->name('user.updateDaterange');	
+Route::any('/checkValidDaterange', 'Home\SpaceController@check_valid_daterange')->name('user.checkValidDaterange');	
 Route::any('/delete_space_date_session', 'Home\SpaceController@removeSpaceDateSession')->name('user.delete_space_date_session');	
 
 Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_list')->name('user.space_category_list');
@@ -150,6 +156,10 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::post('user/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');	
     Route::get('user/bookingDetailCancelled/{id}', 'Home\BookingController@booking_canceled_detail');	
+    Route::get('user/bookingInvoice/{id}', 'Home\BookingController@booking_invoice');
+    Route::get('user/spaceBookingInvoice/{id}', 'Home\BookingController@space_booking_invoice');
+    Route::get('user/tourBookingInvoice/{id}', 'Home\BookingController@tour_booking_invoice');
+    Route::get('user/eventBookingInvoice/{id}', 'Home\BookingController@event_booking_invoice');
 
     Route::get('user/spaceBookingDetails/{id}', 'Home\BookingController@space_booking_detail');	
     Route::post('user/cancelSpaceBooking','Home\BookingController@cancel_space_booking');
@@ -283,6 +293,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/booking_list', 'Admin\BookingController@booking_list');
         Route::any('/viewBooking/{id}', 'Admin\BookingController@view_booking');
         Route::any('/bookingDetails/{id}', 'Admin\BookingController@booking_details');
+        Route::get('/changeBookingStatus','Admin\BookingController@change_booking_status');
+        Route::get('/changeTourBookingStatus','Admin\BookingController@change_tour_booking_status');
+        Route::get('/changeSpaceBookingStatus','Admin\BookingController@change_space_booking_status');
+        
 
         Route::get('/scoutList', 'ScoutController@scout_list');
         Route::get('/addScout', 'ScoutController@add_scout');
@@ -291,6 +305,14 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/updateScout', 'ScoutController@update_scout');
         Route::get('/changeScoutStatus', 'ScoutController@change_scout_status');
         Route::any('/deleteScout', 'ScoutController@delete_scout');
+        Route::get('/addScoutRating/{id}', 'ScoutController@add_scout_rating');
+        Route::any('/submitScoutRating', 'ScoutController@submit_scout_rating');
+        Route::get('/scoutRatingList/{id}','ScoutController@scout_rating_list');
+        
+        Route::get('/editScoutRating/{id}', 'ScoutController@edit_scout_rating');
+        Route::any('/updateScoutRating', 'ScoutController@update_scout_rating');
+        Route::get('/changeScoutRatingStatus', 'ScoutController@change_scout_rating_status');
+        Route::any('/deleteScoutRating', 'ScoutController@delete_scout_rating');
 
         Route::get('/serviceProviderList', 'ServiceproviderController@service_provider_list');
         Route::get('/addServiceProvider', 'ServiceproviderController@add_serv_provider');
@@ -463,6 +485,28 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/deleteEvent', 'Admin\EventController@delete_event');
         Route::any('/deleteEventSingleImage', 'Admin\EventController@delete_event_single_image');
         Route::any('/eventMileData', 'Admin\EventController@event_mile_data');
+
+        Route::get('banner_management', 'Admin\CmsController@index');
+        Route::get('add_banner', 'Admin\CmsController@addBanner');
+        Route::post('submitBanner', 'Admin\CmsController@submitBanner');
+        Route::get('change_banner_status', 'Admin\CmsController@change_banner_status');
+        Route::get('edit_banner/{id}', 'Admin\CmsController@editBanner');
+        Route::post('/updateBanner', 'Admin\CmsController@updateBanner');
+        Route::get('/addHeadingSubheading', 'Admin\CmsController@addHeadingSubheading');
+        Route::post('/submitHeadingSubheading', 'Admin\CmsController@submitHeadingSubheading');
+        Route::get('/showHeadingSubheading', 'Admin\CmsController@showHeadingSubheading');
+        Route::get('/showStaticData', 'Admin\CmsController@showStaticData');
+        Route::get('/editStaticData/{id}', 'Admin\CmsController@editStaticData');
+        Route::post('/updateStaticData', 'Admin\CmsController@updateStaticData');
+        Route::get('/showAboutBanner', 'Admin\CmsController@showAboutBanner');
+        Route::get('/editAboutBanner/{id}', 'Admin\CmsController@editAboutBanner');
+        Route::post('/updateAboutBanner', 'Admin\CmsController@updateAboutBanner');
+        Route::get('/showAboutContent', 'Admin\CmsController@showAboutContent');
+        Route::get('/editAboutContent/{id}', 'Admin\CmsController@editAboutContent');
+        Route::post('/updateAboutContent', 'Admin\CmsController@updateAboutContent');
+        Route::get('/showChooseUs', 'Admin\CmsController@showChooseUs');
+        Route::get('/editChooseUs/{id}', 'Admin\CmsController@editChooseUs');
+        Route::post('/updateChooseUs', 'Admin\CmsController@updateChooseUs');
 
     });
 });

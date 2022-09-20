@@ -281,6 +281,13 @@
                     return true;
                 }
             },
+            // showDateFilter: function(time, date)
+            // {
+            //     return '<div style="padding:0 5px;">\
+            //                 <span style="font-weight:bold">'+date+'</span>\
+            //                 <div style="opacity:0.3;">$'+Math.round(Math.random()*999)+'</div>\
+            //             </div>';
+            // },
             // linkedCalendars: true,
             // "startDate": today,
             // "endDate": tomorrow,
@@ -547,14 +554,14 @@
                             <div class="select-date reserved daterange_detail">
                                 <div class="date">
                                     <p>Check in</p>
-                                    <input type="text" id="space_checkin_date" class="daterange_detail" value="{{ $check_in }}" name="space_checkin_date" required placeholder="Add Date">
+                                    <input type="text" id="space_checkin_date" class="daterange_detail" value="@if(!empty($check_in)){{date('d-m-Y', strtotime($check_in)) }} @endif" name="space_checkin_date" required placeholder="Add Date">
                                     <input type="hidden" id="spaceCheckInDate" value="{{ $check_in }}" name="spaceCheckInDate">
                                     <input type="hidden" id="spaceSessionCheckInDate" name="spaceSessionCheckInDate" value="{{ Session::get('space_check_in_date') }}">
                                     <input type="hidden" id="spaceIdd" value="{{ $space_details->space_id }}" name="spaceIdd">
                                 </div>
                                 <div class="date">
                                     <p>Check Out</p>
-                                    <input type="text" id="space_checkout_date" class="daterange_detail" value="{{ $check_out }}" name="space_checkout_date" required placeholder="Add Date">
+                                    <input type="text" id="space_checkout_date" class="daterange_detail" value="@if(!empty($check_out)){{date('d-m-Y', strtotime($check_out)) }} @endif" name="space_checkout_date" required placeholder="Add Date">
                                     <input type="hidden" id="spaceCheckOutDate" name="spaceCheckOutDate" value="{{ $check_out }}">
                                     <input type="hidden" id="spaceSessionCheckOutDate" name="spaceSessionCheckOutDate" value="{{ Session::get('space_check_out_date') }}">
                                 </div>

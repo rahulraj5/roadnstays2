@@ -16,6 +16,7 @@ use App\Models\Hotel;
 
 use App\Helpers\Helper;
 
+use Illuminate\Support\Facades\URL;
 //use Auth;
 
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,7 @@ class WsController extends APIBaseController
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */
+    */
 
     public function hotel_list(Request $request)
     {   
@@ -82,13 +83,13 @@ class WsController extends APIBaseController
 
         if($totalbookroom >= $nofroom ){    
         
-        $bookroomids[] = $bookvalue->room_id;
+            $bookroomids[] = $bookvalue->room_id;
 
         }
             
         }
 
-         $room_list = DB::table('room_list')->where("hotel_id",$value->hotel_id)->whereNotIn("id",$bookroomids)->get(); 
+        $room_list = DB::table('room_list')->where("hotel_id",$value->hotel_id)->whereNotIn("id",$bookroomids)->get(); 
 
         $totalroom = count($room_list);
 
@@ -362,9 +363,9 @@ class WsController extends APIBaseController
                 'price_per_night_7d' => $value->price_per_night_7d,
                 'price_per_night_30d' => $value->price_per_night_30d,
                 'is_guest_allow' => isset($value->is_guest_allow)?$value->is_guest_allow:0,
-                'extra_guest_per_night'=> isset($value->extra_guest_per_night)?$value->extra_guest_per_night:0, 
-                'is_above_guest_cap' => isset($value->is_above_guest_cap)?$value->is_above_guest_cap:0,
-                'is_pay_by_num_guest' => isset($value->is_pay_by_num_guest)?$value->is_pay_by_num_guest:0,
+                'extra_guest_per_night'=> isset($value->extra_guest_per_night)?$value->extra_guest_per_night:"0", 
+                'is_above_guest_cap' => isset($value->is_above_guest_cap)?$value->is_above_guest_cap:"0",
+                'is_pay_by_num_guest' => isset($value->is_pay_by_num_guest)?$value->is_pay_by_num_guest:"0",
                 'room_size' => isset($value->room_size)?$value->room_size:0,
                 'type_of_price' => isset($value->type_of_price)?$value->type_of_price:"",
                 'cleaning_fee' => isset($value->cleaning_fee)?$value->cleaning_fee:0,
@@ -391,7 +392,7 @@ class WsController extends APIBaseController
                 'total_member' => $member,
                 'no_of_room' => $noofroom,
                 'total_per_night' => $ppernight,
-                'total_tax' => $totaltax,
+                'total_tax' => (double)$totaltax,
                 'room_amenities' => $roomamenities
             );
         }      
@@ -877,20 +878,19 @@ class WsController extends APIBaseController
     public function tour_list(Request $request)
     {   
 
-        $tour_list = DB::table('tour_list')->get(); 
-
+        $tour_list = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->get(['tour_list.*', 'country.nicename as country_name']);
 
         if(count($tour_list)>0){
         
             $response['message'] = "Tour List";
             $response['status'] = 1;
-            $response['data'] = array('tour_list'=>$tour_list);
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
 
         }else{
 
             $response['message'] = "No data found";
             $response['status'] = 0;
-            $response['data'] = array('tour_list'=>$tour_list);
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
         }
         
         return $response; 
@@ -932,7 +932,8 @@ class WsController extends APIBaseController
     }
 
     public function tour_details(Request $request)
-    {
+    {   
+        // echo URL::to('');die;
 
         $validator = Validator::make($request->all(), [
 
@@ -944,7 +945,7 @@ class WsController extends APIBaseController
         if ($validator->fails()) {
             return $this->sendError($validator->messages()->first(), array(), 200);
         } else {
-            $tour_data = DB::table('tour_list')->where('id','=',$tour_id)->first();
+            $tour_data = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->where('tour_list.id','=',$tour_id)->first(['tour_list.*', 'country.nicename as country_name']);
             $tour_itinerary = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
             $tour_gallery = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
             $touritinerary = array();
@@ -973,12 +974,26 @@ class WsController extends APIBaseController
                 );
             }
             
+            
 
-            //print_r($trip_detail);die;
+            $vendor_data = DB::table('users')->join('vendor_profile', 'users.id', '=', 'vendor_profile.user_id')->where('users.id','=',$tour_data->vendor_id)->first(['users.*', 'vendor_profile.*']);
+
+            // $REPLACEMENT = '';
+
+            // $values = ['a', 'b', null, 'd'];
+
+            // $result = array_map(
+            //   fn ($value) => $value ?? $REPLACEMENT,
+            //   $touritinerary
+            // );
+
+            // print_r($result); die;
+
+            //print_r($vendor_data);die;
             if($tour_data){
             $response['message'] = "Tour Detail";
             $response['status'] = 1;
-            $response['data'] = array('tour_data'=>$tour_data,'tour_itinerary'=>$touritinerary,'tour_gallery'=>$tour_gallery);
+            $response['data'] = array('tour_data'=>$tour_data,'tour_itinerary'=>$touritinerary,'tour_gallery'=>$tour_gallery,"tour_url" => URL::to('')."/public/uploads/tour_gallery/",'vendor_data'=>$vendor_data,'vendor_url' => URL::to('')."/public/uploads/vendor_document/img/");
             }else{
 
                 $response['message'] = "No data found";
@@ -1009,25 +1024,28 @@ class WsController extends APIBaseController
 
 
         $tour_list = DB::table('tour_list')
-                    ->where('country_id', 'like', '%' . $destination . '%')
-                    ->where('tour_days', 'like', '%' . $duration . '%')
-                    ->get(); 
+                    ->join('country', 'tour_list.country_id', '=', 'country.id')
+                    ->where('tour_list.country_id', 'like', '%' . $destination . '%')
+                    ->where('tour_list.tour_days', 'like', '%' . $duration . '%')
+                    ->get(['tour_list.*', 'country.nicename as country_name']);
 
 
         if(count($tour_list)>0){
         
             $response['message'] = "Tour List";
             $response['status'] = 1;
-            $response['data'] = array('tour_list'=>$tour_list);
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
 
         }else{
 
             $response['message'] = "No data found";
             $response['status'] = 0;
-            $response['data'] = array('tour_list'=>$tour_list);
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
         }
         
         return $response; 
     }
     
+
+
 } 

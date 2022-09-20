@@ -17,6 +17,8 @@ use Carbon\CarbonPeriod;
 use Illuminate\Pagination\Paginator;
 use LDAP\Result;
 
+use function PHPSTORM_META\type;
+
 class SpaceController extends Controller
 {
     /**
@@ -147,6 +149,17 @@ class SpaceController extends Controller
             ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
             ->where('space_id', $space_id)->get();
 
+        // foreach($data['space_gallery'] as $value){
+        //     $value->image = 'new value';
+        // }    
+        // // die;
+        // echo "<pre>";print_r($data['space_gallery']);die;
+
+        // $event_id = 63;
+        // $event_data = DB::table('events')->where('id', $event_id)->first();
+        // $event_data->image = "add".$event_data->image;
+        // echo "<pre>";print_r($event_data);
+        // die;
 
         $get_date_range = DB::table('space_booking')->where('space_id', $space_id)->where('check_out_date', '>=', Carbon::today())->get(['check_in_date','check_out_date']);
         $get_date_range_array = $get_date_range->toArray();
@@ -179,7 +192,7 @@ class SpaceController extends Controller
         if($checkin_date === $checkout_date){
             $request->session()->forget('space_check_in_date');
             $request->session()->forget('space_check_out_date');
-            return response()->json(['status' => 'notAvailable', 'msg' => 'Chekin Date and Checkout date are not same']);
+            return response()->json(['status' => 'notAvailable', 'msg' => 'Chekin Date and Checkout date should not be same']);
         }else{
             $booked_space_id = DB::table('space_booking')
             ->where("space_id", $spaceIdd)
@@ -221,6 +234,21 @@ class SpaceController extends Controller
             $request->session()->forget('space_check_out_date');
             return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
         }
+    }
+
+    public function check_valid_daterange(Request $request)
+    {
+        $checkin_date = date('Y-m-d', strtotime($request->space_start_date));
+        $checkout_date = date('Y-m-d', strtotime($request->space_end_date));
+        if($checkin_date === $checkout_date){
+            $request->session()->forget('space_check_in_date');
+            $request->session()->forget('space_check_out_date');
+            return response()->json(['status' => 'sameDateError', 'msg' => 'Chekin Date and Checkout date should not be same']);
+        }
+        // else{
+        //         return response()->json(['status' => 'notAvailable', 'msg' => 'Not Available in Selected Date']);
+        //     }
+        // }    
     }
 
     public function event_details()
@@ -404,23 +432,30 @@ class SpaceController extends Controller
                     ->whereBetween('check_in_date', [$checkin_date, $checkout_date])
                     ->orWhereBetween('check_out_date', [$checkin_date, $checkout_date])
                     // ->whereNotBetween('check_out_date', [$checkin_date, $checkout_date])
+                    // ->pluck('space_id');
                     ->get();
 
                 // echo "<pre>";print_r($booked_space_id);
-
+                // echo "<pre>";print_r($booked_space_id);
+                // die;    
                 $space_booked_id = array();
 
                 foreach ($booked_space_id as $space_book) {
-                    $space_booked_id[] = $space_book->space_id;
+                    if($space_book->booking_status != 'canceled'){
+                        $space_booked_id[] = $space_book->space_id;
+                    }
                 }
-
+                // echo "<pre>";print_r($space_booked_id);
+                // die;
                 $space_avail_id = DB::table('space')->where('space_id', $value->space_id)->whereNotIn("space_id", $space_booked_id)->get();
-                // echo "<pre>";print_r($space_avail_id);
+                // echo "<pre>";print_r($space_avail_id);die;
                 foreach ($space_avail_id as $space_get_book_id) {
                     $not_booked_id[] = $space_get_book_id->space_id;
                 }
             }
+            // die;
             $space_available = DB::table('space')->whereIn("space_id", $not_booked_id)->groupBy('space_id')->where("status", 1)->paginate(10);
+            // echo "<pre>";print_r($space_available);die;
             $features = DB::table('space_features_list')->where('status', '=', 1)->get();
 
             $data['spaceList'] = $space_available;
@@ -1084,6 +1119,24 @@ class SpaceController extends Controller
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $mobile = $request->mobile;
+        $document_type = $request->document_type;
+        $document_number = $request->document_number;
+        if ($request->hasFile('front_document_img')) {
+            $image_name = $request->file('front_document_img')->getClientOriginalName();
+            $filename = pathinfo($image_name, PATHINFO_FILENAME);
+            $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+            $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+            $path = base_path() . '/public/uploads/user_document/';
+            $request->file('front_document_img')->move($path, $front_document_img);
+        }
+        if ($request->hasFile('back_document_img')) {
+            $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+            $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/user_document';
+            $request->file('back_document_img')->move($pat2, $back_document_img);
+        }
         $status = 1;
 
         // $client = "AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
@@ -1161,6 +1214,11 @@ class SpaceController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
+                'payment_id' =>  $payment_id,
+                'document_type' =>  $document_type,
+                'document_number' =>  $document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
                 'status' =>  $status,
                 'created_date' =>  date('Y-m-d H:i:s')
             )
@@ -1199,9 +1257,10 @@ class SpaceController extends Controller
         $paccess_token = '';
         $bookingtemp = DB::table('space_booking_temp')->where('payment_id', '=', $paymentId)->first();
         $spaceData = DB::table('space')->where('space_id', $bookingtemp->space_id)->where('status', 1)->first();
+        $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
         // echo "<pre>";print_r($spaceData);die;
         $vendor_id = $spaceData->space_user_id;
-
+        $check_guest_user = 0;
         if (!empty($bookingtemp)) {
             $paccess_token = $bookingtemp->paccess_token;
             $data1 = '{
@@ -1227,8 +1286,11 @@ class SpaceController extends Controller
             $paymethod = $resulspays->payer->payment_method;
 
             $pemail = $resulspays->payer->payer_info->email;
+            $uemail = $userData->email;
             $pfirst_name = $resulspays->payer->payer_info->first_name;
+            $ufirst_name = $userData->first_name;
             $plast_name = $resulspays->payer->payer_info->last_name;
+            $ulast_name = $userData->last_name;
             $payer_id = $resulspays->payer->payer_info->payer_id;
 
             $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
@@ -1240,6 +1302,7 @@ class SpaceController extends Controller
             $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
             $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
             $country_code = $resulspays->payer->payer_info->country_code;
             $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
@@ -1248,29 +1311,34 @@ class SpaceController extends Controller
 
             $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
             $merchant_email = $resulspays->transactions[0]->payee->email;
-            $password = "Admin@123";
-            $password = md5($password);
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
             curl_close($ch);
             if (empty($user_id)) {
 
-                $checkuser = DB::table('users')->where('email', $pemail)->first();
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
 
                 if (!empty($checkuser)) {
 
                     $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
                 } else {
-
+                    $check_guest_user = 1;
                     DB::table('users')->insert(
                         [
-                            'first_name' =>  $pfirst_name,
-                            'last_name' =>  $plast_name,
-                            'email' =>  $pemail,
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
                             'user_type' => 'normal_user',
-                            'contact_number' =>  $phone,
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
                             'password' =>  $password,
                             'role_id' =>  2,
-                            'is_verify_email' => 1,
-                            'register_by' =>  'paypal',
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
                             'status' => 1,
                             'updated_at' => date('Y-m-d H:i:s'),
                             'created_at' =>  date('Y-m-d H:i:s')
@@ -1351,6 +1419,14 @@ class SpaceController extends Controller
                         $message->to($inData['email']);
                         $message->subject('roadNstyas - Space Booking Confirmation Mail');
                     });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
 
                     $data['url'] = url('/admin_login');
 
@@ -1393,7 +1469,12 @@ class SpaceController extends Controller
                     }
                 }
                 Session::get('total_amt');
-                session::flash('message', 'Order created Succesfully.');
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                }else{
+                    session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+                }   
+                // session::flash('message', 'Order created Succesfully.');
                 //return redirect('/category/'.$frame_detail->category_id.'');
                 return view('front/space/space_payment_successful', $data);
             } else {
