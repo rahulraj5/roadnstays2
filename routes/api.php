@@ -38,13 +38,16 @@ Route::post('events_list','Api\EventController@events_list')->middleware('CheckT
 Route::post('event_details','Api\EventController@event_details')->middleware('CheckToken');
 Route::post('event_details_test','Api\EventController@event_details_test')->middleware('CheckToken');
 Route::post('space_type_list','Api\SpaceController@space_type_list')->middleware('CheckToken');
+Route::post('space_list','Api\SpaceController@topFamousSpaces')->middleware('CheckToken');
 Route::post('space_country_list','Api\SpaceController@space_coutrywise')->middleware('CheckToken');
 Route::post('spaceListByCity','Api\SpaceController@getSpaceByCity')->middleware('CheckToken');
 Route::post('spaceByCityDate','Api\SpaceController@getSpaceCityByDate')->middleware('CheckToken');
 Route::post('eventsByLocation','Api\SpaceController@searchEvents')->middleware('CheckToken');
 Route::post('getCountries','Api\SpaceController@getCountries')->middleware('CheckToken');
-Route::post('spaceByCity','Api\SpaceController@spaceByCity')->middleware('CheckToken');
+Route::post('spaceByLocation','Api\SpaceController@spaceByLocation')->middleware('CheckToken');
 Route::post('spaceById','Api\SpaceController@spaceById')->middleware('CheckToken');
+Route::post('spaceDetails','Api\SpaceController@spaceDetails')->middleware('CheckToken');
+Route::post('change_daterange_session','Api\SpaceController@change_daterange_session')->middleware('CheckToken');
 });
 Route::get('changeStatus','Api\ApiLoginController@changeStatus');
 

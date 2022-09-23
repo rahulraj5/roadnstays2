@@ -7,92 +7,90 @@
 <script src="{{url('/')}}/resources/assets/js/slick.js"></script>
 <script>
    $(".slick1").slick({
-    rows: 1,
-    dots: false,
-    arrows: false,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-    
-    
-    responsive: [
-           {
-               breakpoint: 980, // tablet breakpoint
-               settings: {
-                   slidesToShow: 4,
-                   slidesToScroll: 4
-               }
-           },
-           {
-               breakpoint: 480, // mobile breakpoint
-               settings: {
-                   slidesToShow: 2,
-                   slidesToScroll: 2
-               }
-           }
-       ]
+      rows: 1,
+      dots: false,
+      arrows: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 5,
+      slidesToScroll: 5,
+
+
+      responsive: [{
+            breakpoint: 980, // tablet breakpoint
+            settings: {
+               slidesToShow: 4,
+               slidesToScroll: 4
+            }
+         },
+         {
+            breakpoint: 480, // mobile breakpoint
+            settings: {
+               slidesToShow: 2,
+               slidesToScroll: 2
+            }
+         }
+      ]
    });
 </script>
 <script>
    $(".slick_best_place").slick({
-    rows: 1,
-    dots: false,
-    arrows: false,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 4, 
-    responsive: [
-           {
-               breakpoint: 980, // tablet breakpoint
-               settings: {
-                   slidesToShow: 4,
-                   slidesToScroll: 4
-               }
-           },
-           {
-               breakpoint: 480, // mobile breakpoint
-               settings: {
-                   slidesToShow: 2,
-                   slidesToScroll: 2
-               }
-           }
-       ]
+      rows: 1,
+      dots: false,
+      arrows: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [{
+            breakpoint: 980, // tablet breakpoint
+            settings: {
+               slidesToShow: 4,
+               slidesToScroll: 4
+            }
+         },
+         {
+            breakpoint: 480, // mobile breakpoint
+            settings: {
+               slidesToShow: 2,
+               slidesToScroll: 2
+            }
+         }
+      ]
    });
 </script>
 <script>
-  $(document).ready(function() {
-    
-    $(".owl-carousel").owlCarousel({ 
-         autoplay:true,
-         autoplayTimeout:3000,
-         autoplayHoverPause:true,
-         items : 3,
-         itemsDesktop : [1199,3],
-         itemsDesktopSmall : [979,3],
-         loop:true,
+   $(document).ready(function() {
+
+      $(".owl-carousel").owlCarousel({
+         autoplay: true,
+         autoplayTimeout: 3000,
+         autoplayHoverPause: true,
+         items: 3,
+         itemsDesktop: [1199, 3],
+         itemsDesktopSmall: [979, 3],
+         loop: true,
          responsive: {
-            0:{
-               items:1
-           },
-           600:{
-               items:1
-           },
-           1000:{
-               items:3
-           }
+            0: {
+               items: 1
+            },
+            600: {
+               items: 1
+            },
+            1000: {
+               items: 3
+            }
          }
-           
-    }); 
-    
-  });    
-</script> 
+
+      });
+
+   });
+</script>
 @endsection
 @section('content')
 <main id="main">
    <section class="info-slides" style="padding-top: 77px; padding-bottom: 0px; background-color: #f6f6f6;">
-   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
          <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -102,32 +100,32 @@
             <div class="carousel-item active">
                <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour3.jpg" alt="First slide">
                <div class="carousel-caption1  d-md-block">
-    <h5>Tour</h5>
-   
-  </div>
+                  <h5>Tour</h5>
+
+               </div>
             </div>
             <div class="carousel-item">
                <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour2.jpg" alt="Second slide">
                <div class="carousel-caption1  d-md-block">
-    <h5>Tour</h5>
-   
-  </div>
+                  <h5>Tour</h5>
+
+               </div>
             </div>
             <div class="carousel-item">
                <img class="d-block w-100" src="{{url('/')}}/resources/assets/img/tour1.jpg" alt="Third slide">
                <div class="carousel-caption1  d-md-block">
-    <h5>Tour</h5>
-   
-  </div>
+                  <h5>Tour</h5>
+
+               </div>
             </div>
          </div>
          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-         <span class="sr-only">Previous</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
          </a>
          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-         <span class="sr-only">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
          </a>
       </div>
    </section>
@@ -135,12 +133,12 @@
       <div class="container" data-aos="">
          <div class="section-title t01">
             <h4>Popular Tours</h4>
-            <span class="separator01"></span>   
+            <span class="separator01"></span>
          </div>
          <div class="row container-fluid">
             <div class="col-lg-12 grid-margin stretch-card">
                <div class="listing-tour">
-                  <div class="tour-body" >
+                  <div class="tour-body">
                      <div class="owl-carousel">
                         @foreach($tour_data as $trip)
 
@@ -161,8 +159,8 @@
                                              <div class="star-ratings start-ratings-main clearfix d-inline-flex">
                                                 <div class="mb-1 d-flex" id="rating-ability-wrapper">
                                                    <label class="control-label" for="rating">
-                                                   <span class="field-label-info"></span>
-                                                   <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required" />
+                                                      <span class="field-label-info"></span>
+                                                      <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required" />
                                                    </label>
                                                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class="bx bxs-star"></i></button>
                                                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class="bx bxs-star"></i></button>
@@ -172,7 +170,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <?php  $nights = $trip->tour_days-1; ?>
+                                    <?php $nights = (int)$trip->tour_days - 1; ?>
                                     <div class="d-flex mt-4 dtl-t01">
                                        <div class="btm-info">
                                           <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
@@ -206,28 +204,28 @@
          </div>
          <div class="slick-wrapper list-place">
             <div class="slick1">
-              @foreach($tour_data_countries as $trip_country)
+               @foreach($tour_data_countries as $trip_country)
                <div class="slide-item">
                   <a href="{{url('/tour_list_country')}}/{{$trip_country->country_id}}" target="_blank">
-                  <div class="image-lists">
-                     <img src="{{url('/')}}/public/uploads/tour_gallery/{{$trip_country->tour_feature_image}}">
-                  </div>
-                  <div class="name-lists">
-                     <h3>{{ ucfirst(strtolower(trans($trip_country->country_name))) }}</h3>
-                     <h6>starting from ${{$trip_country->tour_price}}</h6>
-                  </div>
+                     <div class="image-lists">
+                        <img src="{{url('/')}}/public/uploads/tour_gallery/{{$trip_country->tour_feature_image}}">
+                     </div>
+                     <div class="name-lists">
+                        <h3>{{ ucfirst(strtolower(trans($trip_country->country_name))) }}</h3>
+                        <h6>starting from ${{$trip_country->tour_price}}</h6>
+                     </div>
                   </a>
                </div>
-               @endforeach 
+               @endforeach
             </div>
          </div>
       </div>
-   </section> 
+   </section>
    <section id="" class="package-coming">
       <div class="container" data-aos="">
          <div class="section-title t01">
             <h4>Top Visited Destinations Tours</h4>
-            <span class="separator01"></span>   
+            <span class="separator01"></span>
          </div>
          <div class="row container-fluid">
             <div class="col-lg-12 grid-margin stretch-card">
@@ -253,8 +251,8 @@
                                              <div class="star-ratings start-ratings-main clearfix d-inline-flex">
                                                 <div class="mb-1 d-flex" id="rating-ability-wrapper">
                                                    <label class="control-label" for="rating">
-                                                   <span class="field-label-info"></span>
-                                                   <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required" />
+                                                      <span class="field-label-info"></span>
+                                                      <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required" />
                                                    </label>
                                                    <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class="bx bxs-star"></i></button>
                                                    <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class="bx bxs-star"></i></button>
@@ -264,7 +262,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <?php  $nights = $trip->tour_days-1; ?>
+                                    <?php $nights = (int)$trip->tour_days - 1; ?>
                                     <div class="d-flex mt-4 dtl-t01">
                                        <div class="btm-info">
                                           <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
@@ -287,7 +285,7 @@
             </div>
          </div>
       </div>
-      </div> 
+      </div>
       </div>
    </section>
 </main>

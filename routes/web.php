@@ -176,8 +176,11 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/profile', 'HomeController@serviceProProfile'); 
 
     Route::any('servicepro/hotel-reservation-list', 'Vendor\ReservationController@hotel_reservation');	
+    Route::post('servicepro/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');
     Route::any('servicepro/space-reservation-list', 'Vendor\ReservationController@space_reservation');	
-    Route::any('servicepro/tour-reservation-list', 'Vendor\ReservationController@tour_reservation');	
+    Route::post('servicepro/cancelSpaceBooking','Home\BookingController@cancel_space_booking');
+    Route::any('servicepro/tour-reservation-list', 'Vendor\ReservationController@tour_reservation');
+    Route::post('servicepro/cancelTourBooking','Home\BookingController@cancel_tour_booking');	
 
     Route::get('servicepro/hotel-reservation-details/{id}', 'Vendor\ReservationController@hotel_reservation_detail');	
     Route::get('servicepro/hotel-reservation-cancel-details/{id}', 'Vendor\ReservationController@hotel_reservation_canceled_detail');	
@@ -187,6 +190,11 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
 
     Route::get('servicepro/tour-reservation-details/{id}', 'Vendor\ReservationController@tour_reservation_detail');	
     Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');	
+
+    Route::get('servicepro/bookingInvoice/{id}', 'Home\BookingController@booking_invoice');
+    Route::get('servicepro/spaceBookingInvoice/{id}', 'Home\BookingController@space_booking_invoice');
+    Route::get('servicepro/tourBookingInvoice/{id}', 'Home\BookingController@tour_booking_invoice');
+    Route::get('servicepro/eventBookingInvoice/{id}', 'Home\BookingController@event_booking_invoice');
 
 
     Route::any('servicepro/updatePassword', 'Home\UserController@update_password');

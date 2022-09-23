@@ -369,7 +369,7 @@ class HomeController extends Controller
         }
         $checkorder = DB::table('event_booking')->where('payment_token', '=', $token)->first();
 
-        if (empty($checkorder)) {
+        if(empty($checkorder)) {
 
             DB::table('event_booking')->insert(
                 [
@@ -579,6 +579,7 @@ class HomeController extends Controller
         $data['tour_details'] = DB::table('tour_list')->where('id', $tour_id)->first();
         $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
         $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
+        // echo "<pre>";print_r($data['tour_details']); die;
         // $vendor = DB::table('users')->where('id', $data['tour_details']->vendor_id)->first();
         // echo "<pre>";print_r($vendor); die;
         return view('front/tour/tour_details')->with($data);
@@ -622,75 +623,202 @@ class HomeController extends Controller
             $request->file('back_document_img')->move($pat2, $back_document_img);
         }
         $status = 1;
-        //echo "<pre>"; print_r($forminput);die;
-        // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
-        // $secret="EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
 
-        $client = "AVEgpnihV9nIWSO15Cg-SWM-TcA9_nKFqH_xA_gzoRmdpRw_dQNlB65G-fzbjr6dz5tUTr-ITCLbJ2Yn";
-        $secret = "EFB-JdeQkwgkqOf7fAf5wIIDC1ed_67MDjU_2SSySwnzTnQu4v-DciM75nirTa7qJGeXL4_cdmIK6HEh";
 
+        // //echo "<pre>"; print_r($forminput);die;
+        // // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
+        // // $secret="EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+
+        // $client = "AVEgpnihV9nIWSO15Cg-SWM-TcA9_nKFqH_xA_gzoRmdpRw_dQNlB65G-fzbjr6dz5tUTr-ITCLbJ2Yn";
+        // $secret = "EFB-JdeQkwgkqOf7fAf5wIIDC1ed_67MDjU_2SSySwnzTnQu4v-DciM75nirTa7qJGeXL4_cdmIK6HEh";
+
+        // $ch = curl_init();
+
+        // curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token");
+        // curl_setopt($ch, CURLOPT_HEADER, false);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_USERPWD, $client . ":" . $secret);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+
+        // $result = curl_exec($ch);
+
+        // if (empty($result)) die("Error: No response.");
+        // else {
+        //     $json = json_decode($result);
+
+        //     $paccess_token = $json->access_token;
+        // }
+
+        // $data = '{
+        //   "intent":"sale",
+        //   "redirect_urls":{
+        //     "return_url":"' . url('/tour-payment-successful') . '",
+        //     "cancel_url":"' . url('/payment-cancelled') . '"
+        //   },
+        //   "payer":{
+        //     "payment_method":"paypal"
+        //   },
+        //   "transactions":[
+        //     {
+        //       "amount":{
+        //         "total":' . round($tour_price) . ',
+        //         "currency":"USD"
+        //       },
+        //       "description":"This is the payment transaction description."
+        //     }
+        //   ]
+        // }';
+
+        // curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment");
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt(
+        //     $ch,
+        //     CURLOPT_HTTPHEADER,
+        //     array(
+        //         "Content-Type: application/json",
+        //         "Authorization: Bearer " . $json->access_token,
+        //         "Content-length: " . strlen($data)
+        //     )
+        // );
+
+        // $result = curl_exec($ch);
+        // $json = json_decode($result);
+        // $link = $json->links[1]->href;
+        // $tokenlink = $json->links[1]->href;
+        // $link_array = explode('&token=', $tokenlink);
+        // $token = end($link_array);
+
+        // $state = $json->state;
+
+        // $payment_id = $json->id;
+
+        $bankorderId   = rand(0,1786612);
+        $data['bankorderId'] = $bankorderId;
+
+        $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
+
+        //$url = "https://payments.bankalfalah.com/HS/HS/HS";
+            
+        // $bankorderId   = $this->session->userdata('bankorderId');
+        // $bankorderId   = rand(0,1786612);
+         
+        $Key1= "gctjxXADP4HCYQvh";
+        $Key2= "3871295687341998";
+        $HS_ChannelId="1001";
+        $HS_MerchantId="19513" ;
+        $HS_StoreId="024984" ;
+        $HS_IsRedirectionRequest  = 0;
+        $HS_ReturnURL= url('/tour-payment-successful');
+        $HS_MerchantHash="OUU362MB1upxJgeTHp3x+e9lYN3lrYJOyJIVHPA/LMyWny/BUgjHQiBYCZvE/dHkbxc5OMqhewg=";
+        $HS_MerchantUsername="olygoc" ;
+        $HS_MerchantPassword="V1MoH66gNcpvFzk4yqF7CA==";
+        $HS_TransactionReferenceNumber= $bankorderId;
+        $transactionTypeId = "3";
+        $TransactionAmount = round($tour_price);   
+        $cipher="aes-128-cbc";
+        
+
+        $data['key1'] = $Key1;
+        $data['Key2'] = $Key2;
+        $data['HS_ChannelId'] = $HS_ChannelId;
+        $data['HS_MerchantId'] = $HS_MerchantId;
+        $data['HS_StoreId'] = $HS_StoreId;
+        $data['HS_IsRedirectionRequest'] = $HS_IsRedirectionRequest;
+        $data['HS_ReturnURL'] = $HS_ReturnURL;
+        $data['HS_MerchantHash']  = $HS_MerchantHash;
+        $data['HS_MerchantUsername'] = $HS_MerchantUsername;
+        $data['HS_MerchantPassword'] = $HS_MerchantPassword;
+        $data['HS_TransactionReferenceNumber'] = $HS_TransactionReferenceNumber;
+        $data['transactionTypeId'] = $transactionTypeId;
+        $data['TransactionAmount'] = $TransactionAmount;
+        $data['cipher'] = $cipher;
+        
+        $mapString = 
+          "HS_ChannelId=$HS_ChannelId" 
+        . "&HS_IsRedirectionRequest=$HS_IsRedirectionRequest" 
+        . "&HS_MerchantId=$HS_MerchantId" 
+        . "&HS_StoreId=$HS_StoreId" 
+        . "&HS_ReturnURL=$HS_ReturnURL"
+        . "&HS_MerchantHash=$HS_MerchantHash"
+        . "&HS_MerchantUsername=$HS_MerchantUsername"
+        . "&HS_MerchantPassword=$HS_MerchantPassword"
+        . "&HS_TransactionReferenceNumber=$HS_TransactionReferenceNumber";
+        
+        $cipher_text = openssl_encrypt($mapString, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest = base64_encode($cipher_text); 
+        
+        //The data you want to send via POST
+        $fields = [
+            "HS_ChannelId"=>$HS_ChannelId,
+            "HS_IsRedirectionRequest"=>$HS_IsRedirectionRequest,
+            "HS_MerchantId"=> $HS_MerchantId,
+            "HS_StoreId"=> $HS_StoreId,
+            "HS_ReturnURL"=> $HS_ReturnURL,
+            "HS_MerchantHash"=> $HS_MerchantHash,
+            "HS_MerchantUsername"=> $HS_MerchantUsername,
+            "HS_MerchantPassword"=> $HS_MerchantPassword,
+            "HS_TransactionReferenceNumber"=> $HS_TransactionReferenceNumber,
+            "HS_RequestHash"=> $hashRequest
+        ];
+        
+        $fields_string = http_build_query($fields);
+        
+        //open connection
         $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token");
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERPWD, $client . ":" . $secret);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
-
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+        //execute post
         $result = curl_exec($ch);
+        
+        $handshake =  json_decode($result);
+       
+        $AuthToken = $handshake->AuthToken;
+        
+        
+        // echo $result ."<br>";
+        // echo $AuthToken ."<br>";
+      
+      
+        /* ==============SSO CALL ================*/
+      
+        // you need Auth Token & Amount Here before Hashing
+        
+        $RequestHash1 = NULL;
+        $Currency = "PKR";
+        $IsBIN =0;
 
-        if (empty($result)) die("Error: No response.");
-        else {
-            $json = json_decode($result);
+        $mapStringSSo = 
+          "AuthToken=$AuthToken" 
+        . "&RequestHash=$RequestHash1" 
+        . "&ChannelId=$HS_ChannelId"
+        . "&Currency=$Currency"
+        . "&IsBIN=$IsBIN"
+        . "&ReturnURL=$HS_ReturnURL"
+        . "&MerchantId=$HS_MerchantId"
+        . "&StoreId=$HS_StoreId" 
+        . "&MerchantHash=$HS_MerchantHash"
+        . "&MerchantUsername=$HS_MerchantUsername"
+        . "&MerchantPassword=$HS_MerchantPassword"
+        . "&TransactionTypeId=3"
+        . "&TransactionReferenceNumber=$HS_TransactionReferenceNumber"
+        . "&TransactionAmount=$TransactionAmount"; 
 
-            $paccess_token = $json->access_token;
-        }
+        //echo $mapStringSSo."<br>";
+                
+        $cipher_text = openssl_encrypt($mapStringSSo, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest1 = base64_encode($cipher_text);
 
-        $data = '{
-          "intent":"sale",
-          "redirect_urls":{
-            "return_url":"' . url('/tour-payment-successful') . '",
-            "cancel_url":"' . url('/payment-cancelled') . '"
-          },
-          "payer":{
-            "payment_method":"paypal"
-          },
-          "transactions":[
-            {
-              "amount":{
-                "total":' . round($tour_price) . ',
-                "currency":"USD"
-              },
-              "description":"This is the payment transaction description."
-            }
-          ]
-        }';
+    
+        $data['AuthToken'] = $AuthToken;
+        $data['hashRequest1'] = $hashRequest1;
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            array(
-                "Content-Type: application/json",
-                "Authorization: Bearer " . $json->access_token,
-                "Content-length: " . strlen($data)
-            )
-        );
-
-        $result = curl_exec($ch);
-        $json = json_decode($result);
-        $link = $json->links[1]->href;
-        $tokenlink = $json->links[1]->href;
-        $link_array = explode('&token=', $tokenlink);
-        $token = end($link_array);
-
-        $state = $json->state;
-
-        $payment_id = $json->id;
 
         $guestinfo = DB::table('guestinfo')->insert(
             array(
@@ -699,7 +827,7 @@ class HomeController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
-                'payment_id' =>  $payment_id,
+                'payment_id' =>  $bankorderId,
                 'document_type' =>  $document_type,
                 'document_number' =>  $document_number,
                 'front_document_img' =>  $front_document_img,
@@ -712,9 +840,9 @@ class HomeController extends Controller
         $check = DB::table('tour_booking_temp')->insert(
             array(
                 'user_id' =>  $user_id,
-                'payment_id' =>  $payment_id,
-                'paccess_token' =>  $paccess_token,
-                'token_id' => $token,
+                'payment_id' =>  $bankorderId,
+                //'paccess_token' =>  $paccess_token,
+                //'token_id' => $token,
                 'tour_id' =>  $tour_id,
                 'tour_start_date' =>  $tour_start_date,
                 'tour_end_date' =>  $tour_end_date,
@@ -722,78 +850,92 @@ class HomeController extends Controller
                 'created_at' =>  date('Y-m-d H:i:s')
             )
         );
-
-        return redirect($link);
+        return view('front/apg/apg', $data);
+        //return redirect($link);
     }
 
     public function tour_payment_successful(Request $request)
-    {
+    {   
+        $order_id = $_GET['O'];
+        $url = "https://sandbox.bankalfalah.com/HS/api/IPN/OrderStatus/19513/024984/".$order_id;
+    
+        $curlSession = curl_init();
+        curl_setopt($curlSession, CURLOPT_URL,  $url);
+        curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        $jsonData = json_decode(curl_exec($curlSession));
+        curl_close($curlSession);
+
+        $result =  json_decode($jsonData);
+
         if (Auth::check()) {
             $user_id =  Auth::id();
         } else {
             $user_id = '';
         }
-        $paymentId = $_GET['paymentId'];
-        $token = $_GET['token'];
-        $PayerID = $_GET['PayerID'];
-        $paccess_token = '';
+        $paymentId = $_GET['O'];
+        // $paymentId = $_GET['paymentId'];
+        // $token = $_GET['token'];
+        // $PayerID = $_GET['PayerID'];
+        // $paccess_token = '';
         $bookingtemp = DB::table('tour_booking_temp')->where('payment_id', '=', $paymentId)->first();
         $tourData = DB::table('tour_list')->where('id', $bookingtemp->tour_id)->where('tour_status', 1)->first();
         $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
         $vendor_id = $tourData->vendor_id;
         $check_guest_user = 0;
         if (!empty($bookingtemp)) {
-            $paccess_token = $bookingtemp->paccess_token;
-            $data1 = '{
-	       	"payer_id": "' . $PayerID . '"
-	       	}';
+         //    $paccess_token = $bookingtemp->paccess_token;
+         //    $data1 = '{
+	       	// "payer_id": "' . $PayerID . '"
+	       	// }';
 
-            $ch = curl_init();
+         //    $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
-            /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = curl_exec($ch);
+         //    curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
+         //    /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
+         //    curl_setopt($ch, CURLOPT_POST, true);
+         //    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+         //    curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
+         //    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
+         //    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         //    $result = curl_exec($ch);
 
-            $resulspays = json_decode($result);
+         //    $resulspays = json_decode($result);
 
-            $cartid = $resulspays->cart;
-            $pstatus = $resulspays->state;
-            $paymethod = $resulspays->payer->payment_method;
+         //    $cartid = $resulspays->cart;
+         //    $pstatus = $resulspays->state;
+         //    $paymethod = $resulspays->payer->payment_method;
 
-            $pemail = $resulspays->payer->payer_info->email;
-            $uemail = $userData->email;
-            $pfirst_name = $resulspays->payer->payer_info->first_name;
-            $ufirst_name = $userData->first_name;
-            $plast_name = $resulspays->payer->payer_info->last_name;
-            $ulast_name = $userData->last_name;
-            $payer_id = $resulspays->payer->payer_info->payer_id;
+         //    $pemail = $resulspays->payer->payer_info->email;
+                $uemail = $userData->email;
+         //    $pfirst_name = $resulspays->payer->payer_info->first_name;
+                $ufirst_name = $userData->first_name;
+         //    $plast_name = $resulspays->payer->payer_info->last_name;
+                $ulast_name = $userData->last_name;
+         //    $payer_id = $resulspays->payer->payer_info->payer_id;
 
-            $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
-            $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
-            $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
-            $scity = $resulspays->payer->payer_info->shipping_address->city;
-            $sstate = $resulspays->payer->payer_info->shipping_address->state;
-            $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
-            $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
+         //    $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
+         //    $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
+         //    $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
+         //    $scity = $resulspays->payer->payer_info->shipping_address->city;
+         //    $sstate = $resulspays->payer->payer_info->shipping_address->state;
+         //    $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
+         //    $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
-            $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
-            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
-            $country_code = $resulspays->payer->payer_info->country_code;
-            $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
+         //    $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+                $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+         //    $country_code = $resulspays->payer->payer_info->country_code;
+         //    $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
-            $total_amount = $resulspays->transactions[0]->amount->total;
-            $currency = $resulspays->transactions[0]->amount->currency;
+         //    $total_amount = $resulspays->transactions[0]->amount->total;
+         //    $currency = $resulspays->transactions[0]->amount->currency;
 
-            $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
-            $merchant_email = $resulspays->transactions[0]->payee->email;
+         //    $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
+         //    $merchant_email = $resulspays->transactions[0]->payee->email;
             $password = "roadnstays@123";
             $password = bcrypt($password);
-            curl_close($ch);
+            //curl_close($ch);
             if (empty($user_id)) {
 
                 $checkuser = DB::table('users')->where('email', $uemail)->first();
@@ -828,7 +970,7 @@ class HomeController extends Controller
                 }
             }
         }
-        $checkorder = DB::table('tour_booking')->where('payment_token', '=', $token)->first();
+        $checkorder = DB::table('tour_booking')->where('payment_token', '=', $result->TransactionId)->first();
 
         if (empty($checkorder)) {
 
@@ -838,11 +980,11 @@ class HomeController extends Controller
                     'tour_id' => $bookingtemp->tour_id,
                     'total_amount' =>  $bookingtemp->total_amount,
                     'booking_status' => "pending",
-                    'payment_status' => 'successful',
-                    'payment_type' => $paymethod,
-                    'payment_id' => $paymentId,
-                    'payment_token' => $token,
-                    'payer_id' => $PayerID,
+                    'payment_status' => $result->TransactionStatus,
+                    'payment_type' => $result->TransactionTypeId,
+                    'payment_id' => $result->TransactionReferenceNumber,
+                    'payment_token' => $result->TransactionId,
+                    //'payer_id' => $PayerID,
                     'created_at' =>  date('Y-m-d H:i:s')
                 ]
             );
@@ -854,9 +996,9 @@ class HomeController extends Controller
                     'booking_id' => $booking_id,
                     'user_id' =>  $user_id,
                     'vendor_id' =>  $vendor_id,
-                    'txn_id' => $cartid,
+                    'txn_id' => $result->TransactionId,
                     'txn_amount' =>  $bookingtemp->total_amount,
-                    'payment_method' => $paymethod,
+                    'payment_method' => 'ALFA',
                     'booking_type' => 'Tour',
                     'txn_status' =>  'successful',
                     'txn_date' => date('Y-m-d H:i:s'),
@@ -2366,8 +2508,215 @@ class HomeController extends Controller
         }
     }
 
+
     public function booking_room_order(Request $request)
     {
+        $forminput = $request->all();
+        $user_id = $forminput['user_id'];
+        $hotel_id = $forminput['hotel_id'];
+        $room_id = $forminput['room_id'];
+        $check_in = $forminput['check_in'];
+        $check_out = $forminput['check_out'];
+        $cleaning_fee = $forminput['cleaning_fee'];
+        $city_fee = $forminput['city_fee'];
+        $tax_percentage = $forminput['tax_percentage'];
+        $total_days = $forminput['total_days'];
+        $total_room = $forminput['total_room'];
+        $total_member = $forminput['total_member'];
+        $total_amount = $forminput['total_amount'];
+        $email = $forminput['email'];
+        $first_name = $forminput['first_name'];
+        $last_name = $forminput['last_name'];
+        $mobile = $forminput['mobile'];
+        $document_type = $forminput['document_type'];
+        $document_number = $forminput['document_number'];
+        if ($request->hasFile('front_document_img')) {
+            $image_name = $request->file('front_document_img')->getClientOriginalName();
+            $filename = pathinfo($image_name, PATHINFO_FILENAME);
+            $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+            $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+            $path = base_path() . '/public/uploads/user_document/';
+            $request->file('front_document_img')->move($path, $front_document_img);
+        }
+        if ($request->hasFile('back_document_img')) {
+            $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+            $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+            $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+            $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+            $pat2 = base_path() . '/public/uploads/user_document';
+            $request->file('back_document_img')->move($pat2, $back_document_img);
+        }
+        $status = 1;
+        $bankorderId   = rand(0,1786612);
+        $data['bankorderId'] = $bankorderId;
+
+        $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
+
+        //$url = "https://payments.bankalfalah.com/HS/HS/HS";
+            
+        // $bankorderId   = $this->session->userdata('bankorderId');
+        // $bankorderId   = rand(0,1786612);
+         
+        $Key1= "gctjxXADP4HCYQvh";
+        $Key2= "3871295687341998";
+        $HS_ChannelId="1001";
+        $HS_MerchantId="19513" ;
+        $HS_StoreId="024984" ;
+        $HS_IsRedirectionRequest  = 0;
+        $HS_ReturnURL="https://www.roadnstays.com/payment-successful";
+        $HS_MerchantHash="OUU362MB1upxJgeTHp3x+e9lYN3lrYJOyJIVHPA/LMyWny/BUgjHQiBYCZvE/dHkbxc5OMqhewg=";
+        $HS_MerchantUsername="olygoc" ;
+        $HS_MerchantPassword="V1MoH66gNcpvFzk4yqF7CA==";
+        $HS_TransactionReferenceNumber= $bankorderId;
+        $transactionTypeId = "3";
+        $TransactionAmount = round($total_amount);   
+        $cipher="aes-128-cbc";
+        
+
+        $data['key1'] = $Key1;
+        $data['Key2'] = $Key2;
+        $data['HS_ChannelId'] = $HS_ChannelId;
+        $data['HS_MerchantId'] = $HS_MerchantId;
+        $data['HS_StoreId'] = $HS_StoreId;
+        $data['HS_IsRedirectionRequest'] = $HS_IsRedirectionRequest;
+        $data['HS_ReturnURL'] = $HS_ReturnURL;
+        $data['HS_MerchantHash']  = $HS_MerchantHash;
+        $data['HS_MerchantUsername'] = $HS_MerchantUsername;
+        $data['HS_MerchantPassword'] = $HS_MerchantPassword;
+        $data['HS_TransactionReferenceNumber'] = $HS_TransactionReferenceNumber;
+        $data['transactionTypeId'] = $transactionTypeId;
+        $data['TransactionAmount'] = $TransactionAmount;
+        $data['cipher'] = $cipher;
+        
+        $mapString = 
+          "HS_ChannelId=$HS_ChannelId" 
+        . "&HS_IsRedirectionRequest=$HS_IsRedirectionRequest" 
+        . "&HS_MerchantId=$HS_MerchantId" 
+        . "&HS_StoreId=$HS_StoreId" 
+        . "&HS_ReturnURL=$HS_ReturnURL"
+        . "&HS_MerchantHash=$HS_MerchantHash"
+        . "&HS_MerchantUsername=$HS_MerchantUsername"
+        . "&HS_MerchantPassword=$HS_MerchantPassword"
+        . "&HS_TransactionReferenceNumber=$HS_TransactionReferenceNumber";
+        
+        $cipher_text = openssl_encrypt($mapString, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest = base64_encode($cipher_text); 
+        
+        //The data you want to send via POST
+        $fields = [
+            "HS_ChannelId"=>$HS_ChannelId,
+            "HS_IsRedirectionRequest"=>$HS_IsRedirectionRequest,
+            "HS_MerchantId"=> $HS_MerchantId,
+            "HS_StoreId"=> $HS_StoreId,
+            "HS_ReturnURL"=> $HS_ReturnURL,
+            "HS_MerchantHash"=> $HS_MerchantHash,
+            "HS_MerchantUsername"=> $HS_MerchantUsername,
+            "HS_MerchantPassword"=> $HS_MerchantPassword,
+            "HS_TransactionReferenceNumber"=> $HS_TransactionReferenceNumber,
+            "HS_RequestHash"=> $hashRequest
+        ];
+        
+        $fields_string = http_build_query($fields);
+        
+        //open connection
+        $ch = curl_init();
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+        //execute post
+        $result = curl_exec($ch);
+        
+        $handshake =  json_decode($result);
+       
+        $AuthToken = $handshake->AuthToken;
+        
+        
+        // echo $result ."<br>";
+        // echo $AuthToken ."<br>";
+      
+      
+        /* ==============SSO CALL ================*/
+      
+        // you need Auth Token & Amount Here before Hashing
+        
+        $RequestHash1 = NULL;
+        $Currency = "PKR";
+        $IsBIN =0;
+
+        $mapStringSSo = 
+          "AuthToken=$AuthToken" 
+        . "&RequestHash=$RequestHash1" 
+        . "&ChannelId=$HS_ChannelId"
+        . "&Currency=$Currency"
+        . "&IsBIN=$IsBIN"
+        . "&ReturnURL=$HS_ReturnURL"
+        . "&MerchantId=$HS_MerchantId"
+        . "&StoreId=$HS_StoreId" 
+        . "&MerchantHash=$HS_MerchantHash"
+        . "&MerchantUsername=$HS_MerchantUsername"
+        . "&MerchantPassword=$HS_MerchantPassword"
+        . "&TransactionTypeId=3"
+        . "&TransactionReferenceNumber=$HS_TransactionReferenceNumber"
+        . "&TransactionAmount=$TransactionAmount"; 
+
+        //echo $mapStringSSo."<br>";
+                
+        $cipher_text = openssl_encrypt($mapStringSSo, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest1 = base64_encode($cipher_text);
+
+    
+        $data['AuthToken'] = $AuthToken;
+        $data['hashRequest1'] = $hashRequest1;
+
+        $guestinfo = DB::table('guestinfo')->insert(
+            array(
+                'hotel_id' =>  $hotel_id,
+                'room_id' =>  $room_id,
+                'email' =>  $email,
+                'first_name' =>  $first_name,
+                'last_name' => $last_name,
+                'mobile' =>  $mobile,
+                'payment_id' =>  $bankorderId,
+                'document_type' =>  $document_type,
+                'document_number' =>  $document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
+                'status' =>  $status,
+                'created_date' =>  date('Y-m-d H:i:s')
+            )
+        );
+
+        $check = DB::table('booking_temp')->insert(
+            array(
+                'user_id' =>  $user_id,
+                'payment_id' =>  $bankorderId,
+                'hotel_id' =>  $hotel_id,
+                'room_id' =>  $room_id,
+                'check_in' =>  $check_in,
+                'check_out' =>  $check_out,
+                'cleaning_fee' => round($cleaning_fee),
+                'city_fee' =>  round($city_fee),
+                'tax_percentage' =>  $tax_percentage,
+                'total_days' => $total_days,
+                'total_room' => $total_room,
+                'total_member' => $total_member,
+                'total_amount' => round($total_amount),
+                'created_at' =>  date('Y-m-d H:i:s')
+            )
+        );
+    	return view('front/apg/apg', $data);
+
+    }
+
+    public function booking_room_order_old(Request $request)
+    {
+
+        return redirect($link);
+
+        die;
         $forminput = $request->all();
         // echo "<pre>";print_r($forminput);die;
         $user_id = $forminput['user_id'];
@@ -2527,14 +2876,35 @@ class HomeController extends Controller
         $jsonData = json_decode(curl_exec($curlSession));
         curl_close($curlSession);
 
-             $result =  json_decode($jsonData);
+        $result =  json_decode($jsonData);
         //echo $jsonData."<br>";
 
         echo "<pre>";print_r($result);
         echo $result->TransactionStatus;
     }
+
     public function payment_successful(Request $request)
     {
+       
+        //echo "";print_r($_GET);die;
+
+        $order_id = $_GET['O'];
+        $url = "https://sandbox.bankalfalah.com/HS/api/IPN/OrderStatus/19513/024984/".$order_id;
+    
+        $curlSession = curl_init();
+        curl_setopt($curlSession, CURLOPT_URL,  $url);
+        curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        $jsonData = json_decode(curl_exec($curlSession));
+        curl_close($curlSession);
+
+        $result =  json_decode($jsonData);
+        // echo $jsonData."<br>";
+
+
+        // echo $result->TransactionStatus;
+
         // print_r($_GET['O']);die;
         // echo "test";die;
 
@@ -2550,10 +2920,10 @@ class HomeController extends Controller
         } else {
             $user_id = '';
         }
-        $paymentId = $_GET['paymentId'];
-        $token = $_GET['token'];
-        $PayerID = $_GET['PayerID'];
-        $paccess_token = '';
+        $paymentId = $_GET['O'];
+        // $token = $_GET['token'];
+        // $PayerID = $_GET['PayerID'];
+        // $paccess_token = '';
         $bookingtemp = DB::table('booking_temp')->where('payment_id', '=', $paymentId)->first();
         $hotelData = DB::table('hotels')->where('hotel_id', $bookingtemp->hotel_id)->where('hotel_status', 1)->first();
         $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
@@ -2561,57 +2931,58 @@ class HomeController extends Controller
         $vendor_id = $hotelData->hotel_user_id;
         $check_guest_user = 0;
         if (!empty($bookingtemp)) {
-            $paccess_token = $bookingtemp->paccess_token;
-            $data1 = '{
-	       	"payer_id": "' . $PayerID . '"
-	       	}';
+         //    $paccess_token = $bookingtemp->paccess_token;
+         //    $data1 = '{
+	       	// "payer_id": "' . $PayerID . '"
+	       	// }';
 
-            $ch = curl_init();
+         //    $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
-            /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = curl_exec($ch);
-            // echo "<pre>";print_r($result);
-            $resulspays = json_decode($result);
-            // echo "<pre>";print_r($resulspays);die;
-            $cartid = $resulspays->cart;
-            $pstatus = $resulspays->state;
-            $paymethod = $resulspays->payer->payment_method;
+         //    curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
+         //    /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
+         //    curl_setopt($ch, CURLOPT_POST, true);
+         //    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+         //    curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
+         //    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
+         //    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         //    $result = curl_exec($ch);
+         //    // echo "<pre>";print_r($result);
+         //    $resulspays = json_decode($result);
+         //    // echo "<pre>";print_r($resulspays);die;
+         //    $cartid = $resulspays->cart;
+         //    $pstatus = $resulspays->state;
+         //    $paymethod = $resulspays->payer->payment_method;
 
-            $pemail = $resulspays->payer->payer_info->email;
+            //$pemail = $resulspays->payer->payer_info->email;
             $uemail = $userData->email;
-            $pfirst_name = $resulspays->payer->payer_info->first_name;
+            //$pfirst_name = $resulspays->payer->payer_info->first_name;
             $ufirst_name = $userData->first_name;
-            $plast_name = $resulspays->payer->payer_info->last_name;
+            //$plast_name = $resulspays->payer->payer_info->last_name;
             $ulast_name = $userData->last_name;
-            $payer_id = $resulspays->payer->payer_info->payer_id;
+            // $payer_id = $resulspays->payer->payer_info->payer_id;
 
-            $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
-            $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
-            $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
-            $scity = $resulspays->payer->payer_info->shipping_address->city;
-            $sstate = $resulspays->payer->payer_info->shipping_address->state;
-            $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
-            $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
+            // $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
+            // $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
+            // $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
+            // $scity = $resulspays->payer->payer_info->shipping_address->city;
+            // $sstate = $resulspays->payer->payer_info->shipping_address->state;
+            // $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
+            // $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
-            $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            //$phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
             $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
-            $country_code = $resulspays->payer->payer_info->country_code;
-            $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
+            // $country_code = $resulspays->payer->payer_info->country_code;
+            // $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
-            $total_amount = $resulspays->transactions[0]->amount->total;
-            $currency = $resulspays->transactions[0]->amount->currency;
+            // $total_amount = $resulspays->transactions[0]->amount->total;
+            // $currency = $resulspays->transactions[0]->amount->currency;
 
-            $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
-            $merchant_email = $resulspays->transactions[0]->payee->email;
+            // $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
+            // $merchant_email = $resulspays->transactions[0]->payee->email;
+            $uemail = $userData->email;
             $password = "roadnstays@123";
             $password = bcrypt($password);
-            curl_close($ch);
+            //curl_close($ch);
             if (empty($user_id)) {
 
                 $checkuser = DB::table('users')->where('email', $uemail)->first();
@@ -2647,7 +3018,7 @@ class HomeController extends Controller
             }
         }
         // echo "<pre>"; print_r($check_guest_user);die;
-        $checkorder = DB::table('booking')->where('payment_token', '=', $token)->first();
+        $checkorder = DB::table('booking')->where('payment_token', '=', $result->TransactionId)->first();
 
         if (empty($checkorder)) {
 
@@ -2666,11 +3037,11 @@ class HomeController extends Controller
                     'city_fee' => $bookingtemp->city_fee,
                     'tax_percentage' => $bookingtemp->tax_percentage,
                     'booking_status' => "pending",
-                    'payment_status' => 'successful',
-                    'payment_type' => $paymethod,
-                    'payment_id' => $paymentId,
-                    'payment_token' => $token,
-                    'Payer_id' => $PayerID,
+                    'payment_status' => $result->TransactionStatus,
+                    'payment_type' => $result->TransactionTypeId,
+                    'payment_id' => $result->TransactionReferenceNumber,
+                    'payment_token' => $result->TransactionId,
+                    //'Payer_id' => $PayerID,
                     'created_at' =>  date('Y-m-d H:i:s')
                 ]
             );
@@ -2682,9 +3053,9 @@ class HomeController extends Controller
                     'booking_id' => $booking_id,
                     'user_id' =>  $user_id,
                     'vendor_id' =>  $vendor_id,
-                    'txn_id' => $cartid,
+                    'txn_id' => $result->TransactionId,
                     'txn_amount' =>  $bookingtemp->total_amount,
-                    'payment_method' => $paymethod,
+                    'payment_method' => 'ALFA',
                     'booking_type' => 'Room',
                     'txn_status' =>  'successful',
                     'txn_date' => date('Y-m-d H:i:s'),

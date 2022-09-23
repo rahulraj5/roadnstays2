@@ -585,7 +585,7 @@
                         success_noti(response.msg);
                         setTimeout(function() {
                             window.location.reload()
-                            window.location.href = site_url + "/user/tourBookingList";
+                            window.location.href = site_url + "/user/tourBookingList-cancel";
                         }, 1000);
                     } else {
                         error_noti(response.msg);
@@ -773,14 +773,63 @@
 
                 <div class="canceltop">
                     <h5>Cancellation Policy</h5>
+                    @if(!empty($bookingDetails->min_hrs_percentage) && !empty($bookingDetails->max_hrs_percentage))
+                    <p>Up to 24 hours before checkin, changes can be made with a {{$bookingDetails->min_hrs_percentage}}% fee and up to 48 hours before checkin, changes can be made with a {{$bookingDetails->max_hrs_percentage}}% fee.</p>
+                    @endif
+                    @if($bookingDetails->payment_mode == 1)
                     <ul>
                         <li>{{ $bookingDetails->tour_title }}</li>
-                        <li>free</li>
+                        <li>
+                            @if(!empty($bookingDetails->min_hrs))
+                                @if($remaining_hours < $bookingDetails->min_hrs)
+                                    {{ $deduction_percentage = $bookingDetails->min_hrs_percentage}}% fee   
+                                @elseif($remaining_hours > $bookingDetails->min_hrs && $remaining_hours < $bookingDetails->max_hrs)
+                                    {{ $deduction_percentage = $bookingDetails->max_hrs_percentage}}% fee   
+                                @elseif($remaining_hours > $bookingDetails->max_hrs)    
+                                    {{ $deduction_percentage = 'Free'}} 
+                                @endif
+                            @endif
+                        </li>
                     </ul>
                     <ul>
-                        <li>Total</li>
-                        <li>free</li>
+                        <li>Total Cost</li>
+                        <li>PKR {{ $bookingDetails->total_amount }}</li>
                     </ul>
+                    <ul>
+                        <li>Cancellation fee</li>
+                        @if($deduction_percentage == 'Free')
+                        <li>Free</li>
+                        @else
+                        <li>PKR {{ $deduction_amount = ($bookingDetails->total_amount * $deduction_percentage)/100 }}</li>
+                        @endif
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        @if($deduction_percentage == 'Free')
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                        @else
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount - $deduction_amount }}</b></li>
+                        @endif
+                    </ul>
+                    @elseif($bookingDetails->payment_mode == 2)
+                    <ul>
+                        <li>{{ $bookingDetails->tour_title }}</li>
+                        <li>Partial Payment</li>
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                    </ul>
+                    @else($bookingDetails->payment_mode == 3)
+                    <ul>
+                        <li>{{ $bookingDetails->tour_title }}</li>
+                        <li>Free</li>
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                    </ul>
+                    @endif
                 </div>
                 <div class="cancelmiddle">
                     <h6>Tell us the reason for canceling</h6>
@@ -789,6 +838,7 @@
                         @csrf
                         <!-- <fieldset> -->
                         <input type="hidden" name="booking_id" value="{{$bookingDetails->id}}">
+                        <input type="hidden" name="refund_amount" value="{{$refund_amount}}">
 
                         <input type="radio" id="travelers" name="cancel_reason" value="Change in the number or needs of travelers">
                         <label for="travelers">Change in the number or needs of travelers</label><br>

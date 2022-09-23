@@ -264,6 +264,10 @@ $('#end_date').datepicker(
           required: true,
           number: true,
         },
+        tour_days: {
+          required: true,
+          number: true,
+        },
         hotel_latitude: {
           number: true,
         },
@@ -310,6 +314,49 @@ $('#end_date').datepicker(
         operator_booking_num: {
           required: true,
           number: true,
+        },
+        cancel_policy: {
+          required: true,
+          // wordCount: 5
+          // minWordCount: ['5']
+          // rangelength:[5,10]
+        },
+        min_hrs: {
+          number: true,
+          required: true,
+        },
+        min_hrs_percentage: {
+          number: true,
+          required: true,
+          range:[0,100]
+        },
+        max_hrs: {
+          number: true,
+          required: true,
+        },
+        max_hrs_percentage: {
+          number: true,
+          required: true,
+          range:[0,100],
+          max: function(element) {
+              return $('input[name="min_hrs_percentage"]').val();
+          }
+        },
+        online_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
+        },
+        at_desk_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
         },
 
       }, 
@@ -565,6 +612,34 @@ $('#end_date').datepicker(
     // $("#breakfast_price_type_div").removeClass('d-none');
     $("#breakfast_cost_div").removeClass('d-none');
   });
+
+  
+  $("#cancellation_mode1").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode2").click(function() {
+    $("#cancel_num_of_days_div").removeClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode3").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").removeClass('d-none');
+  });
+
+  $("#payment_mode1").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
+
+  $("#payment_mode2").click(function() {
+    $("#partial_payment_div").removeClass('d-none');
+  });
+
+  $("#payment_mode3").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
 
@@ -587,7 +662,18 @@ $('#end_date').datepicker(
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-
+<script>
+  $('#online_payment_percentage').keyup(function(){
+    $("#at_desk_payment_percentage").prop('readonly', true);
+    let online_per = parseFloat($('#online_payment_percentage').val());
+    $('#at_desk_payment_percentage').val(100-online_per);
+  });
+  $('#at_desk_payment_percentage').keyup(function(){
+    $("#online_payment_percentage").prop('readonly', true);
+    let offline_per = parseFloat($('#at_desk_payment_percentage').val());
+    $('#online_payment_percentage').val(100-offline_per);
+  });
+</script>
 @endsection
  
 @section('content')
@@ -968,7 +1054,7 @@ $('#end_date').datepicker(
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
                                     <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($tour_info->payment_mode == 2){echo 'checked';} @endphp>
-                                    <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
+                                    <label for="payment_mode2" class="custom-control-label">Partial Payment (Like 30% Online & 70% at Desk )</label>
                                   </div>
                                 </div>
                               </div>
@@ -976,18 +1062,31 @@ $('#end_date').datepicker(
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
                                     <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($tour_info->payment_mode == 0){echo 'checked';} @endphp>
-                                    <label for="payment_mode3" class="custom-control-label">Pay at Tour 100%</label>
+                                    <label for="payment_mode3" class="custom-control-label">Pay at Desk 100%</label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Cancellation and Refund</label>
-                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="">{{$tour_info->cancellation_and_refund}}</textarea>
+                          <div class="col-md-12">
+                            <div class="row <? if ($tour_info->payment_mode != 2) {
+                                              echo 'd-none';
+                                            } ?>" id="partial_payment_div">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Online Payment Percentage</label>
+                                  <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($tour_info->online_payment_percentage) ? $tour_info->online_payment_percentage : '')}}">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>At Desk Payment Percentage</label>
+                                  <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($tour_info->at_desk_payment_percentage) ? $tour_info->at_desk_payment_percentage : '')}}">
+                                </div>
+                              </div>
                             </div>
                           </div>
+
                           <div class="col-sm-6">
                             <label>Booking Option</label>
                             <div class="row">
@@ -1007,6 +1106,52 @@ $('#end_date').datepicker(
                                     <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Cancellation and Refund</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Cancellation and Refund</label>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="">{{$tour_info->cancellation_and_refund}}</textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row">                              
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Min. Hrs. (# of Hours <= from check in)</label>
+                                  <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($tour_info->min_hrs) ? $tour_info->min_hrs : '')}}" placeholder="hrs.">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Deduction (%)</label>
+                                  <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($tour_info->min_hrs_percentage) ? $tour_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Max. Hrs. (# of Hours <= from check in)</label>
+                                  <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($tour_info->max_hrs) ? $tour_info->max_hrs : '')}}" placeholder="hrs">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Deduction (%)</label>
+                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($tour_info->max_hrs_percentage) ? $tour_info->max_hrs_percentage : '')}}" placeholder="percentage">
                                 </div>
                               </div>
                             </div>

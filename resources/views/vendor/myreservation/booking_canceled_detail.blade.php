@@ -10,11 +10,18 @@
     body {
         font-family: 'Open Sans', sans-serif;
     }
-    h1,h2,h3,h4,h5,h6{
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: 'Open Sans', sans-serif;
     }
-    .breadcrumb{
-        background:none;
+
+    .breadcrumb {
+        background: none;
     }
 
     .bread-sec {
@@ -403,7 +410,7 @@
         margin: 15px auto 30px;
         padding: 20px 0;
         display: flex;
-    justify-content: space-between;
+        justify-content: space-between;
     }
 
     .progress-ba li {
@@ -463,131 +470,161 @@
         font-size: 16px;
         font-weight: 500;
     }
-    .user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul {
-    padding-left: 0;
-}
-/* =========================================responsive below 768px css============================================== */
-@media screen and (max-width:767px){
-            .bread-row .id {
-                  width: 100%;
-            }
-            .user-detailc .user-det {
-             padding: 15px;
-             width: 100%;
-            }
-            .side-b {
-                margin-top:20px;
-    margin-left: 0px;
-    width: 100%;
-    max-height: 400px;
-}
-.user-detailc {
-    display: block;
-    margin-top: -4px;
-}
-.user-detailr .user-det-2, .user-detailr .user-det-3{
-                margin-top:20px;
-    margin-left: 0px;
-    width: 100%;
-    padding: 15px;
-}
-.user-det-2 h4 {
-    font-size: 20px;
-}
-.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
-    padding-left:0;
-}
-.user-det p{
-    font-size:12px;
-}
-.loc h6 {
-    font-size: 16px;
-    font-weight: 800;
-    display: grid;
-    line-height: 24px;
-}
-.loc span {
-    font-size: 12px;
-    font-weight: 500;
-    margin-left: 5px;
-}
-.bread-row h5 {
-    font-size: 20px;
-    font-weight: 800;
-}
-.hotel-name span {
-    font-size: 12px;
-    font-weight: 400;
-    margin-left: 0px;
-    text-transform: capitalize;
-}
-.multi-step-bar {
-    display: flex;
-    justify-content: space-between;  
-      margin: 5px auto 0px;
-}
-.progress-ba li {
-    font-weight: 500;
-    font-size: 12px;
-}
-.status {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
 
+    .user-detailr .user-det-2 ul,
+    .user-detailr .user-det-3 ul {
+        padding-left: 0;
+    }
 
+    /* =========================================responsive below 768px css============================================== */
+    @media screen and (max-width:767px) {
+        .bread-row .id {
+            width: 100%;
         }
 
-        /* =========================================responsive below 1024px css============================================== */
-        /* =========================================responsive below 1024px css============================================== */
+        .user-detailc .user-det {
+            padding: 15px;
+            width: 100%;
+        }
 
-@media screen and (max-width:1023px) and (min-width:768px){
-    .user-detailc .user-det {
-    padding: 15px;
-    width: 65%;
-    position: relative;
-}
-.side-b {
-    margin-left: 10px;
-    width: 34%;
-    max-height: 400px;
-}
-.side-b h5, .side-b ul {
-    padding: 15px 10px;
-}
-.user-detailr .user-det-2 , .user-detailr .user-det-3{
-    padding: 15px;
-    width: 62%;
-}
-.user-det-2 h4 {
-    font-size: 20px;
-}
-.user-detailr .user-det-2 ul, .user-detailr .user-det-3 ul{
-    padding-left:0;
-}
-.user-det p{
-    font-size:14px;
-}
-.multi-step-bar {  
-    margin: 15px auto 0px;
-}
-.hint-text{
-    padding-left: 10px;
-}
-.status {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-.progress-ba h5 {
-    font-weight: 600;
-    font-size: 16px;
-}
+        .side-b {
+            margin-top: 20px;
+            margin-left: 0px;
+            width: 100%;
+            max-height: 400px;
+        }
 
-}
+        .user-detailc {
+            display: block;
+            margin-top: -4px;
+        }
+
+        .user-detailr .user-det-2,
+        .user-detailr .user-det-3 {
+            margin-top: 20px;
+            margin-left: 0px;
+            width: 100%;
+            padding: 15px;
+        }
+
+        .user-det-2 h4 {
+            font-size: 20px;
+        }
+
+        .user-detailr .user-det-2 ul,
+        .user-detailr .user-det-3 ul {
+            padding-left: 0;
+        }
+
+        .user-det p {
+            font-size: 12px;
+        }
+
+        .loc h6 {
+            font-size: 16px;
+            font-weight: 800;
+            display: grid;
+            line-height: 24px;
+        }
+
+        .loc span {
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+        .bread-row h5 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .hotel-name span {
+            font-size: 12px;
+            font-weight: 400;
+            margin-left: 0px;
+            text-transform: capitalize;
+        }
+
+        .multi-step-bar {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px auto 0px;
+        }
+
+        .progress-ba li {
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .status {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
 
 
+    }
+
+    /* =========================================responsive below 1024px css============================================== */
+    /* =========================================responsive below 1024px css============================================== */
+
+    @media screen and (max-width:1023px) and (min-width:768px) {
+        .user-detailc .user-det {
+            padding: 15px;
+            width: 65%;
+            position: relative;
+        }
+
+        .side-b {
+            margin-left: 10px;
+            width: 34%;
+            max-height: 400px;
+        }
+
+        .side-b h5,
+        .side-b ul {
+            padding: 15px 10px;
+        }
+
+        .user-detailr .user-det-2,
+        .user-detailr .user-det-3 {
+            padding: 15px;
+            width: 62%;
+        }
+
+        .user-det-2 h4 {
+            font-size: 20px;
+        }
+
+        .user-detailr .user-det-2 ul,
+        .user-detailr .user-det-3 ul {
+            padding-left: 0;
+        }
+
+        .user-det p {
+            font-size: 14px;
+        }
+
+        .multi-step-bar {
+            margin: 15px auto 0px;
+        }
+
+        .hint-text {
+            padding-left: 10px;
+        }
+
+        .status {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .progress-ba h5 {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+    }
 </style>
 
 
@@ -617,8 +654,8 @@
                 <h5>Your Hotel booking has Cancelled</h5>
                 <div class="id">
                     <div class="id-text">
-                        <p>Booking ID# <span>#VXMN{{ $bookingDetails->id }}</span> &nbsp; &nbsp; &nbsp; 
-                        <!-- Reference PNR# <span>47GZKYGM</span> -->
+                        <p>Booking ID# <span>#VXMN{{ $bookingDetails->id }}</span> &nbsp; &nbsp; &nbsp;
+                            <!-- Reference PNR# <span>47GZKYGM</span> -->
                         </p>
 
                     </div>
@@ -634,7 +671,7 @@
             <div class="col-md-12 user-detailc ">
                 <div class="user-det">
                     <div class="hotel-name">
-                    <h5>{{ $bookingDetails->hotel_name }} <br> <span>{{ $bookingDetails->hotel_address }}</span></h5>
+                        <h5>{{ $bookingDetails->hotel_name }} <br> <span>{{ $bookingDetails->hotel_address }}</span></h5>
                         <div class="status">
                             Cancelled/Refunded
                         </div>
@@ -737,7 +774,7 @@
 
 
             </div>
-            <div class="user-det user-det-2">
+            <!-- <div class="user-det user-det-2">
                 <h4>Guest(3)</h4>
                 <ul>
                     <li>
@@ -753,7 +790,7 @@
                         <h5>Oliver <span>12Yrs, Male</span></h5>
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
             <div class="user-det user-det-3">
                 <h4>Contact Information</h4>

@@ -778,9 +778,6 @@
         <!--  -->
         <div class="tabs">
 
-            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
-
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
             <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
             <div class="tabs__content">
@@ -836,11 +833,12 @@
                 </div>
 
                 @endforeach
-                <div class="row gird-event" id="filterdata">
+                <!-- <div class="row gird-event" id="filterdata">
                     <div class="col-md-12">
-                        <div class="">{{ $bookingList->links() }} </div>
+                        <div class=""> bookingList->links() </div>
+
                     </div>
-                </div>
+                </div> -->
 
                 @else
 
@@ -874,6 +872,9 @@
 
                 @endif
             </div>
+
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
             <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>

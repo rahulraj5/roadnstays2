@@ -95,18 +95,19 @@
     </nav> -->
     <nav>
       <ul id='menu'>
-        <li class="profile-list-pic"><a class='prett' href='#' title='Menu'>
-          @if(is_null(Auth::user()->profile_pic))
+        <li class="profile-list-pic">
+          <a class='prett' href='#' title='Menu'>
+            @if(is_null(Auth::user()->profile_pic))
             <img src="{{ asset('/public/img/user.png') }}" width="40" height="40" class="rounded-circle">
-          @else
+            @else
             <img src="{{ asset('/public/uploads/profile_img/'.Auth::user()->profile_pic) }}" width="50" height="50" class="rounded-circle">
-            
-          @endif
-          
-        </a>
+
+            @endif
+
+          </a>
           <ul class='menus'>
             <li><a href="{{ route('user.profile') }}" title='Dropdown 2'><i class='bx bx-user-circle'></i>Profile</a></li>
-            <li class='has-submenu'><a class='prett' href='' title='Dropdown 1'><i class='bx bx-book-content' ></i>Booking</a>
+            <li class='has-submenu'><a class='prett' href='' title='Dropdown 1'><i class='bx bx-book-content'></i>Booking</a>
               <ul class='submenu'>
                 <li><a href="{{ url('/user/bookingList') }}" title="Sub Menu">Hotel Booking</a></li>
                 <li><a href="{{ url('/user/spaceBookingList') }}" title="Sub Menu">Space Booking</a></li>
@@ -114,19 +115,56 @@
               </ul>
             </li>
 
-            <li><a href="{{ route('user.logout') }}" title='Dropdown 3'><i class='bx bx-log-out-circle' ></i>Log Out</a></li>
+            <li><a href="{{ route('user.logout') }}" title='Dropdown 3'><i class='bx bx-log-out-circle'></i>Log Out</a></li>
           </ul>
         </li>
       </ul>
     </nav>
 
     @elseif(Auth::user()->user_type == "service_provider")
+    <!-- <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li><a href="{{ route('servicepro.dashboard') }}">Dashboard</a></li>
+      </ul>
+    </nav>
+    <a href="{{ route('servicepro.logout') }}" class="get-started-btn">Logout </a> -->
     <nav class="nav-menu d-none d-lg-block">
       <ul>
         <li><a href="{{ route('servicepro.dashboard') }}">Dashboard</a></li>
       </ul>
     </nav>
-    <a href="{{ route('servicepro.logout') }}" class="get-started-btn">Logout </a>
+    <nav>
+      <!-- <ul>
+        <li><a href="{{ route('servicepro.dashboard') }}">Dashboard</a></li>
+      </ul> -->
+      <ul id='menu'>
+        
+        <li class="profile-list-pic">
+          <a class='prett' href='#' title='Menu'>
+            @if(is_null(Auth::user()->profile_pic))
+            <img src="{{ asset('/public/img/user.png') }}" width="40" height="40" class="rounded-circle">
+            @else
+            <img src="{{ asset('/public/uploads/profile_img/'.Auth::user()->profile_pic) }}" width="50" height="50" class="rounded-circle">
+
+            @endif
+
+          </a>
+          <ul class='menus'>
+            <!-- <li><a href="{{ route('servicepro.dashboard') }}">Dashboard</a></li> -->
+            <li><a href="{{ url('servicepro/profile') }}" title='Dropdown 2'><i class='bx bx-user-circle'></i>Profile</a></li>
+            <li class='has-submenu'><a class='prett' href='' title='Dropdown 1'><i class='bx bx-book-content'></i>Booking</a>
+              <ul class='submenu'>
+                <li><a href="{{ url('/servicepro/hotel-reservation-list') }}" title="Sub Menu">Hotel Booking</a></li>
+                <li><a href="{{ url('/servicepro/space-reservation-list') }}" title="Sub Menu">Space Booking</a></li>
+                <li><a href="{{ url('/servicepro/tour-reservation-list') }}" title="Sub Menu">Tour Booking</a></li>
+              </ul>
+            </li>
+
+            <li><a href="{{ route('servicepro.logout') }}" title='Dropdown 3'><i class='bx bx-log-out-circle'></i>Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
     @else
     @endif
     @else
@@ -134,7 +172,7 @@
     @endif
 
 
-    
+
 
 
   </div>

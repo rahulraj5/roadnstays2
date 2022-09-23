@@ -629,22 +629,34 @@
         },
         min_hrs: {
           number: true,
+          required: true,
         },
         min_hrs_percentage: {
           number: true,
+          required: true,
+          range:[0,100]
         },
         max_hrs: {
           number: true,
+          required: true,
         },
         max_hrs_percentage: {
           number: true,
+          required: true,
+          range:[0,100],
+          max: function(element) {
+              return $('input[name="min_hrs_percentage"]').val();
+          }
         },
         commission: {
           number: true,
         },
-        // attraction_distance: {
-        //   required: true,
-        // },
+        cancel_policy: {
+          required: true,
+          // wordCount: 5
+          // minWordCount: ['5']
+          // rangelength:[5,10]
+        },
         stay_price: {
           required: true,
           number: true,

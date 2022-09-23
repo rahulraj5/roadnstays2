@@ -781,7 +781,7 @@
         <!--  -->
         <div class="tabs">
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1">
-            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
             
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
@@ -821,7 +821,7 @@
                 </div>
                 <div class="row user-detail-row ">
                     <div class="col-md-12 progress-ba">
-                        <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
+                        <h5>You cancelled all traveler(s). Refund of PKR {{$arr->refund_amount ?? ''}} processed.</h5>
                         <ul class="multi-step-bar">
                             <li class="<? if($arr->refund_status=='pending' or $arr->refund_status=='processing' or $arr->refund_status=='confirmed'){ echo "active"; } ?>">Booking Cancelled <br>{{$arr->canceled_at}}</li>
                             <li class="<? if($arr->refund_status=='processing' or $arr->refund_status=='confirmed'){ echo "active"; } ?>">Refund Processed <br>@if($arr->refund_status=='processing' or $arr->refund_status=='confirmed'){{$arr->refund_processed_at}}@endif</li>
@@ -832,17 +832,18 @@
                     </div>
                     <ul class="hint-text">
                         <li>
-                            <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
+                            <!-- <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p> -->
+                            <p>PKR {{$arr->refund_amount ?? ''}} has been processed in Your Account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
                         </li>
                     </ul>
                 </div>
 
                 @endforeach
-                <div class="row gird-event"  id="filterdata">
+                <!-- <div class="row gird-event"  id="filterdata">
                     <div class="col-md-12">
-                        <div class="">{{ $bookingList->links() }}</div>
+                        <div class=""> bookingList->links() </div>
                     </div>
-                </div>
+                </div> -->
                 @else
 
                 <div class="row upcom-row">

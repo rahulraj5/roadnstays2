@@ -237,7 +237,7 @@
 @endsection
 @section('content')
 @php $country_name = DB::table('country')->where('id', $tour_details->country_id)->first(); @endphp
-<?php  $nights = $tour_details->tour_days-1; ?>
+<?php  $nights = (int)$tour_details->tour_days-1; ?>
 <main id="main">
   <section style="padding-top: 80px; background-color: #f6f6f6;">
     <div class="container">

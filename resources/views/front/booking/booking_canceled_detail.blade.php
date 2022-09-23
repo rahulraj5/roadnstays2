@@ -659,7 +659,7 @@
                         </p>
 
                     </div>
-                    <p>Booked On <span>16 Mar 2022</span></p>
+                    <p>Booked On <span>{{ date("d M Y" ,strtotime($bookingDetails->created_at)) }}</span></p>
                 </div>
             </div>
         </div>
@@ -692,7 +692,7 @@
                         </div> -->
                     <div class="row user-detail-row ">
                         <div class="col-md-12 progress-ba">
-                            <h5>You cancelled all traveler(s). Refund of PKR 255 processed.</h5>
+                            <h5>You cancelled all traveler(s). Refund of PKR {{$bookingDetails->refund_amount ?? ''}} processed.</h5>
                             <ul class="multi-step-bar">
                                 <li class="<? if($bookingDetails->refund_status=='pending' or $bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){ echo "active"; } ?>">Booking Cancelled <br>{{$bookingDetails->canceled_at}}</li>
                                 <li class="<? if($bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){ echo "active"; } ?>">Refund Processed <br>@if($bookingDetails->refund_status=='processing' or $bookingDetails->refund_status=='confirmed'){{$bookingDetails->refund_processed_at}}@endif</li>
@@ -703,7 +703,8 @@
                         </div>
                         <ul class="hint-text">
                             <li>
-                                <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
+                                <!-- <p>PKR 125 has been processed in Your Account - refund with RRN number WMBK08980480291 has been processed to your account.<br>It takes 5-12 working days for refunds to reflect in Account.</p> -->
+                                <p>PKR {{$bookingDetails->refund_amount ?? ''}} has been processed in Your Account.<br>It takes 5-12 working days for refunds to reflect in Account.</p>
                             </li>
                         </ul>
                     </div>

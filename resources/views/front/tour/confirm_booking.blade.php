@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 @php $country_name = DB::table('country')->where('id', $order_info->country_id)->first(); @endphp
-<?php  $nights = $order_info->tour_days-1; ?>
+<?php  $nights = (int)$order_info->tour_days-1; ?>
 <main id="main">
    <section style="padding-top: 80px; background-color: #f6f6f6;">
       <div class="container">

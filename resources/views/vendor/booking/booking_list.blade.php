@@ -118,18 +118,11 @@
 
                   </div> -->
 
-
-
                 <div class="card">
 
                   <!-- <div class="card-header">
-
-                                              <h3 class="card-title">DataTable</h3>
-
-                                            </div> -->
-
-
-
+                    <h3 class="card-title">DataTable</h3>
+                  </div> -->
                   <!-- /.card-header -->
 
                   <div class="card-body table-responsive">
@@ -208,8 +201,6 @@
                               <!-- {{url('/servicepro/editHotel')}}/{{$arr->hotel_id}} -->
                               <!-- <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->hotel_id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash" alt="user" title="user"></i></a> -->
 
-
-
                               <!-- <a href="{{url('/servicepro/edit_user')}}/{{base64_encode($arr->hotel_id)}}"><i class="fa fa-edit" aria-hidden="true" alt="user" title="user"></i></a>
 
                                                                       <a href="javascript:void(0)" onclick="delete_user('<?php echo $arr->hotel_id; ?>');"><i class="fa fa-trash" aria-hidden="true" alt="user" title="user"></i></a> -->
@@ -218,15 +209,11 @@
 
                           </td>
 
-
-
                         </tr>
 
                         <?php $i++; ?>
 
                         @endforeach
-
-
 
                         @endif
 

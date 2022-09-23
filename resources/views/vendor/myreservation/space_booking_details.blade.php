@@ -551,21 +551,71 @@
 
 @section('current_page_js')
 
-    <script>
-        // const myElement = document.getElementById("demo");
-        // const getId = document.getElementById("download_invoice");
-        // // getId.click({
-        // getId.addEventListener("click", window.print());
-        // });
-    </script>
-    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-    <script>
-    function generatePDF() 
-    {
+<script>
+    // const myElement = document.getElementById("demo");
+    // const getId = document.getElementById("download_invoice");
+    // // getId.click({
+    // getId.addEventListener("click", window.print());
+    // });
+</script>
+
+<!-- generate PDF code (script) 1 -->
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script>
+    function generatePDF() {
         const element = document.getElementById('invoice');
         html2pdf().from(element).save();
     }
-    </script>
+</script>
+
+<script>
+    $("#cancelbtn").click(function() {
+        // alert('shdfsd');
+        var form = $("#spaceBookingCancel_form");
+        form.validate({
+            rules: {
+                cancel_reason: {
+                    required: true,
+                },
+            },
+            messages: {
+                cancel_reason: "Please Choose One Reason for Cancel."
+            },
+        });
+        if (form.valid() === true) {
+            var site_url = $("#baseUrl").val();
+            // alert(site_url);
+            var formData = $(form).serialize();
+            $('#cancelbtn').prop('disabled', true);
+            $('#cancelbtn').html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+            );
+            // alert(formData);
+            $(form).ajaxSubmit({
+                type: 'POST',
+                url: site_url + '/servicepro/cancelSpaceBooking',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == 'success') {
+                        success_noti(response.msg);
+                        setTimeout(function() {
+                            window.location.reload()
+                            window.location.href = site_url + "/servicepro/space-reservation-list";
+                        }, 1000);
+                    } else {
+                        error_noti(response.msg);
+                        $('#cancelbtn').html(
+                            `<span class=""></span>Submit`
+                        );
+                        $('#cancelbtn').prop('disabled', false);
+                    }
+                }
+            });
+            // event.preventDefault();
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -582,7 +632,7 @@
                         <li class="breadcrumb-item active" aria-current="page">Booking ID: #VXMN{{ $bookingDetails->space_booking_id }}</li>
                     </ol>
                 </nav>
-                <h5>Your Space booking has completed</h5>
+                <h5>Your Space booking has been completed</h5>
                 <div class="id">
                     <div class="id-text">
                         <p>Booking ID# <span>#VXMN{{ $bookingDetails->space_booking_id }}</span> &nbsp; &nbsp; &nbsp;
@@ -626,9 +676,12 @@
                         <p>{{ $bookingDetails->space_name }}</p>
 
                     </div>
-                    <div class="down-i">
+                    <!-- <div class="down-i"> -->
                         <!-- <a style="text-decoration:none;" onClick="window.print();return false" id="download_invoice" href="#"><i class='bx bx-download'></i>Download Invoice</a> -->
-                        <a style="text-decoration:none;" onclick="generatePDF()" id="download_invoice" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                        <!-- <a style="text-decoration:none;" onclick="generatePDF()" id="download_invoice" href="#"><i class='bx bx-download'></i>Download Invoice</a>
+                    </div> -->
+                    <div class="down-i">
+                        <a style="text-decoration:none;" target="blank" href="{{ url('/servicepro/bookingInvoice') }}/{{ base64_encode($bookingDetails->id) }}"><i class='bx bx-download'></i>Download Invoice</a>
                     </div>
 
                 </div>
@@ -672,9 +725,14 @@
                             <li class="text">Payment Type</li>
                             <li>{{ $bookingDetails->payment_type }}</li>
                         </ul>
-                        <ul>
+                        @if(($bookingDetails->check_in_date) > date('Y-m-d'))
+                            <ul>
+                                <li><a style="text-decoration:none;" href="#" data-toggle="modal" data-target="#exampleModalCenter_space">Cancel your Booking</a></li>
+                            </ul>
+                        @endif
+                        <!-- <ul>
                             <li><a style="text-decoration:none;" onclick="generatePDF()" id="download_invoice" href="#">Download Invoice</a></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
 
@@ -722,4 +780,114 @@
 </section>
 
 
+<!-- modal popup text here -->
+
+<div class="modal fade" id="exampleModalCenter_space" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-cancel">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cancel Your Booking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-textcancel">
+
+                <div class="canceltop">
+                    <h5>Cancellation Policy</h5>
+                    @if(!empty($bookingDetails->min_hrs_percentage) && !empty($bookingDetails->max_hrs_percentage))
+                    <p>Up to 24 hours before checkin, changes can be made with a {{$bookingDetails->min_hrs_percentage}}% fee and up to 48 hours before checkin, changes can be made with a {{$bookingDetails->max_hrs_percentage}}% fee.</p>
+                    @endif
+                    @if($bookingDetails->payment_mode == 1)
+                    <ul>
+                        <li>{{ $bookingDetails->space_name }}</li>
+                        <li>
+                            @if(!empty($bookingDetails->min_hrs))
+                                @if($remaining_hours < $bookingDetails->min_hrs)
+                                    {{ $deduction_percentage = $bookingDetails->min_hrs_percentage}}% fee   
+                                @elseif($remaining_hours > $bookingDetails->min_hrs && $remaining_hours < $bookingDetails->max_hrs)
+                                    {{ $deduction_percentage = $bookingDetails->max_hrs_percentage}}% fee   
+                                @elseif($remaining_hours > $bookingDetails->max_hrs)    
+                                    {{ $deduction_percentage = 'Free'}} 
+                                @endif
+                            @endif
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Total Cost</li>
+                        <li>PKR {{ $bookingDetails->total_amount }}</li>
+                    </ul>
+                    <ul>
+                        <li>Cancellation fee</li>
+                        @if($deduction_percentage == 'Free')
+                        <li>Free</li>
+                        @else
+                        <li>PKR {{ $deduction_amount = $bookingDetails->total_days*(($bookingDetails->price_per_night * $deduction_percentage)/100) }}</li>
+                        @endif
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        @if($deduction_percentage == 'Free')
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                        @else
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount - $deduction_amount }}</b></li>
+                        @endif
+                    </ul>
+                    @elseif($bookingDetails->payment_mode == 2)
+                    <ul>
+                        <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
+                        <li>Partial Payment</li>
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                    </ul>
+                    @else($bookingDetails->payment_mode == 3)
+                    <ul>
+                        <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
+                        <li>Free</li>
+                    </ul>
+                    <ul>
+                        <li><b>Refund amount</b></li>
+                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                    </ul>
+                    @endif
+                </div>
+                <div class="cancelmiddle">
+                    <h6>Tell us the reason for canceling</h6>
+                    <p>Please complete your Cancelation Process to choose one Option.</p>
+                    <form action="" id="spaceBookingCancel_form">
+                        @csrf
+                        <!-- <fieldset> -->
+                        <input type="hidden" name="booking_id" value="{{$bookingDetails->id}}">
+                        <input type="hidden" name="refund_amount" value="{{$refund_amount}}">
+
+                        <input type="radio" id="travelers" name="cancel_reason" value="Change in the number or needs of travelers">
+                        <label for="travelers">Change in the number or needs of travelers</label><br>
+                        <input type="radio" id="destination" name="cancel_reason" value="Change of dates or destination">
+                        <label for="destination">Change of dates or destination</label><br>
+                        <input type="radio" id="reason" name="cancel_reason" value="Unable to travel due to Personal reason">
+                        <label for="reason">Unable to travel due to Personal reason</label><br>
+                        <input type="radio" id="accommodation" name="cancel_reason" value="Found a different accommodation option">
+                        <label for="accommodation">Found a different accommodation option</label><br>
+                        <input type="radio" id="need" name="cancel_reason" value="Made bookings for same dates - canceled the ones I don't need">
+                        <label for="need">Made bookings for same dates - canceled the ones I don't need</label><br>
+                        <input type="radio" id="off" name="cancel_reason" value="Personal reasons/Trip called off">
+                        <label for="off">Personal reasons/Trip called off</label><br>
+                        <input type="radio" id="none" name="cancel_reason" value="None of the above">
+                        <label for="none">None of the above</label><br>
+                        <label for="cancel_reason" class="error" style="display:none;">Please choose one.</label><br>
+                        <label for="detail">Please Tell us in detail-</label><br>
+                        <textarea name="cancel_details" id="" cols="51" rows="4" placeholder="Write from here..."></textarea>
+                        <!-- </fieldset>     -->
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn cancelbtn" id="cancelbtn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

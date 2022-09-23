@@ -781,7 +781,7 @@
         <!--  -->
         <div class="tabs">
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
-            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
             <div class="tabs__content">
 
                 @if (!$bookingList->isEmpty())
@@ -791,10 +791,10 @@
                 @foreach ($bookingList->where('booking_status', '!=' ,'canceled') as $arr)
 
                 <!-- @if($arr->check_in_date > Carbon\Carbon::today()->format('Y-m-d'))
-                                @php echo 'upcoming' @endphp
-                            @else
-                                @php echo 'past' @endphp
-                            @endif -->
+                    @php echo 'upcoming' @endphp
+                @else
+                    @php echo 'past' @endphp
+                @endif -->
 
                 <div class="content">
                     <div class="text-detail">
@@ -840,11 +840,11 @@
                 </div>
 
                 @endforeach
-                <div class="row gird-event" id="filterdata">
+                <!-- <div class="row gird-event" id="filterdata">
                     <div class="col-md-12">
-                        <div class=""> {{ $bookingList->fragment('tab1')->links() }} </div>
+                        <div class=""> bookingList->fragment('tab1')->links() </div>
                     </div>
-                </div>
+                </div> -->
 
                 @else
 

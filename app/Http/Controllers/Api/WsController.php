@@ -241,7 +241,7 @@ class WsController extends APIBaseController
             'hotel_rating' => $value->hotel_rating,
             'checkin_time' =>  isset($value->checkin_time)?$value->checkin_time:"",
             'checkout_time' =>  isset($value->checkout_time)?$value->checkout_time:"",
-            'stay_price' => isset($value->stay_price)?$value->stay_price:0,
+            'stay_price' => isset($value->stay_price)?$value->stay_price:"0",
             'hotel_address' => isset($value->hotel_address)?$value->hotel_address:"", 
             'hotel_city' => isset($value->hotel_city)?$value->hotel_city:"", 
             'hotel_country' => isset($value->hotel_country)?$value->hotel_country:"", 
@@ -358,22 +358,22 @@ class WsController extends APIBaseController
                 'max_adults' => $value->max_adults,
                 'max_childern' => $value->max_childern,
                 'number_of_rooms' => $value->number_of_rooms,
-                'tax_percentage' => isset($value->tax_percentage)?$value->tax_percentage:0,
+                'tax_percentage' => isset($value->tax_percentage)?$value->tax_percentage: "0",
                 'price_per_night' => $value->price_per_night,
                 'price_per_night_7d' => $value->price_per_night_7d,
                 'price_per_night_30d' => $value->price_per_night_30d,
-                'is_guest_allow' => isset($value->is_guest_allow)?$value->is_guest_allow:0,
+                'is_guest_allow' => isset($value->is_guest_allow)?$value->is_guest_allow: "0",
                 'extra_guest_per_night'=> isset($value->extra_guest_per_night)?$value->extra_guest_per_night:"0", 
                 'is_above_guest_cap' => isset($value->is_above_guest_cap)?$value->is_above_guest_cap:"0",
                 'is_pay_by_num_guest' => isset($value->is_pay_by_num_guest)?$value->is_pay_by_num_guest:"0",
-                'room_size' => isset($value->room_size)?$value->room_size:0,
+                'room_size' => isset($value->room_size)?$value->room_size: "0",
                 'type_of_price' => isset($value->type_of_price)?$value->type_of_price:"",
-                'cleaning_fee' => isset($value->cleaning_fee)?$value->cleaning_fee:0,
+                'cleaning_fee' => isset($value->cleaning_fee)?$value->cleaning_fee: "0",
                 'cleaning_fee_type' => isset($value->cleaning_fee_type)?$value->cleaning_fee_type:"",
-                'city_fee' => isset($value->city_fee)?$value->city_fee:0, 
+                'city_fee' => isset($value->city_fee)?$value->city_fee: "0", 
                 'city_fee_type' => isset($value->city_fee_type)?$value->city_fee_type:"",
-                'earlybird_discount' => isset($value->earlybird_discount)?$value->earlybird_discount:0, 
-                'min_days_in_advance' => isset($value->min_days_in_advance)?$value->min_days_in_advance:0, 
+                'earlybird_discount' => isset($value->earlybird_discount)?$value->earlybird_discount:"0", 
+                'min_days_in_advance' => isset($value->min_days_in_advance)?$value->min_days_in_advance:"0", 
                 'bed_type' => $value->bed_type,
                 'private_bathroom' => $value->private_bathroom,
                 'private_entrance' => $value->private_entrance,
@@ -396,6 +396,8 @@ class WsController extends APIBaseController
                 'room_amenities' => $roomamenities
             );
         }      
+
+
   
         if(count($hoteldata)>0){ 
     		$response['message'] = "Hotel Detail";
@@ -501,22 +503,22 @@ class WsController extends APIBaseController
                 'max_adults' => $value->max_adults,
                 'max_childern' => $value->max_childern,
                 'number_of_rooms' => $value->number_of_rooms,
-                'tax_percentage' => isset($value->tax_percentage)?$value->tax_percentage:0,
+                'tax_percentage' => isset($value->tax_percentage)?$value->tax_percentage:"0",
                 'price_per_night' => $value->price_per_night,
                 'price_per_night_7d' => $value->price_per_night_7d,
                 'price_per_night_30d' => $value->price_per_night_30d,
-                'is_guest_allow' => isset($value->is_guest_allow)?$value->is_guest_allow:0,
-                'extra_guest_per_night'=> isset($value->extra_guest_per_night)?$value->extra_guest_per_night:0, 
-                'is_above_guest_cap' => isset($value->is_above_guest_cap)?$value->is_above_guest_cap:0,
-                'is_pay_by_num_guest' => isset($value->is_pay_by_num_guest)?$value->is_pay_by_num_guest:0,
-                'room_size' => isset($value->room_size)?$value->room_size:0,
+                'is_guest_allow' => isset($value->is_guest_allow)?$value->is_guest_allow:"0",
+                'extra_guest_per_night'=> isset($value->extra_guest_per_night)?$value->extra_guest_per_night:"0", 
+                'is_above_guest_cap' => isset($value->is_above_guest_cap)?$value->is_above_guest_cap:"0",
+                'is_pay_by_num_guest' => isset($value->is_pay_by_num_guest)?$value->is_pay_by_num_guest:"0",
+                'room_size' => isset($value->room_size)?$value->room_size:"0",
                 'type_of_price' => isset($value->type_of_price)?$value->type_of_price:"",
-                'cleaning_fee' => isset($value->cleaning_fee)?$value->cleaning_fee:0,
+                'cleaning_fee' => isset($value->cleaning_fee)?$value->cleaning_fee:"0",
                 'cleaning_fee_type' => isset($value->cleaning_fee_type)?$value->cleaning_fee_type:"",
-                'city_fee' => isset($value->city_fee)?$value->city_fee:0, 
+                'city_fee' => isset($value->city_fee)?$value->city_fee:"0", 
                 'city_fee_type' => isset($value->city_fee_type)?$value->city_fee_type:"",
-                'earlybird_discount' => isset($value->earlybird_discount)?$value->earlybird_discount:0, 
-                'min_days_in_advance' => isset($value->min_days_in_advance)?$value->min_days_in_advance:0, 
+                'earlybird_discount' => isset($value->earlybird_discount)?$value->earlybird_discount:"0", 
+                'min_days_in_advance' => isset($value->min_days_in_advance)?$value->min_days_in_advance:"0", 
                 'bed_type' => $value->bed_type,
                 'private_bathroom' => $value->private_bathroom,
                 'private_entrance' => $value->private_entrance,
@@ -880,6 +882,14 @@ class WsController extends APIBaseController
 
         $tour_list = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->get(['tour_list.*', 'country.nicename as country_name']);
 
+        $search = null;
+        $replace = '""';
+        array_walk($tour_list,
+        function (&$v) use ($search, $replace){
+            $v = str_replace($search, $replace, $v);    
+            }                                                                     
+        );
+            
         if(count($tour_list)>0){
         
             $response['message'] = "Tour List";
@@ -974,9 +984,33 @@ class WsController extends APIBaseController
                 );
             }
             
-            
+            $search = null;
+            $replace = '""';
+            array_walk($tour_data,
+            function (&$v) use ($search, $replace){
+                $v = str_replace($search, $replace, $v);    
+                }                                                                     
+            );
+
 
             $vendor_data = DB::table('users')->join('vendor_profile', 'users.id', '=', 'vendor_profile.user_id')->where('users.id','=',$tour_data->vendor_id)->first(['users.*', 'vendor_profile.*']);
+
+
+            $search1 = null;
+            $replace1 = '""';
+            array_walk($vendor_data,
+            function (&$v1) use ($search1, $replace1){
+                $v1 = str_replace($search1, $replace1, $v1);    
+                }                                                                     
+            );
+
+            $search2 = null;
+            $replace2 = '""';
+            array_walk($touritinerary,
+            function (&$v2) use ($search2, $replace2){
+                $v2 = str_replace($search2, $replace2, $v2);    
+                }                                                                     
+            );
 
             // $REPLACEMENT = '';
 

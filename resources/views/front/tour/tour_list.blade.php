@@ -171,7 +171,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <?php $nights = $trip->tour_days - 1; ?>
+                                       <?php $nights = (int)$trip->tour_days - 1; ?>
                                        <div class="d-flex mt-4 dtl-t01">
                                           <div class="btm-info">
                                              <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>

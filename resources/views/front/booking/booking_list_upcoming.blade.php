@@ -781,14 +781,18 @@
     <div class="container">
         <!--  -->
         <div class="tabs">
-        <input type="radio" class="tabs__radio" name="tabs-example" id="tab2" checked>
+
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab1">
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
+
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab2" checked>
             <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
             <div class="tabs__content">
 
                 @if (!$upcomingBookingList->isEmpty())
-                    @if(count($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
+                    @if(count($upcomingBookingList->where('check_out', '>=', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
 
-                        @foreach ($upcomingBookingList->where('check_out', '>', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
+                        @foreach ($upcomingBookingList->where('check_out', '>=', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
 
                         <div class="content">
                             <div class="text-detail">
@@ -856,11 +860,11 @@
                         </div>
 
                         @endforeach
-                        <div class="row gird-event" id="filterdata">
+                        <!-- <div class="row gird-event" id="filterdata">
                             <div class="col-md-12">
-                                <div class="">{{ $upcomingBookingList->fragment('tab2') }}</div>
+                                <div class=""> upcomingBookingList->fragment('tab2') </div>
                             </div>
-                        </div>
+                        </div> -->
                       
                 @else
 
@@ -896,16 +900,9 @@
 
             </div>
 
-
-
-            <input type="radio" class="tabs__radio" name="tabs-example" id="tab1">
-            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
-            
-
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
             <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
             
-
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
             <!-- <label for="tab4" id="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
             

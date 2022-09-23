@@ -547,7 +547,7 @@
                                           <option value=""> Select Duration </option>
                                           @php $get_tour = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->orderBy('tour_days', 'ASC')->get()->unique('tour_days'); @endphp
                                           @foreach($get_tour as $tour_data)
-                                          <option value="{{ base64_encode($tour_data->tour_days) }}"> {{ $tour_data->tour_days-1 }} Nights / {{ $tour_data->tour_days }} Days</option>
+                                          <option value="{{ base64_encode($tour_data->tour_days) }}"> {{ (int)$tour_data->tour_days-1 }} Nights / {{ $tour_data->tour_days }} Days</option>
                                           @endforeach
                                        </select>
                                     </span>
@@ -662,7 +662,7 @@
             <!-- @php echo 'first' @endphp -->
             @foreach($tour_list as $tour)
             @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
-            @php $nights = $tour->tour_days-1; @endphp
+            @php $nights = (int)$tour->tour_days-1; @endphp
             <div class="testimonial-wrap">
                <div class="testimonial-item">
                   <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}" class="testimonial-img" alt="" style="height: 218px;"></a>
@@ -1107,7 +1107,7 @@
             @if(count($tour_list) > 0)
             @foreach($tour_list as $tour)
             @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
-            @php $nights = $tour->tour_days-1; @endphp
+            @php $nights = (int)$tour->tour_days-1; @endphp
 
             <div class="testimonial-wrap">
                <div class="testimonial-item ">

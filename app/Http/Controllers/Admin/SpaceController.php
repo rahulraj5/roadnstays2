@@ -59,6 +59,8 @@ class SpaceController extends Controller
     
             $adminspace->scout_id = $request->scout_id;
             $adminspace->payment_mode = $request->payment_mode;
+            $adminspace->online_payment_percentage = $request->online_payment_percentage;
+            $adminspace->at_desk_payment_percentage = $request->at_desk_payment_percentage;
             $adminspace->booking_option = $request->booking_option;
             $adminspace->reserv_date_change_allow = $request->reserv_date_change_allow;
             $adminspace->guest_number = $request->guest_number;
@@ -108,6 +110,13 @@ class SpaceController extends Controller
             $adminspace->province = $request->province;
             $adminspace->space_latitude = $request->space_latitude;
             $adminspace->space_longitude = $request->space_longitude;
+
+            $adminspace->cancel_policy = $request->cancel_policy;
+            $adminspace->min_hrs = $request->min_hrs;
+            $adminspace->min_hrs_percentage = $request->min_hrs_percentage;
+            $adminspace->max_hrs = $request->max_hrs;
+            $adminspace->max_hrs_percentage = $request->max_hrs_percentage;
+            $adminspace->commission = $request->commission;
 
             $adminspace->operator_name = $request->operator_name;
             $adminspace->operator_contact_name = $request->operator_contact_name;
@@ -306,6 +315,8 @@ class SpaceController extends Controller
 
                 'scout_id' => $request->scout_id,
                 'payment_mode' => $request->payment_mode,
+                'online_payment_percentage' => $request->online_payment_percentage,
+                'at_desk_payment_percentage' => $request->at_desk_payment_percentage,
                 'booking_option' => $request->booking_option,
                 'reserv_date_change_allow' => $request->reserv_date_change_allow,
                 'guest_number' => $request->guest_number,
@@ -348,6 +359,13 @@ class SpaceController extends Controller
                 'family_friendly' => $request->family_friendly,
                 'outdoor_facilities' => $request->outdoor_facilities,
                 'extra_people' => $request->extra_people,
+
+                'cancel_policy' => $request->cancel_policy,
+                'min_hrs' => $request->min_hrs,
+                'min_hrs_percentage' => $request->min_hrs_percentage,
+                'max_hrs' => $request->max_hrs,
+                'max_hrs_percentage' => $request->max_hrs_percentage,
+                'commission' => $request->commission,
 
                 'checkin_hr' => $request->checkin_hr,
                 'checkout_hr' => $request->checkout_hr,

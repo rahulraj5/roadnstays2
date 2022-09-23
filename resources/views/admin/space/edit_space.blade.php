@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="{{ asset('resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 <!-- summernote -->
 <!-- <link rel="stylesheet" href="{{ asset('resources/plugins/summernote/summernote-bs4.min.css')}}"> -->
+
+<!-- Datetime picker -->
+<link rel="stylesheet" href="{{ asset('resources/css/bootstrap-datetimepicker.min.css')}}">
+
 <style type="text/css">
   input[type="file"] {
     display: block;
@@ -58,6 +62,9 @@
 <script src="{{ asset('resources/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- Summernote -->
 <!-- <script src="{{ asset('resources/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
+
+<!-- datetimepicker -->
+<script src="{{ asset('resources/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
@@ -119,6 +126,46 @@
     $("#allow_guest_price_div").addClass('d-none');
     $("#allow_guest_cap_div").addClass('d-none');
     $("#pay_by_no_guest_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode1").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode2").click(function() {
+    $("#cancel_num_of_days_div").removeClass('d-none');
+    $("#cancel_time_period_div").addClass('d-none');
+  });
+
+  $("#cancellation_mode3").click(function() {
+    $("#cancel_num_of_days_div").addClass('d-none');
+    $("#cancel_time_period_div").removeClass('d-none');
+  });
+
+  $("#payment_mode1").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
+
+  $("#payment_mode2").click(function() {
+    $("#partial_payment_div").removeClass('d-none');
+  });
+
+  $("#payment_mode3").click(function() {
+    $("#partial_payment_div").addClass('d-none');
+  });
+</script>
+<script>
+  $('#checkin_hr').datetimepicker({
+    //  format: 'hh:mm:ss a'
+    //  format: 'HH:mm'
+    format: 'LT'
+  });
+  $('#checkout_hr').datetimepicker({
+    format: 'LT'
+  });
+  $('#late_checkin').datetimepicker({
+    format: 'LT'
   });
 </script>
 <script type="text/javascript">
@@ -359,6 +406,46 @@
           required: true,
           number: true,
         },
+        cancel_policy: {
+          required: true,
+        },
+        min_hrs: {
+          number: true,
+          required: true,
+        },
+        min_hrs_percentage: {
+          number: true,
+          required: true,
+          range:[0,100],
+        },
+        max_hrs: {
+          number: true,
+          required: true,
+        },
+        max_hrs_percentage: {
+          number: true,
+          required: true,
+          range:[0,100],
+          max: function(element) {
+              return $('input[name="min_hrs_percentage"]').val();
+          }
+        },
+        online_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
+        },
+        at_desk_payment_percentage: {
+          number: true,
+          digits: true,
+          range : [0, 100],
+          required: function(element) {
+              return $('input[name="payment_mode"]:checked').val() == 2;
+          }
+        },
       },
     });
     if (form.valid() === true) {
@@ -396,6 +483,18 @@
     } else {
       e.dismiss;
     }
+  });
+</script>
+<script>
+  $('#online_payment_percentage').keyup(function(){
+    $("#at_desk_payment_percentage").prop('readonly', true);
+    let online_per = parseFloat($('#online_payment_percentage').val());
+    $('#at_desk_payment_percentage').val(100-online_per);
+  });
+  $('#at_desk_payment_percentage').keyup(function(){
+    $("#online_payment_percentage").prop('readonly', true);
+    let offline_per = parseFloat($('#at_desk_payment_percentage').val());
+    $('#online_payment_percentage').val(100-offline_per);
   });
 </script>
 @endsection
@@ -626,6 +725,25 @@
               </div>
 
               <div class="col-md-12">
+                <div class="row <? if ($space_data->payment_mode != 2) {
+                                  echo 'd-none';
+                                } ?>" id="partial_payment_div">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Online Payment Percentage</label>
+                      <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($space_data->online_payment_percentage) ? $space_data->online_payment_percentage : '')}}">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>At Desk Payment Percentage</label>
+                      <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($space_data->at_desk_payment_percentage) ? $space_data->at_desk_payment_percentage : '')}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
                 <div class="col-sm-6">
                   <label>Booking Option</label>
                   <div class="row">
@@ -677,6 +795,71 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="tab-custom-content">
+                  <p class="lead mb-0">
+                  <h4>Cancellation and Refund</h4>
+                  </p>
+                </div>
+              </div>
+              <!-- <label>Cancellation and Refund</label> -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Cancellation Policy</label>
+                  <textarea class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($space_data->cancel_policy) ? $space_data->cancel_policy : '')}}</textarea>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Min. Hrs. (# of Hours <= from check in)</label>
+                          <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($space_data->min_hrs) ? $space_data->min_hrs : '')}}" placeholder="hrs.">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Deduction (%)</label>
+                      <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($space_data->min_hrs_percentage) ? $space_data->min_hrs_percentage : '')}}" placeholder="percentage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Max. Hrs. (# of Hours <= from check in)</label>
+                          <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($space_data->max_hrs) ? $space_data->max_hrs : '')}}" placeholder="hrs">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Deduction (%)</label>
+                      <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($space_data->max_hrs_percentage) ? $space_data->max_hrs_percentage : '')}}" placeholder="percentage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- cancellation & policy end here -->
+
+              <div class="col-md-12">
+                <div class="tab-custom-content">
+                  <p class="lead mb-0">
+                  <h4>Commission</h4>
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Commission</label>
+                  <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="{{(!empty($space_data->commission) ? $space_data->commission : '')}}">
                 </div>
               </div>
 

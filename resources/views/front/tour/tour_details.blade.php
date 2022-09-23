@@ -55,7 +55,7 @@ $(".hitter").click (function(){
                               <a href="#" class="btn btn-solid"><i class="bx bx-share-alt"></i> share</a>
                            </div>
                         </div>
-                        <?php  $nights = $tour_details->tour_days-1; ?>
+                        <?php  $nights = (int)$tour_details->tour_days-1; ?>
                         <div class="btm-info d_n">
                            <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$tour_details->tour_days}} Days & {{$nights}} Nights</p>
                            <a href="#" class="tour-type">{{$tour_details->tour_type}}</a>

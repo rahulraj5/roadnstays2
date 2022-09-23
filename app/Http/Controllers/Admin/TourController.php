@@ -83,7 +83,13 @@ class TourController extends Controller
         $admintour->scout_id = $request->scout_id;
         $admintour->tour_policy = $request->tour_policy;
         $admintour->payment_mode = $request->payment_mode;
+        $admintour->online_payment_percentage = $request->online_payment_percentage;
+        $admintour->at_desk_payment_percentage = $request->at_desk_payment_percentage;
         $admintour->cancellation_and_refund = $request->cancellation_and_refund;
+        $admintour->min_hrs = $request->min_hrs;
+        $admintour->min_hrs_percentage = $request->min_hrs_percentage;
+        $admintour->max_hrs = $request->max_hrs;
+        $admintour->max_hrs_percentage = $request->max_hrs_percentage;
         $admintour->booking_option = $request->booking_option;
         $admintour->tour_locations = $request->tour_locations;
         $admintour->tour_activities = $request->tour_activities;
@@ -260,7 +266,13 @@ class TourController extends Controller
                     'scout_id' => $request->scout_id,
                     'tour_policy' => $request->tour_policy,
                     'payment_mode' => $request->payment_mode,
+                    'online_payment_percentage' => $request->online_payment_percentage,
+                    'at_desk_payment_percentage' => $request->at_desk_payment_percentage,
                     'cancellation_and_refund' => $request->cancellation_and_refund,
+                    'min_hrs' => $request->min_hrs,
+                    'min_hrs_percentage' => $request->min_hrs_percentage,
+                    'max_hrs' => $request->max_hrs,
+                    'max_hrs_percentage' => $request->max_hrs_percentage,
                     'booking_option' => $request->booking_option,
                     'tour_locations' => $request->tour_locations,
                     'tour_activities' => $request->tour_activities,

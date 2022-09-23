@@ -554,7 +554,7 @@
 @endsection
 
 @section('current_page_js')
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     function cancelBookingConfirmation(id) {
         toastCancel.fire({}).then(function(e) {
             if (e.value === true) {
@@ -578,7 +578,6 @@
                             setTimeout(function() {
                                 window.location.reload()
                             }, 2000);
-                            //   setTimeout(function() {window.location.href = site_url + "/admin/editCopyRoom/" + results.new_room_id}, 2000);
                         } else {
                             error_noti(results.msg);
                             // error_noti(results.msg+' '+results.roomID);
@@ -592,7 +591,7 @@
             return false;
         })
     }
-</script>
+</script> -->
 
 <script>
     $("#cancelbtn").click(function() {
@@ -626,8 +625,8 @@
                     if (response.status == 'success') {
                         success_noti(response.msg);
                         setTimeout(function() {
-                            window.location.reload()
-                            window.location.href = site_url + "/user/bookingList";
+                            // window.location.reload();
+                            window.location.href = site_url + "/user/bookingList-cancel";
                         }, 1000);
                     } else {
                         error_noti(response.msg);

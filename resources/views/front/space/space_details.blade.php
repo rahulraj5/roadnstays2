@@ -377,7 +377,9 @@
                     console.log(response);
                     if (response.status == 'success') {
                         success_noti(response.msg);
-                        setTimeout(function() { window.location.reload();},2000);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
                     } else if (response.status == 'notAvailable') {
                         error_noti(response.msg);
                         setTimeout(function() {
@@ -457,7 +459,7 @@
                                 <ul>
                                     <li>.{{$space_details->guest_number}} Guests</li>
                                     <li>.{{$space_details->bedroom_number}} bedroom</li>
-                                    <li>.+30 Bed</li>
+                                    <!-- <li>.+30 Bed</li> -->
                                     <li>.{{$space_details->bathroom_number}} Bathroom</li>
                                 </ul>
                             </div>

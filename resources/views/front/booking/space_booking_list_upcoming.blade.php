@@ -781,7 +781,7 @@
         <!--  -->
         <div class="tabs">
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1">
-            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Recent</label>
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
             
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2" checked>
@@ -791,9 +791,9 @@
 
                 @if (!$upcomingBookingList->isEmpty())
 
-                @if(count($upcomingBookingList->where('check_out_date', '>', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
+                @if(count($upcomingBookingList->where('check_out_date', '>=', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')) > 0)
 
-                @foreach ($upcomingBookingList->where('check_out_date', '>', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
+                @foreach ($upcomingBookingList->where('check_out_date', '>=', Carbon\Carbon::today()->format('Y-m-d')) as $arr)
 
                 <div class="content">
                     <div class="text-detail">
@@ -839,11 +839,11 @@
                 </div>
 
                 @endforeach
-                <div class="row gird-event" id="filterdata">
+                <!-- <div class="row gird-event" id="filterdata">
                     <div class="col-md-12">
-                        <div class="">{{ $upcomingBookingList->fragment('tab2') }}</div>
+                        <div class=""> upcomingBookingList->fragment('tab2') </div>
                     </div>
-                </div>
+                </div> -->
 
                 @else
 
