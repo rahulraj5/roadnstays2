@@ -41,6 +41,49 @@ class WsController extends APIBaseController
      * @return \Illuminate\Contracts\Support\Renderable
     */
 
+
+    public function home_page(Request $request)
+    {
+        
+        $tour_list = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->limit(5)->get(['tour_list.*', 'country.nicename as country_name']);
+
+        // $search_home = null;
+        // $replace_home = '""';
+        // array_walk($tour_list,
+        // function (&$v12) use ($search_home, $replace_home){
+        //     $v = str_replace($search_home, $replace_home, $v12);    
+        //     }                                                                     
+        // );
+
+        // foreach ($tour_list as $key => $value) {
+        //     if (is_null($value)) $tour_list[$key] = "";
+        // }
+
+        // foreach($tour_list as $key => $value) {
+        //     if ($value === null) {
+        //       echo $tour_list[$key] = ""; 
+        //     }
+        // }
+        // die;
+        //print_r($tour_list);die;
+            
+        if(count($tour_list)>0){
+        
+            $response['message'] = "Tour List";
+            $response['status'] = 1;
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
+
+        }else{
+
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
+        }
+        
+        return $response; 
+
+    }
+
     public function hotel_list(Request $request)
     {   
         $hotel_latitude = $request->hotel_latitude; 

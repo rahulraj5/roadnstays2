@@ -281,7 +281,7 @@
          <h3>Review your Booking</h3>
       </div>
       <div class="col-md-9">
-         <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/eventBookingOrder')}}">
+         <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/eventBookingOrder')}}" enctype="multipart/form-data">
           @csrf
             <input type="hidden" name="user_id" value="{{Auth::check()}}">
             <input type="hidden" name="event_id" value="{{$event_details->id}}">
@@ -339,6 +339,10 @@
                               <div class="container">
                                  <div class="row">
                                     <div class="form-group col-md-6">
+                                       <label for="exampleInputEmail1">Email *</label>
+                                       <input type="email" class="form-control" id="exampleInputEmail1" name="email" required="">
+                                    </div>
+                                    <div class="form-group col-md-6">
                                        <label for="exampleInputPassword1">First name*</label>
                                        <input type="text" class="form-control" id="exampleInputPassword1" name="first_name" required="">
                                     </div>
@@ -351,8 +355,28 @@
                                        <input type="text" class="form-control" id="exampleInputEmail1" name="mobile" required="">
                                     </div>
                                     <div class="form-group col-md-6">
-                                       <label for="exampleInputEmail1">Email *</label>
-                                       <input type="email" class="form-control" id="exampleInputEmail1" name="email" required="">
+                                       <label for="mobile">Choose Identity Document *</label>
+                                       <select class="form-control" name="document_type" id="document_type">
+                                          <option value="">Select Document Type</option>
+                                          <option value="Passport">Passport</option>
+                                          <option value="Voter Id">Voter Id</option>
+                                       </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                       <label for="mobile">Document Number *</label>
+                                       <input type="text" class="form-control" id="document_number" name="document_number" required="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                       <label for="mobile">Upload Front Image of Document *</label>
+                                       <input type="file" class="form-control" id="front_document_img" name="front_document_img" required="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                       <label for="mobile">Upload Back Image of Document *</label>
+                                       <input type="file" class="form-control" id="back_document_img" name="back_document_img" required="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                       <label for="terms"> <input type="checkbox" name="terms" value="1">
+                                          Remember this card for future use</label>
                                     </div>
                                  </div>
                                  <!-- <div class="form-group col-md-6">

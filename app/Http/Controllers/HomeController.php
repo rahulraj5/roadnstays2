@@ -158,78 +158,136 @@ class HomeController extends Controller
             $request->file('back_document_img')->move($pat2, $back_document_img);
         }
         $status = 1;
-        //echo "<pre>"; print_r($forminput);die;
-        // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
-        // $secret="EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
 
-        $client = "AVEgpnihV9nIWSO15Cg-SWM-TcA9_nKFqH_xA_gzoRmdpRw_dQNlB65G-fzbjr6dz5tUTr-ITCLbJ2Yn";
-        $secret = "EFB-JdeQkwgkqOf7fAf5wIIDC1ed_67MDjU_2SSySwnzTnQu4v-DciM75nirTa7qJGeXL4_cdmIK6HEh";
+        // ******* Alfalha Code Strat From Here ****
 
+        $bankorderId   = rand(0,1786612);
+        $data['bankorderId'] = $bankorderId;
+
+        $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
+
+        //$url = "https://payments.bankalfalah.com/HS/HS/HS";
+            
+        // $bankorderId   = $this->session->userdata('bankorderId');
+        // $bankorderId   = rand(0,1786612);
+        
+        $Key1= "gctjxXADP4HCYQvh";
+        $Key2= "3871295687341998";
+        $HS_ChannelId="1001";
+        $HS_MerchantId="19513" ;
+        $HS_StoreId="024984" ;
+        $HS_IsRedirectionRequest  = 0;
+        $HS_ReturnURL= url('/event-payment-successful');
+        $HS_MerchantHash="OUU362MB1upxJgeTHp3x+e9lYN3lrYJOyJIVHPA/LMyWny/BUgjHQiBYCZvE/dHkbxc5OMqhewg=";
+        $HS_MerchantUsername="olygoc" ;
+        $HS_MerchantPassword="V1MoH66gNcpvFzk4yqF7CA==";
+        $HS_TransactionReferenceNumber= $bankorderId;
+        $transactionTypeId = "3";
+        $TransactionAmount = round($price);   
+        $cipher="aes-128-cbc";
+
+
+        $data['key1'] = $Key1;
+        $data['Key2'] = $Key2;
+        $data['HS_ChannelId'] = $HS_ChannelId;
+        $data['HS_MerchantId'] = $HS_MerchantId;
+        $data['HS_StoreId'] = $HS_StoreId;
+        $data['HS_IsRedirectionRequest'] = $HS_IsRedirectionRequest;
+        $data['HS_ReturnURL'] = $HS_ReturnURL;
+        $data['HS_MerchantHash']  = $HS_MerchantHash;
+        $data['HS_MerchantUsername'] = $HS_MerchantUsername;
+        $data['HS_MerchantPassword'] = $HS_MerchantPassword;
+        $data['HS_TransactionReferenceNumber'] = $HS_TransactionReferenceNumber;
+        $data['transactionTypeId'] = $transactionTypeId;
+        $data['TransactionAmount'] = $TransactionAmount;
+        $data['cipher'] = $cipher;
+
+        $mapString = 
+        "HS_ChannelId=$HS_ChannelId" 
+        . "&HS_IsRedirectionRequest=$HS_IsRedirectionRequest" 
+        . "&HS_MerchantId=$HS_MerchantId" 
+        . "&HS_StoreId=$HS_StoreId" 
+        . "&HS_ReturnURL=$HS_ReturnURL"
+        . "&HS_MerchantHash=$HS_MerchantHash"
+        . "&HS_MerchantUsername=$HS_MerchantUsername"
+        . "&HS_MerchantPassword=$HS_MerchantPassword"
+        . "&HS_TransactionReferenceNumber=$HS_TransactionReferenceNumber";
+
+        $cipher_text = openssl_encrypt($mapString, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest = base64_encode($cipher_text); 
+
+        //The data you want to send via POST
+        $fields = [
+            "HS_ChannelId"=>$HS_ChannelId,
+            "HS_IsRedirectionRequest"=>$HS_IsRedirectionRequest,
+            "HS_MerchantId"=> $HS_MerchantId,
+            "HS_StoreId"=> $HS_StoreId,
+            "HS_ReturnURL"=> $HS_ReturnURL,
+            "HS_MerchantHash"=> $HS_MerchantHash,
+            "HS_MerchantUsername"=> $HS_MerchantUsername,
+            "HS_MerchantPassword"=> $HS_MerchantPassword,
+            "HS_TransactionReferenceNumber"=> $HS_TransactionReferenceNumber,
+            "HS_RequestHash"=> $hashRequest
+        ];
+
+        $fields_string = http_build_query($fields);
+
+        //open connection
         $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token");
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERPWD, $client . ":" . $secret);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
-
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+        //execute post
         $result = curl_exec($ch);
 
-        if (empty($result)) die("Error: No response.");
-        else {
-            $json = json_decode($result);
+        $handshake =  json_decode($result);
 
-            $paccess_token = $json->access_token;
-        }
+        $AuthToken = $handshake->AuthToken;
 
-        $data = '{
-          "intent":"sale",
-          "redirect_urls":{
-            "return_url":"' . url('/event-payment-successful') . '",
-            "cancel_url":"' . url('/payment-cancelled') . '"
-          },
-          "payer":{
-            "payment_method":"paypal"
-          },
-          "transactions":[
-            {
-              "amount":{
-                "total":' . round($price) . ',
-                "currency":"USD"
-              },
-              "description":"This is the payment transaction description."
-            }
-          ]
-        }';
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            array(
-                "Content-Type: application/json",
-                "Authorization: Bearer " . $json->access_token,
-                "Content-length: " . strlen($data)
-            )
-        );
+        // echo $result ."<br>";
+        // echo $AuthToken ."<br>";
 
-        $result = curl_exec($ch);
-        $json = json_decode($result);
 
-        //print_r($json);die;
-        $link = $json->links[1]->href;
-        $tokenlink = $json->links[1]->href;
-        $link_array = explode('&token=', $tokenlink);
-        $token = end($link_array);
+        /* ==============SSO CALL ================*/
 
-        $state = $json->state;
+        // you need Auth Token & Amount Here before Hashing
 
-        $payment_id = $json->id;
+        $RequestHash1 = NULL;
+        $Currency = "PKR";
+        $IsBIN =0;
 
+        $mapStringSSo = 
+        "AuthToken=$AuthToken" 
+        . "&RequestHash=$RequestHash1" 
+        . "&ChannelId=$HS_ChannelId"
+        . "&Currency=$Currency"
+        . "&IsBIN=$IsBIN"
+        . "&ReturnURL=$HS_ReturnURL"
+        . "&MerchantId=$HS_MerchantId"
+        . "&StoreId=$HS_StoreId" 
+        . "&MerchantHash=$HS_MerchantHash"
+        . "&MerchantUsername=$HS_MerchantUsername"
+        . "&MerchantPassword=$HS_MerchantPassword"
+        . "&TransactionTypeId=3"
+        . "&TransactionReferenceNumber=$HS_TransactionReferenceNumber"
+        . "&TransactionAmount=$TransactionAmount"; 
+
+        //echo $mapStringSSo."<br>";
+                
+        $cipher_text = openssl_encrypt($mapStringSSo, $cipher, $Key1,   OPENSSL_RAW_DATA , $Key2);
+        $hashRequest1 = base64_encode($cipher_text);
+
+
+        $data['AuthToken'] = $AuthToken;
+        $data['hashRequest1'] = $hashRequest1;
+
+        // ******  Alfalha Code End Here ***
+
+        
         $guestinfo = DB::table('guestinfo')->insert(
             array(
                 'event_id' =>  $event_id,
@@ -237,7 +295,8 @@ class HomeController extends Controller
                 'first_name' =>  $first_name,
                 'last_name' => $last_name,
                 'mobile' =>  $mobile,
-                'payment_id' =>  $payment_id,
+                // 'payment_id' =>  $payment_id,
+                'payment_id' =>  $bankorderId,
                 'document_type' =>  $document_type,
                 'document_number' =>  $document_number,
                 'front_document_img' =>  $front_document_img,
@@ -250,9 +309,10 @@ class HomeController extends Controller
         $check = DB::table('event_booking_temp')->insert(
             array(
                 'user_id' =>  $user_id,
-                'payment_id' =>  $payment_id,
-                'paccess_token' =>  $paccess_token,
-                'token_id' => $token,
+                'payment_id' =>  $bankorderId,
+                // 'payment_id' =>  $payment_id,
+                // 'paccess_token' =>  $paccess_token,
+                // 'token_id' => $token,
                 'event_id' =>  $event_id,
                 'start_date' =>  $start_date,
                 'end_date' =>  $end_date,
@@ -260,81 +320,96 @@ class HomeController extends Controller
                 'created_at' =>  date('Y-m-d H:i:s')
             )
         );
-
-        return redirect($link);
+        return view('front/apg/apg', $data);
+        // return redirect($link);
     }
 
     public function event_payment_successful(Request $request)
     {
+        $order_id = $_GET['O'];
+        $url = "https://sandbox.bankalfalah.com/HS/api/IPN/OrderStatus/19513/024984/".$order_id;
+    
+        $curlSession = curl_init();
+        curl_setopt($curlSession, CURLOPT_URL,  $url);
+        curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        $jsonData = json_decode(curl_exec($curlSession));
+        curl_close($curlSession);
+
+        $result =  json_decode($jsonData);
+
         if (Auth::check()) {
             $user_id =  Auth::id();
         } else {
             $user_id = '';
         }
-        $paymentId = $_GET['paymentId'];
-        $token = $_GET['token'];
-        $PayerID = $_GET['PayerID'];
-        $paccess_token = '';
+        $paymentId = $_GET['O'];
+
+        // $paymentId = $_GET['paymentId'];
+        // $token = $_GET['token'];
+        // $PayerID = $_GET['PayerID'];
+        // $paccess_token = '';
         $bookingtemp = DB::table('event_booking_temp')->where('payment_id', '=', $paymentId)->first();
         $eventData = DB::table('events')->where('id', $bookingtemp->event_id)->where('status', 1)->first();
         $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
         $vendor_id = $eventData->vendor_id;
         $check_guest_user = 0;
         if (!empty($bookingtemp)) {
-            $paccess_token = $bookingtemp->paccess_token;
-            $data1 = '{
-            "payer_id": "' . $PayerID . '"
-            }';
+            // $paccess_token = $bookingtemp->paccess_token;
+            // $data1 = '{
+            // "payer_id": "' . $PayerID . '"
+            // }';
 
-            $ch = curl_init();
+            // $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
-            /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = curl_exec($ch);
+            // curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
+            // /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
+            // curl_setopt($ch, CURLOPT_POST, true);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // $result = curl_exec($ch);
 
-            $resulspays = json_decode($result);
+            // $resulspays = json_decode($result);
 
-            $cartid = $resulspays->cart;
-            $pstatus = $resulspays->state;
-            $paymethod = $resulspays->payer->payment_method;
+            // $cartid = $resulspays->cart;
+            // $pstatus = $resulspays->state;
+            // $paymethod = $resulspays->payer->payment_method;
 
-            $pemail = $resulspays->payer->payer_info->email;
+            // $pemail = $resulspays->payer->payer_info->email;
             $uemail = $userData->email;
-            $pfirst_name = $resulspays->payer->payer_info->first_name;
+            // $pfirst_name = $resulspays->payer->payer_info->first_name;
             $ufirst_name = $userData->first_name;
-            $plast_name = $resulspays->payer->payer_info->last_name;
+            // $plast_name = $resulspays->payer->payer_info->last_name;
             $ulast_name = $userData->last_name;
-            $payer_id = $resulspays->payer->payer_info->payer_id;
+            // $payer_id = $resulspays->payer->payer_info->payer_id;
 
-            $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
-            $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
-            $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
-            $scity = $resulspays->payer->payer_info->shipping_address->city;
-            $sstate = $resulspays->payer->payer_info->shipping_address->state;
-            $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
-            $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
+            // $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
+            // $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
+            // $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
+            // $scity = $resulspays->payer->payer_info->shipping_address->city;
+            // $sstate = $resulspays->payer->payer_info->shipping_address->state;
+            // $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
+            // $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
 
-            $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+            // $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
             $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
-            $country_code = $resulspays->payer->payer_info->country_code;
-            $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
+            // $country_code = $resulspays->payer->payer_info->country_code;
+            // $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
 
-            $total_amount = $resulspays->transactions[0]->amount->total;
-            $currency = $resulspays->transactions[0]->amount->currency;
+            // $total_amount = $resulspays->transactions[0]->amount->total;
+            // $currency = $resulspays->transactions[0]->amount->currency;
 
-            $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
-            $merchant_email = $resulspays->transactions[0]->payee->email;
+            // $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
+            // $merchant_email = $resulspays->transactions[0]->payee->email;
             $password = "roadnstays@123";
             $password = bcrypt($password);
-            curl_close($ch);
+            // curl_close($ch);
             if (empty($user_id)) {
 
-                $checkuser = DB::table('users')->where('email', $pemail)->first();
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
 
                 if (!empty($checkuser)) {
 
@@ -367,7 +442,7 @@ class HomeController extends Controller
                 }
             }
         }
-        $checkorder = DB::table('event_booking')->where('payment_token', '=', $token)->first();
+        $checkorder = DB::table('event_booking')->where('payment_token', '=', $result->TransactionId)->first();
 
         if(empty($checkorder)) {
 
@@ -377,11 +452,16 @@ class HomeController extends Controller
                     'event_id' => $bookingtemp->event_id,
                     'total_amount' =>  $bookingtemp->total_amount,
                     'booking_status' => "pending",
-                    'payment_status' => 'successful',
-                    'payment_type' => $paymethod,
-                    'payment_id' => $paymentId,
-                    'payment_token' => $token,
-                    'payer_id' => $PayerID,
+                    'payment_status' => $result->TransactionStatus,
+                    'payment_type' => $result->TransactionTypeId,
+                    'payment_id' => $result->TransactionReferenceNumber,
+                    'payment_token' => $result->TransactionId,
+                    
+                    // 'payment_status' => 'successful',
+                    // 'payment_type' => $paymethod,
+                    // 'payment_id' => $paymentId,
+                    // 'payment_token' => $token,
+                    // 'payer_id' => $PayerID,
                     'created_at' =>  date('Y-m-d H:i:s')
                 ]
             );
@@ -393,9 +473,11 @@ class HomeController extends Controller
                     'booking_id' => $booking_id,
                     'user_id' =>  $user_id,
                     'vendor_id' =>  $vendor_id,
-                    'txn_id' => $cartid,
+                    // 'txn_id' => $cartid,
+                    'txn_id' => $result->TransactionId,
                     'txn_amount' =>  $bookingtemp->total_amount,
-                    'payment_method' => $paymethod,
+                    // 'payment_method' => $paymethod,
+                    'payment_method' => 'ALFA',
                     'booking_type' => 'Event',
                     'txn_status' =>  'successful',
                     'txn_date' => date('Y-m-d H:i:s'),
@@ -506,6 +588,387 @@ class HomeController extends Controller
         session::flash('message', 'Booking created Succesfully.');
         return view('front/event/confirm_booking', $data);
     }
+
+    
+    // public function eventBookingOrder_old_Paypal(Request $request)
+    // {
+    //     //print_r($request->all());die;
+    //     $event_id = $request->event_id;
+    //     $user_id = $request->user_id;
+    //     $price = $request->price;
+    //     $start_date = $request->start_date;
+    //     $end_date = $request->end_date;
+    //     $email = $request->email;
+    //     $first_name = $request->first_name;
+    //     $last_name = $request->last_name;
+    //     $mobile = $request->mobile;
+    //     $document_type = $request->document_type;
+    //     $document_number = $request->document_number;
+    //     if ($request->hasFile('front_document_img')) {
+    //         $image_name = $request->file('front_document_img')->getClientOriginalName();
+    //         $filename = pathinfo($image_name, PATHINFO_FILENAME);
+    //         $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+    //         $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+    //         $path = base_path() . '/public/uploads/user_document/';
+    //         $request->file('front_document_img')->move($path, $front_document_img);
+    //     }
+    //     if ($request->hasFile('back_document_img')) {
+    //         $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+    //         $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+    //         $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+    //         $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+    //         $pat2 = base_path() . '/public/uploads/user_document';
+    //         $request->file('back_document_img')->move($pat2, $back_document_img);
+    //     }
+    //     $status = 1;
+    //     //echo "<pre>"; print_r($forminput);die;
+    //     // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
+    //     // $secret="EPZ31KCn1aSfHzEkjdV6fI_A31vdzcbhVhV-fkc0GFKvc_WVJZPoKOCAw8TNmhKQVAF4pW46iaDpmznd";
+
+    //     $client = "AVEgpnihV9nIWSO15Cg-SWM-TcA9_nKFqH_xA_gzoRmdpRw_dQNlB65G-fzbjr6dz5tUTr-ITCLbJ2Yn";
+    //     $secret = "EFB-JdeQkwgkqOf7fAf5wIIDC1ed_67MDjU_2SSySwnzTnQu4v-DciM75nirTa7qJGeXL4_cdmIK6HEh";
+
+    //     $ch = curl_init();
+
+    //     curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token");
+    //     curl_setopt($ch, CURLOPT_HEADER, false);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLOPT_USERPWD, $client . ":" . $secret);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+
+    //     $result = curl_exec($ch);
+
+    //     if (empty($result)) die("Error: No response.");
+    //     else {
+    //         $json = json_decode($result);
+
+    //         $paccess_token = $json->access_token;
+    //     }
+
+    //     $data = '{
+    //       "intent":"sale",
+    //       "redirect_urls":{
+    //         "return_url":"' . url('/event-payment-successful') . '",
+    //         "cancel_url":"' . url('/payment-cancelled') . '"
+    //       },
+    //       "payer":{
+    //         "payment_method":"paypal"
+    //       },
+    //       "transactions":[
+    //         {
+    //           "amount":{
+    //             "total":' . round($price) . ',
+    //             "currency":"USD"
+    //           },
+    //           "description":"This is the payment transaction description."
+    //         }
+    //       ]
+    //     }';
+
+    //     curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment");
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    //     curl_setopt(
+    //         $ch,
+    //         CURLOPT_HTTPHEADER,
+    //         array(
+    //             "Content-Type: application/json",
+    //             "Authorization: Bearer " . $json->access_token,
+    //             "Content-length: " . strlen($data)
+    //         )
+    //     );
+
+    //     $result = curl_exec($ch);
+    //     $json = json_decode($result);
+
+    //     //print_r($json);die;
+    //     $link = $json->links[1]->href;
+    //     $tokenlink = $json->links[1]->href;
+    //     $link_array = explode('&token=', $tokenlink);
+    //     $token = end($link_array);
+
+    //     $state = $json->state;
+
+    //     $payment_id = $json->id;
+
+    //     $guestinfo = DB::table('guestinfo')->insert(
+    //         array(
+    //             'event_id' =>  $event_id,
+    //             'email' =>  $email,
+    //             'first_name' =>  $first_name,
+    //             'last_name' => $last_name,
+    //             'mobile' =>  $mobile,
+    //             'payment_id' =>  $payment_id,
+    //             'document_type' =>  $document_type,
+    //             'document_number' =>  $document_number,
+    //             'front_document_img' =>  $front_document_img,
+    //             'back_document_img' =>  $back_document_img,
+    //             'status' =>  $status,
+    //             'created_date' =>  date('Y-m-d H:i:s')
+    //         )
+    //     );
+
+    //     $check = DB::table('event_booking_temp')->insert(
+    //         array(
+    //             'user_id' =>  $user_id,
+    //             'payment_id' =>  $payment_id,
+    //             'paccess_token' =>  $paccess_token,
+    //             'token_id' => $token,
+    //             'event_id' =>  $event_id,
+    //             'start_date' =>  $start_date,
+    //             'end_date' =>  $end_date,
+    //             'total_amount' => round($price),
+    //             'created_at' =>  date('Y-m-d H:i:s')
+    //         )
+    //     );
+
+    //     return redirect($link);
+    // }
+
+    // public function event_payment_successful_old_Paypal(Request $request)
+    // {
+    //     if (Auth::check()) {
+    //         $user_id =  Auth::id();
+    //     } else {
+    //         $user_id = '';
+    //     }
+    //     $paymentId = $_GET['paymentId'];
+    //     $token = $_GET['token'];
+    //     $PayerID = $_GET['PayerID'];
+    //     $paccess_token = '';
+    //     $bookingtemp = DB::table('event_booking_temp')->where('payment_id', '=', $paymentId)->first();
+    //     $eventData = DB::table('events')->where('id', $bookingtemp->event_id)->where('status', 1)->first();
+    //     $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
+    //     $vendor_id = $eventData->vendor_id;
+    //     $check_guest_user = 0;
+    //     if (!empty($bookingtemp)) {
+    //         $paccess_token = $bookingtemp->paccess_token;
+    //         $data1 = '{
+    //         "payer_id": "' . $PayerID . '"
+    //         }';
+
+    //         $ch = curl_init();
+
+    //         curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/payment/" . $paymentId . "/execute");
+    //         /*curl_setopt($ch, CURLOPT_URL, “https://api.paypal.com/v1/payments/payment”);*/
+    //         curl_setopt($ch, CURLOPT_POST, true);
+    //         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //         curl_setopt($ch, CURLOPT_POSTFIELDS, $data1);
+    //         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $paccess_token));
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         $result = curl_exec($ch);
+
+    //         $resulspays = json_decode($result);
+
+    //         $cartid = $resulspays->cart;
+    //         $pstatus = $resulspays->state;
+    //         $paymethod = $resulspays->payer->payment_method;
+
+    //         $pemail = $resulspays->payer->payer_info->email;
+    //         $uemail = $userData->email;
+    //         $pfirst_name = $resulspays->payer->payer_info->first_name;
+    //         $ufirst_name = $userData->first_name;
+    //         $plast_name = $resulspays->payer->payer_info->last_name;
+    //         $ulast_name = $userData->last_name;
+    //         $payer_id = $resulspays->payer->payer_info->payer_id;
+
+    //         $srecipient_name = $resulspays->payer->payer_info->shipping_address->recipient_name;
+    //         $sadd_line1 = $resulspays->payer->payer_info->shipping_address->line1;
+    //         $sadd_line2 = !empty($resulspays->payer->payer_info->shipping_address->line2) ?  $resulspays->payer->payer_info->shipping_address->line2 : '';
+    //         $scity = $resulspays->payer->payer_info->shipping_address->city;
+    //         $sstate = $resulspays->payer->payer_info->shipping_address->state;
+    //         $spostal_code = $resulspays->payer->payer_info->shipping_address->postal_code;
+    //         $scountry_code = $resulspays->payer->payer_info->shipping_address->country_code;
+
+    //         $phone = !empty($resulspays->payer->payer_info->phone) ?  $resulspays->payer->payer_info->phone : '';
+    //         $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+    //         $country_code = $resulspays->payer->payer_info->country_code;
+    //         $business_name = !empty($resulspays->payer->payer_info->business_name) ?  $resulspays->payer->payer_info->business_name : '';
+
+    //         $total_amount = $resulspays->transactions[0]->amount->total;
+    //         $currency = $resulspays->transactions[0]->amount->currency;
+
+    //         $merchant_id = $resulspays->transactions[0]->payee->merchant_id;
+    //         $merchant_email = $resulspays->transactions[0]->payee->email;
+    //         $password = "roadnstays@123";
+    //         $password = bcrypt($password);
+    //         curl_close($ch);
+    //         if (empty($user_id)) {
+
+    //             $checkuser = DB::table('users')->where('email', $pemail)->first();
+
+    //             if (!empty($checkuser)) {
+
+    //                 $user_id = $checkuser->id;
+    //                 $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+    //             } else {
+    //                 $check_guest_user = 1;
+    //                 DB::table('users')->insert(
+    //                     [
+    //                         'first_name' =>  $ufirst_name,
+    //                         'last_name' =>  $ulast_name,
+    //                         'email' =>  $uemail,
+    //                         'user_type' => 'normal_user',
+    //                         'contact_number' =>  $uphone,
+    //                         'document_type' =>  $userData->document_type,
+    //                         'document_number' =>  $userData->document_number,
+    //                         'front_document_img' =>  $userData->front_document_img,
+    //                         'back_document_img' =>  $userData->back_document_img,
+    //                         'password' =>  $password,
+    //                         'role_id' =>  2,
+    //                         'is_verify_email' => 0,
+    //                         'register_by' =>  'web',
+    //                         'status' => 1,
+    //                         'updated_at' => date('Y-m-d H:i:s'),
+    //                         'created_at' =>  date('Y-m-d H:i:s')
+    //                     ]
+    //                 );
+
+    //                 $user_id = DB::getpdo()->lastInsertId();
+    //             }
+    //         }
+    //     }
+    //     $checkorder = DB::table('event_booking')->where('payment_token', '=', $token)->first();
+
+    //     if(empty($checkorder)) {
+
+    //         DB::table('event_booking')->insert(
+    //             [
+    //                 'user_id' =>  $user_id,
+    //                 'event_id' => $bookingtemp->event_id,
+    //                 'total_amount' =>  $bookingtemp->total_amount,
+    //                 'booking_status' => "pending",
+    //                 'payment_status' => 'successful',
+    //                 'payment_type' => $paymethod,
+    //                 'payment_id' => $paymentId,
+    //                 'payment_token' => $token,
+    //                 'payer_id' => $PayerID,
+    //                 'created_at' =>  date('Y-m-d H:i:s')
+    //             ]
+    //         );
+
+    //         $booking_id = DB::getpdo()->lastInsertId();
+
+    //         DB::table('payment_transaction')->insert(
+    //             [
+    //                 'booking_id' => $booking_id,
+    //                 'user_id' =>  $user_id,
+    //                 'vendor_id' =>  $vendor_id,
+    //                 'txn_id' => $cartid,
+    //                 'txn_amount' =>  $bookingtemp->total_amount,
+    //                 'payment_method' => $paymethod,
+    //                 'booking_type' => 'Event',
+    //                 'txn_status' =>  'successful',
+    //                 'txn_date' => date('Y-m-d H:i:s'),
+    //                 'created_at' =>  date('Y-m-d H:i:s')
+    //             ]
+    //         );
+
+    //         $check = true;
+
+    //         if ($check) {
+    //             $users = User::where('id', '=', $user_id)->first();
+    //             $data['user_info'] = $users;
+    //             $data['booking_id'] = $booking_id;
+    //             $data['url'] = url('/');
+    //             $data['order_info'] =  DB::table('event_booking')
+    //                 ->join('users', 'users.id', '=', 'event_booking.user_id')
+    //                 ->join('events', 'events.id', '=', 'event_booking.event_id')
+    //                 ->where('event_booking.id', $booking_id)
+    //                 ->where('users.status', 1)
+    //                 ->select('event_booking.*', 'events.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number', 'users.alternate_num', 'users.user_company_number')
+    //                 ->first();
+
+    //             if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+    //                 $fromEmail = Helper::getFromEmail();
+    //                 $inData['from_email'] = $fromEmail;
+    //                 $inData['email'] = $users->email;
+    //                 Mail::send('emails.event-invoice', $data, function ($message) use ($inData) {
+    //                     $message->from($inData['from_email'], 'roadNstays');
+    //                     $message->to($inData['email']);
+    //                     $message->subject('roadNstyas - Event Booking Confirmation Mail');
+    //                 });
+    //                 if($check_guest_user === 1){
+    //                     $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+    //                     Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+    //                         $message->from($inData['from_email'], 'RoadNStays');
+    //                         $message->to($inData['email']);
+    //                         $message->subject('RoadNStays - User E-mail Verification');
+    //                     });
+    //                 }
+
+    //                 $data['url'] = url('/admin_login');
+
+    //                 $data['status'] = 'created to user';
+
+    //                 $data['booking_id'] = $booking_id;
+
+    //                 Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
+    //                     $message->from($inData['from_email'], 'roadNstyas');
+    //                     $message->to('votivephppushpendra@gmail.com');
+    //                     $message->subject('roadNstyas - New Event Booking Recieved Mail');
+    //                 });
+    //             }
+
+    //             // $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+    //             // $vendor_id = $tourData->vendor_id;
+    //             $vendors = User::where('id', '=', $vendor_id)->get();
+
+    //             //print_r($vendors);die;
+    //             $vendor_counts = count($vendors);
+    //             if (!empty($vendors)) {
+    //                 if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+    //                     $data['first_name'] = $vendors['0']->first_name;
+
+    //                     $data['status'] = 'Booking Tour';
+
+    //                     $data['booking_id'] = $booking_id;
+
+    //                     $fromEmail = Helper::getFromEmail();
+    //                     $inData['from_email'] = $fromEmail;
+    //                     $inData['email'] = $vendors['0']->email;
+    //                     Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
+    //                         $message->from($inData['from_email'], 'roadNstyas');
+    //                         $message->to($inData['email']);
+    //                         $message->subject('roadNstyas - Order assigned');
+    //                     });
+    //                 }
+    //             }
+    //             Session::get('total_amt');
+    //             if($check_guest_user === 0){
+    //             }else{
+    //                 session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+    //             }
+    //             // session::flash('message', 'Order created Succesfully.');
+    //             return view('front/event/confirm_booking', $data);
+    //         } else {
+    //             session::flash('error', 'Record not inserted.');
+    //             return redirect('/');
+    //         }
+    //     } else {
+    //         $data['booking_id'] = $checkorder->id;
+    //         $users = User::where('id', '=', $user_id)->first();
+    //         $data['user_info'] = $users;
+    //         $data['booking_id'] =  $checkorder->id;
+    //         $data['url'] = url('/');
+    //         $users = User::where('id', '=', $user_id)->first();
+    //         $data['user_info'] = $users;
+    //         $data['url'] = url('/');
+    //         $data['order_info'] =  DB::table('event_booking')
+    //             ->join('users', 'users.id', '=', 'event_booking.user_id')
+    //             ->join('events', 'events.id', '=', 'event_booking.event_id')
+    //             ->where('event_booking.id', $checkorder->id)
+    //             ->where('users.status', 1)
+    //             ->select('event_booking.*', 'events.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number', 'users.alternate_num', 'users.user_company_number')
+    //             ->first();
+    //     }
+    //     session::flash('message', 'Booking created Succesfully.');
+    //     return view('front/event/confirm_booking', $data);
+    // }
 
     public function tour()
     {

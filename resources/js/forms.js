@@ -310,6 +310,82 @@ $("#scoutAdmin_form").validate({
     user_country: {
       required: true,
     },
+    status: {
+      required: true,
+    },
+    designation: {
+      required: true,
+    },
+    other: {
+      required: function(element) {
+        return $('#designation').val()=='Other';
+      },
+    },
+    nic: {
+      required: true,
+    },
+    nic_upload: {
+      required: true,
+    },
+
+    contract_date: {
+      required: true,
+    },
+    contract_upload: {
+      required: true,
+    },
+
+    basic_salary: {
+      required: true,
+      number: true,
+    },
+    transport_allowance: {
+      required: true,
+      number: true,
+    },
+    other_allowance: {
+      required: true,
+      number: true,
+    },
+    other_allowance_1: {
+      required: true,
+      number: true,
+    },
+    other_allowance_2: {
+      required: true,
+      number: true,
+    },
+    gross_salary: {
+      required: true,
+      number: true,
+    },
+    hotel_commission: {
+      required: true,
+      number: true,
+    },
+    tour_commision: {
+      required: true,
+      number: true,
+    },
+    space_commission: {
+      required: true,
+      number: true,
+    },
+    event_commission: {
+      required: true,
+      number: true,
+    },
+    rating: {
+      required: true,
+      number: true,
+    },
+    year: {
+      required: true,
+      number: true,
+    },
+    remarks: {
+      required: true,
+    },
   },
   submitHandler: function (form) {
     var site_url = $("#baseUrl").val();
@@ -369,6 +445,82 @@ $("#scoutUpdateAdmin_form").validate({
       required: true,
     },
     user_countryu: {
+      required: true,
+    },
+    statusu: {
+      required: true,
+    },
+    designationu: {
+      required: true,
+    },
+    other: {
+      required: function(element) {
+        return $('#designation').val()=='Other';
+      },
+    },
+    nicu: {
+      required: true,
+    },
+    nic_uploadu: {
+      required: true,
+    },
+
+    contract_dateu: {
+      required: true,
+    },
+    contract_uploadu: {
+      required: true,
+    },
+
+    basic_salaryu: {
+      required: true,
+      number: true,
+    },
+    transport_allowanceu: {
+      required: true,
+      number: true,
+    },
+    other_allowanceu: {
+      required: true,
+      number: true,
+    },
+    other_allowance_1u: {
+      required: true,
+      number: true,
+    },
+    other_allowance_2u: {
+      required: true,
+      number: true,
+    },
+    gross_salaryu: {
+      required: true,
+      number: true,
+    },
+    hotel_commissionu: {
+      required: true,
+      number: true,
+    },
+    tour_commisionu: {
+      required: true,
+      number: true,
+    },
+    space_commissionu: {
+      required: true,
+      number: true,
+    },
+    event_commissionu: {
+      required: true,
+      number: true,
+    },
+    ratingu: {
+      required: true,
+      number: true,
+    },
+    yearu: {
+      required: true,
+      number: true,
+    },
+    remarksu: {
       required: true,
     },
   },

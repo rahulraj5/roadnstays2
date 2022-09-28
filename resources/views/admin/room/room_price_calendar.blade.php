@@ -56,6 +56,12 @@
 <script src="{{ asset('resources/plugins/fullcalendar/main.js')}}"></script>
 <!-- Page specific script -->
 
+<script>
+    var date = new Date('09/20/2022 00:00:00');
+    var yesterday = new Date(date.getTime() - 24*60*60*1000);
+    // console.log(date);
+    // console.log(yesterday);
+</script>
 
 
 <script>
@@ -93,6 +99,10 @@
             select: function(arg) {
                 // console.log('selected date range arg 1');
                 // console.log(arg);
+                var start_date = arg.start;
+                var end_date = arg.end;
+                // console.log(start_date);
+                // console.log(end_date);
 
                 // var check = convert(arg.start);
                 // var today = convert(new Date());
@@ -103,6 +113,7 @@
                 var new_check = arg.start;
                 var new_today = new Date();
                 new_today.setHours(0, 0, 0, 0);
+                // console.log(new_today.setHours(0, 0, 0, 0));
 
                 if (new_check < new_today) {
                     error_noti("You can't select previous date.");
@@ -110,6 +121,16 @@
                 } else {
                     // alert("You have selected date successfully.");
                     // success_noti("You have selected date successfully.");
+
+                    // console.log(start_date);
+                    var start_dateE = moment(new Date(start_date));
+                    var last_date = new Date(end_date.getTime() - 24*60*60*1000);
+                    var last_dateE = moment(new Date(last_date));
+                    // console.log(date.format("DD-MMM-YYYY"));
+                    $("#start_date").val(start_dateE.format("DD-MM-YYYY"));
+                    $("#end_date").val(last_dateE.format("DD-MM-YYYY"));
+                    // console.log(last_date);
+
                     openModal1();
                 }
                 calendar.unselect();
@@ -144,7 +165,7 @@
 
 <script>
     // $('.modal-trigger').leanModal();
-
+    console.log(last_date);
     function openModal1() {
         //open the modal
         $('#modal1').modal('show');
@@ -467,10 +488,10 @@
                                 @endif
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Start Date">
+                                    <input type="text" class="form-control" name="start_date" id="start_date" value="" placeholder="Start Date">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="end_date" id="end_date" placeholder="End Date">
+                                    <input type="text" class="form-control" name="end_date" id="end_date" value="" placeholder="End Date">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="new_price" id="new_price" placeholder="New Price in PKR">

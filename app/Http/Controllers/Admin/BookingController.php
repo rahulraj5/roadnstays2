@@ -232,6 +232,10 @@ class BookingController extends Controller
                                     'users.state_id as user_state',
                                     'users.user_city as user_city',
                                     'users.postal_code as user_postal_code',
+                                    'users.document_type',
+                                    'users.document_number',
+                                    'users.front_document_img',
+                                    'users.back_document_img',
                                     'country.nicename as user_country',
                                     'hotels.hotel_name',
                                     'hotels.hotel_user_id',
@@ -251,7 +255,7 @@ class BookingController extends Controller
         $property_role = $data['bookingList']->hotel_added_is_admin;
         $property_owner_id = $data['bookingList']->hotel_user_id;
         // echo "<pre>";print_r($property_role);
-        // echo "<pre>";print_r($property_owner_id);die;
+        // echo "<pre>";print_r($data['bookingList']);die;
         if($property_role == 1){
             if($property_owner_id == 1){
                 $data['admin_details'] = DB::table('admins')->where('id', $property_owner_id)->first();

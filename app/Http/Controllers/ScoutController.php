@@ -129,6 +129,9 @@ class ScoutController extends Controller
                 'tour_commision'=>$request->tour_commision,
                 'space_commission'=>$request->space_commission,
                 'event_commission'=>$request->event_commission,
+                'rating'=>$request->rating,
+                'year'=>$request->year,
+                'remarks'=>$request->remarks,
                 'created_at'=> date('Y-m-d H:i:s')
             );
             if ($res) { 
@@ -185,7 +188,7 @@ class ScoutController extends Controller
 
 
 
-        if($request->hasFile('nic_upload'))
+        if($request->hasFile('nic_uploadu'))
         {
             if(!empty($request->old_nic_upload))
             {
@@ -195,9 +198,9 @@ class ScoutController extends Controller
                     unlink($oldImagePath);
                 }
             }
-            $image_name = $request->file('nic_upload')->getClientOriginalName();
+            $image_name = $request->file('nic_uploadu')->getClientOriginalName();
             $filename = pathinfo($image_name1,PATHINFO_FILENAME);
-            $image_ext = $request->file('nic_upload')->getClientOriginalExtension();
+            $image_ext = $request->file('nic_uploadu')->getClientOriginalExtension();
             $nic_upload = $filename.'-'.'profile_picture'.'-'.time().'.'.$image_ext;
             $path = base_path() . '/public/uploads/profile_img';
             $request->file('old_nic_upload')->move($path,$nic_upload);
@@ -242,24 +245,27 @@ class ScoutController extends Controller
     	$res = $userData->save();
 
         $scout_details = array(
-            'status'=> $request->status,
-            'designation'=> $request->designation,
+            'status'=> $request->statusu,
+            'designation'=> $request->designationu,
             'other'=> $request->other,
-            'contract_date'=> $request->contract_date,
-            'nic'=>$request->nic,
+            'contract_date'=> $request->contract_dateu,
+            'nic'=>$request->nicu,
             'nic_upload'=>$nic_upload,
             'contract_upload'=>$contract_upload,
-            'basic_salary'=>$request->basic_salary,
-            'transport_allowance'=>$request->transport_allowance,
-            'other_allowance'=>$request->other_allowance,
-            'other_allowance_1'=>$request->other_allowance_1,
-            'other_allowance_2'=>$request->other_allowance_2,
-            'gross_salary'=>$request->gross_salary,
-            'other_benefits'=>$request->other_benefits,
-            'hotel_commission'=>$request->hotel_commission,
-            'tour_commision'=>$request->tour_commision,
-            'space_commission'=>$request->space_commission,
-            'event_commission'=>$request->event_commission,
+            'basic_salary'=>$request->basic_salaryu,
+            'transport_allowance'=>$request->transport_allowanceu,
+            'other_allowance'=>$request->other_allowanceu,
+            'other_allowance_1'=>$request->other_allowance_1u,
+            'other_allowance_2'=>$request->other_allowance_2u,
+            'gross_salary'=>$request->gross_salaryu,
+            'other_benefits'=>$request->other_benefitsu,
+            'hotel_commission'=>$request->hotel_commissionu,
+            'tour_commision'=>$request->tour_commisionu,
+            'space_commission'=>$request->space_commissionu,
+            'event_commission'=>$request->event_commissionu,
+            'rating'=>$request->ratingu,
+            'year'=>$request->yearu,
+            'remarks'=>$request->remarksu,
             'created_at'=> date('Y-m-d H:i:s')
         );
 

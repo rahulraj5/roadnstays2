@@ -10,7 +10,7 @@ class Helper
     public static function getFromEmail()
     {
         if ($_SERVER['SERVER_NAME'] == 'roadnstays.com') {
-            return 'info@votivetechnologies.in';
+            return 'info@roadnstays.com';
         }
         else {
             return 'votivephp.rahulraj@gmail.com';

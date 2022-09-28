@@ -1,16 +1,10 @@
 @extends('admin.layout.layout')
 
-
-
 @section('title', 'User - Profile')
-
-
 
 @section('current_page_css')
 
 @endsection
-
-
 
 @section('current_page_js')
 
@@ -40,11 +34,7 @@
 
 @endsection
 
-
-
 @section('content')
-
-
 
   <!-- Content Wrapper. Contains page content -->
 
@@ -82,15 +72,11 @@
 
     </section>
 
-
-
     <!-- Main content -->
 
     <section class="content">
 
       <div class="container-fluid">
-
-        
 
         <!-- SELECT2 EXAMPLE -->
 
@@ -99,8 +85,6 @@
           <div class="card-header">
 
             <h3 class="card-title">Scout Form</h3>
-
-
 
             <!-- <div class="card-tools">
 
@@ -119,8 +103,6 @@
             </div> -->
 
           </div>
-
-
 
           <!-- /.card-header -->
 
@@ -292,6 +274,13 @@
 
                   </div>
 
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Contract information</h4>
+                      </p>
+                    </div>
+                  </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
@@ -347,6 +336,14 @@
                     </div>
                   </div>
 
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Salary Information</h4>
+                      </p>
+                    </div>
+                  </div>
+
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Basic salary</label>
@@ -384,46 +381,78 @@
                       <input type="text" class="form-control" name="gross_salary" id="gross_salary">
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Other benefits</label>
-                      <input type="text" class="form-control" name="other_benefits" id="other_benefits">
+
+
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Other Benifits</h4>
+                      </p>
                     </div>
                   </div>
+
+                  <div class="col-md-12 mt-0">
+                    <!-- <div class="tab-custom-content mt-0"> -->
+                      <p class="lead mb-0">
+                      <h5>Fixed Commission</h5>
+                      </p>
+                    <!-- </div> -->
+                  </div>
+
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Hotel commission</label>
+                      <label>Hotel Commission</label>
                       <input type="text" class="form-control" name="hotel_commission" id="hotel_commission">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Tour commision</label>
+                      <label>Tour Commision</label>
                       <input type="text" class="form-control" name="tour_commision" id="tour_commision">
                     </div>
                   </div>
-
                    <div class="col-md-6">
                     <div class="form-group">
-
-                      <label>Space commission</label>
-
+                      <label>Space Commission</label>
                       <input type="text" class="form-control" name="space_commission" id="space_commission">
-
                     </div>
-
                   </div>
                    <div class="col-md-6">
-
                     <div class="form-group">
-
-                      <label>Event commission</label>
-
+                      <label>Event Commission</label>
                       <input type="text" class="form-control" name="event_commission" id="event_commission">
-
                     </div>
-
                   </div>
+
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Performance</h4>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Rating</label>
+                      <input type="text" class="form-control" name="rating" id="rating">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Year</label>
+                      <input type="text" class="form-control" name="year" id="year">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Remarks</label>
+                      <textarea class="form-control" id="remarks" name="remarks" required></textarea>
+                    </div>
+                  </div>
+
+
+                  
 
                   <div class="col-12"> 
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button> 

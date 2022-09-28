@@ -1,16 +1,10 @@
 @extends('admin.layout.layout')
 
-
-
 @section('title', 'User - Profile')
-
-
 
 @section('current_page_css')
 
 @endsection
-
-
 
 @section('current_page_js')
 <script src="{{ asset('resources/js/bootstrap-datetimepicker.min.js')}}"></script>
@@ -38,11 +32,7 @@
 </script>
 @endsection
 
-
-
 @section('content')
-
-
 
   <!-- Content Wrapper. Contains page content -->
 
@@ -80,15 +70,11 @@
 
     </section>
 
-
-
     <!-- Main content -->
 
     <section class="content">
 
       <div class="container-fluid">
-
-        
 
         <!-- SELECT2 EXAMPLE -->
 
@@ -97,8 +83,6 @@
           <div class="card-header">
 
             <h3 class="card-title">Scout Form</h3>
-
-
 
             <!-- <div class="card-tools">
 
@@ -118,15 +102,11 @@
 
           </div>
 
-
-
           <!-- /.card-header -->
 
           <div class="card-body">
 
               <form  method="POST" id="scoutUpdateAdmin_form">
-
-
 
                 <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" />
 
@@ -176,9 +156,6 @@
 
                   </div>
 
-
-
-
                   <div class="col-md-6">
 
                     <div class="form-group">
@@ -201,7 +178,6 @@
                   </div>
                   @endif
 
-
                   <div class="col-md-6">
 
                     <div class="form-group">
@@ -213,7 +189,6 @@
                     </div>
 
                   </div>
-
 
                   <div class="col-md-6">
 
@@ -228,7 +203,6 @@
                   </div>
 
 
-
                   <div class="col-md-6">
 
                     <div class="form-group">
@@ -240,8 +214,6 @@
                     </div>
 
                   </div>
-
-
 
                   <!-- <div class="col-md-6">
 
@@ -255,8 +227,6 @@
 
                   </div> -->
 
-
-
                   <div class="col-md-12">
 
                     <div class="form-group">
@@ -268,8 +238,6 @@
                     </div>
 
                   </div>
-
-
 
                   <div class="col-md-6">
 
@@ -283,60 +251,42 @@
 
                   </div>
 
-                  
-
                   <div class="col-md-6">
-
                     <div class="form-group">
-
                       <label>Country</label>
-
                       <!-- <div class="select2-purple"> -->
-
                         <select class="form-control select2bs4" name="user_countryu"  id="user_country" style="width: 100%;">
-
                         <!-- <option value="{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}">{{(!empty($user_info->user_country) ? $user_info->user_country : '')}}</option> -->
-
                           <!-- @foreach ($countries as $cont) -->
-
                             <!-- <option value="{{ $cont->id }}">{{ $cont->name }}</option> -->
-
                           <!-- @endforeach -->
-
-
-
                           <option value="">Select Country</option>
-
                             <?php
-
                             //print_r($country);
-
                             foreach ($countries as $value1) {
-
                             ?>
-
                             <option value="<?php echo $value1->id; ?>" <?php if ($user_info->user_country == $value1->id) {echo "selected";} ?>><?php echo $value1->name; ?>
-                              
                             </option>
-
                             <?php
-
                             }
-
                             ?>
-
                         </select>
-
                       <!-- </div>   -->
-
                     </div>
+                  </div>
 
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Contract information</h4>
+                      </p>
+                    </div>
                   </div>
 
                    <div class="col-md-6">
                     <div class="form-group">
                       <label>Status</label>
-                        <select class="form-control select2bs4" name="status"  id="status" style="width: 100%;">
+                        <select class="form-control select2bs4" name="statusu"  id="status" style="width: 100%;">
                           <option value="">Select Status</option>
                           <option value="Active" <?php if ($scout_details->status == 'Active') {echo "selected";} ?>>Active</option>
                           <option value="Suspended" <?php if ($scout_details->status == 'Suspended') {echo "selected";} ?>>Suspended</option>
@@ -347,7 +297,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Designation</label>
-                        <select class="form-control select2bs4" name="designation"  id="designation" style="width: 100%;">
+                        <select class="form-control select2bs4" name="designationu"  id="designation" style="width: 100%;">
                           <option value="">Select Status</option>
                           <option value="Senior CEX" <?php if ($scout_details->designation == 'Senior CEX') {echo "selected";} ?>>Senior CEX</option>
                           <option value="CEX" <?php if ($scout_details->designation == 'CEX') {echo "selected";} ?>>CEX</option>
@@ -362,117 +312,148 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Contract Date</label>
-                      <input type="text" class="form-control" name="contract_date" id="contract_date" placeholder="Contract Date" value="{{(!empty($scout_details->contract_date) ? $scout_details->contract_date : '')}}">
+                      <input type="text" class="form-control" name="contract_dateu" id="contract_date" placeholder="Contract Date" value="{{(!empty($scout_details->contract_date) ? $scout_details->contract_date : '')}}">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>NIC </label>
-                      <input type="text" class="form-control" name="nic" id="nic" placeholder="Enter NIC" value="{{(!empty($scout_details->nic) ? $scout_details->nic : '')}}">
+                      <input type="text" class="form-control" name="nicu" id="nic" placeholder="Enter NIC" value="{{(!empty($scout_details->nic) ? $scout_details->nic : '')}}">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>NIC Upload</label>
-                      <input type="file" class="form-control" name="nic_upload" id="nic_upload">
+                      <input type="file" class="form-control" name="nic_uploadu" id="nic_upload">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Contract Upload</label>
-                      <input type="file" class="form-control" name="contract_upload" id="contract_upload">
+                      <input type="file" class="form-control" name="contract_uploadu" id="contract_upload">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Salary Information</h4>
+                      </p>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Basic salary</label>
-                      <input type="text" class="form-control" name="basic_salary" id="basic_salary" value="{{(!empty($scout_details->basic_salary) ? $scout_details->basic_salary : '')}}">
+                      <input type="text" class="form-control" name="basic_salaryu" id="basic_salary" value="{{(!empty($scout_details->basic_salary) ? $scout_details->basic_salary : '')}}">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Transport allowance</label>
-                      <input type="text" class="form-control" name="transport_allowance" id="transport_allowance" value="{{(!empty($scout_details->transport_allowance) ? $scout_details->transport_allowance : '')}}">
+                      <input type="text" class="form-control" name="transport_allowanceu" id="transport_allowance" value="{{(!empty($scout_details->transport_allowance) ? $scout_details->transport_allowance : '')}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Other allowance</label>
-                      <input type="text" class="form-control" name="other_allowance" id="other_allowance" value="{{(!empty($scout_details->other_allowance) ? $scout_details->other_allowance : '')}}">
+                      <input type="text" class="form-control" name="other_allowanceu" id="other_allowance" value="{{(!empty($scout_details->other_allowance) ? $scout_details->other_allowance : '')}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Other allowance 1</label>
-                      <input type="text" class="form-control" name="other_allowance_1" id="other_allowance_1" value="{{(!empty($scout_details->other_allowance_1) ? $scout_details->other_allowance_2 : '')}}">
+                      <input type="text" class="form-control" name="other_allowance_1u" id="other_allowance_1" value="{{(!empty($scout_details->other_allowance_1) ? $scout_details->other_allowance_2 : '')}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Other allowance 2</label>
-                      <input type="text" class="form-control" name="other_allowance_2" id="other_allowance_2">
+                      <input type="text" class="form-control" name="other_allowance_2u" id="other_allowance_2" value="{{(!empty($scout_details->other_allowance_2) ? $scout_details->other_allowance_2 : '')}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Gross salary</label>
-                      <input type="text" class="form-control" name="gross_salary" id="gross_salary" value="{{(!empty($scout_details->gross_salary) ? $scout_details->gross_salary : '')}}">
+                      <input type="text" class="form-control" name="gross_salaryu" id="gross_salary" value="{{(!empty($scout_details->gross_salary) ? $scout_details->gross_salary : '')}}">
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Other benefits</label>
-                      <input type="text" class="form-control" name="other_benefits" id="other_benefits" value="{{(!empty($scout_details->other_benefits) ? $scout_details->other_benefits : '')}}">
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Other Benifits</h4>
+                      </p>
                     </div>
                   </div>
+
+                  <div class="col-md-12 mt-0">
+                    <!-- <div class="tab-custom-content mt-0"> -->
+                      <p class="lead mb-0">
+                      <h5>Fixed Commission</h5>
+                      </p>
+                    <!-- </div> -->
+                  </div>
+
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Hotel commission</label>
-                      <input type="text" class="form-control" name="hotel_commission" id="hotel_commission" value="{{(!empty($scout_details->hotel_commission) ? $scout_details->hotel_commission : '')}}">
+                      <input type="text" class="form-control" name="hotel_commissionu" id="hotel_commission" value="{{(!empty($scout_details->hotel_commission) ? $scout_details->hotel_commission : '')}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Tour commision</label>
-                      <input type="text" class="form-control" name="tour_commision" id="tour_commision" value="{{(!empty($scout_details->tour_commision) ? $scout_details->tour_commision : '')}}">
+                      <input type="text" class="form-control" name="tour_commisionu" id="tour_commision" value="{{(!empty($scout_details->tour_commision) ? $scout_details->tour_commision : '')}}">
                     </div>
                   </div>
 
                    <div class="col-md-6">
                     <div class="form-group">
-
                       <label>Space commission</label>
-
-                      <input type="text" class="form-control" name="space_commission" id="space_commission" value="{{(!empty($scout_details->space_commission) ? $scout_details->space_commission : '')}}">
-
+                      <input type="text" class="form-control" name="space_commissionu" id="space_commission" value="{{(!empty($scout_details->space_commission) ? $scout_details->space_commission : '')}}">
                     </div>
-
                   </div>
                    <div class="col-md-6">
-
                     <div class="form-group">
-
                       <label>Event commission</label>
-
-                      <input type="text" class="form-control" name="event_commission" id="event_commission" value="{{(!empty($scout_details->event_commission) ? $scout_details->event_commission : '')}}">
-
+                      <input type="text" class="form-control" name="event_commissionu" id="event_commission" value="{{(!empty($scout_details->event_commission) ? $scout_details->event_commission : '')}}">
                     </div>
+                  </div>
 
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Performance</h4>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Rating</label>
+                      <input type="text" class="form-control" name="ratingu" id="rating" value="{{(!empty($scout_details->rating) ? $scout_details->rating : '')}}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Year</label>
+                      <input type="text" class="form-control" name="yearu" id="year" value="{{(!empty($scout_details->year) ? $scout_details->year : '')}}">
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Remarks</label>
+                      <textarea class="form-control" id="remarks" name="remarksu" required>{{(!empty($scout_details->remarks) ? $scout_details->remarks : '')}}</textarea>
+                    </div>
                   </div>
 
                   <div class="col-12">
-
-
-
                     <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>
-
-
-
                   </div>
 
 

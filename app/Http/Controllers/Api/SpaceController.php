@@ -26,6 +26,28 @@ use Mail;
 
 class SpaceController extends APIBaseController
 {
+    
+    public function space_cities(Request $request)
+    {
+        $categories = DB::table('space')->groupBy('city')->where('status', 1)->get();
+
+        if($categories){
+            $space_cities = array();
+            $baseurl = url('/public/uploads/space_images/cat_img');
+            foreach($categories as $key=>$value){
+                $space_cities[] = array(
+                    'city'=>$value->city,
+                );
+            }
+            return response()->json(['status'=>'Success', 
+                'msg' => 'Space city list successfully',
+                'response'=> ['space_cities' => $space_cities]
+            ]);
+        }else{
+            return response()->json(['status'=>'Failure', 'msg' => 'No city found']); 
+        }
+    }
+
     public function space_type_list(Request $request)
     {
     	
@@ -210,31 +232,19 @@ class SpaceController extends APIBaseController
                 }
             }else{
                 $space_latitude = $request->space_latitude;
-       
-        
-        
-                $space_longitude = $request->space_longitude;
-           
-
+                
+                $space_longitude = $request->space_longitude; 
             
                 $space_location = $request->space_location;
+         
+                $space_name = $request->space_name; 
             
-
-            
-                $space_name = $request->space_name;
-            
-
-            
-                $checkin_date = date('Y-m-d', strtotime($request->start_date));
-           
-
+                $checkin_date = date('Y-m-d', strtotime($request->start_date)); 
             
                 $checkout_date = date('Y-m-d', strtotime($request->end_date));
-                
-
+                 
                 $space_city = explode(',', $space_location);
-                
-
+                 
                 $date1_ts = strtotime($checkin_date);
                 $date2_ts = strtotime($checkout_date);
                 $diff = $date2_ts - $date1_ts;
@@ -318,9 +328,7 @@ class SpaceController extends APIBaseController
                 $data['categories'] = DB::table('space_categories')->where('status', 1)->get();
                 $data['subcategories'] = DB::table('space_sub_categories')->where('status', 1)->get();
                 $data['features'] = $features;
-
-                
-
+ 
                 $data['space_country'] = DB::table('space')
                     ->select(
                         'space.space_country as country_id',
@@ -348,13 +356,20 @@ class SpaceController extends APIBaseController
 
     public function spaceById(Request $request){
 
-        $space_id = $request->space_id;
+        $category_id = $request->category_id;
+        $city_name = $request->city_name;
 
-        if($space_id){
-            $space_data = DB::table('space')->where('category_id',$space_id)->get();
+        if($category_id){
+            if (!empty($city_name)) {
+                $space_data = DB::table('space')->where('category_id',$category_id)->where('city',$city_name)->get();
+            }else{
+                $space_data = DB::table('space')->where('category_id',$category_id)->get();
+            }
+            
     
+            //print_r($space_data);
 
-            $space_name = DB::table('space_categories')->where('scat_id',$space_id)->get();
+            $space_name = DB::table('space_categories')->where('scat_id',$category_id)->get();
             
             
             $space_data_by_category = array();

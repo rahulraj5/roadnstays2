@@ -76,6 +76,18 @@
     background-color: #36c6d3;
   }
 
+  .label-confirm {
+    background-color: #DE3163;
+  }
+
+  .label-canceled {
+    background-color: #E97451;
+  }
+
+  .label-info {
+    background-color: #50C878;
+  }
+
   .static-info .value {
     font-size: 14px;
     font-weight: 600;
@@ -136,6 +148,22 @@
   }
 
   span.label.label-success {
+    color: #fff;
+    padding: 5px 10px;
+  }
+
+  span.label.label-confirm {
+    color: #fff;
+    padding: 5px 10px;
+  }
+  /* #50C878 */
+
+  span.label.label-canceled {
+    color: #fff;
+    padding: 5px 10px;
+  }
+
+  span.label.label-info {
     color: #fff;
     padding: 5px 10px;
   }
@@ -414,7 +442,9 @@
               <section class="order_Detail_s">
                 <div class="container-fluid">
                   <div class="row"> 
-                    <div class="col-md-6 col-sm-12">
+
+                  <div class="col-md-6">
+                    <div class="col-md-12 col-sm-12">
                       <div class="order_Detail_main_s">
                         <div class="portlet yellow-crusta box">
                           <div class="portlet-title">
@@ -444,6 +474,27 @@
 
                               <div class="col-md-7 value"> {{ date('d-M-Y h:i A', strtotime($bookingList->created_at)) }} </div>
 
+                            </div>
+
+                            <div class="row static-info">
+                              <div class="col-md-5 name"> Transaction Id: </div>
+                              <div class="col-md-7 value"> #{{ $bookingList->payment_token }}
+                              </div>
+                            </div>
+
+                            <div class="row static-info">
+                              <div class="col-md-5 name"> Booking Status: </div>
+                              <div class="col-md-7 value">
+                                @if($bookingList->booking_status == "confirmed")
+                                  <span class="label label-confirm"> {{ $bookingList->booking_status }} </span>
+                                @elseif($bookingList->booking_status == "canceled")
+                                  <span class="label label-canceled"> {{ $bookingList->booking_status }} </span>
+                                @elseif($bookingList->booking_status == "processing" || $bookingList->booking_status == "pending")
+                                  <span class="label label-info"> {{ $bookingList->booking_status }} </span>
+                                @else
+                                  <span class="label label-info"> {{ $bookingList->booking_status }} </span>
+                                @endif
+                              </div>
                             </div>
 
                             <div class="row static-info">
@@ -478,57 +529,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
-                      <div class="order_Detail_main_s">
-                        <div class="portlet blue-hoki box">
-                          <div class="portlet-title">
-                            <div class="caption">
-                              <i class="fa fa-cogs"></i>
-                              Customer Information
-                            </div>
-                          </div>
-                          <div class="portlet-body">
-
-                            <div class="row static-info">
-
-                              <div class="col-md-5 name"> Customer Name: </div>
-
-                              <div class="col-md-7 value"> {{ $bookingList->user_first_name }} {{ $bookingList->user_last_name }}</div>
-
-                            </div>
-
-                            <div class="row static-info">
-
-                              <div class="col-md-5 name"> Email: </div>
-
-                              <div class="col-md-7 value"> {{ $bookingList->user_email }} </div>
-
-                            </div>
-
-                            <div class="row static-info">
-
-                              <div class="col-md-5 name"> Address: </div>
-
-                              <div class="col-md-7 value"> {{ $bookingList->user_address }}
-                                <br> {{ $bookingList->user_city }} {{ $bookingList->user_postal_code }} {{ $bookingList->user_country }},
-
-                              </div>
-
-                            </div>
-
-                            <div class="row static-info">
-
-                              <div class="col-md-5 name"> Phone Number: </div>
-
-                              <div class="col-md-7 value"> {{ $bookingList->user_contact_num }} </div>
-
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                       <div class="order_Detail_main_s">
                         <div class="portlet green-meadow box">
                           <div class="portlet-title">
@@ -576,7 +577,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                       <div class="order_Detail_main_s">
                         <div class="portlet red-sunglo box">
                           <div class="portlet-title">
@@ -622,7 +623,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                       <div class="order_Detail_main_s">
                         <div class="portlet blue-hoki box">
                           <div class="portlet-title">
@@ -681,7 +682,95 @@
                         </div>
                       </div>
                     </div>
+                  </div>
 
+                  <div class="col-md-6">  
+                    <div class="col-md-12 col-sm-12">
+                      <div class="order_Detail_main_s">
+                        <div class="portlet blue-hoki box">
+                          <div class="portlet-title">
+                            <div class="caption">
+                              <i class="fa fa-cogs"></i>
+                              Customer Information
+                            </div>
+                          </div>
+                          <div class="portlet-body">
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Customer Name: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->user_first_name }} {{ $bookingList->user_last_name }}</div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Email: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->user_email }} </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Address: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->user_address }}
+                                <br> {{ $bookingList->user_city }} {{ $bookingList->user_postal_code }} {{ $bookingList->user_country }},
+
+                              </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Phone Number: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->user_contact_num }} </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Document Number: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->document_number }} </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Document Type: </div>
+
+                              <div class="col-md-7 value"> {{ $bookingList->document_type }} </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Front Document Img: </div>
+
+                                <div class="col-md-7 value">
+                                  <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->front_document_img}}" alt="" style="height: 130px;"> 
+                                </div>
+
+                            </div>
+
+                            <div class="row static-info">
+
+                              <div class="col-md-5 name"> Back Document Img: </div>
+                                <div class="col-md-7 value">
+                                  <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->back_document_img}}" alt="" style="height: 130px;"> 
+                                </div>
+
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                   </div>
                 </div>

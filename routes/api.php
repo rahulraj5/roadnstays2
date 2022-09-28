@@ -17,7 +17,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
 
 Route::post('register', 'Api\ApiLoginController@register')->middleware('CheckToken');
 Route::post('login', 'Api\ApiLoginController@loginUser')->middleware('CheckToken');
-
+Route::post('home_page','Api\WsController@home_page')->middleware('CheckToken');
 Route::post('hotel_list','Api\WsController@hotel_list')->middleware('CheckToken');
 Route::post('hotel_detail','Api\WsController@hotel_details')->middleware('CheckToken');
 Route::post('room_detail','Api\WsController@room_details')->middleware('CheckToken');
@@ -37,6 +37,7 @@ Route::post('change_password','Api\ApiLoginController@changePassword')->middlewa
 Route::post('events_list','Api\EventController@events_list')->middleware('CheckToken');
 Route::post('event_details','Api\EventController@event_details')->middleware('CheckToken');
 Route::post('event_details_test','Api\EventController@event_details_test')->middleware('CheckToken');
+Route::post('space_cities','Api\SpaceController@space_cities')->middleware('CheckToken');
 Route::post('space_type_list','Api\SpaceController@space_type_list')->middleware('CheckToken');
 Route::post('space_list','Api\SpaceController@topFamousSpaces')->middleware('CheckToken');
 Route::post('space_country_list','Api\SpaceController@space_coutrywise')->middleware('CheckToken');
@@ -48,6 +49,7 @@ Route::post('spaceByLocation','Api\SpaceController@spaceByLocation')->middleware
 Route::post('spaceById','Api\SpaceController@spaceById')->middleware('CheckToken');
 Route::post('spaceDetails','Api\SpaceController@spaceDetails')->middleware('CheckToken');
 Route::post('change_daterange_session','Api\SpaceController@change_daterange_session')->middleware('CheckToken');
+
 });
 Route::get('changeStatus','Api\ApiLoginController@changeStatus');
 
