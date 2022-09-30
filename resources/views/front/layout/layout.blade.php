@@ -20,7 +20,11 @@
    <link href="https://fonts.cdnfonts.com/css/requited-script-demo" rel="stylesheet">
 
    <link href="{{asset('resources/assets/vendor/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+
+   <!-- Daterangepicker -->
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <!-- <link href="{{asset('resources/css/daterangemaster/daterangepicker.min.css')}}" rel="stylesheet"> -->
+
    <link href = "{{ asset('resources/assets/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
    <link href = "{{ asset('resources/assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
@@ -175,7 +179,10 @@
    <script src="{{ asset('resources/js/raone/jquery.form.js') }}"></script>
    <script src="{{ asset('resources/assets/js/forms.js') }}"></script>
    
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+      <!-- Daterangepicker -->
+   <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+   <script src="{{ asset('resources/css/daterangemaster/daterangepicker.js') }}"></script>
+   <!-- <script src="{{ asset('resources/css/daterangemaster/jquery.daterangepicker.min.js') }}"></script> -->
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
    </script>

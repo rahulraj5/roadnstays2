@@ -188,26 +188,26 @@ class ScoutController extends Controller
 
 
 
-        if($request->hasFile('nic_uploadu'))
-        {
-            if(!empty($request->old_nic_upload))
-            {
-                $filePath = public_path('uploads/profile_img/'. $request->old_nic_upload);
-                if(file_exists($filePath)){
-                    $oldImagePath = './public/uploads/profile_img/' . $request->old_nic_upload;
-                    unlink($oldImagePath);
-                }
-            }
-            $image_name = $request->file('nic_uploadu')->getClientOriginalName();
-            $filename = pathinfo($image_name1,PATHINFO_FILENAME);
-            $image_ext = $request->file('nic_uploadu')->getClientOriginalExtension();
-            $nic_upload = $filename.'-'.'profile_picture'.'-'.time().'.'.$image_ext;
-            $path = base_path() . '/public/uploads/profile_img';
-            $request->file('old_nic_upload')->move($path,$nic_upload);
-        }else{
-            $nic_upload = $request->old_nic_upload;
-        }
-
+        // if($request->hasFile('nic_uploadu'))
+        // {
+        //     if(!empty($request->old_nic_upload))
+        //     {
+        //         $filePath = public_path('uploads/profile_img/'. $request->old_nic_upload);
+        //         if(file_exists($filePath)){
+        //             $oldImagePath = './public/uploads/profile_img/' . $request->old_nic_upload;
+        //             unlink($oldImagePath);
+        //         }
+        //     }
+        //     $image_name = $request->file('nic_uploadu')->getClientOriginalName();
+        //     $filename = pathinfo($image_name,PATHINFO_FILENAME);
+        //     $image_ext = $request->file('nic_uploadu')->getClientOriginalExtension();
+        //     $nic_upload = $filename.'-'.'profile_picture'.'-'.time().'.'.$image_ext;
+        //     $path = base_path().'/public/uploads/profile_img';
+        //     $request->file('profile_picture')->move($path,$nic_upload);
+        // }else{
+        //     $nic_upload = $request->old_nic_upload;
+        // }
+        $nic_upload = $request->old_nic_upload;
 
         if($request->hasFile('contract_upload'))
         {

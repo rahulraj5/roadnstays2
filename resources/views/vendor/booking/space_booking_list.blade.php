@@ -102,138 +102,53 @@
 @endsection
 
 @section('content')
-
-
 <div class="row d-flex flex-wrap p-3">
-
-  <!-- <div class="row"> -->
-
   <div class="col-12">
-
-    <!-- <div class="row">
-
-                    <div class="col-md-11">Booking List</div>
-
-                    <div class="col-md-1"><a href="{{ url('/servicepro/addHotel') }}" class="btn btn-block btn-dark">Add</a></div>
-
-                  </div> -->
-
-
-
     <div class="card">
-
-      <!-- <div class="card-header">
-
-                                              <h3 class="card-title">DataTable</h3>
-
-                                            </div> -->
-
-
-
-      <!-- /.card-header -->
-
       <div class="card-body table-responsive">
-
         <table id="example" class="table table-bordered table-striped bk-listing">
-
           <thead>
-
             <tr>
-
               <th>SNo.</th>
-
               <th>Booking Id</th>
-
               <th>Space Name</th>
-
               <th>User Name</th>
-
               <th>User Contact Info</th>
-
               <th>Space City</th>
-
               <th>Payment Type</th>
-
               <th>Payment Status</th>
-
               <th>Status</th>
-
               <th>Action</th>
-
             </tr>
-
           </thead>
-
           <tbody>
-
             @if (!$bookingList->isEmpty())
-
             <?php $i = 1; ?>
-
             @foreach ($bookingList as $arr)
-
             <tr id="row{{ $arr->id }}">
               <td>{{ $i }}</td>
-
               <td>{{ $arr->space_booking_id }}</td>
-
               <td>{{ $arr->space_name }}</td>
-
               <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
-
               <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-
               <td>{{ $arr->city }}</td>
-
               <td>{{ $arr->payment_type }}</td>
-
               <td>{{ $arr->payment_status }}</td>
-
-
               <td>{{ $arr->booking_status }}</td>
-              
-
               <td class="text-right py-0 align-middle">
-
                 <div class="btn-group btn-group-sm">
-
                   <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
-                  
-
                 </div>
-
               </td>
-
-
-
             </tr>
-
             <?php $i++; ?>
-
             @endforeach
-
-
-
             @endif
-
           </tbody>
-
         </table>
-
       </div>
-
-      <!-- /.card-body -->
-
     </div>
-
-    <!-- /.card -->
-
   </div>
-
-  <!-- /.col -->
-
-  <!-- </div> -->
-
 </div>
 </div>
 </div>

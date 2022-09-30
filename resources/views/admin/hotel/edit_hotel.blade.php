@@ -1633,10 +1633,10 @@
 
                               <div class="row form-group">
                                 <div class="col-md-3">
-                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][min_refund_day]" placeholder="Enter Day" value="{{ $value->min_refund_day }}" />
+                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][min_refund_day]" placeholder="Enter Day" value="{{ $value->min_refund_day ?? '' }}" />
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][deduct_percentage]" placeholder="Enter Percentage" value="{{ $value->deduct_percentage }}" />
+                                  <input type="text" class="form-control" name="refund[@php echo $key; @endphp][deduct_percentage]" placeholder="Enter Percentage" value="{{ $value->deduct_percentage ?? '' }}" />
                                 </div>
                                 @if($key == 0)
                                 <span><a href="javascript:void(0);" class="add_refund_button" title="Add field">Add</a></span>

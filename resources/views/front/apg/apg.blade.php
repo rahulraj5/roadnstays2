@@ -113,14 +113,85 @@
  
 ?>
 
+
 <main id="main">
    <section style="padding-top: 80px; background-color: #f6f6f6;">
       <div class="container">
         <div class="row">
-            <div class="col-md-12 rew-heding">
-               <h3>Booking Payment Online</h3>
+            <div class="col-md-12 rew-heding p-0">
+               <h3 style="padding: 22px;">Booking Payment Online</h3>
             </div>
-            <div class="col-md-9">
+        </div>
+      <div class="row">
+            <div class="col-md-12 " style="background: #FFF; padding: 22px;">
+
+    			<div class="page-detail">
+                   <h5 class="p-0 m-0 citi-omr">{{$title}}</h5>
+                   <span>★★★</span>
+                   <p> {{$address}}</p>
+                </div>
+
+                <div class="runs-andpay-pay font-s">
+                    <div class="date1">
+                       <span>CHECK IN</span>
+                       <h3>{{$start_date}}</h3>
+                       <!-- <small>Friday</small> -->
+                    </div>
+                    <div class="date3">
+                       <!-- <small>1 Night</small><br> -->
+                       <i class="bx bx-transfer-alt"></i>
+                    </div>
+                    <div class="date1">
+                       <span>CHECK OUT</span>
+                       <h3> {{$end_date}}</h3>
+                       <!-- <small>Saturday</small> -->
+                    </div>
+                    <div class="date1">
+                    	<span>Amount</span>
+                       <h3> PKR {{$price}}</h3>
+                    </div>
+                </div>
+
+			</div>
+
+			 <div class="col-md-12 " style="background: #FFF; padding: 22px;">
+			 	<div class="name-payment-mode">
+			 	<h3> User Information </h3>
+
+			 	</div>
+
+				<div class="name-payment">
+				 	<div class="flex-bas">
+				 		<h4> First name</h4>
+				 		<h4> {{$first_name}}</h4>
+				 	</div>
+
+				 	<div class="flex-bas">
+				 		<h4> Last name</h4>
+				 		<h4> {{$last_name}}</h4>
+				 	</div>
+
+				 	<div class="flex-bas">
+				 		<h4> Mobile phone number </h4>
+				 		<h4> {{$mobile}}</h4>
+				 	</div>
+
+				 	<div class="flex-bas">
+				 		<h4> Choose Identity Document  </h4>
+				 		<h4> {{$document_type}}</h4>
+				 	</div>
+
+				 	<div class="flex-bas">
+				 		<h4> Document Number </h4>
+				 		<h4> {{$document_number}}</h4>
+				 	</div>
+
+				</div>
+
+			 </div>
+ 	</div>
+            </div>
+            <div class="col-md-12">
             <form action="https://sandbox.bankalfalah.com/SSO/SSO/SSO" id="PageRedirectionForm" method="post" novalidate="novalidate">                                                              
                 <input id="AuthToken" name="AuthToken" type="hidden" value="<?php echo $AuthToken; ?>">                                                                                                                                
                 <input id="RequestHash" name="RequestHash" type="hidden" value="<?php echo $hashRequest1; ?>">                                                                                                                            

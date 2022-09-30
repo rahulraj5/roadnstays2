@@ -1,6 +1,10 @@
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
+<!-- Daterangepicker -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
+<!-- <link href="{{asset('resources/css/daterangemaster/daterangepicker.css')}}" rel="stylesheet"> -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 <style type="text/css">
     .owl-carousel .owl-stage-outer {
@@ -83,6 +87,9 @@
 @endsection
 
 @section('current_page_js')
+<!-- Daterangepicker -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+<!-- <script src="{{ asset('resources/css/daterangemaster/jquery.daterangepicker.js') }}"></script> -->
 
 <script>
     $(document).ready(function() {
@@ -265,6 +272,7 @@
     // var disabledArr1 = ["09/01/2022","09/02/2022"];
     var disabledArr = JSON.parse('<?php echo $space_booked_date; ?>');
     $(function() {
+        // $('.reserved').dateRangePicker({
         $('.reserved').daterangepicker({
             isInvalidDate: function(arg) {
                 var thisMonth = arg._d.getMonth() + 1;
@@ -281,11 +289,10 @@
                     return true;
                 }
             },
-            // showDateFilter: function(time, date)
-            // {
+            // showDateFilter: function(time, date) {
             //     return '<div style="padding:0 5px;">\
-            //                 <span style="font-weight:bold">'+date+'</span>\
-            //                 <div style="opacity:0.3;">$'+Math.round(Math.random()*999)+'</div>\
+            //                 <span style="font-weight:bold">' + date + '</span>\
+            //                 <div style="opacity:0.3;">PKR' + Math.round(Math.random() * 999) + '</div>\
             //             </div>';
             // },
             // linkedCalendars: true,
@@ -303,7 +310,32 @@
             // defaultDate: new Date(),
             // minDate: today_date,
             "opens": "center",
-            "drops": "auto"
+            "drops": "auto",
+
+            // new calendar start from here
+            // autoClose: true,
+            // format: 'DD-MM-YYYY',
+            // minDays: 2,
+            // selectForward: true,
+            // selectBackward: false,
+            // showWeekNumbers: false,
+            // showTopbar: false,
+            // monthSelect: true,
+            // yearSelect: true,
+            // startDate: today,
+            // // endDate: moment().endOf('day').format('DD-MM-YYYY'),
+            // // dayDivAttrs: [],
+            // // dayTdAttrs: [],
+            // getValue: function() {
+            //     if ($('#space_checkin_date').val() && $('#space_checkout_date').val())
+            //         return $('#space_checkin_date').val() + ' to ' + $('#space_checkout_date').val();
+            //     else
+            //         return '';
+            // },
+            // setValue: function(s, s1, s2) {
+            //     $('#space_checkin_date').val(s1);
+            //     $('#space_checkout_date').val(s2);
+            // },
         }, function(start, end, label) {
             console.log(end.format('DD-MM-YYYY'));
             $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
@@ -352,6 +384,7 @@
         });
     }
 </script>
+
 <script>
     // $('.daterange_detail').on('change', function(e) {
     $(".daterange_detail_btn").click(function(e) {

@@ -62,7 +62,8 @@ $("#userLogin_form").validate({
 
             }else{
 
-              setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
+              // setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
+              setTimeout(function(){window.location.reload()},1000);
 
             }
 
@@ -384,79 +385,79 @@ $("#profileUpdate_form").validate({
 
 
 
-$("#userLogin_form").validate({
+// $("#userLogin_form").validate({
 
-    debug: false,
+//     debug: false,
 
-    rules: {
+//     rules: {
 
-      email: {
+//       email: {
 
-        required: true,
+//         required: true,
 
-        email: true,
+//         email: true,
 
-      },
+//       },
 
-      password: {
+//       password: {
 
-        required: true
+//         required: true
 
-      }
+//       }
 
-    },
+//     },
 
-    submitHandler: function (form) {
+//     submitHandler: function (form) {
 
-      var site_url = $("#baseUrl").val();
+//       var site_url = $("#baseUrl").val();
 
-    //   alert(site_url);
+//     //   alert(site_url);
 
-      var formData = $(form).serialize();
+//       var formData = $(form).serialize();
 
-      $(form).ajaxSubmit({
+//       $(form).ajaxSubmit({
 
-        type: 'POST',
+//         type: 'POST',
 
-        url: site_url + '/user/loginPost',
+//         url: site_url + '/user/loginPost',
 
-        data: formData,
+//         data: formData,
 
-        success: function (response) {
+//         success: function (response) {
 
-          // console.log(response);
+//           // console.log(response);
 
-          if (response.status == 'success') {
-            $("#userLogin_form")[0].reset();
-            success_noti(response.msg);
+//           if (response.status == 'success') {
+//             $("#userLogin_form")[0].reset();
+//             success_noti(response.msg);
 
-            if(response.role == 'vendor'){
+//             if(response.role == 'vendor'){
 
-              // setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
+//               // setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
 
-            }else{
+//             }else{
 
-              setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
+//               // setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
+//               setTimeout(function(){window.location.reload()},1000);
+//             }
 
-            }
+//             // setTimeout(function(){window.location.reload()},1000);
 
-            // setTimeout(function(){window.location.reload()},1000);
+//           } else {
 
-          } else {
+//             error_noti(response.msg);
 
-            error_noti(response.msg);
+//           }
 
-          }
+//         }
 
-        }
+//       });
 
-      });
+//       // event.preventDefault();
 
-      // event.preventDefault();
+//     }
 
-    }
-
-});
+// });
 
 $('#userForgetPass').validate({
   // initialize the plugin

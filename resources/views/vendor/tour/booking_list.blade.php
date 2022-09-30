@@ -24,12 +24,12 @@
   }*/
 </style>
 <style>
-  .btn_add{
-  margin-left: 20px; 
-  top: 55px; 
-  position: relative; 
-  z-index: 999999;
-}
+  .btn_add {
+    margin-left: 20px;
+    top: 55px;
+    position: relative;
+    z-index: 999999;
+  }
 </style>
 @endsection
 
@@ -52,11 +52,106 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script type="text/javascript">
-  function deleteConfirmation(id) {
-    toastDelete.fire({
-    }).then(function(e) {
+  function issueInvoiceConfirmation(id) {
+    toastDelete.fire({}).then(function(e) {
       if (e.value === true) {
-          // alert(id);
+        // alert(id);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/servicepro/issueInvoiceTour')}}",
+          data: {
+            id: id,
+            _token: CSRF_TOKEN
+          },
+          dataType: 'JSON',
+          success: function(results) {
+            // $("#row" + id).remove();
+            // console.log(results);
+            success_noti(results.msg);
+            setTimeout(function() {
+              window.location.reload()
+            }, 1000);
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  function rejectBookingReqConfirmation(id) {
+    toastDelete.fire({}).then(function(e) {
+      if (e.value === true) {
+        // alert(id);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/servicepro/rejectBookingRequestTour')}}",
+          data: {
+            id: id,
+            _token: CSRF_TOKEN
+          },
+          dataType: 'JSON',
+          success: function(results) {
+            // $("#row" + id).remove();
+            // console.log(results);
+            success_noti(results.msg);
+            setTimeout(function() {
+              window.location.reload()
+            }, 1000);
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  function deleteInvoiceConfirmation(id) {
+    toastDelete.fire({}).then(function(e) {
+      if (e.value === true) {
+        // alert(id);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/servicepro/deleteInvoiceTour')}}",
+          data: {
+            id: id,
+            _token: CSRF_TOKEN
+          },
+          dataType: 'JSON',
+          success: function(results) {
+            // $("#row" + id).remove();
+            // console.log(results);
+            success_noti(results.msg);
+            setTimeout(function() {
+              window.location.reload()
+            }, 1000);
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+</script>
+
+<script type="text/javascript">
+  function deleteConfirmation(id) {
+    toastDelete.fire({}).then(function(e) {
+      if (e.value === true) {
+        // alert(id);
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
@@ -70,7 +165,9 @@
             $("#row" + id).remove();
             // console.log(results);
             success_noti(results.msg);
-            setTimeout(function() { window.location.reload() }, 1000);
+            setTimeout(function() {
+              window.location.reload()
+            }, 1000);
           }
         });
       } else {
@@ -83,7 +180,7 @@
 </script>
 <script>
   $('.toggle-class').on('change', function() {
-    var status = $(this).prop('checked') == true ? 1 : 0; 
+    var status = $(this).prop('checked') == true ? 1 : 0;
     var id = $(this).data('id');
     // alert(status);
     // alert(user_id);
@@ -91,8 +188,11 @@
       type: "GET",
       dataType: "json",
       url: "<?php echo url('/admin/changeTourStatus'); ?>",
-      data: {'status': status, 'id': id},
-      success: function(data){
+      data: {
+        'status': status,
+        'id': id
+      },
+      success: function(data) {
         success_noti(data.success);
         // console.log(data);
         // $('#success_message').fadeIn().html(data.success);
@@ -109,137 +209,70 @@
 @endsection
 
 @section('content')
-
-
-
-            <!-- <div class="row d-flex flex-wrap p-3"> -->
-
-              <!-- <div class="row"> -->
-
-              <!-- <div class="col-12">
-
-                <div class="row">
-
-                  <div class="col-md-11"></div>
-
-                  <div class="col-md-1"> -->
-                  <!-- <div> -->
-                    <!-- <a href="{{ url('/servicepro/addHotel') }}" class="btn btn-primary btn-dark btn_add">Add</a> -->
-                  <!-- </div> -->
-
-            <!-- </div> -->
-            <a href="{{ url('/servicepro/addTour') }}" class="btn btn-primary btn-dark btn_add htl-add">Add</a>
-            <div class="card hotel_info-card">
-
-              <!-- <div class="card-header">
-
-                                              <h3 class="card-title">DataTable</h3>
-
-                                            </div> -->
-
-              <!-- /.card-header -->
-
-               <div class="card-body table-responsive">
-
-                                <table id="example1" class="table table-bordered table-striped htl-listing">
-
-                                    <thead>
-
-                                        <tr>
-
-                                      <th>SNo.</th>
-
-                                      <th>Tour Name</th>
-
-                                      <th>User Name</th>
-
-                                      <th>User Contact Info</th>
-
-                                      <th>Tour City</th>
-
-                                      <th>Payment Type</th>
-
-                                      <th>Payment Status</th>
-
-                                      <th>Status</th>
-
-                                      <th>Action</th>
-
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        @if (!$bookingList->isEmpty())
-
-                  <?php $i = 1; ?>
-
-                  @foreach ($bookingList as $arr)
-
-                  <tr id="row{{ $arr->id }}">
-
-                    <td>{{ $i }}</td>
-
-                    <td>{{ $arr->tour_title }}</td>
-
-                    <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
-
-                    <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-
-                    <td>{{ $arr->city }}</td>
-
-                    <td>{{ $arr->payment_type }}</td>
-
-                    <td>{{ $arr->payment_status }}</td>
-
-                    <td>{{ $arr->booking_status }}</td>
-                    
-
-                    <td class="text-right py-0 align-middle">
-
-                      <div class="btn-group btn-group-sm">
-
-                        <a href="{{url('/servicepro/viewtourBooking')}}/{{$arr->id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
-
-                      </div>
-
-                    </td>
-
-
-
-                  </tr>
-
-                  <?php $i++; ?>
-
-                  @endforeach
-
-
-
-                  @endif
-
-                                    </tbody>
-
-                                </table>
-
+<div class="row d-flex flex-wrap p-3">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body table-responsive">
+        <table id="example" class="table table-bordered table-striped bk-listing">
+          <thead>
+            <tr>
+              <th>SNo.</th>
+              <th>Booking Id</th>
+              <th>Tour Name</th>
+              <th>User Name</th>
+              <!-- <th>User Contact Info</th> -->
+              <th>Period</th>
+              <th>Approve Booking</th>
+              <th>Payment Type</th>
+              <th>Payment Status</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (!$bookingList->isEmpty())
+            <?php $i = 1; ?>
+            @foreach ($bookingList as $arr)
+            <tr id="row{{ $arr->id }}">
+              <td>{{ $i }}</td>
+              <td>{{ $arr->id }}</td>
+              <td>{{ $arr->tour_title }}</td>
+              <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
+              <!-- <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td> -->
+              <td>From: {{ $arr->tour_start_date }} to: {{ $arr->tour_end_date }}</td>
+              <td>@if($arr->booking_option == 2)
+                  <div class="btn-group btn-group-sm">
+                    <!-- <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a> -->
+                    <a href="javascript:void(0)" onclick="issueInvoiceConfirmation('<?php echo $arr->id; ?>');" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a>
+                  </div>  
+                  <div class="btn-group btn-group-sm mt-1">
+                    <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
+                  </div>  
+                  @else {{ "Instant Booking"}} 
+                  @endif</td>
+              <td>{{ $arr->payment_type }}</td>
+              <td>{{ $arr->payment_status }}</td>
+              <td>{{ $arr->booking_status }}</td>
+              <td class="text-right py-0 align-middle">
+                <div class="btn-group btn-group-sm">
+                  <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
                 </div>
-              <!-- /.card-body -->
-
-            </div>
-
-            <!-- /.card -->
-
-          </div>
-
-          <!-- /.col -->
-
-          <!-- </div> -->
-
-        </div>
+              </td>
+            </tr>
+            <?php $i++; ?>
+            @endforeach
+            @endif
+          </tbody>
+        </table>
       </div>
     </div>
-    </div>
-    </div>
-  </section>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </main>
 <!-- End #main -->
 @endsection

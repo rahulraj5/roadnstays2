@@ -658,6 +658,90 @@ class BookingController extends Controller
         return view('front/booking/tour_booking_canceled_detail')->with($data);
     }
 
+    public function request_booking_tour(Request $request)
+    {
+        // $u_id = Auth::user()->id;
+        // $tour_id = $request->tour_id;
+        // echo "<pre>";print_r($u_id);
+        // echo "<pre>";print_r($tour_id);
+        // echo "<pre>";print_r($request->all());die;
+        $user_id = Auth::user()->id;
+        $tour_id = $request->tour_id;
+        $tour_price = $request->tour_price;
+        $tour_start_date = $request->tour_start_date;
+        $tour_end_date = $request->tour_end_date;
+
+        $check = DB::table('tour_booking_request')->where('tour_id', '=', $tour_id)->where('user_id', '=', $user_id)->first();
+        if($check){
+            $deleteRequest = DB::table('tour_booking_request')->where('tour_id', '=', $tour_id)->where('user_id', '=', $user_id)->delete();
+        }    
+
+        $requestData = DB::table('tour_booking_request')->insert(
+            array(
+                'tour_id' =>  $tour_id,
+                'user_id' =>  $user_id,
+                'request_status' =>  1,
+                'created_at' =>  date('Y-m-d H:i:s')
+            )
+        );
+        if($requestData)
+        {
+            return response()->json(['status' => 'success', 'msg' => 'Booking Request sent. Please wait for owner"s Confirmation!']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
+        }
+
+
+        // $email = $request->email;
+        // $first_name = $request->first_name;
+        // $last_name = $request->last_name;
+        // $mobile = $request->mobile;
+        // $document_type = $request->document_type;
+        // $document_number = $request->document_number;
+        // if ($request->hasFile('front_document_img')) {
+        //     $image_name = $request->file('front_document_img')->getClientOriginalName();
+        //     $filename = pathinfo($image_name, PATHINFO_FILENAME);
+        //     $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
+        //     $front_document_img = $filename . '-' . time() . '.' . $image_ext;
+        //     $path = base_path() . '/public/uploads/user_document/';
+        //     $request->file('front_document_img')->move($path, $front_document_img);
+        // }
+        // if ($request->hasFile('back_document_img')) {
+        //     $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
+        //     $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
+        //     $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
+        //     $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
+        //     $pat2 = base_path() . '/public/uploads/user_document';
+        //     $request->file('back_document_img')->move($pat2, $back_document_img);
+        // }
+
+        // if (empty($booking_id)) {
+        //     return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
+        // } else {
+        //     DB::table('booking')->where('id', $booking_id)->update([
+        //         'booking_status' => 'canceled',
+        //         'cancel_reason' => $request->cancel_reason,
+        //         'cancel_details' => $request->cancel_details,
+        //         'refund_amount' => $request->refund_amount,
+        //         'canceled_at' => date('Y-m-d H:i:s')
+
+        //     ]);
+        //     return response()->json(['status' => 'success', 'msg' => 'Booking has been Canceled Sucessfully !']);
+        // }  
+    }
+
+    public function cancel_request_booking_tour(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
+        if ($res) {
+            DB::table('tour_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been canceled successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }   
+
     public function cancel_hotel_booking(Request $request)
 	{
         // echo "<pre>";print_r($request->all());die;

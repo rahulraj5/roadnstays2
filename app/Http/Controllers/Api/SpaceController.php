@@ -211,6 +211,7 @@ class SpaceController extends APIBaseController
                     }
                     $s_available[] = array(
                         'space_id'=>$value->space_id,
+                        'feature_image'=> $baseurl."/".$value->image, 
                         'image'=>$images,
                         'space_name'=>$value->space_name,
                         'description'=>$value->description,
@@ -386,6 +387,7 @@ class SpaceController extends APIBaseController
                 $s_available[] = array(
                     'space_id'=>$value->space_id,
                     'image'=>$images,
+                    'feature_image'=> $baseurl."/".$value->image, 
                     'space_name'=>$value->space_name,
                     'description'=>$value->description,
                     'price_per_night'=>"PKR ".$value->price_per_night."/- Per Night",

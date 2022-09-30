@@ -45,39 +45,66 @@ class WsController extends APIBaseController
     public function home_page(Request $request)
     {
         
-        $tour_list = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->limit(5)->get(['tour_list.*', 'country.nicename as country_name']);
+        $tour_list_data = DB::table('tour_list')->join('country', 'tour_list.country_id', '=', 'country.id')->limit(5)->get(['tour_list.*', 'country.nicename as country_name']);
 
-        // $search_home = null;
-        // $replace_home = '""';
+        $hotel_list_data = DB::table('hotels')->join('country', 'hotels.hotel_country', '=', 'country.id')->limit(5)->get(['hotels.*', 'country.nicename as hotel_country_name']);
+
+        // $search = null;
+        // $replace = '""';
         // array_walk($tour_list,
-        // function (&$v12) use ($search_home, $replace_home){
-        //     $v = str_replace($search_home, $replace_home, $v12);    
+        // function (&$v) use ($search, $replace){
+        //     $v = str_replace($search, $replace, $v);    
         //     }                                                                     
         // );
-
-        // foreach ($tour_list as $key => $value) {
-        //     if (is_null($value)) $tour_list[$key] = "";
-        // }
-
-        // foreach($tour_list as $key => $value) {
-        //     if ($value === null) {
-        //       echo $tour_list[$key] = ""; 
-        //     }
-        // }
-        // die;
-        //print_r($tour_list);die;
             
-        if(count($tour_list)>0){
+        $hotel_list = array();
+        $baseurl = url('/public/uploads/hotel_gallery');
+        foreach($hotel_list_data as $key => $value){
+
+            $hotel_list[] = array(
+                'hotel_id'=>$value->hotel_id,
+                'hotel_name'=>$value->hotel_name,
+                'hotel_content'=>$value->hotel_content,
+                'price_per_night'=>"PKR ".$value->stay_price."/- Per Night",
+                'hotel_address' => $value->hotel_address,
+                'hotel_city' => $value->hotel_city,
+                'hotel_country_name'=>$value->hotel_country_name,
+                'hotel_rating'=>$value->hotel_rating,
+                'hotel_gallery'=> $baseurl."/".$value->hotel_gallery,
+            );
+        }
+
+        $tour_list = array();
+        $baseurl = url('/public/uploads/tour_gallery');
+        foreach($tour_list_data as $key => $value){
+
+            $tour_list[] = array(
+                'id'=>$value->id,
+                'tour_title'=>$value->tour_title,
+                'tour_description'=>$value->tour_description,
+                'price_per_night'=>"PKR ".$value->tour_price,
+                'address' => $value->address,
+                'city' => $value->city,
+                'country_name'=>$value->country_name,
+                'tour_type'=>$value->tour_type,
+                'tour_sub_type'=>$value->tour_sub_type,
+                'tour_days' => $value->tour_days,
+                'tour_feature_image'=> $baseurl."/".$value->tour_feature_image,
+            );
+        }
+
+
+        if(count($tour_list)>0 || count($hotel_list)>0){
         
-            $response['message'] = "Tour List";
+            $response['message'] = "Home Data";
             $response['status'] = 1;
-            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
+            $response['data'] = array('tour_list'=>$tour_list,'hotel_list'=>$hotel_list);
 
         }else{
 
             $response['message'] = "No data found";
             $response['status'] = 0;
-            $response['data'] = array('tour_list'=>$tour_list,'tour_url'=> URL::to('').'/public/uploads/tour_gallery/');
+            $response['data'] = array('tour_list'=>$tour_list,'hotel_list'=>$hotel_list);
         }
         
         return $response; 
@@ -510,6 +537,7 @@ class WsController extends APIBaseController
         $checkout_date = $request->checkout_date;
 
         $diff = strtotime($checkout_date) - strtotime($checkin_date);
+         //echo "<pre>"; print_r($diff);die;
         $days = abs(round($diff / 86400));
 
         $hotel_room_data = DB::table('room_list')
@@ -517,6 +545,7 @@ class WsController extends APIBaseController
         ->where('room_list.id', '=', $roomID) 
         ->where('room_list.status', '=', 1) 
         ->get();  
+
 
         $hotelroomdata = array();
         foreach ($hotel_room_data as $key => $value) {          
@@ -580,10 +609,10 @@ class WsController extends APIBaseController
                 'image' => $roomimg,
                 'total_member' => $member,
                 'no_of_room' => $noofroom,
-                'total_night_price' => $ppernight,
-                'total_tax' => $totaltax,
-                'total_amount' => $totalamount,
-                'total_night' =>$days,
+                'total_night_price' => strval($ppernight),
+                'total_tax' => strval($totaltax),
+                'total_amount' => strval($totalamount),
+                'total_night' => strval($days),
                 'is_featured' => $value->is_featured
             );
         }

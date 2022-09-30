@@ -12,6 +12,7 @@ use App\Models\Hotel;
 use App\Models\Tour;
 use DB;
 use Session;
+use App\Helpers\Helper;
 
 class TourController extends Controller
 {
@@ -23,9 +24,10 @@ class TourController extends Controller
     // }
 
     public function tour_list()
-    {   $data['page_heading_name'] = 'Tour List';
+    {
+        $data['page_heading_name'] = 'Tour List';
         $vendor_id = Auth::id();
-        $data['tourList'] = DB::table('tour_list')->where('vendor_id',$vendor_id)->orderby('created_at', 'DESC')->get();
+        $data['tourList'] = DB::table('tour_list')->where('vendor_id', $vendor_id)->orderby('created_at', 'DESC')->get();
         //print_r($data);die;
         return view('vendor/tour/tour_list')->with($data);
     }
@@ -34,25 +36,24 @@ class TourController extends Controller
     {
         $data['page_heading_name'] = 'Add Tour';
         $data['countries'] = DB::table('country')->orderby('name', 'ASC')->get();
-       
+
         return view('vendor/tour/add_tour')->with($data);
     }
 
 
-public function submit_tour(Request $request)
-    { 
+    public function submit_tour(Request $request)
+    {
         $vendor_id = Auth::user()->id;
-        if($request->hasFile('tourFeaturedImg'))
-        {
+        if ($request->hasFile('tourFeaturedImg')) {
             $image_name1 = $request->file('tourFeaturedImg')->getClientOriginalName();
-            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+            $filename1 = pathinfo($image_name1, PATHINFO_FILENAME);
             $image_ext1 = $request->file('tourFeaturedImg')->getClientOriginalExtension();
-            $tourFeaturedImg = $filename1.'-'.'tourMainImg'.'-'.time().'.'.$image_ext1;
+            $tourFeaturedImg = $filename1 . '-' . 'tourMainImg' . '-' . time() . '.' . $image_ext1;
             $path1 = base_path() . '/public/uploads/tour_gallery';
-            $request->file('tourFeaturedImg')->move($path1,$tourFeaturedImg);
-        }else{
+            $request->file('tourFeaturedImg')->move($path1, $tourFeaturedImg);
+        } else {
             $tourFeaturedImg = '';
-        } 
+        }
         if ($request->hasFile('tour_document')) {
             $image_nam2 = $request->file('tour_document')->getClientOriginalName();
             $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
@@ -64,10 +65,10 @@ public function submit_tour(Request $request)
             $tour_document = '';
         }
 
-        $admintour = new Tour; 
+        $admintour = new Tour;
         $admintour->vendor_id = $vendor_id;
         $admintour->tour_title = $request->tour_title;
-        $admintour->tour_status= $request->tour_status;
+        $admintour->tour_status = $request->tour_status;
         $admintour->tour_description = $request->tour_description;
         $admintour->city = $request->city;
         $admintour->address = $request->address;
@@ -82,7 +83,7 @@ public function submit_tour(Request $request)
         $admintour->tour_sub_type = $request->tour_sub_type;
         $admintour->tour_days = $request->tour_days;
         $admintour->tour_price = $request->tour_price;
-        $admintour->tour_price_others =$request->tour_price_others;
+        $admintour->tour_price_others = $request->tour_price_others;
         $admintour->tour_discount = $request->tour_discount;
         $admintour->children_policy = $request->children_policy;
         $admintour->tour_min_capacity = $request->min;
@@ -102,9 +103,9 @@ public function submit_tour(Request $request)
         $admintour->operator_contact_num = $request->operator_contact_num;
         $admintour->operator_email = $request->operator_email;
         $admintour->operator_booking_num = $request->operator_booking_num;
-        
+
         $admintour->status = 1;
-        $admintour->save();  
+        $admintour->save();
         $admintour_id = $admintour->id;
 
         if (!empty($_FILES["tourGallery"]["name"])) {
@@ -125,7 +126,7 @@ public function submit_tour(Request $request)
             }
         }
 
-       
+
         if (!empty($request->itinerary)) {
             foreach ($request->itinerary as $itinerary) {
                 $trip_detail = json_encode($itinerary['services']);
@@ -146,7 +147,6 @@ public function submit_tour(Request $request)
             }
         }
         return response()->json(['status' => 'success', 'msg' => 'Tour Added Successfully']);
-
     }
 
     public function change_tour_status(Request $request)
@@ -170,11 +170,10 @@ public function submit_tour(Request $request)
         $getTourGallery = DB::table('tour_gallery')->where('tour_id', '=', $tour_id)->get();
 
         if ($res) {
-            if(!empty($getTourGallery))
-            {
-                foreach($getTourGallery as $tourGallery){
-                    $filePath = public_path('uploads/tour_gallery/'. $tourGallery->image);
-                    if(file_exists($filePath)){
+            if (!empty($getTourGallery)) {
+                foreach ($getTourGallery as $tourGallery) {
+                    $filePath = public_path('uploads/tour_gallery/' . $tourGallery->image);
+                    if (file_exists($filePath)) {
                         $oldImagePath = './public/uploads/tour_gallery/' . $tourGallery->image;
                         unlink($oldImagePath);
                     }
@@ -205,28 +204,27 @@ public function submit_tour(Request $request)
         $tour_id = $id;
         $data['page_heading_name'] = 'Edit Tour';
         $data['countries'] = DB::table('country')->orderby('name', 'ASC')->get();
-        $data['tour_info'] = DB::table('tour_list')->where('id',$tour_id)->first();
-        $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id',$tour_id)->get();
-        $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id',$tour_id)->get();
+        $data['tour_info'] = DB::table('tour_list')->where('id', $tour_id)->first();
+        $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
+        $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
         //echo "<pre>"; print_r($data);die;
-        return view('vendor/tour/edit_tour')->with($data); 
+        return view('vendor/tour/edit_tour')->with($data);
     }
 
     public function update_tour(Request $request)
-    {   
+    {
 
         $tour_id = $request->tour_id;
         $vendor_id = Auth::user()->id;
 
-         if($request->hasFile('tourFeaturedImg'))
-        {
+        if ($request->hasFile('tourFeaturedImg')) {
             $image_name1 = $request->file('tourFeaturedImg')->getClientOriginalName();
-            $filename1 = pathinfo($image_name1,PATHINFO_FILENAME);
+            $filename1 = pathinfo($image_name1, PATHINFO_FILENAME);
             $image_ext1 = $request->file('tourFeaturedImg')->getClientOriginalExtension();
-            $tourFeaturedImg = $filename1.'-'.'tourMainImg'.'-'.time().'.'.$image_ext1;
+            $tourFeaturedImg = $filename1 . '-' . 'tourMainImg' . '-' . time() . '.' . $image_ext1;
             $path1 = base_path() . '/public/uploads/tour_gallery';
-            $request->file('tourFeaturedImg')->move($path1,$tourFeaturedImg);
-        }else{
+            $request->file('tourFeaturedImg')->move($path1, $tourFeaturedImg);
+        } else {
             $tourFeaturedImg = $request->old_tour_image;
         }
 
@@ -242,14 +240,14 @@ public function submit_tour(Request $request)
         }
 
         if (!empty($tour_id)) {
-            DB::table('tour_list') 
-                ->where('id', $tour_id) 
+            DB::table('tour_list')
+                ->where('id', $tour_id)
                 ->update([
-                    'vendor_id'=> $vendor_id,
+                    'vendor_id' => $vendor_id,
                     'tour_status' => $request->tour_status,
-                    'tour_title'=> $request->tour_title,
+                    'tour_title' => $request->tour_title,
                     'tour_description' => $request->tour_description,
-                    'city' => $request->city,   
+                    'city' => $request->city,
                     'address' => $request->address,
                     'latitude' => $request->latitude,
                     'longitude' => $request->longitude,
@@ -309,7 +307,7 @@ public function submit_tour(Request $request)
                     $trip_detail = json_encode($itinerary['services']);
                     $trip_itinerary = array(
                         'tour_id' => $tour_id,
-                        'title' => $itinerary['name'],  
+                        'title' => $itinerary['name'],
                         'place_from' => $itinerary['place_from'],
                         'place_to' => $itinerary['place_to'],
                         'hotel' => $itinerary['hotel'],
@@ -334,8 +332,8 @@ public function submit_tour(Request $request)
         // $hotelID = $request->hotel_id;
         $image_data = DB::table('tour_gallery')->where('id', $imageId)->first();
         if ($image_data) {
-            $filePath = public_path('uploads/tour_gallery/'. $image_data->image);
-            if(file_exists($filePath)){
+            $filePath = public_path('uploads/tour_gallery/' . $image_data->image);
+            if (file_exists($filePath)) {
                 $Path = './public/uploads/tour_gallery/' . $image_data->image;
                 unlink($Path);
             }
@@ -345,34 +343,196 @@ public function submit_tour(Request $request)
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
     }
+    
+    public function tour_approve_booking_list(Request $request)
+    {
+        $data['page_heading_name'] = 'Tour Approve Booking List';
+        $vendor_id = Auth::id();
+        $data['bookingList'] = DB::table('tour_booking_request')
+            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+            ->select(
+                'tour_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city',
+                'tour_list.booking_option'
+            )
+            ->where('vendor_id', $vendor_id)
+            ->orderby('id', 'DESC')
+            ->get();
+        $data['invoiceNum'] = DB::table('tour_booking_request')->where('approve_status', 1)->get(['id','invoice_num']);
+        // echo "<pre>"; print_r($data['invoiceNum']);die;
+        // echo "<pre>"; print_r($data['bookingList']);die;
+        return view('vendor/tour/approve_booking_list')->with($data);
+    }
+
+    public function getInvoiceDetails($request_id = 0)
+    {
+        // $details = DB::table('tour_booking_request')->find($request_id);
+        $details = DB::table('tour_booking_request')
+            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+            ->select(
+                'tour_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city',
+                'tour_list.booking_option'
+            )
+            ->where('tour_booking_request.id', $request_id)
+            ->first();
+        // echo "<pre>";print_r($details);die;
+        $html = "";
+        if(!empty($details)){
+           $html = "<tr>
+                <td width='30%'><b>Tour Name:</b></td>
+                <td width='70%'> ".$details->tour_title."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Period:</b></td>
+                <td width='70%'> ".$details->tour_start_date." to ".$details->tour_end_date."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Price:</b></td>
+                <td width='70%'>PKR ".$details->tour_price."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Tour Days:</b></td>
+                <td width='70%'> ".$details->tour_days."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Email:</b></td>
+                <td width='70%'> ".$details->user_email."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Phone:</b></td>
+                <td width='70%'> ".$details->user_contact_num."</td>
+             </tr>
+             <tr>
+                <td>
+                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                        <tbody>
+                            <tr>
+                                <td>Cost</td>
+                                <td class='alignright'>PKR ".$details->tour_price."</td>
+                            </tr>
+                            <tr class='total'>
+                                <td class='alignright' width='80%'>Total</td>
+                                <td class='alignright'>PKR ".$details->tour_price."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+             </tr>";
+        }
+        $response['html'] = $html;
+        $response['request_id'] = $details->id;
+  
+        return response()->json($response);
+     }
+
+    public function send_invoice(Request $request)
+    {
+        $request_id = $request->request_id;
+
+        if (!empty($request_id)) {
+            $check = DB::table('tour_booking_request')->where('id', $request_id)->first();
+            if($check->approve_status == 0){
+                $invoiceNum = Helper::generateRandomInvoiceId(5);
+                DB::table('tour_booking_request')
+                    ->where('id', $request_id)
+                    ->update([
+                        'approve_status' => 1,
+                        'invoice_num' => $invoiceNum
+                    ]);
+                return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
+            }else{
+                return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
+            }
+        }
+    } 
+
+    public function cancel_tour_booking_request_status(Request $request)
+    {
+        $request_id = $request->id;
+
+        $check = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
+        if($check->request_status == 1){
+            DB::table('tour_booking_request')
+            ->where('id', $request_id)
+            ->update([
+                'request_status' => 0,
+            ]);
+            return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
+        }
+
+        // if (!empty($request_id)) {
+        //     DB::table('tour_booking_request')
+        //         ->where('id', $request_id)
+        //         ->update([
+        //             'request_status' => 0
+        //         ]);
+        // }
+        // return response()->json(['success' => 'status change successfully.']);
+    }
 
     public function tourbooking_list(Request $request)
     {
         $data['page_heading_name'] = 'Tour Booking List';
         $vendor_id = Auth::id();
         $data['bookingList'] = DB::table('tour_booking')
-                                ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                                ->select('tour_booking.*',
-                                    'users.user_type',
-                                    'users.first_name as user_first_name',
-                                    'users.last_name as user_last_name',
-                                    'users.email as user_email',
-                                    'users.contact_number as user_contact_num',
-                                    'users.role_id as user_role_id',
-                                    'users.is_verify_email as user_email_is_verify_email',
-                                    'users.is_verify_contact as user_contact_is_verify_contact',
-                                    'tour_list.tour_title',
-                                    'tour_list.vendor_id',
-                                    'tour_list.tour_start_date as tour_start_date',
-                                    'tour_list.tour_end_date',
-                                    'tour_list.tour_price',
-                                    'tour_list.tour_days',
-                                    'tour_list.city')
-                                ->where('vendor_id',$vendor_id)
-                                ->orderby('id', 'DESC')
-                                ->get();
-                                //echo "<pre>"; print_r($data);die;
+            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+            ->select(
+                'tour_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city',
+                'tour_list.booking_option'
+            )
+            ->where('vendor_id', $vendor_id)
+            ->orderby('id', 'DESC')
+            ->get();
+        //echo "<pre>"; print_r($data);die;
         return view('vendor/tour/booking_list')->with($data);
     }
 
@@ -382,72 +542,75 @@ public function submit_tour(Request $request)
         $booking_id = $id;
         $data['page_heading_name'] = 'View Tour Booking';
         $data['bookingList'] = DB::table('tour_booking')
-                                ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                                ->join('country', 'users.user_country', '=', 'country.id')
-                                ->select('tour_booking.*',
-                                    'users.user_type',
-                                    'users.first_name as user_first_name',
-                                    'users.last_name as user_last_name',
-                                    'users.email as user_email',
-                                    'users.contact_number as user_contact_num',
-                                    'users.role_id as user_role_id',
-                                    'users.is_verify_email as user_email_is_verify_email',
-                                    'users.is_verify_contact as user_contact_is_verify_contact',
-                                    'users.address as user_address',
-                                    'users.state_id as user_state',
-                                    'users.user_city as user_city',
-                                    'users.postal_code as user_postal_code',
-                                    'users.document_type',
-                                    'users.document_number',
-                                    'users.front_document_img',
-                                    'users.back_document_img',
-                                    'country.nicename as user_country',
-                                    'tour_list.tour_title',
-                                    'tour_list.vendor_id',
-                                    'tour_list.tour_start_date as tour_start_date',
-                                    'tour_list.tour_end_date',
-                                    'tour_list.tour_price',
-                                    'tour_list.tour_days',
-                                    'tour_list.city')
-                                ->where('tour_booking.id',$booking_id)
-                                ->first();
+            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'tour_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'users.document_type',
+                'users.document_number',
+                'users.front_document_img',
+                'users.back_document_img',
+                'country.nicename as user_country',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city'
+            )
+            ->where('tour_booking.id', $booking_id)
+            ->first();
 
         $property_owner_id = $data['bookingList']->vendor_id;
-    
+
         $data['vendor_details'] = DB::table('users')
             ->join('country', 'users.user_country', 'country.id')
-            ->select('users.*','country.name as vendor_country_name')
+            ->select('users.*', 'country.name as vendor_country_name')
             ->where('users.id', $property_owner_id)->first();
- 
+
         $data['order_details'] = DB::table('tour_booking')
-                        ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                        ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                        ->join('country', 'users.user_country', '=', 'country.id')
-                        ->select('tour_booking.*',
-                            'users.user_type',
-                            'users.first_name as user_first_name',
-                            'users.last_name as user_last_name',
-                            'users.email as user_email',
-                            'users.contact_number as user_contact_num',
-                            'users.role_id as user_role_id',
-                            'users.is_verify_email as user_email_is_verify_email',
-                            'users.is_verify_contact as user_contact_is_verify_contact',
-                            'users.address as user_address',
-                            'users.state_id as user_state',
-                            'users.user_city as user_city',
-                            'users.postal_code as user_postal_code',
-                            'country.nicename as user_country',
-                            'tour_list.tour_title',
-                            'tour_list.vendor_id',
-                            'tour_list.tour_start_date as tour_start_date',
-                            'tour_list.tour_end_date',
-                            'tour_list.tour_price',
-                            'tour_list.tour_days',
-                            'tour_list.city')
-                        ->where('tour_booking.id',$booking_id)
-                        ->get();
+            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'tour_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'country.nicename as user_country',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city'
+            )
+            ->where('tour_booking.id', $booking_id)
+            ->get();
         return view('vendor/tour/booking_details')->with($data);
     }
-    
 }

@@ -324,14 +324,14 @@
 
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>NIC Upload</label>
+                      <label>Upload NIC </label>
                       <input type="file" class="form-control" name="nic_upload" id="nic_upload">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Contract Upload</label>
+                      <label>Upload Contract </label>
                       <input type="file" class="form-control" name="contract_upload" id="contract_upload">
                     </div>
                   </div>

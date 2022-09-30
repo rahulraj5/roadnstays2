@@ -144,6 +144,7 @@
                         </div>
                      </div>
                   </div>
+                  @if($hotel_data->booking_option == 1)
                   <div class="container">
                      <div class="row" style="margin-left: -15px;  margin-right: -15px;">
                         <div class="col-md-12 p-0 mt-3">
@@ -157,8 +158,8 @@
                                        <a class="nav-link active" data-toggle="tab" href="#home">Debit/Credit Card</a>
                                     </li>
                                     <!-- <li class="nav-item">
-                                 <a class="nav-link" data-toggle="tab" href="#menu1">NetBanking</a>
-                              </li> -->
+                                       <a class="nav-link" data-toggle="tab" href="#menu1">NetBanking</a>
+                                    </li> -->
                                  </ul>
                                  <!-- Tab panes -->
                                  <div class="tab-content">
@@ -167,54 +168,54 @@
                                        <img src="{{url('resources/assets/img/banke.png')}}" class="mb-3 " style="">
                                        <!-- <form id="member-registration" method="post" class="form-validate form-horizontal well" > -->
                                        <!-- <fieldset>
-                                       <div class="form-group">
-                                          <label for="exampleInputPassword1">Name on Card*</label>
-                                          <input type="text" class="form-control" id="exampleInputPassword1">
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="exampleInputPassword1">Debit/Credit card number*</label>
-                                          <input type="text" class="form-control" id="exampleInputPassword1">
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="exampleInputEmail1">Expiry date</label>
-                                          <div class="d-flex">
-                                             <select class="form-control col-md-2 mr-2">
+                                          <div class="form-group">
+                                             <label for="exampleInputPassword1">Name on Card*</label>
+                                             <input type="text" class="form-control" id="exampleInputPassword1">
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="exampleInputPassword1">Debit/Credit card number*</label>
+                                             <input type="text" class="form-control" id="exampleInputPassword1">
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="exampleInputEmail1">Expiry date</label>
+                                             <div class="d-flex">
+                                                <select class="form-control col-md-2 mr-2">
+                                                   <optgroup>
+                                                      <option value="volvo">Month</option>
+                                                      <option value="saab">01-jan</option>
+                                                      <option value="saab">02-jan</option>
+                                                   </optgroup>
+                                                </select>
+                                                <select class="form-control col-md-2">
+                                                   <optgroup>
+                                                      <option value="volvo">Year</option>
+                                                      <option value="saab">01-jan</option>
+                                                      <option value="saab">02-jan</option>
+                                                   </optgroup>
+                                                </select>
+                                             </div>
+                                          </div>
+                                          <div class="form-group col-md-3 pl-0">
+                                             <label for="exampleInputEmail1">Security code</label>
+                                             <input type="text" class="form-control" id="exampleInputEmail1">
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="exampleInputPassword1">Billing country/territory*</label>
+                                             <select class="form-control col-md-6">
                                                 <optgroup>
-                                                   <option value="volvo">Month</option>
-                                                   <option value="saab">01-jan</option>
-                                                   <option value="saab">02-jan</option>
-                                                </optgroup>
-                                             </select>
-                                             <select class="form-control col-md-2">
-                                                <optgroup>
-                                                   <option value="volvo">Year</option>
-                                                   <option value="saab">01-jan</option>
-                                                   <option value="saab">02-jan</option>
+                                                   <option value="volvo">India</option>
+                                                   <option value="saab">Pakistan</option>
+                                                   <option value="saab">Iceland</option>
                                                 </optgroup>
                                              </select>
                                           </div>
-                                       </div>
-                                       <div class="form-group col-md-3 pl-0">
-                                          <label for="exampleInputEmail1">Security code</label>
-                                          <input type="text" class="form-control" id="exampleInputEmail1">
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="exampleInputPassword1">Billing country/territory*</label>
-                                          <select class="form-control col-md-6">
-                                             <optgroup>
-                                                <option value="volvo">India</option>
-                                                <option value="saab">Pakistan</option>
-                                                <option value="saab">Iceland</option>
-                                             </optgroup>
-                                          </select>
-                                       </div>
-                                       <div class="form-group col-md-6 p-0">
-                                          <label for="exampleInputPassword1">PAN*</label>
-                                          <input type="text" class="form-control" id="exampleInputEmail1">
-                                       </div>
-                                       <label for="vehicle1">	<input type="checkbox" name="vehicle1" value="Bike">
-                                       Remember this card for future use</label>
-                                 </fieldset> -->
+                                          <div class="form-group col-md-6 p-0">
+                                             <label for="exampleInputPassword1">PAN*</label>
+                                             <input type="text" class="form-control" id="exampleInputEmail1">
+                                          </div>
+                                          <label for="vehicle1">	<input type="checkbox" name="vehicle1" value="Bike">
+                                          Remember this card for future use</label>
+                                       </fieldset> -->
 
                                     </div>
                                     <div id="menu1" class="tab-pane fade bankinfo">
@@ -226,78 +227,112 @@
                               <div class="col-md-12 text-center d-flex p-4">
                                  <input type="submit" name="paynow" class="paynow-btn" value="Paynow">
                               </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  @else
+                  <div class="container">
+                     <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                        <div class="col-md-12 p-0 mt-3">
+                           <div class="bankpay">
+                              <!-- <h5 class="mt-2">
+                                 <i class='bx bxs-info-circle'></i> We protect your personal information
+                              </h5> -->
+                              <!-- <div class="bank-bar">
+                                 <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                       <a class="nav-link active" data-toggle="tab" href="#home">Debit/Credit Card</a>
+                                    </li>
+                                 </ul>
+                                 <div class="tab-content">
+                                    <div id="home" class="container tab-pane active">
+                                       <br>
+                                       <img src="{{url('resources/assets/img/banke.png')}}" class="mb-3 " style="">
+                                    </div>
+                                    <div id="menu1" class="tab-pane fade bankinfo">
+                                       <h3 class="mt-3">Important information about your booking</h3>
+                                       <p>Important: You will be redirected to your bank's website to securely complete your payment. You will have 30 minutes to pay for your booking.</p>
+                                    </div>
+                                 </div>
+                              </div> -->
+                              <div class="col-md-12 text-center d-flex p-4">
+                                 <input type="button" name="request_booking" id="request_booking" class="paynow-btn" value="Request for Booking">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  @endif
                </form>
+
+               <h3>Google Map</h3>
+               <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
+               <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
+            </div>
+            <div class="col-md-3 pl-0">
+               <div class="revie-box-boxi">
+                  <div class="image-section">
+                     <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel_data->hotel_gallery}}" style="width: 260px;">
+                     <p>{{$hotel_data->hotel_name}}</p>
+                  </div>
+                  <p><b>4.1/5</b> Very good (82 reviews)</p>
+                  <p class="rmn">1 Room: {{$room_data->name}} </p>
+                  <ul>
+                     <li>
+                        <b>Check-in:</b> {{$check_in}}
+                     </li>
+                     <li>
+                        <b>Check-out:</b> {{$check_out}}
+                     </li>
+                     <li>{{$booking_days}}-night stay</li>
+                  </ul>
+               </div>
+               <div class="revie-box-boxi">
+                  <div class="price-bkp">
+                     <h4>PRICE BREAK-UP</h4>
+                  </div>
+                  <div class="price-left">
+                     <h5> {{$total_room_num}} Room x {{$booking_days}} Night<br> <small> Base Price {{$room_data->price_per_night}} Per Night</small></h5>
+                     <h6>PKR <?php echo $total_room_num * ($booking_days * $room_data->price_per_night); ?> </h6>
+                  </div>
+                  @if($room_data->cleaning_fee > 0)
+                  <div class="price-left">
+                     <h5> Cleaning Charge</h5>
+                     <h6>PKR {{$total_room_num*$room_data->cleaning_fee}} </h6>
+                  </div>
+                  @endif
+                  @if($room_data->city_fee > 0)
+                  <div class="price-left">
+                     <h5> City Charge</h5>
+                     <h6>PKR {{$total_room_num*$room_data->city_fee}}</h6>
+                  </div>
+                  @endif
+                  @if($room_data->tax_percentage > 0)
+                  <div class="price-left">
+                     <h5> Taxes & Service Fees</h5>
+                     <h6>PKR {{$total_room_num*$room_data->tax_percentage}}</h6>
+                  </div>
+                  @endif
+                  @if(!empty($room_data->earlybird_discount))
+                  @if(now()->diffInDays($check_in) > $room_data->min_days_in_advance)
+                  <div class="price-left">
+                     <h5> Early Bird Discount ({{$room_data->earlybird_discount}}%)</h5>
+                     @php $early_discount = $total_room_num*($booking_days*($room_data->price_per_night*($room_data->earlybird_discount/100))); @endphp
+                     <h6>PKR -{{$early_discount}}</h6>
+                  </div>
+                  @endif
+                  @endif
+                  @if(empty($early_discount))
+                  @php $early_discount = 0; @endphp
+                  @endif
+                  <div class="price-left">
+                     <h5> <b>Total Amount to be paid </b></h5>
+                     <h6><b>PKR <?php echo (($total_room_num * ($booking_days * $room_data->price_per_night)) + $total_room_num * ($room_data->cleaning_fee) + $total_room_num * ($room_data->city_fee) + $total_room_num * ($room_data->tax_percentage)) - $early_discount; ?></b></h6>
+                  </div>
+               </div>
             </div>
          </div>
-      </div>
-      </div>
-      <h3>Google Map</h3>
-      <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
-      <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
-      </div>
-      <div class="col-md-3 pl-0">
-         <div class="revie-box-boxi">
-            <div class="image-section">
-               <img src="{{url('public/uploads/hotel_gallery/')}}/{{$hotel_data->hotel_gallery}}" style="width: 260px;">
-               <p>{{$hotel_data->hotel_name}}</p>
-            </div>
-            <p><b>4.1/5</b> Very good (82 reviews)</p>
-            <p class="rmn">1 Room: {{$room_data->name}} </p>
-            <ul>
-               <li>
-                  <b>Check-in:</b> {{$check_in}}
-               </li>
-               <li>
-                  <b>Check-out:</b> {{$check_out}}
-               </li>
-               <li>{{$booking_days}}-night stay</li>
-            </ul>
-         </div>
-         <div class="revie-box-boxi">
-            <div class="price-bkp">
-               <h4>PRICE BREAK-UP</h4>
-            </div>
-            <div class="price-left">
-               <h5> {{$total_room_num}} Room x {{$booking_days}} Night<br> <small> Base Price {{$room_data->price_per_night}} Per Night</small></h5>
-               <h6>PKR <?php echo $total_room_num * ($booking_days * $room_data->price_per_night); ?> </h6>
-            </div>
-            @if($room_data->cleaning_fee > 0)
-            <div class="price-left">
-               <h5> Cleaning Charge</h5>
-               <h6>PKR {{$total_room_num*$room_data->cleaning_fee}} </h6>
-            </div>
-            @endif
-            @if($room_data->city_fee > 0)
-            <div class="price-left">
-               <h5> City Charge</h5>
-               <h6>PKR {{$total_room_num*$room_data->city_fee}}</h6>
-            </div>
-            @endif
-            @if($room_data->tax_percentage > 0)
-            <div class="price-left">
-               <h5> Taxes & Service Fees</h5>
-               <h6>PKR {{$total_room_num*$room_data->tax_percentage}}</h6>
-            </div>
-            @endif
-            @if(!empty($room_data->earlybird_discount))
-            @if(now()->diffInDays($check_in) > $room_data->min_days_in_advance)
-            <div class="price-left">
-               <h5> Early Bird Discount ({{$room_data->earlybird_discount}}%)</h5>
-               @php $early_discount = $total_room_num*($booking_days*($room_data->price_per_night*($room_data->earlybird_discount/100))); @endphp
-               <h6>PKR -{{$early_discount}}</h6>
-            </div>
-            @endif
-            @endif
-            @if(empty($early_discount))
-            @php $early_discount = 0; @endphp
-            @endif
-            <div class="price-left">
-               <h5> <b>Total Amount to be paid </b></h5>
-               <h6><b>PKR <?php echo (($total_room_num * ($booking_days * $room_data->price_per_night)) + $total_room_num * ($room_data->cleaning_fee) + $total_room_num * ($room_data->city_fee) + $total_room_num * ($room_data->tax_percentage)) - $early_discount; ?></b></h6>
-            </div>
-         </div>
-      </div>
-      </div>
    </section>
 </main>
 <!-- End #main -->

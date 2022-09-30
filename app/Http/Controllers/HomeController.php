@@ -164,6 +164,22 @@ class HomeController extends Controller
         $bankorderId   = rand(0,1786612);
         $data['bankorderId'] = $bankorderId;
 
+        $event_details = DB::table('events')->where('id', $event_id)->first();
+
+        $data['title'] = $event_details->title;
+        $data['address'] = $event_details->address;
+        
+        $data['event_id'] = $event_id;
+        $data['user_id']  = $user_id;
+        $data['price']  = $price;
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
+        $data['email'] = $email;
+        $data['first_name'] = $first_name;
+        $data['last_name'] = $last_name;
+        $data['mobile'] = $mobile;
+        $data['document_type'] = $document_type;
+        $data['document_number'] = $document_number;
         $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
 
         //$url = "https://payments.bankalfalah.com/HS/HS/HS";
@@ -1052,7 +1068,23 @@ class HomeController extends Controller
     {
         $tour_id = $request->id;
         $data['tour_details'] = DB::table('tour_list')->where('id', $tour_id)->first();
-        //echo "<pre>"; print_r($data);die;
+        $checkRequest = 0;
+        $tour_booking_request = [];
+        if(Auth::check()){
+            $data['request_data'] = DB::table('tour_booking_request')->where('tour_id', $tour_id)->get();
+            foreach($data['request_data'] as $reqData){
+                if($reqData->user_id ==Auth::id())
+                {
+                    $tour_booking_request = $reqData;
+                    $checkRequest = 1; 
+                }
+            }
+        }
+        $data['checkRequest'] = $checkRequest;
+        $data['tour_booking_request'] = $tour_booking_request;
+        // echo "<pre>"; print_r(Auth::id());
+        // echo "<pre>"; print_r($data['checkRequest']);
+        // echo "<pre>"; print_r($data['tour_booking_request']);die;
         return view('front/tour/tour-booking')->with($data);
     }
 
@@ -1160,6 +1192,23 @@ class HomeController extends Controller
 
         $bankorderId   = rand(0,1786612);
         $data['bankorderId'] = $bankorderId;
+
+        $tour_details = DB::table('tour_list')->where('id', $tour_id)->first();
+
+        $data['title'] = $tour_details->tour_title;
+        $data['address'] = $tour_details->address;
+        
+        $data['tour_id'] = $tour_id;
+        $data['user_id']  = $user_id;
+        $data['price']  = $tour_price;
+        $data['start_date'] = $tour_start_date;
+        $data['end_date'] = $tour_end_date;
+        $data['email'] = $email;
+        $data['first_name'] = $first_name;
+        $data['last_name'] = $last_name;
+        $data['mobile'] = $mobile;
+        $data['document_type'] = $document_type;
+        $data['document_number'] = $document_number;
 
         $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
 
@@ -2965,6 +3014,7 @@ class HomeController extends Controller
             $data['start_day'] = $start_day;
             $data['end_day'] = $end_day;
 
+            // echo "<pre>";print_r($data);die;
             return view('front/hotel/checkout')->with($data);
         } else {
             return redirect()->route('home');
@@ -3012,6 +3062,25 @@ class HomeController extends Controller
         $status = 1;
         $bankorderId   = rand(0,1786612);
         $data['bankorderId'] = $bankorderId;
+
+        $hotel_details = DB::table('hotels')->where('hotel_id', $hotel_id)->first();
+
+        $data['title'] = $hotel_details->hotel_name;
+        $data['address'] = $hotel_details->hotel_address;
+        
+        $data['hotel_id'] = $hotel_id;
+        $data['room_id'] = $room_id;
+        $data['user_id']  = $user_id;
+        $data['price']  = $total_amount;
+        $data['start_date'] = $check_in;
+        $data['end_date'] = $check_out;
+        $data['email'] = $email;
+        $data['first_name'] = $first_name;
+        $data['last_name'] = $last_name;
+        $data['mobile'] = $mobile;
+        $data['document_type'] = $document_type;
+        $data['document_number'] = $document_number;
+
 
         $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
 

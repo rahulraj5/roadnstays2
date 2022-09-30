@@ -1027,6 +1027,23 @@ class SpaceController extends Controller
 
         $bankorderId   = rand(0,1786612);
         $data['bankorderId'] = $bankorderId;
+        $space_details = DB::table('space')->where('space_id', $space_id)->first();
+
+        $data['title'] = $space_details->space_name;
+        $data['address'] = $space_details->space_address;
+        
+        $data['space_id'] = $space_id;
+        $data['user_id']  = $user_id;
+        $data['price']  = $space_price;
+        $data['start_date'] = $space_start_date;
+        $data['end_date'] = $space_end_date;
+        $data['email'] = $email;
+        $data['first_name'] = $first_name;
+        $data['last_name'] = $last_name;
+        $data['mobile'] = $mobile;
+        $data['document_type'] = $document_type;
+        $data['document_number'] = $document_number;
+
 
         $url = "https://sandbox.bankalfalah.com/HS/HS/HS";
 
