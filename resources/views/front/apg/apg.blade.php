@@ -123,15 +123,60 @@
             </div>
         </div>
       <div class="row">
-            <div class="col-md-12 " style="background: #FFF; padding: 22px;">
-
-    			<div class="page-detail">
+        <div class="col-md-12 pb-0" style="background: #FFF; padding: 22px;">
+           <div class="page-detail">
                    <h5 class="p-0 m-0 citi-omr">{{$title}}</h5>
                    <span>★★★</span>
                    <p> {{$address}}</p>
                 </div>
+        </div>
+             <div class="col-md-6 " style="background: #FFF; padding: 22px;">
 
-                <div class="runs-andpay-pay font-s">
+                
+
+        <div class="name-payment-mode">
+        <h3> User Information </h3>
+
+        </div>
+
+        <div class="name-payment">
+          <div class="flex-bas">
+            <h4> First name</h4>
+            <h4> {{$first_name}}</h4>
+          </div>
+
+          <div class="flex-bas">
+            <h4> Last name</h4>
+            <h4> {{$last_name}}</h4>
+          </div>
+
+          <div class="flex-bas">
+            <h4> Mobile phone number </h4>
+            <h4> {{$mobile}}</h4>
+          </div>
+
+          <div class="flex-bas">
+            <h4> Choose Identity Document  </h4>
+            <h4> {{$document_type}}</h4>
+          </div>
+
+          <div class="flex-bas">
+            <h4> Document Number </h4>
+            <h4> {{$document_number}}</h4>
+          </div>
+
+        </div>
+
+       </div>
+            <div class="col-md-6 " style="background: #126c62;padding: 22px;display: flex;align-items: center;justify-content: center;width: 100%;">
+
+                
+               <div class=" w-100">
+    			     <div class="name-payment-mode text-center">
+                <h3> Time Duration </h3>
+
+                </div>
+                <div class="runs-andpay-pay font-s mb-4" style="justify-content: space-around;">
                     <div class="date1">
                        <span>CHECK IN</span>
                        <h3>{{$start_date}}</h3>
@@ -146,52 +191,20 @@
                        <h3> {{$end_date}}</h3>
                        <!-- <small>Saturday</small> -->
                     </div>
-                    <div class="date1">
-                    	<span>Amount</span>
-                       <h3> PKR {{$price}}</h3>
-                    </div>
+                
                 </div>
+             
+                <div class="runs-andpay-pay font-s to-tl w-50 m-auto mt-3" style="justify-content: space-around;">
+                <div class="date1 w-100">
+                  <span>Total Amount</span>
+                   <h3> PKR {{$price}}</h3>
+                </div>
+              </div>
+               </div>
 
 			</div>
 
-			 <div class="col-md-12 " style="background: #FFF; padding: 22px;">
-			 	<div class="name-payment-mode">
-			 	<h3> User Information </h3>
-
-			 	</div>
-
-				<div class="name-payment">
-				 	<div class="flex-bas">
-				 		<h4> First name</h4>
-				 		<h4> {{$first_name}}</h4>
-				 	</div>
-
-				 	<div class="flex-bas">
-				 		<h4> Last name</h4>
-				 		<h4> {{$last_name}}</h4>
-				 	</div>
-
-				 	<div class="flex-bas">
-				 		<h4> Mobile phone number </h4>
-				 		<h4> {{$mobile}}</h4>
-				 	</div>
-
-				 	<div class="flex-bas">
-				 		<h4> Choose Identity Document  </h4>
-				 		<h4> {{$document_type}}</h4>
-				 	</div>
-
-				 	<div class="flex-bas">
-				 		<h4> Document Number </h4>
-				 		<h4> {{$document_number}}</h4>
-				 	</div>
-
-				</div>
-
-			 </div>
- 	</div>
-            </div>
-            <div class="col-md-12">
+	   <div class="col-md-12" style="background: #FFF;">
             <form action="https://sandbox.bankalfalah.com/SSO/SSO/SSO" id="PageRedirectionForm" method="post" novalidate="novalidate">                                                              
                 <input id="AuthToken" name="AuthToken" type="hidden" value="<?php echo $AuthToken; ?>">                                                                                                                                
                 <input id="RequestHash" name="RequestHash" type="hidden" value="<?php echo $hashRequest1; ?>">                                                                                                                            
@@ -205,16 +218,22 @@
                 <input id="MerchantUsername" name="MerchantUsername" type="hidden" value="<?php echo $HS_MerchantUsername;?>">                                                                                                            
                 <input id="MerchantPassword" name="MerchantPassword" type="hidden" value="<?php echo $HS_MerchantPassword;?>">  
 
-            	<input id="TransactionTypeId" name="TransactionTypeId" type="hidden" value="3"> 
+              <input id="TransactionTypeId" name="TransactionTypeId" type="hidden" value="3"> 
               
                                                                                                                                                                                       
                 <input autocomplete="off" id="TransactionReferenceNumber" name="TransactionReferenceNumber" placeholder="Order ID" type="hidden" value="<?php echo $HS_TransactionReferenceNumber;?>">                                  
                 <input autocomplete="off"  id="TransactionAmount" name="TransactionAmount" placeholder="Transaction Amount" type="hidden" value="<?php echo $TransactionAmount; ?>">  
                 <br>
-             	<center>  
-              	<button type="submit" class="btn btn-custon-four btn-danger" id="run">PAY ONLINE</button>        </center>                                                                                                    
+              <center>  
+                <button type="submit" class="btn btn-custon-four pay-mnt btn-danger mt-4 mb-5" id="run">PAY ONLINE</button>        </center>                                                                                                    
             </form>
             </div>
+
+
+
+ 	</div>
+            </div>
+         
         </div>
       </div>
    </section>

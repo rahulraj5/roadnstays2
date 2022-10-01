@@ -361,14 +361,14 @@
                                  </div>
                               </a>
                            </li>
-                           <!-- <li class="nav-item">
+                           <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#home" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/event.png')}}">
                                     <span> Event</span>
                                  </div>
                               </a>
-                           </li> -->
+                           </li>
 
                            <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
@@ -378,14 +378,14 @@
                                  </div>
                               </a>
                            </li>
-                           <!-- <li class="nav-item">
+                           <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/space.png')}}">
                                     Space
                                  </div>
                               </a>
-                           </li> -->
+                           </li>
                         </ul>
                      </div>
                      <!-- Tab panes -->
@@ -479,12 +479,14 @@
                         <div class="tab-pane" id="home" role="tabpanel">
                            <div class="booking-type event-book1">
                               <!-- <h6> make a Reservation</h6> -->
-
-                              <div class="d-flex justify-content-center align-self-center">
-                                 <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
-                                    <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
-                                 <input type="submit" value="Find" class="btn btn-primary-event pull-right hotel-btn">
-                              </div>
+                              <form action="{{url('events')}}" method="GET">
+                                 @csrf
+                                 <div class="d-flex justify-content-center align-self-center w-100">
+                                    <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
+                                       <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
+                                    <input type="submit" value="Find" class="btn btn-primary-event pull-right hotel-btn">
+                                 </div>
+                              </form>
                               <div class="event-avlabel">
                                  <div class="event-box">
                                     <div class="ev-img">

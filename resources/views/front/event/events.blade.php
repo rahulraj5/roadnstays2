@@ -1,21 +1,43 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+
+
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+
 @section('current_page_css')
 @endsection
 @section('current_page_js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+<script>
+   $(document).ready(function() {
+    $("#news-slider").owlCarousel({
+        items : 3,
+        itemsDesktop:[1199,3],
+        itemsDesktopSmall:[980,2],
+        itemsMobile : [600,1],
+        navigation:true,
+        navigationText:["",""],
+        pagination:true,
+        autoPlay:true
+    });
+});
+</script>
+
+
 @endsection
 @section('content')
 <main id="main">
    <section  class="event-sec" >
       <div class="img-banner">
-         <img src="{{url('/')}}/resources/assets/img/h1.jpg" alt="">
+         <img src="{{url('/')}}/resources/assets/img/event2.jpg" alt="">
          <div class="bannner-text">
-            <h1>Live Events with Harris</h1>
-            <p>New York</p>
+            <h1>Events</h1>
          </div>
       </div>
-      <div class="container-fluid">
+      <div class="container">
          <div class="row filter-row">
             <!-- <div class="col-md-3">
                <h6>Filter - Event Space</h6>
@@ -83,7 +105,7 @@
                <h1>Recent events</h1>
                <div class="row event-box-1">
                 @foreach($events_data as $event)
-                  <div class="col-md-3 box">
+                  <div class="col-md-4 box">
                      <div class="img-box"><img src="{{url('/')}}//public/uploads/event_gallery/{{$event->image}}" alt=""><label class="add-fav">
                        <input type="checkbox" />
                        <i class="icon-heart"></i>
@@ -100,135 +122,144 @@
                   </div>
                 @endforeach
 
-                
-                  <!-- <div class="col-md-4 box">
-                     <div class="img-box"> <img src="{{url('/')}}/resources/assets/img/h2.jpg" alt=""><i class='bx bx-heart'  id="heart" ></i></div>
-                     <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                     <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                     <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                     <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                     <button>free</button>
-                  </div>
-                  <div class="col-md-4 box">
-                     <div class="img-box"><img src="{{url('/')}}/resources/assets/img/confrance.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                     <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                     <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                     <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                     <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                     <button>free</button>
-                  </div> -->
-                  <!-- <div class="row event-box-1">
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h3.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h4.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h5.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                  </div> -->
-                  <!-- <h1>Wedding</h1>
-                  <div class="row event-box-1">
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h6.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h7.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h8.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                  </div>
-                  <h1>Business Conclave</h1>
-                  <div class="row event-box-1">
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/art.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h9.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h10.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                  </div>
-                  <h1>Live Concert</h1>
-                  <div class="row event-box-1">
-                     <div class="col-md-4 box">
-                        <div class="img-box"> <img src="{{url('/')}}/resources/assets/img/a1.png" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"> <img src="{{url('/')}}/resources/assets/img/h1.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>free</button>
-                     </div>
-                     <div class="col-md-4 box">
-                        <div class="img-box"><img src="{{url('/')}}/resources/assets/img/h3.jpg" alt=""><i class='bx bx-heart'  id="heart"></i></div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                        <div class="date-2"><i class='bx bxs-calendar'></i>08 May 2022 - 22 september 2022</div>
-                        <div class="location"><i class='bx bx-location-plus' ></i>NEW DELHI</div>
-                        <div class="time"><i class='bx bx-stopwatch' ></i>08:00am - 11:00am</div>
-                        <button>Buy Ticket</button>
-                     </div>
-                  </div> -->
                </div>
             </div>
+           
+
+
          </div>
       </div>
    </section>
+
+<section>
+<div class="container">
+  <div class="row">
+   
+    <div class="col-md-12 event-caro">
+      <h1>Event Organised By RoadNstays</h1>
+      <div id="news-slider" class="owl-carousel">
+        @foreach($past_events_data as $past_event)
+        <div class="post-slide">
+          <div class="post-img">
+            <img src="{{url('/')}}//public/uploads/event_gallery/{{$past_event->image}}" alt="">
+            <a href="{{url('/event_details')}}/{{base64_encode($past_event->id)}}" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="{{url('/event_details')}}/{{base64_encode($past_event->id)}}">{{$past_event->title}}</a>
+            </h3>
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i><?php echo date( 'F j, Y', strtotime($past_event->start_date)); ?></span>
+            <?php $address = (explode(",",$past_event->address)); ?>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>{{end($address)}}</span>
+            </div>
+            
+          </div>
+          <a href="{{url('/event_details')}}/{{base64_encode($past_event->id)}}" class="read-more">read more</a>
+        </div>
+        @endforeach
+        <!-- <div class="post-slide">
+          <div class="post-img">
+            <img src="https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=303&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=503" alt="">
+            <a href="#" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="#">Lecture By Pablo.</a>
+            </h3>
+
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i>Out 27, 2019</span>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>India</span>
+            </div>
+            
+          </div>
+          <a href="#" class="read-more">read more</a>
+        </div>
+        
+        <div class="post-slide">
+          <div class="post-img">
+            <img src="https://images.unsplash.com/photo-1564979268369-42032c5ca998?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=500" alt="">
+            <a href="#" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="#">Meditation By Guruji</a>
+            </h3>
+            
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i>Out 27, 2019</span>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>India</span>
+            </div>
+            
+          </div>
+          <a href="#" class="read-more">read more</a>
+        </div>
+        
+        <div class="post-slide">
+          <div class="post-img">
+            <img src="https://images.unsplash.com/photo-1576659531892-0f4991fca82b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=301&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=501" alt="">
+            <a href="#" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="#">Sports meet with dilip</a>
+            </h3>
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i>Out 27, 2019</span>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>India</span>
+            </div>
+            
+          </div>
+          <a href="#" class="read-more">read more</a>
+        </div>
+        
+        <div class="post-slide">
+          <div class="post-img">
+            <img src="https://images.unsplash.com/photo-1586083702768-190ae093d34d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=305&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=505" alt="">
+            <a href="#" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="#">Comedy nights with Munnavar</a>
+            </h3>
+           
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i>Out 27, 2019</span>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>India</span>
+            </div>
+            
+          </div>
+          <a href="#" class="read-more">read more</a>
+        </div>
+
+        <div class="post-slide">
+          <div class="post-img">
+            <img src="https://images.unsplash.com/photo-1484656551321-a1161420a2a0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=306&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=506" alt="">
+            <a href="#" class="over-layer"><i class="fa fa-link"></i></a>
+          </div>
+          <div class="post-content">
+            <h3 class="post-title">
+              <a href="#">Kity Part for Ravi </a>
+            </h3>
+            
+            <div class="sggsf">
+            <span class="post-date"><i class="fa fa-clock-o"></i>Out 27, 2019</span>
+            <span class="post-date"><i class='bx bx-location-plus' ></i>India</span>
+            </div>
+            
+          </div>
+          <a href="#" class="read-more">read more</a>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</section>
+
 </main>
 <!-- End #main -->
 @endsection

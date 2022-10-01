@@ -257,6 +257,7 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/cancelTourBookingRequestStatus', 'Vendor\TourController@cancel_tour_booking_request_status');
     Route::any('servicepro/getInvoiceDetails/{requestId}', 'Vendor\TourController@getInvoiceDetails')->name('getInvoiceDetails');
     Route::any('servicepro/sendInvoice', 'Vendor\TourController@send_invoice');
+    Route::any('servicepro/deleteBookingRequest', 'Vendor\TourController@delete_booking_request');
 
     // space route start from here
     Route::get('servicepro/space-list', 'Vendor\SpaceController@space_list');
@@ -545,6 +546,7 @@ Route::group(['prefix' => 'scout'], function(){
         // Route::post('/loginPost', [Scout\ScoutUserController::class, 'postLogin']);	
         Route::get('/login', 'Scout\ScoutUserController@login')->name('scout.login');	
         Route::post('/loginPost', 'Scout\ScoutUserController@postLogin');
+        
     });
     Route::group(['middleware' => 'scout.auth'], function(){
         Route::get('/dashboard','Scout\ScoutUserController@dashboard')->name('scout.dashboard');
@@ -558,6 +560,11 @@ Route::group(['prefix' => 'scout'], function(){
         Route::any('/viewRoom/{id}', 'Scout\HotelController@view_room');
         Route::get('/tourList', 'Scout\TourController@tour_list');
         Route::get('/viewTour/{id}', 'Scout\TourController@view_tour');	
+        Route::get('/spaceList', 'Scout\ScoutSpaceController@index');
+        Route::get('/spaceView/{id}', 'Scout\ScoutSpaceController@spaceView');
+        Route::get('/bookingList', 'Scout\ScoutSpaceController@bookingList');
+        Route::get('/changeSpaceStatus', 'Scout\ScoutSpaceController@change_space_status');
+        Route::any('/viewBooking/{id}', 'Scout\ScoutSpaceController@view_booking');
     });
 });
 

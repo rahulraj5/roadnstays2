@@ -29,8 +29,8 @@
         <!-- <li><a href="#">Space</a></li> -->
         <li><a href="{{ url('/') }}">Hotel</a></li>
         <li><a href="{{ url('/tour') }}">Tour</a></li>
-        <!-- <li><a href="{{ url('/events') }}">Event</a></li>
-        <li><a href="{{ url('/space') }}">Space</a></li> -->
+        <li><a href="{{ url('/events') }}">Event</a></li>
+        <li><a href="{{ url('/space') }}">Space</a></li>
         <!-- <li><a href="#">Packages</a></li> -->
         <!-- <li><a href="#">Weather</a></li> -->
 

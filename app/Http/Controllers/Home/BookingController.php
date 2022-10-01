@@ -803,6 +803,10 @@ class BookingController extends Controller
         if (empty($booking_id)) {
             return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
         } else {
+            $u_id = Auth::id();
+            $get_tour_id = DB::table('tour_booking')->where('id', $booking_id)->value('tour_id');
+            $get_avail_for_booking = DB::table('tour_booking_request')->where('tour_id', $get_tour_id)->where('user_id', $u_id)->delete(); 
+            
             DB::table('tour_booking')->where('id', $booking_id)->update([
                 'booking_status' => 'canceled',
                 'cancel_reason' => $request->cancel_reason,

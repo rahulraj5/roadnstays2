@@ -200,14 +200,14 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
           type: 'POST',
-          url: "{{url('/servicepro/deleteTour')}}",
+          url: "{{url('/servicepro/deleteBookingRequest')}}",
           data: {
             id: id,
             _token: CSRF_TOKEN
           },
           dataType: 'JSON',
           success: function(results) {
-            $("#row" + id).remove();
+            // $("#row" + id).remove();
             // console.log(results);
             success_noti(results.msg);
             setTimeout(function() {
@@ -379,7 +379,7 @@
               <th>Invoice Number</th>
               <th>Period</th>
               <th>Approve Booking</th>
-              <!-- <th>Payment Status</th> -->
+              <th>Payment Status</th>
               <!-- <th>Status</th> -->
               <!-- <th>Action</th> -->
             </tr>
@@ -400,14 +400,24 @@
                   <!-- <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a> -->
                   <!-- <a href="javascript:void(0)" onclick="issueInvoiceConfirmation('<?php echo $arr->id; ?>');" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a> -->
                   <!-- <a href="" data-toggle="modal" data-target="#invoice_modal" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a> -->
+                  @if($arr->approve_status == 0)
                   <button class="btn btn-secondary viewdetails" style="margin-right: 3px;" data-id='{{ $arr->id }}' >Issue Invoice</button>
+                  @else
+                  <button class="btn btn-success" style="margin-right: 3px;" data-id='{{ $arr->id }}' disabled>Invoice Issued</button>
+                  @endif
                 </div>
                 <div class="btn-group btn-group-sm">
                   <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
                 </div>
+                @if($arr->payment_status == 0)
+                  <div class="btn-group btn-group-sm">
+                    <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Delete Booking</a>
+                  </div>
+                @endif
                 @else {{ "Instant Booking"}}
                 @endif
               </td>
+              <td>@if($arr->payment_status == 1) {{"Completed"}} @else {{"Pending"}} @endif</td>
             </tr>
             <?php $i++; ?>
             @endforeach

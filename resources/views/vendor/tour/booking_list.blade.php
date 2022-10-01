@@ -222,7 +222,7 @@
               <th>User Name</th>
               <!-- <th>User Contact Info</th> -->
               <th>Period</th>
-              <th>Approve Booking</th>
+              <!-- <th>Approve Booking</th> -->
               <th>Payment Type</th>
               <th>Payment Status</th>
               <th>Status</th>
@@ -240,22 +240,23 @@
               <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
               <!-- <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td> -->
               <td>From: {{ $arr->tour_start_date }} to: {{ $arr->tour_end_date }}</td>
-              <td>@if($arr->booking_option == 2)
+              <!-- <td>
+                @if($arr->booking_option == 2)
                   <div class="btn-group btn-group-sm">
-                    <!-- <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a> -->
                     <a href="javascript:void(0)" onclick="issueInvoiceConfirmation('<?php echo $arr->id; ?>');" class="btn btn-secondary" style="margin-right: 3px;">Issue Invoice</a>
                   </div>  
                   <div class="btn-group btn-group-sm mt-1">
                     <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
                   </div>  
                   @else {{ "Instant Booking"}} 
-                  @endif</td>
+                @endif
+              </td> -->
               <td>{{ $arr->payment_type }}</td>
               <td>{{ $arr->payment_status }}</td>
               <td>{{ $arr->booking_status }}</td>
               <td class="text-right py-0 align-middle">
                 <div class="btn-group btn-group-sm">
-                  <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
+                  <a href="{{url('/servicepro/viewtourBooking')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
                 </div>
               </td>
             </tr>

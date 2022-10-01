@@ -477,30 +477,33 @@ class TourController extends Controller
         }
     } 
 
+    public function delete_booking_request(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
+        if ($res){
+            DB::table('tour_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
     public function cancel_tour_booking_request_status(Request $request)
     {
         $request_id = $request->id;
-
         $check = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
         if($check->request_status == 1){
             DB::table('tour_booking_request')
             ->where('id', $request_id)
             ->update([
                 'request_status' => 0,
+                'approve_status' => 0,
             ]);
             return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
         }else{
             return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
         }
-
-        // if (!empty($request_id)) {
-        //     DB::table('tour_booking_request')
-        //         ->where('id', $request_id)
-        //         ->update([
-        //             'request_status' => 0
-        //         ]);
-        // }
-        // return response()->json(['success' => 'status change successfully.']);
     }
 
     public function tourbooking_list(Request $request)
@@ -539,7 +542,9 @@ class TourController extends Controller
     public function view_booking($id)
     {
         $vendor_id = Auth::id();
-        $booking_id = $id;
+        // echo "<pre>"; print_r($vendor_id);
+        $booking_id = base64_decode($id);
+        // echo "<pre>"; print_r($booking_id);die; 
         $data['page_heading_name'] = 'View Tour Booking';
         $data['bookingList'] = DB::table('tour_booking')
             ->join('users', 'tour_booking.user_id', '=', 'users.id')
@@ -575,7 +580,9 @@ class TourController extends Controller
             ->where('tour_booking.id', $booking_id)
             ->first();
 
+        // echo "<pre>"; print_r($data['bookingList']);die;
         $property_owner_id = $data['bookingList']->vendor_id;
+        // echo "<pre>"; print_r($property_owner_id);die; 
 
         $data['vendor_details'] = DB::table('users')
             ->join('country', 'users.user_country', 'country.id')
@@ -611,6 +618,7 @@ class TourController extends Controller
             )
             ->where('tour_booking.id', $booking_id)
             ->get();
+        // echo "<pre>"; print_r($data);die; 
         return view('vendor/tour/booking_details')->with($data);
     }
 }

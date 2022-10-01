@@ -11,12 +11,22 @@
          <div class="row">
             <div class="col-md-12 ">
                <a href="{{url('/')}}"><i class="bx bx-left-arrow-alt"></i>Back to Home</a>
+
+               @if($payment_status == 'Failed')
+               <div class="done-payment mb-3">
+                  <img src="{{url('/resources/assets/img/remove.png')}}" style="width: 100px;">
+                  <h3>Booking Failed</h3>
+                  <p class="pl-5 pr-5 pt-1">We chould not acquire the payment. Please try again!
+                  </p>
+               </div>
+               @else
                <div class="done-payment mb-3">
                   <img src="{{url('/resources/assets/img/confirmpayment.gif')}}" style="width: 100px;">
                   <h3>Booking DONE</h3>
                   <p class="pl-5 pr-5 pt-1">We are pleased to inform you that your reservation request has been received and confirmed. your booking is confirmed. Thank you!
                   </p>
                </div>
+               @endif
             </div>
             <div class="col-md-12">
                <div id="loginResBox">

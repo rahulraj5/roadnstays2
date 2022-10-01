@@ -34,9 +34,9 @@
                <div class="infobox">
                   <div class="revie-box">
                      <div class="page-detail">
-                        <h5 class="p-0 m-0 citi-omr">{{$order_info->tour_title}}</h5>
+                        <h5 class="p-0 m-0 citi-omr">{{$order_info->tour_title ?? ''}}</h5>
                         <span>★★★★★</span>
-                        <p>{{$order_info->address}},{{$order_info->city}},{{$country_name->name}}</p>
+                        <p>{{$order_info->address ?? ''}},{{$order_info->city ?? ''}},{{$country_name->name ?? ''}}</p>
                      </div>
                      <div class="page-detail-sid">
                         <img class="rtnb" src="{{url('/public/uploads/tour_gallery/')}}/{{$order_info->tour_feature_image}}" alt="Another alt text" style="width: 100px;">
@@ -53,17 +53,17 @@
                   <div class="runs-andpay">
                      <div class="date1">
                         <span>Start Date</span>
-                        <h3> {{$order_info->tour_start_date}}</h3>
-                        <small>{{$start_day}}</small>
+                        <h3> {{$order_info->tour_start_date ?? ''}}</h3>
+                        <small>{{$start_day ?? ''}}</small>
                      </div>
                      <div class="date3">
-                        <small>{{$order_info->tour_days}} Days-{{$nights}} Night</small><br>
+                        <small>{{$order_info->tour_days ?? ''}} Days-{{$nights ?? ''}} Night</small><br>
                         <i class='bx bx-transfer-alt'></i>
                      </div>
                      <div class="date1">
                         <span>End Date</span>
-                        <h3> {{$order_info->tour_end_date}}</h3>
-                        <small>{{$end_day}}</small>
+                        <h3> {{$order_info->tour_end_date ?? ''}}</h3>
+                        <small>{{$end_day ?? ''}}</small>
                      </div>
                      <div class="date2">
                         <h6>1 </h6>
@@ -74,12 +74,12 @@
                         <h4>Payment details</h4>
                      </div>
                      <div class="price-left">
-                        <h5> {{$order_info->tour_price}} <br> <small> Base Price {{$order_info->tour_price}} Per Person</small></h5>
+                        <h5> {{$order_info->tour_price ?? ''}} <br> <small> Base Price {{$order_info->tour_price ?? ''}} Per Person</small></h5>
                         <h6>PKR <?php echo $order_info->tour_price;?> </h6>
                      </div>
                      <div class="price-left">
                         <h5> <b>Total Amount to be paid </b></h5>
-                        <h6><b>PKR {{$order_info->tour_price}}</b></h6>
+                        <h6><b>PKR {{$order_info->tour_price ?? ''}}</b></h6>
                      </div>
                   </div>
                </div>

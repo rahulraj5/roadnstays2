@@ -385,7 +385,7 @@
               <div class="row">
 
                 <div class="col-md-6">
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-md-12 col-sm-12">
                     <div class="order_Detail_main_s">
                       <div class="portlet yellow-crusta box">
                         <div class="portlet-title">
@@ -469,46 +469,11 @@
 
                           </div>
 
-                          <div class="row static-info">
-
-                            <div class="col-md-5 name"> Document Number: </div>
-
-                            <div class="col-md-7 value"> {{ $bookingList->document_number }} </div>
-
-                          </div>
-
-                          <div class="row static-info">
-
-                            <div class="col-md-5 name"> Document Type: </div>
-
-                            <div class="col-md-7 value"> {{ $bookingList->document_type }} </div>
-
-                          </div>
-
-                          <div class="row static-info">
-
-                            <div class="col-md-5 name"> Front Document Img: </div>
-
-                            <div class="col-md-7 value">
-                              <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->front_document_img}}" alt="" style="height: 130px;">
-                            </div>
-
-                          </div>
-
-                          <div class="row static-info">
-
-                            <div class="col-md-5 name"> Back Document Img: </div>
-                            <div class="col-md-7 value">
-                              <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->back_document_img}}" alt="" style="height: 130px;">
-                            </div>
-
-                          </div>
-
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-md-12 col-sm-12">
                     <div class="order_Detail_main_s">
                       <div class="portlet green-meadow box">
                         <div class="portlet-title">
@@ -556,7 +521,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-md-12 col-sm-12">
                     <div class="order_Detail_main_s">
                       <div class="portlet red-sunglo box">
                         <div class="portlet-title">
@@ -602,7 +567,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-md-12 col-sm-12">
                     <div class="order_Detail_main_s">
                       <div class="portlet blue-hoki box">
                         <div class="portlet-title">
@@ -655,7 +620,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div class="col-md-6 col-sm-12">
+                  <div class="col-md-12 col-sm-12">
                     <div class="order_Detail_main_s">
                       <div class="portlet blue-hoki box">
                         <div class="portlet-title">
@@ -698,6 +663,41 @@
                             <div class="col-md-5 name"> Phone Number: </div>
 
                             <div class="col-md-7 value"> {{ $bookingList->user_contact_num }} </div>
+
+                          </div>
+
+                          <div class="row static-info">
+
+                            <div class="col-md-5 name"> Document Number: </div>
+
+                            <div class="col-md-7 value"> {{ $bookingList->document_number }} </div>
+
+                          </div>
+
+                          <div class="row static-info">
+
+                            <div class="col-md-5 name"> Document Type: </div>
+
+                            <div class="col-md-7 value"> {{ $bookingList->document_type }} </div>
+
+                          </div>
+
+                          <div class="row static-info">
+
+                            <div class="col-md-5 name"> Front Document Img: </div>
+
+                            <div class="col-md-7 value">
+                              <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->front_document_img}}" alt="" style="height: 130px;">
+                            </div>
+
+                          </div>
+
+                          <div class="row static-info">
+
+                            <div class="col-md-5 name"> Back Document Img: </div>
+                            <div class="col-md-7 value">
+                              <img src="{{ asset('public/uploads/user_document/') }}/{{$bookingList->back_document_img}}" alt="" style="height: 130px;">
+                            </div>
 
                           </div>
 

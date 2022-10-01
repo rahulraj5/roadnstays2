@@ -108,6 +108,9 @@ body.main_b_s {
                         
                         
                             <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Email: <a style="text-decoration: none;" href="https://mail.google.com/mail/?view=cm&amp;tf=1" target="_blank">{{$order_info->property_alternate_num}}</a></p>
+
+                            <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num}}</a></p>
+
                         
                         <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->hotel_latitude}},{{$order_info->hotel_longitude}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->hotel_longitude}},{{$order_info->hotel_longitude}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p>
                 </td>

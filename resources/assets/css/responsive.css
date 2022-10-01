@@ -1237,10 +1237,7 @@ a.ui-datepicker-next {
     width: 80px;
     height: auto;
     margin: auto;
-
     padding: 13px;
-
-
 }
 
 .amenity-row .amenities-img .bx {
@@ -1450,11 +1447,10 @@ body {
 .event-sec .img-banner .bannner-text {
     position: absolute;
     width: 100%;
-    top: 330px;
-    padding: 10px 80px;
-    background: #000000c2;
+    top: 351px;
+    padding: 10px 147px;
+    background: #0000009e;
     color: #fff;
-
 }
 
 #LoginForm .mart-rom ul {
@@ -4446,7 +4442,7 @@ background-color: #009578;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     width: 650px;
-    height: 353px;
+    height: 406px;
     object-fit: cover;
   }
   
@@ -4717,9 +4713,7 @@ background-color: #009578;
   .Sponser-section .blog_content .owl-nav {
     display: none;
   }
-  
-  
-  
+
   .price-tag .row .price {
     display: flex;
     align-items: baseline;
@@ -5061,7 +5055,7 @@ height: 35px;
     padding-left: 15px;
    
 }
-.guest-no .dropdown .btn{
+.guest-no .dropdown .btn {
     padding: 0;
     font-size: 14px;
     font-weight: 500;
@@ -5069,7 +5063,7 @@ height: 35px;
     background: transparent;
     width: 100%;
     text-align: left;
-    height: 40px;
+    height: 30px;
 }
 .guest-no .dropdown-item {
     display: flex;
@@ -5680,11 +5674,10 @@ button.more-details{
         width: 100%;
     }
 
-    .event-sec .img-banner .bannner-text {
-        padding: 10px 10px;
-        top: 345px;
-    }
-
+ .event-sec .img-banner .bannner-text {
+    padding: 10px 10px;
+    top: 232px !important;
+}
     .event-sec .img-banner .bannner-text h1 {
         font-size: 1.5rem;
     }

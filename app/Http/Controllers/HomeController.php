@@ -112,10 +112,12 @@ class HomeController extends Controller
         //echo "<pre>"; print_r($data);die;
         return view('front/event/event_details')->with($data);
     }
+
     public function events()
     {
         // $data['events_data'] = DB::table('events')->orderby('id','DESC')->get();
         $data['events_data'] = DB::table('events')->where('start_date', '>=', date('Y-m-d'))->orderby('id', 'DESC')->get();
+        $data['past_events_data'] = DB::table('events')->where('end_date', '<', date('Y-m-d'))->orderby('id', 'DESC')->get();
         //echo "<pre>"; print_r($data);die;
         return view('front/event/events')->with($data);
     }
@@ -459,6 +461,8 @@ class HomeController extends Controller
             }
         }
         $checkorder = DB::table('event_booking')->where('payment_token', '=', $result->TransactionId)->first();
+
+        $data['payment_status'] = $result->TransactionStatus;
 
         if(empty($checkorder)) {
 
@@ -1066,6 +1070,7 @@ class HomeController extends Controller
 
     public function tourBooking(Request $request)
     {
+        $u_id = Auth::id();
         $tour_id = $request->id;
         $data['tour_details'] = DB::table('tour_list')->where('id', $tour_id)->first();
         $checkRequest = 0;
@@ -1080,11 +1085,45 @@ class HomeController extends Controller
                 }
             }
         }
+
+        // echo "<pre>";print_r($tour_booking_request);die;
         $data['checkRequest'] = $checkRequest;
         $data['tour_booking_request'] = $tour_booking_request;
+
+        if(!empty($tour_booking_request))
+        {
+            $data['details'] = DB::table('tour_booking_request')
+                ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+                ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+                ->select(
+                    'tour_booking_request.*',
+                    'users.user_type',
+                    'users.first_name as user_first_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.contact_number as user_contact_num',
+                    'users.role_id as user_role_id',
+                    'users.is_verify_email as user_email_is_verify_email',
+                    'users.is_verify_contact as user_contact_is_verify_contact',
+                    'tour_list.tour_title',
+                    'tour_list.vendor_id',
+                    'tour_list.tour_start_date as tour_start_date',
+                    'tour_list.tour_end_date',
+                    'tour_list.tour_price',
+                    'tour_list.tour_days',
+                    'tour_list.city',
+                    'tour_list.booking_option'
+                )
+                ->where('tour_booking_request.id', $tour_booking_request->id)
+                ->first();
+        }        
+         
+        // $check_existing_booking = DB::table('tour_booking')->where('tour_id', $tour_id)->where('user_id', $u_id)->get();
+
         // echo "<pre>"; print_r(Auth::id());
         // echo "<pre>"; print_r($data['checkRequest']);
         // echo "<pre>"; print_r($data['tour_booking_request']);die;
+        // echo "<pre>"; print_r($data);die;
         return view('front/tour/tour-booking')->with($data);
     }
 
@@ -1118,7 +1157,6 @@ class HomeController extends Controller
             $request->file('back_document_img')->move($pat2, $back_document_img);
         }
         $status = 1;
-
 
         // //echo "<pre>"; print_r($forminput);die;
         // // $client="AcwBj1jBaPuIaGvVF4WCqtT8PMe8XVlNLriyqP2JVlFViJQpJbmF-CMsTnqI9TOA0Z6kWeD3uG5R0xvO";
@@ -1483,6 +1521,8 @@ class HomeController extends Controller
             }
         }
         $checkorder = DB::table('tour_booking')->where('payment_token', '=', $result->TransactionId)->first();
+        
+        $data['payment_status'] = $result->TransactionStatus;
 
         if (empty($checkorder)) {
 
@@ -1532,6 +1572,8 @@ class HomeController extends Controller
                     ->where('users.status', 1)
                     ->select('tour_booking.*', 'tour_list.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number', 'users.alternate_num', 'users.user_company_number')
                     ->first();
+
+                $update_payment_status = DB::table('tour_booking_request')->where('user_id', $user_id)->where('tour_id', $bookingtemp->tour_id)->update(['payment_status' => 1]);    
 
                 if ($_SERVER['SERVER_NAME'] != 'localhost') {
 
@@ -1593,7 +1635,9 @@ class HomeController extends Controller
                     // echo "Nothing need to do";
                 }else{
                     session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
-                }   
+                }  
+                
+                
                 // session::flash('message', 'Order created Succesfully.');
                 return view('front/tour/confirm_booking', $data);
             } else {
@@ -3551,7 +3595,7 @@ class HomeController extends Controller
         }
         // echo "<pre>"; print_r($check_guest_user);die;
         $checkorder = DB::table('booking')->where('payment_token', '=', $result->TransactionId)->first();
-
+        $data['payment_status'] = $result->TransactionStatus;
         if (empty($checkorder)) {
 
             DB::table('booking')->insert(
@@ -3589,7 +3633,7 @@ class HomeController extends Controller
                     'txn_amount' =>  $bookingtemp->total_amount,
                     'payment_method' => 'ALFA',
                     'booking_type' => 'Room',
-                    'txn_status' =>  'successful',
+                    'txn_status' =>  $result->TransactionStatus,
                     'txn_date' => date('Y-m-d H:i:s'),
                     'created_at' =>  date('Y-m-d H:i:s')
                 ]
