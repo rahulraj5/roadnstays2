@@ -145,16 +145,27 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     // booking 
     Route::any('user/bookingList', 'Home\BookingController@booking_list');	
     Route::any('user/bookingList-upcoming', 'Home\BookingController@booking_list_upcoming');	
-    Route::any('user/bookingList-cancel', 'Home\BookingController@booking_list_cancel');	
+    Route::any('user/bookingList-cancel', 'Home\BookingController@booking_list_cancel');
+    Route::any('user/bookingList-approval', 'Home\BookingController@booking_list_approval');	
+
     Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');
     Route::any('user/spaceBookingList-upcoming', 'Home\BookingController@space_booking_list_upcoming');	
-    Route::any('user/spaceBookingList-cancel', 'Home\BookingController@space_booking_list_cancel');		
+    Route::any('user/spaceBookingList-cancel', 'Home\BookingController@space_booking_list_cancel');	
+    Route::any('user/spaceBookingList-approval', 'Home\BookingController@space_booking_list_approval');
+
     Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
     Route::any('user/tourBookingList-upcoming', 'Home\BookingController@tour_booking_list_upcoming');	
     Route::any('user/tourBookingList-cancel', 'Home\BookingController@tour_booking_list_cancel');	
+    Route::any('user/tourBookingList-approval', 'Home\BookingController@tour_booking_list_approval');	
 
     Route::any('user/requestBookingTour', 'Home\BookingController@request_booking_tour');	
     Route::any('user/cancelTourBookingRequest', 'Home\BookingController@cancel_request_booking_tour');	
+
+    Route::any('user/requestBookingSpace', 'Home\BookingController@request_booking_space');	
+    Route::any('user/cancelSpaceBookingRequest', 'Home\BookingController@cancel_request_booking_space');
+
+    Route::any('user/requestBookingRoom', 'Home\BookingController@request_booking_room');	
+    Route::any('user/cancelRoomBookingRequest', 'Home\BookingController@cancel_request_booking_room');
 
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::post('user/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');	
@@ -192,7 +203,13 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/space-reservation-cancel-details/{id}', 'Vendor\ReservationController@space_reservation_canceled');	
 
     Route::get('servicepro/tour-reservation-details/{id}', 'Vendor\ReservationController@tour_reservation_detail');	
-    Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');	
+    Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');
+    
+    Route::get('servicepro/roomsApproveBooking_list', 'Vendor\BookingController@room_approve_booking_list');
+    Route::any('servicepro/cancelRoomBookingRequestStatus', 'Vendor\BookingController@cancel_room_booking_request_status');
+    Route::any('servicepro/getRoomInvoiceDetails/{requestId}', 'Vendor\BookingController@getRoomInvoiceDetails')->name('getRoomInvoiceDetails');
+    Route::any('servicepro/sendRoomInvoice', 'Vendor\BookingController@sendRoomInvoice');
+    Route::any('servicepro/deleteRoomBookingRequest', 'Vendor\BookingController@delete_room_booking_request');
 
     Route::get('servicepro/bookingInvoice/{id}', 'Home\BookingController@booking_invoice');
     Route::get('servicepro/spaceBookingInvoice/{id}', 'Home\BookingController@space_booking_invoice');
@@ -268,6 +285,16 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/changeSpaceStatus', 'Vendor\SpaceController@change_space_status');
     Route::post('servicepro/deleteSpace', 'Vendor\SpaceController@delete_space');
     Route::get('servicepro/edit-space/{id}', 'Vendor\SpaceController@edit_space');
+
+    Route::get('servicepro/spaceApproveBooking_list', 'Vendor\BookingController@space_approve_booking_list');
+    // Route::any('servicepro/issueInvoiceSpace', 'Vendor\SpaceController@issue_invoice_space');
+    // Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
+    // Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
+    Route::any('servicepro/cancelSpaceBookingRequestStatus', 'Vendor\BookingController@cancel_space_booking_request_status');
+    Route::any('servicepro/getSpaceInvoiceDetails/{requestId}', 'Vendor\BookingController@getSpaceInvoiceDetails')->name('getSpaceInvoiceDetails');
+    Route::any('servicepro/sendSpaceInvoice', 'Vendor\BookingController@sendSpaceInvoice');
+    Route::any('servicepro/deleteSpaceBookingRequest', 'Vendor\BookingController@delete_space_booking_request');
+
     Route::get('servicepro/stepedit-space/{id}', 'Vendor\SpaceController@step_edit_space');
     Route::any('servicepro/updateSpace', 'Vendor\SpaceController@update_space');
     Route::any('servicepro/view-space/{id}', 'Vendor\SpaceController@view_space');
@@ -280,9 +307,9 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/spaceBookingList', 'Vendor\BookingController@space_booking_list');
     Route::any('servicepro/spaceBookingView/{id}', 'Vendor\BookingController@space_booking_view');
 
-    Route::any('servicepro/issueInvoiceSpace', 'Vendor\BookingController@issue_invoice_space');
-    Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
-    Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
+    // Route::any('servicepro/issueInvoiceSpace', 'Vendor\BookingController@issue_invoice_space');
+    // Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
+    // Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
 
     Route::get('servicepro/transactionHistory', 'Vendor\BookingController@transaction_history');
     Route::get('servicepro/transactionHistoryView/{id}', 'Vendor\BookingController@view_transaction_history'); 
@@ -565,6 +592,13 @@ Route::group(['prefix' => 'scout'], function(){
         Route::get('/bookingList', 'Scout\ScoutSpaceController@bookingList');
         Route::get('/changeSpaceStatus', 'Scout\ScoutSpaceController@change_space_status');
         Route::any('/viewBooking/{id}', 'Scout\ScoutSpaceController@view_booking');
+        Route::get('/tourbooking_list', 'Scout\ScoutSpaceController@tourbooking_list');
+        Route::get('/view_tour_booking/{id}', 'Scout\ScoutSpaceController@viewTourBooking');
+        Route::get('/spacebooking_list', 'Scout\ScoutSpaceController@spacebooking_list');
+        Route::get('/view_space_booking/{id}', 'Scout\ScoutSpaceController@viewSpaceBooking');
+        Route::get('/changeBookingStatus','Admin\BookingController@change_booking_status');
+        Route::get('/changeSpaceBookingStatus','Admin\BookingController@change_space_booking_status');
+        Route::get('/events_list', 'Scout\ScoutSpaceController@events_list');
     });
 });
 

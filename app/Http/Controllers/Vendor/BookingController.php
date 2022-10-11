@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Hotel;
 use DB;
 use Session;
+use App\Helpers\Helper;
 
 class BookingController extends Controller
 {
@@ -298,4 +299,346 @@ class BookingController extends Controller
         return view('vendor/booking/view_transaction_history')->with($data);
         
     }   
+
+    // space approval booking start here    
+
+    public function space_approve_booking_list(Request $request)
+    {
+        $data['page_heading_name'] = 'Space Approve Booking List';
+        $vendor_id = Auth::id();
+        $data['bookingList'] = DB::table('space_booking_request')
+            ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+            ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+            ->select(
+                'space_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'space.space_name',
+                'space.space_user_id',
+                // 'space.tour_start_date as tour_start_date',
+                // 'space.tour_end_date',
+                'space.price_per_night',
+                // 'space.tour_days',
+                'space.city',
+                'space.booking_option'
+            )
+            ->where('space_user_id', $vendor_id)
+            ->orderby('id', 'DESC')
+            ->get();
+
+        $data['invoiceNum'] = DB::table('space_booking_request')->where('approve_status', 1)->get(['id','invoice_num']);
+        // echo "<pre>"; print_r($data['invoiceNum']);die;
+        // echo "<pre>"; print_r($data['bookingList']);die;
+        return view('vendor/space/approve_booking_list')->with($data);
+    }
+
+    public function getSpaceInvoiceDetails($request_id = 0)
+    {
+        // $details = DB::table('space_booking_request')->find($request_id);
+        $details = DB::table('space_booking_request')
+            ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+            ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+            ->select(
+                'space_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'space.space_name',
+                'space.space_user_id',
+                'space.price_per_night',
+                'space.city',
+                'space.booking_option'
+            )
+            ->where('space_booking_request.id', $request_id)
+            ->first();
+        // echo "<pre>";print_r($details);die;
+        $html = "";
+        if(!empty($details)){
+           $html = "<tr>
+                <td width='30%'><b>Space Name:</b></td>
+                <td width='70%'> ".$details->space_name."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Period:</b></td>
+                <td width='70%'> ".$details->check_in_date." to ".$details->check_out_date."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Price:</b></td>
+                <td width='70%'>PKR ".$details->price_per_night."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Email:</b></td>
+                <td width='70%'> ".$details->user_email."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Phone:</b></td>
+                <td width='70%'> ".$details->user_contact_num."</td>
+             </tr>
+             <tr>
+                <td>
+                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                        <tbody>
+                            <tr>
+                                <td>Cost</td>
+                                <td class='alignright'>PKR ".$details->price_per_night."</td>
+                            </tr>
+                            <tr style='display:none;'>
+                                <td>Discount</td>
+                                <td class='alignright'>PKR <span id='discount_val'></span></td>
+                            </tr>
+                            <tr class='total'>
+                                <td class='alignright' width='80%'>Total</td>
+                                <td class='alignright'>PKR ".$details->price_per_night."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+             </tr>";
+        }
+        $response['html'] = $html;
+        $response['request_id'] = $details->id;
+  
+        return response()->json($response);
+    }
+
+    public function sendSpaceInvoice(Request $request)
+    {
+        $request_id = $request->request_id;
+
+        if (!empty($request_id)) {
+            $check = DB::table('space_booking_request')->where('id', $request_id)->first();
+            if($check->approve_status == 0){
+                $invoiceNum = Helper::generateRandomInvoiceId(5);
+                DB::table('space_booking_request')
+                    ->where('id', $request_id)
+                    ->update([
+                        'approve_status' => 1,
+                        'invoice_num' => $invoiceNum
+                    ]);
+                return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
+            }else{
+                return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
+            }
+        }
+    } 
+
+    public function delete_space_booking_request(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('space_booking_request')->where('id', '=', $request_id)->first();
+        if ($res){
+            DB::table('space_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
+    public function cancel_space_booking_request_status(Request $request)
+    {
+        $request_id = $request->id;
+        $check = DB::table('space_booking_request')->where('id', '=', $request_id)->first();
+        if($check->request_status == 1){
+            DB::table('space_booking_request')
+            ->where('id', $request_id)
+            ->update([
+                'request_status' => 0,
+                'approve_status' => 0,
+            ]);
+            return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
+        }
+    }
+
+    // room approval booking end here
+
+        // room approval booking start here    
+
+        public function room_approve_booking_list(Request $request)
+        {
+            $data['page_heading_name'] = 'Room Approve Booking List';
+            $vendor_id = Auth::id();
+            $data['bookingList'] = DB::table('room_booking_request')
+                ->join('users', 'room_booking_request.user_id', '=', 'users.id')
+                ->join('hotels', 'room_booking_request.hotel_id', '=', 'hotels.hotel_id')
+                ->join('room_list', 'room_booking_request.room_id', '=', 'room_list.id')
+                ->select(
+                    'room_booking_request.*',
+                    'users.user_type',
+                    'users.first_name as user_first_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.contact_number as user_contact_num',
+                    'users.role_id as user_role_id',
+                    'users.is_verify_email as user_email_is_verify_email',
+                    'users.is_verify_contact as user_contact_is_verify_contact',
+                    'hotels.hotel_name',
+                    'hotels.hotel_user_id',
+                    'hotels.is_admin as hotel_added_is_admin',
+                    'hotels.property_contact_name',
+                    'hotels.property_contact_num',
+                    'hotels.hotel_address',
+                    'hotels.hotel_city',
+                    'hotels.stay_price as hotelroom_min_stay_price',
+                    'hotels.checkin_time',
+                    'hotels.checkout_time',
+                    'hotels.booking_option',
+                    'room_list.name as room_name',
+                )
+                ->where('hotel_user_id', $vendor_id)
+                ->orderby('id', 'DESC')
+                ->get();
+    
+            $data['invoiceNum'] = DB::table('room_booking_request')->where('approve_status', 1)->get(['id','invoice_num']);
+            // echo "<pre>"; print_r($data['invoiceNum']);die;
+            // echo "<pre>"; print_r($data['bookingList']);die;
+            return view('vendor/hotel/approve_booking_list')->with($data);
+        }
+    
+        public function getRoomInvoiceDetails($request_id = 0)
+        {
+            // $details = DB::table('room_booking_request')->find($request_id);
+            $details = DB::table('room_booking_request')
+                ->join('users', 'room_booking_request.user_id', '=', 'users.id')
+                ->join('hotels', 'room_booking_request.hotel_id', '=', 'hotels.hotel_id')
+                ->join('room_list', 'room_booking_request.room_id', '=', 'room_list.id')
+                ->select(
+                    'room_booking_request.*',
+                    'users.user_type',
+                    'users.first_name as user_first_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.contact_number as user_contact_num',
+                    'users.role_id as user_role_id',
+                    'users.is_verify_email as user_email_is_verify_email',
+                    'users.is_verify_contact as user_contact_is_verify_contact',
+                    'hotels.hotel_name',
+                    'hotels.hotel_user_id',
+                    'hotels.is_admin as hotel_added_is_admin',
+                    'hotels.property_contact_name',
+                    'hotels.property_contact_num',
+                    'hotels.hotel_address',
+                    'hotels.hotel_city',
+                    'hotels.stay_price as hotelroom_min_stay_price',
+                    'hotels.checkin_time',
+                    'hotels.checkout_time',
+                    'hotels.booking_option',
+                    'room_list.name as room_name',
+                    'room_list.price_per_night'
+                )
+                ->where('room_booking_request.id', $request_id)
+                ->first();
+            // echo "<pre>";print_r($details);die;
+            $html = "";
+            if(!empty($details)){
+               $html = "<tr>
+                    <td width='30%'><b>Room Name:</b></td>
+                    <td width='70%'> ".$details->room_name."</td>
+                 </tr>
+                 <tr>
+                    <td width='30%'><b>Hotel Name:</b></td>
+                    <td width='70%'> ".$details->hotel_name."</td>
+                 </tr>
+                 <tr>
+                    <td width='30%'><b>Period:</b></td>
+                    <td width='70%'> ".$details->check_in_date." to ".$details->check_out_date."</td>
+                 </tr>
+                 <tr>
+                    <td width='30%'><b>Price:</b></td>
+                    <td width='70%'>PKR ".$details->price_per_night."</td>
+                 </tr>
+                 <tr>
+                    <td width='30%'><b>Email:</b></td>
+                    <td width='70%'> ".$details->user_email."</td>
+                 </tr>
+                 <tr>
+                    <td width='30%'><b>Phone:</b></td>
+                    <td width='70%'> ".$details->user_contact_num."</td>
+                 </tr>
+                 <tr>
+                    <td>
+                        <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                            <tbody>
+                                <tr>
+                                    <td>Cost</td>
+                                    <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                </tr>
+                                <tr class='total'>
+                                    <td class='alignright' width='80%'>Total</td>
+                                    <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                 </tr>";
+            }
+            $response['html'] = $html;
+            $response['request_id'] = $details->id;
+      
+            return response()->json($response);
+        }
+    
+        public function sendRoomInvoice(Request $request)
+        {
+            $request_id = $request->request_id;
+    
+            if (!empty($request_id)) {
+                $check = DB::table('room_booking_request')->where('id', $request_id)->first();
+                if($check->approve_status == 0){
+                    $invoiceNum = Helper::generateRandomInvoiceId(5);
+                    DB::table('room_booking_request')
+                        ->where('id', $request_id)
+                        ->update([
+                            'approve_status' => 1,
+                            'invoice_num' => $invoiceNum
+                        ]);
+                    return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
+                }else{
+                    return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
+                }
+            }
+        } 
+    
+        public function delete_room_booking_request(Request $request)
+        {
+            $request_id = $request->id;
+            $res = DB::table('room_booking_request')->where('id', '=', $request_id)->first();
+            if ($res){
+                DB::table('room_booking_request')->where('id', '=', $request_id)->delete();
+                return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
+            }else{
+                return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+            }
+        }
+    
+        public function cancel_room_booking_request_status(Request $request)
+        {
+            $request_id = $request->id;
+            $check = DB::table('room_booking_request')->where('id', '=', $request_id)->first();
+            if($check->request_status == 1){
+                DB::table('room_booking_request')
+                ->where('id', $request_id)
+                ->update([
+                    'request_status' => 0,
+                    'approve_status' => 0,
+                ]);
+                return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
+            }else{
+                return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
+            }
+        }
+    
+        // space approval booking end here
 }

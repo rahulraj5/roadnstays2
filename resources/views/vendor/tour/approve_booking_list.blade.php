@@ -406,10 +406,10 @@
                   <button class="btn btn-success" style="margin-right: 3px;" data-id='{{ $arr->id }}' disabled>Invoice Issued</button>
                   @endif
                 </div>
-                <div class="btn-group btn-group-sm">
-                  <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
-                </div>
                 @if($arr->payment_status == 0)
+                  <div class="btn-group btn-group-sm">
+                    <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
+                  </div>
                   <div class="btn-group btn-group-sm">
                     <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Delete Booking</a>
                   </div>

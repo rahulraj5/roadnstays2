@@ -51,7 +51,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
 
 }
 
-/* .........................13 june css........................... */
+/* ..............13 june css............. */
 
 .hero-event {
     background: url('../img/traveltip1.png');
@@ -60,9 +60,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
     background-position: center;
     height: 300px;
     position: relative;
-
 }
-
 
 .hero-event h1 {
     display: flex;
@@ -160,7 +158,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
     box-shadow: 4px 4px 8px #e5d9d982;
     padding: 3px 4px 16px 3px;
     margin: 0 8px 28px 10px;
-    max-width: 23.333333%;
+    max-width: 31.333333%;
     border-radius: 6px;
 }
 
@@ -272,9 +270,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
 
 }
 
-/* ..........................15 june work hotel list page............................ */
-
-
+/* .......15 june work hotel list page........ */
 
 .user-section {
     padding-top: 77px;
@@ -453,14 +449,14 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
 }
 
 .event-br .book-btn {
-    padding: 6px 15px;
-    background: #126c62;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 4px 4px 8px #fff;
-    margin-top: 20px;
-    width: auto;
+  padding: 6px 15px;
+  background: #126c62;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 4px 4px 8px #fff;
+  margin-top: 20px;
+  width: auto;
   font-weight: 400;
   font-size: 16px;
   text-transform: capitalize;
@@ -491,14 +487,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
     font-size: 18px;
 }
 
-/* .owl-carousel.owl-drag .owl-item{
-    padding: 0px 0px 20px 0;
-    margin: 6px 15px;
-    box-shadow: 4px 4px 6px #b9cfcc;
-    background: aliceblue;
-    z-index: 999;
-    
-} */
+
 .owl-carousel .owl-stage {
     display: block;
 }
@@ -627,20 +616,7 @@ body, h1,h2,h3,h4,h5,h6, a, p, *{
     justify-content: space-between;
     background: transparent!important;  
 }
-/* #reservation input, .space-control{
-    display: block;
-    height: 52px;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-clip: padding-box;
-    border: 0px solid #ced4da;
-    border-left: 2px dotted #ced4da;
-    background: transparent;
-    
-} */
+
 #i-5 i {
     width: 45px;
     height: 45px;
@@ -734,15 +710,10 @@ a.ui-datepicker-next {
     color: #126c62;
 }
 
-
-
-
 .room-avail {
 
     display: none;
 }
-
-.room-avail .bx {}
 
 .hero-sec .full-img {
     padding-left: 0;
@@ -793,7 +764,6 @@ a.ui-datepicker-next {
     backdrop-filter: blur(4px);
     border-radius: 10px;
     border: 1px solid rgb(86 86 86 / 11%);
-
     height: 180px;
     position: absolute;
     right: 15%;
@@ -827,8 +797,6 @@ a.ui-datepicker-next {
     padding-left: 0;
     padding-right: 0;
 }
-
-
 
 .gird-event nav .hidden {
     display: flex;
@@ -1076,8 +1044,8 @@ a.ui-datepicker-next {
     border-radius: 4px;
     float: right;
     margin-right: 10px;
+    transition: 0.5s;
 }
-
 
 /* 20 june css detail page */
 .room-row img {
@@ -1445,13 +1413,21 @@ body {
 }
 
 .event-sec .img-banner .bannner-text {
+    background: rgb(2 2 2 / 49%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    font-size: 36px;
+    font-weight: 900;
+    padding: 15px 40px;
     position: absolute;
-    width: 100%;
-    top: 351px;
-    padding: 10px 147px;
-    background: #0000009e;
+    top: 12%;
+    left: 15%;
     color: #fff;
+    text-transform: uppercase;
 }
+
 
 #LoginForm .mart-rom ul {
     display: flex;
@@ -4142,16 +4118,9 @@ margin-bottom: 0;
 }
 
 
+/* ======================space detail-section css end from here======= */
 
-/* ======================space detail-section css end from here======================================================== */
-/* ======================space detail-section css end from here======================================================== */
-
-
-/* ...........................................................event page css........................................................ */
-
-
-
-/* ...........................................................event page css........................................................ */
+/* ................event page css................. */
 
 .event-detail .carousel img {
     height: 550px;
@@ -4165,7 +4134,7 @@ margin-bottom: 0;
   }
   
   .event-detail .carousel .carousel-caption h5 {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 500;
     letter-spacing: 0px;
     text-transform: uppercase;
@@ -5009,13 +4978,7 @@ font-weight: 800;
     color: #0000009e;
 }
 
-
-  
-  
-  
-  /* ......................................................event detail css done................................................ */
-  /* ......................................................event detail css done................................................ */
-  /* ......................................................event detail css done................................................ */
+/*...............event detail css done................... */
 
   .filter-row .sticky-spaclist{
     width: 25%;
@@ -5025,11 +4988,11 @@ font-weight: 800;
     top: 75px;
   }
 
-  .guest-no .minus, .guest-no .plus{
-    width:35px;
-    background:#f2f2f2;
-    padding:8px 5px 8px 5px;
-    border:1px solid #ddd;
+.guest-no .minus, .guest-no .plus{
+width:35px;
+background:#f2f2f2;
+padding:8px 5px 8px 5px;
+border:1px solid #ddd;
 display: flex;
 text-align: center;
 height: 35px;
@@ -5097,10 +5060,10 @@ height: 35px;
 /* hotel list */
 
 .guest-no1 .minus, .guest-no1 .plus{
-    width:35px;
-    background:#f2f2f2;
-    padding:8px 5px 8px 5px;
-    border:1px solid #ddd;
+width:35px;
+background:#f2f2f2;
+padding:8px 5px 8px 5px;
+border:1px solid #ddd;
 display: flex;
 text-align: center;
 height: 35px;
@@ -5229,16 +5192,12 @@ vertical-align: middle;
     object-fit: cover;
       }
 
-   
 
-
-
-/* ------------------------===============-10 june responsive work below 768px ------------------------------- ==================*/
-/* ------------------------===============-10 june responsive work below 768px ------------------------------- ==================*/
+/*---========-10 june responsive work below 768px ---========*/
 
 @media screen and (max-width:767px) {
     .detail-section .full-img .box {
-        background: rgb(15 16 14 / 75%);
+    background: rgb(15 16 14 / 75%);
     box-shadow: rgb(31 38 135 / 37%) 0px 8px 32px 0px;
     backdrop-filter: blur(4px);
     border-radius: 10px;
@@ -5678,6 +5637,22 @@ button.more-details{
     padding: 10px 10px;
     top: 232px !important;
 }
+
+.event-sec .img-banner .bannner-text {
+    background: rgb(2 2 2 / 49%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    font-size: 36px;
+    font-weight: 900;
+    padding: 15px 40px;
+    position: absolute;
+    top: 5% !important;
+    left: 4% !important;
+    color: #fff;
+    text-transform: uppercase;
+}
     .event-sec .img-banner .bannner-text h1 {
         font-size: 1.5rem;
     }
@@ -6103,6 +6078,7 @@ button.more-details{
 #menu a.prett::after{
     display: none;
 }
+
 .hotel-typ .guest-no1 {
     margin-bottom: 5px;
     border: 1px solid #ced4da;
@@ -6175,6 +6151,9 @@ button.more-details{
     top: 0px;
     left: 0;
   }
+  .text{
+    margin-bottom: 10px !important;
+  }
   .card-header .nav-tabs {
       border: 0;
       padding: 8px 0.7rem !important;
@@ -6203,7 +6182,7 @@ button.more-details{
     align-items: center;
 }
 .event-detail .carousel img {
-    height: 450px;
+    height: 314px;
 }
 .price-tag .detail {
    margin-right: 0;
@@ -6241,7 +6220,8 @@ button.more-details{
     -o-border-radius: 10px;
 }
 .hotel-addon .nav-tabs>.nav-item>.nav-link{
-    padding: 10px 12px;
+     padding: 6px 10px;
+    font-size: 11px;
 }
 .space-addon .row{
     padding: 10px 30px 34px 10px;
@@ -6909,20 +6889,20 @@ flex-wrap: nowrap;
         font-size: 14px;
         margin-bottom: 10px;
     }
-    .container-1 {
-         position: absolute;
-         bottom: 0px;
-         background: #100f0fde;
-         color: #fff;
-         width: 92%;
-         margin: auto;
-         padding: 10px 0 0 0;
-         left: 4%;
-         border-radius:10px ;
-         -webkit-border-radius:10px ;
-         -moz-border-radius:10px ;
-         -ms-border-radius:10px ;
-         -o-border-radius:10px ;
+.container-1 {
+     position: absolute;
+     bottom: 0px;
+     background: #100f0fde;
+     color: #fff;
+     width: 92%;
+     margin: auto;
+     padding: 10px 0 0 0;
+     left: 4%;
+     border-radius:10px ;
+     -webkit-border-radius:10px ;
+     -moz-border-radius:10px ;
+     -ms-border-radius:10px ;
+     -o-border-radius:10px ;
 }
 .event-gallery .container.gallery-container {
     background-color: #fff;
@@ -6975,7 +6955,7 @@ flex-wrap: nowrap;
 }
 
 
-/*============================================ responsive above 767px end here =====================================================*/
+/*================== responsive above 767px end here ================*/
 
 .hotel-about p {
     padding: 1px;
@@ -7116,27 +7096,27 @@ font-weight: 700;
         margin: 40px 0;
     }
 
-    .privacy-sec h5{
-        font-size: 18px;
-        padding: 20px 0 10px 0;
-        font-weight: 800;
-        }
-        .privacy-sec h6{
-            font-size: 16px;
-            font-weight: 800; 
-            padding: 10px 0 0 0; 
-        }
-        .privacy-sec p span{
-            font-size: 16px;
-            font-weight: 700; 
-            margin-right: 3px;
-        }
-        .privacy-sec ul{
-            list-style: none;
-            margin: 0px 0;
-            padding: 0;
-        }
-        
+.privacy-sec h5{
+    font-size: 18px;
+    padding: 20px 0 10px 0;
+    font-weight: 800;
+    }
+    .privacy-sec h6{
+        font-size: 16px;
+        font-weight: 800; 
+        padding: 10px 0 0 0; 
+    }
+    .privacy-sec p span{
+        font-size: 16px;
+        font-weight: 700; 
+        margin-right: 3px;
+    }
+    .privacy-sec ul{
+        list-style: none;
+        margin: 0px 0;
+        padding: 0;
+    }
+    
         .privacy-sec ul li{
             font-size: 16px;
             margin: 20px 0 8px 0;
@@ -7158,38 +7138,37 @@ font-weight: 700;
         }
     
 
-        .cookies-sec h5{
-            font-size: 18px;
-            padding: 20px 0 10px 0;
-            font-weight: 800;
-            }
-            .cookies-sec h6{
-                font-size: 16px;
-                font-weight: 800; 
-                padding: 10px 0 0 0; 
-            }
-            
-            .cookies-sec ul{
-                list-style: disc;
-                margin: 0px 0;
-                padding: 0;
-                list-style-position: inside;
-            }
-            
-            .cookies-sec ul li{
-                font-size: 15px;
-                padding: 3px 0;
-                font-weight: 400;
-    
-            }
-            .cookies-sec p{
-                font-size: 15px;
-                margin: 7px 0;
-                line-height: 24px;
-            }
+    .cookies-sec h5{
+        font-size: 18px;
+        padding: 20px 0 10px 0;
+        font-weight: 800;
+        }
+        .cookies-sec h6{
+            font-size: 16px;
+            font-weight: 800; 
+            padding: 10px 0 0 0; 
+        }
+        
+        .cookies-sec ul{
+            list-style: disc;
+            margin: 0px 0;
+            padding: 0;
+            list-style-position: inside;
+        }
+        
+        .cookies-sec ul li{
+            font-size: 15px;
+            padding: 3px 0;
+            font-weight: 400;
 
-            /* ------------------------------------contact page css---------------------------------------------------- */
-            /* ------------------------------------contact page css---------------------------------------------------- */
+        }
+        .cookies-sec p{
+            font-size: 15px;
+            margin: 7px 0;
+            line-height: 24px;
+        }
+
+/* ---------------contact page css------------------ */
 
             
             .right_conatct_social_icon{
@@ -7324,21 +7303,12 @@ font-weight: 700;
                border-radius: 30px;
                overflow: hidden;
            }
-            /* ------------------------------------contact page css---------------------------------------------------- */
-            /* ------------------------------------contact page css---------------------------------------------------- */
-
-
-
-
-            /* =====================================about us page css============================================================ */
-            /* =====================================about us page css============================================================ */
-            /* =====================================about us page css============================================================ */
-
+           
             .about-ussec .carousel-item img{
                 height:400px;
                 object-fit: cover;
             }
-            .about-ussec .carousel-item .carousel-caption{
+          .about-ussec .carousel-item .carousel-caption{
                 background: rgb(0 0 0 / 63%);
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 backdrop-filter: blur( 4px );
@@ -7901,9 +7871,6 @@ margin: auto;
                 }
               }
               
-
-
-
               @media screen and (max-width:1023px) and (min-width:768px){
                 .contact_us .offset-md-1 {
                     margin-left: 0;
@@ -7943,5 +7910,50 @@ margin: auto;
                 }
 
               }
-            /* =====================================about us page css============================================================ */
-            /* =====================================about us page css============================================================ */
+
+@media only screen and (max-width: 767px) and (min-width: 320px)  {
+
+ .text-about img {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    width: 650px;
+    height: 200px !important;
+    object-fit: cover;
+  }
+  .space-addontext button {
+    background: #126c62;
+    border: none;
+    color: #fff;
+    padding: 5px 26px !important;
+    /* font-weight: 600; */
+    text-transform: uppercase;
+    margin: 8px 0;
+    font-size: 15px !important;
+    border-radius: 6px;
+}
+.space-addontext p {
+    color: #000;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+}
+
+
+.event-sec .img-banner .bannner-text {
+    background: rgb(2 2 2 / 49%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    font-size: 36px;
+    font-weight: 900;
+    padding: 15px 40px;
+    position: absolute;
+    top: 12%;
+    left: 15%;
+    color: #fff;
+    text-transform: uppercase;
+}

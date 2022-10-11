@@ -620,7 +620,7 @@ class ApiLoginController extends APIBaseController
 
             $user_obj1 = User::where('id', '=', $request->user_id)->first();
             $user_info = array(
-                "user_id" => $user_obj1->user_id,
+                "user_id" => $user_obj1->id,
                 "user_type" => $user_obj1->user_type,
                 "first_name" => $user_obj1->first_name,
                 "last_name" => $user_obj1->last_name,

@@ -454,7 +454,7 @@ class TourController extends Controller
         $response['request_id'] = $details->id;
   
         return response()->json($response);
-     }
+    }
 
     public function send_invoice(Request $request)
     {

@@ -88,9 +88,12 @@ html {
     font-weight: bold;
     color: #FFF;
 }
-.city-nam{
-color: #898989;
- font-size: 14px;
+.city-nam {
+    color: #898989;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    margin-right: 1px;
 }
 
 #header.header-scrolled {
@@ -528,8 +531,6 @@ background-color: #bdf48b;
   background-color: #00000035;
 }
 
-
-
 #hero .carousel-item::before {
   content: '';
  /* background-color: rgba(4, 12, 21, 0.5);*/
@@ -544,9 +545,6 @@ background-color: #bdf48b;
   left: 50px;
   right: 50px;
 }
-
-
-
 
 #hero .text-con {
     animation-delay: 0.4s;
@@ -789,8 +787,6 @@ color: #126c62;
     color: #fcfcfc;
     text-align: left;
 }
-
-
 .section-title h2::after {
   content: "";
   width: 120px;
@@ -835,6 +831,7 @@ color: #126c62;
 .city-nam i {
     font-size: 18px;
     margin-bottom: 8px;
+    margin-right: 4px;
 }
 
 /*--------------------------------------------------------------
@@ -1530,6 +1527,7 @@ color: #06a18f;
 .offer-tex .owl-nav, .offer-tex .owl-dots {
   margin-top: 5px;
   text-align: center;
+  margin-bottom: 11px;
 }
 
 .testimonials .owl-dot {
@@ -2445,11 +2443,12 @@ margin-bottom: 2px;
     margin-top: 11px;
     font-weight: bold;
 }
- .offer-grid .world-class-p p {
+.offer-grid .world-class-p p {
     /* font-style: italic; */
-    margin: 5px auto 5px auto;
+    margin: 0px auto 5px auto;
     font-size: 14px;
     padding: 0px;
+    color: #4c4c4c;
 }
 .date-trip i{
   font-weight: bold;
@@ -2486,7 +2485,7 @@ margin-bottom: 2px;
 }
 .offer-btn:hover{
   background-color: #126c62;
-  border: 1px solid #126c62;
+ /* border: 1px solid #126c62;*/
   color: #98d55d;
 }
 .family-group p {
@@ -3305,6 +3304,7 @@ color: #FFF;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+
 .booking-type .btn-primary-event {
     color: #fff;
     background-color: #126c62;
@@ -3355,8 +3355,7 @@ color: #12a594;
 
 
 
-/*................................................... responsive css below 768px ................................................*/
-/*................................................... responsive css below 768px ................................................*/
+/*.................... responsive css below 768px ..........................*/
 
 
 @media(min-width:280px) and (max-width:767px) {
@@ -3447,7 +3446,7 @@ color: #12a594;
 }
 #hero h2 {
     font-size: 25px;
-        line-height: 44px;
+    line-height: 31px;
 }
 .section-title p {
    
@@ -8165,8 +8164,6 @@ address {
   overflow: auto!important;
 }
 
-
-
 /*........... Responsive css below 768px ..........*/
 
 @media screen and (max-width: 767px) {
@@ -8613,11 +8610,56 @@ top: 0;
 .event-detail .carousel img {
     height: 284px !important;
 }
+ .text-about img {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    width: 650px;
+    height: 200px !important;
+    object-fit: cover;
+  }
 
+  .event-gallery .tz-gallery .row > div {
+    padding: 2px !important;
+    width: 190px !important;
+    margin: auto !important;
+}
+.tz-gallery img {
+    width: 100% !important;
+    height: 117px !important;
+    object-fit: cover !important;
+}
+ }
+
+
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #126c62 !important;
+    border-color: transparent;
+    color: #fff;
+}
+
+.guest-no .minus, .guest-no .plus {
+    width: 35px;
+    background: #126c62 !important;
+    color: #FFF !important; 
 }
 
 
 
+@media only screen and (max-width: 1500px) and (min-width: 1400px)  {
 
+#hero {
+    height: 166vh !important;
+}
+}
 
+@media only screen and (max-width: 1800px) and (min-width: 1501px)  {
 
+#hero {
+    height: 80vh !important;
+}
+
+}

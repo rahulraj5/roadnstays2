@@ -1,8 +1,118 @@
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
+<style>
+    .d-non {
+      display: none;
+   }
+</style>
 @endsection
 @section('current_page_js')
+<script>
+   $('#check_n_pay').click(function() {
+      $('#invoice_n_pay').removeClass('d-non');
+
+   });
+</script>
+
+<script type="text/javascript">
+   function cancelRequestBooking(id) {
+      toastDelete.fire({}).then(function(e) {
+         if (e.value === true) {
+            // alert(id);
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+               type: 'POST',
+               url: "{{url('/user/cancelSpaceBookingRequest')}}",
+               data: {
+                  id: id,
+                  _token: CSRF_TOKEN
+               },
+               dataType: 'JSON',
+               success: function(results) {
+                  // $("#row" + id).remove();
+                  // console.log(results);
+                  success_noti(results.msg);
+                  setTimeout(function() {
+                     window.location.reload()
+                  }, 1000);
+               }
+            });
+         } else {
+            e.dismiss;
+         }
+      }, function(dismiss) {
+         return false;
+      })
+   }
+</script>
+
+<script>
+   $("#request_booking").click(function() {
+      var form = $("#bookingRequest_form");
+      form.validate({
+         rules: {
+            email: {
+               required: true,
+            },
+            mobile: {
+               required: true,
+            },
+            first_name: {
+               required: true,
+            },
+            last_name: {
+               required: true,
+            },
+            document_type: {
+               required: true,
+            },
+            document_number: {
+               required: true,
+            },
+            front_document_img: {
+               required: true,
+            },
+            back_document_img: {
+               required: true,
+            },
+         },
+      });
+      if (form.valid() === true) {
+         var site_url = $("#baseUrl").val();
+         // alert(site_url);
+         var formData = $(form).serialize();
+         $('#request_booking').prop('disabled', true);
+         $('#request_booking').html(
+            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`
+         );
+         // alert(formData);
+         $(form).ajaxSubmit({
+            type: 'POST',
+            url: "{{url('/user/requestBookingSpace')}}",
+            data: formData,
+            success: function(response) {
+               console.log(response);
+               if (response.status == 'success') {
+                  success_noti(response.msg);
+                  // setTimeout(function() {
+                  //    window.location.href = site_url + "/admin/hotelList"
+                  // }, 1000);
+                  setTimeout(function() {
+                     window.location.reload()
+                  }, 2500);
+               } else {
+                  error_noti(response.msg);
+                  // $('#request_booking').html(
+                  //    `<span class=""></span>Update`
+                  // );
+                  $('#request_booking').prop('disabled', false);
+               }
+            }
+         });
+      }
+   });
+</script>
 @endsection
 @section('content')
 <main id="main" class="main-body">
@@ -14,7 +124,15 @@
                     <h3>Review your Space Booking</h3>
                 </div>
                 <div class="col-md-9">
-                    <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}" enctype="multipart/form-data">
+                    @if($space_data->booking_option == 2)
+                        @if($checkRequest!=0)
+                            <form id="bookingRequest_form" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}" enctype="multipart/form-data">
+                        @else
+                            <form id="bookingRequest_form" method="post" class="form-validate form-horizontal well" action="" enctype="multipart/form-data">
+                        @endif
+                    @else
+                        <form id="bookingRequest_form" method="post" class="form-validate form-horizontal well" action="{{url('/bookingSpaceOrder')}}" enctype="multipart/form-data">
+                    @endif    
                         @csrf
                         <?php $total_amount =  ($booking_days * $space_data->price_per_night) + $space_data->cleaning_fee + $space_data->city_fee + $space_data->tax_percentage; ?>
 
@@ -59,7 +177,7 @@
                                 </div>
                             </div>
                             <div class="room-praci">
-                                <h5>{{$space_data->space_name}} ({{$space_category->category_name}})<br><small>{{$space_data->guest_number}} Guests</small></h5>
+                                <h5>{{$space_data->space_name}} ({{$space_category->category_name}})<br><small>{{$space_data->guest_number}}(max) Guests</small></h5>
                                 <div class="">
                                     <h5 class="mt-3">Price Includes </h5>
                                     <ul>
@@ -70,6 +188,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if($space_data->booking_option == 1)
                         <div class="container">
                             <div class="row" style="margin-left: -15px;  margin-right: -15px;">
                                 <div class="col-md-12 p-0 mt-3">
@@ -222,7 +342,268 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
+                        @if($space_data->booking_option == 2)
+                            @if(Auth::check())
+                                @if($checkRequest == 1)
+                                    @if($space_booked_count == 0) 
+                                        @if($space_booking_request->payment_status == 0)
+                                            @if($space_booking_request->request_status == 1 and $space_booking_request->approve_status == 1)
+                                                <div class="container">
+                                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <h4 class="mt-2">
+                                                                <i class='bx bxs-user-badge'></i><b> Passenger:</b> 1 Adults
+                                                            </h4>
+                                                            <div class="bank-bar">
+                                                                <fieldset>
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="exampleInputEmail1">Email *</label>
+                                                                            <input type="email" class="form-control" id="email_pas" name="email" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="exampleInputEmail1">Mobile phone number *</label>
+                                                                            <input type="text" class="form-control" id="mobile_pas" name="mobile" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="exampleInputPassword1">First name*</label>
+                                                                            <input type="text" class="form-control" id="fname_pas" name="first_name" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="exampleInputEmail1">Last name*</label>
+                                                                            <input type="text" class="form-control" id="lname_pas" name="last_name" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="mobile">Choose Identity Document *</label>
+                                                                            <select class="form-control" name="document_type" id="document_type" required="">
+                                                                            <option value="">Select Document Type</option>
+                                                                            <option value="Passport">Passport</option>
+                                                                            <option value="Voter Id">Voter Id</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="mobile">Document Number *</label>
+                                                                            <input type="text" class="form-control" id="document_number" name="document_number" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="mobile">Upload Front Image of Document *</label>
+                                                                            <input type="file" class="form-control" id="front_document_img" name="front_document_img" required="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="mobile">Upload Back Image of Document *</label>
+                                                                            <input type="file" class="form-control" id="back_document_img" name="back_document_img" required="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <h5 class="mt-2">
+                                                                <i class='bx bxs-info-circle'></i> We protect your personal information
+                                                            </h5>
+                                                            <div class="bank-bar">
+                                                                <ul class="nav nav-tabs" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" data-toggle="tab" href="#home">Pay with paypal</a>
+                                                                </li>
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content">
+                                                                <div id="home" class="container tab-pane active p-0">
+                                                                    <br>
+                                                                    <img src="{{url('/resources/assets/img/banke.png')}}" class="mb-3 " style="">
+                                                                </div>
+                                                                <div id="menu1" class="tab-pane fade bankinfo">
+                                                                    <h3 class="mt-3">Important information about your booking</h3>
+                                                                    <p>Important: You will be redirected to your bank's website to securely complete your payment. You will have 30 minutes to pay for your booking.</p>
+                                                                    <!-- <a href="#" class="paynow-btn">Continue To Your Bank </a> -->
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 text-center d-flex">
+                                                                <!-- <input type="submit" name="paynow" class="paynow-btn" value="Invoice Created - Paynow" style="background-color: green;"> -->
+                                                                <a type="button" class="paynow-btn" id="check_n_pay">Invoice Created - Check & Pay</a>
+                                                                <a href="javascript:void(0)" onclick="cancelRequestBooking('<?php echo $space_booking_request->id; ?>');" class="paynow-btn" style="margin-left: 5px; background-color: red;">Cancel Booking Request</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            @elseif($space_booking_request->request_status == 1 and $space_booking_request->approve_status == 0)
+                                                <div class="container">
+                                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <h5 class="mt-2">
+                                                                <i class='bx bxs-info-circle'></i> Waiting for Approval
+                                                            </h5>
+                                                            <div class="col-md-12 text-center d-flex p-4">
+                                                                <a href="javascript:void(0)" onclick="cancelRequestBooking('<?php echo $space_booking_request->id; ?>');" class="paynow-btn" style="margin-left: 5px;">Cancel Booking Request</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            @elseif($space_booking_request->request_status == 0 and $space_booking_request->approve_status == 0)
+                                                <div class="container">
+                                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <div class="col-md-12 text-center d-flex p-4">
+                                                                <button type="button" name="request_booking" id="request_booking" class="paynow-btn">Request for Booking</button>
+                                                                <button type="button" name="request_booking" id="request_booking" class="paynow-btn" style="margin-left: 5px;">Request Rejected</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="container">
+                                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <div class="col-md-12 text-center d-flex p-4">
+                                                                <button type="button" name="request_booking" id="request_booking" class="paynow-btn">Request for Booking</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @else
+                                            <div class="container">
+                                                <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                    <div class="col-md-12 p-0 mt-3">
+                                                        <div class="bankpay">
+                                                            <div class="col-md-12 text-center d-flex p-4">
+                                                                <button type="button" name="request_booking" id="request_booking" class="paynow-btn">Request for Booking</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        @endif
+
+                                    @else
+                                        <div class="container">
+                                            <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                                <div class="col-md-12 p-0 mt-3">
+                                                    <div class="bankpay">
+                                                        <div class="col-md-12 text-center d-flex p-4">
+                                                            <button type="" name="" id="" class="paynow-btn" disabled>You have already Booked</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif    
+
+                                @else
+                                    <div class="container">
+                                        <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                            <div class="col-md-12 p-0 mt-3">
+                                            <div class="bankpay">
+                                                <div class="col-md-12 text-center d-flex p-4">
+                                                    <button type="button" name="request_booking" id="request_booking" class="paynow-btn">Request for Booking</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="container">
+                                    <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                        <div class="col-md-12 p-0 mt-3">
+                                            <div class="bankpay">
+                                                <h5 class="mt-2">
+                                                <i class='bx bxs-info-circle'></i> Signin First for the Booking
+                                                </h5>
+                                                <div class="col-md-12 text-center d-flex p-4">
+                                                <a href="" data-toggle="modal" data-target="#exampleModal-log-in" class="get-started-btn">SIGN IN</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+
+                        @if(!empty($details))
+                            <div class="container d-non" id="invoice_n_pay">
+                                <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                                    <div class="col-md-12 p-0 mt-3">
+                                        <div class="bankpay">
+                                            <h5 class="mt-2">
+                                            <i class='bx bxs-check-circle'></i>Invoice - {{$details->invoice_num ?? ''}}
+                                            </h5>
+                                            <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td width='30%'><b>Space Name:</b></td>
+                                                    <td width='70%'>{{$details->space_name ?? ''}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width='30%'><b>Period:</b></td>
+                                                    <td width='70%'>{{$details->check_in_date ?? ''}} to {{$details->check_out_date ?? ''}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width='30%'><b>Price:</b></td>
+                                                    <td width='70%'>PKR {{$details->price_per_night ?? ''}}</td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td width='30%'><b>Tour Days:</b></td>
+                                                    <td width='70%'> {{$details->price_per_night ?? ''}}</td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td width='30%'><b>Email:</b></td>
+                                                    <td width='70%'> {{$details->user_email ?? ''}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width='30%'><b>Phone:</b></td>
+                                                    <td width='70%'> {{$details->user_contact_num ?? ''}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Cost</td>
+                                                                <td class='alignright'>PKR {{$details->price_per_night ?? ''}}</td>
+                                                            </tr>
+                                                            <tr class='total'>
+                                                                <td class='alignright' width='80%'>Total</td>
+                                                                <td class='alignright'>PKR {{$details->price_per_night ?? ''}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            </table>
+                                            <input type="submit" name="paynow" class="paynow-btn" value="Create Order" style="background-color: green;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </form>
+                    <div class="googl_map">
+                        <h3>Google Map</h3>
+                        <?php $address = $space_data->space_address . ',' . $space_data->city; ?>
+                        <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
+                    </div>
                 </div>
                 <div class="col-md-3 pl-0">
                     <div class="revie-box-boxi">

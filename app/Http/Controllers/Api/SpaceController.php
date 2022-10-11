@@ -703,4 +703,221 @@ class SpaceController extends APIBaseController
     // public function change_daterange_session(Request $request){
 
     // }
+
+
+    public function space_booking_list(Request $request)
+    {
+        $validator = Validator::make($request->all(), [ 
+
+            'user_id' => 'required',
+            'type' => 'required'
+
+        ]);
+
+        $u_id = $request->user_id;
+        $type = $request->type;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+            if($type == 'upcomimg') {
+                $bookingList = DB::table('space_booking')
+                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                ->select('space_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'space.space_name',
+                        'space.space_user_id as space_vendor_id',
+                        'space.space_address',
+                        'space.city',
+                        'space_categories.category_name',
+                )
+                ->where('space_booking.user_id', $u_id)  
+                ->where('space_booking.booking_status', '!=', 'canceled')
+                ->where('space_booking.check_in_date', '>', date('Y-m-d'))
+                ->orderby('space_booking.id', 'DESC')
+                ->get(); 
+            }elseif ($type == 'completed') {
+                $bookingList = DB::table('space_booking')
+                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                ->select('space_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'space.space_name',
+                        'space.space_user_id as space_vendor_id',
+                        'space.space_address',
+                        'space.city',
+                        'space_categories.category_name',
+                )
+                ->where('space_booking.user_id', $u_id)  
+                ->where('space_booking.booking_status', '!=', 'canceled')
+                ->where('space_booking.check_out_date', '<', date('Y-m-d'))  
+                ->orderby('space_booking.id', 'DESC')
+                ->get();
+            }else{
+                $bookingList = DB::table('space_booking')
+                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                ->select('space_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'space.space_name',
+                        'space.space_user_id as space_vendor_id',
+                        'space.space_address',
+                        'space.city',
+                        'space_categories.category_name',
+                )
+                ->where('space_booking.user_id', $u_id)  
+                ->where('space_booking.booking_status', '=', 'canceled')   
+                ->orderby('space_booking.id', 'DESC')
+                ->get();
+            }
+            foreach ($bookingList as $key => $value) {
+
+                $search = null;
+                $replace = '""';
+                array_walk($value,
+                function (&$v) use ($search, $replace){
+                    $v = str_replace($search, $replace, $v);    
+                    }                                                                     
+                );
+
+            }  
+            if(count($bookingList)>0){
+    
+                $response['message'] = "Tour Booking List";
+                $response['status'] = 1;
+                $response['data'] = array('booking_list'=>$bookingList);
+
+            }else{
+
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('booking_list'=>$bookingList);
+            }
+    
+            return $response; 
+        }
+    }
+
+    public function space_booking_detail(Request $request)
+    {   
+        $validator = Validator::make($request->all(), [
+
+            'booking_id' => 'required'
+
+        ]);
+
+        $booking_id = $request->booking_id;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+
+            $bookingDetails = DB::table('space_booking')
+            ->join('users', 'space_booking.user_id', '=', 'users.id')
+            ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+            ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'space_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'space.space_name as space_name',
+                'space.price_per_night',
+                'space.space_user_id',
+                'space.neighbor_area',
+                'space.scout_id',
+                'space.space_address as space_address',
+
+                'space.checkin_hr',
+                'space.checkout_hr',
+                'space.booking_option',
+                'space.payment_mode',
+                'space.online_payment_percentage',
+                'space.at_desk_payment_percentage',
+                'space.cancel_policy',
+                'space.min_hrs',
+                'space.max_hrs',
+                'space.min_hrs_percentage',
+                'space.max_hrs_percentage',
+
+                'space_categories.category_name',
+                'country.nicename as user_country', 
+            )
+            // ->orderby('created_at', 'DESC')
+            ->where('space_booking.id', $booking_id)
+            ->first();
+
+            $search = null;
+            $replace = '""';
+            array_walk($bookingDetails,
+            function (&$v) use ($search, $replace){
+                $v = str_replace($search, $replace, $v);    
+                }                                                                     
+            );
+
+            if($bookingDetails->space_user_id == 1) {
+               $vendorDetails = DB::table('admins')->where('id',$bookingDetails->space_user_id)->first();
+            }else{
+                $vendorDetails = DB::table('users')->where('id',$bookingDetails->space_user_id)->first();
+            }
+
+            //print_r($bookingDetails->space_user_id);die;
+            $searchvendor = null;
+            $replacevendor = '""';
+            array_walk($vendorDetails,
+            function (&$vn) use ($searchvendor, $replacevendor){
+                $vn = str_replace($searchvendor, $replacevendor, $vn);    
+                }                                                                     
+            );
+
+            if($bookingDetails){
+        
+                $response['message'] = "Space Booking Detail";
+                $response['status'] = 1;
+                $response['data'] = array('booking_details'=>$bookingDetails,'vendor_details'=>$vendorDetails);
+
+            }else{
+
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('booking_details'=>$bookingDetails);
+            }
+    
+            return $response;
+        }    
+    }
+
 }    

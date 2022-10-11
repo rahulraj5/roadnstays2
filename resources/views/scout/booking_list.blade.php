@@ -92,12 +92,13 @@
 
 <script>
   $('select').on("change", function() {
+    alert('hello');
     var booking_id = $(this).attr('data-id');
     var status = this.value;
     $.ajax({
       type: "GET",
       dataType: "json",
-      url: "<?php echo url('/admin/changeBookingStatus'); ?>",
+      url: "<?php echo url('/scout/changeBookingStatus'); ?>",
       data: {
         'status': status,
         'booking_id': booking_id
@@ -194,13 +195,14 @@
                     </td>
                     @else
                     <td>Not Yet</td>
+                    
                     @endif
                     <!-- <td class="project-state">
                       <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->booking_status ? 'checked' : '' }}>
                     </td> -->
                     <td class="text-right py-0 align-middle">
                       <div class="btn-group btn-group-sm">
-                        <a href="{{url('/scout/viewBooking')}}/{{$arr->id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                        <a href="{{url('/scout/viewBooking')}}/{{ base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
                         <!-- <a href="" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a> -->
                         <!-- {{url('/admin/editHotel')}}/{{$arr->hotel_id}} -->
                         <!-- <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->hotel_id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash" alt="user" title="user"></i></a> -->

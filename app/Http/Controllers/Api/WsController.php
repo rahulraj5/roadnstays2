@@ -848,7 +848,450 @@ class WsController extends APIBaseController
         
         return $response; 
     }
+ 
+    public function hotel_room_booking(Request $request)
+    {
 
+    	//echo "string";die;
+		$validator = Validator::make($request->all(), [
+
+	        'user_id' => 'required',
+	        'type' => 'required'
+
+	    ]);
+
+        $u_id = $request->user_id;
+        $type = $request->type;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+
+        	if ($type == 'upcomimg') {
+        		$bookingList = DB::table('booking')
+	            ->join('users', 'booking.user_id', '=', 'users.id')
+	            ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+	            ->join('room_list', 'booking.room_id', '=', 'room_list.id')
+	            ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+	            ->join('country', 'hotels.hotel_country', '=', 'country.id')
+	            ->select(
+	                'booking.*',
+	                'hotels.hotel_name',
+	                'hotels.hotel_user_id',
+	                'hotels.is_admin as hotel_added_is_admin',
+	                'hotels.property_contact_name',
+	                'hotels.property_contact_num',
+	                'hotels.hotel_address',
+	                'hotels.hotel_city',
+	                'hotels.stay_price as hotelroom_min_stay_price',
+	                'hotels.checkin_time',
+	                'hotels.checkout_time',
+	                'country.nicename as hotel_country',
+	                'room_type_categories.title as room_type_name',
+	                'room_list.name as room_name'
+	            )
+	            ->where('booking.user_id', $u_id)   
+	            ->where('booking.booking_status', '!=' ,'canceled')   
+	            ->where('booking.check_in', '>', date('Y-m-d'))
+	            ->orderby('booking.id', 'DESC')
+	            ->get();   
+        	}elseif ($type == 'canceled') {
+        		$bookingList = DB::table('booking')
+		        ->join('users', 'booking.user_id', '=', 'users.id')
+		        ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+		        ->join('room_list', 'booking.room_id', '=', 'room_list.id')
+		        ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+		        ->join('country', 'hotels.hotel_country', '=', 'country.id')
+		        ->select(
+		            'booking.*',
+		            'hotels.hotel_name',
+		            'hotels.hotel_user_id',
+		            'hotels.is_admin as hotel_added_is_admin',
+		            'hotels.property_contact_name',
+		            'hotels.property_contact_num',
+		            'hotels.hotel_address',
+		            'hotels.hotel_city',
+		            'hotels.stay_price as hotelroom_min_stay_price',
+		            'hotels.checkin_time',
+		            'hotels.checkout_time',
+		            'country.nicename as hotel_country',
+		            'room_type_categories.title as room_type_name',
+		            'room_list.name as room_name'
+		        )
+		        ->where('booking.user_id', $u_id)  
+		        ->where('booking.booking_status', '=' ,'canceled')  
+		        ->orderby('booking.id', 'DESC')
+		        ->get();
+        	}else{
+        		$bookingList = $bookingList = DB::table('booking')
+	            ->join('users', 'booking.user_id', '=', 'users.id')
+	            ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+	            ->join('room_list', 'booking.room_id', '=', 'room_list.id')
+	            ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+	            ->join('country', 'hotels.hotel_country', '=', 'country.id')
+	            ->select(
+	                'booking.*',
+	                'hotels.hotel_name',
+	                'hotels.hotel_user_id',
+	                'hotels.is_admin as hotel_added_is_admin',
+	                'hotels.property_contact_name',
+	                'hotels.property_contact_num',
+	                'hotels.hotel_address',
+	                'hotels.hotel_city',
+	                'hotels.stay_price as hotelroom_min_stay_price',
+	                'hotels.checkin_time',
+	                'hotels.checkout_time',
+	                'country.nicename as hotel_country',
+	                'room_type_categories.title as room_type_name',
+	                'room_list.name as room_name'
+	            )
+	            ->where('booking.user_id', $u_id)   
+	            ->where('booking.booking_status', '!=' ,'canceled')   
+	            ->where('booking.check_out', '<', date('Y-m-d'))
+	            ->orderby('booking.id', 'DESC')
+	            ->get();   
+        	}
+
+
+	        foreach ($bookingList as $key => $value) {
+
+          	    $search = null;
+		        $replace = '""';
+		        array_walk($value,
+		        function (&$v) use ($search, $replace){
+		            $v = str_replace($search, $replace, $v);    
+		            }                                                                     
+		        );
+
+	        }  
+            if(count($bookingList)>0){
+    
+	            $response['message'] = "Hotel Room Booking List";
+	            $response['status'] = 1;
+	            $response['data'] = array('booking_list'=>$bookingList);
+
+	        }else{
+
+	            $response['message'] = "No data found";
+	            $response['status'] = 0;
+	            $response['data'] = array('booking_list'=>$bookingList);
+	        }
+    
+    		return $response; 
+        }   
+    }
+
+    public function room_booking_details(Request $request)
+    {	
+    	$validator = Validator::make($request->all(), [
+
+	        'booking_id' => 'required'
+
+	    ]);
+
+        $booking_id = $request->booking_id;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        } else {
+
+
+    		$bookingDetails = DB::table('booking')
+            ->join('users', 'booking.user_id', '=', 'users.id')
+            ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+            ->join('room_list', 'booking.room_id', '=', 'room_list.id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'country.nicename as user_country',
+                'hotels.hotel_name',
+                'hotels.hotel_user_id',
+                'hotels.is_admin as hotel_added_is_admin',
+                'hotels.property_contact_name',
+                'hotels.property_contact_num',
+                'hotels.hotel_address',
+                'hotels.neighb_area',
+                'hotels.hotel_city',
+                'hotels.stay_price as hotelroom_min_stay_price',
+                'hotels.scout_id',
+
+                'hotels.checkin_time',
+                'hotels.checkout_time',
+                'hotels.booking_option',
+                'hotels.payment_mode',
+                'hotels.online_payment_percentage',
+                'hotels.at_desk_payment_percentage',
+                'hotels.cancel_policy',
+                'hotels.min_hrs',
+                'hotels.max_hrs',
+                'hotels.min_hrs_percentage',
+                'hotels.max_hrs_percentage',
+
+                'room_list.name as room_name',
+                'room_list.price_per_night',
+            )
+            // ->orderby('created_at', 'DESC')
+            ->where('booking.id', $booking_id)
+            ->first();
+
+            $search = null;
+	        $replace = '""';
+	        array_walk($bookingDetails,
+	        function (&$v) use ($search, $replace){
+	            $v = str_replace($search, $replace, $v);    
+	            }                                                                     
+	        );
+
+            //$vendorDetails = DB::table('users')->where('id',$bookingDetails->hotel_user_id)->first();
+
+            if($bookingDetails->hotel_user_id == 1) {
+               $vendorDetails = DB::table('admins')->where('id',$bookingDetails->hotel_user_id)->first();
+            }else{
+                $vendorDetails = DB::table('users')->where('id',$bookingDetails->hotel_user_id)->first();
+            }
+
+            $searchvendor = null;
+            $replacevendor = '""';
+            array_walk($vendorDetails,
+            function (&$vn) use ($searchvendor, $replacevendor){
+                $vn = str_replace($searchvendor, $replacevendor, $vn);    
+                }                                                                     
+            );
+
+            if($bookingDetails){ 
+	            $response['message'] = "Hotel Room Booking Detail";
+	            $response['status'] = 1;
+	            $response['data'] = array('booking_details'=>$bookingDetails,'vendor_details'=>$vendorDetails);
+
+	        }else{
+
+	            $response['message'] = "No data found";
+	            $response['status'] = 0;
+	            $response['data'] = array('booking_details'=>$bookingDetails);
+	        }
+    
+    		return $response;
+        }    
+    }
+
+    public function tour_booking_list(Request $request)
+    {	
+    	    	
+		$validator = Validator::make($request->all(), [
+
+	        'user_id' => 'required',
+	        'type' => 'required'
+
+	    ]);
+
+        $u_id = $request->user_id;
+        $type = $request->type;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+        	if($type == 'upcomimg') {
+		        $bookingList = DB::table('tour_booking')
+		            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+		            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+		            ->join('country', 'tour_list.country_id', '=', 'country.id')
+		            ->select(
+		                'tour_booking.*',
+		                'tour_list.tour_title',
+		                'tour_list.vendor_id',
+		                'tour_list.tour_code',
+		                'tour_list.tour_type',
+		                'tour_list.address',
+		                'tour_list.city',
+		                'tour_list.tour_start_date',
+		                'tour_list.tour_end_date',
+		                'country.nicename as tour_country',
+		            )
+		            ->where('tour_booking.user_id', $u_id)  
+		            ->where('tour_booking.booking_status', '!=' ,'canceled') 
+		            ->where('tour_list.tour_start_date', '>', date('Y-m-d'))
+		            ->orderby('tour_booking.id', 'DESC')
+		            ->get();
+		    }elseif($type == 'completed') {
+		    	$bookingList = DB::table('tour_booking')
+	            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+	            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+	            ->join('country', 'tour_list.country_id', '=', 'country.id')
+	            ->select(
+	                'tour_booking.*',
+	                'tour_list.tour_title',
+	                'tour_list.vendor_id',
+	                'tour_list.tour_code',
+	                'tour_list.tour_type',
+	                'tour_list.address',
+	                'tour_list.city',
+	                'tour_list.tour_start_date',
+	                'tour_list.tour_end_date',
+	                'country.nicename as tour_country',
+	            )
+	            ->where('tour_booking.user_id', $u_id)  
+	            ->where('tour_booking.booking_status', '!=' ,'canceled') 
+	            ->where('tour_list.tour_start_date', '<', date('Y-m-d'))
+	            ->orderby('tour_booking.id', 'DESC')
+	            ->get();
+		    }else{
+		    	$bookingList = DB::table('tour_booking')
+		            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+		            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+		            ->join('country', 'tour_list.country_id', '=', 'country.id')
+		            ->select(
+		                'tour_booking.*',
+		                'tour_list.tour_title',
+		                'tour_list.vendor_id',
+		                'tour_list.tour_code',
+		                'tour_list.tour_type',
+		                'tour_list.address',
+		                'tour_list.city',
+		                'tour_list.tour_start_date',
+		                'tour_list.tour_end_date',
+		                'country.nicename as tour_country',
+		            )
+		            ->where('tour_booking.user_id', $u_id)  
+		            ->where('tour_booking.booking_status', '=' ,'canceled') 
+		            //->where('tour_list.tour_start_date', '<', date('Y-m-d'))
+		            ->orderby('tour_booking.id', 'DESC')
+		            ->get();
+		    }       
+	        foreach ($bookingList as $key => $value) {
+          	    $search = null;
+		        $replace = '""';
+		        array_walk($value,
+		        function (&$v) use ($search, $replace){
+		            $v = str_replace($search, $replace, $v);    
+		            }                                                                     
+		        );
+	        }  
+
+            if(count($bookingList)>0){
+    
+	            $response['message'] = "Hotel Room Booking List";
+	            $response['status'] = 1;
+	            $response['data'] = array('booking_list'=>$bookingList);
+
+	        }else{
+
+	            $response['message'] = "No data found";
+	            $response['status'] = 0;
+	            $response['data'] = array('booking_list'=>$bookingList);
+	        }
+    
+    		return $response; 
+
+	    }        
+    }
+
+    public function tour_booking_detail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+
+	        'booking_id' => 'required'
+
+	    ]);
+
+        $booking_id = $request->booking_id;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        } else {
+        	$bookingDetails = DB::table('tour_booking')
+            ->join('users', 'tour_booking.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'tour_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'country.nicename as user_country',
+                'tour_list.address',
+                'tour_list.neighb_area',
+                'tour_list.city',
+                'tour_list.vendor_id',
+                'tour_list.scout_id',
+                'tour_list.tour_title as tour_title',
+                'tour_list.tour_price',
+                'tour_list.tour_start_day',
+                'tour_list.tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_code',
+                'tour_list.tour_locations',
+                
+                'tour_list.booking_option', 
+                'tour_list.payment_mode',
+                'tour_list.online_payment_percentage',
+                'tour_list.at_desk_payment_percentage',
+                'tour_list.cancellation_and_refund',
+                'tour_list.min_hrs',
+                'tour_list.max_hrs',
+                'tour_list.min_hrs_percentage',
+                'tour_list.max_hrs_percentage',
+            )
+            // ->orderby('created_at', 'DESC')
+            ->where('tour_booking.id', $booking_id)
+            ->first();
+
+            $search = null;
+	        $replace = '""';
+	        array_walk($bookingDetails,
+	        function (&$v) use ($search, $replace){
+	            $v = str_replace($search, $replace, $v);    
+	            }                                                                     
+	        );
+
+            if($bookingDetails->vendor_id == 1) {
+               $vendorDetails = DB::table('admins')->where('id',$bookingDetails->vendor_id)->first();
+            }else{
+                $vendorDetails = DB::table('users')->where('id',$bookingDetails->vendor_id)->first();
+            }
+
+            //$vendorDetails = DB::table('users')->where('id',$bookingDetails->vendor_id)->first();
+
+            $searchvendor = null;
+            $replacevendor = '""';
+            array_walk($vendorDetails,
+            function (&$vn) use ($searchvendor, $replacevendor){
+                $vn = str_replace($searchvendor, $replacevendor, $vn);    
+                }                                                                     
+            );
+
+            if($bookingDetails){
+        
+	            $response['message'] = "Tour Booking Detail";
+	            $response['status'] = 1;
+	            $response['data'] = array('booking_details'=>$bookingDetails,'vendor_details'=>$vendorDetails);
+
+	        }else{
+
+	            $response['message'] = "No data found";
+	            $response['status'] = 0;
+	            $response['data'] = array('booking_details'=>$bookingDetails);
+	        }
+    
+    		return $response;
+        }    
+    }
 
     public function payment(Request $request)
     {

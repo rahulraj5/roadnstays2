@@ -72,8 +72,8 @@
                     <div style="float:left; width: 30%;"><img src="{{url('resources/assets/img/road-logo.png')}}" class="logo_im" width="50px;"></div>
 
                     <div style="width:65%; float:right;" class="book-id">
-                        <p style="text-align:right; font-size: 18px; font-family:Arial,Helvetica,sans-serif;">Booking-ID: <strong style="font-weight:900;">#{{$order_info->space_booking_id}}</strong></p>
-                        <p style="font-family:Arial,Helvetica,sans-serif; text-align:right;">Booked On: {{$order_info->booking_date}} IST</p>
+                        <p style="text-align:right; font-size: 18px; font-family:Arial,Helvetica,sans-serif;">Booking-ID: <strong style="font-weight:900;">#{{$order_info->space_booking_id ?? ''}}</strong></p>
+                        <p style="font-family:Arial,Helvetica,sans-serif; text-align:right;">Booked On: {{$order_info->booking_date ?? ''}} IST</p>
                     </div>
 
                 </div>
@@ -83,7 +83,7 @@
 
                 <div style=" display:block; overflow:hidden">
                     <h2 style="font-family:Arial,Helvetica,sans-serif; margin-top:20px; font-size: 28px; color: #000; font-weight: 900; margin-bottom: 15px; line-height: 45px">Booking Confirmed </h2>
-                    <p style="font-family:Arial,Helvetica,sans-serif;  margin:0 0 10px 0;  text-align: left; font-size: 16px; font-weight: 700; line-height: 24px;">Dear {{$order_info->first_name}} {{$order_info->last_name}}, <br>
+                    <p style="font-family:Arial,Helvetica,sans-serif;  margin:0 0 10px 0;  text-align: left; font-size: 16px; font-weight: 700; line-height: 24px;">Dear {{$order_info->first_name ?? ''}} {{$order_info->last_name ?? ''}}, <br>
                         Thank you for Choosing Roadnstays</p>
                     <p style="text-align: left; font-family:Arial,Helvetica,sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores voluptates pariatur architecto!</p>
                 </div>
@@ -94,19 +94,19 @@
 
             <div style="width: 100%; padding:17px 20px 20px;margin-bottom: 10px;margin-top: 14px;font-size: 20px;">
                 <div style="">
-                    <img src="{{url('public/uploads/space_images/')}}/{{$order_info->image}}" alt="" width="220px" height="180px" style="border-radius:10px;">
+                    <img src="{{url('public/uploads/space_images/')}}/{{$order_info->image ?? ''}}" alt="" width="220px" height="180px" style="border-radius:10px;">
                 </div>
                 <div style="">
                     <td style="padding:5px" width="100%" align="left">
 
-                        <p style="color:#129212;font-size:18px;line-height:20px;margin-top:0;margin-bottom:5px;font-weight:normal; font-family:Arial,Helvetica,sans-serif;"><a style="text-decoration: none;" href="#">{{$order_info->space_name}}</a>
+                        <p style="color:#129212;font-size:18px;line-height:20px;margin-top:0;margin-bottom:5px;font-weight:normal; font-family:Arial,Helvetica,sans-serif;"><a style="text-decoration: none;" href="#">{{$order_info->space_name ?? ''}}</a>
                         </p>
-                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->space_address}}, {{$order_info->city}}</p>
+                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->space_address ?? ''}}, {{$order_info->city ?? ''}}</p>
 
-                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num}}</a></p>
+                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num ?? ''}}</a></p>
                         
 
-                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->space_latitude}},{{$order_info->space_longitude}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->space_longitude}},{{$order_info->space_longitude}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p>
+                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->space_latitude ?? ''}},{{$order_info->space_longitude ?? ''}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->space_longitude ?? ''}},{{$order_info->space_longitude ?? ''}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p>
                     </td>
                 </div>
             </div>
@@ -118,7 +118,7 @@
 
                 <span class="" style="width: 95%; display: inline-block; vertical-align: top; padding-bottom: 0px; color: #6f6f6f;">
                     <p style="padding-bottom:0px; margin: 0; ">Guest Name:</p> <br>
-                    <strong style="font-weight: 600;color: #000; font-size: 20px; padding-top: 0px;"><i style="padding-right:10px;" class='bx bxs-user'></i>{{$order_info->first_name}} {{$order_info->last_name}}</strong>
+                    <strong style="font-weight: 600;color: #000; font-size: 20px; padding-top: 0px;"><i style="padding-right:10px;" class='bx bxs-user'></i>{{$order_info->first_name ?? ''}} {{$order_info->last_name ?? ''}}</strong>
                 </span>
                 <!-- <span style="width: 20%; display: inline-block; vertical-align: top; padding-bottom: 0px;font-weight: 100;"></span>
                     <span class="fir_str" style="width: 28%; display: inline-block; vertical-align: top; padding-bottom: 0px;">
@@ -160,20 +160,20 @@
                 <span class="" style="width: 45%; display: inline-block; vertical-align: top; padding-bottom: 0px; color: #9d9595;">
 
                     Space Booking Id<br>
-                    <p style="font-family:Helvetica,arial,sans-serif;font-size:16px;color:#000000;margin:0;padding-top:12px">{{$order_info->space_booking_id}}</p>
+                    <p style="font-family:Helvetica,arial,sans-serif;font-size:16px;color:#000000;margin:0;padding-top:12px">{{$order_info->space_booking_id ?? ''}}</p>
                 </span>
 
                 <span class="" style="width: 45%; display: inline-block; vertical-align: top; padding-bottom: 0px; color: #9d9595;">
 
                     Total Amount<br>
-                    <p style="font-family:Helvetica,arial,sans-serif;font-size:16px;color:#000000;margin:0;padding-top:12px">PKR {{$order_info->total_amount}}/-</p>
+                    <p style="font-family:Helvetica,arial,sans-serif;font-size:16px;color:#000000;margin:0;padding-top:12px">PKR {{$order_info->total_amount ?? ''}}/-</p>
                 </span>
 
             </div>
 
 
             <span style="width: 100%;display: inline-block;vertical-align: top;padding:10px 20px 10px 0px;margin: 25px 0 15px; font-size: 18px; font-weight: 600; ">
-                Space Type: {{$order_info->category_name}}</span>
+                Space Type: {{$order_info->category_name ?? ''}}</span>
 
             <!-- <div class="bill_add" style=" width: 97%;display: block;border-top: 1px solid #9999994d;padding: 13px 10px;border-left: 1px solid #9999994d;border-right: 1px solid #9999994d;">
 
@@ -222,7 +222,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <span style="font-family:Helvetica,arial,sans-serif;font-size:15px;display:inline-block;color:#4a4a4a;padding-top:2px">Room {{$order_info->room_number}}: Adult - {{$order_info->guest_number}} </span>
+                                                                <span style="font-family:Helvetica,arial,sans-serif;font-size:15px;display:inline-block;color:#4a4a4a;padding-top:2px">Room {{$order_info->room_number ?? ''}}: Adult - {{$order_info->guest_number ?? ''}} </span>
                                                             </td>
                                                         </tr>
                                                     </tbody>

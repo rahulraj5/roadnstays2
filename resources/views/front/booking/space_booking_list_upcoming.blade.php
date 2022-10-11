@@ -712,6 +712,9 @@
     $('#tab3').on('click', function() {
         document.location.href = site_url + "/user/spaceBookingList-cancel";
     })
+    $('#tab4').on('click', function() {
+        document.location.href = site_url + "/user/spaceBookingList-approval";
+    })
 </script>
 
 <script>
@@ -884,7 +887,7 @@
             
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <!-- <label for="tab4" id="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
+            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i> Approval</label>
             
         </div>
     </div>

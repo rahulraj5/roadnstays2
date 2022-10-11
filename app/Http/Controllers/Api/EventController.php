@@ -371,4 +371,200 @@ class EventController extends APIBaseController
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
     }
+
+    public function event_booking_list(Request $request)
+    {
+        $validator = Validator::make($request->all(), [ 
+
+            'user_id' => 'required',
+            'type' => 'required'
+
+        ]);
+
+        $u_id = $request->user_id;
+        $type = $request->type;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+            if($type == 'upcoming') {
+                $bookingList = DB::table('event_booking')
+                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                ->select('event_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'events.title',
+                        'events.vendor_id as event_vendor_id',
+                        'events.start_date',
+                        'events.end_date',
+                        'events.address'
+                )
+                ->where('event_booking.user_id', $u_id)  
+                ->where('event_booking.booking_status', '!=', 'canceled')
+                ->where('events.start_date', '>', date('Y-m-d'))
+                ->orderby('event_booking.id', 'DESC')
+                ->get(); 
+            }elseif ($type == 'completed') {
+                $bookingList = DB::table('event_booking')
+                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                ->select('event_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'events.title',
+                        'events.vendor_id as event_vendor_id',
+                        'events.start_date',
+                        'events.end_date',
+                        'events.address'
+                )
+                ->where('event_booking.user_id', $u_id)  
+                ->where('event_booking.booking_status', '!=', 'canceled')
+                ->where('events.end_date', '<', date('Y-m-d'))
+                ->orderby('event_booking.id', 'DESC')
+                ->get(); 
+            }else{
+                $bookingList = DB::table('event_booking')
+                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                ->select('event_booking.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'events.title',
+                        'events.vendor_id as event_vendor_id',
+                        'events.start_date',
+                        'events.end_date',
+                        'events.address'
+                )
+                ->where('event_booking.user_id', $u_id)  
+                ->where('event_booking.booking_status', '=', 'canceled')
+                ->orderby('event_booking.id', 'DESC')
+                ->get(); 
+            }
+            foreach ($bookingList as $key => $value) {
+
+                $search = null;
+                $replace = '""';
+                array_walk($value,
+                function (&$v) use ($search, $replace){
+                    $v = str_replace($search, $replace, $v);    
+                    }                                                                     
+                );
+
+            }  
+            if(count($bookingList)>0){
+    
+                $response['message'] = "Events Booking List";
+                $response['status'] = 1;
+                $response['data'] = array('booking_list'=>$bookingList);
+
+            }else{
+
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('booking_list'=>$bookingList);
+            }
+    
+            return $response; 
+        }
+    }
+
+    public function event_booking_detail(Request $request)
+    {   
+        $validator = Validator::make($request->all(), [
+
+            'booking_id' => 'required'
+
+        ]);
+
+        $booking_id = $request->booking_id;
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+
+            $bookingDetails = DB::table('event_booking')
+            ->join('users', 'event_booking.user_id', '=', 'users.id')
+            ->join('events', 'event_booking.event_id', '=', 'events.id')
+            ->join('country', 'users.user_country', '=', 'country.id')
+            ->select(
+                'event_booking.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'users.address as user_address',
+                'users.state_id as user_state',
+                'users.user_city as user_city',
+                'users.postal_code as user_postal_code',
+                'events.title',
+                'events.vendor_id as event_vendor_id',
+                'events.start_date',
+                'events.end_date',
+                'events.address' 
+            )
+            // ->orderby('created_at', 'DESC')
+            ->where('event_booking.id', $booking_id)
+            ->first();
+
+            $search = null;
+            $replace = '""';
+            array_walk($bookingDetails,
+            function (&$v) use ($search, $replace){
+                $v = str_replace($search, $replace, $v);    
+                }                                                                     
+            );
+
+            if($bookingDetails->event_vendor_id == 1) {
+               $vendorDetails = DB::table('admins')->where('id',$bookingDetails->event_vendor_id)->first();
+            }else{
+                $vendorDetails = DB::table('users')->where('id',$bookingDetails->event_vendor_id)->first();
+            }
+
+            //print_r($bookingDetails->space_user_id);die;
+            $searchvendor = null;
+            $replacevendor = '""';
+            array_walk($vendorDetails,
+            function (&$vn) use ($searchvendor, $replacevendor){
+                $vn = str_replace($searchvendor, $replacevendor, $vn);    
+                }                                                                     
+            );
+
+            if($bookingDetails){
+        
+                $response['message'] = "Event Booking Detail";
+                $response['status'] = 1;
+                $response['data'] = array('booking_details'=>$bookingDetails,'vendor_details'=>$vendorDetails);
+
+            }else{
+
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('booking_details'=>$bookingDetails);
+            }
+    
+            return $response;
+        }    
+    }
+
 }

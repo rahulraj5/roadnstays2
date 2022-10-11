@@ -193,12 +193,12 @@
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
 
    <script type="text/javascript">
-      $(document).ready(function () {
+      /*$(document).ready(function () {
           function disableBack() {window.history.forward()}
 
           window.onload = disableBack();
           window.onpageshow = function (evt) {if (evt.persisted) disableBack()}
-      });
+      });*/
    </script>
    @yield('current_page_js') 
    

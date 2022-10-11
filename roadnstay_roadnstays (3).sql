@@ -128,7 +128,7 @@ INSERT INTO `amenities_type` (`id`, `name`, `amenity_name_type`, `status`) VALUE
 (2,	'Bathroom',	'Bathroom',	1),
 (3,	'Media and Technology',	'Media_and_Technology',	1),
 (4,	'Food & drink',	'Food_&_drink',	1),
-(5,	'Outdoor and view',	'Outdoor_and_view',	1);
+(5,	'Outdoor and views',	'Outdoor_and_view',	1);
 
 DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
@@ -369,7 +369,28 @@ INSERT INTO `booking` (`id`, `user_id`, `hotel_id`, `room_id`, `check_in`, `chec
 (237,	1151,	458,	1036,	'2022-09-30',	'2022-10-01',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	2011.00,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'885332',	'',	NULL,	'1',	'Failed',	'2022-09-30 13:21:24',	'2022-09-30 12:51:24'),
 (238,	1234,	524,	1055,	'2022-10-01',	'2022-10-02',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	1991.00,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'682730',	'228346129196',	NULL,	'1',	'Failed',	'2022-10-01 07:37:30',	'2022-10-01 07:07:30'),
 (239,	819,	525,	1057,	'2022-10-01',	'2022-10-02',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	1991.00,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'553614',	'289899615864',	NULL,	'3',	'Paid',	'2022-10-01 09:20:07',	'2022-10-01 08:50:07'),
-(240,	837,	524,	1054,	'2022-10-01',	'2022-10-02',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	2011.00,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'392490',	'123456',	NULL,	'2',	'Paid',	'2022-10-01 10:16:42',	'2022-10-01 09:46:42');
+(240,	837,	524,	1054,	'2022-10-01',	'2022-10-02',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	2011.00,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'392490',	'123456',	NULL,	'2',	'Paid',	'2022-10-01 10:16:42',	'2022-10-01 09:46:42'),
+(241,	837,	625,	1242,	'2022-10-06',	'2022-10-07',	1,	1,	1,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'129517',	'523508929935',	NULL,	'3',	'Paid',	'2022-10-06 06:55:58',	'2022-10-06 06:25:58'),
+(242,	1163,	409,	1053,	'2022-10-06',	'2022-10-07',	1,	1,	1,	NULL,	NULL,	200.00,	100.00,	10.00,	2310.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'318486',	'607855701884',	NULL,	'3',	'Paid',	'2022-10-06 09:16:31',	'2022-10-06 08:46:31'),
+(243,	837,	626,	1246,	'2022-10-06',	'2022-10-07',	1,	1,	1,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'872549',	'668321511668',	NULL,	'3',	'Paid',	'2022-10-06 10:57:20',	'2022-10-06 10:27:20'),
+(244,	837,	628,	1251,	'2022-10-06',	'2022-10-07',	1,	1,	1,	NULL,	NULL,	100.00,	10.00,	1.00,	411.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'834782',	'741119158146',	NULL,	'3',	'Paid',	'2022-10-06 12:58:39',	'2022-10-06 12:28:39'),
+(245,	837,	630,	1254,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	701.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1461334',	'364880335638',	NULL,	'3',	'Paid',	'2022-10-07 06:18:22',	'2022-10-07 05:48:22'),
+(246,	1163,	629,	1252,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1142861',	'413228687437',	NULL,	'3',	'Paid',	'2022-10-07 07:38:55',	'2022-10-07 07:08:55'),
+(247,	1163,	630,	1255,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	701.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1635290',	'426072970958',	NULL,	'3',	'Paid',	'2022-10-07 08:00:19',	'2022-10-07 07:30:19'),
+(248,	1151,	525,	1056,	'2022-11-07',	'2022-11-16',	9,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	17971.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'352361',	'505387317616',	NULL,	'1',	'Paid',	'2022-10-07 10:12:34',	'2022-10-07 09:42:34'),
+(249,	837,	458,	1035,	'2022-10-07',	'2022-10-08',	1,	1,	NULL,	NULL,	NULL,	0.00,	0.00,	16.00,	1991.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'39374',	'520877885800',	NULL,	'3',	'Paid',	'2022-10-07 10:38:23',	'2022-10-07 10:08:23'),
+(250,	837,	525,	1056,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	0.00,	0.00,	16.00,	2011.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'179925',	'608792356540',	NULL,	'3',	'Paid',	'2022-10-07 13:04:54',	'2022-10-07 12:34:54'),
+(251,	837,	632,	1258,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1774997',	'610692910985',	NULL,	'3',	'Paid',	'2022-10-07 13:08:02',	'2022-10-07 12:38:02'),
+(252,	1163,	630,	1256,	'2022-10-07',	'2022-10-08',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	701.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'682078',	'638048226811',	NULL,	'3',	'Paid',	'2022-10-07 13:53:39',	'2022-10-07 13:23:39'),
+(253,	837,	633,	1261,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'175889',	'942951215204',	NULL,	'3',	'Paid',	'2022-10-10 05:55:07',	'2022-10-10 05:25:07'),
+(254,	837,	634,	1264,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	10.00,	10.00,	1.00,	121.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'702261',	'961796389069',	NULL,	'3',	'Paid',	'2022-10-10 06:26:30',	'2022-10-10 05:56:30'),
+(255,	1163,	633,	1262,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'970824',	'969486962926',	NULL,	'3',	'Paid',	'2022-10-10 06:39:18',	'2022-10-10 06:09:18'),
+(256,	837,	636,	1268,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'484581',	'074315908592',	NULL,	'3',	'Paid',	'2022-10-10 09:34:03',	'2022-10-10 09:04:03'),
+(257,	837,	636,	1269,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'938845',	'090150900953',	NULL,	'3',	'Paid',	'2022-10-10 10:00:27',	'2022-10-10 09:30:27'),
+(258,	1151,	409,	1053,	'2022-11-09',	'2022-11-10',	1,	1,	2,	NULL,	NULL,	200.00,	100.00,	10.00,	2310.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'967599',	'112203277922',	NULL,	'1',	'Paid',	'2022-10-10 10:37:13',	'2022-10-10 10:07:13'),
+(259,	1151,	409,	1053,	'2022-10-10',	'2022-10-11',	1,	1,	2,	NULL,	NULL,	200.00,	100.00,	10.00,	2310.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1516868',	'121765171221',	NULL,	'1',	'Paid',	'2022-10-10 10:53:09',	'2022-10-10 10:23:09'),
+(260,	1163,	636,	1270,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'869723',	'182995736494',	NULL,	'3',	'Paid',	'2022-10-10 12:35:11',	'2022-10-10 12:05:11'),
+(261,	1163,	638,	1273,	'2022-10-10',	'2022-10-11',	1,	1,	1,	NULL,	NULL,	100.00,	100.00,	1.00,	301.00,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'144120',	'233961163718',	NULL,	'3',	'Paid',	'2022-10-10 14:00:07',	'2022-10-10 13:30:07');
 
 DROP TABLE IF EXISTS `booking_temp`;
 CREATE TABLE `booking_temp` (
@@ -770,7 +791,36 @@ INSERT INTO `booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id`, `us
 (368,	'1621933',	NULL,	NULL,	1,	524,	1054,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-01 15:10:05',	'2022-10-01 09:40:05'),
 (369,	'392490',	NULL,	NULL,	1,	524,	1054,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-01 15:13:12',	'2022-10-01 09:43:12'),
 (370,	'1517449',	NULL,	NULL,	1,	458,	1035,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-01 16:13:52',	'2022-10-01 10:43:52'),
-(371,	'1169193',	NULL,	NULL,	1,	458,	1035,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-01 16:16:38',	'2022-10-01 10:46:38');
+(371,	'1169193',	NULL,	NULL,	1,	458,	1035,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-01 16:16:38',	'2022-10-01 10:46:38'),
+(372,	'584554',	NULL,	NULL,	1,	458,	1035,	'2022-10-01',	'2022-10-02',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-01 18:15:44',	'2022-10-01 12:45:44'),
+(373,	'129517',	NULL,	NULL,	1,	625,	1242,	'2022-10-06',	'2022-10-07',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-06 11:53:24',	'2022-10-06 06:23:24'),
+(374,	'318486',	NULL,	NULL,	1,	409,	1053,	'2022-10-06',	'2022-10-07',	200.00,	100.00,	10.00,	1,	1,	1,	NULL,	NULL,	2310.00,	NULL,	NULL,	NULL,	'2022-10-06 14:14:22',	'2022-10-06 08:44:22'),
+(375,	'1149835',	NULL,	NULL,	1,	458,	1035,	'2022-10-06',	'2022-10-07',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-06 14:54:06',	'2022-10-06 09:24:06'),
+(376,	'485306',	NULL,	NULL,	1,	458,	1035,	'2022-10-06',	'2022-10-07',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-06 15:01:09',	'2022-10-06 09:31:09'),
+(377,	'1534375',	NULL,	NULL,	1,	525,	1056,	'2022-10-06',	'2022-10-07',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-06 15:24:56',	'2022-10-06 09:54:56'),
+(378,	'872549',	NULL,	NULL,	1,	626,	1246,	'2022-10-06',	'2022-10-07',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-06 15:55:01',	'2022-10-06 10:25:01'),
+(379,	'222367',	NULL,	NULL,	1,	524,	1054,	'2022-10-06',	'2022-10-07',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-06 17:29:04',	'2022-10-06 11:59:04'),
+(380,	'681268',	NULL,	NULL,	1,	627,	1249,	'2022-10-06',	'2022-10-07',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-06 17:30:10',	'2022-10-06 12:00:10'),
+(381,	'834782',	NULL,	NULL,	1,	628,	1251,	'2022-10-06',	'2022-10-07',	100.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	411.00,	NULL,	NULL,	NULL,	'2022-10-06 17:56:53',	'2022-10-06 12:26:53'),
+(382,	'271447',	NULL,	NULL,	1,	629,	1252,	'2022-10-07',	'2022-10-08',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-07 10:53:29',	'2022-10-07 05:23:29'),
+(383,	'1461334',	NULL,	NULL,	1,	630,	1254,	'2022-10-07',	'2022-10-08',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	701.00,	NULL,	NULL,	NULL,	'2022-10-07 11:14:25',	'2022-10-07 05:44:25'),
+(384,	'1142861',	NULL,	NULL,	1,	629,	1252,	'2022-10-07',	'2022-10-08',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-07 12:37:43',	'2022-10-07 07:07:43'),
+(385,	'1635290',	NULL,	NULL,	1,	630,	1255,	'2022-10-07',	'2022-10-08',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	701.00,	NULL,	NULL,	NULL,	'2022-10-07 12:59:17',	'2022-10-07 07:29:17'),
+(386,	'352361',	NULL,	NULL,	1,	525,	1056,	'2022-11-07',	'2022-11-16',	0.00,	0.00,	16.00,	9,	1,	1,	NULL,	NULL,	17971.00,	NULL,	NULL,	NULL,	'2022-10-07 15:10:21',	'2022-10-07 09:40:21'),
+(387,	'39374',	NULL,	NULL,	1,	458,	1035,	'2022-10-07',	'2022-10-08',	0.00,	0.00,	16.00,	1,	1,	NULL,	NULL,	NULL,	1991.00,	NULL,	NULL,	NULL,	'2022-10-07 15:36:14',	'2022-10-07 10:06:14'),
+(388,	'1304902',	NULL,	NULL,	1,	524,	1054,	'2022-10-07',	'2022-10-08',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-07 16:33:19',	'2022-10-07 11:03:19'),
+(389,	'179925',	NULL,	NULL,	1,	525,	1056,	'2022-10-07',	'2022-10-08',	0.00,	0.00,	16.00,	1,	1,	1,	NULL,	NULL,	2011.00,	NULL,	NULL,	NULL,	'2022-10-07 18:02:05',	'2022-10-07 12:32:05'),
+(390,	'1774997',	NULL,	NULL,	1,	632,	1258,	'2022-10-07',	'2022-10-08',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-07 18:05:55',	'2022-10-07 12:35:55'),
+(391,	'682078',	NULL,	NULL,	1,	630,	1256,	'2022-10-07',	'2022-10-08',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	701.00,	NULL,	NULL,	NULL,	'2022-10-07 18:51:42',	'2022-10-07 13:21:42'),
+(392,	'175889',	NULL,	NULL,	1,	633,	1261,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 10:50:49',	'2022-10-10 05:20:49'),
+(393,	'702261',	NULL,	NULL,	1,	634,	1264,	'2022-10-10',	'2022-10-11',	10.00,	10.00,	1.00,	1,	1,	1,	NULL,	NULL,	121.00,	NULL,	NULL,	NULL,	'2022-10-10 11:24:42',	'2022-10-10 05:54:42'),
+(394,	'970824',	NULL,	NULL,	1,	633,	1262,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 11:37:49',	'2022-10-10 06:07:49'),
+(395,	'484581',	NULL,	NULL,	1,	636,	1268,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 14:30:29',	'2022-10-10 09:00:29'),
+(396,	'938845',	NULL,	NULL,	1,	636,	1269,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 14:58:37',	'2022-10-10 09:28:37'),
+(397,	'967599',	NULL,	NULL,	1,	409,	1053,	'2022-11-09',	'2022-11-10',	200.00,	100.00,	10.00,	1,	1,	2,	NULL,	NULL,	2310.00,	NULL,	NULL,	NULL,	'2022-10-10 15:24:18',	'2022-10-10 09:54:18'),
+(398,	'1516868',	NULL,	NULL,	1,	409,	1053,	'2022-10-10',	'2022-10-11',	200.00,	100.00,	10.00,	1,	1,	2,	NULL,	NULL,	2310.00,	NULL,	NULL,	NULL,	'2022-10-10 15:48:59',	'2022-10-10 10:18:59'),
+(399,	'869723',	NULL,	NULL,	1,	636,	1270,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 17:32:59',	'2022-10-10 12:02:59'),
+(400,	'144120',	NULL,	NULL,	1,	638,	1273,	'2022-10-10',	'2022-10-11',	100.00,	100.00,	1.00,	1,	1,	1,	NULL,	NULL,	301.00,	NULL,	NULL,	NULL,	'2022-10-10 18:58:21',	'2022-10-10 13:28:21');
 
 DROP TABLE IF EXISTS `breakfast_type`;
 CREATE TABLE `breakfast_type` (
@@ -1347,10 +1397,10 @@ INSERT INTO `events` (`id`, `vendor_id`, `type`, `title`, `description`, `image`
 (49,	0,	'free',	'Bachelor Party',	'description',	'1664621776_pexels-arthur-abdurashitov-1919077.jpg',	0.00,	1,	'2022-08-22',	'13:00:00',	'2022-08-22',	'14:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\"]',	'[\"636\"]',	'Operator Name',	'ocn',	2147483647,	'oe@gmail.com',	2147483647,	1,	'2022-08-22 08:25:49',	'2022-10-01 11:26:16'),
 (61,	1088,	'paid',	'So Rude of Me-comedy',	'description',	'unnamed (1).jpg',	20.00,	10,	'2022-08-24',	'00:00:00',	'2022-08-24',	'02:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\"]',	'[\"636\"]',	'Operator Name',	'Operator Contact Name',	2147483647,	'oe@gmail.com',	2147483647,	1,	'2022-08-24 06:55:21',	'2022-10-01 10:16:57'),
 (62,	0,	'free',	'Food Expo event',	'description',	'pexels-trang-doan-1099680.jpg',	0.00,	1,	'2022-10-25',	'13:00:00',	'2022-10-25',	'14:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"458\"]',	'[\"636\"]',	'Operator Name',	'Operator Contact Name',	2147483647,	'oe@gmail.com',	2147483647,	1,	'2022-08-24 07:05:21',	'2022-10-01 10:17:01'),
-(63,	877,	'free',	'song concert',	'Come and witness this magical evening with your loved ones',	'pexels-matheus-bertelli-2608511.jpg',	0.00,	1,	'2022-09-26',	'13:00:00',	'2022-09-30',	'14:00:00',	'bsbsb',	'',	'',	'[\"525\",\"524\",\"522\",\"520\",\"458\",\"409\"]',	'[\"636\",\"473\",\"638\"]',	'alfalha op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	1,	'2022-08-24 08:32:20',	'2022-10-01 10:17:06'),
+(63,	0,	'free',	'song concert',	'Come and witness this magical evening with your loved ones',	'pexels-matheus-bertelli-2608511.jpg',	0.00,	1,	'2022-09-26',	'13:00:00',	'2022-09-30',	'14:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\",\"524\",\"522\",\"520\",\"458\",\"409\"]',	'[\"636\",\"473\"]',	'alfalha op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	1,	'2022-08-24 08:32:20',	'2022-10-01 13:57:30'),
 (64,	0,	'paid',	'cyber training',	'In this Event, Uses and advantages of learning the cybersecurity is discussed. It will be helpful for all you even for a lay person.\r\n\r\nAbout this Event\r\n\r\nIn this Event , We will provide you an enough knowledge about Cyber security. Tech is one of the few industries with the lowest barriers to entry. One does not exactly need a degree to break into the field, but you must have the technical knowledge and skills to succeed. In order to have the right skill set for the job you want, you must undergo some ample training',	'1663051371_pexels-tima-miroshnichenko-5380642.jpg',	10.00,	10,	'2022-10-18',	'11:30:00',	'2022-10-18',	'18:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"458\"]',	'[\"636\"]',	'himesh',	'kumar',	2147483647,	'himesh@gmail.com',	2147483647,	1,	'2022-09-13 06:42:51',	'2022-10-01 10:48:22'),
 (65,	1088,	'paid',	'tech expo',	'The Tech Expo is an opportunity for companies to promote their businesses, display what they\'re working on and network with manufacturers, suppliers, clients and customers.',	'1663052089_pexels-christina-morillo-1181352.jpg',	10.00,	5,	'2022-10-11',	'11:00:00',	'2022-10-11',	'19:00:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\"]',	'[\"636\"]',	'ayush',	'kamal',	2147483647,	'ayush@gmail.com',	2147483647,	1,	'2022-09-13 06:54:49',	'2022-10-01 10:47:59'),
-(66,	353,	'paid',	'Standup Comedy',	'They are raunchy, raged, unapologetic, and most importantly funny. \r\n\r\nThey will be performing their best 30-30 minutes in this show.',	'1664621743_pexels-ketut-subiyanto-4307935.jpg',	10.00,	10,	'2022-10-10',	'14:00:00',	'2022-10-10',	'16:30:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\",\"524\",\"523\",\"522\",\"520\",\"458\"]',	'[\"636\",\"473\"]',	'himanshu',	'9874562587',	2147483647,	'hem@gmail.com',	2147483647,	1,	'2022-09-13 07:03:52',	'2022-10-01 11:25:43');
+(66,	353,	'paid',	'Standup Comedy',	'They are raunchy, raged, unapologetic, and most importantly funny. \r\n\r\nThey will be performing their best 30-30 minutes in this show.',	'1664621743_pexels-ketut-subiyanto-4307935.jpg',	10.00,	10,	'2022-10-10',	'14:00:00',	'2022-10-10',	'16:30:00',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'[\"525\",\"524\",\"523\",\"522\",\"520\",\"458\"]',	'[\"636\",\"473\"]',	'himanshu',	'9874562587',	2147483647,	'hem@gmail.com',	2147483647,	1,	'2022-09-13 07:03:52',	'2022-10-10 08:50:52');
 
 DROP TABLE IF EXISTS `event_booking`;
 CREATE TABLE `event_booking` (
@@ -1391,7 +1441,20 @@ INSERT INTO `event_booking` (`id`, `event_id`, `user_id`, `total_amount`, `payme
 (19,	64,	837,	10.00,	'PAYID-MMEFRQA5XX01621PR855423P',	'EC-6T053911ET225010L',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-26 05:23:33',	'2022-08-26 05:23:33'),
 (20,	64,	837,	10.00,	'PAYID-MMEFUKQ3J843016L9460405T',	'EC-4JY07946NB9242845',	'ER72HMHPHXM3S',	'paypal',	'successful',	'pending',	'2022-08-26 05:29:26',	'2022-08-26 05:29:26'),
 (21,	66,	1151,	10.00,	'907435',	'290192952229',	NULL,	'1',	'Paid',	'pending',	'2022-09-24 15:41:29',	'2022-09-24 10:11:29'),
-(22,	66,	1151,	10.00,	'793488',	'294085157870',	NULL,	'1',	'Paid',	'pending',	'2022-09-24 15:47:06',	'2022-09-24 10:17:06');
+(22,	66,	1151,	10.00,	'793488',	'294085157870',	NULL,	'1',	'Paid',	'pending',	'2022-09-24 15:47:06',	'2022-09-24 10:17:06'),
+(23,	65,	1182,	10.00,	'793988',	'409210009144',	NULL,	'3',	'Paid',	'pending',	'2022-10-01 17:38:54',	'2022-10-01 12:08:54'),
+(24,	140,	837,	0.00,	'859546',	'430257690536',	NULL,	'3',	'Failed',	'pending',	'2022-10-01 18:13:57',	'2022-10-01 12:43:57'),
+(25,	66,	837,	10.00,	'1374571',	'539663971333',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-06 12:22:52',	'2022-10-06 06:52:52'),
+(26,	143,	837,	20.00,	'1614691',	'352489867112',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-07 10:57:44',	'2022-10-07 05:27:44'),
+(27,	143,	837,	20.00,	'209708',	'367510856521',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-07 11:22:44',	'2022-10-07 05:52:44'),
+(28,	143,	1163,	20.00,	'1109471',	'423728240843',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-07 12:56:29',	'2022-10-07 07:26:29'),
+(29,	146,	837,	10.00,	'1508432',	'622219556087',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-07 18:27:16',	'2022-10-07 12:57:16'),
+(30,	145,	1163,	100.00,	'968122',	'641248766931',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-07 18:58:58',	'2022-10-07 13:28:58'),
+(31,	66,	837,	10.00,	'1198795',	'944890477348',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-10 10:58:18',	'2022-10-10 05:28:18'),
+(32,	147,	837,	0.00,	'58221',	'962982724652',	NULL,	'3',	'Failed',	'pending',	'2022-10-10 11:28:29',	'2022-10-10 05:58:29'),
+(33,	147,	1163,	0.00,	'383462',	'972257553279',	NULL,	'3',	'Failed',	'pending',	'2022-10-10 11:43:56',	'2022-10-10 06:13:56'),
+(34,	148,	837,	20.00,	'329598',	'095011690823',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-10 15:08:31',	'2022-10-10 09:38:31'),
+(35,	148,	1163,	20.00,	'90122',	'185469680354',	NULL,	'3',	'Paid',	'confirmed',	'2022-10-10 17:39:17',	'2022-10-10 12:09:17');
 
 DROP TABLE IF EXISTS `event_booking_temp`;
 CREATE TABLE `event_booking_temp` (
@@ -1429,7 +1492,37 @@ INSERT INTO `event_booking_temp` (`id`, `user_id`, `payment_id`, `paccess_token`
 (17,	1,	'PAYID-MMEFRQA5XX01621PR855423P',	'A21AALSdE0om1WQ84zwcS2CZNhZ7NZx0g0mTu0xHuaOKNkFy2fNaLLEIBwuheiRRN-WydOG32u7SpvM-MmzisePE1GssrH7LQ',	'EC-6T053911ET225010L',	64,	'2022-08-28',	'2022-08-31',	10.00,	'2022-08-26 05:23:12',	'2022-08-26 05:23:12'),
 (18,	1,	'PAYID-MMEFUKQ3J843016L9460405T',	'A21AALSdE0om1WQ84zwcS2CZNhZ7NZx0g0mTu0xHuaOKNkFy2fNaLLEIBwuheiRRN-WydOG32u7SpvM-MmzisePE1GssrH7LQ',	'EC-4JY07946NB9242845',	64,	'2022-08-28',	'2022-08-31',	10.00,	'2022-08-26 05:29:15',	'2022-08-26 05:29:15'),
 (19,	NULL,	'907435',	NULL,	NULL,	66,	'2022-09-29',	'2022-09-30',	10.00,	'2022-09-24 15:36:30',	'2022-09-24 10:06:30'),
-(20,	NULL,	'793488',	NULL,	NULL,	66,	'2022-09-29',	'2022-09-30',	10.00,	'2022-09-24 15:45:58',	'2022-09-24 10:15:58');
+(20,	NULL,	'793488',	NULL,	NULL,	66,	'2022-09-29',	'2022-09-30',	10.00,	'2022-09-24 15:45:58',	'2022-09-24 10:15:58'),
+(21,	1,	'793988',	NULL,	NULL,	65,	'2022-10-11',	'2022-10-11',	10.00,	'2022-10-01 17:35:59',	'2022-10-01 12:05:59'),
+(22,	1,	'859546',	NULL,	NULL,	140,	'2022-10-01',	'2022-10-01',	0.00,	'2022-10-01 18:11:21',	'2022-10-01 12:41:21'),
+(23,	1,	'1138679',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-06 11:22:10',	'2022-10-06 05:52:10'),
+(24,	1,	'1374571',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-06 12:21:36',	'2022-10-06 06:51:36'),
+(25,	1,	'79906',	NULL,	NULL,	65,	'2022-10-11',	'2022-10-11',	10.00,	'2022-10-06 13:52:59',	'2022-10-06 08:22:59'),
+(26,	1,	'675526',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-06 14:55:21',	'2022-10-06 09:25:21'),
+(27,	1,	'1010223',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-06 15:03:11',	'2022-10-06 09:33:11'),
+(28,	1,	'782515',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-06 15:27:41',	'2022-10-06 09:57:41'),
+(29,	1,	'599209',	NULL,	NULL,	142,	'2022-10-06',	'2022-10-06',	10.00,	'2022-10-06 17:35:34',	'2022-10-06 12:05:34'),
+(30,	1,	'817717',	NULL,	NULL,	142,	'2022-10-06',	'2022-10-06',	10.00,	'2022-10-06 18:51:57',	'2022-10-06 13:21:57'),
+(31,	1,	'1614691',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	20.00,	'2022-10-07 10:55:22',	'2022-10-07 05:25:22'),
+(32,	1,	'209708',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	20.00,	'2022-10-07 11:21:28',	'2022-10-07 05:51:28'),
+(33,	1,	'1109471',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	20.00,	'2022-10-07 12:53:16',	'2022-10-07 07:23:16'),
+(34,	1,	'295511',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	20.00,	'2022-10-07 13:50:56',	'2022-10-07 08:20:56'),
+(35,	1,	'1330903',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	0.00,	'2022-10-07 15:47:10',	'2022-10-07 10:17:10'),
+(36,	1,	'1275666',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	0.00,	'2022-10-07 16:04:54',	'2022-10-07 10:34:54'),
+(37,	1,	'623964',	NULL,	NULL,	143,	'2022-10-07',	'2022-10-07',	0.00,	'2022-10-07 16:34:53',	'2022-10-07 11:04:53'),
+(38,	1,	'1039697',	NULL,	NULL,	146,	'2022-10-07',	'2022-10-07',	0.00,	'2022-10-07 18:11:12',	'2022-10-07 12:41:12'),
+(39,	1,	'1508432',	NULL,	NULL,	146,	'2022-10-07',	'2022-10-07',	10.00,	'2022-10-07 18:25:18',	'2022-10-07 12:55:18'),
+(40,	1,	'968122',	NULL,	NULL,	145,	'2022-10-07',	'2022-10-07',	100.00,	'2022-10-07 18:57:47',	'2022-10-07 13:27:47'),
+(41,	1,	'1198795',	NULL,	NULL,	66,	'2022-10-10',	'2022-10-10',	10.00,	'2022-10-10 10:57:09',	'2022-10-10 05:27:09'),
+(42,	1,	'58221',	NULL,	NULL,	147,	'2022-10-10',	'2022-10-10',	0.00,	'2022-10-10 11:27:25',	'2022-10-10 05:57:25'),
+(43,	1,	'1775',	NULL,	NULL,	147,	'2022-10-10',	'2022-10-10',	0.00,	'2022-10-10 11:30:41',	'2022-10-10 06:00:41'),
+(44,	1,	'383462',	NULL,	NULL,	147,	'2022-10-10',	'2022-10-10',	0.00,	'2022-10-10 11:42:46',	'2022-10-10 06:12:46'),
+(45,	1,	'742258',	NULL,	NULL,	147,	'2022-10-10',	'2022-10-10',	0.00,	'2022-10-10 11:59:10',	'2022-10-10 06:29:10'),
+(46,	1,	'794787',	NULL,	NULL,	149,	'2022-10-11',	'2022-10-11',	0.00,	'2022-10-10 14:35:28',	'2022-10-10 09:05:28'),
+(47,	1,	'944949',	NULL,	NULL,	149,	'2022-10-11',	'2022-10-11',	0.00,	'2022-10-10 15:04:52',	'2022-10-10 09:34:52'),
+(48,	1,	'329598',	NULL,	NULL,	148,	'2022-10-10',	'2022-10-14',	20.00,	'2022-10-10 15:06:37',	'2022-10-10 09:36:37'),
+(49,	1,	'1570525',	NULL,	NULL,	149,	'2022-10-11',	'2022-10-11',	0.00,	'2022-10-10 17:36:57',	'2022-10-10 12:06:57'),
+(50,	1,	'90122',	NULL,	NULL,	148,	'2022-10-10',	'2022-10-14',	20.00,	'2022-10-10 17:37:55',	'2022-10-10 12:07:55');
 
 DROP TABLE IF EXISTS `event_gallery`;
 CREATE TABLE `event_gallery` (
@@ -2223,7 +2316,106 @@ INSERT INTO `guestinfo` (`id`, `user_id`, `hotel_id`, `room_id`, `tour_id`, `spa
 (859,	NULL,	NULL,	NULL,	236,	NULL,	NULL,	'votivedesigner.krishna@gmail.com',	'krishna',	'patel',	'6261678742',	'1462826',	'Voter Id',	'4512541254',	'1024mmm-1664618461.png',	'circlf-1664618461.png',	1,	'2022-10-01 15:31:03',	'2022-10-01 10:01:03'),
 (860,	NULL,	NULL,	NULL,	236,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'966198',	'Passport',	'32132132123',	'front-1664620995.jpg',	'back-1664620995.jpg',	1,	'2022-10-01 16:13:16',	'2022-10-01 10:43:16'),
 (861,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'ss@gmail.com',	'sdfsf',	'ssd',	'523572572',	'1517449',	'Voter Id',	'24245',	'Simulator Screen Shot - iPhone 12 Pro - 2022-10-01 at 11.34.00-1664621031.png',	'Simulator Screen Shot - iPhone 12 Pro - 2022-09-26 at 12.52.12-1664621031.png',	1,	'2022-10-01 16:13:52',	'2022-10-01 10:43:52'),
-(862,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'ss@gmail.com',	'sdfsf',	'ssd',	'523572572',	'1169193',	'Voter Id',	'24245',	'Simulator Screen Shot - iPhone 12 Pro - 2022-10-01 at 11.34.00-1664621197.png',	'Simulator Screen Shot - iPhone 12 Pro - 2022-09-26 at 12.52.12-1664621197.png',	1,	'2022-10-01 16:16:38',	'2022-10-01 10:46:38');
+(862,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'ss@gmail.com',	'sdfsf',	'ssd',	'523572572',	'1169193',	'Voter Id',	'24245',	'Simulator Screen Shot - iPhone 12 Pro - 2022-10-01 at 11.34.00-1664621197.png',	'Simulator Screen Shot - iPhone 12 Pro - 2022-09-26 at 12.52.12-1664621197.png',	1,	'2022-10-01 16:16:38',	'2022-10-01 10:46:38'),
+(863,	NULL,	NULL,	NULL,	258,	NULL,	NULL,	'pushpendrajha@gmail.com',	'Pushpendra',	'techs',	'09179004123',	'1554530',	'Passport',	'5454545485',	'homework_classpertshome-1664624429.sql',	'home_work (1)-1664624429.sql',	1,	'2022-10-01 17:10:30',	'2022-10-01 11:40:30'),
+(864,	NULL,	NULL,	NULL,	258,	NULL,	NULL,	'pushpendrajha@gmail.com',	'Pushpendra',	'techs',	'09179004123',	'1028001',	'Passport',	'5454545485',	'homework_classpertshome-1664624477.sql',	'home_work (1)-1664624477.sql',	1,	'2022-10-01 17:11:18',	'2022-10-01 11:41:18'),
+(865,	NULL,	NULL,	NULL,	NULL,	NULL,	65,	'pushpendrajha@gmail.com',	'Pushpendra',	'techs',	'09179004123',	'793988',	'Passport',	'78454123651',	'dinner_imgg-1664625957.png',	'dinner_imgg-1664625958.png',	1,	'2022-10-01 17:35:59',	'2022-10-01 12:05:59'),
+(866,	NULL,	NULL,	NULL,	236,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'1694299',	'Passport',	'32132132123',	'front-1664627741.jpg',	'back-1664627741.jpg',	1,	'2022-10-01 18:05:42',	'2022-10-01 12:35:42'),
+(867,	NULL,	NULL,	NULL,	NULL,	NULL,	140,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'859546',	'Voter Id',	'1654456',	'Admin  Dashboard (5)-1664628080.pdf',	'Admin  Dashboard (5)-1664628080.pdf',	1,	'2022-10-01 18:11:21',	'2022-10-01 12:41:21'),
+(868,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'584554',	'Voter Id',	'9871313',	'Admin  Dashboard (4)-1664628343.pdf',	'Admin  Dashboard (5)-1664628343.pdf',	1,	'2022-10-01 18:15:44',	'2022-10-01 12:45:44'),
+(869,	NULL,	NULL,	NULL,	NULL,	636,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'232967',	'Voter Id',	'1485236986544',	'Admin  Dashboard (5)-1664629062.pdf',	'Admin  Dashboard (10)-1664629062.pdf',	1,	'2022-10-01 18:27:43',	'2022-10-01 12:57:43'),
+(870,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'212340',	'Voter Id',	'9874562587',	'Admin  Dashboard (5)-1664629338.pdf',	'Admin  Dashboard (5)-1664629338.pdf',	1,	'2022-10-01 18:32:19',	'2022-10-01 13:02:19'),
+(871,	NULL,	NULL,	NULL,	258,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'485717',	'Passport',	'32132132123',	'front-1664948431.jpg',	'back-1664948431.jpg',	1,	'2022-10-05 11:10:32',	'2022-10-05 05:40:32'),
+(872,	NULL,	NULL,	NULL,	NULL,	636,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'1142501',	'Passport',	'32132132123',	'front-1664953238.jpg',	'back-1664953238.jpg',	1,	'2022-10-05 12:30:39',	'2022-10-05 07:00:39'),
+(873,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'1001845',	'Passport',	'32132132123',	'front-1664954145.jpg',	'back-1664954145.jpg',	1,	'2022-10-05 12:45:46',	'2022-10-05 07:15:46'),
+(874,	NULL,	NULL,	NULL,	NULL,	636,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'819088',	'Passport',	'32132132123',	'front-1664954512.jpg',	'back-1664954512.jpg',	1,	'2022-10-05 12:51:54',	'2022-10-05 07:21:54'),
+(875,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'1138679',	'Voter Id',	'31564464',	'Admin  Dashboard (4)-1665035528.pdf',	'Admin  Dashboard (5)-1665035529.pdf',	1,	'2022-10-06 11:22:10',	'2022-10-06 05:52:10'),
+(876,	NULL,	625,	1242,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'129517',	'Voter Id',	'232565556',	'Admin  Dashboard (5)-1665037402.pdf',	'Admin  Dashboard (6)-1665037402.pdf',	1,	'2022-10-06 11:53:24',	'2022-10-06 06:23:24'),
+(877,	NULL,	NULL,	NULL,	287,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'794446',	'Voter Id',	'1654564646',	'Admin  Dashboard (5)-1665038865.pdf',	'Admin  Dashboard (5)-1665038865.pdf',	1,	'2022-10-06 12:17:46',	'2022-10-06 06:47:46'),
+(878,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'1374571',	'Voter Id',	'454654',	'Admin  Dashboard (4)-1665039094.pdf',	'Admin  Dashboard (5)-1665039094.pdf',	1,	'2022-10-06 12:21:36',	'2022-10-06 06:51:36'),
+(879,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'605966',	'Voter Id',	'32132132123',	'front-1665040635.jpg',	'back-1665040635.jpg',	1,	'2022-10-06 12:47:16',	'2022-10-06 07:17:16'),
+(880,	NULL,	NULL,	NULL,	NULL,	783,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'784669',	'Voter Id',	'554',	'Admin  Dashboard (5)-1665040938.pdf',	'Admin  Dashboard (4)-1665040938.pdf',	1,	'2022-10-06 12:52:19',	'2022-10-06 07:22:19'),
+(881,	NULL,	NULL,	NULL,	NULL,	NULL,	65,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'79906',	'Voter Id',	'6544564',	'Admin  Dashboard (9)-1665044577.pdf',	'Admin  Dashboard (10)-1665044577.pdf',	1,	'2022-10-06 13:52:59',	'2022-10-06 08:22:59'),
+(882,	NULL,	NULL,	NULL,	236,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'19035',	'Passport',	'32132132123',	'front-1665045708.jpg',	'back-1665045708.jpg',	1,	'2022-10-06 14:11:49',	'2022-10-06 08:41:49'),
+(883,	NULL,	409,	1053,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'318486',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665045860.pdf',	'Admin  Dashboard (10)-1665045860.pdf',	1,	'2022-10-06 14:14:22',	'2022-10-06 08:44:22'),
+(884,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'1499238',	'Passport',	'32132132123',	'front-1665046625.jpg',	'back-1665046625.jpg',	1,	'2022-10-06 14:27:06',	'2022-10-06 08:57:06'),
+(885,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412583698',	'1149835',	'Voter Id',	'464644465',	'Admin  Dashboard (4)-1665048245.pdf',	'Admin  Dashboard (4)-1665048245.pdf',	1,	'2022-10-06 14:54:06',	'2022-10-06 09:24:06'),
+(886,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'675526',	'Voter Id',	'4654464544',	'Admin  Dashboard (4)-1665048320.pdf',	'Admin  Dashboard (6)-1665048320.pdf',	1,	'2022-10-06 14:55:21',	'2022-10-06 09:25:21'),
+(887,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'SAHU',	'9874562587',	'485306',	'Voter Id',	'564654',	'Admin  Dashboard (4)-1665048667.pdf',	'Admin  Dashboard (4)-1665048667.pdf',	1,	'2022-10-06 15:01:09',	'2022-10-06 09:31:09'),
+(888,	NULL,	NULL,	NULL,	287,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'SAHU',	'9874561478',	'1742130',	'Voter Id',	'6546454',	'Admin  Dashboard (4)-1665048726.pdf',	'Admin  Dashboard (5)-1665048726.pdf',	1,	'2022-10-06 15:02:08',	'2022-10-06 09:32:08'),
+(889,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'1010223',	'Voter Id',	'74646465',	'Admin  Dashboard (3)-1665048790.pdf',	'Admin  Dashboard (5)-1665048790.pdf',	1,	'2022-10-06 15:03:11',	'2022-10-06 09:33:11'),
+(890,	NULL,	NULL,	NULL,	287,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'757975',	'Voter Id',	'7412589877',	'Admin  Dashboard (3)-1665049631.pdf',	'Admin  Dashboard (4)-1665049631.pdf',	1,	'2022-10-06 15:17:13',	'2022-10-06 09:47:13'),
+(891,	NULL,	525,	1056,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412589874',	'1534375',	'Voter Id',	'44466454',	'Admin  Dashboard (4)-1665050095.pdf',	'Admin  Dashboard (5)-1665050095.pdf',	1,	'2022-10-06 15:24:56',	'2022-10-06 09:54:56'),
+(892,	NULL,	NULL,	NULL,	287,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'1332523',	'Voter Id',	'4545644',	'Admin  Dashboard (3)-1665050203.pdf',	'Admin  Dashboard (4)-1665050203.pdf',	1,	'2022-10-06 15:26:44',	'2022-10-06 09:56:44'),
+(893,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'782515',	'Voter Id',	'7412587417',	'Admin  Dashboard (4)-1665050259.pdf',	'Admin  Dashboard (5)-1665050259.pdf',	1,	'2022-10-06 15:27:41',	'2022-10-06 09:57:41'),
+(894,	NULL,	626,	1246,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412583698',	'872549',	'Voter Id',	'7412589874',	'Admin  Dashboard (4)-1665051899.pdf',	'Admin  Dashboard (6)-1665051899.pdf',	1,	'2022-10-06 15:55:01',	'2022-10-06 10:25:01'),
+(895,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'646483',	'Passport',	'32132132123',	'front-1665052074.jpg',	'back-1665052074.jpg',	1,	'2022-10-06 15:57:55',	'2022-10-06 10:27:55'),
+(896,	NULL,	524,	1054,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'222367',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665057542.pdf',	'Admin  Dashboard (5)-1665057542.pdf',	1,	'2022-10-06 17:29:04',	'2022-10-06 11:59:04'),
+(897,	NULL,	627,	1249,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'681268',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665057609.pdf',	'Admin  Dashboard (5)-1665057609.pdf',	1,	'2022-10-06 17:30:10',	'2022-10-06 12:00:10'),
+(898,	NULL,	NULL,	NULL,	289,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874561478',	'735070',	'Voter Id',	'79887779',	'Admin  Dashboard (4)-1665057807.pdf',	'Admin  Dashboard (5)-1665057807.pdf',	1,	'2022-10-06 17:33:28',	'2022-10-06 12:03:28'),
+(899,	NULL,	NULL,	NULL,	NULL,	NULL,	142,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'599209',	'Voter Id',	'64444664',	'pexels-donald-tong-189293-1665057933.jpg',	'pexels-donald-tong-189293-1665057933.jpg',	1,	'2022-10-06 17:35:34',	'2022-10-06 12:05:34'),
+(900,	NULL,	628,	1251,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'834782',	'Voter Id',	'9874562587',	'Admin  Dashboard (5)-1665059212.pdf',	'Admin  Dashboard (5)-1665059212.pdf',	1,	'2022-10-06 17:56:53',	'2022-10-06 12:26:53'),
+(901,	NULL,	NULL,	NULL,	NULL,	786,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'337766',	'Voter Id',	'444644',	'Admin  Dashboard (4)-1665059411.pdf',	'Admin  Dashboard (5)-1665059411.pdf',	1,	'2022-10-06 18:00:12',	'2022-10-06 12:30:12'),
+(902,	NULL,	NULL,	NULL,	289,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1726849',	'Voter Id',	'4565456456',	'Admin  Dashboard (4)-1665060034.pdf',	'Admin  Dashboard (4)-1665060034.pdf',	1,	'2022-10-06 18:10:35',	'2022-10-06 12:40:35'),
+(903,	NULL,	NULL,	NULL,	NULL,	NULL,	142,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'817717',	'Voter Id',	'4546466',	'Admin  Dashboard (3)-1665062516.pdf',	'Admin  Dashboard (5)-1665062516.pdf',	1,	'2022-10-06 18:51:57',	'2022-10-06 13:21:57'),
+(904,	NULL,	629,	1252,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'271447',	'Voter Id',	'66444644',	'Admin  Dashboard (3)-1665120207.pdf',	'Admin  Dashboard (9)-1665120207.pdf',	1,	'2022-10-07 10:53:29',	'2022-10-07 05:23:29'),
+(905,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1614691',	'Voter Id',	'44446',	'Admin  Dashboard (4)-1665120321.pdf',	'Admin  Dashboard (5)-1665120321.pdf',	1,	'2022-10-07 10:55:22',	'2022-10-07 05:25:22'),
+(906,	NULL,	630,	1254,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'1461334',	'Voter Id',	'46464444',	'Admin  Dashboard (4)-1665121464.pdf',	'Admin  Dashboard (5)-1665121464.pdf',	1,	'2022-10-07 11:14:25',	'2022-10-07 05:44:25'),
+(907,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'209708',	'Voter Id',	'5444554456',	'Admin  Dashboard (4)-1665121886.pdf',	'Admin  Dashboard (10)-1665121886.pdf',	1,	'2022-10-07 11:21:28',	'2022-10-07 05:51:28'),
+(908,	NULL,	NULL,	NULL,	290,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1279157',	'Voter Id',	'7419874147',	'Admin  Dashboard (4)-1665126010.pdf',	'Admin  Dashboard (5)-1665126010.pdf',	1,	'2022-10-07 12:30:11',	'2022-10-07 07:00:11'),
+(909,	NULL,	629,	1252,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1142861',	'Voter Id',	'484544554',	'Admin  Dashboard (4)-1665126462.pdf',	'Admin  Dashboard (5)-1665126462.pdf',	1,	'2022-10-07 12:37:43',	'2022-10-07 07:07:43'),
+(910,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'1109471',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665127394.pdf',	'Admin  Dashboard (5)-1665127394.pdf',	1,	'2022-10-07 12:53:16',	'2022-10-07 07:23:16'),
+(911,	NULL,	630,	1255,	NULL,	NULL,	NULL,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'1635290',	'Voter Id',	'454456654',	'Admin  Dashboard (4)-1665127755.pdf',	'Admin  Dashboard (5)-1665127755.pdf',	1,	'2022-10-07 12:59:17',	'2022-10-07 07:29:17'),
+(912,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'295511',	'Voter Id',	'455564465',	'Admin  Dashboard (4)-1665130854.pdf',	'Admin  Dashboard (5)-1665130854.pdf',	1,	'2022-10-07 13:50:56',	'2022-10-07 08:20:56'),
+(913,	NULL,	NULL,	NULL,	NULL,	473,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'938536',	'Passport',	'32132132123',	'front-1665134676.jpg',	'back-1665134676.jpg',	1,	'2022-10-07 14:54:37',	'2022-10-07 09:24:37'),
+(914,	NULL,	525,	1056,	NULL,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'352361',	'Passport',	'32132132123',	'back-1665135620.jpg',	'front-1665135620.jpg',	1,	'2022-10-07 15:10:21',	'2022-10-07 09:40:21'),
+(915,	NULL,	458,	1035,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412589874',	'39374',	'Passport',	'46446446',	'Admin  Dashboard (4)-1665137173.pdf',	'Admin  Dashboard (4)-1665137173.pdf',	1,	'2022-10-07 15:36:14',	'2022-10-07 10:06:14'),
+(916,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1330903',	'Voter Id',	'44464444654',	'Admin  Dashboard (4)-1665137825.pdf',	'Admin  Dashboard (5)-1665137825.pdf',	1,	'2022-10-07 15:47:10',	'2022-10-07 10:17:10'),
+(917,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1275666',	'Voter Id',	'71478756454544',	'Admin  Dashboard (4)-1665138892.pdf',	'Admin  Dashboard (5)-1665138892.pdf',	1,	'2022-10-07 16:04:54',	'2022-10-07 10:34:54'),
+(918,	NULL,	NULL,	NULL,	258,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'3456453453',	'283849',	'Voter Id',	'45645645',	'77ce4780-c931-11eb-b7de-6f1d3275f38a-1665140223.jpeg',	'money-falling-from-sky_gettyimages-934096022 (1)-1665140223.jpg',	1,	'2022-10-07 16:27:06',	'2022-10-07 10:57:06'),
+(919,	NULL,	NULL,	NULL,	258,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'3456453453',	'1582861',	'Voter Id',	'45645645',	'77ce4780-c931-11eb-b7de-6f1d3275f38a-1665140338.jpeg',	'money-falling-from-sky_gettyimages-934096022 (1)-1665140338.jpg',	1,	'2022-10-07 16:29:02',	'2022-10-07 10:59:02'),
+(920,	NULL,	524,	1054,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1304902',	'Voter Id',	'9846444',	'Admin  Dashboard (4)-1665140596.pdf',	'Admin  Dashboard (5)-1665140596.pdf',	1,	'2022-10-07 16:33:19',	'2022-10-07 11:03:19'),
+(921,	NULL,	NULL,	NULL,	NULL,	NULL,	143,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874561478',	'623964',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665140690.pdf',	'Admin  Dashboard (5)-1665140690.pdf',	1,	'2022-10-07 16:34:53',	'2022-10-07 11:04:53'),
+(922,	NULL,	525,	1056,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'SAHU',	'9874562587',	'179925',	'Voter Id',	'3456446',	'Admin  Dashboard (4)-1665145923.pdf',	'Admin  Dashboard (5)-1665145923.pdf',	1,	'2022-10-07 18:02:05',	'2022-10-07 12:32:05'),
+(923,	NULL,	632,	1258,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1774997',	'Voter Id',	'46446454',	'Admin  Dashboard (4)-1665146154.pdf',	'Admin  Dashboard (5)-1665146154.pdf',	1,	'2022-10-07 18:05:55',	'2022-10-07 12:35:55'),
+(924,	NULL,	NULL,	NULL,	NULL,	NULL,	146,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1039697',	'Voter Id',	'4565456456',	'Admin  Dashboard (4)-1665146470.pdf',	'Admin  Dashboard (5)-1665146470.pdf',	1,	'2022-10-07 18:11:12',	'2022-10-07 12:41:12'),
+(925,	NULL,	NULL,	NULL,	293,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'401135',	'Voter Id',	'165564456',	'Admin  Dashboard (4)-1665146856.pdf',	'Admin  Dashboard (4)-1665146857.pdf',	1,	'2022-10-07 18:17:38',	'2022-10-07 12:47:38'),
+(926,	NULL,	NULL,	NULL,	NULL,	NULL,	146,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1508432',	'Voter Id',	'844655446',	'pexels-donald-tong-189293-1665147317.jpg',	'pexels-donald-tong-189293-1665147317.jpg',	1,	'2022-10-07 18:25:18',	'2022-10-07 12:55:18'),
+(927,	NULL,	NULL,	NULL,	NULL,	793,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'160502',	'Voter Id',	'4464464',	'pexels-donald-tong-189293-1665147522.jpg',	'pexels-donald-tong-189293-1665147522.jpg',	1,	'2022-10-07 18:28:43',	'2022-10-07 12:58:43'),
+(928,	NULL,	630,	1256,	NULL,	NULL,	NULL,	'ssnothinginlife@gmail.com',	'SAURABH',	'SAHU',	'9874562584',	'682078',	'Voter Id',	'74198745656',	'Admin  Dashboard (4)-1665148900.pdf',	'Admin  Dashboard (4)-1665148900.pdf',	1,	'2022-10-07 18:51:42',	'2022-10-07 13:21:42'),
+(929,	NULL,	NULL,	NULL,	292,	NULL,	NULL,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'1409322',	'Voter Id',	'711258987',	'Admin  Dashboard (4)-1665149076.pdf',	'Admin  Dashboard (10)-1665149076.pdf',	1,	'2022-10-07 18:54:37',	'2022-10-07 13:24:37'),
+(930,	NULL,	NULL,	NULL,	NULL,	NULL,	145,	'ssnothinginlife@gmail.com',	'saurabh',	'sahu',	'9874561478',	'968122',	'Voter Id',	'446654',	'Admin  Dashboard (5)-1665149265.pdf',	'Admin  Dashboard (4)-1665149265.pdf',	1,	'2022-10-07 18:57:47',	'2022-10-07 13:27:47'),
+(931,	NULL,	633,	1261,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'175889',	'Voter Id',	'544646446',	'Admin  Dashboard (4)-1665379246.pdf',	'Admin  Dashboard (5)-1665379246.pdf',	1,	'2022-10-10 10:50:49',	'2022-10-10 05:20:49'),
+(932,	NULL,	NULL,	NULL,	NULL,	NULL,	66,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1198795',	'Voter Id',	'46544446',	'Admin  Dashboard (4)-1665379628.pdf',	'Admin  Dashboard (5)-1665379628.pdf',	1,	'2022-10-10 10:57:09',	'2022-10-10 05:27:09'),
+(933,	NULL,	NULL,	NULL,	NULL,	793,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'865443',	'Voter Id',	'4644445',	'Admin  Dashboard (4)-1665379765.pdf',	'Admin  Dashboard (5)-1665379765.pdf',	1,	'2022-10-10 10:59:26',	'2022-10-10 05:29:26'),
+(934,	NULL,	634,	1264,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'saurabh',	'sahu',	'9874561478',	'702261',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665381281.pdf',	'Admin  Dashboard (5)-1665381281.pdf',	1,	'2022-10-10 11:24:42',	'2022-10-10 05:54:42'),
+(935,	NULL,	NULL,	NULL,	NULL,	NULL,	147,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'58221',	'Voter Id',	'48446645645',	'Admin  Dashboard (4)-1665381444.pdf',	'Admin  Dashboard (5)-1665381444.pdf',	1,	'2022-10-10 11:27:25',	'2022-10-10 05:57:25'),
+(936,	NULL,	NULL,	NULL,	NULL,	NULL,	147,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1775',	'Voter Id',	'64464464446',	'Admin  Dashboard (4)-1665381638.pdf',	'Admin  Dashboard (5)-1665381638.pdf',	1,	'2022-10-10 11:30:41',	'2022-10-10 06:00:41'),
+(937,	NULL,	NULL,	NULL,	NULL,	795,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1544510',	'Voter Id',	'644644',	'Admin  Dashboard (3)-1665381762.pdf',	'Admin  Dashboard (4)-1665381762.pdf',	1,	'2022-10-10 11:32:44',	'2022-10-10 06:02:44'),
+(938,	NULL,	633,	1262,	NULL,	NULL,	NULL,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'970824',	'Voter Id',	'44444656466',	'Admin  Dashboard (3)-1665382067.pdf',	'Admin  Dashboard (4)-1665382067.pdf',	1,	'2022-10-10 11:37:49',	'2022-10-10 06:07:49'),
+(939,	NULL,	NULL,	NULL,	292,	NULL,	NULL,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'1349630',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665382235.pdf',	'Admin  Dashboard (5)-1665382235.pdf',	1,	'2022-10-10 11:40:36',	'2022-10-10 06:10:36'),
+(940,	NULL,	NULL,	NULL,	NULL,	NULL,	147,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874561478',	'383462',	'Voter Id',	'6446',	'Admin  Dashboard (4)-1665382365.pdf',	'Admin  Dashboard (4)-1665382365.pdf',	1,	'2022-10-10 11:42:46',	'2022-10-10 06:12:46'),
+(941,	NULL,	NULL,	NULL,	290,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'43415',	'Voter Id',	'546446',	'pexels-donald-tong-189293-1665382795.jpg',	'pexels-donald-tong-189293-1665382795.jpg',	1,	'2022-10-10 11:49:56',	'2022-10-10 06:19:56'),
+(942,	NULL,	NULL,	NULL,	NULL,	NULL,	147,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'742258',	'Voter Id',	'798787964645',	'Admin  Dashboard (4)-1665383348.pdf',	'Admin  Dashboard (5)-1665383348.pdf',	1,	'2022-10-10 11:59:10',	'2022-10-10 06:29:10'),
+(943,	NULL,	636,	1268,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'484581',	'Voter Id',	'446654',	'Admin  Dashboard (4)-1665392426.pdf',	'Admin  Dashboard (5)-1665392426.pdf',	1,	'2022-10-10 14:30:29',	'2022-10-10 09:00:29'),
+(944,	NULL,	NULL,	NULL,	NULL,	NULL,	149,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'794787',	'Voter Id',	'445644',	'Admin  Dashboard (4)-1665392726.pdf',	'Admin  Dashboard (5)-1665392726.pdf',	1,	'2022-10-10 14:35:28',	'2022-10-10 09:05:28'),
+(945,	NULL,	NULL,	NULL,	NULL,	796,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1631590',	'Voter Id',	'644644466',	'Admin  Dashboard (4)-1665392857.pdf',	'Admin  Dashboard (9)-1665392857.pdf',	1,	'2022-10-10 14:37:38',	'2022-10-10 09:07:38'),
+(946,	NULL,	NULL,	NULL,	NULL,	796,	NULL,	'ssnothinginlife@gmail.com',	'srb',	'sahu',	'9874562587',	'930936',	'Voter Id',	'9874562587',	'Admin  Dashboard (3)-1665393392.pdf',	'Admin  Dashboard (3)-1665393392.pdf',	1,	'2022-10-10 14:46:33',	'2022-10-10 09:16:33'),
+(947,	NULL,	636,	1269,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874562587',	'938845',	NULL,	'644664544',	'Admin  Dashboard (4)-1665394116.pdf',	'Admin  Dashboard (9)-1665394116.pdf',	1,	'2022-10-10 14:58:37',	'2022-10-10 09:28:37'),
+(948,	NULL,	NULL,	NULL,	296,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1287689',	'Voter Id',	'65464444',	'Admin  Dashboard (4)-1665394301.pdf',	'Admin  Dashboard (5)-1665394301.pdf',	1,	'2022-10-10 15:01:43',	'2022-10-10 09:31:43'),
+(949,	NULL,	NULL,	NULL,	NULL,	NULL,	149,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'944949',	'Voter Id',	'6566546',	'Admin  Dashboard (4)-1665394476.pdf',	'Admin  Dashboard (5)-1665394476.pdf',	1,	'2022-10-10 15:04:52',	'2022-10-10 09:34:52'),
+(950,	NULL,	NULL,	NULL,	NULL,	NULL,	148,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'7412583698',	'329598',	'Voter Id',	'6444455645',	'Admin  Dashboard (4)-1665394595.pdf',	'Admin  Dashboard (5)-1665394595.pdf',	1,	'2022-10-10 15:06:37',	'2022-10-10 09:36:37'),
+(951,	NULL,	NULL,	NULL,	NULL,	796,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1004986',	'Voter Id',	'546464465',	'Admin  Dashboard (3)-1665395066.pdf',	'Admin  Dashboard (5)-1665395066.pdf',	1,	'2022-10-10 15:14:27',	'2022-10-10 09:44:27'),
+(952,	NULL,	409,	1053,	NULL,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'967599',	'Passport',	'32132132123',	'front-1665395655.jpg',	'back-1665395655.jpg',	1,	'2022-10-10 15:24:18',	'2022-10-10 09:54:18'),
+(953,	NULL,	409,	1053,	NULL,	NULL,	NULL,	'votivephp.rahulraj@gmail.com',	'rahul',	'solanki',	'942509544',	'1516868',	'Passport',	'32132132123',	'back-1665397138.jpg',	'front-1665397138.jpg',	1,	'2022-10-10 15:48:59',	'2022-10-10 10:18:59'),
+(954,	NULL,	636,	1270,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'869723',	'Voter Id',	'564545',	'Admin  Dashboard (4)-1665403376.pdf',	'Admin  Dashboard (4)-1665403376.pdf',	1,	'2022-10-10 17:32:59',	'2022-10-10 12:02:59'),
+(955,	NULL,	NULL,	NULL,	NULL,	NULL,	149,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1570525',	'Voter Id',	'54645446',	'Admin  Dashboard (3)-1665403616.pdf',	'Admin  Dashboard (4)-1665403616.pdf',	1,	'2022-10-10 17:36:57',	'2022-10-10 12:06:57'),
+(956,	NULL,	NULL,	NULL,	NULL,	NULL,	148,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'90122',	'Voter Id',	'6546465464565',	'Admin  Dashboard (4)-1665403672.pdf',	'Admin  Dashboard (10)-1665403672.pdf',	1,	'2022-10-10 17:37:55',	'2022-10-10 12:07:55'),
+(957,	NULL,	NULL,	NULL,	NULL,	796,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'SAHU',	'9874561478',	'78931',	'Voter Id',	'9874562587',	'Admin  Dashboard (3)-1665403800.pdf',	'Admin  Dashboard (4)-1665403800.pdf',	1,	'2022-10-10 17:40:02',	'2022-10-10 12:10:02'),
+(958,	NULL,	NULL,	NULL,	296,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'556739',	'Voter Id',	'98446464545645',	'Admin  Dashboard (4)-1665403970.pdf',	'Admin  Dashboard (5)-1665403970.pdf',	1,	'2022-10-10 17:42:51',	'2022-10-10 12:12:51'),
+(959,	NULL,	NULL,	NULL,	NULL,	796,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'34285',	'Voter Id',	'6544645446',	'Admin  Dashboard (3)-1665404872.pdf',	'Admin  Dashboard (4)-1665404872.pdf',	1,	'2022-10-10 17:57:53',	'2022-10-10 12:27:53'),
+(960,	NULL,	NULL,	NULL,	NULL,	798,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'1231982',	'Voter Id',	'6546446556',	'Admin  Dashboard (4)-1665404956.pdf',	'Admin  Dashboard (5)-1665404956.pdf',	1,	'2022-10-10 17:59:17',	'2022-10-10 12:29:17'),
+(961,	NULL,	638,	1273,	NULL,	NULL,	NULL,	'votivetester.saurabh@gmail.com',	'srb',	'sahu',	'9874561478',	'144120',	'Voter Id',	'9874562587',	'Admin  Dashboard (4)-1665408499.pdf',	'Admin  Dashboard (4)-1665408499.pdf',	1,	'2022-10-10 18:58:21',	'2022-10-10 13:28:21');
 
 DROP TABLE IF EXISTS `H1_Hotel_and_other_Stays`;
 CREATE TABLE `H1_Hotel_and_other_Stays` (
@@ -2248,7 +2440,7 @@ INSERT INTO `H1_Hotel_and_other_Stays` (`id`, `stay_type`, `description`, `statu
 (12,	'Hotel',	'Accommodation for travellers often offering restaurants, meeting rooms and other guest services',	1,	'2022-08-30 16:02:42',	NULL),
 (14,	'Guest House',	'Private home with separate living facilities for host and guest',	1,	'2022-09-05 11:28:30',	NULL),
 (15,	'Bed and breakfast',	'Private home offering overnight stays and breakfast',	1,	'2022-09-05 11:28:44',	NULL),
-(16,	'Lodge',	'Private home with accommodation surrounded by nature, such as mountains or forest',	1,	'2022-09-05 11:29:01',	'2022-09-30 10:32:19');
+(16,	'Lodge',	'Private home with accommodation surrounded by nature, such as mountains or forest',	1,	'2022-09-05 11:29:01',	'2022-10-10 11:17:44');
 
 DROP TABLE IF EXISTS `H2_Amenities`;
 CREATE TABLE `H2_Amenities` (
@@ -2268,8 +2460,7 @@ CREATE TABLE `H2_Amenities` (
 INSERT INTO `H2_Amenities` (`amenity_id`, `amenity_name`, `amenity_icon`, `amenity_type`, `amenity_type_name`, `amenity_type_sym`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
 (19,	'Alarm clock',	'',	8,	'Services & extras',	'Services_&_extras',	NULL,	1,	'2022-06-02 07:11:13',	'2022-08-05 05:51:00'),
 (30,	'support',	'',	8,	'Services & extras',	'Services_&_extras',	NULL,	1,	'2022-06-10 12:46:55',	NULL),
-(46,	'Heating',	'',	1,	'Room Amenitie',	'Room_Amenitie',	NULL,	1,	'2022-06-13 06:57:42',	'2022-09-30 10:33:34'),
-(47,	'Interconnected room(s) available',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-13 06:58:16',	NULL),
+(47,	'Interconnected room(s) available',	'',	1,	'Room Amenitie',	'Room_Amenitie',	NULL,	1,	'2022-06-13 06:58:16',	'2022-10-10 12:13:29'),
 (48,	'Iron',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-13 06:58:54',	NULL),
 (49,	'Ironing facilities',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-13 06:59:23',	NULL),
 (50,	'Mosquito net',	'',	1,	'Room Amenities',	'Room_Amenities',	NULL,	1,	'2022-06-13 07:00:08',	NULL),
@@ -2480,13 +2671,13 @@ CREATE TABLE `hotels` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotels` (`hotel_id`, `hotel_user_id`, `is_admin`, `hotel_name`, `hotel_content`, `property_contact_name`, `property_contact_num`, `property_alternate_num`, `cat_listed_room_type`, `where_property_listed`, `do_you_multiple_hotel`, `hotel_rating`, `user_rating`, `scout_id`, `checkin_time`, `checkout_time`, `min_day_before_book`, `min_day_stays`, `hotel_video`, `hotel_gallery`, `hotel_document`, `hotel_notes`, `booking_option`, `payment_mode`, `online_payment_percentage`, `at_desk_payment_percentage`, `cancellation_mode`, `cancel_time_period`, `num_of_days_cancellation`, `cancel_policy`, `min_hrs`, `max_hrs`, `min_hrs_percentage`, `max_hrs_percentage`, `commission`, `hotel_address`, `hotel_latitude`, `hotel_longitude`, `hotel_city`, `neighb_area`, `hotel_country`, `attraction_name`, `attraction_content`, `attraction_distance`, `attraction_type`, `stay_price`, `extra_price_name`, `extra_price`, `extra_price_type`, `service_fee_name`, `service_fee`, `service_fee_type`, `property_type`, `parking_option`, `parking_price`, `payment_interval`, `parking_reserv_need`, `parking_locate`, `parking_type`, `breakfast_availability`, `breakfast_price_inclusion`, `breakfast_cost`, `breakfast_type`, `operator_name`, `operator_contact_name`, `operator_contact_num`, `operator_email`, `operator_booking_num`, `hotel_status`, `created_at`, `updated_at`) VALUES
-(409,	934,	3,	'TJ',	'This is TJ hotel',	'Ayesha Zahid',	'02145682652',	NULL,	NULL,	1,	1,	5,	NULL,	557,	'3:02 PM',	'8:02 PM',	'2',	'3',	'',	'pexels-pixabay-271624-hotelMainImg-1660125929.jpg',	'',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	1,	0,	'55',	'45',	0,	NULL,	NULL,	NULL,	12,	12,	10,	10,	NULL,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	'31.5106497',	'74.34073769999999',	'Lahore',	'Gulberg III',	'162',	NULL,	NULL,	NULL,	NULL,	25000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'4',	2,	500,	'0',	1,	1,	1,	1,	0,	NULL,	'null',	'ayesha',	'ayesha',	123456789,	'abc@gmail.com',	1234,	1,	'2022-08-10 10:05:29',	'2022-09-12 08:12:12'),
+(409,	934,	3,	'TJ',	'This is TJ hotel',	'Ayesha Zahid',	'02145682652',	NULL,	NULL,	1,	1,	5,	NULL,	557,	'3:02 PM',	'8:02 PM',	'2',	'3',	'',	'pexels-pixabay-271624-hotelMainImg-1660125929.jpg',	'',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	2,	0,	'55',	'45',	0,	NULL,	NULL,	'wewsd',	12,	12,	10,	10,	NULL,	'Liberty Chowk, Commercial Area Gulberg III, Lahore, Pakistan',	'31.5106497',	'74.34073769999999',	'Lahore',	'Gulberg III',	'162',	NULL,	NULL,	NULL,	NULL,	25000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'4',	2,	500,	'0',	1,	1,	1,	1,	0,	NULL,	'null',	'ayesha',	'ayesha',	123456789,	'abc@gmail.com',	1234,	1,	'2022-08-10 10:05:29',	'2022-10-10 05:31:24'),
 (458,	1,	1,	'Hotel Tulip Inn Gulberg',	'Situated within 29 km of Wagah Border and 500 m of Pace Shopping Mall, Hotel Tulip Inn, Gulberg features rooms with air conditioning and a private bathroom in Lahore. This 3-star hotel offers a 24-hour front desk, room service, security and free WiFi. The hotel has family rooms. The rooms in the hotel are fitted with a flat-screen TV and free toiletries. Hotel has a large dinning hall for Buffet Meals. Hotel Tulip Inn, Gulberg offers a continental or halal Buffet breakfast. Vogue Towers is 1.7 km from the accommodation, Liberty Market is 2 km, while Lahore Gymkhana is 3 km from the property. The nearest airport is Allama Iqbal International Airport, 5 km from Hotel Tulip Inn, Gulberg. We speak your language!',	'Afraz Khan',	'923004008465',	'923224008465',	NULL,	0,	1,	3,	NULL,	557,	'12:00 AM',	'2:00 PM',	'1',	'1',	'',	'WhatsApp-Image-2021-04-27-at-2.46.10-PM-hotelMainImg-1660863765.jpeg',	'',	'roadnstays.com will make payment after 07-Days of every guest check-out & roadnstays.com will be charged 15% on every guest reservation.',	1,	2,	'70',	'30',	0,	3,	NULL,	'sdfsdf',	24,	72,	30,	10,	NULL,	'MM Alam Road, Block B 1 Gulberg III, Lahore, Pakistan',	'31.5129662',	'74.3511007',	'Lahore',	'Gulberg III',	'99',	NULL,	NULL,	NULL,	NULL,	1975,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	1,	100,	'0',	0,	1,	1,	1,	1,	NULL,	'null',	'shaikh op',	'Swayam',	2147483647,	'votivephp@gmail.com',	123456789,	1,	'2022-08-18 23:02:45',	'2022-09-28 05:40:18'),
 (520,	1082,	3,	'Hotel The Oriel',	'Hotel the oriel Islamabad features accommodations with a restaurant, free private parking, a garden and a terrace. Boasting a 24-hour front desk.',	'Rahim Jadoon',	'3149369335',	NULL,	NULL,	1,	0,	4,	NULL,	557,	'4:00 AM',	'12:00 PM',	'1',	'1',	'',	'Capture3-hotelMainImg-1661862875.jpg',	'',	NULL,	1,	1,	'70',	'30',	2,	1,	NULL,	'1) Free Cancellation before 48 hrs.\n2. 10% deducted if booking is cancelled at the less than 48 hrs.\n3. 10% deducted if booking is cancelled at the less than 24 hrs.',	24,	48,	30,	10,	5,	'Zia Balti & BBQ, G-7/1 G 7/1 G-7, Islamabad, Pakistan',	'33.6989681',	'73.064934',	'Islamabad',	'G-7',	'99',	NULL,	NULL,	NULL,	NULL,	3850,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	1,	NULL,	'0',	0,	1,	0,	0,	0,	NULL,	'null',	'shaikh op',	'abdulla',	942509544,	'abdul@gmail.com',	123456789,	1,	'2022-08-30 12:34:35',	'2022-10-01 06:44:51'),
 (522,	1,	1,	'Hilton Hotel Bypass',	'Delux Room at Swat Hilton Hotel Bypass Mingora Swat',	'Raffiullah khan',	'3440025026',	NULL,	NULL,	0,	0,	5,	NULL,	557,	'2:00 PM',	'10:00 PM',	'1',	'2',	'',	'Frront-side-2-1-hotelMainImg-1662289230.jpeg',	'',	'1) Partial payment policy. 2) venrooms share is 15%. 3) They don\'t digitally managed service, venrooms will manage the dashboard. 4) Contract Type: Digitally Management Only. CEX ID: 10022',	1,	2,	'70',	'30',	0,	3,	NULL,	'xsdsd',	24,	72,	30,	10,	NULL,	'Swat Garden Centre, General Bus Station, Bypass road, near Mingora, Mingora, Pakistan',	'34.788096',	'72.3447999',	'Swat',	'Mingora',	'99',	NULL,	NULL,	NULL,	NULL,	9200,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	'shaikh op',	'Swayam',	2147483647,	'votivephp@gmail.com',	123456789,	1,	'2022-09-04 11:00:30',	'2022-10-01 06:44:41'),
 (523,	1,	1,	'Season Inn',	'Season Inn Hotel, Pakistan',	'Husnain Ghazanfar',	'3002154157',	'02134110122',	NULL,	0,	0,	4,	NULL,	557,	'12:00 PM',	'12:00 AM',	'5',	'2',	'',	'WhatsApp-Image-2021-12-19-at-3.58.13-PM-hotelMainImg-1662299815.jpeg',	'',	'Terms & Conditions: 1) 15% will be charged by venrooms on bookings through venrooms. 2) You will get 70% booking payment by guest at the time of check-in/out. 3) Remaining 15% of your amount will be deposited by venrooms to you with in a week after check-out. CEX ID: 10004',	1,	1,	NULL,	NULL,	0,	3,	NULL,	'Terms & Conditions: 1) 15% will be charged by venrooms on bookings through venrooms. 2) You will get 70% booking payment by guest at the time of check-in/out. 3) Remaining 15% of your amount will be deposited by venrooms to you with in a week after check-out. CEX ID: 10004',	24,	48,	30,	10,	5,	'C-17, Block-3, Railway Society, Model Colony, Karachi',	'24.896751',	'67.1805342',	'Karachi',	'Model Colony, Karachi',	'162',	NULL,	NULL,	NULL,	NULL,	3500,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	0,	NULL,	'0',	0,	0,	0,	0,	0,	NULL,	'null',	'shaikh op',	'shaikh',	123456789,	'shaikh@gmail.com',	123456789,	1,	'2022-09-04 13:56:55',	'2022-10-01 06:43:58'),
 (524,	1054,	3,	'Hotel Tulip Inn Faisal Town',	'Set in Lahore, 34 km from Wagah Border, Hotel Tulip Inn, Faisal Town offers accommodation with a restaurant, free private parking and a shared lounge. This 3-star hotel offers room service and a concierge service. The accommodation provides a 24-hour front desk, airport transfers, a shared kitchen and free WiFi throughout the property. The units at the hotel come with a seating area. At Hotel Tulip Inn, Faisal Town every room includes a wardrobe, a flat-screen TV and a private bathroom. Guests at the accommodation can enjoy a continental breakfast. Emporium Mall is 5 km from Hotel Tulip Inn, Faisal Town, while Gaddafi Stadium is 6 km away. The nearest airport is Allama Iqbal International Airport, 11 km from the hotel. Metro Bus station is 3 km away from hotel. Offering inclusive of Buffet Breakfast, welcome drinks, Dress Pressing, Dress washing, shoe shinning. We speak your language! Hotel Tulip Inn, Faisal Town is welcoming Venrooms.com\'s guests.',	'Afraz Khan',	'3004008465',	'3224008465',	NULL,	1,	1,	5,	NULL,	557,	'12:00 AM',	'12:00 PM',	'1',	'1',	'',	'WhatsApp-Image-2021-05-08-at-10.45.42-PM-1-400x314-hotelMainImg-1662707800.jpeg',	'',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	1,	1,	'30',	'70',	0,	NULL,	NULL,	'sdfsdf',	48,	72,	20,	2,	NULL,	'9-B, Abdul Hassan Isfahani Road, Faisal Town, Lahore.',	'31.4777169',	'74.3086515',	'Lahore',	'Faisal Town',	'162',	NULL,	NULL,	NULL,	NULL,	1995,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	1,	NULL,	'0',	0,	1,	1,	1,	1,	NULL,	'null',	'Afraz',	'Afraz Khan',	2147483647,	'hoteltulipinn@yahoo.com',	55,	1,	'2022-09-09 07:16:40',	'2022-10-01 06:43:49'),
-(525,	1054,	3,	'Hotel Tulip Inn Johar Town',	'Hotel Tulip Inn is situated in Lahore, 35 km from Wagah Border and less than 1 km from Emporium Mall. Among the facilities of this property are a restaurant, a 24-hour front desk and room service, along with free WiFi. Private parking can be arranged at an extra charge. All rooms at the hotel are fitted with a seating area, a flat-screen TV with satellite channels and a private bathroom with free toiletries and a bidet. All units at Hotel Tulip Inn have air conditioning and a wardrobe. A continental breakfast is available each morning at the accommodation. Also offering to all guest complementary welcome drinks, dress pressing, dress washing & shoe shinning. Gaddafi Stadium is 9 km from Hotel Tulip Inn, while Vogue Towers is 10 km from the property. The nearest airport is Allama Iqbal International Airport, 14 km from the hotel. We speak your language! Hotel Tulip Inn is welcoming Venrooms.com\'s guests.',	'Afraz Khan',	'3004008465',	'3224008465',	NULL,	1,	1,	5,	NULL,	557,	'12:00 AM',	'12:00 PM',	'1',	'1',	'',	'214747483-400x314-hotelMainImg-1662711044.jpg',	'',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	1,	2,	'77',	'23',	0,	NULL,	NULL,	'Cancellation Policy',	1,	1,	1,	1,	100,	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'Lahore',	'Walled City of Lahore',	'162',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	1,	NULL,	'0',	0,	1,	1,	0,	0,	NULL,	'null',	'Afraz',	'Afraz Khan',	2147483647,	'hoteltulipinn@yahoo.com',	56,	1,	'2022-09-09 08:10:44',	'2022-10-01 06:42:42');
+(525,	1054,	3,	'Hotel Tulip Inn Johar Town',	'Hotel Tulip Inn is situated in Lahore, 35 km from Wagah Border and less than 1 km from Emporium Mall. Among the facilities of this property are a restaurant, a 24-hour front desk and room service, along with free WiFi. Private parking can be arranged at an extra charge. All rooms at the hotel are fitted with a seating area, a flat-screen TV with satellite channels and a private bathroom with free toiletries and a bidet. All units at Hotel Tulip Inn have air conditioning and a wardrobe. A continental breakfast is available each morning at the accommodation. Also offering to all guest complementary welcome drinks, dress pressing, dress washing & shoe shinning. Gaddafi Stadium is 9 km from Hotel Tulip Inn, while Vogue Towers is 10 km from the property. The nearest airport is Allama Iqbal International Airport, 14 km from the hotel. We speak your language! Hotel Tulip Inn is welcoming Venrooms.com\'s guests.',	'Afraz Khan',	'3004008465',	'3224008465',	NULL,	1,	1,	5,	NULL,	557,	'12:00 AM',	'12:00 PM',	'1',	'1',	'',	'214747483-400x314-hotelMainImg-1662711044.jpg',	'',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	1,	2,	'77',	'23',	0,	NULL,	NULL,	'Cancellation Policy',	1,	1,	1,	1,	100,	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'Lahore',	'Walled City of Lahore',	'162',	NULL,	NULL,	NULL,	NULL,	1000,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'12',	1,	NULL,	'0',	0,	1,	1,	0,	0,	NULL,	'null',	'Afraz',	'Afraz Khan',	2147483647,	'hoteltulipinn@yahoo.com',	56,	1,	'2022-09-09 08:10:44',	'2022-10-10 07:49:37');
 
 DROP TABLE IF EXISTS `hotel_amenities`;
 CREATE TABLE `hotel_amenities` (
@@ -2500,15 +2691,6 @@ CREATE TABLE `hotel_amenities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_amenities` (`id`, `hotel_id`, `amenity_id`, `status`, `created_at`, `updated_at`) VALUES
-(6639,	409,	61,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6640,	409,	63,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6641,	409,	71,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6642,	409,	86,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6643,	409,	104,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6644,	409,	105,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6645,	409,	117,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6646,	409,	121,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(6647,	409,	128,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
 (7267,	458,	44,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
 (7268,	458,	147,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
 (7269,	458,	67,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
@@ -2517,11 +2699,6 @@ INSERT INTO `hotel_amenities` (`id`, `hotel_id`, `amenity_id`, `status`, `create
 (7272,	458,	101,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
 (7273,	458,	110,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
 (7274,	458,	123,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
-(7615,	525,	46,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(7616,	525,	63,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(7617,	525,	82,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(7618,	525,	112,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(7619,	525,	125,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
 (7620,	524,	46,	1,	'2022-10-01 11:43:49',	'2022-10-01 06:43:49'),
 (7621,	524,	101,	1,	'2022-10-01 11:43:49',	'2022-10-01 06:43:49'),
 (7622,	523,	74,	1,	'2022-10-01 11:43:58',	'2022-10-01 06:43:58'),
@@ -2530,7 +2707,20 @@ INSERT INTO `hotel_amenities` (`id`, `hotel_id`, `amenity_id`, `status`, `create
 (7625,	522,	67,	1,	'2022-10-01 11:44:41',	'2022-10-01 06:44:41'),
 (7626,	522,	101,	1,	'2022-10-01 11:44:41',	'2022-10-01 06:44:41'),
 (7627,	522,	127,	1,	'2022-10-01 11:44:41',	'2022-10-01 06:44:41'),
-(7628,	520,	46,	1,	'2022-10-01 11:44:51',	'2022-10-01 06:44:51');
+(7628,	520,	46,	1,	'2022-10-01 11:44:51',	'2022-10-01 06:44:51'),
+(7919,	409,	61,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7920,	409,	63,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7921,	409,	71,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7922,	409,	86,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7923,	409,	104,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7924,	409,	105,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7925,	409,	117,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7926,	409,	121,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7927,	409,	128,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(7971,	525,	63,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(7972,	525,	82,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(7973,	525,	112,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(7974,	525,	125,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37');
 
 DROP TABLE IF EXISTS `hotel_attraction`;
 CREATE TABLE `hotel_attraction` (
@@ -2657,10 +2847,27 @@ INSERT INTO `hotel_attraction` (`attraction_id`, `attraction_name`, `attraction_
 (229,	'abcabc',	'123456',	'pqrs',	'741258',	621,	1,	'2022-09-30 16:29:59',	'2022-09-30 11:29:59'),
 (234,	'abcd',	'123456',	'pqrs',	'741258',	622,	1,	'2022-10-01 11:24:25',	'2022-10-01 06:24:25'),
 (235,	'uvwx',	'741258',	'xyz',	'741258',	622,	1,	'2022-10-01 11:24:25',	'2022-10-01 06:24:25'),
-(236,	'ABCD',	'1478',	'PQRS',	'654564',	525,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
 (237,	'name 1',	'content 1',	'distance 1',	'type 1',	522,	1,	'2022-10-01 11:44:42',	'2022-10-01 06:44:42'),
 (238,	'name 2',	'content 2',	'distance 2',	'type 2',	522,	1,	'2022-10-01 11:44:42',	'2022-10-01 06:44:42'),
-(240,	'abcd',	'1234',	'uvw',	'12344652',	623,	1,	'2022-10-01 12:19:03',	'2022-10-01 07:19:03');
+(240,	'abcd',	'1234',	'uvw',	'12344652',	623,	1,	'2022-10-01 12:19:03',	'2022-10-01 07:19:03'),
+(243,	'abcd',	'1234',	'pqrs',	'1478',	624,	1,	'2022-10-01 17:31:29',	'2022-10-01 12:31:29'),
+(251,	'abcd',	'1478',	'pqrs',	'4454564',	625,	1,	'2022-10-06 14:59:50',	'2022-10-06 09:59:50'),
+(256,	'bda',	'165456',	'hghgj',	'544556',	626,	1,	'2022-10-06 16:11:32',	'2022-10-06 11:11:32'),
+(261,	'abcd',	'1546',	'ddsf',	'4644',	628,	1,	'2022-10-06 18:42:02',	'2022-10-06 13:42:02'),
+(262,	'abcd',	'1234',	'pqrs',	'7415',	627,	1,	'2022-10-06 18:42:39',	'2022-10-06 13:42:39'),
+(264,	'abcd',	'1234',	'pqrs',	'544465',	629,	1,	'2022-10-07 10:34:06',	'2022-10-07 05:34:06'),
+(283,	'abcd',	'12354',	'pqrs',	'456464',	631,	1,	'2022-10-07 15:10:21',	'2022-10-07 10:10:21'),
+(296,	'abcd',	'1234',	'pqrs',	'44744',	632,	1,	'2022-10-10 10:29:25',	'2022-10-10 05:29:25'),
+(297,	'abcd',	'12646',	'pqrs',	'5645646',	630,	1,	'2022-10-10 10:42:57',	'2022-10-10 05:42:57'),
+(300,	'abcd',	'1234',	'pqrs',	'1478',	633,	1,	'2022-10-10 10:46:23',	'2022-10-10 05:46:23'),
+(301,	'uvw',	'1478',	'vvvvv',	'147',	633,	1,	'2022-10-10 10:46:23',	'2022-10-10 05:46:23'),
+(305,	'ab',	'1478',	'pq',	'1478',	634,	1,	'2022-10-10 12:08:59',	'2022-10-10 07:08:59'),
+(308,	'ABCD',	'1478',	'PQRS',	'654564',	525,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(333,	'ABCD',	'123456',	'pqrs',	'741258',	637,	1,	'2022-10-10 18:13:47',	'2022-10-10 13:13:47'),
+(337,	'abcd',	'1234',	'pqrs',	'1478',	636,	1,	'2022-10-10 18:43:13',	'2022-10-10 13:43:13'),
+(338,	'abcd',	'123456',	'pqrs',	'465456',	638,	1,	'2022-10-10 19:01:18',	'2022-10-10 14:01:18'),
+(339,	'uvw',	'654444',	'hfhafha',	'147852',	638,	1,	'2022-10-10 19:01:18',	'2022-10-10 14:01:18'),
+(340,	'abcd',	'1234',	'pqrs',	'7412588',	635,	1,	'2022-10-10 19:01:56',	'2022-10-10 14:01:56');
 
 DROP TABLE IF EXISTS `hotel_extra_price`;
 CREATE TABLE `hotel_extra_price` (
@@ -2687,9 +2894,9 @@ INSERT INTO `hotel_extra_price` (`id`, `ext_opt_name`, `ext_opt_price`, `ext_opt
 (14,	'name1',	100,	'single_fee',	137,	1,	'2022-06-27 09:54:11',	'2022-06-27 09:54:11'),
 (15,	'name1',	100,	'single_fee',	147,	1,	'2022-06-29 06:44:34',	'2022-06-29 06:44:34'),
 (16,	'room ext opt 12',	101,	'per_night',	147,	1,	'2022-06-29 06:44:34',	'2022-06-29 06:44:34'),
-(76,	'Extra bed',	500,	'single_fee',	409,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(330,	'ABCD',	1247,	'single_fee',	525,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(331,	'PQRS',	1478,	'single_fee',	525,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42');
+(397,	'Extra bed',	500,	'single_fee',	409,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(409,	'ABCD',	1247,	'single_fee',	525,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(410,	'PQRS',	1478,	'single_fee',	525,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37');
 
 DROP TABLE IF EXISTS `hotel_gallery`;
 CREATE TABLE `hotel_gallery` (
@@ -2743,12 +2950,12 @@ CREATE TABLE `hotel_services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `hotel_services` (`id`, `hotel_id`, `hotel_service_id`, `status`, `created_at`, `updated_at`) VALUES
-(1654,	409,	2,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
-(1655,	409,	5,	1,	'2022-09-12 13:12:12',	'2022-09-12 08:12:12'),
 (1898,	458,	2,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
 (1899,	458,	6,	1,	'2022-09-28 10:40:18',	'2022-09-28 05:40:18'),
-(2036,	525,	2,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42'),
-(2037,	525,	5,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42');
+(2154,	409,	2,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(2155,	409,	5,	1,	'2022-10-10 10:31:24',	'2022-10-10 05:31:24'),
+(2174,	525,	2,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37'),
+(2175,	525,	5,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37');
 
 DROP TABLE IF EXISTS `hotel_service_fee`;
 CREATE TABLE `hotel_service_fee` (
@@ -2775,7 +2982,7 @@ INSERT INTO `hotel_service_fee` (`id`, `serv_fee_name`, `serv_fee_price`, `serv_
 (13,	'serv1',	100,	'single_fee',	137,	1,	'2022-06-27 09:54:11',	'2022-06-27 09:54:11'),
 (14,	'serv1',	100,	'per_guest',	147,	1,	'2022-06-29 06:44:34',	'2022-06-29 06:44:34'),
 (15,	'serv2',	100,	'per_night_per_guest',	147,	1,	'2022-06-29 06:44:34',	'2022-06-29 06:44:34'),
-(266,	'UVWUVW',	1478,	'single_fee',	525,	1,	'2022-10-01 11:42:42',	'2022-10-01 06:42:42');
+(336,	'UVWUVW',	1478,	'single_fee',	525,	1,	'2022-10-10 12:49:37',	'2022-10-10 07:49:37');
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
@@ -2808,7 +3015,7 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 (284,	'pp@qq',	'49hyCtFv2sZf15TwdywDFXoZWJ7vkUl1QmazgndYRyBdgCbwlD2UPTd0adRnpJuA',	'2022-09-24 06:20:16'),
 (291,	'uv@pq',	'w2gBrRtdyigtxZor2QHj2EZZ4XWLFSP8Qqakq6BqrV1cwwEEyTve71zfPHFVLUvX',	'2022-09-28 11:12:14'),
 (298,	'pqrs@uvwx',	'Kym2NC92dqW6oSime0ItteFS6phBHvnYUxH0Ie4U6p3CbJU1jyyj8N8WhYFAyqV9',	'2022-09-30 07:46:04'),
-(301,	'votivetester.saurabh@gmail.com',	'I6dEmMTp1gEKvuxXk0bwkVmxa230Vr8NnwuhCSEbeMVwUmZTMOXdk6aHxaOAa9D1',	'2022-10-01 07:27:50');
+(308,	'ssnothinginlife@gmail.com',	'qHDqrirFTXskhfrevzmLzm1CKXvefaTlW7WZjrSyRi0YuIQrBtDzrRa0I2QNnUf4',	'2022-10-07 09:25:46');
 
 DROP TABLE IF EXISTS `payment_transaction`;
 CREATE TABLE `payment_transaction` (
@@ -2912,7 +3119,72 @@ INSERT INTO `payment_transaction` (`id`, `booking_id`, `user_id`, `vendor_id`, `
 (566,	239,	819,	1054,	'289899615864',	1991.00,	'ALFA',	'Room',	'Paid',	'2022-10-01 14:20:07',	'2022-10-01 14:20:07',	'2022-10-01 08:50:07'),
 (567,	155,	637,	1077,	'323447076721',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-01 15:15:56',	'2022-10-01 15:15:56',	'2022-10-01 09:45:56'),
 (568,	240,	837,	1054,	'123456',	2011.00,	'ALFA',	'Room',	'Paid',	'2022-10-01 15:16:42',	'2022-10-01 15:16:42',	'2022-10-01 09:46:42'),
-(569,	156,	637,	1077,	'360627809367',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-01 16:17:56',	'2022-10-01 16:17:56',	'2022-10-01 10:47:56');
+(569,	156,	637,	1077,	'360627809367',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-01 16:17:56',	'2022-10-01 16:17:56',	'2022-10-01 10:47:56'),
+(570,	157,	1182,	934,	'393845944071',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-01 17:13:16',	'2022-10-01 17:13:16',	'2022-10-01 11:43:16'),
+(571,	23,	1182,	1088,	'409210009144',	10.00,	'ALFA',	'Event',	'successful',	'2022-10-01 17:38:54',	'2022-10-01 17:38:54',	'2022-10-01 12:08:54'),
+(572,	158,	1151,	1077,	'426038002661',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-01 18:06:59',	'2022-10-01 18:06:59',	'2022-10-01 12:36:59'),
+(573,	24,	837,	1163,	'430257690536',	0.00,	'ALFA',	'Event',	'successful',	'2022-10-01 18:13:57',	'2022-10-01 18:13:57',	'2022-10-01 12:43:57'),
+(574,	158,	837,	1,	'',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-01 18:30:05',	'2022-10-01 18:30:05',	'2022-10-01 13:00:05'),
+(575,	159,	837,	934,	'442486416870',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-01 18:34:25',	'2022-10-01 18:34:25',	'2022-10-01 13:04:25'),
+(576,	159,	637,	934,	'633325347884',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-05 11:12:20',	'2022-10-05 11:12:20',	'2022-10-05 05:42:20'),
+(577,	160,	1151,	1,	'681908998668',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-05 12:33:19',	'2022-10-05 12:33:19',	'2022-10-05 07:03:19'),
+(578,	161,	1151,	934,	'690606038065',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-05 12:47:49',	'2022-10-05 12:47:49',	'2022-10-05 07:17:49'),
+(579,	162,	1151,	1,	'694247550596',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-05 12:54:23',	'2022-10-05 12:54:23',	'2022-10-05 07:24:23'),
+(580,	241,	837,	1163,	'523508929935',	121.00,	'ALFA',	'Room',	'Paid',	'2022-10-06 11:55:58',	'2022-10-06 11:55:58',	'2022-10-06 06:25:58'),
+(581,	160,	837,	1163,	'537816002168',	100.00,	'ALFA',	'Tour',	'successful',	'2022-10-06 12:19:49',	'2022-10-06 12:19:49',	'2022-10-06 06:49:49'),
+(582,	25,	837,	353,	'539663971333',	10.00,	'ALFA',	'Event',	'successful',	'2022-10-06 12:22:52',	'2022-10-06 12:22:52',	'2022-10-06 06:52:52'),
+(583,	163,	1151,	934,	'556928458089',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-06 12:51:46',	'2022-10-06 12:51:46',	'2022-10-06 07:21:46'),
+(584,	161,	837,	1077,	'606587622560',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-06 14:14:27',	'2022-10-06 14:14:27',	'2022-10-06 08:44:27'),
+(585,	242,	1163,	934,	'607855701884',	2310.00,	'ALFA',	'Room',	'Paid',	'2022-10-06 14:16:31',	'2022-10-06 14:16:31',	'2022-10-06 08:46:31'),
+(586,	164,	837,	934,	'615865509926',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-06 14:29:54',	'2022-10-06 14:29:54',	'2022-10-06 08:59:54'),
+(587,	243,	837,	1,	'668321511668',	121.00,	'ALFA',	'Room',	'Paid',	'2022-10-06 15:57:20',	'2022-10-06 15:57:20',	'2022-10-06 10:27:20'),
+(588,	165,	837,	934,	'669732965803',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-06 15:59:41',	'2022-10-06 15:59:41',	'2022-10-06 10:29:41'),
+(589,	244,	837,	1163,	'741119158146',	411.00,	'ALFA',	'Room',	'Paid',	'2022-10-06 17:58:39',	'2022-10-06 17:58:39',	'2022-10-06 12:28:39'),
+(590,	166,	837,	1,	'742724503428',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-06 18:01:19',	'2022-10-06 18:01:19',	'2022-10-06 12:31:19'),
+(591,	162,	837,	1163,	'749673402504',	100.00,	'ALFA',	'Tour',	'successful',	'2022-10-06 18:12:55',	'2022-10-06 18:12:55',	'2022-10-06 12:42:55'),
+(592,	26,	837,	1163,	'352489867112',	20.00,	'ALFA',	'Event',	'successful',	'2022-10-07 10:57:44',	'2022-10-07 10:57:44',	'2022-10-07 05:27:44'),
+(593,	245,	837,	1163,	'364880335638',	701.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 11:18:22',	'2022-10-07 11:18:22',	'2022-10-07 05:48:22'),
+(594,	27,	837,	1163,	'367510856521',	20.00,	'ALFA',	'Event',	'successful',	'2022-10-07 11:22:44',	'2022-10-07 11:22:44',	'2022-10-07 05:52:44'),
+(595,	163,	837,	1163,	'409840487923',	1000.00,	'ALFA',	'Tour',	'successful',	'2022-10-07 12:33:18',	'2022-10-07 12:33:18',	'2022-10-07 07:03:18'),
+(596,	246,	1163,	1,	'413228687437',	121.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 12:38:55',	'2022-10-07 12:38:55',	'2022-10-07 07:08:55'),
+(597,	28,	1163,	1163,	'423728240843',	20.00,	'ALFA',	'Event',	'successful',	'2022-10-07 12:56:29',	'2022-10-07 12:56:29',	'2022-10-07 07:26:29'),
+(598,	247,	1163,	1163,	'426072970958',	701.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 13:00:19',	'2022-10-07 13:00:19',	'2022-10-07 07:30:19'),
+(599,	167,	1151,	934,	'496002169083',	3800.00,	'ALFA',	'Space',	'successful',	'2022-10-07 14:56:56',	'2022-10-07 14:56:56',	'2022-10-07 09:26:56'),
+(600,	248,	1151,	1054,	'505387317616',	17971.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 15:12:34',	'2022-10-07 15:12:34',	'2022-10-07 09:42:34'),
+(601,	249,	837,	1,	'520877885800',	1991.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 15:38:23',	'2022-10-07 15:38:23',	'2022-10-07 10:08:23'),
+(602,	164,	1151,	934,	'553893027026',	18000.00,	'ALFA',	'Tour',	'successful',	'2022-10-07 16:33:30',	'2022-10-07 16:33:30',	'2022-10-07 11:03:30'),
+(603,	250,	837,	1054,	'608792356540',	2011.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 18:04:54',	'2022-10-07 18:04:54',	'2022-10-07 12:34:54'),
+(604,	251,	837,	1,	'610692910985',	121.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 18:08:02',	'2022-10-07 18:08:02',	'2022-10-07 12:38:02'),
+(605,	165,	837,	1163,	'617275914886',	100.00,	'ALFA',	'Tour',	'successful',	'2022-10-07 18:19:00',	'2022-10-07 18:19:00',	'2022-10-07 12:49:00'),
+(606,	29,	837,	1163,	'622219556087',	10.00,	'ALFA',	'Event',	'successful',	'2022-10-07 18:27:16',	'2022-10-07 18:27:16',	'2022-10-07 12:57:16'),
+(607,	168,	837,	1163,	'623700176091',	701.00,	'ALFA',	'Space',	'successful',	'2022-10-07 18:29:42',	'2022-10-07 18:29:42',	'2022-10-07 12:59:42'),
+(608,	252,	1163,	1163,	'638048226811',	701.00,	'ALFA',	'Room',	'Paid',	'2022-10-07 18:53:39',	'2022-10-07 18:53:39',	'2022-10-07 13:23:39'),
+(609,	166,	1163,	1163,	'639608229059',	1000.00,	'ALFA',	'Tour',	'successful',	'2022-10-07 18:56:14',	'2022-10-07 18:56:14',	'2022-10-07 13:26:14'),
+(610,	30,	1163,	1163,	'641248766931',	100.00,	'ALFA',	'Event',	'successful',	'2022-10-07 18:58:58',	'2022-10-07 18:58:58',	'2022-10-07 13:28:58'),
+(611,	253,	837,	1,	'942951215204',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 10:55:07',	'2022-10-10 10:55:07',	'2022-10-10 05:25:07'),
+(612,	31,	837,	353,	'944890477348',	10.00,	'ALFA',	'Event',	'successful',	'2022-10-10 10:58:18',	'2022-10-10 10:58:18',	'2022-10-10 05:28:18'),
+(613,	169,	837,	1163,	'946314524207',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 11:00:41',	'2022-10-10 11:00:41',	'2022-10-10 05:30:41'),
+(614,	254,	837,	1163,	'961796389069',	121.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 11:26:30',	'2022-10-10 11:26:30',	'2022-10-10 05:56:30'),
+(615,	32,	837,	1163,	'962982724652',	0.00,	'ALFA',	'Event',	'successful',	'2022-10-10 11:28:29',	'2022-10-10 11:28:29',	'2022-10-10 05:58:29'),
+(616,	170,	837,	1163,	'966207464945',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 11:33:51',	'2022-10-10 11:33:51',	'2022-10-10 06:03:51'),
+(617,	255,	1163,	1,	'969486962926',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 11:39:18',	'2022-10-10 11:39:18',	'2022-10-10 06:09:18'),
+(618,	167,	1163,	1163,	'970948015923',	1000.00,	'ALFA',	'Tour',	'successful',	'2022-10-10 11:41:45',	'2022-10-10 11:41:45',	'2022-10-10 06:11:45'),
+(619,	33,	1163,	1163,	'972257553279',	0.00,	'ALFA',	'Event',	'successful',	'2022-10-10 11:43:56',	'2022-10-10 11:43:56',	'2022-10-10 06:13:56'),
+(620,	168,	837,	1163,	'976439448380',	1000.00,	'ALFA',	'Tour',	'successful',	'2022-10-10 11:50:52',	'2022-10-10 11:50:52',	'2022-10-10 06:20:52'),
+(621,	256,	837,	1163,	'074315908592',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 14:34:03',	'2022-10-10 14:34:03',	'2022-10-10 09:04:03'),
+(622,	171,	837,	1163,	'077332560109',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 14:39:03',	'2022-10-10 14:39:03',	'2022-10-10 09:09:03'),
+(623,	172,	1163,	1163,	'083017090555',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 14:48:33',	'2022-10-10 14:48:33',	'2022-10-10 09:18:33'),
+(624,	257,	837,	1163,	'090150900953',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 15:00:27',	'2022-10-10 15:00:27',	'2022-10-10 09:30:27'),
+(625,	169,	837,	1088,	'092060679084',	100.00,	'ALFA',	'Tour',	'successful',	'2022-10-10 15:03:35',	'2022-10-10 15:03:35',	'2022-10-10 09:33:35'),
+(626,	34,	837,	1089,	'095011690823',	20.00,	'ALFA',	'Event',	'successful',	'2022-10-10 15:08:31',	'2022-10-10 15:08:31',	'2022-10-10 09:38:31'),
+(627,	173,	837,	1163,	'099724497256',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 15:16:24',	'2022-10-10 15:16:24',	'2022-10-10 09:46:24'),
+(628,	258,	1151,	934,	'112203277922',	2310.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 15:37:13',	'2022-10-10 15:37:13',	'2022-10-10 10:07:13'),
+(629,	259,	1151,	934,	'121765171221',	2310.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 15:53:09',	'2022-10-10 15:53:09',	'2022-10-10 10:23:09'),
+(630,	260,	1163,	1163,	'182995736494',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 17:35:11',	'2022-10-10 17:35:11',	'2022-10-10 12:05:11'),
+(631,	35,	1163,	1089,	'185469680354',	20.00,	'ALFA',	'Event',	'successful',	'2022-10-10 17:39:17',	'2022-10-10 17:39:17',	'2022-10-10 12:09:17'),
+(632,	174,	1163,	1163,	'186724188928',	301.00,	'ALFA',	'Space',	'successful',	'2022-10-10 17:41:22',	'2022-10-10 17:41:22',	'2022-10-10 12:11:22'),
+(633,	170,	1163,	1088,	'188368190127',	100.00,	'ALFA',	'Tour',	'successful',	'2022-10-10 17:44:07',	'2022-10-10 17:44:07',	'2022-10-10 12:14:07'),
+(634,	261,	1163,	1163,	'233961163718',	301.00,	'ALFA',	'Room',	'Paid',	'2022-10-10 19:00:07',	'2022-10-10 19:00:07',	'2022-10-10 13:30:07');
 
 DROP TABLE IF EXISTS `room_amenities`;
 CREATE TABLE `room_amenities` (
@@ -3066,11 +3338,6 @@ INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_
 (7669,	1044,	127,	1,	'2022-09-04 13:12:53',	'2022-09-04 08:12:53'),
 (7676,	1047,	46,	1,	'2022-09-07 11:46:47',	'2022-09-07 06:46:47'),
 (7678,	1046,	46,	1,	'2022-09-07 12:14:21',	'2022-09-07 07:14:21'),
-(7682,	1053,	44,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
-(7683,	1053,	64,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
-(7684,	1053,	87,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
-(7685,	1053,	108,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
-(7686,	1053,	124,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
 (7687,	1048,	46,	1,	'2022-09-07 13:33:32',	'2022-09-07 08:33:32'),
 (7698,	1055,	46,	1,	'2022-09-09 07:42:50',	'2022-09-09 02:42:50'),
 (7699,	1055,	101,	1,	'2022-09-09 07:42:50',	'2022-09-09 02:42:50'),
@@ -3093,10 +3360,14 @@ INSERT INTO `room_amenities` (`id`, `room_id`, `amenity_id`, `status`, `created_
 (9180,	1203,	87,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
 (9181,	1203,	105,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
 (9182,	1203,	121,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
-(9607,	1206,	63,	1,	'2022-10-01 15:53:38',	'2022-10-01 10:53:38'),
-(9608,	1206,	86,	1,	'2022-10-01 15:53:38',	'2022-10-01 10:53:38'),
-(9609,	1206,	110,	1,	'2022-10-01 15:53:38',	'2022-10-01 10:53:38'),
-(9610,	1206,	121,	1,	'2022-10-01 15:53:38',	'2022-10-01 10:53:38');
+(10042,	1206,	63,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(10043,	1206,	86,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(10044,	1206,	110,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(10045,	1206,	121,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(10091,	1053,	64,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10'),
+(10092,	1053,	87,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10'),
+(10093,	1053,	108,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10'),
+(10094,	1053,	124,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10');
 
 DROP TABLE IF EXISTS `room_bed_details`;
 CREATE TABLE `room_bed_details` (
@@ -3111,15 +3382,12 @@ CREATE TABLE `room_bed_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_bed_details` (`id`, `bed_type`, `bed_number`, `room_id`, `status`, `created_at`, `updated_at`) VALUES
-(156,	'Double bed',	2,	1053,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
 (160,	'Single bed',	2,	1055,	1,	'2022-09-09 07:42:50',	'2022-09-09 02:42:50'),
 (161,	'Sofa',	2,	1055,	1,	'2022-09-09 07:42:50',	'2022-09-09 02:42:50'),
 (162,	'Extra-Large double bed (Super - King size)',	1,	1054,	1,	'2022-09-09 07:43:44',	'2022-09-09 02:43:44'),
 (163,	'Sofa',	1,	1054,	1,	'2022-09-09 07:43:44',	'2022-09-09 02:43:44'),
 (164,	'Extra-Large double bed (Super - King size)',	1,	1056,	1,	'2022-09-09 08:17:58',	'2022-09-09 03:17:58'),
 (165,	'Sofa',	2,	1056,	1,	'2022-09-09 08:17:58',	'2022-09-09 03:17:58'),
-(168,	'Single bed',	2,	1057,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(169,	'Sofa',	2,	1057,	1,	'2022-09-13 07:25:15',	'2022-09-13 02:25:15'),
 (170,	'Single bed',	1,	1064,	1,	'2022-09-15 12:08:35',	'2022-09-15 07:08:35'),
 (171,	'Single bed',	2,	1064,	1,	'2022-09-15 12:08:35',	'2022-09-15 07:08:35'),
 (174,	'Single bed',	147,	1067,	1,	'2022-09-16 06:23:04',	'2022-09-16 01:23:04'),
@@ -3207,7 +3475,61 @@ INSERT INTO `room_bed_details` (`id`, `bed_type`, `bed_number`, `room_id`, `stat
 (484,	'Single bed',	1234,	1230,	1,	'2022-09-30 15:29:18',	'2022-09-30 10:29:18'),
 (493,	'Single bed',	14788,	1235,	1,	'2022-10-01 11:22:31',	'2022-10-01 06:22:31'),
 (496,	'Single bed',	147,	1237,	1,	'2022-10-01 12:16:56',	'2022-10-01 07:16:56'),
-(499,	'Single bed',	147,	1206,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39');
+(500,	'Single bed',	147,	1239,	1,	'2022-10-01 17:26:58',	'2022-10-01 12:26:58'),
+(511,	'Single bed',	12,	1242,	1,	'2022-10-06 14:57:45',	'2022-10-06 09:57:45'),
+(521,	'Single bed',	1477,	1249,	1,	'2022-10-06 17:09:40',	'2022-10-06 12:09:40'),
+(525,	'Single bed',	147,	1251,	1,	'2022-10-06 17:51:13',	'2022-10-06 12:51:13'),
+(527,	'Single bed',	1478,	1252,	1,	'2022-10-07 10:36:29',	'2022-10-07 05:36:29'),
+(528,	'Single bed',	1445664,	1253,	1,	'2022-10-07 10:38:10',	'2022-10-07 05:38:10'),
+(529,	'Single bed',	544465,	1253,	1,	'2022-10-07 10:38:10',	'2022-10-07 05:38:10'),
+(537,	'Single bed',	14788,	1254,	1,	'2022-10-07 14:46:53',	'2022-10-07 09:46:53'),
+(544,	'Single bed',	2,	1057,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(545,	'Sofa',	2,	1057,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(549,	'Single bed',	1478,	1258,	1,	'2022-10-07 17:23:15',	'2022-10-07 12:23:15'),
+(554,	'Single bed',	734544,	1256,	1,	'2022-10-07 17:58:58',	'2022-10-07 12:58:58'),
+(557,	'Single bed',	445645,	1261,	1,	'2022-10-10 10:48:25',	'2022-10-10 05:48:25'),
+(558,	'Single bed',	778777,	1261,	1,	'2022-10-10 10:48:25',	'2022-10-10 05:48:25'),
+(560,	'Single bed',	14778,	1262,	1,	'2022-10-10 10:49:34',	'2022-10-10 05:49:34'),
+(564,	'Single bed',	147,	1264,	1,	'2022-10-10 11:14:43',	'2022-10-10 06:14:43'),
+(565,	'Single bed',	148,	1264,	1,	'2022-10-10 11:14:43',	'2022-10-10 06:14:43'),
+(568,	'Single bed',	1478,	1265,	1,	'2022-10-10 12:09:29',	'2022-10-10 07:09:29'),
+(571,	'Single bed',	147,	1206,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(573,	'Single bed',	1234,	1266,	1,	'2022-10-10 14:01:38',	'2022-10-10 09:01:38'),
+(579,	'Double bed',	2,	1053,	1,	'2022-10-10 15:57:11',	'2022-10-10 10:57:11'),
+(587,	'Single bed',	147,	1268,	1,	'2022-10-10 17:18:56',	'2022-10-10 12:18:56'),
+(589,	'Single bed',	54446,	1270,	1,	'2022-10-10 17:20:07',	'2022-10-10 12:20:07'),
+(590,	'Single bed',	147,	1271,	1,	'2022-10-10 18:15:25',	'2022-10-10 13:15:25'),
+(593,	'Single bed',	147,	1273,	1,	'2022-10-10 18:40:44',	'2022-10-10 13:40:44');
+
+DROP TABLE IF EXISTS `room_booking_request`;
+CREATE TABLE `room_booking_request` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hotel_id` int(11) DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `person` int(11) DEFAULT NULL,
+  `request_status` int(11) DEFAULT NULL,
+  `approve_status` int(11) NOT NULL DEFAULT 0,
+  `payment_status` int(11) NOT NULL DEFAULT 0,
+  `invoice_num` varchar(255) DEFAULT NULL,
+  `check_in_date` date DEFAULT NULL,
+  `check_out_date` date DEFAULT NULL,
+  `total_days` int(11) DEFAULT NULL,
+  `total_room` int(11) DEFAULT NULL,
+  `total_member` int(11) DEFAULT NULL,
+  `discount` varchar(255) DEFAULT NULL,
+  `cleaning_fee` double(10,2) DEFAULT NULL,
+  `city_fee` double(10,2) DEFAULT NULL,
+  `tax_percentage` double(10,2) DEFAULT NULL,
+  `total_amount` double(10,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `room_booking_request` (`id`, `hotel_id`, `room_id`, `user_id`, `person`, `request_status`, `approve_status`, `payment_status`, `invoice_num`, `check_in_date`, `check_out_date`, `total_days`, `total_room`, `total_member`, `discount`, `cleaning_fee`, `city_fee`, `tax_percentage`, `total_amount`, `created_at`, `updated_at`) VALUES
+(8,	409,	1053,	1151,	2,	1,	1,	1,	'INV38229',	'2022-10-10',	'2022-10-11',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-10-10 15:47:25',	'2022-10-10 10:23:09');
 
 DROP TABLE IF EXISTS `room_custom_price`;
 CREATE TABLE `room_custom_price` (
@@ -3269,7 +3591,11 @@ INSERT INTO `room_custom_price` (`id`, `hotel_id`, `room_id`, `price_start_date`
 (42,	616,	1222,	'2022-09-29',	'2022-09-29',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-09-29 07:01:08'),
 (43,	618,	1226,	'2022-09-30',	'2022-09-30',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-09-30 05:18:52'),
 (44,	619,	1229,	'2022-09-30',	'2022-09-30',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-09-30 09:07:13'),
-(45,	620,	1231,	'2022-09-30',	'2022-09-30',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-09-30 10:00:41');
+(45,	620,	1231,	'2022-09-30',	'2022-09-30',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-09-30 10:00:41'),
+(46,	626,	1245,	'2022-10-06',	'2022-10-06',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-10-06 10:12:04'),
+(47,	630,	1260,	'2022-10-10',	'2022-10-10',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-10-10 05:01:34'),
+(48,	637,	1272,	'2022-10-10',	'2022-10-10',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-10-10 12:46:43'),
+(49,	637,	1272,	'2022-10-10',	'2022-10-10',	1,	1,	700,	3000,	1,	1,	1,	'0000-00-00 00:00:00',	'2022-10-10 12:46:43');
 
 DROP TABLE IF EXISTS `room_extra_option`;
 CREATE TABLE `room_extra_option` (
@@ -3286,14 +3612,14 @@ CREATE TABLE `room_extra_option` (
 
 INSERT INTO `room_extra_option` (`id`, `ext_opt_name`, `ext_opt_price`, `ext_opt_type`, `room_id`, `status`, `created_at`, `updated_at`) VALUES
 (136,	'Extra bed',	500,	'per_night_per_guest',	778,	1,	'2022-08-24 12:20:25',	'2022-08-24 12:20:25'),
-(162,	'Extra bed',	500,	'single_fee',	1053,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
 (176,	'abcd',	1234,	'single_fee',	1074,	1,	'2022-09-16 11:45:11',	'2022-09-16 06:45:11'),
 (177,	'pqrs',	9874,	'single_fee',	1074,	1,	'2022-09-16 11:45:11',	'2022-09-16 06:45:11'),
 (480,	'abcd',	100,	'single_fee',	1202,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:49:35'),
 (481,	'pqrs',	10,	'single_fee',	1202,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:49:35'),
 (482,	'abcd',	123456,	'single_fee',	1203,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
-(576,	'abcd',	1478,	'single_fee',	1206,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39'),
-(577,	'pqr',	4447,	'single_fee',	1206,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39');
+(651,	'abcd',	1478,	'single_fee',	1206,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(652,	'pqr',	4447,	'single_fee',	1206,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(660,	'Extra bed',	500,	'single_fee',	1053,	1,	'2022-10-10 15:57:11',	'2022-10-10 10:57:11');
 
 DROP TABLE IF EXISTS `room_features`;
 CREATE TABLE `room_features` (
@@ -3485,7 +3811,6 @@ INSERT INTO `room_features` (`id`, `room_id`, `feature_id`, `status`, `created_a
 (1424,	1046,	26,	1,	'2022-09-07 12:14:21',	'2022-09-07 07:14:21'),
 (1425,	1046,	27,	1,	'2022-09-07 12:14:21',	'2022-09-07 07:14:21'),
 (1426,	1046,	29,	1,	'2022-09-07 12:14:21',	'2022-09-07 07:14:21'),
-(1457,	1053,	6,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
 (1458,	1048,	1,	1,	'2022-09-07 13:33:32',	'2022-09-07 08:33:32'),
 (1459,	1048,	4,	1,	'2022-09-07 13:33:32',	'2022-09-07 08:33:32'),
 (1460,	1048,	7,	1,	'2022-09-07 13:33:32',	'2022-09-07 08:33:32'),
@@ -3553,29 +3878,30 @@ INSERT INTO `room_features` (`id`, `room_id`, `feature_id`, `status`, `created_a
 (1617,	1056,	3,	1,	'2022-09-09 08:17:58',	'2022-09-09 03:17:58'),
 (1618,	1056,	4,	1,	'2022-09-09 08:17:58',	'2022-09-09 03:17:58'),
 (1619,	1056,	2,	1,	'2022-09-09 08:17:58',	'2022-09-09 03:17:58'),
-(1658,	1057,	1,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1659,	1057,	2,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1660,	1057,	3,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1661,	1057,	4,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1662,	1057,	6,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1663,	1057,	7,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1664,	1057,	8,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1665,	1057,	10,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1666,	1057,	12,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1667,	1057,	13,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1668,	1057,	15,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1669,	1057,	16,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1670,	1057,	17,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1671,	1057,	23,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1672,	1057,	25,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1673,	1057,	26,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1674,	1057,	27,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1675,	1057,	28,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
-(1676,	1057,	29,	1,	'2022-09-13 07:25:14',	'2022-09-13 02:25:14'),
 (1961,	1074,	3,	1,	'2022-09-16 11:45:11',	'2022-09-16 06:45:11'),
 (2231,	1202,	5,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:49:35'),
 (2233,	1203,	5,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
-(2322,	1206,	4,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39');
+(2391,	1057,	1,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2392,	1057,	2,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2393,	1057,	3,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2394,	1057,	4,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2395,	1057,	6,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2396,	1057,	7,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2397,	1057,	8,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2398,	1057,	10,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2399,	1057,	12,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2400,	1057,	13,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2401,	1057,	15,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2402,	1057,	16,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2403,	1057,	17,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2404,	1057,	23,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2405,	1057,	25,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2406,	1057,	26,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2407,	1057,	27,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2408,	1057,	28,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2409,	1057,	29,	1,	'2022-10-07 15:19:11',	'2022-10-07 10:19:11'),
+(2435,	1206,	4,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(2445,	1053,	6,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10');
 
 DROP TABLE IF EXISTS `room_gallery`;
 CREATE TABLE `room_gallery` (
@@ -3804,15 +4130,15 @@ INSERT INTO `room_list` (`id`, `hotel_id`, `room_types_id`, `name`, `image`, `de
 (1047,	523,	3,	'Deluxe Twin Room',	'WhatsApp-Image-2021-12-19-at-3.58.13-PM-1-1-roomMainImg-1662357497.jpeg',	'Season Inn Guest House Deluxe Twin',	'Terms & Conditions: 1) 15% will be charged by venrooms on bookings through venrooms. 2) You will get 70% booking payment by guest at the time of check-in/out. 3) Remaining 15% of your amount will be deposited by venrooms to you with in a week after check-out. CEX ID: 10004',	2,	2,	2,	3500,	20,	4200,	13,	3500,	3500,	0,	0,	0,	0,	1,	'per_night',	0,	'per_night',	0,	'per_night',	NULL,	1,	NULL,	'Double bed',	1,	1,	NULL,	1,	'Yes',	'0',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-05 05:29:31',	'2022-09-07 11:46:47'),
 (1048,	523,	6,	'Deluxe Family Room',	'WhatsApp-Image-2021-12-19-at-3.58.20-PM-roomMainImg-1662357958.jpeg',	'Season Inn Guest House Deluxe Family Room',	'Terms & Conditions: 1) 15% will be charged by venrooms on bookings through venrooms. 2) You will get 70% booking payment by guest at the time of check-in/out. 3) Remaining 15% of your amount will be deposited by venrooms to you with in a week after check-out. CEX ID: 10004',	3,	2,	1,	3500,	13,	3955,	13,	3500,	3500,	0,	0,	0,	0,	1,	'per_night',	20,	'per_night',	50,	'per_night',	13,	5,	2,	'Double bed',	1,	1,	NULL,	1,	'Yes',	'0',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-05 06:00:00',	'2022-09-07 13:33:32'),
 (1052,	522,	1,	'Budget Single Room',	'1-roomMainImg-1662534032.png',	'sdsdf',	'sdfsdf',	2,	1,	5,	2500,	10,	2750,	2,	3200,	15000,	0,	0,	0,	0,	1500,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	NULL,	NULL,	'',	1,	1,	NULL,	1,	'asdasd',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-07 07:00:32',	'2022-09-07 11:46:26'),
-(1053,	409,	4,	'Budget Twin/Double Room',	'WhatsApp-Image-2021-12-19-at-3.58.20-PM-roomMainImg-1662554742.jpeg',	'dg',	'sdf',	2,	2,	2,	2000,	50,	3000,	10,	14000,	60000,	0,	NULL,	NULL,	NULL,	5,	'per_night',	200,	'single_fee',	100,	'single_fee',	10,	3,	NULL,	'',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
+(1053,	409,	4,	'Budget Twin/Double Room',	'WhatsApp-Image-2021-12-19-at-3.58.20-PM-roomMainImg-1662554742.jpeg',	'dg',	'sdf',	2,	2,	4,	2000,	50,	3000,	10,	14000,	60000,	0,	0,	0,	0,	5,	'per_night',	200,	'per_night',	100,	'per_night',	10,	3,	NULL,	'',	1,	1,	'board games',	1,	'parking',	'2',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-07 12:45:42',	'2022-10-10 10:27:10'),
 (1054,	524,	1,	'Standard Single Room',	'WhatsApp-Image-2021-05-08-at-10.45.46-PM-1-1-400x314-roomMainImg-1662708733.jpeg',	'Set in Lahore, 34 km from Wagah Border, Hotel Tulip Inn, Faisal Town offers accommodation with a restaurant, free private parking and a shared lounge. This 3-star hotel offers room service and a concierge service. The accommodation provides a 24-hour front desk, airport transfers, a shared kitchen and free WiFi throughout the property. The units at the hotel come with a seating area. At Hotel Tulip Inn, Faisal Town every room includes a wardrobe, a flat-screen TV and a private bathroom. Guests at the accommodation can enjoy a continental breakfast. Emporium Mall is 5 km from Hotel Tulip Inn, Faisal Town, while Gaddafi Stadium is 6 km away. The nearest airport is Allama Iqbal International Airport, 11 km from the hotel. Metro Bus station is 3 km away from hotel. Offering inclusive of Buffet Breakfast, welcome drinks, Dress Pressing, Dress washing & shoe shinning. We speak your language! Hotel Tulip Inn, Faisal Town is welcoming Venrooms.com’s guests.',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	2,	2,	10,	1995,	NULL,	NULL,	16,	1995,	1995,	0,	0,	0,	0,	5,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	NULL,	NULL,	'',	1,	1,	NULL,	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-09 07:32:13',	'2022-09-09 07:56:47'),
 (1055,	524,	3,	'Deluxe Twin Room',	'WhatsApp-Image-2021-05-08-at-10.45.44-PM-1-1-roomMainImg-1662709069.jpeg',	'Set in Lahore, 34 km from Wagah Border, Hotel Tulip Inn, Faisal Town offers accommodation with a restaurant, free private parking and a shared lounge. This 3-star hotel offers room service and a concierge service. The accommodation provides a 24-hour front desk, airport transfers, a shared kitchen and free WiFi throughout the property.\r\n\r\nThe units at the hotel come with a seating area. At Hotel Tulip Inn, Faisal Town every room includes a wardrobe, a flat-screen TV and a private bathroom.\r\n\r\nGuests at the accommodation can enjoy a continental breakfast.\r\n\r\nEmporium Mall is 5 km from Hotel Tulip Inn, Faisal Town, while Gaddafi Stadium is 6 km away. The nearest airport is Allama Iqbal International Airport, 11 km from the hotel. Metro Bus station is 3 km away from hotel.\r\n\r\nOffering inclusive of Buffet Breakfast, welcome drinks, Dress Pressing, Dress washing & shoe shinning.\r\n\r\nWe speak your language!\r\n\r\nHotel Tulip Inn, Faisal Town is welcoming Venrooms.com’s guests.',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	2,	2,	6,	1975,	NULL,	NULL,	16,	1975,	1975,	0,	0,	0,	0,	5,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	NULL,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-09 07:33:43',	'2022-09-09 07:37:49'),
 (1056,	525,	1,	'Standard Single Room',	'214747466-1-roomMainImg-1662711477.jpg',	'Hotel Tulip Inn is situated in Lahore, 35 km from Wagah Border and less than 1 km from Emporium Mall. Among the facilities of this property are a restaurant, a 24-hour front desk and room service, along with free WiFi. Private parking can be arranged at an extra charge. All rooms at the hotel are fitted with a seating area, a flat-screen TV with satellite channels and a private bathroom with free toiletries and a bidet. All units at Hotel Tulip Inn have air conditioning and a wardrobe. A continental breakfast is available each morning at the accommodation. Also offering to all guest complementary welcome drinks, dress pressing, dress washing & shoe shinning. Gaddafi Stadium is 9 km from Hotel Tulip Inn, while Vogue Towers is 10 km from the property. The nearest airport is Allama Iqbal International Airport, 14 km from the hotel. We speak your language! Hotel Tulip Inn is welcoming Venrooms.com’s guests.',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	2,	2,	10,	1995,	NULL,	NULL,	16,	1995,	1995,	0,	NULL,	NULL,	NULL,	5,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	1,	NULL,	'',	1,	1,	'Yes',	1,	'parking',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-09 08:17:57',	'2022-09-09 03:17:57'),
-(1057,	525,	3,	'Deluxe Twin Room',	'214747449-4-roomMainImg-1662711784.jpg',	'Hotel Tulip Inn is situated in Lahore, 35 km from Wagah Border and less than 1 km from Emporium Mall. Among the facilities of this property are a restaurant, a 24-hour front desk and room service, along with free WiFi. Private parking can be arranged at an extra charge. All rooms at the hotel are fitted with a seating area, a flat-screen TV with satellite channels and a private bathroom with free toiletries and a bidet. All units at Hotel Tulip Inn have air conditioning and a wardrobe. A continental breakfast is available each morning at the accommodation. Also offering to all guest complementary welcome drinks, dress pressing, dress washing & shoe shinning. Gaddafi Stadium is 9 km from Hotel Tulip Inn, while Vogue Towers is 10 km from the property. The nearest airport is Allama Iqbal International Airport, 14 km from the hotel. We speak your language! Hotel Tulip Inn is welcoming Venrooms.com’s guests.',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	2,	2,	14,	1975,	NULL,	NULL,	16,	1975,	1975,	0,	0,	0,	0,	5,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	1,	NULL,	'',	1,	1,	'Yes',	1,	'parking',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-09 08:18:05',	'2022-09-29 09:03:11'),
+(1057,	525,	3,	'Deluxe Twin Room',	'214747449-4-roomMainImg-1662711784.jpg',	'Hotel Tulip Inn is situated in Lahore, 35 km from Wagah Border and less than 1 km from Emporium Mall. Among the facilities of this property are a restaurant, a 24-hour front desk and room service, along with free WiFi. Private parking can be arranged at an extra charge. All rooms at the hotel are fitted with a seating area, a flat-screen TV with satellite channels and a private bathroom with free toiletries and a bidet. All units at Hotel Tulip Inn have air conditioning and a wardrobe. A continental breakfast is available each morning at the accommodation. Also offering to all guest complementary welcome drinks, dress pressing, dress washing & shoe shinning. Gaddafi Stadium is 9 km from Hotel Tulip Inn, while Vogue Towers is 10 km from the property. The nearest airport is Allama Iqbal International Airport, 14 km from the hotel. We speak your language! Hotel Tulip Inn is welcoming Venrooms.com’s guests.',	'Venroom.com will charge 15% on guest reservations and make payment after 07-Days of guest check-out. after 6 months contract will be renewed with mutual understanding.',	2,	2,	2,	1975,	NULL,	NULL,	16,	1975,	1975,	0,	0,	0,	0,	5,	'single_fee',	NULL,	'single_fee',	NULL,	'single_fee',	NULL,	1,	NULL,	'',	1,	1,	'Yes',	1,	'parking',	'1',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-09 08:18:05',	'2022-10-07 09:49:11'),
 (1074,	523,	5,	'Quadruple with Park View',	'pexels-asad-photo-maldives-2549018-roomMainImg-1663328686.jpg',	'description',	'notes',	10,	10,	10,	100,	10,	110,	1,	700,	3000,	0,	0,	0,	0,	144,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-16 11:44:46',	'2022-09-16 11:45:11'),
 (1202,	520,	4,	'Budget Twin/Double Room',	'pexels-donald-tong-189293-roomMainImg-1664353175.jpg',	'room description',	'notes',	10,	10,	10,	100,	1,	101,	1,	700,	3000,	0,	NULL,	NULL,	NULL,	144,	'single_fee',	10,	'single_fee',	10,	'single_fee',	1,	1,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:19:41'),
 (1203,	520,	2,	'Double with Park View',	'pexels-donald-tong-189293-roomMainImg-1664353238.jpg',	'room description',	'notes',	10,	10,	10,	100,	1,	101,	1,	700,	3000,	0,	0,	0,	0,	144,	'single_fee',	10,	'single_fee',	10,	'single_fee',	1,	1,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-28 13:49:44',	'2022-09-28 08:20:42'),
-(1206,	523,	4,	'Budget Twin/Double Room',	'pexels-donald-tong-189293-roomMainImg-1664360336.jpg',	'Room description',	'Notes',	10,	10,	5,	100,	10,	110,	1,	700,	3000,	0,	0,	0,	0,	144,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-28 15:48:56',	'2022-10-01 10:23:08');
+(1206,	523,	4,	'Budget Twin/Double Room',	'pexels-donald-tong-189293-roomMainImg-1664360336.jpg',	'Room description',	'Notes',	10,	10,	5,	100,	10,	110,	1,	700,	3000,	0,	0,	0,	0,	144,	'single_fee',	100,	'single_fee',	100,	'single_fee',	1,	1,	NULL,	'',	1,	1,	'Yes',	1,	'Yes',	'4',	NULL,	NULL,	NULL,	NULL,	1,	'2022-09-28 15:48:56',	'2022-10-10 10:26:51');
 
 DROP TABLE IF EXISTS `room_name_list`;
 CREATE TABLE `room_name_list` (
@@ -4174,16 +4500,16 @@ INSERT INTO `room_services` (`id`, `room_id`, `room_service_id`, `status`, `crea
 (1947,	1034,	7,	1,	'2022-09-03 18:27:49',	'2022-09-03 13:27:49'),
 (1949,	1038,	7,	1,	'2022-09-03 18:35:41',	'2022-09-03 13:35:41'),
 (1951,	1039,	7,	1,	'2022-09-04 09:55:11',	'2022-09-04 04:55:11'),
-(1952,	1053,	3,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
-(1953,	1053,	11,	1,	'2022-09-07 12:45:42',	'2022-09-07 07:45:42'),
 (1994,	1074,	4,	1,	'2022-09-16 11:45:11',	'2022-09-16 06:45:11'),
 (1995,	1074,	5,	1,	'2022-09-16 11:45:11',	'2022-09-16 06:45:11'),
 (2534,	1202,	2,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:49:35'),
 (2535,	1202,	5,	1,	'2022-09-28 13:49:35',	'2022-09-28 08:49:35'),
 (2538,	1203,	2,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
 (2539,	1203,	5,	1,	'2022-09-28 13:50:38',	'2022-09-28 08:50:38'),
-(2716,	1206,	2,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39'),
-(2717,	1206,	7,	1,	'2022-10-01 15:53:39',	'2022-10-01 10:53:39');
+(2884,	1206,	2,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(2885,	1206,	7,	1,	'2022-10-10 12:50:17',	'2022-10-10 07:50:17'),
+(2904,	1053,	3,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10'),
+(2905,	1053,	11,	1,	'2022-10-10 15:57:10',	'2022-10-10 10:57:10');
 
 DROP TABLE IF EXISTS `room_type_categories`;
 CREATE TABLE `room_type_categories` (
@@ -4197,7 +4523,7 @@ CREATE TABLE `room_type_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `room_type_categories` (`id`, `title`, `details`, `status`, `created_at`, `updated_at`) VALUES
-(1,	'Single',	'Singles',	1,	'2022-06-07 08:39:16',	'2022-09-29 12:26:02'),
+(1,	'Single',	'Single',	1,	'2022-06-07 08:39:16',	'2022-10-07 10:58:43'),
 (2,	'Double',	'Double',	1,	'2022-06-07 08:39:42',	'2022-06-21 10:55:22'),
 (3,	'Twin',	'Twin',	1,	'2022-06-07 08:40:04',	'2022-06-07 08:40:04'),
 (4,	'Twin/Double',	'Twin/Double',	1,	'2022-06-07 08:40:48',	'2022-06-07 08:40:48'),
@@ -4205,8 +4531,7 @@ INSERT INTO `room_type_categories` (`id`, `title`, `details`, `status`, `created
 (6,	'Family',	'Family',	1,	'2022-06-07 08:42:19',	'2022-06-07 08:42:19'),
 (7,	'Suite',	'Suite',	1,	'2022-06-07 08:42:35',	'2022-06-07 08:42:35'),
 (8,	'Studio',	'Studio',	1,	'2022-06-07 08:42:48',	'2022-06-07 08:42:48'),
-(9,	'Dormitory',	'Dormitory',	1,	'2022-06-07 08:43:18',	'2022-06-07 08:43:18'),
-(12,	'Master',	'Master rooms',	1,	'0000-00-00 00:00:00',	'2022-09-30 05:38:32');
+(9,	'Dormitory',	'Dormitory',	1,	'2022-06-07 08:43:18',	'2022-06-07 08:43:18');
 
 DROP TABLE IF EXISTS `room_video`;
 CREATE TABLE `room_video` (
@@ -4250,16 +4575,16 @@ CREATE TABLE `scout_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `scout_details` (`id`, `scout_id`, `status`, `designation`, `other`, `contract_date`, `nic`, `nic_upload`, `contract_upload`, `basic_salary`, `transport_allowance`, `other_allowance`, `other_allowance_1`, `other_allowance_2`, `gross_salary`, `other_benefits`, `hotel_commission`, `tour_commision`, `space_commission`, `event_commission`, `rating`, `year`, `remarks`, `created_at`, `updated_at`) VALUES
-(1,	1120,	'Active',	'Other',	NULL,	'2022-09-08',	'878754545',	NULL,	NULL,	15000,	1000,	3000,	5000,	5000,	20000,	NULL,	25,	15,	20,	30,	NULL,	NULL,	NULL,	'2022-09-26 12:27:04',	'2022-09-26 06:57:04'),
-(4,	1119,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:56:50',	'2022-09-30 10:56:50'),
+(1,	1120,	'Active',	'Other',	NULL,	'2022-09-08',	'878754545',	NULL,	NULL,	15000,	1000,	3000,	5000,	5000,	20000,	NULL,	25,	15,	20,	30,	NULL,	NULL,	'remarks',	'2022-10-01 17:57:32',	'2022-10-01 12:27:32'),
+(4,	1119,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'remark',	'2022-10-01 17:58:05',	'2022-10-01 12:28:05'),
 (5,	1116,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:57:32',	'2022-09-30 10:57:32'),
 (6,	1115,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:57:53',	'2022-09-30 10:57:53'),
 (7,	1114,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:58:13',	'2022-09-30 10:58:13'),
 (8,	1085,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:58:42',	'2022-09-30 10:58:42'),
-(9,	1084,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:59:07',	'2022-09-30 10:59:07'),
-(10,	1083,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:59:24',	'2022-09-30 10:59:24'),
-(11,	557,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-30 15:59:46',	'2022-09-30 10:59:46'),
-(12,	477,	'Active',	'CEX',	NULL,	'2022-09-30',	'7878787',	NULL,	NULL,	50000,	100,	0,	0,	0,	6000,	NULL,	1,	1,	0,	0,	5,	2012,	'sadsad',	'2022-09-30 16:41:18',	'2022-09-30 11:11:18');
+(9,	1084,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'remarks',	'2022-10-01 18:00:23',	'2022-10-01 12:30:23'),
+(10,	1083,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'remarks',	'2022-10-01 18:01:03',	'2022-10-01 12:31:03'),
+(11,	557,	'Active',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'remarks',	'2022-10-01 18:02:13',	'2022-10-01 12:32:13'),
+(12,	477,	'Active',	'CEX',	NULL,	'2022-09-30',	'7878787',	NULL,	NULL,	50000,	100,	NULL,	NULL,	NULL,	6000,	NULL,	1,	1,	NULL,	NULL,	5,	2012,	'sadsad',	'2022-10-01 18:02:49',	'2022-10-01 12:32:49');
 
 DROP TABLE IF EXISTS `scout_performance_rating`;
 CREATE TABLE `scout_performance_rating` (
@@ -4366,19 +4691,8 @@ CREATE TABLE `space` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `space` (`space_id`, `category_id`, `sub_category_id`, `space_user_id`, `is_admin`, `space_name`, `image`, `description`, `notes`, `space_document`, `scout_id`, `booking_option`, `payment_mode`, `online_payment_percentage`, `at_desk_payment_percentage`, `cancel_policy`, `min_hrs`, `max_hrs`, `min_hrs_percentage`, `max_hrs_percentage`, `commission`, `reserv_date_change_allow`, `guest_number`, `price_per_night`, `tax_percentage`, `price_per_night_7d`, `price_per_night_30d`, `is_guest_allow`, `extra_guest_per_night`, `is_above_guest_cap`, `is_pay_by_num_guest`, `room_size`, `room_number`, `bedroom_number`, `bathroom_number`, `checkin_hr`, `checkout_hr`, `late_checkin`, `cleaning_fee`, `cleaning_fee_type`, `city_fee`, `city_fee_type`, `security_deposite`, `earlybird_discount`, `min_days_in_advance`, `bed_type`, `private_bathroom`, `private_entrance`, `optional_services`, `family_friendly`, `outdoor_facilities`, `extra_people`, `cancellation`, `space_address`, `space_country`, `city`, `neighbor_area`, `zip_code`, `province`, `space_latitude`, `space_longitude`, `operator_name`, `operator_contact_name`, `operator_contact_num`, `operator_email`, `operator_booking_num`, `status`, `copy_status`, `created_at`, `updated_at`) VALUES
-(473,	23,	13,	934,	0,	'Apartment1',	'pexels-pixabay-164595-spaceMainImg-1660131932.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Admin  Dashboard (2)-1664612992.pdf',	477,	2,	2,	'70',	'30',	'dfgdf dgdfg',	24,	72,	30,	20,	0,	1,	12,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	5,	3,	5,	'7:00 AM',	'6:00 PM',	'10:00 AM',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	'board games',	1,	'parking',	'2',	'1000',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	166,	'Lahore',	'Walled City of Lahore',	'54000',	'Punjab',	'31.5762848',	'74.3213639',	'shaikh op',	'Swayam',	942509544,	'shaikh@gmail.com',	123456789,	1,	1,	'2022-08-10 11:45:32',	'2022-10-01 08:29:52'),
-(636,	23,	10,	1,	1,	'spacee',	'pexels-amar-saleem-91628-spaceMainImg-1663050050.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	NULL,	1119,	2,	0,	NULL,	NULL,	'sdf sdf',	96,	192,	30,	10,	NULL,	0,	25,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	1,	1,	1,	'3:00 AM',	'5:00 PM',	'8:00 AM',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	166,	'Lahore',	'Walled City of Lahore',	'54000',	'Punjab',	'31.5762848',	'74.3213639',	'ab',	'cd',	2147483647,	'ab@gmail.com',	2147483647,	1,	1,	'2022-09-13 06:20:50',	'2022-10-01 10:30:27'),
-(713,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Property DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty Description',	'Private Notes',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	1,	1,	7,	30,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	1,	'single_fee',	1,	'single_fee',	10,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'Yes',	'6',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-26 14:09:08',	'2022-09-26 08:39:08'),
-(718,	23,	10,	1163,	0,	NULL,	'room_default_img.jpg',	'Property DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty Description',	'Private NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate NotesPrivate Notes',	NULL,	1120,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	3,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	1000,	1,	1,	'Double bed',	1,	1,	NULL,	1,	'Yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-26 16:04:36',	'2022-09-26 10:34:36'),
-(728,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	25,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	1,	1,	1,	NULL,	NULL,	NULL,	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Bunk bed',	1,	1,	NULL,	1,	'Yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-27 14:12:32',	'2022-09-27 08:42:32'),
-(754,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Property DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty DescriptionProperty Description',	'Private Notes',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	10,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'Yes',	'6',	NULL,	NULL,	166,	'Lahore',	'Naulakha',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-28 18:37:06',	'2022-09-28 13:07:06'),
-(767,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Room descriptionRoom descriptionRoom descriptionvvRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom description',	'Room description',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:46:56',	'2022-09-30 10:16:56'),
-(768,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	25,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	1,	1,	1,	NULL,	NULL,	NULL,	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	NULL,	1,	'Yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:46:56',	'2022-09-30 10:16:56'),
-(769,	23,	13,	1,	1,	NULL,	'room_default_img.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	NULL,	477,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	12,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	5,	3,	5,	NULL,	NULL,	NULL,	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	NULL,	1,	'parking',	'2',	NULL,	NULL,	101,	'Indore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:46:56',	'2022-09-30 10:16:56'),
-(770,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Room descriptionRoom descriptionRoom descriptionvvRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom description',	'Room description',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:46:56',	'2022-09-30 10:16:56'),
-(771,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Room descriptionRoom descriptionRoom descriptionvvRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom description',	'Room description',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:46:56',	'2022-09-30 10:16:56'),
-(773,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Room descriptionRoom descriptionRoom descriptionvvRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom description',	'Room description',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 15:50:15',	'2022-09-30 10:20:15'),
-(777,	23,	10,	1,	1,	NULL,	'room_default_img.jpg',	'Room descriptionRoom descriptionRoom descriptionvvRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom descriptionRoom description',	'Room description',	NULL,	1119,	1,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	2147483647,	100,	1,	700,	3000,	0,	0,	0,	0,	144,	1,	1,	1,	NULL,	NULL,	NULL,	100,	'single_fee',	100,	'single_fee',	100,	1,	1,	'Single bed',	1,	1,	NULL,	1,	'yes',	'4',	NULL,	NULL,	166,	'Lahore',	'Walled City of Lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	'2022-09-30 17:48:04',	'2022-09-30 12:18:04');
+(473,	23,	13,	934,	0,	'Apartment1',	'pexels-pixabay-164595-spaceMainImg-1660131932.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Admin  Dashboard (2)-1664612992.pdf',	477,	2,	2,	'70',	'30',	'dfgdf dgdfg',	24,	72,	30,	20,	NULL,	1,	12,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	5,	3,	5,	'7:00 AM',	'6:00 PM',	'10:00 AM',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	'board games',	1,	'parking',	'2',	'1000',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	166,	'Lahore',	'Walled City of Lahore',	'54000',	'Punjab',	'31.5762848',	'74.3213639',	'shaikh op',	'Swayam',	942509544,	'shaikh@gmail.com',	123456789,	1,	1,	'2022-08-10 11:45:32',	'2022-10-01 12:25:52'),
+(636,	23,	10,	1,	1,	'spacee',	'pexels-amar-saleem-91628-spaceMainImg-1663050050.jpg',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',	NULL,	1119,	2,	0,	NULL,	NULL,	'sdf sdf',	96,	192,	30,	10,	NULL,	0,	25,	2000,	1500,	14000,	60000,	0,	0,	0,	0,	5,	1,	1,	1,	'3:00 AM',	'5:00 PM',	'8:00 AM',	200,	'single_fee',	100,	'single_fee',	2500,	1500,	2,	'Double bed',	1,	1,	'Yes',	1,	'Yes',	'4',	'yes',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	166,	'Lahore',	'Walled City of Lahore',	'54000',	'Punjab',	'31.5762848',	'74.3213639',	'ab',	'cd',	2147483647,	'ab@gmail.com',	2147483647,	1,	1,	'2022-09-13 06:20:50',	'2022-10-10 08:38:08');
 
 DROP TABLE IF EXISTS `space_amenities`;
 CREATE TABLE `space_amenities` (
@@ -4542,7 +4856,52 @@ INSERT INTO `space_booking` (`id`, `space_booking_id`, `space_id`, `user_id`, `c
 (154,	'RnS-B-4JE5T',	636,	1151,	'2022-09-27',	'2022-09-30',	3,	1,	25,	7800.00,	'PAYID-MMV77GI1H348234G2511851Y',	'EC-16555247JE239601A',	'48GK5H7XDPGS2',	'Found a different accommodation option',	NULL,	'2022-09-22 15:58:22',	'2022-09-22 15:59:27',	'2022-09-22 16:00:00',	'7800.00',	'paypal',	'successful',	'canceled',	'confirmed',	'2022-09-22 11:54:33',	'2022-09-22 10:30:00'),
 (155,	'RnS-B-1O27V',	636,	1151,	'2022-09-23',	'2022-09-25',	2,	1,	25,	5800.00,	'PAYID-MMWDDDA6PE84180PS396980H',	'EC-2VE81497ME857574H',	'48GK5H7XDPGS2',	'Change of dates or destination',	NULL,	'2022-09-22 15:58:01',	'2022-09-22 15:59:23',	'2022-09-22 15:59:56',	'4600',	'paypal',	'successful',	'canceled',	'confirmed',	'2022-09-22 15:27:44',	'2022-09-22 10:29:56'),
 (156,	'RnS-B-FYPDB',	636,	833,	'2022-09-27',	'2022-09-29',	2,	1,	25,	5800.00,	'PAYID-MMWX4HI08X04970VV004003L',	'EC-5TU548516V5934228',	'48GK5H7XDPGS2',	'Change of dates or destination',	NULL,	'2022-09-23 16:26:47',	'2022-09-26 15:44:09',	'2022-09-26 15:44:20',	'5800.00',	'paypal',	'successful',	'canceled',	'confirmed',	'2022-09-23 15:06:55',	'2022-09-26 10:14:20'),
-(157,	'RnS-B-9MD4E',	473,	833,	'2022-10-28',	'2022-10-29',	1,	5,	12,	3800.00,	'1392602',	'186645754479',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'pending',	'pending',	'2022-09-24 12:47:57',	'2022-09-24 07:17:57');
+(157,	'RnS-B-9MD4E',	473,	833,	'2022-10-28',	'2022-10-29',	1,	5,	12,	3800.00,	'1392602',	'186645754479',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'pending',	'pending',	'2022-09-24 12:47:57',	'2022-09-24 07:17:57'),
+(158,	'RnS-B-A1IL8',	636,	837,	'2022-10-01',	'2022-10-02',	1,	1,	25,	3800.00,	'232967',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Failed',	'pending',	'pending',	'2022-10-01 18:30:05',	'2022-10-01 13:00:05'),
+(159,	'RnS-B-BCMZD',	473,	837,	'2022-10-01',	'2022-10-02',	1,	5,	12,	3800.00,	'212340',	'442486416870',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'pending',	'pending',	'2022-10-01 18:34:25',	'2022-10-01 13:04:25'),
+(160,	'RnS-B-DM1SK',	636,	1151,	'2022-11-01',	'2022-11-02',	1,	1,	25,	3800.00,	'1142501',	'681908998668',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'confirmed',	'pending',	'2022-10-05 12:33:19',	'2022-10-05 07:03:19'),
+(161,	'RnS-B-S8KAJ',	473,	1151,	'2022-11-01',	'2022-11-02',	1,	5,	12,	3800.00,	'1001845',	'690606038065',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'confirmed',	'pending',	'2022-10-05 12:47:49',	'2022-10-05 07:17:49'),
+(162,	'RnS-B-I1TUN',	636,	1151,	'2022-11-03',	'2022-11-04',	1,	1,	25,	3800.00,	'819088',	'694247550596',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'confirmed',	'pending',	'2022-10-05 12:54:23',	'2022-10-05 07:24:23'),
+(163,	'RnS-B-8DPIR',	473,	1151,	'2022-11-08',	'2022-11-09',	1,	5,	12,	3800.00,	'605966',	'556928458089',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'confirmed',	'pending',	'2022-10-06 12:51:46',	'2022-10-06 07:21:46'),
+(164,	'RnS-B-0D61C',	473,	837,	'2022-11-08',	'2022-11-09',	1,	5,	12,	3800.00,	'1499238',	'615865509926',	NULL,	'Made bookings for same dates - canceled the ones I don\'t need',	NULL,	'2022-10-10 12:27:30',	NULL,	NULL,	'3800.00',	'1',	'Paid',	'canceled',	'pending',	'2022-10-06 14:29:54',	'2022-10-10 06:57:30'),
+(165,	'RnS-B-S35GN',	473,	837,	'2022-11-10',	'2022-11-11',	1,	5,	12,	3800.00,	'646483',	'669732965803',	NULL,	'Change of dates or destination',	NULL,	'2022-10-07 14:07:58',	NULL,	NULL,	'3800.00',	'1',	'Paid',	'canceled',	'pending',	'2022-10-06 15:59:41',	'2022-10-07 08:37:58'),
+(166,	'RnS-B-YURH6',	786,	837,	'2022-10-07',	'2022-10-08',	1,	1,	2147483647,	301.00,	'337766',	'742724503428',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-06 18:01:19',	'2022-10-06 12:31:19'),
+(167,	'RnS-B-SO0XT',	473,	1151,	'2022-11-16',	'2022-11-17',	1,	5,	12,	3800.00,	'938536',	'496002169083',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'confirmed',	'pending',	'2022-10-07 14:56:56',	'2022-10-07 09:26:56'),
+(168,	'RnS-B-S7OD0',	793,	837,	'2022-10-09',	'2022-10-14',	5,	1,	2147483647,	701.00,	'160502',	'623700176091',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-07 18:29:42',	'2022-10-07 12:59:42'),
+(169,	'RnS-B-ILSRL',	793,	837,	'2022-10-15',	'2022-10-16',	1,	1,	2147483647,	301.00,	'865443',	'946314524207',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 11:00:41',	'2022-10-10 05:30:41'),
+(170,	'RnS-B-VTV3Q',	795,	837,	'2022-10-15',	'2022-10-16',	1,	1,	2147483647,	301.00,	'1544510',	'966207464945',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 11:33:51',	'2022-10-10 06:03:51'),
+(171,	'RnS-B-WW7C3',	796,	837,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'1631590',	'077332560109',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 14:39:03',	'2022-10-10 09:09:03'),
+(172,	'RnS-B-0UJTP',	796,	1163,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'930936',	'083017090555',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 14:48:33',	'2022-10-10 09:18:33'),
+(173,	'RnS-B-DSCIF',	796,	837,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'1004986',	'099724497256',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 15:16:24',	'2022-10-10 09:46:24'),
+(174,	'RnS-B-U9OPU',	796,	1163,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'78931',	'186724188928',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'confirmed',	'pending',	'2022-10-10 17:41:22',	'2022-10-10 12:11:22');
+
+DROP TABLE IF EXISTS `space_booking_request`;
+CREATE TABLE `space_booking_request` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `space_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `request_status` int(11) DEFAULT NULL,
+  `approve_status` int(11) NOT NULL DEFAULT 0,
+  `payment_status` int(11) NOT NULL DEFAULT 0,
+  `invoice_num` varchar(255) DEFAULT NULL,
+  `check_in_date` date DEFAULT NULL,
+  `check_out_date` date DEFAULT NULL,
+  `total_days` int(11) NOT NULL,
+  `discount` varchar(255) DEFAULT NULL,
+  `cleaning_fee` double(10,2) DEFAULT NULL,
+  `city_fee` double(10,2) DEFAULT NULL,
+  `tax_percentage` double(10,2) DEFAULT NULL,
+  `total_amount` double(10,2) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `space_id` (`space_id`),
+  CONSTRAINT `space_booking_request_ibfk_1` FOREIGN KEY (`space_id`) REFERENCES `space` (`space_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `space_booking_request` (`id`, `space_id`, `user_id`, `request_status`, `approve_status`, `payment_status`, `invoice_num`, `check_in_date`, `check_out_date`, `total_days`, `discount`, `cleaning_fee`, `city_fee`, `tax_percentage`, `total_amount`, `created_at`, `updated_at`) VALUES
+(21,	473,	1151,	1,	0,	0,	'INV77472',	'2022-11-12',	'2022-11-13',	1,	NULL,	200.00,	100.00,	1500.00,	3800.00,	'2022-10-10 18:19:17',	'2022-10-10 13:16:09');
 
 DROP TABLE IF EXISTS `space_booking_temp`;
 CREATE TABLE `space_booking_temp` (
@@ -4686,7 +5045,27 @@ INSERT INTO `space_booking_temp` (`id`, `payment_id`, `paccess_token`, `token_id
 (185,	'PAYID-MMWX4HI08X04970VV004003L',	'A21AAKJaFIsveqDOmbPlZojsz6mgcJZMBPq66Zep3annxbz-NSioTH8zWHZOwoK5SOOgfupUVm5fy8JK2z_QOaPlKmk8kRyFA',	'EC-5TU548516V5934228',	1,	636,	'2022-09-27',	'2022-09-29',	2,	1,	25,	5800.00,	'2022-09-23 15:06:29',	'2022-09-23 09:36:29'),
 (186,	'1640957',	NULL,	NULL,	1,	473,	'2022-10-18',	'2022-10-19',	1,	5,	12,	3800.00,	'2022-09-24 12:31:15',	'2022-09-24 07:01:15'),
 (187,	'802033',	NULL,	NULL,	1,	473,	'2022-10-15',	'2022-10-16',	1,	5,	12,	3800.00,	'2022-09-24 12:40:36',	'2022-09-24 07:10:36'),
-(188,	'1392602',	NULL,	NULL,	1,	473,	'2022-10-28',	'2022-10-29',	1,	5,	12,	3800.00,	'2022-09-24 12:45:24',	'2022-09-24 07:15:24');
+(188,	'1392602',	NULL,	NULL,	1,	473,	'2022-10-28',	'2022-10-29',	1,	5,	12,	3800.00,	'2022-09-24 12:45:24',	'2022-09-24 07:15:24'),
+(189,	'232967',	NULL,	NULL,	1,	636,	'2022-10-01',	'2022-10-02',	1,	1,	25,	3800.00,	'2022-10-01 18:27:43',	'2022-10-01 12:57:43'),
+(190,	'212340',	NULL,	NULL,	1,	473,	'2022-10-01',	'2022-10-02',	1,	5,	12,	3800.00,	'2022-10-01 18:32:21',	'2022-10-01 13:02:21'),
+(191,	'1142501',	NULL,	NULL,	NULL,	636,	'2022-11-01',	'2022-11-02',	1,	1,	25,	3800.00,	'2022-10-05 12:30:39',	'2022-10-05 07:00:39'),
+(192,	'1001845',	NULL,	NULL,	NULL,	473,	'2022-11-01',	'2022-11-02',	1,	5,	12,	3800.00,	'2022-10-05 12:45:46',	'2022-10-05 07:15:46'),
+(193,	'819088',	NULL,	NULL,	1,	636,	'2022-11-03',	'2022-11-04',	1,	1,	25,	3800.00,	'2022-10-05 12:51:54',	'2022-10-05 07:21:54'),
+(194,	'605966',	NULL,	NULL,	1,	473,	'2022-11-08',	'2022-11-09',	1,	5,	12,	3800.00,	'2022-10-06 12:47:16',	'2022-10-06 07:17:16'),
+(195,	'784669',	NULL,	NULL,	1,	783,	'2022-10-06',	'2022-10-07',	1,	1,	2147483647,	121.00,	'2022-10-06 12:52:19',	'2022-10-06 07:22:19'),
+(196,	'1499238',	NULL,	NULL,	1,	473,	'2022-11-08',	'2022-11-09',	1,	5,	12,	3800.00,	'2022-10-06 14:27:06',	'2022-10-06 08:57:06'),
+(197,	'646483',	NULL,	NULL,	1,	473,	'2022-11-10',	'2022-11-11',	1,	5,	12,	3800.00,	'2022-10-06 15:57:55',	'2022-10-06 10:27:55'),
+(198,	'337766',	NULL,	NULL,	1,	786,	'2022-10-07',	'2022-10-08',	1,	1,	2147483647,	301.00,	'2022-10-06 18:00:12',	'2022-10-06 12:30:12'),
+(199,	'938536',	NULL,	NULL,	1,	473,	'2022-11-16',	'2022-11-17',	1,	5,	12,	3800.00,	'2022-10-07 14:54:37',	'2022-10-07 09:24:37'),
+(200,	'160502',	NULL,	NULL,	1,	793,	'2022-10-09',	'2022-10-14',	5,	1,	2147483647,	701.00,	'2022-10-07 18:28:43',	'2022-10-07 12:58:43'),
+(201,	'865443',	NULL,	NULL,	1,	793,	'2022-10-15',	'2022-10-16',	1,	1,	2147483647,	301.00,	'2022-10-10 10:59:26',	'2022-10-10 05:29:26'),
+(202,	'1544510',	NULL,	NULL,	1,	795,	'2022-10-15',	'2022-10-16',	1,	1,	2147483647,	301.00,	'2022-10-10 11:32:44',	'2022-10-10 06:02:44'),
+(203,	'1631590',	NULL,	NULL,	1,	796,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 14:37:38',	'2022-10-10 09:07:38'),
+(204,	'930936',	NULL,	NULL,	1,	796,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 14:46:33',	'2022-10-10 09:16:33'),
+(205,	'1004986',	NULL,	NULL,	1,	796,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 15:14:27',	'2022-10-10 09:44:27'),
+(206,	'78931',	NULL,	NULL,	1,	796,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 17:40:02',	'2022-10-10 12:10:02'),
+(207,	'34285',	NULL,	NULL,	1,	796,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 17:57:53',	'2022-10-10 12:27:53'),
+(208,	'1231982',	NULL,	NULL,	1,	798,	'2022-10-10',	'2022-10-11',	1,	1,	2147483647,	301.00,	'2022-10-10 17:59:17',	'2022-10-10 12:29:17');
 
 DROP TABLE IF EXISTS `space_categories`;
 CREATE TABLE `space_categories` (
@@ -4708,7 +5087,7 @@ INSERT INTO `space_categories` (`scat_id`, `category_name`, `space_cat_image`, `
 (27,	'Coworking space',	'co-work-spaceCatImg-1659781938.png',	NULL,	1,	'2022-07-20 07:29:32',	'2022-08-06 10:32:18'),
 (28,	'Dorm',	'cabin-spaceCatImg-1659781974.png',	NULL,	1,	'2022-07-20 07:29:40',	'2022-08-06 10:32:54'),
 (29,	'House',	'house-spaceCatImg-1659781984.png',	NULL,	1,	'2022-07-20 07:29:46',	'2022-08-06 10:33:04'),
-(30,	'Villaa',	'villa-spaceCatImg-1659781993.png',	NULL,	1,	'2022-07-20 07:29:55',	'2022-09-26 12:59:20');
+(30,	'Villaa',	'villa-spaceCatImg-1659781993.png',	NULL,	1,	'2022-07-20 07:29:55',	'2022-10-07 09:27:10');
 
 DROP TABLE IF EXISTS `space_custom_details`;
 CREATE TABLE `space_custom_details` (
@@ -4725,8 +5104,8 @@ CREATE TABLE `space_custom_details` (
 INSERT INTO `space_custom_details` (`custom_id`, `custom_label`, `custom_quantity`, `space_id`, `status`, `created_at`, `updated_at`) VALUES
 (273,	'abcd',	1234,	686,	1,	'2022-09-22 12:18:27',	'2022-09-22 07:18:27'),
 (274,	'pqrs',	1478,	686,	1,	'2022-09-22 12:18:27',	'2022-09-22 07:18:27'),
-(471,	'Ayesha Zahid',	2,	473,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52'),
-(473,	'abv',	2,	636,	1,	'2022-10-01 16:00:52',	'2022-10-01 11:00:52');
+(478,	'Ayesha Zahid',	2,	473,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(536,	'abv',	2,	636,	1,	'2022-10-10 14:08:27',	'2022-10-10 09:08:27');
 
 DROP TABLE IF EXISTS `space_extra_option`;
 CREATE TABLE `space_extra_option` (
@@ -4743,7 +5122,8 @@ CREATE TABLE `space_extra_option` (
 
 INSERT INTO `space_extra_option` (`ext_id`, `ext_opt_name`, `ext_opt_price`, `ext_opt_type`, `space_id`, `status`, `created_at`, `updated_at`) VALUES
 (247,	'abd12',	123,	'single_fee',	686,	1,	'2022-09-22 12:18:27',	'2022-09-22 07:18:27'),
-(416,	'Extra bed',	500,	'single_fee',	473,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52');
+(420,	'Extra bed',	500,	'single_fee',	473,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(469,	'pqrs',	4984546,	'single_fee',	636,	1,	'2022-10-10 14:08:27',	'2022-10-10 09:08:27');
 
 DROP TABLE IF EXISTS `space_features`;
 CREATE TABLE `space_features` (
@@ -4758,11 +5138,11 @@ CREATE TABLE `space_features` (
 
 INSERT INTO `space_features` (`id`, `space_id`, `space_feature_id`, `status`, `created_at`, `updated_at`) VALUES
 (625,	686,	5,	1,	'2022-09-22 12:18:27',	'2022-09-22 07:18:27'),
-(814,	473,	26,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52'),
-(815,	473,	27,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52'),
-(816,	473,	28,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52'),
-(817,	473,	29,	1,	'2022-10-01 13:59:52',	'2022-10-01 08:59:52'),
-(819,	636,	1,	1,	'2022-10-01 16:00:52',	'2022-10-01 11:00:52');
+(824,	473,	26,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(825,	473,	27,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(826,	473,	28,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(827,	473,	29,	1,	'2022-10-01 17:55:52',	'2022-10-01 12:55:52'),
+(877,	636,	1,	1,	'2022-10-10 14:08:27',	'2022-10-10 09:08:27');
 
 DROP TABLE IF EXISTS `space_features_list`;
 CREATE TABLE `space_features_list` (
@@ -4844,7 +5224,7 @@ INSERT INTO `space_sub_categories` (`sub_cat_id`, `sub_category_name`, `details`
 (10,	'Condos',	'Condos',	1,	'2022-07-16 09:55:22',	'2022-07-20 10:36:52'),
 (11,	'Private Room with bath',	NULL,	1,	'2022-07-20 10:51:09',	'2022-07-20 11:03:08'),
 (13,	'Lower Portion',	NULL,	1,	'2022-07-20 11:04:23',	'2022-07-26 10:27:36'),
-(14,	'Upper Portion',	NULL,	1,	'2022-07-20 11:04:35',	'2022-07-27 06:06:32');
+(14,	'Upper Portion',	NULL,	1,	'2022-07-20 11:04:35',	'2022-10-10 10:39:56');
 
 DROP TABLE IF EXISTS `static_pages`;
 CREATE TABLE `static_pages` (
@@ -5042,7 +5422,21 @@ INSERT INTO `tour_booking` (`id`, `tour_id`, `user_id`, `total_amount`, `payment
 (150,	192,	1182,	20000.00,	'550617',	'627553213984',	NULL,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-09-22 17:29:21',	'2022-09-22 11:59:21'),
 (151,	236,	833,	18000.00,	'1119131',	'522425088440',	NULL,	'canceled',	'Change of dates or destination',	NULL,	'processing',	'2022-09-23 18:31:46',	'2022-09-29 12:38:42',	NULL,	'18000.00',	'1',	'Paid',	'2022-09-23 18:21:30',	'2022-09-29 07:08:42'),
 (154,	258,	637,	18000.00,	'1002622',	'233582259517',	NULL,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'2022-10-01 12:46:17',	'2022-10-01 07:16:17'),
-(156,	236,	637,	18000.00,	'966198',	'360627809367',	NULL,	'canceled',	'Unable to travel due to Personal reason',	NULL,	'pending',	'2022-10-01 16:25:42',	NULL,	NULL,	'12600',	'1',	'Paid',	'2022-10-01 16:17:56',	'2022-10-01 10:55:42');
+(156,	236,	637,	18000.00,	'966198',	'360627809367',	NULL,	'canceled',	'Unable to travel due to Personal reason',	NULL,	'pending',	'2022-10-01 16:25:42',	NULL,	NULL,	'12600',	'1',	'Paid',	'2022-10-01 16:17:56',	'2022-10-01 10:55:42'),
+(157,	258,	1182,	18000.00,	'1028001',	'393845944071',	NULL,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Failed',	'2022-10-01 17:13:16',	'2022-10-01 11:43:16'),
+(158,	236,	1151,	18000.00,	'1694299',	'426038002661',	NULL,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'2022-10-01 18:06:59',	'2022-10-01 12:36:59'),
+(159,	258,	637,	18000.00,	'485717',	'633325347884',	NULL,	'pending',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'2022-10-05 11:12:20',	'2022-10-05 05:42:20'),
+(160,	287,	837,	100.00,	'794446',	'537816002168',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-06 12:19:49',	'2022-10-06 06:49:49'),
+(161,	236,	837,	18000.00,	'19035',	'606587622560',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'2022-10-06 14:14:27',	'2022-10-06 08:44:27'),
+(162,	289,	837,	100.00,	'1726849',	'749673402504',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-06 18:12:55',	'2022-10-06 12:42:55'),
+(163,	290,	837,	1000.00,	'1279157',	'409840487923',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-07 12:33:18',	'2022-10-07 07:03:18'),
+(164,	258,	1151,	18000.00,	'1582861',	'553893027026',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'1',	'Paid',	'2022-10-07 16:33:30',	'2022-10-07 11:03:30'),
+(165,	293,	837,	100.00,	'401135',	'617275914886',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-07 18:19:00',	'2022-10-07 12:49:00'),
+(166,	292,	1163,	1000.00,	'1409322',	'639608229059',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-07 18:56:14',	'2022-10-07 13:26:14'),
+(167,	292,	1163,	1000.00,	'1349630',	'970948015923',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-10 11:41:45',	'2022-10-10 06:11:45'),
+(168,	290,	837,	1000.00,	'43415',	'976439448380',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-10 11:50:52',	'2022-10-10 06:20:52'),
+(169,	296,	837,	100.00,	'1287689',	'092060679084',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-10 15:03:35',	'2022-10-10 09:33:35'),
+(170,	296,	1163,	100.00,	'556739',	'188368190127',	NULL,	'confirmed',	NULL,	NULL,	'pending',	NULL,	NULL,	NULL,	NULL,	'3',	'Paid',	'2022-10-10 17:44:07',	'2022-10-10 12:14:07');
 
 DROP TABLE IF EXISTS `tour_booking_request`;
 CREATE TABLE `tour_booking_request` (
@@ -5061,9 +5455,10 @@ CREATE TABLE `tour_booking_request` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `tour_booking_request` (`id`, `tour_id`, `user_id`, `request_status`, `approve_status`, `payment_status`, `invoice_num`, `created_at`, `updated_at`) VALUES
-(26,	258,	637,	1,	1,	0,	'INV80933',	'2022-10-01 11:59:47',	'2022-10-01 06:29:58'),
-(27,	258,	1151,	1,	1,	0,	'INV22131',	'2022-10-01 14:03:29',	'2022-10-01 08:34:11'),
-(28,	236,	1151,	1,	1,	0,	'INV22893',	'2022-10-01 14:37:36',	'2022-10-01 09:09:02');
+(36,	290,	1151,	1,	1,	0,	'INV83180',	'2022-10-07 16:17:23',	'2022-10-07 12:23:30'),
+(37,	258,	1151,	1,	1,	1,	'INV53869',	'2022-10-07 16:18:29',	'2022-10-07 11:03:30'),
+(39,	293,	837,	1,	1,	1,	'INV27143',	'2022-10-07 18:09:50',	'2022-10-07 12:49:00'),
+(40,	290,	837,	1,	1,	1,	'INV78769',	'2022-10-10 10:56:12',	'2022-10-10 06:20:52');
 
 DROP TABLE IF EXISTS `tour_booking_temp`;
 CREATE TABLE `tour_booking_temp` (
@@ -5354,7 +5749,27 @@ INSERT INTO `tour_booking_temp` (`id`, `tour_id`, `user_id`, `total_amount`, `pa
 (269,	236,	1,	18000.00,	'926785',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 15:24:14',	'2022-10-01 09:54:14'),
 (270,	236,	1,	18000.00,	'1253999',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 15:24:56',	'2022-10-01 09:54:56'),
 (271,	236,	1,	18000.00,	'1462826',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 15:31:03',	'2022-10-01 10:01:03'),
-(272,	236,	1,	18000.00,	'966198',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 16:13:16',	'2022-10-01 10:43:16');
+(272,	236,	1,	18000.00,	'966198',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 16:13:16',	'2022-10-01 10:43:16'),
+(273,	258,	1,	18000.00,	'1554530',	NULL,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'2022-10-01 17:10:30',	'2022-10-01 11:40:30'),
+(274,	258,	1,	18000.00,	'1028001',	NULL,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'2022-10-01 17:11:18',	'2022-10-01 11:41:18'),
+(275,	236,	1,	18000.00,	'1694299',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-01 18:05:42',	'2022-10-01 12:35:42'),
+(276,	258,	1,	18000.00,	'485717',	NULL,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'2022-10-05 11:10:32',	'2022-10-05 05:40:32'),
+(277,	287,	1,	100.00,	'794446',	NULL,	NULL,	NULL,	'2022-10-06',	'2022-10-10',	'2022-10-06 12:17:46',	'2022-10-06 06:47:46'),
+(278,	236,	1,	18000.00,	'19035',	NULL,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'2022-10-06 14:11:49',	'2022-10-06 08:41:49'),
+(279,	287,	1,	100.00,	'1742130',	NULL,	NULL,	NULL,	'2022-10-06',	'2022-10-10',	'2022-10-06 15:02:08',	'2022-10-06 09:32:08'),
+(280,	287,	1,	100.00,	'757975',	NULL,	NULL,	NULL,	'2022-10-06',	'2022-10-10',	'2022-10-06 15:17:13',	'2022-10-06 09:47:13'),
+(281,	287,	1,	100.00,	'1332523',	NULL,	NULL,	NULL,	'2022-10-06',	'2022-10-10',	'2022-10-06 15:26:44',	'2022-10-06 09:56:44'),
+(282,	289,	1,	100.00,	'735070',	NULL,	NULL,	NULL,	'2022-10-09',	'2022-10-15',	'2022-10-06 17:33:28',	'2022-10-06 12:03:28'),
+(283,	289,	1,	100.00,	'1726849',	NULL,	NULL,	NULL,	'2022-10-09',	'2022-10-15',	'2022-10-06 18:10:35',	'2022-10-06 12:40:35'),
+(284,	290,	1,	1000.00,	'1279157',	NULL,	NULL,	NULL,	'2022-10-07',	'2022-10-10',	'2022-10-07 12:30:11',	'2022-10-07 07:00:11'),
+(285,	258,	1,	18000.00,	'283849',	NULL,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'2022-10-07 16:27:06',	'2022-10-07 10:57:06'),
+(286,	258,	1,	18000.00,	'1582861',	NULL,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'2022-10-07 16:29:02',	'2022-10-07 10:59:02'),
+(287,	293,	1,	100.00,	'401135',	NULL,	NULL,	NULL,	'2022-10-07',	'2022-10-10',	'2022-10-07 18:17:38',	'2022-10-07 12:47:38'),
+(288,	292,	1,	1000.00,	'1409322',	NULL,	NULL,	NULL,	'2022-10-07',	'2022-10-10',	'2022-10-07 18:54:38',	'2022-10-07 13:24:38'),
+(289,	292,	1,	1000.00,	'1349630',	NULL,	NULL,	NULL,	'2022-10-07',	'2022-10-10',	'2022-10-10 11:40:36',	'2022-10-10 06:10:36'),
+(290,	290,	1,	1000.00,	'43415',	NULL,	NULL,	NULL,	'2022-10-07',	'2022-10-10',	'2022-10-10 11:49:56',	'2022-10-10 06:19:56'),
+(291,	296,	1,	100.00,	'1287689',	NULL,	NULL,	NULL,	'2022-10-10',	'2022-10-16',	'2022-10-10 15:01:43',	'2022-10-10 09:31:43'),
+(292,	296,	1,	100.00,	'556739',	NULL,	NULL,	NULL,	'2022-10-10',	'2022-10-16',	'2022-10-10 17:42:51',	'2022-10-10 12:12:51');
 
 DROP TABLE IF EXISTS `tour_gallery`;
 CREATE TABLE `tour_gallery` (
@@ -5404,11 +5819,12 @@ CREATE TABLE `tour_itinerary` (
 INSERT INTO `tour_itinerary` (`id`, `tour_id`, `title`, `place_from`, `place_to`, `hotel`, `transport`, `night_stay`, `trip_detail`, `picture`, `status`, `created_at`, `updated_at`) VALUES
 (546,	157,	'uuuuuu',	NULL,	NULL,	NULL,	NULL,	0,	'[\"vv\"]',	NULL,	1,	'2022-08-18 05:11:06',	'2022-08-18 05:11:06'),
 (701,	190,	'00',	'0',	'0',	'0',	'0',	0,	'[\"a\"]',	NULL,	1,	'2022-08-31 05:56:50',	'2022-08-31 00:56:50'),
-(702,	188,	'Monday',	'Islamabad',	'Mansehra',	'abc hotel',	'bus',	0,	'[\"Enjoy the day at leisure with a comfortable sleep in the hotel.\"]',	NULL,	1,	'2022-08-31 06:01:01',	'2022-08-31 01:01:01'),
 (705,	54,	'Day 1 - Arrival in Male',	'Islamabad',	'Hunza',	'abc hotel',	'bus',	0,	'[\"arrival\"]',	NULL,	1,	'2022-08-31 06:03:56',	'2022-08-31 01:03:56'),
 (713,	192,	'Monday',	'Islamabad',	'Lahore',	'abc hotel',	'bus',	0,	'[\"a\"]',	NULL,	1,	'2022-09-16 06:28:34',	'2022-09-16 01:28:34'),
-(902,	258,	'dwe',	'fdfg',	'dfgdf',	'dfgdf',	'dfgdf',	1,	'[\"sdfsd\"]',	NULL,	1,	'2022-09-30 15:41:49',	'2022-09-30 10:41:49'),
-(910,	236,	'dwe',	'fdfg',	'dfgdf',	'dfgdf',	'dfgdf',	1,	'[\"rtr\"]',	NULL,	1,	'2022-10-01 12:56:30',	'2022-10-01 07:56:30');
+(910,	236,	'dwe',	'fdfg',	'dfgdf',	'dfgdf',	'dfgdf',	1,	'[\"rtr\"]',	NULL,	1,	'2022-10-01 12:56:30',	'2022-10-01 07:56:30'),
+(924,	188,	'Monday',	'Islamabad',	'Mansehra',	'abc hotel',	'bus',	0,	'[\"Enjoy the day at leisure with a comfortable sleep in the hotel.\"]',	NULL,	1,	'2022-10-06 18:25:29',	'2022-10-06 13:25:29'),
+(958,	258,	'monday',	'Karachi',	'islamabad',	'KI',	'bus',	1,	'[\"sdfsd\",\"Dinner\"]',	NULL,	1,	'2022-10-10 14:04:47',	'2022-10-10 09:04:47'),
+(959,	258,	'tuesday',	'islambad',	'lahore',	'IL',	'bus',	1,	'[\"wifi\"]',	NULL,	1,	'2022-10-10 14:04:47',	'2022-10-10 09:04:47');
 
 DROP TABLE IF EXISTS `tour_list`;
 CREATE TABLE `tour_list` (
@@ -5468,12 +5884,12 @@ CREATE TABLE `tour_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `tour_list` (`id`, `vendor_id`, `tour_status`, `tour_title`, `tour_description`, `city`, `address`, `latitude`, `longitude`, `neighb_area`, `country_id`, `tour_code`, `tour_start_day`, `tour_start_date`, `tour_end_date`, `tour_feature_image`, `tour_type`, `tour_sub_type`, `tour_days`, `tour_price`, `tour_price_others`, `tour_discount`, `children_policy`, `tour_min_capacity`, `tour_max_capacity`, `scout_id`, `tour_policy`, `booking_option`, `payment_mode`, `online_payment_percentage`, `at_desk_payment_percentage`, `cancellation_and_refund`, `min_hrs`, `max_hrs`, `min_hrs_percentage`, `max_hrs_percentage`, `tour_locations`, `tour_activities`, `tour_services_includes`, `tour_services_not_includes`, `tour_duration`, `tour_payment_term`, `tour_term_condition`, `tour_document`, `operator_name`, `operator_contact_name`, `operator_contact_num`, `operator_email`, `operator_booking_num`, `created_at`, `status`, `updated_at`) VALUES
-(54,	1044,	'available',	'Attabad Lake',	'5 DAY PLAN\n2 FLIGHTS\n2 FLIGHTS\n2 ACTIVITIES',	'Attabad Lake',	'Attabad Lake, Hunza Nagar',	'36.3190424',	'74.8653331',	'Gojal',	162,	'IJ14756',	NULL,	'2022-08-01',	'2022-08-05',	'pexels-asad-photo-maldives-1320686-tourMainImg-1658817303.jpg',	'adventure',	'standard',	'5',	4555,	450,	1,	'Hello',	4,	5,	557,	'vbcb',	2,	0,	NULL,	NULL,	'fgsdg',	NULL,	NULL,	NULL,	NULL,	'Maldives',	'location',	'drinks',	'brekfast, lunch, dinner',	NULL,	NULL,	'Please expect to receive your vouchers 72 hours before your departure date (subject to full payment of your package cost)\nPlease note that these packages are customizable, which means that you will be able to make changes to the itinerary/activity if you so desire. The final payment will be calculated as per the activities reflecting on the website which will be outlined in the confirmatory e-mail sent to you.\nPersonal expenses such as laundry, telephone calls, room service, alcoholic beverages, mini bar etc., are not included.\nIn case your package needs to be cancelled due to any natural calamity, weather conditions etc.  RoadNStay shall strive to give you the maximum possible refund subject to the agreement made with our trade partners/vendors.\nIf payment is not made as per the schedule provided in the first booking confirmation e-mail, RoadNStay reserves the right to cancel the booking after attempting to get in touch with you. Refunds would be as per the package cancellation policy.\nThe passenger names in the booking form should be exactly as per passports.  RoadNStay  will not bear any liability for the name change fee, if incorrect names and ages have been added at the time of booking.',	NULL,	'Khalid',	'M.Khalid',	123654789,	'khalid@gmail.com',	1234567895,	'2022-07-26 06:35:03',	1,	'2022-07-26 06:35:03'),
-(188,	1044,	'available',	'Shogran Valley',	'Do you wish to take a break from the mundanity and din of city life? Then embark on an amazing journey to the Northeast. Our Darjeeling tour package from Indore allows you to discover the grandeur of the Gangtok and Darjeeling at the fullest. If you are looking ahead to spend your time with your family or a honeymoon package or a trip with friends, this package would be the right option.\r\nHighlights\r\nUnwind in the exhilarating beauty of Gangtok-DarjeelingSunrise view from the Tiger hillsExcursions to Tsomgo lakeHandicraft shopping from Gangtok',	'Mansehra',	'Shogran Valley Tour, Shogran, Pakistan',	'34.6398264',	'73.4607431',	'JFQ6+W7Q, Shogran',	162,	NULL,	NULL,	'2022-09-25',	'2022-09-30',	'pexels-quang-nguyen-vinh-3355732-tourMainImg-1661259056.jpg',	'adventure',	'standard',	'6',	45,	0,	0,	'not yet',	2,	10,	557,	'policy',	2,	1,	NULL,	NULL,	'cancellation policy',	NULL,	NULL,	NULL,	NULL,	'Mansehra, Shogran Valley',	'a',	'Meal Plan\r\nBreakfast\r\nAccommodation\r\nTwin-sharing basis at 4-star hotel\r\nSightseeing at Gangtok and Darjeeling\r\nPickup and drop by private cabs from the nearest airport and railway stations',	'Meal Plans\r\nLunch and Dinner\r\nPersonal expenses\r\nLaundryTelephone charges\r\nGratuity and Tips\r\nMineral water\r\nSoft and Hard drinks\r\nRiver rafting\r\nRock climbing\r\nParagliding\r\nAdditional sightseeing\r\nExtra usage of vehicles\r\nOther than the mentioned in the itinerary\r\nEntrance fees and guide charges',	NULL,	NULL,	NULL,	NULL,	'Syed Faheem',	'Syed Faheem',	123456,	'syed@gmail.com',	23654187,	'2022-08-23 12:50:56',	1,	'2022-08-23 12:50:56'),
-(190,	1044,	'available',	'Naran valley',	'de',	'Mansehra',	'Naran Valley, Naran, Pakistan',	'34.90592850000001',	'73.6468434',	'Naran',	162,	NULL,	NULL,	'1970-01-01',	'2022-08-27',	'pexels-pixabay-261395-tourMainImg-1661260840.jpg',	'adventure',	'standard',	'2',	1000,	0,	0,	'p',	2,	10,	557,	'p',	1,	1,	NULL,	NULL,	'c',	NULL,	NULL,	NULL,	NULL,	'c',	'c',	's',	's',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-23 13:20:40',	1,	'2022-08-23 13:20:40'),
+(54,	1044,	'available',	'Attabad Lake',	'5 DAY PLAN\r\n2 FLIGHTS\r\n2 FLIGHTS\r\n2 ACTIVITIES',	'Attabad Lake',	'Attabad Lake, Hunza Nagar',	'36.3190424',	'74.8653331',	'Gojal',	162,	'IJ14756',	NULL,	'2022-08-01',	'2022-08-05',	'pexels-asad-photo-maldives-1320686-tourMainImg-1658817303.jpg',	'adventure',	'standard',	'5',	4555,	450,	1,	'Hello',	4,	5,	477,	'vbcb',	2,	0,	NULL,	NULL,	'fgsdg',	NULL,	NULL,	NULL,	NULL,	'Maldives',	'location',	'drinks',	'brekfast, lunch, dinner',	NULL,	NULL,	'Please expect to receive your vouchers 72 hours before your departure date (subject to full payment of your package cost)\r\nPlease note that these packages are customizable, which means that you will be able to make changes to the itinerary/activity if you so desire. The final payment will be calculated as per the activities reflecting on the website which will be outlined in the confirmatory e-mail sent to you.\r\nPersonal expenses such as laundry, telephone calls, room service, alcoholic beverages, mini bar etc., are not included.\r\nIn case your package needs to be cancelled due to any natural calamity, weather conditions etc.  RoadNStay shall strive to give you the maximum possible refund subject to the agreement made with our trade partners/vendors.\r\nIf payment is not made as per the schedule provided in the first booking confirmation e-mail, RoadNStay reserves the right to cancel the booking after attempting to get in touch with you. Refunds would be as per the package cancellation policy.\r\nThe passenger names in the booking form should be exactly as per passports.  RoadNStay  will not bear any liability for the name change fee, if incorrect names and ages have been added at the time of booking.',	NULL,	'Khalid',	'M.Khalid',	123654789,	'khalid@gmail.com',	1234567895,	'2022-07-26 06:35:03',	1,	'2022-07-26 06:35:03'),
+(188,	1044,	'available',	'Shogran Valley',	'Do you wish to take a break from the mundanity and din of city life? Then embark on an amazing journey to the Northeast. Our Darjeeling tour package from Indore allows you to discover the grandeur of the Gangtok and Darjeeling at the fullest. If you are looking ahead to spend your time with your family or a honeymoon package or a trip with friends, this package would be the right option.\nHighlights\nUnwind in the exhilarating beauty of Gangtok-DarjeelingSunrise view from the Tiger hillsExcursions to Tsomgo lakeHandicraft shopping from Gangtok',	'Mansehra',	'Shogran Valley Tour, Shogran, Pakistan',	'34.6398264',	'73.4607431',	'JFQ6+W7Q, Shogran',	162,	NULL,	NULL,	'2022-11-25',	'2022-11-30',	'pexels-quang-nguyen-vinh-3355732-tourMainImg-1661259056.jpg',	'adventure',	'standard',	'6',	45,	0,	0,	'not yet',	2,	10,	557,	'policy',	2,	1,	NULL,	NULL,	'cancellation policy',	NULL,	NULL,	NULL,	NULL,	'Mansehra, Shogran Valley',	'a',	'Meal Plan\nBreakfast\nAccommodation\nTwin-sharing basis at 4-star hotel\nSightseeing at Gangtok and Darjeeling\nPickup and drop by private cabs from the nearest airport and railway stations',	'Meal Plans\nLunch and Dinner\nPersonal expenses\nLaundryTelephone charges\nGratuity and Tips\nMineral water\nSoft and Hard drinks\nRiver rafting\nRock climbing\nParagliding\nAdditional sightseeing\nExtra usage of vehicles\nOther than the mentioned in the itinerary\nEntrance fees and guide charges',	NULL,	NULL,	NULL,	NULL,	'Syed Faheem',	'Syed Faheem',	123456,	'syed@gmail.com',	23654187,	'2022-08-23 12:50:56',	1,	'2022-08-23 12:50:56'),
+(190,	1044,	'available',	'Naran valley',	'de',	'Mansehra',	'Naran Valley, Naran, Pakistan',	'34.90592850000001',	'73.6468434',	'Naran',	162,	NULL,	NULL,	'2022-08-01',	'2022-08-27',	'pexels-pixabay-261395-tourMainImg-1661260840.jpg',	'adventure',	'standard',	'2',	1000,	0,	0,	'p',	2,	10,	557,	'p',	1,	1,	NULL,	NULL,	'c',	NULL,	NULL,	NULL,	NULL,	'c',	'c',	's',	's',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-23 13:20:40',	1,	'2022-08-23 13:20:40'),
 (192,	1044,	'available',	'Badshahi Mosque',	'd',	'Lahore',	'Badshahi Mosque, Lahore, Pakistan',	'31.2048633',	'73.93639519999999',	'6W3P+WHR, Phool Nager, Lahore',	162,	NULL,	NULL,	'2022-08-31',	'2022-09-07',	'TMcC0XShYzoIhzNmFLsSLEKyLntR3geiRSQDFWRi-tourMainImg-1661926198.jpeg',	'adventure',	'standard',	'6',	20000,	2000,	100,	'a',	5,	7,	1085,	'a',	1,	2,	NULL,	NULL,	'a',	NULL,	NULL,	NULL,	NULL,	'a',	'a',	'a',	'a',	NULL,	NULL,	NULL,	NULL,	'abc',	'def',	987,	'a@b',	2322,	'2022-08-31 06:09:58',	1,	'2022-08-31 01:09:58'),
-(236,	1077,	'available',	'Mahoba Tour',	'asdfsdf',	'Lahore',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'Mochi Gate',	162,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'3-tourMainImg-1663937140.png',	'adventure',	'standard',	'7',	18000,	343,	10,	'sdfsdf',	5,	100,	1085,	'gfhjfgh',	2,	1,	NULL,	NULL,	'fghfgh',	192,	96,	30,	20,	'hgjfgh',	'fghfgh',	'fghfgh',	'fghfgh',	NULL,	NULL,	NULL,	NULL,	'shaikh op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	'2022-09-23 18:15:40',	1,	'2022-09-23 13:15:40'),
-(258,	934,	'available',	'Fatehi',	'sdfdf',	'Indore',	'Shreevardhan Complex, Rabindranath Tagore Marg, South Tukoganj, Indore, Madhya Pradesh, India',	'22.7178592',	'75.873064',	'South Tukoganj',	162,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'1655114518_destinations_garzon-tourMainImg-1664276135.jpg',	'adventure',	'deluxe',	'7',	18000,	343,	34,	'fghgh',	23,	50,	1083,	'fghfgh',	2,	1,	NULL,	NULL,	'fghfgh',	6,	3,	1,	1,	'fghfgh',	'fghfgh',	NULL,	'fghfgh',	NULL,	NULL,	NULL,	NULL,	'shaikh op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	'2022-09-27 16:25:35',	1,	'2022-09-27 11:25:35');
+(236,	1077,	'available',	'Mahoba Tour',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\r\n',	'Lahore',	'Circular Road, Mochi Gate Walled City of Lahore, Lahore, Pakistan',	'31.5762848',	'74.3213639',	'Mochi Gate',	162,	NULL,	NULL,	'2022-10-04',	'2022-10-09',	'3-tourMainImg-1663937140.png',	'adventure',	'standard',	'7',	18000,	343,	10,	'sdfsdf',	5,	100,	1085,	'gfhjfgh',	2,	1,	NULL,	NULL,	'fghfgh',	192,	96,	30,	20,	'hgjfgh',	'fghfgh',	'fghfgh',	'fghfgh',	NULL,	NULL,	NULL,	NULL,	'shaikh op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	'2022-09-23 18:15:40',	1,	'2022-09-23 13:15:40'),
+(258,	934,	'available',	'Fatehi',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',	'Indore',	'Shreevardhan Complex, Rabindranath Tagore Marg, South Tukoganj, Indore, Madhya Pradesh, India',	'22.7178592',	'75.873064',	'South Tukoganj',	162,	NULL,	NULL,	'2022-10-22',	'2022-10-25',	'1655114518_destinations_garzon-tourMainImg-1664276135.jpg',	'adventure',	'deluxe',	'7',	18000,	343,	34,	'fghgh',	23,	50,	1083,	'fghfgh',	2,	1,	NULL,	NULL,	'fghfgh',	6,	3,	1,	1,	'Islamabad',	'pleasure trip',	NULL,	'wifi',	NULL,	NULL,	NULL,	NULL,	'shaikh op',	'shaikh',	942509544,	'shaikh@gmail.com',	123456789,	'2022-09-27 16:25:35',	1,	'2022-09-27 11:25:35');
 
 DROP TABLE IF EXISTS `tour_pickup_locations`;
 CREATE TABLE `tour_pickup_locations` (
@@ -5552,9 +5968,9 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `num
 (352,	'service_provider',	'Votive tech',	'demo',	'votive.techs@gmail.com',	NULL,	NULL,	'1231231234',	NULL,	NULL,	'$2y$10$DrJ/97AfkWzYzgP66hEK5uqE67w2gmtQcWeYgJE6X1E9yd0Cyv1se',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-05-27 11:08:02',	'2022-05-27 11:08:02',	NULL,	NULL,	NULL),
 (353,	'service_provider',	'new vendor',	'demo',	'vendor2@gmail.com',	NULL,	NULL,	'3131021230',	NULL,	NULL,	'$2y$10$WiyOS7gEw5gCigyA80oscOGurqTCOnLU1F0x3Y.AOLV.9ncmqb3uO',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-05-27 13:26:33',	'2022-05-28 07:48:22',	NULL,	NULL,	NULL),
 (354,	'normal_user',	'Muhammad Khalid',	'demo',	'mkakhi@yahoo.com',	NULL,	NULL,	'0503589372',	NULL,	NULL,	'$2y$10$IBJySupEyRUT4rRrKx5fuOuO/kNkLvgb1PGQU1x/yquog0Nt38gT6',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-05-27 20:36:30',	'2022-05-27 20:36:30',	NULL,	NULL,	NULL),
-(477,	'scout',	'Swayam',	'Scout',	'votivephp.rahulscout@gmail.com',	NULL,	NULL,	'09425095449',	NULL,	NULL,	'$2y$10$qBKV3v2DLktHo4xBehGiE.lLbuz0YRF913QHqNtrcYKTe7hLm8OxC',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'yFv0op',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-09 10:38:27',	'2022-09-30 11:41:18',	NULL,	NULL,	NULL),
+(477,	'scout',	'Swayam',	'Scout',	'votivephp.rahulscout@gmail.com',	NULL,	NULL,	'09425095449',	NULL,	NULL,	'$2y$10$qBKV3v2DLktHo4xBehGiE.lLbuz0YRF913QHqNtrcYKTe7hLm8OxC',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	'madhya pradesh',	'lahore',	NULL,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'yFv0op',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-09 10:38:27',	'2022-10-01 13:02:49',	NULL,	NULL,	NULL),
 (484,	'service_provider',	'spfn',	'demo',	'spfn@gmail.com',	NULL,	NULL,	'9874563214',	NULL,	NULL,	'$2y$10$w2rLUrh9Z/26TKnCBHO3u.gR.JGZrPqp5LNoGvjbg1LmuPRPOlPZq',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'nqRA5N',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-10 05:32:47',	'2022-06-14 13:25:49',	NULL,	NULL,	NULL),
-(557,	'scout',	'asc',	'sdsd',	'asc@gmail.com',	NULL,	NULL,	'3692581474',	NULL,	NULL,	'$2y$10$NMkamgWsYjkbTzx6vSBmmu8Egw7Hb64sNfzSW58PCFmoHETmIrBTS',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'quZetW',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-15 12:01:42',	'2022-08-16 16:22:31',	NULL,	NULL,	NULL),
+(557,	'scout',	'asc',	'sdsd',	'asc@gmail.com',	NULL,	NULL,	'3692581474',	NULL,	NULL,	'$2y$10$NMkamgWsYjkbTzx6vSBmmu8Egw7Hb64sNfzSW58PCFmoHETmIrBTS',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	'madhya pradesh',	'lahore',	NULL,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'quZetW',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-15 12:01:42',	'2022-10-01 13:02:13',	NULL,	NULL,	NULL),
 (615,	'normal_user',	'ankit',	'demo',	'votiveankit@yopmail.com',	NULL,	NULL,	'9425095332',	NULL,	NULL,	'$2y$10$Jw8FvWrqKdASeJrsyxPIJOMFjbxo/bzSkcQNSt/RuLZx9NVas3fvu',	NULL,	NULL,	NULL,	2,	0,	0,	'http://votivelaravel.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	'0',	'0',	'0',	'S73y8D',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 05:24:43',	'2022-06-23 05:24:43',	NULL,	NULL,	NULL),
 (627,	'normal_user',	'ankit',	'test',	'votiveankit1@yopmail.com',	NULL,	NULL,	'9425095331',	NULL,	NULL,	'$2y$10$X6VzSjzM72R/YQkxUH2Qj.KkCanNV.ASJ/hrf68PhGxsTOp6hDke2',	NULL,	NULL,	NULL,	2,	1,	0,	'http://votivelaravel.in/roadNstays/resources/assets/images/blank_user.jpg',	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	'adad',	'adad',	'ada',	'Z4c6zV',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 07:03:00',	'2022-06-23 07:03:00',	NULL,	NULL,	NULL),
 (637,	'normal_user',	'ankit',	'test',	'votivemobile.ankit@gmail.com',	NULL,	NULL,	'94250235651',	NULL,	NULL,	'$2y$10$TlCDG4qN5ANHEfPNZhLUEOKBJuLyHJ3xu3po7pqakjtNcUkYSlvY6',	NULL,	NULL,	NULL,	2,	1,	0,	'http://votivelaravel.in/roadNstays/public/uploads/profile_image/1656149554.jpg',	NULL,	'99',	'madhya pradesh',	'indore',	NULL,	NULL,	NULL,	0,	'Rajendra Nagar',	NULL,	NULL,	'web',	NULL,	'ss',	'ss',	'Ios',	'fGUO0w',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-06-23 09:39:39',	'2022-09-30 07:15:52',	NULL,	NULL,	'5401'),
@@ -5572,7 +5988,7 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `num
 (819,	'normal_user',	'Pushpendra',	'Jha',	'pushpendrajha88@gmail.com',	NULL,	NULL,	'9179004123',	NULL,	NULL,	'$2y$10$7Y7QGobXjBeOVOWCNYKrkOFfPPUPDCTcsL5hBCXN2Zg0d09Ig3rVe',	NULL,	NULL,	NULL,	2,	0,	0,	'mumbai-1661233406.jpg',	NULL,	'99',	'Madhya Pradesh',	'Indore',	452001,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Passport',	'9856412301',	'2022_07_28T06_16_35_798Z-1664614022.jpeg',	'4two-gaeste-2-1664614022.jpg',	'2022-07-11 06:06:08',	'2022-10-01 09:20:07',	NULL,	NULL,	NULL),
 (833,	'service_provider',	'rahul',	'solanki',	'votivephp.rahul@gmail.com',	NULL,	NULL,	'9425095440',	NULL,	NULL,	'$2y$10$Zp4hv7NWfA9NTU2I43ZE5uLMTlyuQkn89.pzT4tRgoZH.qCNJSCsy',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'99',	'Madhya Pradesh',	'Indore',	452009,	NULL,	NULL,	0,	'Rnt Marg',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 10:05:14',	'2022-08-18 05:17:19',	NULL,	NULL,	NULL),
 (834,	'service_provider',	'Pushpendra',	'Jha',	'votivephppushpendra@gmail.com',	NULL,	NULL,	'9179004123',	NULL,	NULL,	'$2y$10$ckRPMs1uuAB77Os.KV9Whe.pPVUVCe7iuRxTJBZ9IJpWbwbNc84US',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-12 10:09:51',	'2022-07-14 13:20:39',	NULL,	NULL,	NULL),
-(837,	'normal_user',	'srb',	'sahu',	'votivetester.saurabh@gmail.com',	NULL,	NULL,	'9874562585',	NULL,	NULL,	'$2y$10$UK/jxFHhS3yUCYLoVYR33eiOsJT5nBP1bNoWqL.f/vhGdwUO9ZCB.',	NULL,	NULL,	NULL,	2,	1,	0,	'pexels-hiteshkumar-koradiya-7793290-1664602763.jpg',	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	0,	'rnt road',	NULL,	NULL,	NULL,	NULL,	'ss',	'ss',	'Android',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-13 05:03:05',	'2022-10-01 06:54:52',	NULL,	NULL,	'6176'),
+(837,	'normal_user',	'srb',	'sahu',	'votivetester.saurabh@gmail.com',	NULL,	NULL,	'9874562585',	NULL,	NULL,	'$2y$10$mjK8qXAF1PhH7fOhUMn/CeyAE1djCkD8xAWAe0D8TSfFj/R0y63JC',	NULL,	NULL,	NULL,	2,	1,	0,	'pexels-elina-sazonova-1838554-1665384537.jpg',	NULL,	'99',	'madhya pradesh',	'indore',	452001,	NULL,	NULL,	0,	'rnt road',	NULL,	NULL,	NULL,	NULL,	'ss',	'ss',	'Android',	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-13 05:03:05',	'2022-10-10 10:39:15',	NULL,	NULL,	'6176'),
 (934,	'service_provider',	'Ayesha',	'Zahid',	'ayeshazahid913@gmail.com',	NULL,	NULL,	'0123456789',	NULL,	NULL,	'$2y$10$GPIqIveEMXHl9.n.Maa.wekVj5284xVvGBiA7LYCsgeJHvhSaAo0q',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'lahore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'TYRTli',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-07-26 10:58:01',	'2022-08-05 10:53:04',	NULL,	NULL,	NULL),
 (1044,	'service_provider',	'Muhammad',	'Khalid',	'mkakhi@icloud.com',	NULL,	NULL,	'00966503589372',	NULL,	NULL,	'$2y$10$KZNN5X16GFraiNK00gNuSOwKTElOakxBGljc5MEd6xkOs2/J9H2dC',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'187',	NULL,	'Riyadh',	NULL,	NULL,	NULL,	0,	'Riyadh',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'QmUgjZ',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-16 20:48:54',	'2022-08-16 20:48:54',	NULL,	NULL,	NULL),
 (1053,	'service_provider',	'abc',	'def',	'abc@gmail.com',	NULL,	NULL,	'1234568990',	NULL,	NULL,	'$2y$10$R6iv2evIkGlONaOngZrYZeuSykzE5caKIshwzrhpgTJrYBHzFhKFm',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-18 11:23:01',	'2022-08-18 11:23:01',	NULL,	NULL,	NULL),
@@ -5583,8 +5999,8 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `num
 (1080,	'service_provider',	'john',	'abc',	'john@gmail.com',	NULL,	NULL,	'1234567890',	NULL,	'0215478963',	'$2y$10$6xjzzwtt3zPICOyJn0LIZub6qS9iihdppjYMEZanqVgiJ7VHTT8Bi',	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,',	'Urdu',	NULL,	4,	1,	0,	NULL,	NULL,	'162',	NULL,	'Lahore',	NULL,	NULL,	NULL,	0,	'Lahore Pakistan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'YG22Tq',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-24 14:09:28',	'2022-08-24 14:09:28',	NULL,	NULL,	NULL),
 (1081,	'service_provider',	'Ghansyam',	'Govind',	'ghansyam@gmail.com',	'91',	'in',	'09425095449',	NULL,	'0261-226644',	'$2y$10$FuAKlE1FNqyXvo6afCJaGeuBT4dhTjZ.8BNPUyyWkJDDl5NRSJWdW',	'sdfsd',	'sdfsd',	'fsdf',	4,	1,	0,	NULL,	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'bsbsb',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'z9IFTL',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-25 06:31:33',	'2022-08-25 12:19:41',	NULL,	NULL,	NULL),
 (1082,	'service_provider',	'Rahim',	'Jadoon',	'Jadoon7123@gmail.com',	NULL,	NULL,	'3149369335',	NULL,	NULL,	'$2y$10$L.z5rylLJgegThaZ4o7gy.u8HCLz2Q3tOUMC4.Yf/8361vRmQUyk6',	NULL,	NULL,	NULL,	4,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'lahore',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-29 08:22:03',	'2022-09-06 00:40:35',	NULL,	NULL,	NULL),
-(1083,	'scout',	'Pushpendra',	'Jha',	'Pushpendra@gmail.com',	NULL,	NULL,	'06616630938',	NULL,	NULL,	'$2y$10$07Efpice9twdee4pWrCvs.n3jghqSD.RHYDuBExobCaHkwxOIk.lK',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'Shree vardhan Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'MLxmsM',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-30 10:09:09',	'2022-08-30 05:10:47',	NULL,	NULL,	NULL),
-(1084,	'scout',	'Sanjay',	'Bairagi',	'sanjay@gmail.com',	NULL,	NULL,	'545487878787',	NULL,	NULL,	'$2y$10$7KI63lu8Uw8gYj.3YzSlH.A9.ECwoP.Xy0rivg4Clt.pE5gVBRIV2',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'99',	NULL,	'indore',	NULL,	NULL,	NULL,	0,	'shree varshan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'XBKGux',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-30 10:14:44',	'2022-08-30 05:14:44',	NULL,	NULL,	NULL),
+(1083,	'scout',	'Pushpendra',	'Jha',	'Pushpendra@gmail.com',	NULL,	NULL,	'06616630938',	NULL,	NULL,	'$2y$10$07Efpice9twdee4pWrCvs.n3jghqSD.RHYDuBExobCaHkwxOIk.lK',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'MLxmsM',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-30 10:09:09',	'2022-10-01 13:01:03',	NULL,	NULL,	NULL),
+(1084,	'scout',	'Sanjay',	'Bairagi',	'sanjay@gmail.com',	NULL,	NULL,	'545487878787',	NULL,	NULL,	'$2y$10$7KI63lu8Uw8gYj.3YzSlH.A9.ECwoP.Xy0rivg4Clt.pE5gVBRIV2',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'XBKGux',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-30 10:14:44',	'2022-10-01 13:00:23',	NULL,	NULL,	NULL),
 (1085,	'scout',	'Roman',	'Tajik',	'99tajid@gmail.com',	NULL,	NULL,	'3403003000',	NULL,	NULL,	'$2y$10$1csaWknLvsygkL6Yj6sW0.573yUX2ESG9AWoNZuX0F6maAf.VnrPi',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'Sawat',	NULL,	NULL,	NULL,	0,	'Sawat, Pakistan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'RnB5SP',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-30 10:15:05',	'2022-08-30 05:15:05',	NULL,	NULL,	NULL),
 (1088,	'service_provider',	'Test',	'Test',	'Test@gmail.com',	NULL,	NULL,	'6616630938',	NULL,	NULL,	'$2y$10$DXA3vjsRAHn3dbTezQkuMO0gq1HYWubO8DCc36P.ED2vUcQ28DptK',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'162',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-31 09:46:01',	'2022-08-31 04:46:01',	NULL,	NULL,	NULL),
 (1089,	'service_provider',	'Test1',	'Test',	'test12@gmail.com',	NULL,	NULL,	'7894562301',	NULL,	NULL,	'$2y$10$reQA3nwk0437Q6OvZxI5WOE2KQHBD4rVwvPcG6szlS/gXfDM1yuMO',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'162',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-08-31 09:48:16',	'2022-08-31 04:48:16',	NULL,	NULL,	NULL),
@@ -5592,21 +6008,21 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `num
 (1114,	'scout',	'Zeeshan',	'Munawar',	'zeeshan.munawar@venrooms.com',	NULL,	NULL,	'923214520529',	NULL,	NULL,	'$2y$10$V55JV.cCwvZAOu1lrLS0ouryPzIUZMhoZ83QNlvNN1ShZxZ42jQga',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'Lahore',	NULL,	NULL,	NULL,	0,	'Lahore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'J63YBG',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-03 17:15:54',	'2022-09-03 12:15:54',	NULL,	NULL,	NULL),
 (1115,	'scout',	'Ayaz Ali Miyan',	'Ayaz Ali Miyan',	'hayazali29@gmail.com',	NULL,	NULL,	'3429628129',	NULL,	NULL,	'$2y$10$u/cVmgHCu6LE/04s9PMXWuFSZA8aE.UjDKJ73XpeCcHi5R6FnvhAO',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'Sawat',	NULL,	NULL,	NULL,	0,	'Sawat, Pakistan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'SaAOrb',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-04 10:13:16',	'2022-09-04 05:13:16',	NULL,	NULL,	NULL),
 (1116,	'scout',	'Muhammad Saud',	'Muhammad Saud',	'saudkk95@gmail.com',	NULL,	NULL,	'3323994514',	NULL,	'78784545454',	'$2y$10$RVTZpZIyBvSK7gt5slt6ke6l.c7H5eOiilM8E6G4.LX/LlHZAWaqm',	NULL,	NULL,	NULL,	3,	1,	0,	'unnamed (1)-profile_picture-1662458102.jpg',	NULL,	'162',	NULL,	'Karachi',	NULL,	NULL,	NULL,	0,	'Karachi,Pakistan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'KgEfiD',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-04 13:45:01',	'2022-09-06 04:55:02',	NULL,	NULL,	NULL),
-(1117,	'normal_user',	'Ayesha',	'Zahid',	'ayesharoadandstay@gmail.com',	NULL,	NULL,	'0123456789',	NULL,	NULL,	'$2y$10$sMfFSnGDUk3EgM2DlgiJKewppJoSoSv35dCsNzbY0VXmJYReXB78S',	NULL,	NULL,	NULL,	2,	1,	0,	NULL,	NULL,	'162',	NULL,	'Lahore',	NULL,	NULL,	NULL,	0,	'Lahore Pakistan',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'QXUf3I',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-05 12:31:26',	'2022-09-05 07:31:26',	NULL,	NULL,	NULL),
+(1117,	'normal_user',	'Ayesha',	'Zahid',	'ayesharoadandstay@gmail.com',	NULL,	NULL,	'0123456789',	NULL,	NULL,	'$2y$10$sMfFSnGDUk3EgM2DlgiJKewppJoSoSv35dCsNzbY0VXmJYReXB78S',	NULL,	NULL,	NULL,	2,	1,	0,	NULL,	NULL,	'162',	NULL,	'Lahore',	NULL,	NULL,	NULL,	0,	'Lahore Pakistan',	NULL,	NULL,	'web',	NULL,	'ss',	'ss',	'Android',	'QXUf3I',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-05 12:31:26',	'2022-09-05 07:31:26',	NULL,	NULL,	NULL),
 (1118,	'normal_user',	'pk',	'k',	'parveen.votive@gmail.com',	NULL,	NULL,	'123456789',	NULL,	NULL,	'$2y$10$69pBlGXRCS4UaNNMYVxzve/gOzabl9l.jXJ3NPgokc8IvxxOCit9i',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'XUAmkw',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-05 13:08:18',	'2022-09-05 08:08:18',	NULL,	NULL,	NULL),
-(1119,	'scout',	'Test',	'Test',	'test78@gmail.com',	NULL,	NULL,	'787878787878',	NULL,	'4545454545',	'$2y$10$3n.Jgil9AX355uipTJ46wej59/WDyyniaCz.xzPIir8L8fLc3Ph2q',	NULL,	NULL,	NULL,	3,	1,	0,	'2022_07_28T06_16_35_798Z-profile_picture-1662460932.jpeg',	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'zZd8M0',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-06 10:42:12',	'2022-09-06 05:42:12',	NULL,	NULL,	NULL),
-(1120,	'scout',	'Test',	'Test',	'test78fdg@gmail.com',	NULL,	NULL,	'787878787878',	NULL,	'4545454545',	'$2y$10$z9790S5QdfiYRQ8WOwV3XeIcxFHTrkD6F7BJRwV1tRQsAt7BdHdjO',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'xKw11T',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-06 10:43:21',	'2022-09-29 08:55:34',	NULL,	NULL,	NULL),
+(1119,	'scout',	'Test',	'Test',	'test78@gmail.com',	NULL,	NULL,	'787878787878',	NULL,	'4545454545',	'$2y$10$3n.Jgil9AX355uipTJ46wej59/WDyyniaCz.xzPIir8L8fLc3Ph2q',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'zZd8M0',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-06 10:42:12',	'2022-10-01 12:58:05',	NULL,	NULL,	NULL),
+(1120,	'scout',	'Test',	'Test',	'test78fdg@gmail.com',	NULL,	NULL,	'787878787878',	NULL,	'4545454545',	'$2y$10$z9790S5QdfiYRQ8WOwV3XeIcxFHTrkD6F7BJRwV1tRQsAt7BdHdjO',	NULL,	NULL,	NULL,	3,	1,	0,	NULL,	NULL,	'162',	NULL,	'lahore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	'xKw11T',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-06 10:43:21',	'2022-10-01 12:57:32',	NULL,	NULL,	NULL),
 (1121,	'service_provider',	'Husnain',	'Ghazanfar',	'hasnainghazanfar30@gmail.com',	NULL,	NULL,	'3002154157',	NULL,	NULL,	'$2y$10$cFJWcMrqBe9fcJFB5S6GK.fjMiTZWBHUp4Sr0yRPVP9pfZs3k1UQm',	NULL,	NULL,	NULL,	4,	0,	0,	NULL,	NULL,	'162',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-06 11:44:34',	'2022-09-06 06:44:34',	NULL,	NULL,	NULL),
 (1143,	'normal_user',	'ih',	'jk',	'ih@gmail.com',	NULL,	NULL,	'965412354',	NULL,	NULL,	'$2y$10$5UBqz8RUVUtq/nGcNM78/eGc8sLc9oHjKALVljO2x4dyqc1a81ota',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Android',	'MLfwSJ',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-14 11:00:47',	'2022-09-14 06:00:47',	NULL,	NULL,	NULL),
 (1144,	'normal_user',	'ih',	'jk',	'hi@gmail.com',	NULL,	NULL,	'8745361245',	NULL,	NULL,	'$2y$10$ThQ1Y/aK9Qb.yjCRybnoN.fyjCvWfQXakaQWLUoOSo7uEYMGONbzm',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Android',	'dTXzx0',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-14 11:02:22',	'2022-09-14 06:02:22',	NULL,	NULL,	NULL),
-(1151,	'normal_user',	'rahul',	'solanki',	'votivephp.rahulraj@gmail.com',	NULL,	NULL,	'942509544',	NULL,	NULL,	'$2y$10$rO4aFwaqN5asdKaiHEA0KeAZbEOTuiuYAPGmiz0mMbUwIMCWa9OAG',	NULL,	NULL,	NULL,	2,	1,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'paypal',	NULL,	'ss',	'ss',	'Ios',	NULL,	1,	NULL,	'Passport',	'32132132123',	'15-1664014557.png',	'15-1664014557.png',	'2022-09-14 13:12:05',	'2022-09-24 10:47:06',	NULL,	NULL,	NULL),
+(1151,	'normal_user',	'rahul',	'raj',	'votivephp.rahulraj@gmail.com',	NULL,	NULL,	'4563217343',	NULL,	NULL,	'$2y$10$oIBjaxPhHdUSpbCf9UOgO.M2du4TBF1dIEiGxqCbdQucAnXY8W.oC',	NULL,	NULL,	NULL,	2,	1,	0,	'1655113098_avatar5-1665034883.png',	NULL,	'99',	'Madhya Pradesh',	'Indore',	452002,	NULL,	NULL,	0,	'shree vardhan complex',	NULL,	NULL,	'paypal',	NULL,	'ss',	'ss',	'Android',	NULL,	1,	NULL,	'Passport',	'32132132123',	'front-1664953238.jpg',	'back-1664953238.jpg',	'2022-09-14 13:12:05',	'2022-10-10 05:23:12',	NULL,	NULL,	NULL),
 (1153,	'normal_user',	'rahul',	'solanki',	'pk.votive@gmail.com',	NULL,	NULL,	'5786764564',	NULL,	NULL,	'$2y$10$X9pePLLbycDs472sk1EKMOqGxJ0cHYtkxsrxJJGmfZfvgmKuhD2Bq',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'123',	'1234',	'ios',	'7OXErL',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-15 04:59:32',	'2022-09-14 23:59:32',	NULL,	NULL,	NULL),
 (1158,	'normal_user',	'ssfdsssf',	'ddfdsfs',	'fdsfss@gmail.com',	NULL,	NULL,	'45632178',	NULL,	NULL,	'$2y$10$YZsztLojy04YGBBN/yh8SObV1tpA/m5qj.CiuQHJSYhu82U4HLFp6',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'vP7jzR',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-15 10:50:45',	'2022-09-15 05:50:45',	NULL,	NULL,	NULL),
-(1163,	'service_provider',	'saurabh',	'sahu',	'ssnothinginlife@gmail.com',	NULL,	NULL,	'7412583698',	NULL,	NULL,	'$2y$10$4gzUamowtTsPwh0M58wJQuKLlQgt/wJMjb0PcbCNNS62JiR2M308O',	NULL,	NULL,	NULL,	4,	1,	0,	'pexels-dodo-phanthamaly-1028379-1664605753.jpg',	NULL,	'162',	'panjab',	'Lahore',	6554,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-19 05:52:33',	'2022-10-01 07:00:01',	NULL,	NULL,	NULL),
-(1182,	'normal_user',	'Pushpendra',	'techs',	'pushpendrajha@gmail.com',	NULL,	NULL,	'09179004123',	NULL,	NULL,	'$2y$10$POmhLdbKYmLPRZm6NCBrI.9azgMto2fl7CG1UZhOH/.cQhejSR7su',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Passport',	'654645987987',	'4Twoo landing page-1663847862.psd',	'alfafa-1663847868.txt',	'2022-09-21 15:12:33',	'2022-09-22 12:29:21',	NULL,	NULL,	NULL),
+(1163,	'service_provider',	'saurabh',	'sahu',	'ssnothinginlife@gmail.com',	NULL,	NULL,	'7412583698',	NULL,	NULL,	'$2y$10$7IWIj7nfwPpp.pva0OjRNuFfrYB20To.RACR79ffyStlfSrLvnJqa',	NULL,	NULL,	NULL,	4,	1,	0,	'pexels-ylanite-koppens-796606-1665407060.jpg',	NULL,	'162',	'panjab',	'Lahore',	6554,	NULL,	NULL,	0,	'circular road',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-19 05:52:33',	'2022-10-10 13:56:57',	NULL,	NULL,	NULL),
+(1182,	'normal_user',	'Pushpendra',	'techs',	'pushpendrajha@gmail.com',	NULL,	NULL,	'09179004123',	NULL,	NULL,	'$2y$10$zjryk5Ju1fB7mCRnu7N.KOyz1k.tbV9r/ZhvPZyVajX/WDqTK2AKu',	NULL,	NULL,	NULL,	2,	1,	1,	NULL,	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Passport',	'654645987987',	'4Twoo landing page-1663847862.psd',	'alfafa-1663847868.txt',	'2022-09-21 15:12:33',	'2022-10-01 12:06:59',	NULL,	NULL,	NULL),
 (1200,	'normal_user',	'rohan',	'kumar',	'rohan@gmail.com',	NULL,	NULL,	'3698521478',	NULL,	NULL,	'$2y$10$CJ.pMb1bReEVyu3v9xq4Jer7m6TvdFMaX4w9EnA1a6cFPI1H7yZti',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'rrXaCS',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-26 15:24:24',	'2022-09-26 10:24:24',	NULL,	NULL,	NULL),
 (1201,	'normal_user',	'rohan',	'kumar',	'rohan2512@gmail.com',	NULL,	NULL,	'8795462131',	NULL,	NULL,	'$2y$10$S4S4BLewjI1ANFf.7qW4VOcCtk90J.2V1uK6a12fyFTKgevW36y1W',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'8HjiBt',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-26 15:25:02',	'2022-09-26 10:25:02',	NULL,	NULL,	NULL),
-(1206,	'normal_user',	'pushpendra',	'test',	'votivepushpendraphp@gmail.com',	NULL,	NULL,	'953423234',	NULL,	NULL,	'$2y$10$MBtzLz9KWMmOYPAxZZybseCiVyd7Gi.FmWKKZhELJ/kEAWie7ywKW',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Passport',	'1213141411',	'WhatsApp Image 2022-08-26 at 4.20.51 PM-1664342085.jpeg',	'WhatsApp Image 2022-08-26 at 4.20.51 PM-1664342085.jpeg',	'2022-09-28 10:47:01',	'2022-09-28 05:47:01',	NULL,	NULL,	NULL),
+(1206,	'normal_user',	'pushpendra',	'techs',	'pushpendrajha78@gmail.com',	NULL,	NULL,	'09179004123',	NULL,	NULL,	'$2y$10$/i2SjhEwu9cHvB0kUGDRFuQovduG2cLDpIbo/JXQSMqf9lpCSASqy',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	NULL,	'Indore',	NULL,	NULL,	NULL,	0,	'Indore',	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Passport',	'1213141411',	'WhatsApp Image 2022-08-26 at 4.20.51 PM-1664342085.jpeg',	'WhatsApp Image 2022-08-26 at 4.20.51 PM-1664342085.jpeg',	'2022-09-28 10:47:01',	'2022-10-01 12:06:42',	NULL,	NULL,	NULL),
 (1211,	'normal_user',	'rahul',	'solanki',	'kp.votive@gmail.com',	NULL,	NULL,	'5786764560',	NULL,	NULL,	'$2y$10$u.ceDTiGE7geMgjOT2.UWOcBbsNCCkgrwcbRoI09ZbPhIiUzCrJJy',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'123',	'1234',	'ios',	'jcuEA7',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 13:44:55',	'2022-09-28 08:44:55',	NULL,	NULL,	NULL),
 (1212,	'normal_user',	'bk',	'solanki',	'bk.votive@gmail.com',	NULL,	NULL,	'5786764562',	NULL,	NULL,	'$2y$10$m8WNFYCmR0dYfCyoefDTh.bQIee12n2gvWRrE/aaHpZy6YhHAAk/W',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'123',	'1234',	'ios',	'oyhKsH',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 13:46:32',	'2022-09-28 08:46:32',	NULL,	NULL,	NULL),
 (1214,	'normal_user',	'lp',	'kl',	'lppp@gmail.com',	NULL,	NULL,	'12345656',	NULL,	NULL,	'$2y$10$Lc1WRXJ.J1Sm3dZY7tNJLOjjNY2VP8UmC15nCvirabfrE.a7H6rQq',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'b5yqBf',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 13:56:03',	'2022-09-28 08:56:03',	NULL,	NULL,	NULL),
@@ -5615,7 +6031,10 @@ INSERT INTO `users` (`id`, `user_type`, `first_name`, `last_name`, `email`, `num
 (1217,	'normal_user',	'heena',	'khan',	'heena@gmail.com',	NULL,	NULL,	'123456012',	NULL,	NULL,	'$2y$10$.Db.NJLdJlG5RIvRxiUm0u6PrQ0e36KnMNZdNvB2fn8lom0EsqXe2',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'xlbUH5',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 14:07:57',	'2022-09-28 09:07:57',	NULL,	NULL,	NULL),
 (1220,	'normal_user',	'pinky',	'rathore',	'pinky@gmail.com',	NULL,	NULL,	'123654789',	NULL,	NULL,	'$2y$10$JahOh6Ds4RTSXYnYk7G3qOge0LVkaLPRn9u2mNowiGkcBog99x1za',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Ios',	'RBrMCF',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 14:32:07',	'2022-09-28 09:32:07',	NULL,	NULL,	NULL),
 (1221,	'normal_user',	'ppp',	'kumar',	'pk@yopmail.com',	NULL,	NULL,	'12365478',	NULL,	NULL,	'$2y$10$uXLypxuxu.9PRSI5n7gHPe.qdLtDf1C985Q8aBTvjU6gg.B9URcPC',	NULL,	NULL,	NULL,	2,	1,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'ss',	'ss',	'Ios',	'Vzbfjj',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-09-28 14:52:30',	'2022-09-28 13:58:57',	NULL,	NULL,	NULL),
-(1234,	'normal_user',	'shweta',	'sharma',	'ss@gmail.com',	NULL,	NULL,	'654787932',	NULL,	NULL,	'$2y$10$8JPC5Zt0wj/SQBL5SXEk9eWPBoijIV/CBAIWrrSoPcJWq9k/nuzLO',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Voter Id',	'6547',	'Simulator Screen Shot - iPhone 12 Pro - 2022-09-15 at 14.12.08-1664607912.png',	'Simulator Screen Shot - iPhone 12 Pro - 2022-10-01 at 11.34.00-1664607912.png',	'2022-10-01 12:37:30',	'2022-10-01 07:37:30',	NULL,	NULL,	NULL);
+(1234,	'normal_user',	'shweta',	'sharma',	'ss@gmail.com',	NULL,	NULL,	'654787932',	NULL,	NULL,	'$2y$10$8JPC5Zt0wj/SQBL5SXEk9eWPBoijIV/CBAIWrrSoPcJWq9k/nuzLO',	NULL,	NULL,	NULL,	2,	0,	0,	NULL,	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'Voter Id',	'6547',	'Simulator Screen Shot - iPhone 12 Pro - 2022-09-15 at 14.12.08-1664607912.png',	'Simulator Screen Shot - iPhone 12 Pro - 2022-10-01 at 11.34.00-1664607912.png',	'2022-10-01 12:37:30',	'2022-10-01 07:37:30',	NULL,	NULL,	NULL),
+(1235,	'normal_user',	'jaya',	'pd',	'java@yopmail.com',	NULL,	NULL,	'36985214',	NULL,	NULL,	'$2y$10$CCF8cn9VdhF.cBM6PtTDLeypQ.4B6O41V2tabMCe9HDB6yJ/TvzuS',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Android',	'HrtNsI',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-10-06 10:41:08',	'2022-10-06 05:41:08',	NULL,	NULL,	NULL),
+(1236,	'normal_user',	'jayad',	'pg',	'javadd@gmail.com',	NULL,	NULL,	'36985200',	NULL,	NULL,	'$2y$10$FSx2yVcgD43YJCI0InMCAuBM6qngKdUkp58/pWhh/biQl4zl4K2du',	NULL,	NULL,	NULL,	2,	0,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'fdhaskldf',	'ss',	'Android',	'wzjMDG',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-10-06 10:44:28',	'2022-10-06 05:44:28',	NULL,	NULL,	NULL),
+(1237,	'normal_user',	'kk',	'gg',	'kd@yopmail.com',	NULL,	NULL,	'5841236',	NULL,	NULL,	'$2y$10$qvnCaOT58nmAHDZUMxCRZepFQPMLZGnQzBwzpyAKDOgpfi0MQMSEO',	NULL,	NULL,	NULL,	2,	1,	0,	'https://www.roadnstays.com/resources/assets/images/blank_user.jpg',	NULL,	'99',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL,	NULL,	'web',	NULL,	'ss',	'ss',	'Android',	'GYB4wl',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	'2022-10-06 10:46:44',	'2022-10-10 07:40:39',	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `vendor_profile`;
 CREATE TABLE `vendor_profile` (
@@ -5704,7 +6123,12 @@ INSERT INTO `vendor_profile` (`vendor_id`, `user_id`, `tour_op_name`, `tour_op_c
 (1117,	1203,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
 (1118,	1205,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
 (1119,	1229,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
-(1120,	1231,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	'',	NULL);
+(1120,	1231,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	'',	NULL),
+(1121,	1239,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(1122,	1243,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(1123,	1245,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	'',	NULL),
+(1124,	1247,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(1125,	1248,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `why_choose_us_heading`;
 CREATE TABLE `why_choose_us_heading` (
@@ -5719,4 +6143,4 @@ CREATE TABLE `why_choose_us_heading` (
 INSERT INTO `why_choose_us_heading` (`id`, `heading`, `subheading`, `created_at`, `updated_at`) VALUES
 (1,	'<span>Why Choose</span> Us?',	'When you choose us, you\'ll feel the benefit of 10 years\' experience of Tourism. Because we know the digital world and we know that how to handle it. With working knowledge.',	'2022-09-13',	'2022-09-13 05:34:24');
 
--- 2022-10-01 11:01:49
+-- 2022-10-10 13:36:59

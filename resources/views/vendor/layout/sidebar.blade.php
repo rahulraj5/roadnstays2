@@ -44,10 +44,12 @@
 
               <li> <a href="#" data-toggle="collapse" data-target="#booking" class="collapsed"> <i class='bx bx-calendar-check'></i> <span class="nav-label">My Bookings</span> <i class='bx bx-chevron-right pull-r'></i> </a>
                 <ul class="sub-menu collapse" id="booking">
-                  <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Rooms Booking List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/roomsApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Rooms Booking</a></li>                  
                   <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
+                  <li class="active"><a href="{{ url('servicepro/spaceApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Space Booking</a></li>                  
                   <li class="active"><a href="{{ url('servicepro/tourbooking_list') }}"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
-                  <li class="active"><a href="{{ url('servicepro/tourApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Tour Booking</a></li>                  
+                  <li class="active"><a href="{{ url('servicepro/tourApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Tour Booking</a></li>            
                 </ul>
               </li>
               <li> <a href="#" data-toggle="collapse" data-target="#reservations" class="collapsed"> <i class='bx bx-folder-open'></i> <span class="nav-label">My Reservations</span> <i class='bx bx-chevron-right pull-r'></i> </a>
@@ -129,10 +131,12 @@
 
                     <li> <a href="#" data-toggle="collapse" data-target="#booking" class="collapsed"> <i class='bx bx-calendar-check'></i> <span class="nav-label">My Bookings</span> <i class='bx bx-chevron-right pull-r'></i> </a>
                       <ul class="sub-menu collapse" id="booking">
-                        <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Hotels Booking List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/bookingList') }}"><i class='bx bx-chevron-left'></i>Rooms Booking List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/roomApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Rooms Booking</a></li>
                         <li class="active"><a href="{{ url('servicepro/spaceBookingList') }}"><i class='bx bx-chevron-left'></i>Space Booking List</a></li>
+                        <li class="active"><a href="{{ url('servicepro/spaceApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Space Booking</a></li>
                         <li class="active"><a href="{{ url('servicepro/tourbooking_list') }}"> <i class='bx bx-chevron-left'></i> Tour Booking</a></li>
-                        <li class="active"><a href="{{ url('servicepro/tourApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Tour Booking</a></li>                  
+                        <li class="active"><a href="{{ url('servicepro/tourApproveBooking_list') }}"> <i class='bx bx-chevron-left'></i> Approved Tour Booking</a></li>                 
                       </ul>
                     </li>
 

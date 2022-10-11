@@ -143,7 +143,6 @@
 @section('current_page_js')
 <script>
    $('#check_n_pay').click(function() {
-      console.log('clicked');
       $('#invoice_n_pay').removeClass('d-non');
 
    });
@@ -250,9 +249,9 @@
       }
    });
 </script>
-<script type="text/javascript">
-   $(function() {
 
+<!-- <script type="text/javascript">
+   $(function() {
       $("#handshake").click(function(e) {
          e.preventDefault();
          $("#handshake").attr('disabled', 'disabled');
@@ -272,7 +271,6 @@
                HS_ChannelId: $("#HS_ChannelId").val(),
                HS_TransactionReferenceNumber: $("#HS_TransactionReferenceNumber").val(),
             }
-
 
             $.ajax({
                type: 'POST',
@@ -333,7 +331,7 @@
          padding: CryptoJS.pad.Pkcs7
       }));
    }
-</script>
+</script> -->
 
 <script type="text/javascript">
    $('.portfolio-menu ul li').click(function() {

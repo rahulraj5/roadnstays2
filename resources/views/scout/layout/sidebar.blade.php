@@ -53,6 +53,12 @@
                   <p>Hotel List</p>
                 </a>
               </li> 
+              <li class="nav-item">
+                <a href="{{ url('scout/bookingList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Booking List</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">
@@ -68,6 +74,12 @@
                 <a href="{{ url('scout/tourList') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tour List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('scout/tourbooking_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tour Booking</p>
                 </a>
               </li>
             </ul>
@@ -87,25 +99,15 @@
                   <p>Space List</p>
                 </a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>
-                Booking Management
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('scout/bookingList') }}" class="nav-link">
+                <a href="{{ url('scout/spacebooking_list') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Booking List</p>
+                  <p>Space Booking</p>
                 </a>
               </li>
             </ul>
           </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

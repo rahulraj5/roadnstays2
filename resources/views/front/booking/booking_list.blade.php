@@ -712,9 +712,9 @@
     $('#tab3').on('click', function() {
         document.location.href = site_url + "/user/bookingList-cancel";
     })
-    // $('.tab4').on('click', function() {
-    //     $(".bread-sec").css('background-color', '#ccc');
-    // })
+    $('#tab4').on('click', function() {
+        document.location.href = site_url + "/user/bookingList-approval";
+    })
 </script>
 
 <!-- <script>
@@ -908,26 +908,16 @@
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
             <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
             <!-- <div class="tabs__content"> -->
-
-                
-
             <!-- </div> -->
-
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
             <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
             <!-- <div class="tabs__content">
-
-                
-
             </div> -->
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <!-- <label for="tab4" id="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
+            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i> Approval</label>
             <!-- <div class="tabs__content">
-
-                
-
             </div> -->
         </div>
     </div>

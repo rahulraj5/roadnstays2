@@ -70,6 +70,7 @@ class SpaceController extends Controller
             ->take(11)
             ->get();
 
+        // echo "<pre>";print_r($data['space_country_wise']);
         // echo "<pre>";print_r($data['space_country']);die;
         return view('front/space/space')->with($data);
     }
@@ -663,14 +664,89 @@ class SpaceController extends Controller
         //print_r($request->all());
         if (isset($_GET['space_id'])) {
             $space_id = $_GET['space_id'];
+            // echo "<pre>";print_r($space_id);
+            $u_id = Auth::id();
+            // echo "<pre>";print_r($u_id);
+            // $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
+            // $checkRequest = 0;
+            // $space_booking_request = [];
+            // if(Auth::check()){
+            //     $data['request_data'] = DB::table('space_booking_request')->where('space_id', $space_id)->get();
+            //     foreach($data['request_data'] as $reqData){
+            //         if($reqData->user_id ==Auth::id())
+            //         {
+            //             $space_booking_request = $reqData;
+            //             $checkRequest = 1; 
+            //         }
+            //     }
+            // }
+
+            // // echo "<pre>";print_r($tour_booking_request);die;
+            // $data['checkRequest'] = $checkRequest;
+            // $data['space_booking_request'] = $space_booking_request;
+
+
             // $check_in = date('2022-07-27');
             // $check_out = date('2022-07-30');
             $check_in = $_GET['check_in'];
             $check_out = $_GET['check_out'];
+            // echo "<pre>";print_r($check_in);
+            // echo "<pre>";print_r($check_out);
+
             $data['space_data'] = DB::table('space')
                 ->join('countries', 'space.space_country', '=', 'countries.id')
                 ->where(['space.space_id' => $space_id, 'space.status' => 1])
                 ->first();
+
+            $checkRequest = 0;
+            $space_booking_request = [];
+            if(Auth::check()){
+                $data['request_data'] = DB::table('space_booking_request')->where('space_id', $space_id)->get();
+                foreach($data['request_data'] as $reqData){
+                    if($reqData->user_id ==Auth::id())
+                    {
+                        $space_booking_request = $reqData;
+                        $checkRequest = 1; 
+                    }
+                }
+            }
+
+            if(!empty($space_booking_request))
+            {
+                $data['details'] = DB::table('space_booking_request')
+                    ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+                    ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+                    ->select(
+                        'space_booking_request.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'space.space_name',
+                        'space.space_user_id',
+                        'space.price_per_night',
+                        'space.city',
+                        'space.booking_option'
+                    )
+                    ->where('space_booking_request.id', $space_booking_request->id)
+                    ->first();
+            }        
+
+            $space_booked = DB::table('space_booking')
+                    ->where("space_id", $space_id)
+                    ->whereBetween('check_in_date', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
+                    ->orWhereBetween('check_out_date', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
+                    ->get();
+            $space_booked_count = $space_booked->where('user_id', $u_id)->count();
+
+            // echo "<pre>";print_r($space_booked_count);die;
+            $data['checkRequest'] = $checkRequest;
+            $data['space_booking_request'] = $space_booking_request;
+            $data['space_booked_count'] = $space_booked_count;
 
             $data['space_features'] = DB::table('space_features')
                 ->join('space_features_list', 'space_features.space_feature_id', '=', 'space_features_list.space_feature_id')
@@ -1052,6 +1128,15 @@ class SpaceController extends Controller
         }
         $checkorder = DB::table('space_booking')->where('payment_token', '=', $result->TransactionId)->first();
 
+        $data['payment_status'] = $result->TransactionStatus;
+        
+        if($result->TransactionStatus=="Paid")
+        {
+            $booking_status = "confirmed";
+        }else{
+            $booking_status = "pending";
+        }
+
         if (empty($checkorder)) {
 
             DB::table('space_booking')->insert(
@@ -1065,7 +1150,7 @@ class SpaceController extends Controller
                     'total_room' =>   $bookingtemp->total_room,
                     'total_member' => $bookingtemp->total_member,
                     'total_amount' =>  $bookingtemp->total_amount,
-                    'booking_status' => "pending",
+                    'booking_status' => $booking_status,
                     // 'payment_status' => 'successful',
                     'payment_status' => $result->TransactionStatus,
                     // 'payment_type' => $paymethod,
@@ -1113,6 +1198,8 @@ class SpaceController extends Controller
                     ->where('users.status', 1)
                     ->select('space_booking.*', 'space.*', 'space_categories.*', 'space_booking.created_at as booking_date', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number')
                     ->first();
+
+                $update_payment_status = DB::table('space_booking_request')->where('user_id', $user_id)->where('space_id', $bookingtemp->space_id)->update(['payment_status' => 1]);    
 
                 // echo "<pre>";print_r($data['order_info']);die;
 

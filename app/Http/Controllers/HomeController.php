@@ -463,7 +463,13 @@ class HomeController extends Controller
         $checkorder = DB::table('event_booking')->where('payment_token', '=', $result->TransactionId)->first();
 
         $data['payment_status'] = $result->TransactionStatus;
-
+        if($result->TransactionStatus=="Paid")
+        {
+            $booking_status = "confirmed";
+        }else{
+            $booking_status = "pending";
+        }
+        
         if(empty($checkorder)) {
 
             DB::table('event_booking')->insert(
@@ -471,7 +477,7 @@ class HomeController extends Controller
                     'user_id' =>  $user_id,
                     'event_id' => $bookingtemp->event_id,
                     'total_amount' =>  $bookingtemp->total_amount,
-                    'booking_status' => "pending",
+                    'booking_status' => $booking_status,
                     'payment_status' => $result->TransactionStatus,
                     'payment_type' => $result->TransactionTypeId,
                     'payment_id' => $result->TransactionReferenceNumber,
@@ -1062,7 +1068,10 @@ class HomeController extends Controller
         $data['tour_details'] = DB::table('tour_list')->where('id', $tour_id)->first();
         $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
         $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
-        // echo "<pre>";print_r($data['tour_details']); die;
+        $data['tour_booked_count'] = DB::table('tour_booking')->where('tour_id', $tour_id)->where('payment_status','Paid')->where('booking_status', '!=', 'canceled')->count();
+
+        // tour_max_capacity
+        // echo "<pre>";print_r($data['tour_booked_count']); die;
         // $vendor = DB::table('users')->where('id', $data['tour_details']->vendor_id)->first();
         // echo "<pre>";print_r($vendor); die;
         return view('front/tour/tour_details')->with($data);
@@ -1524,6 +1533,13 @@ class HomeController extends Controller
         
         $data['payment_status'] = $result->TransactionStatus;
 
+        if($result->TransactionStatus=="Paid")
+        {
+            $booking_status = "confirmed";
+        }else{
+            $booking_status = "pending";
+        }
+
         if (empty($checkorder)) {
 
             DB::table('tour_booking')->insert(
@@ -1531,7 +1547,7 @@ class HomeController extends Controller
                     'user_id' =>  $user_id,
                     'tour_id' => $bookingtemp->tour_id,
                     'total_amount' =>  $bookingtemp->total_amount,
-                    'booking_status' => "pending",
+                    'booking_status' => $booking_status,
                     'payment_status' => $result->TransactionStatus,
                     'payment_type' => $result->TransactionTypeId,
                     'payment_id' => $result->TransactionReferenceNumber,
@@ -3005,6 +3021,7 @@ class HomeController extends Controller
 
     public function checkout(Request $request)
     {
+        $u_id = Auth::id();
         //print_r($request->all());
         if (isset($_GET['hotel_id']) && isset($_GET['room_id'])) {
             $hotel_id = $_GET['hotel_id'];
@@ -3046,6 +3063,65 @@ class HomeController extends Controller
                 $total_room_num = ceil($person / $max_adults_limit);
             }
             // echo "<pre>";print_r($total_room_num);die;
+
+            $checkRequest = 0;
+            $room_booking_request = [];
+            if(Auth::check()){
+                $data['request_data'] = DB::table('room_booking_request')->where('room_id', $room_id)->get();
+                foreach($data['request_data'] as $reqData){
+                    if($reqData->user_id ==Auth::id())
+                    {
+                        $room_booking_request = $reqData;
+                        $checkRequest = 1; 
+                    }
+                }
+            }
+
+            if(!empty($room_booking_request))
+            {
+                $data['details'] = DB::table('room_booking_request')
+                    ->join('users', 'room_booking_request.user_id', '=', 'users.id')
+                    ->join('hotels', 'room_booking_request.hotel_id', '=', 'hotels.hotel_id')
+                    ->join('room_list', 'room_booking_request.room_id', '=', 'room_list.id')
+                    ->select(
+                        'room_booking_request.*',
+                        'users.user_type',
+                        'users.first_name as user_first_name',
+                        'users.last_name as user_last_name',
+                        'users.email as user_email',
+                        'users.contact_number as user_contact_num',
+                        'users.role_id as user_role_id',
+                        'users.is_verify_email as user_email_is_verify_email',
+                        'users.is_verify_contact as user_contact_is_verify_contact',
+                        'hotels.hotel_name',
+                        'hotels.hotel_user_id',
+                        'hotels.is_admin as hotel_added_is_admin',
+                        'hotels.property_contact_name',
+                        'hotels.property_contact_num',
+                        'hotels.hotel_address',
+                        'hotels.hotel_city',
+                        'hotels.stay_price as hotelroom_min_stay_price',
+                        'hotels.checkin_time',
+                        'hotels.checkout_time',
+                        'hotels.booking_option',
+                        'room_list.name as room_name',
+                        'room_list.price_per_night'
+                    )
+                    ->where('room_booking_request.id', $room_booking_request->id)
+                    ->first();
+            }        
+
+            $room_booked = DB::table('booking')
+                    ->where("room_id", $room_id)
+                    ->whereBetween('check_in', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
+                    ->orWhereBetween('check_out', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
+                    ->get();
+
+            $room_booked_count = $room_booked->where('user_id', $u_id)->count();
+
+            $data['checkRequest'] = $checkRequest;
+            $data['room_booking_request'] = $room_booking_request;
+            $data['room_booked_count'] = $room_booked_count;
 
             $timestamp = strtotime('2009-10-22');
             $start_day = date('l', $date1_ts);
@@ -3596,6 +3672,13 @@ class HomeController extends Controller
         // echo "<pre>"; print_r($check_guest_user);die;
         $checkorder = DB::table('booking')->where('payment_token', '=', $result->TransactionId)->first();
         $data['payment_status'] = $result->TransactionStatus;
+        if($result->TransactionStatus=="Paid")
+        {
+            $booking_status = "confirmed";
+        }else{
+            $booking_status = "pending";
+        }
+        
         if (empty($checkorder)) {
 
             DB::table('booking')->insert(
@@ -3612,7 +3695,7 @@ class HomeController extends Controller
                     'cleaning_fee' => $bookingtemp->cleaning_fee,
                     'city_fee' => $bookingtemp->city_fee,
                     'tax_percentage' => $bookingtemp->tax_percentage,
-                    'booking_status' => "pending",
+                    'booking_status' => $booking_status,
                     'payment_status' => $result->TransactionStatus,
                     'payment_type' => $result->TransactionTypeId,
                     'payment_id' => $result->TransactionReferenceNumber,
@@ -3655,6 +3738,8 @@ class HomeController extends Controller
                     ->where('users.status', 1)
                     ->select('booking.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address', 'users.user_city', 'users.postal_code', 'users.contact_number', 'room_list.name', 'room_list.id as room_id', 'room_list.price_per_night', 'room_list.tax_percentage', 'room_list.cleaning_fee', 'room_list.city_fee', 'room_list.bed_type', 'room_list.breakfast_availability', 'room_list.breakfast_price_inclusion', 'hotels.hotel_id', 'hotels.hotel_name', 'hotels.hotel_address', 'hotels.hotel_city', 'hotels.hotel_rating', 'hotels.hotel_gallery', 'hotels.property_alternate_num', 'hotels.property_contact_num', 'hotels.hotel_latitude', 'hotels.hotel_longitude')
                     ->first();
+
+                $update_payment_status = DB::table('room_booking_request')->where('user_id', $user_id)->where('room_id', $bookingtemp->room_id)->where('hotel_id', $bookingtemp->hotel_id)->update(['payment_status' => 1]);    
 
                 $data['room_amenities'] = DB::table('room_amenities')
                     ->join('H2_Amenities', 'room_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')

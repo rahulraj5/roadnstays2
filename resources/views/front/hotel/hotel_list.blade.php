@@ -117,7 +117,6 @@
         var startDate = $(this).datepicker('getDate');
         var minDate = $(this).datepicker('getDate');
         var dt2Date = dt2.datepicker('getDate');
-        //difference in days. 86400 seconds in day, 1000 ms in second
         var dateDiff = (dt2Date - minDate) / (86400 * 1000);
 
         startDate.setDate(startDate.getDate() + 30);
@@ -125,9 +124,8 @@
           dt2.datepicker('setDate', minDate);
         } else if (dateDiff > 30) {
           dt2.datepicker('setDate', startDate);
-        }
-        //sets dt2 maxDate to the last day of 30 days window
-        dt2.datepicker('option', 'maxDate', startDate);
+        } 
+        dt2.datepicker('option', 'maxDate', startDate); 
         dt2.datepicker('option', 'minDate', minDate);
       }
     });
@@ -354,15 +352,7 @@
                               <button class="plus" data-quantity="plus" data-field="quantity">+</button>
                             </div>
                           </a>
-                        </li>
-                        <!-- <li><a class="dropdown-item" href="#"><span>Child(0-12)</span>
-                            <div class="number">
-                              <span class="minus">-</span>
-                              <input type="text" value="1" />
-                              <span class="plus">+</span>
-                            </div>
-                          </a>
-                        </li> -->
+                        </li> 
                       </ul>
                     </div>
                   </div>
@@ -391,19 +381,6 @@
         <div class="hotel-list sticky w-25 h-100">
 
           <div class="filter-row">
-
-            <!-- <div class="form-group-ser">
-              <input type="checkbox" id="html">
-              <label for="html">Breakfast included</label>
-           </div>
-           <div class="form-group-ser">
-              <input type="checkbox" id="css">
-              <label for="css">House</label>
-           </div>
-           <div class="form-group-ser">
-              <input type="checkbox" id="javascript">
-              <label for="javascript">All-inclusive plan available</label>
-           </div> -->
 
             <form method="POST" id="filterform" action="{{url('hotel_list_ajax')}}" enctype="multipart/form-data">
 
@@ -454,18 +431,7 @@
                   <?php } ?>
 
                 </ul>
-              </div>
-
-              <!--<div class="category category-4">
-                  <p>Meals</p>
-                  <ul>
-                      <li><label><input type="checkbox" name="Meals" id="">Breakfast</label></li>
-                      <li><label><input type="checkbox" name="Meals" id="">Lunch</label></li>
-                      <li><label><input type="checkbox" name="Meals" id="">Dinner</label></li>
-                      <li><label><input type="checkbox" name="Meals" id="">Breakfast with dinner</label></li>
-                      
-                  </ul>
-              </div>-->
+              </div> 
 
               <div class="category category-4">
                 <p>Emenites</p>
@@ -541,14 +507,6 @@
                       </div>
                       <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}&person={{base64_encode($person)}}" class="book-btn" target="_blank">View Room</a>
 
-                      <!-- <div class="review-count">
-                        <div class="info_rev">
-                          <p>287 reviews</p>
-                        </div>
-                        <div class="rating_rev">
-                          <span>{{$hotel['hotel_rating']}}</span>
-                        </div>
-                      </div> -->
                     </div>
 
                     <div class="mb-1 d-flex" id="rating-ability-wrapper">
@@ -586,23 +544,13 @@
                     <div class="time-event-bn">
                       <div class="botm-icom">
                         @foreach($hotel['hotel_amenities'] as $amenities)
-                        <a href="#"><i class='bx bx-check'></i> <label>{{$amenities->amenity_name}}</label> </a>
-                        @endforeach
+                        <a href="#"><i class='bx bx-check'></i> <label>{{$amenities->amenity_name}}</label> </a> 
+                        @endforeach 
+                      </div> 
 
-                        <!-- <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
-                       <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
-                       <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
-                       <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                       <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a> -->
-                      </div>
-
-
-
-                      <div class="pric-off">
-                        <!-- <span>20% Off</span> -->
-                        <h5>PKR {{$hotel['stay_price']}}/- </h5>
-                        <!-- <div><small>+₹400 taxes and charges</small></div> -->
-                      </div>
+                      <div class="pric-off"> 
+                        <h5>PKR {{$hotel['stay_price']}}/- </h5> 
+                      </div> 
 
                     </div>
                   </div>
@@ -616,46 +564,7 @@
               @else
 
               @endif
-              <!-- <div class="event-br">
-                <div class="img-list-event">
-                    <img src="assets/img/pany.png">
-                </div>
-                <div class="tect-event d-flex align-items-start flex-column bd-highlight mb-3">
-                    <div class="mb-auto w-100">
-                      <h3>JW Marriott Hotel New Delhi Aerocity </h3>
-                      <div class="mb-1 d-flex" id="rating-ability-wrapper">
-                          <label class="control-label" for="rating">
-                          <span class="field-label-info"></span>
-                          <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
-                          </label>
-                          <button type="button" class="btnrating btn" data-attr="1" id="rating-star-1"><i class='bx bxs-star'></i> </button>
-                          <button type="button" class="btnrating btn" data-attr="2" id="rating-star-2"><i class='bx bxs-star'></i></button>
-                          <button type="button" class="btnrating btn" data-attr="3" id="rating-star-3"><i class='bx bxs-star'></i></button>
-                          <button type="button" class="btnrating btn" data-attr="4" id="rating-star-4"> <i class='bx bxs-star'></i></button>
-                          <button type="button" class="btnrating btn" data-attr="5" id="rating-star-5"><i class='bx bxs-star'></i></button>
-                      </div>
-                      <b> Comfiest Beds, Delicous Breakfast </b>
-                      <p class="p-0">
-                          stay at unbetable reates with complimentary breakfast and wi-fi. free stay for kids below 12 year of age.
-                      </p>
-                    </div>
-                    <div class="w-100">
-                      <div class="time-event-bn">
-                          <div class="botm-icom">
-                            <a href="#"><i class='bx bx-wifi'></i> <label>Free Wifi</label> </a>
-                            <a href="#"><i class='bx bxs-parking'></i>  <label>Free parking</label> </a>
-                            <a href="#"><i class='bx bx-food-menu'></i>  <label>Restaurant</label> </a>
-                            <a href="#"><i class='bx bx-rectangle'></i> <label>Room service</label> </a>
-                            <a href="#"><i class='bx bx-camera-home'></i> <label> Safety measures</label> </a>
-                          </div>
-                          <div class="pric-off">
-                            <span>20% Off</span>
-                            <h5>PKR 125/- </h5>
-                          </div>
-                      </div>
-                    </div>
-                </div>
-              </div> -->
+
             </div>
           </div>
 

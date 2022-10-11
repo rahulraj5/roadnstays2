@@ -159,7 +159,7 @@
         </section>
         <section id="3">
            <div class="container">
-              @foreach($room_data as $room)
+              @foreach($room_data as $keyval => $room)
               <div class="d-flex room-outline">
                  <div class="col-md-3 p-0 m-0 roomlist border-right-0" style="">
                     <div class="romtype">
@@ -176,11 +176,14 @@
                     </div>
                     <div id="roomdetail" class="roomdetail new-nav">
 
-                       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                       <div id="carouselExampleIndicators_{{$keyval}}" class="carousel slide" data-ride="carousel">
                           <ol class="carousel-indicators">
-                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            @foreach($room['room_gallery'] as $key => $img)
+                             <li data-target="#carouselExampleIndicators_{{$keyval}}" data-slide-to="{{$key}}" @if($key == 0) class="active" @endif></li>
+                             <!-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+
+                             @endforeach
                           </ol>
                           <div class="carousel-inner">
                              <!-- <div class="carousel-item active">

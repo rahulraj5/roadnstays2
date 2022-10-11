@@ -141,6 +141,43 @@ class BookingController extends Controller
         return view('front/booking/booking_list_cancel')->with($data);
     }
 
+    public function booking_list_approval(Request $request)
+    {
+        $u_id = Auth::user()->id;
+        $room_ids = DB::table('room_booking_request')->where('user_id', $u_id)->pluck('room_id')->toArray();
+        // echo "<pre>";print_r($room_ids);
+        // die;
+        $room_booking_request = DB::table('room_booking_request')
+                    ->join('users', 'room_booking_request.user_id', '=', 'users.id')
+                    ->join('hotels', 'room_booking_request.hotel_id', '=', 'hotels.hotel_id')
+                    ->join('room_list', 'room_booking_request.room_id', '=', 'room_list.id')
+                    ->join('country', 'hotels.hotel_country', '=', 'country.id')
+                    ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+                    ->select(
+                        'room_booking_request.*',
+                        'hotels.hotel_name',
+                        'hotels.hotel_user_id',
+                        'hotels.is_admin as hotel_added_is_admin',
+                        'hotels.property_contact_name',
+                        'hotels.property_contact_num',
+                        'hotels.hotel_address',
+                        'hotels.hotel_city',
+                        'hotels.stay_price as hotelroom_min_stay_price',
+                        'hotels.checkin_time',
+                        'hotels.checkout_time',
+                        'country.nicename as hotel_country',
+                        'room_type_categories.title as room_type_name',
+                        'room_list.name as room_name',
+                    )
+                    ->where('room_booking_request.user_id', $u_id)
+                    ->orderby('room_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['room_booking_request'] = $room_booking_request;
+        // echo "<pre>";print_r($data['room_booking_request']);die;
+        return view('front/booking/booking_list_approval')->with($data);
+    }
+
     public function booking_detail($id)
     {        
         $booking_id = base64_decode($id);
@@ -315,6 +352,36 @@ class BookingController extends Controller
         return view('front/booking/space_booking_list_upcoming')->with($data);
     }
 
+    
+    public function space_booking_list_approval(Request $request)
+    {
+        $u_id = Auth::user()->id;
+        // $space_ids = DB::table('space_booking_request')->where('user_id', $u_id)->pluck('space_id')->toArray();
+        $space_booking_request = DB::table('space_booking_request')
+                    ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+                    ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+                    ->join('country', 'space.space_country', '=', 'country.id')
+                    ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                    ->select(
+                        'space_booking_request.*',
+                        'space.space_name',
+                        'space.space_user_id',
+                        'space.price_per_night',
+                        'space.booking_option',
+                        'space.space_address',
+                        'space.city',
+                        'space_categories.category_name',
+                        'country.nicename as space_country',
+                    )
+                    ->where('space_booking_request.user_id', $u_id)
+                    ->orderby('space_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['space_booking_request'] = $space_booking_request;
+        // echo "<pre>";print_r($data['space_booking_request']);die;
+        return view('front/booking/space_booking_list_approval')->with($data);
+    }
+
     public function space_booking_list_cancel(Request $request)
     {
         $u_id = Auth::user()->id;
@@ -388,9 +455,7 @@ class BookingController extends Controller
                 'space.max_hrs_percentage',
 
                 'space_categories.category_name',
-                'country.nicename as user_country',
-
-
+                'country.nicename as user_country', 
             )
             // ->orderby('created_at', 'DESC')
             ->where('space_booking.id', $booking_id)
@@ -502,8 +567,93 @@ class BookingController extends Controller
                 ->orderby('tour_booking.id', 'DESC')
                 ->get();
                 // ->paginate(10);
+
+        $tour_booking_request = DB::table('tour_booking_request')
+                    ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+                    ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+                    ->join('country', 'tour_list.country_id', '=', 'country.id')
+                    ->select(
+                        'tour_booking_request.*',
+                        'tour_list.tour_title',
+                        'tour_list.vendor_id',
+                        'tour_list.tour_code',
+                        'tour_list.tour_type',
+                        'tour_list.address',
+                        'tour_list.city',
+                        'tour_list.tour_start_date',
+                        'tour_list.tour_end_date',
+                        'country.nicename as tour_country',
+                    )
+                    ->where('tour_booking_request.user_id', $u_id)
+                    // ->where('tour_booking_request.booking_status', '!=', 'canceled')  
+                    // ->where('tour_list.tour_end_date', '>=', date('Y-m-d'))
+                    ->orderby('tour_booking_request.id', 'DESC')
+                    ->get();
+        
+        // $data['checkRequest'] = $checkRequest;
+        $data['tour_booking_request'] = $tour_booking_request;
+
+        // if(!empty($tour_booking_request))
+        // {
+        //     $data['details'] = DB::table('tour_booking_request')
+        //         ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+        //         ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+        //         ->select(
+        //             'tour_booking_request.*',
+        //             'users.user_type',
+        //             'users.first_name as user_first_name',
+        //             'users.last_name as user_last_name',
+        //             'users.email as user_email',
+        //             'users.contact_number as user_contact_num',
+        //             'users.role_id as user_role_id',
+        //             'users.is_verify_email as user_email_is_verify_email',
+        //             'users.is_verify_contact as user_contact_is_verify_contact',
+        //             'tour_list.tour_title',
+        //             'tour_list.vendor_id',
+        //             'tour_list.tour_start_date as tour_start_date',
+        //             'tour_list.tour_end_date',
+        //             'tour_list.tour_price',
+        //             'tour_list.tour_days',
+        //             'tour_list.city',
+        //             'tour_list.booking_option'
+        //         )
+        //         ->where('tour_booking_request.id', $tour_booking_request->id)
+        //         ->first();
+        // }        
+        // echo "<pre>";print_r($data['canceledList']);
+        // die;        
         // echo "<pre>";print_r($data['canceledList']);die;
         return view('front/booking/tour_booking_list_upcoming')->with($data);
+    }
+
+    public function tour_booking_list_approval(Request $request)
+    {
+        $u_id = Auth::user()->id;
+        // $tour_ids = DB::table('tour_booking_request')->where('user_id', $u_id)->pluck('tour_id')->toArray();
+        $tour_booking_request = DB::table('tour_booking_request')
+                    ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+                    ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+                    ->join('country', 'tour_list.country_id', '=', 'country.id')
+                    ->select(
+                        'tour_booking_request.*',
+                        'tour_list.tour_title',
+                        'tour_list.vendor_id',
+                        'tour_list.tour_code',
+                        'tour_list.tour_type',
+                        'tour_list.address',
+                        'tour_list.city',
+                        'tour_list.tour_start_date',
+                        'tour_list.tour_end_date',
+                        'country.nicename as tour_country',
+                    )
+                    ->where('tour_booking_request.user_id', $u_id)
+                    ->orderby('tour_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['tour_booking_request'] = $tour_booking_request;
+
+        // echo "<pre>";print_r($data['canceledList']);die;
+        return view('front/booking/tour_booking_list_approval')->with($data);
     }
 
     public function tour_booking_list_cancel(Request $request)
@@ -689,45 +839,7 @@ class BookingController extends Controller
             return response()->json(['status' => 'success', 'msg' => 'Booking Request sent. Please wait for owner"s Confirmation!']);
         }else{
             return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
-        }
-
-
-        // $email = $request->email;
-        // $first_name = $request->first_name;
-        // $last_name = $request->last_name;
-        // $mobile = $request->mobile;
-        // $document_type = $request->document_type;
-        // $document_number = $request->document_number;
-        // if ($request->hasFile('front_document_img')) {
-        //     $image_name = $request->file('front_document_img')->getClientOriginalName();
-        //     $filename = pathinfo($image_name, PATHINFO_FILENAME);
-        //     $image_ext = $request->file('front_document_img')->getClientOriginalExtension();
-        //     $front_document_img = $filename . '-' . time() . '.' . $image_ext;
-        //     $path = base_path() . '/public/uploads/user_document/';
-        //     $request->file('front_document_img')->move($path, $front_document_img);
-        // }
-        // if ($request->hasFile('back_document_img')) {
-        //     $image_nam2 = $request->file('back_document_img')->getClientOriginalName();
-        //     $filenam2 = pathinfo($image_nam2, PATHINFO_FILENAME);
-        //     $image_ex2 = $request->file('back_document_img')->getClientOriginalExtension();
-        //     $back_document_img = $filenam2 . '-' . time() . '.' . $image_ex2;
-        //     $pat2 = base_path() . '/public/uploads/user_document';
-        //     $request->file('back_document_img')->move($pat2, $back_document_img);
-        // }
-
-        // if (empty($booking_id)) {
-        //     return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
-        // } else {
-        //     DB::table('booking')->where('id', $booking_id)->update([
-        //         'booking_status' => 'canceled',
-        //         'cancel_reason' => $request->cancel_reason,
-        //         'cancel_details' => $request->cancel_details,
-        //         'refund_amount' => $request->refund_amount,
-        //         'canceled_at' => date('Y-m-d H:i:s')
-
-        //     ]);
-        //     return response()->json(['status' => 'success', 'msg' => 'Booking has been Canceled Sucessfully !']);
-        // }  
+        } 
     }
 
     public function cancel_request_booking_tour(Request $request)
@@ -740,7 +852,118 @@ class BookingController extends Controller
         }else{
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
-    }   
+    }
+    
+    public function request_booking_space(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
+        $user_id = Auth::user()->id;
+        $space_id = $request->space_id;
+        // $checkin_date = Session::get('space_check_in_date');
+        // $checkout_date = Session::get('space_check_out_date');
+        $checkin_date = $request->check_in;
+        $checkout_date = $request->check_out;
+        $cleaning_fee = $request->cleaning_fee;
+        $city_fee = $request->city_fee;
+        $tax_percentage = $request->tax_percentage;
+        $total_days = $request->total_days;
+        // $total_room = $request->total_room;
+        // $total_member = $request->total_member;
+        $total_amount = $request->space_price;
+        // echo "<pre>";print_r($checkin_date);
+        // echo "<pre>";print_r($checkout_date);die;
+
+        $check = DB::table('space_booking_request')->where('space_id', '=', $space_id)->where('user_id', '=', $user_id)->first();
+        if($check){
+            $deleteRequest = DB::table('space_booking_request')->where('space_id', '=', $space_id)->where('user_id', '=', $user_id)->delete();
+        }    
+
+        $requestData = DB::table('space_booking_request')->insert(
+            array(
+                'space_id' =>  $space_id,
+                'user_id' =>  $user_id,
+                'check_in_date' =>  date('Y-m-d',strtotime($checkin_date)),
+                'check_out_date' =>  date('Y-m-d',strtotime($checkout_date)),
+                'cleaning_fee' =>  $cleaning_fee,
+                'city_fee' =>  $city_fee,
+                'tax_percentage' =>  $tax_percentage,
+                'total_days' =>  $total_days,
+                // 'total_room' =>  $total_room,
+                // 'total_member' =>  $total_member,
+                'total_amount' =>  $total_amount,
+                'request_status' =>  1,
+                'created_at' =>  date('Y-m-d H:i:s')
+            )
+        );
+        if($requestData)
+        {
+            return response()->json(['status' => 'success', 'msg' => 'Booking Request sent. Please wait for owner"s Confirmation!']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
+        }
+    }
+
+    public function cancel_request_booking_space(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('space_booking_request')->where('id', '=', $request_id)->first();
+        if ($res) {
+            DB::table('space_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been canceled successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
+    public function request_booking_room(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
+        $user_id = Auth::user()->id;
+        $room_id = $request->room_id;
+        $hotel_id = $request->hotel_id;
+        $checkin_date = Session::get('checkin_date');
+        $checkout_date = Session::get('checkout_date');
+        $person = Session::get('person');
+        // $tour_price = $request->tour_price;
+        // $tour_start_date = $request->tour_start_date;
+        // $tour_end_date = $request->tour_end_date;
+
+        $check = DB::table('room_booking_request')->where('room_id', '=', $room_id)->where('user_id', '=', $user_id)->first();
+        if($check){
+            $deleteRequest = DB::table('room_booking_request')->where('room_id', '=', $room_id)->where('user_id', '=', $user_id)->delete();
+        }    
+
+        $requestData = DB::table('room_booking_request')->insert(
+            array(
+                'room_id' =>  $room_id,
+                'hotel_id' =>  $hotel_id,
+                'user_id' =>  $user_id,
+                'check_in_date' =>  date('Y-m-d',strtotime($checkin_date)),
+                'check_out_date' =>  date('Y-m-d',strtotime($checkout_date)),
+                'person' =>  $person,
+                'request_status' =>  1,
+                'created_at' =>  date('Y-m-d H:i:s')
+            )
+        );
+        if($requestData)
+        {
+            return response()->json(['status' => 'success', 'msg' => 'Booking Request sent. Please wait for owner"s Confirmation!']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'Something get wrong.']);
+        }
+    }
+
+    public function cancel_request_booking_room(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('room_booking_request')->where('id', '=', $request_id)->first();
+        if ($res) {
+            DB::table('room_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been canceled successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
 
     public function cancel_hotel_booking(Request $request)
 	{
