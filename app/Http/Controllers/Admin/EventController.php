@@ -29,6 +29,9 @@ class EventController extends Controller
         $data['hotelList'] = Hotel::where('hotel_status', 1)->orderby('created_at', 'DESC')->get();
 
         $data['spaceList'] = Space::where('status', 1)->orderby('created_at', 'DESC')->get();
+
+        $data['scouts'] = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get();
+
         return view('admin/event/addevent')->with($data);
     }
 
@@ -50,6 +53,7 @@ class EventController extends Controller
         $adminevent = new Events;
         $adminevent->title = $request->title;
         $adminevent->vendor_id = $request->vendor_id;
+        $adminevent->scout_id = $request->scout_id;
         $adminevent->type = $request->type;
         $adminevent->description = $request->description;
         $adminevent->price  =  $event_price;
@@ -136,6 +140,7 @@ class EventController extends Controller
             ->update([
                 'title' => $request->title,
                 'vendor_id' => $request->vendor_id,
+                'scout_id' => $request->scout_id,
                 'type' => $request->type,
                 'description' => $request->description,
                 'price' => $request->price,

@@ -375,7 +375,7 @@ class BookingController extends Controller
              </tr>
              <tr>
                 <td width='30%'><b>Price:</b></td>
-                <td width='70%'>PKR ".$details->price_per_night."</td>
+                <td width='70%'>PKR ".$details->total_amount."</td>
              </tr>
              <tr>
                 <td width='30%'><b>Email:</b></td>
@@ -391,15 +391,19 @@ class BookingController extends Controller
                         <tbody>
                             <tr>
                                 <td>Cost</td>
-                                <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                <td class='alignright'>PKR ".$details->total_amount."</td>
                             </tr>
-                            <tr style='display:none;'>
+                            <tr id='discount_tr' class='d-non'>
                                 <td>Discount</td>
-                                <td class='alignright'>PKR <span id='discount_val'></span></td>
+                                <td class='alignright'>PKR -<span id='discount_val'></span></td>
+                            </tr>
+                            <tr id='expense_tr' class='d-non'>
+                                <td id='expe_name'></td>
+                                <td class='alignright'>PKR <span id='expe_val'></span></td>
                             </tr>
                             <tr class='total'>
                                 <td class='alignright' width='80%'>Total</td>
-                                <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                <td class='alignright'>PKR <span id='total_amt'>".$details->total_amount."</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -407,6 +411,7 @@ class BookingController extends Controller
              </tr>";
         }
         $response['html'] = $html;
+        $response['total_amount'] = $details->total_amount;
         $response['request_id'] = $details->id;
   
         return response()->json($response);
@@ -414,8 +419,11 @@ class BookingController extends Controller
 
     public function sendSpaceInvoice(Request $request)
     {
+        // echo "<pre>";print_r($request->all());die;
         $request_id = $request->request_id;
-
+        $disco_val = $request->disco_val;
+        $exp_name = $request->exp_name;
+        $exp_value = $request->exp_value;
         if (!empty($request_id)) {
             $check = DB::table('space_booking_request')->where('id', $request_id)->first();
             if($check->approve_status == 0){
@@ -424,7 +432,10 @@ class BookingController extends Controller
                     ->where('id', $request_id)
                     ->update([
                         'approve_status' => 1,
-                        'invoice_num' => $invoiceNum
+                        'invoice_num' => $invoiceNum,
+                        'discount' => $disco_val,
+                        'expense_name' => $exp_name,
+                        'expense_value' => $exp_value
                     ]);
                 return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
             }else{
@@ -557,7 +568,7 @@ class BookingController extends Controller
                  </tr>
                  <tr>
                     <td width='30%'><b>Price:</b></td>
-                    <td width='70%'>PKR ".$details->price_per_night."</td>
+                    <td width='70%'>PKR ".$details->total_amount."</td>
                  </tr>
                  <tr>
                     <td width='30%'><b>Email:</b></td>
@@ -573,11 +584,19 @@ class BookingController extends Controller
                             <tbody>
                                 <tr>
                                     <td>Cost</td>
-                                    <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                    <td class='alignright'>PKR ".$details->total_amount."</td>
+                                </tr>
+                                <tr id='discount_tr' class='d-non'>
+                                    <td>Discount</td>
+                                    <td class='alignright'>PKR -<span id='discount_val'></span></td>
+                                </tr>
+                                <tr id='expense_tr' class='d-non'>
+                                    <td id='expe_name'></td>
+                                    <td class='alignright'>PKR <span id='expe_val'></span></td>
                                 </tr>
                                 <tr class='total'>
                                     <td class='alignright' width='80%'>Total</td>
-                                    <td class='alignright'>PKR ".$details->price_per_night."</td>
+                                    <td class='alignright'>PKR <span id='total_amt'>".$details->total_amount."</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -585,6 +604,7 @@ class BookingController extends Controller
                  </tr>";
             }
             $response['html'] = $html;
+            $response['total_amount'] = $details->total_amount;
             $response['request_id'] = $details->id;
       
             return response()->json($response);
@@ -593,6 +613,9 @@ class BookingController extends Controller
         public function sendRoomInvoice(Request $request)
         {
             $request_id = $request->request_id;
+            $disco_val = $request->disco_val;
+            $exp_name = $request->exp_name;
+            $exp_value = $request->exp_value;
     
             if (!empty($request_id)) {
                 $check = DB::table('room_booking_request')->where('id', $request_id)->first();
@@ -602,7 +625,10 @@ class BookingController extends Controller
                         ->where('id', $request_id)
                         ->update([
                             'approve_status' => 1,
-                            'invoice_num' => $invoiceNum
+                            'invoice_num' => $invoiceNum,
+                            'discount' => $disco_val,
+                            'expense_name' => $exp_name,
+                            'expense_value' => $exp_value
                         ]);
                     return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
                 }else{

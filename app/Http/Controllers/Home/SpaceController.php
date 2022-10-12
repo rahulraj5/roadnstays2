@@ -776,7 +776,7 @@ class SpaceController extends Controller
             $data['start_day'] = $start_day;
             $data['end_day'] = $end_day;
 
-            // echo "<pre>";print_r($data);die;
+            // echo "<pre>";print_r($data['details']);die;
             return view('front/space/checkout_space')->with($data);
             // return view('front/space/checkout_space');
         } else {

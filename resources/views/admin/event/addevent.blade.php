@@ -93,6 +93,9 @@
       vendor_id: {
         required: true,
       },
+      scout_id: {
+        required: true,
+      },
       start_date: {
         required: true,
       },
@@ -514,6 +517,19 @@
                   <input type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" placeholder="Enter Operator Booking Number">
                 </div>
               </div>
+
+              <div class="col-md-6">
+              <div class="form-group">
+                <label>Scouts ID</label>
+                <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
+                  <option value="">Select Scouts</option>
+                  @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
+                  @foreach ($scouts as $value)
+                  <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
 
               <div class="col-12">
                 <button class="btn btn-primary btn-dark float-right" name="submit" type="submit">Submit</button>

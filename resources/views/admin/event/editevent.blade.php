@@ -90,6 +90,9 @@
         // min: 10,
         // max: 10,
       },
+      scout_id: {
+        required: true,
+      },
     },
     submitHandler: function(form) {
       var site_url = $("#baseUrl").val();
@@ -554,6 +557,19 @@
                 <div class="form-group">
                   <label>Operator Booking Number</label>
                   <input type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$event->operator_booking_num}}" placeholder="Enter Operator Booking Number">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Scouts</label>
+                  <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;">
+                    <option value="">Select Scouts</option>
+                    @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                    @foreach ($scouts as $value)
+                    <option value="{{ $value->id }}" @php if($event->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
 

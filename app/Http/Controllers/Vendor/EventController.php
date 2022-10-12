@@ -54,19 +54,20 @@ class EventController extends Controller
         }
         $adminevent = new Events;
         $adminevent->vendor_id = $vendor_id;
+        $adminevent->scout_id = $request->scout_id;
         $adminevent->title = $request->title;
         $adminevent->type = $request->type;
         $adminevent->description = $request->description;
         $adminevent->price  =  $event_price;
         $adminevent->ticket_qty =  $request->ticket_qty;
-        $adminevent->image     =  $imgname;
-        $adminevent->start_date =  date('Y-m-d', strtotime($request->start_date));
-        $adminevent->start_time =  date("H:i:s", strtotime($request->start_time));
-        $adminevent->end_date  =  date('Y-m-d', strtotime($request->end_date));
-        $adminevent->end_time  =  date("H:i:s", strtotime($request->end_time));
-        $adminevent->address   =  $request->address;
-        $adminevent->latitude  =  $request->latitude;
-        $adminevent->longitude =  $request->longitude;
+        $adminevent->image      =  $imgname;
+        $adminevent->start_date = date('Y-m-d', strtotime($request->start_date));
+        $adminevent->start_time = date("H:i:s", strtotime($request->start_time));
+        $adminevent->end_date   =  date('Y-m-d', strtotime($request->end_date));
+        $adminevent->end_time   =  date("H:i:s", strtotime($request->end_time));
+        $adminevent->address    =  $request->address;
+        $adminevent->latitude   =  $request->latitude;
+        $adminevent->longitude  =  $request->longitude;
 
         $adminevent->operator_name = $request->operator_name;
         $adminevent->operator_contact_name = $request->operator_contact_name;
@@ -144,6 +145,7 @@ class EventController extends Controller
             ->update([
                 'title' => $request->title,
                 'type' => $request->type,
+                'scout_id' => $request->scout_id,
                 'description' => $request->description,
                 'price' => $request->price,
                 'ticket_qty' => $request->ticket_qty,
@@ -159,9 +161,7 @@ class EventController extends Controller
                 'operator_contact_name' => $request->operator_contact_name,
                 'operator_contact_num' => $request->operator_contact_num,
                 'operator_email' => $request->operator_email,
-                'operator_booking_num' => $request->operator_booking_num,
-
-
+                'operator_booking_num' => $request->operator_booking_num, 
                 'hotel_ids' => json_encode($request->hotelname),
                 'space_ids' => json_encode($request->spacename),
                 'address' => $request->address

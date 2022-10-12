@@ -1073,7 +1073,7 @@ class HomeController extends Controller
         // tour_max_capacity
         // echo "<pre>";print_r($data['tour_booked_count']); die;
         // $vendor = DB::table('users')->where('id', $data['tour_details']->vendor_id)->first();
-        // echo "<pre>";print_r($vendor); die;
+        // echo "<pre>";print_r($data['tour_details']); die;
         return view('front/tour/tour_details')->with($data);
     }
 
@@ -3022,12 +3022,15 @@ class HomeController extends Controller
     public function checkout(Request $request)
     {
         $u_id = Auth::id();
-        //print_r($request->all());
+        // print_r($u_id);
         if (isset($_GET['hotel_id']) && isset($_GET['room_id'])) {
             $hotel_id = $_GET['hotel_id'];
             $room_id = $_GET['room_id'];
+            // echo "<pre>";echo "room id "; print_r($room_id);
             $check_in = $_GET['check_in'];
+            // echo "<pre>";print_r($check_in);
             $check_out = $_GET['check_out'];
+            // echo "<pre>";print_r($check_out);
             $person = $_GET['person'];
             $data['hotel_data'] = DB::table('hotels')
                 ->join('country', 'hotels.hotel_country', '=', 'country.id')
@@ -3112,12 +3115,21 @@ class HomeController extends Controller
             }        
 
             $room_booked = DB::table('booking')
-                    ->where("room_id", $room_id)
+                    // ->where("room_id", $room_id)
                     ->whereBetween('check_in', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
                     ->orWhereBetween('check_out', [date('Y-m-d', strtotime($check_in)), date('Y-m-d', strtotime($check_out))])
                     ->get();
+            // echo "<pre>";print_r($room_booked);
 
-            $room_booked_count = $room_booked->where('user_id', $u_id)->count();
+            $booked_rooms = [];
+            foreach($room_booked as $room){
+                if($room->user_id == Auth::id() and $room->room_id == $room_id){
+                    $booked_rooms = $room;
+                }
+            }     
+            // $room_booked_count = $room_booked->where('user_id', $u_id)->count();
+            $room_booked_count = count($booked_rooms);
+            // echo "<pre>";print_r($room_booked_count);die;
 
             $data['checkRequest'] = $checkRequest;
             $data['room_booking_request'] = $room_booking_request;
@@ -3134,7 +3146,8 @@ class HomeController extends Controller
             $data['start_day'] = $start_day;
             $data['end_day'] = $end_day;
 
-            // echo "<pre>";print_r($data);die;
+            // echo "<pre>";print_r($room_booked);
+            // die;
             return view('front/hotel/checkout')->with($data);
         } else {
             return redirect()->route('home');

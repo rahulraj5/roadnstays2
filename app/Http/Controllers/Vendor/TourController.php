@@ -40,7 +40,6 @@ class TourController extends Controller
         return view('vendor/tour/add_tour')->with($data);
     }
 
-
     public function submit_tour(Request $request)
     {
         $vendor_id = Auth::user()->id;
@@ -343,168 +342,6 @@ class TourController extends Controller
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
     }
-    
-    public function tour_approve_booking_list(Request $request)
-    {
-        $data['page_heading_name'] = 'Tour Approve Booking List';
-        $vendor_id = Auth::id();
-        $data['bookingList'] = DB::table('tour_booking_request')
-            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
-            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
-            ->select(
-                'tour_booking_request.*',
-                'users.user_type',
-                'users.first_name as user_first_name',
-                'users.last_name as user_last_name',
-                'users.email as user_email',
-                'users.contact_number as user_contact_num',
-                'users.role_id as user_role_id',
-                'users.is_verify_email as user_email_is_verify_email',
-                'users.is_verify_contact as user_contact_is_verify_contact',
-                'tour_list.tour_title',
-                'tour_list.vendor_id',
-                'tour_list.tour_start_date as tour_start_date',
-                'tour_list.tour_end_date',
-                'tour_list.tour_price',
-                'tour_list.tour_days',
-                'tour_list.city',
-                'tour_list.booking_option'
-            )
-            ->where('vendor_id', $vendor_id)
-            ->orderby('id', 'DESC')
-            ->get();
-        $data['invoiceNum'] = DB::table('tour_booking_request')->where('approve_status', 1)->get(['id','invoice_num']);
-        // echo "<pre>"; print_r($data['invoiceNum']);die;
-        // echo "<pre>"; print_r($data['bookingList']);die;
-        return view('vendor/tour/approve_booking_list')->with($data);
-    }
-
-    public function getInvoiceDetails($request_id = 0)
-    {
-        // $details = DB::table('tour_booking_request')->find($request_id);
-        $details = DB::table('tour_booking_request')
-            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
-            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
-            ->select(
-                'tour_booking_request.*',
-                'users.user_type',
-                'users.first_name as user_first_name',
-                'users.last_name as user_last_name',
-                'users.email as user_email',
-                'users.contact_number as user_contact_num',
-                'users.role_id as user_role_id',
-                'users.is_verify_email as user_email_is_verify_email',
-                'users.is_verify_contact as user_contact_is_verify_contact',
-                'tour_list.tour_title',
-                'tour_list.vendor_id',
-                'tour_list.tour_start_date as tour_start_date',
-                'tour_list.tour_end_date',
-                'tour_list.tour_price',
-                'tour_list.tour_days',
-                'tour_list.city',
-                'tour_list.booking_option'
-            )
-            ->where('tour_booking_request.id', $request_id)
-            ->first();
-        // echo "<pre>";print_r($details);die;
-        $html = "";
-        if(!empty($details)){
-           $html = "<tr>
-                <td width='30%'><b>Tour Name:</b></td>
-                <td width='70%'> ".$details->tour_title."</td>
-             </tr>
-             <tr>
-                <td width='30%'><b>Period:</b></td>
-                <td width='70%'> ".$details->tour_start_date." to ".$details->tour_end_date."</td>
-             </tr>
-             <tr>
-                <td width='30%'><b>Price:</b></td>
-                <td width='70%'>PKR ".$details->tour_price."</td>
-             </tr>
-             <tr>
-                <td width='30%'><b>Tour Days:</b></td>
-                <td width='70%'> ".$details->tour_days."</td>
-             </tr>
-             <tr>
-                <td width='30%'><b>Email:</b></td>
-                <td width='70%'> ".$details->user_email."</td>
-             </tr>
-             <tr>
-                <td width='30%'><b>Phone:</b></td>
-                <td width='70%'> ".$details->user_contact_num."</td>
-             </tr>
-             <tr>
-                <td>
-                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
-                        <tbody>
-                            <tr>
-                                <td>Cost</td>
-                                <td class='alignright'>PKR ".$details->tour_price."</td>
-                            </tr>
-                            <tr class='total'>
-                                <td class='alignright' width='80%'>Total</td>
-                                <td class='alignright'>PKR ".$details->tour_price."</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-             </tr>";
-        }
-        $response['html'] = $html;
-        $response['request_id'] = $details->id;
-  
-        return response()->json($response);
-    }
-
-    public function send_invoice(Request $request)
-    {
-        $request_id = $request->request_id;
-
-        if (!empty($request_id)) {
-            $check = DB::table('tour_booking_request')->where('id', $request_id)->first();
-            if($check->approve_status == 0){
-                $invoiceNum = Helper::generateRandomInvoiceId(5);
-                DB::table('tour_booking_request')
-                    ->where('id', $request_id)
-                    ->update([
-                        'approve_status' => 1,
-                        'invoice_num' => $invoiceNum
-                    ]);
-                return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
-            }else{
-                return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
-            }
-        }
-    } 
-
-    public function delete_booking_request(Request $request)
-    {
-        $request_id = $request->id;
-        $res = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
-        if ($res){
-            DB::table('tour_booking_request')->where('id', '=', $request_id)->delete();
-            return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
-        }else{
-            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
-        }
-    }
-
-    public function cancel_tour_booking_request_status(Request $request)
-    {
-        $request_id = $request->id;
-        $check = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
-        if($check->request_status == 1){
-            DB::table('tour_booking_request')
-            ->where('id', $request_id)
-            ->update([
-                'request_status' => 0,
-                'approve_status' => 0,
-            ]);
-            return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
-        }else{
-            return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
-        }
-    }
 
     public function tourbooking_list(Request $request)
     {
@@ -620,5 +457,182 @@ class TourController extends Controller
             ->get();
         // echo "<pre>"; print_r($data);die; 
         return view('vendor/tour/booking_details')->with($data);
+    }
+    
+    public function tour_approve_booking_list(Request $request)
+    {
+        $data['page_heading_name'] = 'Tour Approve Booking List';
+        $vendor_id = Auth::id();
+        $data['bookingList'] = DB::table('tour_booking_request')
+            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+            ->select(
+                'tour_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city',
+                'tour_list.booking_option'
+            )
+            ->where('vendor_id', $vendor_id)
+            ->orderby('id', 'DESC')
+            ->get();
+        $data['invoiceNum'] = DB::table('tour_booking_request')->where('approve_status', 1)->get(['id','invoice_num']);
+        // echo "<pre>"; print_r($data['invoiceNum']);die;
+        // echo "<pre>"; print_r($data['bookingList']);die;
+        return view('vendor/tour/approve_booking_list')->with($data);
+    }
+
+    public function getInvoiceDetails($request_id = 0)
+    {
+        // $details = DB::table('tour_booking_request')->find($request_id);
+        $details = DB::table('tour_booking_request')
+            ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+            ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+            ->select(
+                'tour_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'tour_list.tour_title',
+                'tour_list.vendor_id',
+                'tour_list.tour_start_date as tour_start_date',
+                'tour_list.tour_end_date',
+                'tour_list.tour_price',
+                'tour_list.tour_days',
+                'tour_list.city',
+                'tour_list.booking_option'
+            )
+            ->where('tour_booking_request.id', $request_id)
+            ->first();
+        // echo "<pre>";print_r($details);die;
+        $html = "";
+        if(!empty($details)){
+           $html = "<tr>
+                <td width='30%'><b>Tour Name:</b></td>
+                <td width='70%'> ".$details->tour_title."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Period:</b></td>
+                <td width='70%'> ".$details->tour_start_date." to ".$details->tour_end_date."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Price:</b></td>
+                <td width='70%'>PKR ".$details->tour_price."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Tour Days:</b></td>
+                <td width='70%'> ".$details->tour_days."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Email:</b></td>
+                <td width='70%'> ".$details->user_email."</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Phone:</b></td>
+                <td width='70%'> ".$details->user_contact_num."</td>
+             </tr>
+             <tr>
+                <td>
+                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                        <tbody>
+                            <tr>
+                                <td>Cost</td>
+                                <td class='alignright'>PKR ".$details->tour_price."</td>
+                            </tr>
+                            <tr id='discount_tr' class='d-non'>
+                                <td>Discount</td>
+                                <td class='alignright'>PKR -<span id='discount_val'></span></td>
+                            </tr>
+                            <tr id='expense_tr' class='d-non'>
+                                <td id='expe_name'></td>
+                                <td class='alignright'>PKR <span id='expe_val'></span></td>
+                            </tr>
+                            <tr class='total'>
+                                <td class='alignright' width='80%'>Total</td>
+                                <td class='alignright'>PKR <span id='total_amt'>".$details->tour_price."</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+             </tr>";
+        }
+        $response['html'] = $html;
+        $response['total_amount'] = $details->tour_price;
+        $response['request_id'] = $details->id;
+  
+        return response()->json($response);
+    }
+
+    public function send_invoice(Request $request)
+    {
+        $request_id = $request->request_id;
+        $disco_val = $request->disco_val;
+        $exp_name = $request->exp_name;
+        $exp_value = $request->exp_value;
+
+        if (!empty($request_id)) {
+            $check = DB::table('tour_booking_request')->where('id', $request_id)->first();
+            if($check->approve_status == 0){
+                $invoiceNum = Helper::generateRandomInvoiceId(5);
+                DB::table('tour_booking_request')
+                    ->where('id', $request_id)
+                    ->update([
+                        'approve_status' => 1,
+                        'invoice_num' => $invoiceNum,
+                        'discount' => $disco_val,
+                        'expense_name' => $exp_name,
+                        'expense_value' => $exp_value,
+                    ]);
+                return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
+            }else{
+                return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
+            }
+        }
+    } 
+
+    public function delete_booking_request(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
+        if ($res){
+            DB::table('tour_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
+        }else{
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
+    public function cancel_tour_booking_request_status(Request $request)
+    {
+        $request_id = $request->id;
+        $check = DB::table('tour_booking_request')->where('id', '=', $request_id)->first();
+        if($check->request_status == 1){
+            DB::table('tour_booking_request')
+            ->where('id', $request_id)
+            ->update([
+                'request_status' => 0,
+                'approve_status' => 0,
+            ]);
+            return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
+        }else{
+            return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
+        }
     }
 }

@@ -159,11 +159,12 @@
                     <th>Space Name</th>
                     <th>User Name</th>
                     <th>User Contact Info</th>
-                    <th>Space City</th>
+                    <!-- <th>Space City</th> -->
                     <th>Payment Type</th>
                     <th>Payment Status</th>
                     <th>Booking Status</th>
                     <th>Refund Status</th>
+                    <th>Refund Amount</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -177,7 +178,7 @@
                     <td>{{ $arr->space_name }}</td>
                     <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
                     <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-                    <td>{{ $arr->city }}</td>
+                    <!-- <td>{{ $arr->city }}</td> -->
                     <td>{{ $arr->payment_type }}</td>
                     <td>{{ $arr->payment_status }}</td>
                     <td>{{ $arr->booking_status }}</td>
@@ -190,6 +191,11 @@
                         <option value="confirmed" {{ $arr->refund_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                       </select>
                     </td>
+                    @else
+                    <td>Not Yet</td>
+                    @endif
+                    @if(!empty($arr->refund_amount))
+                    <td>{{ $arr->refund_amount }}</td>
                     @else
                     <td>Not Yet</td>
                     @endif

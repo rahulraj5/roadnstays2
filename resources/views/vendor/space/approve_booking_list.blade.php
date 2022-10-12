@@ -76,6 +76,12 @@
   } */
 </style>
 
+<style>
+  .d-non{
+    display: none;
+  }
+</style>
+
 @endsection
 
 @section('current_page_js')
@@ -95,6 +101,13 @@
 <script src="{{ asset('resources/assets/js/datatable_custom.js')}}"></script>
 
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<!-- Multi-form -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+
+<!-- jquery-validation -->
+<script src="{{ asset('resources/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
 <!-- <script type="text/javascript">
   function issueInvoiceConfirmation(id) {
@@ -154,7 +167,6 @@
             } else {
               error_noti(results.msg);
             }
-
           },
           error: function(errorData) {
             console.log(errorData);
@@ -262,43 +274,9 @@
   })
 </script>
 
-<script>
-  $('.issue_invoice').click(function() {
-
-    var request_id = $(this).data('id');
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    // AJAX request
-    $.ajax({
-      url: "{{url('/servicepro/sendSpaceInvoice')}}",
-      type: 'post',
-      data: {
-        request_id: request_id,
-        _token: CSRF_TOKEN
-      },
-      success: function(response) {
-        if (response.status == 'success') {
-          $("#invoice_id").text(response.invoiceNum);
-          success_noti(response.msg);
-          setTimeout(function() {
-            window.location.reload()
-          }, 1000);
-        } else {
-          error_noti(response.msg);
-        }
-        // Add response in Modal body
-        // $('.modal-body').html(response);
-
-        // Display Modal
-        // $('#empModal').modal('show');
-      }
-    });
-  });
-</script>
-
 <!-- Script -->
 <script type='text/javascript'>
   $(document).ready(function() {
-
     $('#example').on('click', '.viewdetails', function() {
       var requestId = $(this).attr('data-id');
 
@@ -322,6 +300,7 @@
             // Add employee details
             $('#tblinvoiceinfo tbody').html(response.html);
             $('.issue_invoice').attr("data-id", response.request_id);
+            $('#total_amount').val(response.total_amount);
             // Display Modal
             $('#invoice_modal').modal('show');
           }
@@ -329,7 +308,120 @@
 
       }
     });
+  });
+</script>
 
+<script>
+  $('.add_discount').click(function() {
+    var form = $("#discount_form");
+    form.validate({
+      rules: {
+        discount: {
+          required: true,
+        },
+      },
+    });
+    if(form.valid() === true) { 
+      let discount = $('#discount').val();
+      var disco_val = $("#disco_val").val(discount);
+      var discount_val = $("#discount_val").text(discount);
+
+      let total_amt = $("#total_amount").val();
+      let expense_val = $("#expense_value").val();
+      if(expense_val==''){
+        var expense = 0;
+      }else{
+        var expense = expense_val;
+      }
+
+      if(!discount){
+        $("#total_amt").text(total_amt);
+      }else{
+        let total = parseFloat(expense) + parseFloat(total_amt) - parseFloat(discount);
+        $("#total_amt").text(total);
+      }
+
+      $('#discount_tr').removeClass('d-non');
+    }else{
+      form.dismiss;
+    }
+  });
+</script>
+
+<script>
+  $('.add_expense').click(function() {
+    var form = $("#expense_form");
+    form.validate({
+      rules: {
+        expense_value: {
+          required: true,
+        },
+        expense_name: {
+          required: true,
+        },
+      },
+    });
+    if(form.valid() === true) {
+      let expo_name = $('#expense_name').val();
+      let expo_val = $('#expense_value').val();
+      $("#exp_name").val(expo_name);
+      $("#exp_value").val(expo_val);
+      $("#expe_name").text(expo_name);
+      $("#expe_val").text(expo_val);
+
+      let total_amt = $("#total_amount").val();
+      let discount = $("#discount").val();
+      if(discount==''){
+        var disco = 0;
+      }else{
+        var disco = discount;
+      }
+
+      if(expo_val == ''){
+        $("#total_amt").text(total_amt);
+      }else{
+        let total = parseFloat(expo_val) + parseFloat(total_amt) - parseFloat(disco);
+        $("#total_amt").text(total);
+      }
+
+      $('#expense_tr').removeClass('d-non');
+    }else{
+      form.dismiss;
+    }
+  });
+</script>
+
+<script>
+  $('.issue_invoice').click(function() {
+    var request_id = $(this).data('id');
+    var disco_val = $('#disco_val').val();
+    var exp_name = $('#exp_name').val();
+    var exp_value = $('#exp_value').val();
+    // alert(typeof(disco_val));
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    // AJAX request
+    $.ajax({
+      url: "{{url('/servicepro/sendSpaceInvoice')}}",
+      type: 'post',
+      data: {
+        request_id: request_id,
+        exp_name: exp_name,
+        exp_value: exp_value,
+        disco_val: disco_val,
+        _token: CSRF_TOKEN
+      },
+      success: function(response) {
+        if (response.status == 'success') {
+          $("#invoice_id").text(response.invoiceNum);
+          success_noti(response.msg);
+          setTimeout(function() {
+            window.location.reload()
+          }, 1000);
+        } else {
+          error_noti(response.msg);
+        }
+      }
+    });
   });
 </script>
 
@@ -416,7 +508,6 @@
       <div class="modal-header">
         <h4 class="modal-title">Create Invoice <span id="invoice_id"></span></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
       </div>
       <div class="modal-body">
         <table class="w-100" id="tblinvoiceinfo">
@@ -425,20 +516,27 @@
         <div class="row">
           <div class="col-md-12">
             <h6>Add Extra Expense</h6>
-            <input type="text" name="expense_name" id="expense_name" placeholder="type expense name">
-            <input type="text" name="expense_value" id="expense_value" placeholder="type expense value">
-            <button class="btn btn-info add_expense">Add</button>  
+            
+            <input type="hidden" name="total_amount" id="total_amount" value="">
+            <form id="expense_form" method="post">
+              <input type="text" name="expense_name" id="expense_name" placeholder="type expense name">
+              <input type="text" name="expense_value" id="expense_value" placeholder="type expense value">
+              <input type="hidden" name="exp_name" id="exp_name">
+              <input type="hidden" name="exp_value" id="exp_value">
+              <button type="button" class="btn btn-info add_expense">Add</button>
+            </form>  
           </div>
           <div class="col-md-12">
             <h6>Add Discount</h6>
-            <input type="text" name="discount" id="discount" placeholder="type discount value">
-            <button class="btn btn-info add_discount">Add</button>  
+            <form id="discount_form" method="post">
+              <input type="text" name="discount" id="discount" placeholder="type discount value">
+              <input type="hidden" name="disco_val" id="disco_val" value="">
+              <button type="button" class="btn btn-info add_discount">Add</button>
+            </form>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <!-- <input type="hidden" id="getRequestId" value="0"> -->
-        <!-- <button type="button" class="btn btn-info" data-bs-dismiss="modal">Send Invoice</button> -->
         <button class="btn btn-info issue_invoice" data-id=''>Send Invoice</button>
       </div>
     </div>

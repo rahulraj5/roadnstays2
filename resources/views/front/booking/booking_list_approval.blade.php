@@ -906,7 +906,7 @@
                         @if($arr->payment_status == 0)
                             @if($arr->request_status == 1 and $arr->approve_status == 1)
                                 <div class="col-md-4 user-detail">
-                                    <a href="{{url('checkout')}}?hotel_id={{$arr->hotel_id}}&room_id={{$arr->room_id}}&check_in={{date('d-m-Y',strtotime($arr->check_in_date))}}&check_out={{date('d-m-Y',strtotime($arr->check_out_date))}}&person={{$arr->person}}"><i class='bx bx-spreadsheet'></i> Invoice Created - Check & Pay</a>
+                                    <a href="{{url('checkout')}}?hotel_id={{$arr->hotel_id}}&room_id={{$arr->room_id}}&check_in={{date('d-m-Y',strtotime($arr->check_in_date))}}&check_out={{date('d-m-Y',strtotime($arr->check_out_date))}}&person={{$arr->total_member}}"><i class='bx bx-spreadsheet'></i> Invoice Created - Check & Pay</a>
                                 </div>
                             @endif    
 

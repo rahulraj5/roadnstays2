@@ -3299,7 +3299,7 @@ color: #FFF;
     margin-right: 15px;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: solid 1px #e7e7e7;
     border-radius: 3px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -5225,18 +5225,49 @@ border: 1px solid #126c62;
 .paynow-btn {
     background: #126c62;
     color: #FFF;
-    padding: 6px 56px;
-    font-size: 18px;
+    padding: 10px 20px;
+    font-size: 16px;
     border-radius: 6px;
     box-shadow: 0px 6px 9px #8b8b8b;
     transition: 0.5s;
-    border: 1px solid #126c62;
+    margin: 0 10px 0 0;
+    
 }
 .paynow-btn:hover {
-    color: #126c62; 
-    background: #FFF;
-    border: 1px solid #126c62;
+    color: #fff!important; 
+    
+
   }
+  .bankpay .paynow-btn{
+    border: none!important;
+}
+
+#myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 16px; /* Increase font-size */
+    margin-bottom: 20px;
+  }
+  
+  #myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+  }
+  
+  #myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+  }
+
+
+
+
 .listing-tour .tour-body .item{
     margin-bottom: 20px;
 }
@@ -5288,6 +5319,7 @@ border: 1px solid #126c62;
     background: #FFF;
     padding: 10px;
     margin-top: 10px;
+    font-weight: 800;
 }
 .price-bkp h4 {
     font-size: 17px;
@@ -5816,10 +5848,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     background: transparent;
     border-left: 2px dotted #ced4da;
 }
-.booking-slot .tab-content .span3{
-  border:1px solid #b7abab;
 
-}
 .booking-slot .tab-content .reserved input {
     border: 0px solid #b7abab;
     font-size: 14px;
@@ -7286,7 +7315,7 @@ figure {
 .infobox h3 {
     color: #126c62;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 15px;
     padding: 2px 1px;
     width: 100%;
     margin-bottom: 0;

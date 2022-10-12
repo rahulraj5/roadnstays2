@@ -476,6 +476,17 @@
                   <form id="member-registration" method="post" class="form-validate form-horizontal well" action="{{url('/tourBookingOrder')}}" enctype="multipart/form-data">
                @endif
                      @csrf
+                     @if(!empty($details))
+                        @php $expense = $details->expense_value @endphp
+                     @else
+                        @php $expense = 0 @endphp
+                     @endif
+
+                     @if(!empty($details))
+                        @php $discount = $details->discount @endphp
+                     @else
+                        @php $discount = 0 @endphp
+                     @endif
                      <input type="hidden" name="user_id" value="{{Auth::check()}}">
                      <input type="hidden" name="tour_id" value="{{$tour_details->id}}">
                      <input type="hidden" name="tour_price" value="{{$tour_details->tour_price}}">
@@ -808,49 +819,55 @@
                                     <h5 class="mt-2">
                                        <i class='bx bxs-check-circle'></i>Invoice - {{$details->invoice_num ?? ''}}
                                     </h5>
-                                    <table>
-                                       <tbody>
-                                          <tr>
-                                             <td width='30%'><b>Tour Name:</b></td>
-                                             <td width='70%'>{{$details->tour_title ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td width='30%'><b>Period:</b></td>
-                                             <td width='70%'>{{$details->tour_start_date ?? ''}} to {{$details->tour_end_date ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td width='30%'><b>Price:</b></td>
-                                             <td width='70%'>PKR {{$details->tour_price ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td width='30%'><b>Tour Days:</b></td>
-                                             <td width='70%'> {{$details->tour_days ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td width='30%'><b>Email:</b></td>
-                                             <td width='70%'> {{$details->user_email ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td width='30%'><b>Phone:</b></td>
-                                             <td width='70%'> {{$details->user_contact_num ?? ''}}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <table class='invoice-items' cellpadding='0' cellspacing='0'>
-                                                   <tbody>
-                                                      <tr>
-                                                         <td>Cost</td>
-                                                         <td class='alignright'>PKR {{$details->tour_price ?? ''}}</td>
-                                                      </tr>
-                                                      <tr class='total'>
-                                                         <td class='alignright' width='80%'>Total</td>
-                                                         <td class='alignright'>PKR {{$details->tour_price ?? ''}}</td>
-                                                      </tr>
-                                                   </tbody>
-                                                </table>
-                                             </td>
-                                          </tr>
-                                       </tbody>
+                                    <table id="myTable">
+                                       <tr class="header">
+                                          <th style="width:40%;">Name</th>
+                                          <th style="width:60%;">Status</th>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Tour Name:</td>
+                                          <td>{{$details->tour_title ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Period:</td>
+                                          <td>{{$details->tour_start_date ?? ''}} to {{$details->tour_end_date ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Price:</td>
+                                          <td>PKR {{$details->tour_price ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Tour Days:</td>
+                                          <td>{{$details->tour_days ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Email:</td>
+                                          <td>{{$details->user_email ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td style="font-weight:600;">Phone:</td>
+                                          <td>{{$details->user_contact_num ?? ''}}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Cost:</td>
+                                          <td>PKR {{$details->tour_price ?? ''}}</td>
+                                       </tr>
+                                       @if($expense!=0)
+                                       <tr>
+                                          <td>Extra Charges:</td>
+                                          <td>PKR {{$expense}}</td>
+                                       </tr>
+                                       @endif
+                                       @if($discount!=0)
+                                       <tr>
+                                          <td>Discount:</td>
+                                          <td>PKR -{{$discount}}</td>
+                                       </tr>
+                                       @endif
+                                       <tr>
+                                          <td>Total:</td>
+                                          <td>PKR {{$details->tour_price + $expense - $discount}}</td>
+                                       </tr>
                                     </table>
                                     <input type="submit" name="paynow" class="paynow-btn" value="Create Order" style="background-color: green;">
                                  </div>
@@ -886,9 +903,22 @@
                      <h5> 1 x 1 Adults | Passenger<br> <small> Base Price</small></h5>
                      <h6> PKR {{$tour_details->tour_price}} </h6>
                   </div>
+                  @if(!empty($details))
+                  <div class="price-left">
+                     <h5> {{$details->expense_name}}</h5>
+                     <h6>PKR {{$details->expense_value}}</h6>
+                  </div>
+                  @endif
+                  @if(!empty($details))
+                  <div class="price-left">
+                     <h5> Discount</h5>
+                     <h6>PKR -{{$details->discount}}</h6>
+                  </div>
+                  @endif
+
                   <div class="price-left">
                      <h5> <b>Total Amount to be paid </b></h5>
-                     <h6><b>PKR {{$tour_details->tour_price}}</b></h6>
+                     <h6><b>PKR {{$tour_details->tour_price + $expense - $discount}}</b></h6>
                   </div>
                </div>
             </div>

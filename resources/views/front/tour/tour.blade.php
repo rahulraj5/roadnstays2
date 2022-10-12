@@ -173,7 +173,8 @@
                                     <?php $nights = (int)$trip->tour_days - 1; ?>
                                     <div class="d-flex mt-4 dtl-t01">
                                        <div class="btm-info">
-                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
+                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i>{{date('d M Y',strtotime($trip->tour_start_date))}} To {{date('d M Y', strtotime($trip->tour_end_date))}}</p>
+                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-world"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
                                           <p class="mb-1 item-card2-desc"><i class="bx bx-map"></i> {{ ucfirst(strtolower(trans($country_name->name))) }}</p>
                                        </div>
                                        <div class="ml-auto price-box mt-0 border-left pl-5 text-center">
@@ -265,7 +266,8 @@
                                     <?php $nights = (int)$trip->tour_days - 1; ?>
                                     <div class="d-flex mt-4 dtl-t01">
                                        <div class="btm-info">
-                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
+                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i>{{date('d M Y',strtotime($trip->tour_start_date))}} To {{date('d M Y', strtotime($trip->tour_end_date))}} </p>
+                                          <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-world"></i> {{$trip->tour_days}} Days,{{$nights}} Nights</p>
                                           <p class="mb-1 item-card2-desc"><i class="bx bx-map"></i> {{ ucfirst(strtolower(trans($country_name->name))) }}</p>
                                        </div>
                                        <div class="ml-auto price-box mt-0 border-left pl-5 text-center">

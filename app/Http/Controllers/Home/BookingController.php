@@ -921,12 +921,18 @@ class BookingController extends Controller
         $user_id = Auth::user()->id;
         $room_id = $request->room_id;
         $hotel_id = $request->hotel_id;
-        $checkin_date = Session::get('checkin_date');
-        $checkout_date = Session::get('checkout_date');
-        $person = Session::get('person');
-        // $tour_price = $request->tour_price;
-        // $tour_start_date = $request->tour_start_date;
-        // $tour_end_date = $request->tour_end_date;
+        // $checkin_date = Session::get('checkin_date');
+        // $checkout_date = Session::get('checkout_date');
+        // $person = Session::get('person');
+        $person = $request->total_member;
+        $checkin_date = $request->check_in;
+        $checkout_date = $request->check_out;
+        $cleaning_fee = $request->cleaning_fee;
+        $city_fee = $request->city_fee;
+        $tax_percentage = $request->tax_percentage;
+        $total_days = $request->total_days;
+        $total_room = $request->total_room;
+        $total_amount = $request->total_amount;
 
         $check = DB::table('room_booking_request')->where('room_id', '=', $room_id)->where('user_id', '=', $user_id)->first();
         if($check){
@@ -940,7 +946,13 @@ class BookingController extends Controller
                 'user_id' =>  $user_id,
                 'check_in_date' =>  date('Y-m-d',strtotime($checkin_date)),
                 'check_out_date' =>  date('Y-m-d',strtotime($checkout_date)),
-                'person' =>  $person,
+                'cleaning_fee' =>  $cleaning_fee,
+                'city_fee' =>  $city_fee,
+                'tax_percentage' =>  $tax_percentage,
+                'total_days' =>  $total_days,
+                'total_room' =>  $total_room,
+                'total_member' =>  $person,
+                'total_amount' =>  $total_amount,
                 'request_status' =>  1,
                 'created_at' =>  date('Y-m-d H:i:s')
             )

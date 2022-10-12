@@ -205,6 +205,9 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/tour-reservation-details/{id}', 'Vendor\ReservationController@tour_reservation_detail');	
     Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');
     
+    Route::any('user/requestBookingTour', 'Home\BookingController@request_booking_tour');
+    Route::any('user/cancelTourBookingRequest', 'Home\BookingController@cancel_request_booking_tour');	
+    
     Route::get('servicepro/roomsApproveBooking_list', 'Vendor\BookingController@room_approve_booking_list');
     Route::any('servicepro/cancelRoomBookingRequestStatus', 'Vendor\BookingController@cancel_room_booking_request_status');
     Route::any('servicepro/getRoomInvoiceDetails/{requestId}', 'Vendor\BookingController@getRoomInvoiceDetails')->name('getRoomInvoiceDetails');

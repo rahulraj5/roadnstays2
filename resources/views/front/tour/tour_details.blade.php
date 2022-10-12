@@ -57,7 +57,7 @@ $(".hitter").click (function(){
                         </div>
                         <?php  $nights = (int)$tour_details->tour_days-1; ?>
                         <div class="btm-info d_n">
-                           <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> {{$tour_details->tour_days}} Days & {{$nights}} Nights</p>
+                           <p class="fs-14 mb-2 item-card2-desc"><i class="bx bx-calendar"></i> Start Date - {{date('d M Y',strtotime($tour_details->tour_start_date))}} & End Date - {{date('d M Y', strtotime($tour_details->tour_end_date))}} ({{$tour_details->tour_days}} Days & {{$nights}} Nights)</p>
                            <a href="#" class="tour-type">{{$tour_details->tour_type}}</a>
                         </div>
                         <div class="facility-detail">
