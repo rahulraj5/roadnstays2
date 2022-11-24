@@ -264,6 +264,10 @@ $('#end_date').datepicker(
           required: true,
           number: true,
         },
+        tour_child_price: {
+          required:true,
+          range:[10,100]
+        },
         tour_days: {
           required: true,
           number: true,
@@ -328,19 +332,25 @@ $('#end_date').datepicker(
         min_hrs_percentage: {
           number: true,
           required: true,
-          range:[0,100]
+          range:[0,100],
+          min: function(element) {
+            return parseInt($('input[name="max_hrs_percentage"]').val());
+          },
         },
         max_hrs: {
           number: true,
           required: true,
+          min: function(element) {
+            return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
         },
         max_hrs_percentage: {
           number: true,
           required: true,
           range:[0,100],
           max: function(element) {
-              return $('input[name="min_hrs_percentage"]').val();
-          }
+            return parseInt($('input[name="min_hrs_percentage"]').val());
+          },
         },
         online_payment_percentage: {
           number: true,
@@ -516,6 +526,28 @@ $('#end_date').datepicker(
 
 <script type="text/javascript">
   $(document).ready(function() {
+    var maxField = 4;
+    var addButton = $('.add_button_city');
+    var wrapper = $('.field_wrapper_city');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) { 
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][city]" placeholder="Enter pickup city" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][price]" placeholder="Enter price" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][transport]" placeholder="Enter transport" value="" required="" /></div></div></div><span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button_city', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
     var maxField = 10;
     var addServButton = $('.add_service_button');
     var servWrapper = $('.field_wrapper_service');
@@ -538,7 +570,7 @@ $('#end_date').datepicker(
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var maxField = 10;
+    var maxField = 20;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
     var x = 0;
@@ -548,8 +580,7 @@ $('#end_date').datepicker(
         x++;
         $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][name]" placeholder="Enter Day" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][place_from]" placeholder="Enter place form" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][place_to]" placeholder="Enter place to" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][hotel]" placeholder="Enter hotel" value="" required="" /></div><div class="col-md-2"><input type="text" class="form-control mr-2" name="itinerary['+x+'][transport]" placeholder="Enter transport" value="" required="" /></div><div class="col-md-2"><select class="form-control mr-2" name="itinerary['+x+'][night_stay]" id="" required=""><option value="0">No</option><option value="1">Yes</option></select></div></div><ul style="padding: 3px;  margin-top: 12px;" class="itinerary'+x+' mb-0"><li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+x+'][services][0]" placeholder="services" required=""><a href="javascript:void(0);" class="add_button_ser'+x+' btn-desing" style="padding: 5px; top: 0px;" onclick="addtrips('+x+',0)">Button </a></li></ul></div><span><a href="javascript:void(0);" class="remove_button remove_button_it">Remove</a></span></div>');
       }
-    });
-
+    }); 
     $(wrapper).on('click', '.remove_button', function(e) {
       e.preventDefault();
       $(this).parent().parent('div').remove();
@@ -563,14 +594,14 @@ $('#end_date').datepicker(
       var maxField = 10; 
      inc++;
       if(id > 0){
-         $(".add_button_ser"+id).attr("onclick","addtrips('"+id+"','"+inc+"')");
+        $(".add_button_ser"+id).attr("onclick","addtrips('"+id+"','"+inc+"')");
         $('.itinerary'+id).append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser'+id+'" style="padding: 5px; top: 0px;">Remove</a></li>');
       
         $(".itinerary"+id).on('click','.remove_button_ser'+id,function(){
         $(this).parents('li').remove();
         });
       }else{ 
-         $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
+        $(".add_button_ser").attr("onclick","addtrips('"+id+"','"+inc+"')");
         $('.itinerary').append('<li class="d-flex  mb-2" style="align-items: center;"><input type="text" class="form-control w-50 mr-2" name="itinerary['+id+'][services]['+inc+']" placeholder="services"><a href="javascript:void(0);" class="remove_button remove_button_ser" style="padding: 5px; top: 0px;">Remove</a></li>');
         $(".itinerary").on('click','.remove_button_ser',function(){
         $(this).parents('li').remove();
@@ -810,6 +841,24 @@ $('#end_date').datepicker(
                               <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" required="">
                             </div>
                           </div>
+                          <div class="col-md-6">
+                            <div class="form-group"> 
+                              <label>Tour Price(Children) 2-9 Years Kids % off</label>
+                              <input type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price" value="{{(!empty($tour_info->tour_child_price) ? $tour_info->tour_child_price : '0')}}" required="" max="100">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Deluxe Price</label>
+                              <input type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name" value="{{$tour_info->tour_deluxe_price}}" required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Gold Price</label>
+                              <input type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name" value="{{$tour_info->tour_gold_price}}" required="">
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
@@ -820,7 +869,7 @@ $('#end_date').datepicker(
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Pickup Locations</h4>
+                              <h4>Start Location</h4>
                               </p>
                             </div>
                           </div>
@@ -870,6 +919,63 @@ $('#end_date').datepicker(
                               </select>
                             </div>
                           </div>
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12 field_wrapper_city">
+                            <div class="form-group" id="extra_city">
+                              <label>City</label>
+
+                              <?php //echo "<pre>";print_r(count($tour_pickup_locations)); ?>
+                              <?php //$i = 0; $len = count($tour_pickup_locations);  if($len < 0 ){ 
+
+                                $i = 0;?>
+                              @foreach($tour_pickup_locations as $key => $locations)
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][city]" placeholder="Enter pickup city" value="{{$locations->city}}" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][price]" placeholder="Enter price" value="{{$locations->price}}" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][transport]" placeholder="Enter transport" value="{{$locations->transport}}" required="" />
+                                    </div>
+                                  </div>
+                                </div> 
+                                 @if($i == 0) 
+                                   <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                                @else
+                                    <span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span>
+                                @endif
+                               
+                              </div>
+                               <?php $i++;?>
+                              @endforeach
+                            <?php //}else{?>                                   
+                             <!--  <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control mr-2" name="city[0][city]" placeholder="Enter pickup city" value="" required="" />
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control mr-2" name="city[0][price]" placeholder="Enter price" value="" required="" />
+                                    </div>
+                                  </div>
+                                </div> 
+                                <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                              </div> -->
+                            <?php //} ?>
+                            </div>
+                          </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Start Date</label>
@@ -893,6 +999,7 @@ $('#end_date').datepicker(
                                 <option value="honeymoon" @php if($tour_info->tour_type == 'honeymoon'){echo "selected";} @endphp>Honeymoon</option>
                                 <option value="school_trip" @php if($tour_info->tour_type == 'school_trip'){echo "selected";} @endphp>School Trip</option>
                                 <option value="corporate_trip" @php if($tour_info->tour_type == 'corporate_trip'){echo "selected";} @endphp>Corporate Trip</option>
+                                
                               </select>
                             </div>
                           </div>
@@ -900,9 +1007,18 @@ $('#end_date').datepicker(
                             <div class="form-group">
                               <label>Tour Sub Type</label>
                               <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
-                                <option value="standard"  @php if($tour_info->tour_sub_type == 'standard'){echo "selected";} @endphp>Standard</option>
-                                <option value="deluxe" @php if($tour_info->tour_sub_type == 'deluxe'){echo "selected";} @endphp>Deluxe</option>
-                                <option value="exclusive" @php if($tour_info->tour_sub_type == 'exclusive'){echo "selected";} @endphp>Exclusive</option>
+                                 <option value="city tours" @php if($tour_info->tour_sub_type == 'city tours'){echo "selected";} @endphp>City Tours</option>
+                                <option value="north pakistan tours" @php if($tour_info->tour_sub_type == 'north pakistan tours'){echo "selected";} @endphp>North Pakistan Tours</option>
+                                <option value="south pakistan tour" @php if($tour_info->tour_sub_type == 'south pakistan tour'){echo "selected";} @endphp>South Pakistan Tour</option>
+                                <option value="south punjab tour" @php if($tour_info->tour_sub_type == 'south punjab tour'){echo "selected";} @endphp>South Punjab Tour</option>
+                                <option value="kashmir tours" @php if($tour_info->tour_sub_type == 'south kashmir tours'){echo "selected";} @endphp>Kashmir Tours</option>
+                                <option value="sikh yatra tours" @php if($tour_info->tour_sub_type == 'sikh yatra tours'){echo "selected";} @endphp> Sikh Yatra Tours</option>
+                                <option value="swat valley tours" @php if($tour_info->tour_sub_type == 'swat valley tours'){echo "selected";} @endphp> Swat Valley Tours</option>
+                                <option value="hunza valley tours" @php if($tour_info->tour_sub_type == 'hunza valley tours'){echo "selected";} @endphp>Hunza Valley Tours</option>
+                                <option value="kanghan valley tours" @php if($tour_info->tour_sub_type == 'kanghan valley tours'){echo "selected";} @endphp> Kanghan Valley Tours</option>
+                                <option value="kalash valley tour" @php if($tour_info->tour_sub_type == 'kalash valley tour'){echo "selected";} @endphp>Kalash Valley Tour</option>
+                                <option value="skardu valley tour" @php if($tour_info->tour_sub_type == 'skardu valley tour'){echo "selected";} @endphp> Skardu Valley Tour</option>
+                                <option value="gilgit tours"  @php if($tour_info->tour_sub_type == 'gilgit tours'){echo "selected";} @endphp> Gilgit Tours</option>
                               </select>
                             </div>
                           </div>
@@ -1151,9 +1267,30 @@ $('#end_date').datepicker(
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <label>Deduction (%)</label>
-                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($tour_info->max_hrs_percentage) ? $tour_info->max_hrs_percentage : '')}}" placeholder="percentage">
+                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($tour_info->max_hrs_percentage) ? $tour_info->max_hrs_percentage : '0')}}" placeholder="percentage">
                                 </div>
                               </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Commission</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Commission</label>
+                              <input type="text" class="form-control" name="commission" id="commission" value="{{(!empty($tour_info->commission) ? $tour_info->commission : '0')}}" placeholder="Enter Commission">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Private Note</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="private_note" required>{{$tour_info->private_note}}</textarea>
                             </div>
                           </div>
 

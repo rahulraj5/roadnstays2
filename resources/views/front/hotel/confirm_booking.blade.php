@@ -12,7 +12,7 @@
             <div class="col-md-12 ">
                <a href="{{url('/')}}"><i class="bx bx-left-arrow-alt"></i>Back to Home</a>
 
-               @if($payment_status == 'Failed')
+               @if($payment_status == 'Failed' || $payment_status == '')
                <div class="done-payment mb-3">
                   <img src="{{url('/resources/assets/img/remove.png')}}" style="width: 100px;">
                   <h3>Booking Failed</h3>
@@ -28,6 +28,18 @@
                </div>
                @endif
             </div>
+            @if($payment_status == 'Failed' || $payment_status == '')
+            <div class="col-md-12">
+               <div id="loginResBox">
+                  @if(Session::has('message'))
+                  <div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>failed!</strong> We chould not acquire the payment. Please try again!</div>        
+                  @endif
+                  @if(Session::has('error'))
+                  <div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Opps!</strong> {{ Session::get('error') }}</div>
+                  @endif
+               </div>
+            </div>
+            @else
             <div class="col-md-12">
                <div id="loginResBox">
                   @if(Session::has('message'))
@@ -38,6 +50,7 @@
                   @endif
                </div>
             </div>
+            @endif
             <div class="col-md-12">
                <div class="infobox">
                   <div class="revie-box">
@@ -96,23 +109,40 @@
                      <div class="">
                         <h5 class="mt-3">Price Includes </h5>
                         <ul>
-                        <li>No meals included</li>
-                        <?php if($order_info->breakfast_availability == 1){
-                              if ($order_info->breakfast_price_inclusion == 0) {?>
-                                 <li>Breakfast included</li>
-                        <?php  }else{
-                              echo '<li>No Breakfast included</li>';
-                           }
-                        }else{
-                          echo '<li>Not Available Breakfast</li>';
-                        } ?>
-                        <li>Non-Refundable | On Cancellation, You will not get any refund </li>
+                           <li>No meals included</li>
+                           <?php if($order_info->breakfast_availability == 1){
+                                 if ($order_info->breakfast_price_inclusion == 0) {?>
+                                    <li>Breakfast included</li>
+                           <?php  }else{
+                                 echo '<li>No Breakfast included</li>';
+                              }
+                           }else{
+                           echo '<li>Not Available Breakfast</li>';
+                           } ?>
+                           <li>Non-Refundable | On Cancellation, You will not get any refund </li>
+                        </ul>
+                     </div>
+                     
+                  </div>
+                  @php $vendor_details = DB::table('users')->where('id', $order_info->hotel_user_id)->first(); @endphp 
+                  @php $admin_number = DB::table('admins')->where('id', 1)->value('admin_number') @endphp 
+                  @php $admin_email = DB::table('admins')->where('id', 1)->value('email') @endphp
+                  <div class="room-praci">
+                     <ul class="contact">
+                        <li><h6><i class='bx bx-phone'></i>What's up : {{$vendor_details->num_dialcode_1 ?? ''}} {{$vendor_details->contact_number ?? $admin_number}}</h6></li>
+                        <li><h6><i class='bx bxs-envelope' ></i>E-mail : {{$vendor_details->email ?? $admin_email}}</h6></li>
                      </ul>
+                     <div class="down-i">
+                        <a style="text-decoration:none;" target="blank" href="{{ url('/user/bookingInvoice') }}/{{ base64_encode($order_info->id) }}"><i class='bx bx-download'></i>Download Invoice</a>
                      </div>
                   </div>
                   <div class="revie-box-boxi mt-3">
                      <div class="price-bkp">
                         <h4>Payment details</h4>
+                     </div>
+                     <div class="price-left">
+                        <h5> Booking Number <br></h5>
+                        <h6>#000<?php echo $order_info->id;?> </h6>
                      </div>
                      <div class="price-left">
                         <h5> {{$order_info->total_room}} Room x {{$order_info->total_days}} Night<br> <small> Base Price {{$order_info->price_per_night}} Per Night</small></h5>
@@ -141,12 +171,34 @@
                         <h5> City Fees</h5>
                         <h6>PKR {{$order_info->city_fee}}</h6>
                      </div>
+                     
+                     @if($order_info->earlybird_discount>0)
+                        @php $early_discount = $order_info->total_room*($order_info->total_days*($order_info->price_per_night*($order_info->earlybird_discount/100))); @endphp
+                     <div class="price-left">
+                        <h5> Early Bird Discount</h5>
+                        <h6>PKR -{{$early_discount}}</h6>
+                     </div>
+                     @endif
+
+                     @if($order_info->payment_mode == 2 and $order_info->booking_option == 1)
+                     <div class="price-left">
+                        <h5> Online Paid Amount</h5>
+                        <h6>PKR {{$order_info->online_paid_amount}}</h6>
+                     </div>
+                     <div class="price-left">
+                        <h5> At Desk Payable Amount</h5>
+                        <h6>PKR {{$order_info->remaining_amount_to_pay}}</h6>
+                     </div>
+                     @endif
+                     
                      @endif
                      <div class="price-left">
                         <h5> <b>Total Amount to be paid </b></h5>
-                        <h6><b>PKR {{$order_info->total_amount}}</b></h6>
+                        <?php if($order_info->earlybird_discount>0){ $early_discount;}else{$early_discount = 0;} ?>
+                        <h6><b>PKR {{ $order_info->total_amount - $early_discount }}</b></h6>
                      </div>
                   </div>
+                  
                </div>
             </div>
          </div>

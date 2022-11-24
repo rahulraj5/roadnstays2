@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
+use App\Helpers\Helper;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hotel;
@@ -14,6 +15,7 @@ use App\Models\Tour;
 use App\Models\Space;
 use DB;
 use Session;
+use Mail;
 
 class VendorController extends Controller
 {
@@ -152,7 +154,7 @@ class VendorController extends Controller
             $adminhotel->min_hrs_percentage = $request->min_hrs_percentage;
             $adminhotel->max_hrs = $request->max_hrs;
             $adminhotel->max_hrs_percentage = $request->max_hrs_percentage;
-            $adminhotel->commission = $request->commission;
+            //$adminhotel->commission = $request->commission;
 
             // $adminhotel->attraction_name = $request->attraction_name;
             // $adminhotel->attraction_content = $request->attraction_content;
@@ -184,10 +186,12 @@ class VendorController extends Controller
             $adminhotel->operator_contact_num = $request->operator_contact_num;
             $adminhotel->operator_email = $request->operator_email;
             $adminhotel->operator_booking_num = $request->operator_booking_num;
-
+            $adminhotel->hotel_status = 0;
             $adminhotel->save();
 
             $adminhotel_id = $adminhotel->id;
+
+ 
             if (!empty($_FILES["hotelGallery"]["name"])) {
                 foreach ($_FILES["hotelGallery"]["name"] as $key => $error) {
                     $imgname = $_FILES["hotelGallery"]["name"][$key];
@@ -270,8 +274,7 @@ class VendorController extends Controller
 
             // add multiple Attraction
             if (!empty($request->attraction[0]['name'])) {
-                foreach ($request->attraction as $gogattr) {
-                    // echo "<pre>";print_r($extra_option['name']);
+                foreach ($request->attraction as $gogattr) { 
                     $google_attraction = array(
                         'attraction_name' => $gogattr['name'],
                         'attraction_content' => $gogattr['content'],
@@ -284,14 +287,39 @@ class VendorController extends Controller
                     );
                     $up = DB::table('hotel_attraction')->insert($google_attraction);
                 }
+            } 
+
+
+            $data['hotel_name'] = $request->hotelName;
+            $data['user_id'] = Auth::user()->id;
+            $data['contact_name'] = $request->contact_name;
+            $data['contact_num'] = $request->contact_num;
+            $data['created_date'] = date('Y-m-d H:i:s');
+            if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                $inData['email'] = Auth::user()->email;
+                Mail::send('emails.hotel_appove_request_user', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'RoadNStays');
+                    $message->to($inData['email']);
+                    $message->subject('RoadNStays - Hotel approve request');
+                });
+
+
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                Mail::send('emails.hotel_appove_request', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'RoadNStays');
+                    $message->to('votivephppushpendra@gmail.com');
+                    $message->subject('RoadNStays - Hotel approve request');
+                });
+
             }
 
-            // $lastinsertid = $adminhotel->id;
-            // $request->session()->put('lastinsertedid', $lastinsertid);
             return response()->json(['status' => 'success', 'msg' => 'Hotel Added Successfully']);
         }else{
             return response()->json(['status' => 'error', 'msg' => 'Hotel Name Already Exists']);
-    }     
+        }     
     }
     
     public function edit_hotel($id)
@@ -325,7 +353,7 @@ class VendorController extends Controller
             $path = base_path() . '/public/uploads/hotel_video';
             $request->file('hotelVideo')->move($path, $hotelVideo);
         } else {
-            $hotelVideo = '';
+            $hotelVideo = $request->old_hotel_video;
         }
 
         if($request->hasFile('hotelFeaturedImg'))
@@ -356,7 +384,7 @@ class VendorController extends Controller
             $pat2 = base_path() . '/public/uploads/hotel_document';
             $request->file('hotel_document')->move($pat2, $hotel_document);
         } else {
-            $hotel_document = '';
+            $hotel_document = $request->old_hotel_document;
         }
 
         if (!empty($hotel_id)) {
@@ -406,7 +434,7 @@ class VendorController extends Controller
                     'min_hrs_percentage' => $request->min_hrs_percentage,
                     'max_hrs' => $request->max_hrs,
                     'max_hrs_percentage' => $request->max_hrs_percentage,
-                    'commission' => $request->commission,
+                    //'commission' => $request->commission,
 
                     'stay_price' => $request->stay_price,
                     'extra_price_name' => $request->extra_price_name,
@@ -491,9 +519,9 @@ class VendorController extends Controller
                 foreach ($request->extra as $extra_option) {
                     // echo "<pre>";print_r($extra_option['name']);
                     $extra_opt = array(
-                        'ext_opt_name' => $extra_option['name'],
+                        'ext_opt_name' =>  $extra_option['name'],
                         'ext_opt_price' => $extra_option['price'],
-                        'ext_opt_type' => $extra_option['type'],
+                        'ext_opt_type' =>  $extra_option['type'],
                         'hotel_id' => $hotel_id,
                         'status' => 1,
                         'created_at' => date('Y-m-d H:i:s'),
@@ -539,6 +567,34 @@ class VendorController extends Controller
                     $up = DB::table('hotel_attraction')->insert($google_attraction);
                 }
             }
+
+
+            $data['hotel_name'] = $request->hotelName;
+            $data['user_id'] = Auth::user()->id;
+            $data['contact_name'] = $request->contact_name;
+            $data['contact_num'] = $request->contact_num;
+            $data['created_date'] = date('Y-m-d H:i:s');
+            if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                $inData['email'] = Auth::user()->email;
+                Mail::send('emails.hotel_appove_request_user', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'RoadNStays');
+                    $message->to($inData['email']);
+                    $message->subject('RoadNStays - Hotel approve request');
+                });
+
+
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                Mail::send('emails.hotel_appove_request', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'RoadNStays');
+                    $message->to('votivephppushpendra@gmail.com');
+                    $message->subject('RoadNStays - Hotel approve request');
+                });
+
+            }
+
 
             return response()->json(['status' => 'success', 'msg' => 'Hotel Updated Successfully']);
         }
@@ -636,6 +692,8 @@ class VendorController extends Controller
             DB::table('hotel_extra_price')->where('hotel_id', '=', $hotel_id)->delete();
 
             DB::table('hotels')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('booking')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('booking_temp')->where('hotel_id', '=', $hotel_id)->delete();
 
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
         } else {

@@ -23,6 +23,11 @@
     padding-left: 0px !important;
   }*/
 </style>
+<style>
+  .d-non{
+    display: none;
+  }
+</style>
 @endsection
 
 @section('current_page_js')
@@ -143,13 +148,15 @@
 
                           <th>User Contact Number</th>
 
-                          <th>Hotel City</th>
+                          <th>Check in - Check out</th>
 
                           <th>Payment Type</th>
 
                           <th>Payment Status</th>
 
                           <th>Status</th>
+                          <th>Refund Status</th>
+                          <th>Refund Amount</th>
 
                           <th>Action</th>
 
@@ -176,20 +183,41 @@
 
                           <td>{{ $arr->user_contact_num }}</td>
 
-                          <td>{{ $arr->hotel_city }}</td>
+                          <td>{{ date('d/m/y', strtotime($arr->check_in)) }} - {{ date('d/m/y', strtotime($arr->check_out)) }}</td>
 
-                          <td>{{ $arr->payment_type }}</td>
+                          <td>
+                            @if($arr->payment_type == 0)
+                              {{ 'Offline' }}
+                            @elseif($arr->payment_type == 1)
+                              {{ 'Alfa Wallet' }}
+                            @elseif($arr->payment_type == 2)
+                              {{ 'Alfalah Bank Account' }}
+                            @elseif($arr->payment_type == 3)
+                              {{ 'Credit/Debit Card' }}
+                            @elseif($arr->payment_type == 4)
+                              {{ 'Other Bank Accounts' }}
+                            @else
+                              {{ 'paypal' }}  
+                            @endif
+                          </td>
 
                           <td>{{ $arr->payment_status }}</td>
 
                           <!-- <td><a href="{{url('/servicepro/viewHotelRooms')}}/{{base64_encode($arr->hotel_id)}}" class="btn btn-info"><i class="bx bx-list-ol"></i>  View</a></td> -->
 
                           <td>{{ $arr->booking_status }}</td>
+                          @if($arr->booking_status == 'canceled')
+                            <td>{{ $arr->refund_status }}</td>
+                            <td>{{ $arr->refund_amount }}</td>
+                          @else
+                            <td>Not Yet</td>
+                            <td>Not Yet</td>
+                          @endif
                           <!-- <td class="project-state">
 
-                              <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->booking_status ? 'checked' : '' }}>
+                            <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->booking_status ? 'checked' : '' }}>
 
-                            </td> -->
+                          </td> -->
 
                           <td class="text-right py-0 align-middle">
 

@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scout | Dashboard</title>
 
+  <link rel="shortcut icon" href="{{url('/')}}/public/img/favicon-icin.png" type="image/x-icon">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href = "{{ asset('resources/assets/img/favicon.png')}}" rel="icon">
+  <link href = "{{ asset('resources/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> 
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->

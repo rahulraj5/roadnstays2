@@ -267,10 +267,18 @@
           number: true,
         },
         cleaning_fee: {
+          required: true,
           number: true,
         },
+        cleaning_fee_type: {
+          required: true,
+        },
         city_fee: {
+          required: true,
           number: true,
+        },
+        city_fee_type: {
+          required: true,
         },
         security_deposite: {
           number: true,
@@ -314,6 +322,12 @@
         extra_people: {
           required: true,
         },
+        cleaning_fee: {
+          required: true,
+        },
+        city_fee: {
+          required: true,
+        },
         'other_features_id[]': {
           required: true,
         },
@@ -334,6 +348,59 @@
         operator_booking_num: {
           required: true,
           number: true,
+        },
+        online_payment_percentage: {
+            number: true,
+            digits: true,
+            range : [0, 100],
+            required: function(element) {
+                return $('input[name="payment_mode"]:checked').val() == 2;
+            }
+        },
+        at_desk_payment_percentage: {
+            number: true,
+            digits: true,
+            range : [0, 100],
+            required: function(element) {
+                return $('input[name="payment_mode"]:checked').val() == 2;
+            }
+        },
+        min_hrs: {
+            number: true,
+            // required: true,
+            min:1,
+        },
+        min_hrs_percentage: {
+          number: true,
+          // required: true,
+          range:[0,100],
+          // min: function(element) {
+          //     return parseInt($('input[name="max_hrs_percentage"]').val());
+          // },
+          min: function(element) {
+            var max_hrs_per = parseInt($('input[name="max_hrs_percentage"]').val());
+            if(max_hrs_per == NaN){
+            max_hrs_per = 0;
+            }else{
+            max_hrs_per = max_hrs_per;
+            }
+            return max_hrs_per;
+          },
+        },
+        max_hrs: {
+          number: true,
+          // required: true,
+          min: function(element) {
+              return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
+        },
+        max_hrs_percentage: {
+          number: true,
+          // required: true,
+          range:[0,100], 
+          max: function(element) {
+              return parseInt($('input[name="min_hrs_percentage"]').val());
+          },
         },
       },
     });
@@ -634,7 +701,7 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1">
+                              <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" checked>
                               <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                             </div>
                           </div>
@@ -642,19 +709,21 @@
                         <div class="col-sm-5">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
+                              <input disabled class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
                               <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-5">
+
+                        <!-- <div class="col-sm-5">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" checked>
+                              <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0">
                               <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
+
                       </div>
                     </div>
 
@@ -666,7 +735,7 @@
                             <!-- checkbox -->
                             <div class="form-group">
                               <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
+                                <input disabled class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
                                 <label for="booking_option1" class="custom-control-label">Instant booking</label>
                               </div>
 
@@ -694,7 +763,7 @@
                             <!-- checkbox -->
                             <div class="form-group">
                               <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="reserv_date_change_allow1" name="reserv_date_change_allow" value="1">
+                                <input disabled class="custom-control-input" type="radio" id="reserv_date_change_allow1" name="reserv_date_change_allow" value="1">
                                 <label for="reserv_date_change_allow1" class="custom-control-label">Date Change Allowed</label>
                               </div>
 
@@ -712,6 +781,56 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+
+                    <!-- cancellation & policy start here -->
+
+                    <div class="col-md-12">
+                        <div class="tab-custom-content">
+                            <p class="lead mb-0">
+                            <h4>Cancellation and Refund</h4>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- <label>Cancellation and Refund</label> -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Cancellation Policy</label>
+                            <textarea class="form-control" id="summernote2Removed" name="cancel_policy" readonly=""></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Min. Hrs. (# of Hours <= from check in)</label>
+                                    <input readonly="" type="text" class="form-control" name="min_hrs" id="min_hrs" value="" placeholder="hrs.">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Deduction (%)</label>
+                                    <input readonly="" type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="0" placeholder="percentage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Max. Hrs. (# of Hours <= from check in)</label>
+                                    <input readonly="" type="text" class="form-control" name="max_hrs" id="max_hrs" value="" placeholder="hrs">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Deduction (%)</label>
+                                    <input readonly="" type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="0" placeholder="percentage">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-md-12 mt-0">
@@ -732,17 +851,17 @@
                         </div>
 
                         <!-- <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Type of price </label>
-                      <select class="form-control select2bs4" name="type_of_price" id="type_of_price" style="width: 100%;">
-                        <option value="">Select Price type</option>
-                        <option value="single_fee">Single fee</option>
-                        <option value="per_night">Per night</option>
-                        <option value="per_guest">Per guest</option>
-                        <option value="per_night_per_guest">Per night per guest</option>
-                      </select>
-                    </div>
-                  </div> -->
+                          <div class="form-group">
+                            <label>Type of price </label>
+                            <select class="form-control select2bs4" name="type_of_price" id="type_of_price" style="width: 100%;">
+                              <option value="">Select Price type</option>
+                              <option value="single_fee">Single fee</option>
+                              <option value="per_night">Per night</option>
+                              <option value="per_guest">Per guest</option>
+                              <option value="per_night_per_guest">Per night per guest</option>
+                            </select>
+                          </div>
+                        </div> -->
                       </div>
                     </div>
 

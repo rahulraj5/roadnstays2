@@ -1,5 +1,6 @@
   <!-- ======= Footer ======= -->
 
+
   <footer id="footer">
 
     <div class="footer-top">
@@ -27,7 +28,7 @@
                 @endif
                 @else 
                 <li> <a data-toggle="modal" data-target="#exampleModal-log-in">User Login</a></li>
-               @endif
+                @endif
                 <li> <a href="#">Religion</a></li>
 
               </ul>
@@ -281,9 +282,12 @@
                   </div>
 
                   <div class="form-group">
-
-                    <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Mobile number">
-
+                      <input type="hidden" id="country_dialcode" name="country_dialcode"/>
+                      <input type="hidden" name="countryCode" id="countryCode">
+                      <input type="hidden" name="full_url" id="full_url" value="{{url()->full()}}">
+                      <input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Mobile number">
+                      <span id="valid-msg" class="hide-new">✓ Valid</span>
+                      <span id="error-msg" class="hide-new"></span>
                   </div>
 
                   <div class="form-group">
@@ -458,7 +462,11 @@
                     <input type="text" class="form-control" name="vslname" id="vslname" placeholder="Last name">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" name="vsphone_no" id="vsphone_no" placeholder="Mobile number">
+                      <input type="hidden" id="country_dialcode1" name="country_dialcode1"/>
+                      <input type="hidden" name="countryCode1" id="countryCode1">
+                      <input type="text" class="form-control" name="vsphone_no" id="vsphone_no" placeholder="Mobile number">
+                      <span id="valid-msg1" class="hide-new">✓ Valid</span>
+                      <span id="error-msg1" class="hide-new"></span>
                   </div>
                   <div class="form-group">
                     <input type="email" class="form-control" name="vsemail" id="vsemail" placeholder="Email Address">
@@ -543,7 +551,18 @@
     </div>
   </div>
 
+  <style>
+      .iti {
+    display: block !important;
+  }
 
+  .hide-new {
+    display: none;
+  }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script type="text/javascript">
 
   $("#signup").click(function () {
@@ -591,6 +610,131 @@
   // $('label.error').addClass('error_label');
 
 </script>
+
+<script>
+  var input = document.querySelector("#phone_no"),
+    errorMsg = document.querySelector("#error-msg"),
+    validMsg = document.querySelector("#valid-msg");
+
+  var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+  var intl = window.intlTelInput(input, {
+    preferredCountries: ["sa", "pk", "in", "us"],
+    initialCountry: "auto",
+    geoIpLookup: getIp,
+    separateDialCode: true ,
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+  
+  var reset = function() {
+      input.classList.remove("error");
+      errorMsg.innerHTML = "";
+      errorMsg.classList.add("hide-new");
+      validMsg.classList.add("hide-new");
+  };
+
+  function getIp(callback) {
+      fetch('https://ipinfo.io/json?token=a1bc0bab615274', { headers: { 'Accept': 'application/json' }})
+      .then((resp) => resp.json())
+      .catch(() => {
+          return {
+          country: 'pk',
+          };
+      }).then((resp) => callback(resp.country));
+  }
+
+  // Validate on blur event
+  input.addEventListener('blur', function() {
+      reset();
+      if(input.value.trim()){
+          if(intl.isValidNumber()){
+              validMsg.classList.remove("hide-new");
+              // console.log(intl.getSelectedCountryData());
+              // console.log(intl.getSelectedCountryData().iso2);
+              $("#countryCode").val(intl.getSelectedCountryData().iso2);
+              $("#country_dialcode").val(intl.getSelectedCountryData().dialCode);
+              // var intlNumber = intl.getNumber();
+              // var numberType = intl.getNumberType();
+              // console.log(intlNumber);
+              // console.log(numberType);
+          }else{
+              input.classList.add("error");
+              var errorCode = intl.getValidationError();
+              errorMsg.innerHTML = errorMap[errorCode];
+              errorMsg.classList.remove("hide-new");
+          }
+      }
+  });
+
+  // $("#phone").on("blur keyup change countrychange", function() {
+  //   var getName = intl.selectedCountryData["name"];
+  //   var getCode = intl.selectedCountryData["dialCode"];
+  //   $("#lead_country_name").val(getName);//You will get only phone number without country code
+  //   $("#countryCode").val(getCode);//You will get country code only
+  //   console.log(getName);
+  //   console.log(getCode);
+  // });
+
+  // Reset on keyup/change event
+  input.addEventListener('change', reset);
+  input.addEventListener('keyup', reset);
+
+</script>
+<!-- for mobile number 2 start here -->
+<script>
+  var input1 = document.querySelector("#vsphone_no"),
+    errorMsg1 = document.querySelector("#error-msg1"),
+    validMsg1 = document.querySelector("#valid-msg1");
+
+  var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+  var intl1 = window.intlTelInput(input1, {
+    preferredCountries: ["sa", "pk", "in", "us"],
+    initialCountry: "auto",
+    geoIpLookup: getIp,
+    separateDialCode: true ,
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+
+  var reset = function() {
+      input1.classList.remove("error");
+      errorMsg1.innerHTML = "";
+      errorMsg1.classList.add("hide-new");
+      validMsg1.classList.add("hide-new");
+  };
+
+  function getIp(callback) {
+      fetch('https://ipinfo.io/json?token=a1bc0bab615274', { headers: { 'Accept': 'application/json' }})
+      .then((resp) => resp.json())
+      .catch(() => {
+          return {
+          country: 'pk',
+          };
+      }).then((resp) => callback(resp.country));
+  }
+
+  // Validate on blur event
+  input1.addEventListener('blur', function() {
+      reset();
+      if(input1.value.trim()){
+          if(intl1.isValidNumber()){
+              validMsg1.classList.remove("hide-new");
+              $("#countryCode1").val(intl1.getSelectedCountryData().iso2);
+              $("#country_dialcode1").val(intl1.getSelectedCountryData().dialCode);
+          }else{
+              input1.classList.add("error");
+              var errorCode1 = intl1.getValidationError();
+              errorMsg1.innerHTML = errorMap[errorCode1];
+              errorMsg1.classList.remove("hide-new");
+          }
+      }
+  });
+  // Reset on keyup/change event
+  input1.addEventListener('change', reset);
+  input1.addEventListener('keyup', reset);
+</script>
+
+
 <script>
   //  $(function() {
   //     $('#reservation').daterangepicker({
@@ -625,7 +769,7 @@
    // $(function() {
    //    $('#reservation').daterangepicker({
    //       // autoClose: false,
-	//       // format: 'YYYY-MM-DD',
+	 //       // format: 'YYYY-MM-DD',
    //       // separator : ' to ',
    //       // getValue: function()
    //       // {

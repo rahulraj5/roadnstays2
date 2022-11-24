@@ -180,6 +180,21 @@
 
                   </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Verified User Status</label>
+                        <select class="form-control select2bs4" name="user_email_verifiedup"  id="user_email_verifiedup" style="width: 100%;">
+                          <option value="">Select Status</option>
+                          <option value="1" <?php if ($user_info->is_verify_email == 1) {
+                                                                                echo "selected";
+                                                                                } ?>>Verified</option>
+                          <option value="0" <?php if ($user_info->is_verify_email == 0) {
+                                                                                echo "selected";
+                                                                                } ?>>Un-verified</option>
+                        </select>
+                    </div>
+                  </div>
+
 
 
                   <!-- <div class="col-md-6">

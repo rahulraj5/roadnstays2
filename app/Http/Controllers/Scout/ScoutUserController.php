@@ -36,7 +36,8 @@ class ScoutUserController extends Controller
         ]);
         // echo "<pre>";print_r((Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])));die;
         
-        if(Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
+        // if(Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))){
+        if(Auth::guard('scout')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])){
             // echo "<pre>";print_r('inside');die;
             // $userName = Auth::guard('scout')->user()->name;
             // echo "<pre>";print_r($userName);die;

@@ -321,7 +321,7 @@
                                             <!-- <th>Last Name</th> -->
 
                                             <th>Email</th>
-
+                                            <th>Verified Status</th>
                                             <th>Contact Number</th>
 
                                             <!-- <th>Address</th> -->
@@ -356,7 +356,7 @@
                                                     <!-- <td>{{ $arr->last_name }}</td> -->
 
                                                     <td>{{ $arr->email }}</td>
-
+                                                    <td>@if($arr->is_verify_email==1){{'Verified'}}@else{{'Un-verified'}}@endif</td>
                                                     <td>{{ $arr->contact_number }}</td>
 
                                                     <!-- <td>{{ $arr->address }}</td> -->

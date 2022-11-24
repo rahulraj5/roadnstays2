@@ -212,6 +212,10 @@
           required: true,
           number: true,
         },
+        tour_child_price: {
+          required:true,
+          range:[10,100]
+        },
         tour_price_others: {
           required: true,
           number: true,
@@ -237,6 +241,10 @@
           email: true,
         },
         operator_booking_num: {
+          required: true,
+          number: true,
+        },
+        max: {
           required: true,
           number: true,
         },
@@ -382,7 +390,28 @@
       });
     }
   });
-</script>  
+</script> 
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 4;
+    var addButton = $('.add_button_city');
+    var wrapper = $('.field_wrapper_city');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) { 
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][city]" placeholder="Enter pickup city" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][price]" placeholder="Enter price" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][transport]" placeholder="Enter Transport" value="" required="" /></div></div></div><span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button_city', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script> 
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -580,23 +609,15 @@
                     </div>
                   </div>
                   <div class="bs-stepper-content">
-                    <!-- your steps content here -->
-                    <form method="POST" id="addTourContext_form" action="#">
-                      <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-                      @csrf
-                      <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger">
-                        <!-- <form method="POST" id="addHotelContext_form"> -->
+                    <form method="POST" id="addTourContext_form" action="#"> 
+                      @csrf 
+                      <div id="hotel-context-part" class="content slide one" role="tabpanel" aria-labelledby="hotel-context-part-trigger"> 
 
-                        <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
-
-                        <div class="row">
-
+                        <div class="row"> 
                           <div class="col-md-12 mt-0">
-                            <!-- <div class="tab-custom-content mt-0"> -->
-                            <p class="lead mb-0">
+                            <p class="lead mb-0"> 
                             <h4>Tour Context</h4>
-                            </p>
-                            <!-- </div> -->
+                            </p> 
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
@@ -634,6 +655,24 @@
                               <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name"  required="">
                             </div>
                           </div>
+                          <div class="col-md-6">
+                            <div class="form-group"> 
+                              <label>Tour Price(Children) 2-9 Years Kids</label>
+                              <input type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price"  required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Deluxe Price</label>
+                              <input type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name"  required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Gold Price</label>
+                              <input type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name"  required="">
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
@@ -644,7 +683,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Pickup Locations</h4>
+                              <h4>Start Locations</h4>
                               </p>
                             </div>
                           </div>
@@ -696,6 +735,37 @@
                             </div>
                           </div>
 
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12 field_wrapper_city">
+                            <div class="form-group" id="extra_city">
+                              <label>City</label>
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][city]" placeholder="Enter pickup city" value="" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][price]" placeholder="Enter price" value="" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][transport]" placeholder="Enter Transport" value="" required="" />
+                                    </div>
+                                  </div>
+                                </div> 
+                                <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Start Date</label>
@@ -730,9 +800,18 @@
                               <label>Tour Sub Type</label>
                               <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
                                 <option value="">Select Sub Tour Type</option>
-                                <option value="standard">Standard</option>
-                                <option value="deluxe">Deluxe</option>
-                                <option value="exclusive">Exclusive</option>
+                                <option value="city tours">City Tours</option>
+                                <option value="north pakistan tours">North Pakistan Tours</option>
+                                <option value="south pakistan tour">South Pakistan Tour</option>
+                                <option value="south punjab tour">South Punjab Tour</option>
+                                <option value="kashmir tours">Kashmir Tours</option>
+                                <option value="sikh yatra"> Sikh Yatra Tours</option>
+                                <option value="swat valley tours"> Swat Valley Tours</option>
+                                <option value="hunza valley tours">Hunza Valley Tours</option>
+                                <option value="kanghan valley tours"> Kanghan Valley Tours</option>
+                                <option value="kalash valley tour">Kalash Valley Tour</option>
+                                <option value="Skardu valley tour"> Skardu Valley Tour</option>
+                                <option value="gilgit tours"> Gilgit Tours</option>
                               </select>
                             </div>
                           </div>
@@ -858,7 +937,7 @@
                               <div class="col-sm-2">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1">
+                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" disabled="">
                                     <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                   </div>
                                 </div>
@@ -866,7 +945,7 @@
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
+                                    <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" disabled="">
                                     <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
                                   </div>
                                 </div>
@@ -874,7 +953,7 @@
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" checked>
+                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" checked disabled="">
                                     <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                                   </div>
                                 </div>
@@ -885,7 +964,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Cancellation and Refund</label>
-                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required=""></textarea>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="" disabled=""></textarea>
                             </div>
                           </div>
 
@@ -896,7 +975,7 @@
                                 <!-- checkbox -->
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
+                                    <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1" disabled="">
                                     <label for="booking_option1" class="custom-control-label">Instant booking</label>
                                   </div>
 
@@ -907,11 +986,18 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked>
+                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked disabled="">
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
                               </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Private Note</label>
+                              <textarea class="form-control" id="summernoteRemoved45" name="private_note" required=""></textarea>
                             </div>
                           </div>
 

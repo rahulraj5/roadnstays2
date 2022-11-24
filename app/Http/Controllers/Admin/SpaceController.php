@@ -62,6 +62,7 @@ class SpaceController extends Controller
             $adminspace->online_payment_percentage = $request->online_payment_percentage;
             $adminspace->at_desk_payment_percentage = $request->at_desk_payment_percentage;
             $adminspace->booking_option = $request->booking_option;
+            $adminspace->request_booking_valid_hr = $request->request_booking_valid_hr;
             $adminspace->reserv_date_change_allow = $request->reserv_date_change_allow;
             $adminspace->guest_number = $request->guest_number;
     
@@ -318,6 +319,7 @@ class SpaceController extends Controller
                 'online_payment_percentage' => $request->online_payment_percentage,
                 'at_desk_payment_percentage' => $request->at_desk_payment_percentage,
                 'booking_option' => $request->booking_option,
+                'request_booking_valid_hr' => $request->request_booking_valid_hr,
                 'reserv_date_change_allow' => $request->reserv_date_change_allow,
                 'guest_number' => $request->guest_number,
 
@@ -521,6 +523,8 @@ class SpaceController extends Controller
         $res = DB::table('space')->where('space_id', '=', $space_id)->delete();
     
         if ($res) {
+            DB::table('space_booking')->where('space_id', '=', $space_id)->delete();
+            DB::table('space_booking_temp')->where('space_id', '=', $space_id)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Space has been deleted successfully!'));
         } else {
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
@@ -948,6 +952,33 @@ class SpaceController extends Controller
         // echo "<pre>";print_r($data['bookingList']);die;
         return view('admin/booking/space_booking_list')->with($data);
     }
+
+    public function view_space_wise_booking_list($id)
+    {
+        $space_id = $id;
+        $data['bookingList'] = DB::table('space_booking')
+                                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                                ->select('space_booking.*',
+                                    'users.user_type',
+                                    'users.first_name as user_first_name',
+                                    'users.last_name as user_last_name',
+                                    'users.email as user_email',
+                                    'users.contact_number as user_contact_num',
+                                    'users.role_id as user_role_id',
+                                    'users.is_verify_email as user_email_is_verify_email',
+                                    'users.is_verify_contact as user_contact_is_verify_contact',
+                                    'space.space_name',
+                                    'space.space_user_id as space_vendor_id',
+                                    'space.space_address',
+                                    'space.city',
+                                    )
+                                ->where('space_booking.space_id', $space_id)
+                                ->orderby('id', 'DESC')
+                                ->get();
+        // echo "<pre>";print_r($data['bookingList']);die;
+        return view('admin/booking/space_wise_booking_list')->with($data);
+    }
     
     public function view_booking($id)
     {
@@ -984,7 +1015,10 @@ class SpaceController extends Controller
                                     'space.guest_number',
                                     'space.room_number',
                                     'space.checkout_hr',
-                                    'space.price_per_night')
+                                    'space.price_per_night',
+                                    'space.tax_percentage',
+                                    'space.cleaning_fee',
+                                    'space.city_fee')
                                 // ->orderby('created_at', 'DESC')
                                 ->where('space_booking.id',$booking_id)
                                 ->first();
@@ -1038,6 +1072,209 @@ class SpaceController extends Controller
         // echo "<pre>";print_r($data['order_details']);die;
         // return view('admin/booking/booking_view')->with($data);
         return view('admin/booking/space_booking_details')->with($data);
+    }    
+
+
+    
+    // space approval booking start here    
+
+    public function space_approval_booking_list(Request $request)
+    {
+        $data['page_heading_name'] = 'Space Approval Booking List';
+        // $vendor_id = Auth::id();
+        $data['bookingList'] = DB::table('space_booking_request')
+            ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+            ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+            ->select(
+                'space_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'space.space_name',
+                'space.space_user_id',
+                // 'space.tour_start_date as tour_start_date',
+                // 'space.tour_end_date',
+                'space.price_per_night',
+                // 'space.tour_days',
+                'space.city',
+                'space.booking_option'
+            )
+            // ->where('space_user_id', $vendor_id)
+            ->orderby('id', 'DESC')
+            ->get();
+
+        $data['invoiceNum'] = DB::table('space_booking_request')->where('approve_status', 1)->get(['id', 'invoice_num']);
+        // echo "<pre>"; print_r($data['invoiceNum']);die;
+        // echo "<pre>"; print_r($data['bookingList']);die;
+        return view('admin/space/approve_booking_list')->with($data);
     }
+
+    public function getSpaceInvoiceDetails($request_id = 0)
+    {
+        // $details = DB::table('space_booking_request')->find($request_id);
+        $details = DB::table('space_booking_request')
+            ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+            ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+            ->select(
+                'space_booking_request.*',
+                'users.user_type',
+                'users.first_name as user_first_name',
+                'users.last_name as user_last_name',
+                'users.email as user_email',
+                'users.contact_number as user_contact_num',
+                'users.role_id as user_role_id',
+                'users.is_verify_email as user_email_is_verify_email',
+                'users.is_verify_contact as user_contact_is_verify_contact',
+                'space.space_name',
+                'space.space_user_id',
+                'space.price_per_night',
+                'space.city',
+                'space.booking_option'
+            )
+            ->where('space_booking_request.id', $request_id)
+            ->first();
+        // echo "<pre>";print_r($details);die;
+        $html = "";
+        if (!empty($details)) {
+            $html = "<tr>
+                <td width='30%'><b>Space Name:</b></td>
+                <td width='70%'> " . $details->space_name . "</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Period:</b></td>
+                <td width='70%'> " . $details->check_in_date . " to " . $details->check_out_date . "</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Price:</b></td>
+                <td width='70%'>PKR " . $details->total_amount . "</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Email:</b></td>
+                <td width='70%'> " . $details->user_email . "</td>
+             </tr>
+             <tr>
+                <td width='30%'><b>Phone:</b></td>
+                <td width='70%'> " . $details->user_contact_num . "</td>
+             </tr>
+             <tr>
+                <td>
+                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
+                        <tbody>
+                            <tr>
+                                <td>Cost</td>
+                                <td class='alignright'>PKR " . $details->total_amount . "</td>
+                            </tr>
+                            <tr id='discount_tr' class='d-non'>
+                                <td id='discount_type_name'></td>
+                                <td class='alignright'>PKR -<span id='discount_val'></span></td>
+                            </tr>
+                            <tr id='expense_tr' class='d-non'>
+                                <td id='expe_name'></td>
+                                <td class='alignright'>PKR <span id='expe_val'></span></td>
+                            </tr>
+                            <tr class='total'>
+                                <td class='alignright' width='80%'>Total</td>
+                                <td class='alignright'>PKR <span id='total_amt'>" . $details->total_amount . "</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+             </tr>";
+        }
+        $response['html'] = $html;
+        $response['total_amount'] = $details->total_amount;
+        $response['request_id'] = $details->id;
+
+        return response()->json($response);
+    }
+
+    public function sendSpaceInvoice(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
+        $request_id = $request->request_id;
+        $disco_name = $request->disco_name;
+        $disco_val = $request->disco_val;
+        $exp_name = $request->exp_name;
+        $exp_value = $request->exp_value;
+        if (!empty($request_id)) {
+            $check = DB::table('space_booking_request')->where('id', $request_id)->first();
+            if ($check->approve_status == 0) {
+                $invoiceNum = Helper::generateRandomInvoiceId(5);
+                DB::table('space_booking_request')
+                    ->where('id', $request_id)
+                    ->update([
+                        'approve_status' => 1,
+                        'invoice_num' => $invoiceNum,
+                        'discount_name' => $disco_name,
+                        'discount' => $disco_val,
+                        'expense_name' => $exp_name,
+                        'expense_value' => $exp_value
+                    ]);
+                $user_details = DB::table('users')->where('id', $check->user_id)->first(); 
+                $data = array('user_id'=>$user_details->id, 'name'=>"User",'first_name'=>$user_details->first_name ,'last_name'=>$user_details->last_name);
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $user_details->email;
+                    Mail::send('emails.booking_request_approval_template', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'RoadNStays');
+                        $message->to($inData['email']);
+                        $message->subject('RoadNStays - Booking Request has been Approved Successfully');
+                    });
+                } 
+                return response()->json(['status' => 'success', 'msg' => 'Invoice Send Successfully', 'invoiceNum' => $invoiceNum]);
+            } else {
+                return response()->json(['status' => 'error', 'msg' => 'Already Sent Invoice']);
+            }
+        }
+    }
+
+    public function delete_space_booking_request(Request $request)
+    {
+        $request_id = $request->id;
+        $res = DB::table('space_booking_request')->where('id', '=', $request_id)->first();
+        if ($res) {
+            DB::table('space_booking_request')->where('id', '=', $request_id)->delete();
+            return json_encode(array('status' => 'success', 'msg' => 'Request has been Deleted Successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
+    public function cancel_space_booking_request_status(Request $request)
+    {
+        $request_id = $request->id;
+        $check = DB::table('space_booking_request')->where('id', '=', $request_id)->first();
+        if ($check->request_status == 1) {
+            DB::table('space_booking_request')
+                ->where('id', $request_id)
+                ->update([
+                    'request_status' => 0,
+                    'approve_status' => 0,
+                ]);
+            $user_details = DB::table('users')->where('id', $check->user_id)->first(); 
+            $data = array('user_id'=>$user_details->id, 'name'=>"User",'first_name'=>$user_details->first_name ,'last_name'=>$user_details->last_name);
+            if ($_SERVER['SERVER_NAME'] != 'localhost') {
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                $inData['email'] = $user_details->email;
+                Mail::send('emails.booking_request_rejected_template', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'RoadNStays');
+                    $message->to($inData['email']);
+                    $message->subject('RoadNStays - Booking Request has been Rejected!');
+                });
+            } 
+            return response()->json(['status' => 'success', 'msg' => 'Request cancel successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'You already cancel Request']);
+        }
+    }
+
+    // space approval booking end here
 
 }

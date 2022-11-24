@@ -5,9 +5,6 @@
     .fghj {
         display: block !important;
     }
-    .fghjdiv {
-        text-align: center !important;
-    }
 
 </style>
 @endsection
@@ -40,14 +37,14 @@
 
                         @if($payment_status == 'Failed')
                         <div class="done-payment fghjdiv mb-3">
-                            <img class="fghj" src="{{url('/resources/assets/img/remove.png')}}" style="width: 100px;">
+                            <img class="fghj" src="{{url('/resources/assets/img/remove.png')}}" style="width: 100px;margin: auto;">
                             <h3>Booking Failed</h3>
                             <p class="pl-5 pr-5 pt-1">We chould not acquire the payment. Please try again!
                             </p>
                         </div>
                         @else
                         <div class="done-payment fghjdiv mb-3">
-                            <img class="fghj" src="{{url('/resources/assets/img/confirmpayment.gif')}}" style="width: 100px;">
+                            <img class="fghj" src="{{url('/resources/assets/img/confirmpayment.gif')}}" style="width: 100px;margin: auto;">
                             <h3>Booking DONE</h3>
                             <p class="pl-5 pr-5 pt-1">We are pleased to inform you that your reservation request has been received and confirmed. your booking is confirmed. Thank you!
                             </p>
@@ -85,9 +82,15 @@
                             <!-- <h6>Identity Card: <span>Driving License</span></h6> -->
                         </div>
                             <img src="https://votivetechnologies.in/roadNstays/resources/assets/img/vecteezy_tourists-with-luggage-at-the-airport-set-collection-of_3857409.jpg" alt="">
+                            @php $vendor_details = DB::table('users')->where('id', $order_info->space_user_id)->first(); @endphp 
+                            @php $admin_number = DB::table('admins')->where('id', 1)->value('admin_number') @endphp 
+                            @php $admin_email = DB::table('admins')->where('id', 1)->value('email') @endphp
                             <ul class="contact">
-                                <li><h6><i class='bx bx-phone'></i>Our Helpline : 909009000</h6></li>
-                                <li><h6><i class='bx bxs-envelope' ></i>Contact Us : admin@gmail.com</h6></li>
+                                <li><h6><i class='bx bx-phone'></i>What's up : {{$vendor_details->num_dialcode_1 ?? ''}} {{$vendor_details->contact_number ?? $admin_number}}</h6></li>
+                                <li><h6><i class='bx bxs-envelope' ></i>E-mail : {{$vendor_details->email ?? $admin_email}}</h6></li>
+                                <div class="down-i">
+                                    <a style="text-decoration:none;" target="blank" href="{{ url('/user/spaceBookingInvoice') }}/{{ base64_encode($order_info->booki_id) }}"><i class='bx bx-download'></i>Download Invoice</a>
+                                </div>
                             </ul>
 
                     </div>

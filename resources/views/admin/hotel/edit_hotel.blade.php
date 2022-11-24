@@ -333,6 +333,14 @@
   $("#payment_mode3").click(function() {
     $("#partial_payment_div").addClass('d-none');
   });
+
+  $("#booking_option1").click(function() {
+    $("#request_booking_valid_hr_div").addClass('d-none');
+  });
+
+  $("#booking_option2").click(function() {
+    $("#request_booking_valid_hr_div").removeClass('d-none');
+  });
 </script>
 
 <script>
@@ -613,6 +621,9 @@
         scout_id: {
           required: true,
         },
+        vendor_id: {
+          required: true,
+        },
         checkin_time: {
           required: true,
         },
@@ -630,24 +641,54 @@
         min_hrs: {
           number: true,
           required: true,
+          min:1,
         },
         min_hrs_percentage: {
           number: true,
           required: true,
-          range:[0,100]
+          range:[0,100],
+          min: function(element) {
+            var max_hrs_per = parseInt($('input[name="max_hrs_percentage"]').val());
+            if(max_hrs_per == NaN){
+              max_hrs_per = 0;
+            }else{
+              max_hrs_per = max_hrs_per;
+            }
+            // return parseInt($('input[name="max_hrs_percentage"]').val());
+            return max_hrs_per;
+          },
         },
         max_hrs: {
           number: true,
-          required: true,
+          // required: true,
+          min: function(element) {
+            return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
         },
         max_hrs_percentage: {
           number: true,
-          required: true,
-          range:[0,100],
+          // required: true,
+          range:[0,100], 
           max: function(element) {
-              return $('input[name="min_hrs_percentage"]').val();
-          }
+            return parseInt($('input[name="min_hrs_percentage"]').val());
+          },
         },
+        // max_hrs_percentage: {
+        //   number: true,
+        //   required: {
+        //       depends:function()
+        //       {
+        //         var min_hrs = $('#min_hrs_percentage').val();
+        //         var max_hrs = $('#max_hrs_percentage').val();
+        //         if(min_hrs < max_hrs){
+        //           return true;
+        //         }
+        //         else{
+        //           return false;
+        //         }
+        //       }
+        //     }
+        // },
         commission: {
           number: true,
         },
@@ -977,6 +1018,13 @@
     $('#online_payment_percentage').val(100-offline_per);
   });
 </script>
+
+<script>
+  $('#hotel_document').on('change', function(e) {
+    var fileName = e.target.files[0].name;
+    $('#documentPreview').html(fileName);
+  });
+</script>
 @endsection
 
 @section('content')
@@ -1287,7 +1335,7 @@
                                 <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                                 @if((!empty($hotel_info->hotel_document)))
-                                <a href="{{ url('public/uploads/hotel_document') }}/{{ $hotel_info->hotel_document }}" download>{{ $hotel_info->hotel_document }}</a>
+                                <p id="documentPreview"><a href="{{ url('public/uploads/hotel_document') }}/{{ $hotel_info->hotel_document }}" download>{{ $hotel_info->hotel_document }}</a></p>
                                 @endif
                               </div>
                             </div>
@@ -1301,7 +1349,20 @@
                                 <!-- <option value="">Select Scouts</option> -->
                                 @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                                 @foreach ($scouts as $value)
-                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if($hotel_info->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Vendors</label>
+                              <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;">
+                                <option value="">Select Vendors</option>
+                                @php $service_providers = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->where('status',1)->get(); @endphp
+                                @foreach ($service_providers as $value)
+                                <option value="{{ $value->id }}"  @php if($hotel_info->hotel_user_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -1466,6 +1527,19 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="row <? if ($hotel_info->booking_option != 2) {
+                                              echo 'd-none';
+                                            } ?>" id="request_booking_valid_hr_div">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Valid Hours for Booking Request </label>
+                                  <input type="text" class="form-control" name="request_booking_valid_hr" id="request_booking_valid_hr" placeholder="Enter Request Booking Valid Hours">
+                                </div>
+                              </div>
+                            </div>
+                          </div> 
+
                           <!-- cancellation & policy start here -->
 
                           <!-- <div class="col-md-12">
@@ -1586,7 +1660,7 @@
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <label>Deduction (%)</label>
-                                  <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                                  <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '0')}}" placeholder="percentage">
                                 </div>
                               </div>
                             </div>
@@ -1602,7 +1676,7 @@
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <label>Deduction (%)</label>
-                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '')}}" placeholder="percentage">
+                                  <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '0')}}" placeholder="percentage">
                                 </div>
                               </div>
                             </div>
@@ -2268,7 +2342,7 @@
                                   </div>
                                 </div>
 
-                                <div class="col-sm-6 <? if ($hotel_info->breakfast_price_inclusion == 0) {
+                                <div class="col-sm-6 <? if ($hotel_info->breakfast_price_inclusion != 1) {
                                                         echo 'd-none';
                                                       } ?>" id="breakfast_cost_div">
                                   <div class="form-group">

@@ -376,6 +376,25 @@
       // event.preventDefault();
     }
   });
+
+  $("#room_type").change(function() {
+    var room_type_id = this.value;
+    $("#room_name-dropdown").html('<option value="">Select room</option>');
+    $.ajax({
+      url: "{{ url('admin/room_name') }}",
+      method: 'POST',
+      data: {
+        room_type_id: room_type_id,
+        _token: '{{csrf_token()}}'
+      },
+      dataType: 'json',
+      success: function(data) {
+        $.each(data.room_name_list, function(key, value) {
+          $("#room_name-dropdown").append('<option value="' + value.room_name + '">' + value.room_name + '</option>');
+        });
+      }
+    });
+  });
 </script>
 @endsection
 @section('content')
@@ -485,7 +504,7 @@
 
                   <label>Room type</label>
 
-                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;" disabled>
+                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;">
 
                     <option value="">Select Hotel</option>
 
@@ -502,17 +521,25 @@
                 </div>
 
               </div>
+ 
+              <!--<div class="col-md-6">
+                <div class="form-group">
+                  <label>Room name</label>
+                  <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}">
+                </div>
+              </div> -->
 
               <div class="col-md-6">
-
                 <div class="form-group">
-
                   <label>Room name</label>
-
-                  <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
-
+                  <!-- <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly> -->
+                  <select class="form-control select2bs4" name="room_name" id="room_name-dropdown" style="width: 100%;">
+                   <option value="">Select Room</option>
+                    @foreach ($room_name_list as $cont)
+                    <option value="{{ $cont->room_name }}" {{ $cont->room_name == $room_data->name   ? 'selected' : '' }}>{{ $cont->room_name }}</option>
+                    @endforeach
+                  </select>
                 </div>
-
               </div>
 
               <div class="col-md-6">

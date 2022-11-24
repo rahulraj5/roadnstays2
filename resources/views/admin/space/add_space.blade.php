@@ -212,6 +212,14 @@
   $("#payment_mode3").click(function() {
     $("#partial_payment_div").addClass('d-none');
   });
+
+  $("#booking_option1").click(function() {
+    $("#request_booking_valid_hr_div").addClass('d-none');
+  });
+
+  $("#booking_option2").click(function() {
+    $("#request_booking_valid_hr_div").removeClass('d-none');
+  });
 </script>
 <script>
   $('#checkin_hr').datetimepicker({
@@ -395,22 +403,35 @@
         min_hrs: {
           number: true,
           required: true,
+          min:1,
         },
         min_hrs_percentage: {
           number: true,
           required: true,
           range:[0,100],
+          min: function(element) {
+            var max_hrs_per = parseInt($('input[name="max_hrs_percentage"]').val());
+            if(max_hrs_per == NaN){
+            max_hrs_per = 0;
+            }else{
+            max_hrs_per = max_hrs_per;
+            }
+            return max_hrs_per;
+          },
         },
         max_hrs: {
           number: true,
-          required: true,
+          // required: true,
+          min: function(element) {
+            return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
         },
         max_hrs_percentage: {
           number: true,
-          required: true,
+          // required: true,
           range:[0,100],
           max: function(element) {
-              return $('input[name="min_hrs_percentage"]').val();
+              return parseInt($('input[name="min_hrs_percentage"]').val());
           }
         },
         online_payment_percentage: {
@@ -867,6 +888,18 @@
               </div>
 
               <div class="col-md-12">
+                <!-- <div class="row d-none" id="request_booking_valid_hr_div"> -->
+                <div class="row" id="request_booking_valid_hr_div">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Valid Hours for Booking Request </label>
+                      <input type="text" class="form-control" name="request_booking_valid_hr" id="request_booking_valid_hr" placeholder="Enter Request Booking Valid Hours">
+                    </div>
+                  </div>
+                </div>
+              </div> 
+
+              <div class="col-md-12">
                 <div class="col-sm-6">
                   <label>Reservation Change</label>
                   <div class="row">
@@ -920,7 +953,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Deduction (%)</label>
-                      <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="" placeholder="percentage">
+                      <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="0" placeholder="percentage">
                     </div>
                   </div>
                 </div>
@@ -936,7 +969,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Deduction (%)</label>
-                      <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="" placeholder="percentage">
+                      <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="0" placeholder="percentage">
                     </div>
                   </div>
                 </div>

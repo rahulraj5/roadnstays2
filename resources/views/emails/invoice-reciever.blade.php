@@ -141,7 +141,7 @@ Hotel Booking Id<br><p style="font-family:Helvetica,arial,sans-serif;font-size:1
         
                                 <p style="color:#129212;font-size:18px;line-height:20px;margin-top:0;margin-bottom:5px;font-weight:900; font-family:Arial,Helvetica,sans-serif;"><a style="text-decoration: none; color: #126c62; text-transform: uppercase; " href="#">{{$order_info->hotel_name}}</a>
                                 </p>
-                                <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->hotel_address}}, {{$order_info->hotel_city}}, India</p>
+                                <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->hotel_address}}, {{$order_info->hotel_city}},</p>
                                 
                                     <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Phone: {{$order_info->property_contact_num}}, {{$order_info->property_alternate_num}}</p>
                                 
@@ -322,18 +322,27 @@ Hotel Booking Id<br><p style="font-family:Helvetica,arial,sans-serif;font-size:1
                                 <tbody>
                                     <tr>
                                         <td style="padding:20px 0" width="100%">
-                                           <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">Need Help?</p>
+                                            <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">For all bookings
+                                            </p>
+                                            <p style="color:#4a4a4a;font-family:Helvetica,arial,sans-serif;font-size:15px;line-height:25px;margin-top:0;padding:0">
+                                                <a href="#" style="text-decoration:none!important; color: #126c62; font-weight: 900;" target="_blank">Phone : +92 42 32101679</a><br>
+                                                <a href="#" style="text-decoration:none!important; color: #126c62; font-weight: 900;" target="_blank">Email :Bookings@roadnstays.com</a><br>
+                                            </p>
+                                        </td>
+                                        <td style="padding:20px 0" width="100%">
+                                           <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">Need Help</p>
 
                                             
                                                 
                                                 <p style="color:#4a4a4a;font-family:Helvetica,arial,sans-serif;font-size:15px;line-height:25px;margin-top:0;padding:0">
-                                                  For any questions related to the property, you can contact  Hotel directly at: <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">+124-3654287</a>
+                                                  For any questions related to the property, you can contact  Hotel directly at: <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Phone : +92 42 32101679</a>
                                                     
-                                                        / <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">+124-3654287</a>
+                                                        / <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Whatsapp :  +92 342 4514629</a>
                                                     
                                                 
                                                 
-                                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">admin@gmail.com</a>
+                                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Bookings@roadnstays.com</a>
+                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">contact@roadnstays.com</a>
                                                 
                                                 </p>
                                             

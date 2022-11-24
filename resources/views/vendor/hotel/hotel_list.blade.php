@@ -194,7 +194,7 @@
 
                       <td class="project-state">
 
-                        <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->hotel_status ? 'checked' : '' }}>
+                        <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Approved" data-off="Pending for approval" {{ $arr->hotel_status ? 'checked' : '' }}>
 
                       </td>
 

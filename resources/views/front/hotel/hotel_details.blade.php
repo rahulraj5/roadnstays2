@@ -26,6 +26,12 @@
         border-left: 2px solid #126c62;
         margin-top: 10px;
      }
+
+      /********modal css**********/
+
+
+
+  /********modal css**********/
   </style>
 
   <!-- slider -->
@@ -99,6 +105,9 @@
         <section class="emenities-sec" id="1">
            <div class="container">
               <div class="row emenities">
+                  <div class="col-sm-12">
+                     <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
+                  </div>
                  <div class="col-md-8 hotel-about over-row">
                     <a class="value" href="#">Top Value</a>
                     <a class="newly" href="#">Newly renovated</a>
@@ -139,6 +148,8 @@
                  </div>
                  <div class="col-md-4 location">
                     <?php $address = $hotel_data->hotel_address . ',' . $hotel_data->hotel_city . ',' . $hotel_data->nicename; ?>
+                    <!-- <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php echo $hotel_data->hotel_name; ?>'&z=14&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                     
                     <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <div class="parking">
                        <span><i class='bx bxs-parking'></i>
@@ -241,10 +252,10 @@
                     <div class="brakfast-price" style="height: 271px; border: none;">
                        <div class="boking-plo">
 
-                          @if($hotel_data->booking_option ==1)
+                          @if($hotel_data->payment_mode ==1)
                           <!-- full payment == 1 -->
                           <p> 100% Online Payment</p>
-                          @elseif($hotel_data->booking_option ==2)
+                          @elseif($hotel_data->payment_mode ==2)
                           <!-- partial payment == 2 -->
                           <p> Partial payment at the time of booking confirmation ({{$hotel_data->online_payment_percentage ?? '30'}}% online payment , {{$hotel_data->at_desk_payment_percentage ?? '70'}}% payment at the desk)</p>
                           @else
@@ -258,7 +269,10 @@
                           @if(!empty($room['projected_price']))
                           <del>PKR {{$room['projected_price']}}</del><br>
                           @endif
-                          <?php $total_amount = $room['price_per_night'] + $room['cleaning_fee'] + $room['city_fee'] + $room['tax_percentage']; ?>
+                          <?php 
+                           // $total_amount = $room['price_per_night'] + $room['cleaning_fee'] + $room['city_fee'] + $room['tax_percentage']; 
+                           $total_amount = $room['price_per_night'];
+                          ?>
                           <h5>PKR {{$room['price_per_night']}}</h5>
                           @if(!empty($room['earlybird_discount']))
                           @if(now()->diffInDays($check_in) > $room['min_days_in_advance'])
@@ -281,6 +295,12 @@
                  </div>
               </div>
               @endforeach
+              
+               <!-- {{count($room_data)}} -->
+               @if(count($room_data) == 0)
+               <!-- {{ 'No Room Available' }}     -->
+               <div class="error">{{ 'No Room Available' }} </div>     
+               @endif
            </div>
         </section>
 
@@ -311,7 +331,9 @@
                                                                                                                      ?>'&z=14&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                  </div>
               </div>
-              <iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
+              <!-- <iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $hotel_data->hotel_name; ?>&output=embed"></iframe> -->
+               
+               <iframe frameborder="0" src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
            </div>
         </section>
         <section class="policy" id="6">
@@ -359,7 +381,7 @@
                           <div class="well well-sm">
                              <div class="row" id="post-review-box">
                                 <div class="col-md-12">
-                                   <form action="" method="post">
+                                   <form>
                                       <input id="ratings-hidden" name="rating" type="hidden">
                                       <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
                                       <div class="d-flex justify-content-end align-items-center mt-4">
@@ -390,7 +412,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog modal-lg" role="document">
+     <div class="modal-dialog modal-xl" role="document">
         <form>
            <div class="modal-content">
               <div class="modal-header">
@@ -400,14 +422,14 @@
                  </button>
               </div>
               <div class="modal-body">
-                 <div id="LoginForm">
+                 <div id="LoginForm" class="room-modall">
                     <div class="row">
-                       <div class="col-md-12 p-0">
+                       <div class="col-md-5 p-1">
                           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                              <div class="carousel-inner">
                                 <!--  <div class="carousel-item active">
-					      <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/hotel_gallery/1655471866_1246280_16061017110043391702.jpg" alt="First slide">
-					    </div> -->
+                <img class="d-block w-100" src="https://votivelaravel.in/roadNstays/public/uploads/hotel_gallery/1655471866_1246280_16061017110043391702.jpg" alt="First slide">
+              </div> -->
                                 <div class="carousel-item">
                                    <img class="d-block w-100" src="{{url('/public/uploads/hotel_gallery')}}/{{$hotel_gallery[0]->image}}" alt="First slide">
                                 </div>
@@ -422,14 +444,7 @@
                              </a>
                           </div>
 
-                          <div class="mart-rom">
-                             <ul>
-                                <li id="room_size"></li>
-                                <li><i class='bx bx-border-all'></i> ON View</li>
-                                <li id="bed_type"></li>
-                                <li id="room_qty"></li>
-                             </ul>
-                          </div>
+                         
 
                           <!-- <div id="roomdetails" class="roomdetails" style="overflow: hidden;">
                         <div class="owl-carousel testimonials-carousel" id="myCarousel">
@@ -440,10 +455,86 @@
                                  </div>
                               </div> -->
                        </div>
+
+                     <div class="col-md-7">
+                         <div class="mart-rom">
+                             <ul>
+                                <li id="room_size"></li>
+                                <li><i class='bx bx-border-all'></i> ON View</li>
+                                <li id="bed_type"></li>
+                                <li id="room_qty"></li>
+                             </ul>
+                          </div>
+
+                           <div class="all-detail-rom">
+                    <h3 class="mt-1 gust-rom">Room Amenities</h3>
+                    <div class="rom-aminit row" id="amenity">
+                       <div class="check-makr col-md-4">
+                          <i class='bx bx-check-circle'></i> <span>Free Wi-Fi </span>
+                       </div>
+                       <!-- <div class="check-makr col-md-4">
+                              <i class='bx bx-check-circle'></i> <span>Air Conditioning </span>
+                           </div>
+                           <div class="check-makr col-md-4">
+                              <i class='bx bx-check-circle'></i> <span>Electric Kettle </span>
+                           </div>
+                           <div class="check-makr col-md-4">
+                              <i class='bx bx-check-circle'></i> <span>Room Service </span>
+                           </div>
+                           <div class="check-makr col-md-4">
+                              <i class='bx bx-check-circle'></i> <span>Smoking Room </span>
+                           </div> -->
+                    </div>
+                 </div>
+
+                  <div class="room-option">
+                    <h2> Room options</h2>
+                    <div class="cancellation-policy">
+                       <h5> Cancellation policy</h5>
+                       <a href="#" id="cancellation"> More details on all policy options <i class='bx bx-info-circle'></i></a>
+                       <!-- <div class="d-flex justify-content-between">
+                              <label class="raio-new mt-3">
+                              <input type="radio" checked="checked" name="radio">
+                              <span class="checkmark"></span>
+                              Non-refundable
+                              </label>
+                              <span>+ Rs0</span>
+                           </div>
+                           <div class="d-flex justify-content-between">
+                              <label class="raio-new">
+                              <input type="radio" checked="checked" name="radio">
+                              <span class="checkmark"></span>Fully refundable before 1 Jul  
+                              </label>
+                              <span>+ Rs964</span>
+                           </div>
+                           <hr>
+                           <h5>Extras</h5>
+                           <div class="d-flex justify-content-between">
+                              <label class="raio-new mt-3">
+                              <input type="radio" checked="checked" name="radio">
+                              <span class="checkmark"></span>
+                              No extras
+                              </label>
+                              <span>+ Rs0</span>
+                           </div>
+                           <div class="d-flex justify-content-between">
+                              <label class="raio-new">
+                              <input type="radio" checked="checked" name="radio">
+                              <span class="checkmark"></span>Breakfast  
+                              </label>
+                              <span>+ Rs0</span>
+                           </div> -->
+                       <div class="d-flex justify-content-between align-self-center align-items-center totalbefore">
+                          <h4>Price Per Night <br><label id="total_amount">PKR 15,200</label></h4>
+                          <!-- <a href="" class="resurve-btn-res"> Reserve</a> -->
+                       </div>
+                    </div>
+                 </div>
+
                     </div>
                  </div>
               </div>
-              <div class="col-md-12 bed-room">
+             <!--  <div class="col-md-12 bed-room"> -->
 
                  <!-- <div class="tag-info">
                         <h3 class="mt-4">Popular amenities</h3>
@@ -474,26 +565,7 @@
                            </div>
                         </div>
                      </div> -->
-                 <div class="all-detail-rom">
-                    <h3 class="mt-1 gust-rom">Room Amenities</h3>
-                    <div class="rom-aminit row" id="amenity">
-                       <div class="check-makr col-md-4">
-                          <i class='bx bx-check-circle'></i> <span>Free Wi-Fi </span>
-                       </div>
-                       <!-- <div class="check-makr col-md-4">
-                              <i class='bx bx-check-circle'></i> <span>Air Conditioning </span>
-                           </div>
-                           <div class="check-makr col-md-4">
-                              <i class='bx bx-check-circle'></i> <span>Electric Kettle </span>
-                           </div>
-                           <div class="check-makr col-md-4">
-                              <i class='bx bx-check-circle'></i> <span>Room Service </span>
-                           </div>
-                           <div class="check-makr col-md-4">
-                              <i class='bx bx-check-circle'></i> <span>Smoking Room </span>
-                           </div> -->
-                    </div>
-                 </div>
+                
                  <!-- <div class="all-detail-rom">
                         <h3 class="mt-4 gust-rom">Room Features</h3>
                         <div class="rom-aminit row">
@@ -556,52 +628,11 @@
                            </div>
                         </div>
                      </div> -->
-                 <div class="room-option">
-                    <h2> Room options</h2>
-                    <div class="cancellation-policy">
-                       <h5> Cancellation policy</h5>
-                       <a href="#"> More details on all policy options <i class='bx bx-info-circle'></i></a>
-                       <!-- <div class="d-flex justify-content-between">
-                              <label class="raio-new mt-3">
-                              <input type="radio" checked="checked" name="radio">
-                              <span class="checkmark"></span>
-                              Non-refundable
-                              </label>
-                              <span>+ Rs0</span>
-                           </div>
-                           <div class="d-flex justify-content-between">
-                              <label class="raio-new">
-                              <input type="radio" checked="checked" name="radio">
-                              <span class="checkmark"></span>Fully refundable before 1 Jul  
-                              </label>
-                              <span>+ Rs964</span>
-                           </div>
-                           <hr>
-                           <h5>Extras</h5>
-                           <div class="d-flex justify-content-between">
-                              <label class="raio-new mt-3">
-                              <input type="radio" checked="checked" name="radio">
-                              <span class="checkmark"></span>
-                              No extras
-                              </label>
-                              <span>+ Rs0</span>
-                           </div>
-                           <div class="d-flex justify-content-between">
-                              <label class="raio-new">
-                              <input type="radio" checked="checked" name="radio">
-                              <span class="checkmark"></span>Breakfast  
-                              </label>
-                              <span>+ Rs0</span>
-                           </div> -->
-                       <div class="d-flex justify-content-between align-self-center align-items-center totalbefore">
-                          <h4>Total before taxes <br><label id="total_amount">PKR 15,200</label></h4>
-                          <!-- <a href="" class="resurve-btn-res"> Reserve</a> -->
-                       </div>
-                    </div>
-                 </div>
-              </div>
+                
+             <!--  </div> -->
            </div>
      </div>
+  </div>
   </div>
   </div>
   </form>
@@ -801,13 +832,14 @@
               dataType: 'json',
               success: function(response) {
                  console.log(response);
-                 var total_amount = response.room_data.price_per_night + response.room_data.cleaning_fee + response.room_data.city_fee;
+               //   var total_amount = parseInt(response.room_data.price_per_night) + parseInt(response.room_data.cleaning_fee) + parseInt(response.room_data.city_fee);
+                 var total_amount = parseInt(response.room_data.price_per_night);
                  $('#room_name').html(response.room_data.name + '-' + response.room_data.room_type);
                  $('#room_title').html(response.room_data.name + '-' + response.room_data.room_type);
                  $('#total_amount').html('PKR ' + total_amount);
                  $('#room_size').html('<i class="bx bx-square"></i>' + response.room_data.room_size + ' sq.ft');
                  $('#bed_type').html('<i class="bx bx-bed"></i>' + response.room_data.bed_type);
-
+                 $('#cancellation').html('<?php echo $hotel_data->cancel_policy; ?><i class="bx bx-info-circle"></i>');
                  $('#room_qty').html('<i class="bx bxs-door-open"></i>' + response.room_data.number_of_rooms + 'Rooms Qty');
 
                  var upload_url = "{{url('public/uploads/room_images/')}}/";

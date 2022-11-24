@@ -263,7 +263,8 @@ class RoomController extends Controller
         $data['hotels'] = DB::table('hotels')->orderby('created_at', 'ASC')->get();
         $data['room_type_categories'] = DB::table('room_type_categories')->orderby('created_at', 'ASC')->get();
 
-        $data['room_name_list'] = DB::table('room_name_list')->orderby('created_at', 'ASC')->get();
+        // $data['room_name_list'] = DB::table('room_name_list')->orderby('created_at', 'ASC')->get();
+        $data['room_name_list'] = DB::table('room_name_list')->where('room_type_id','=', $data['room_data']->room_types_id)->where('status', '=', 1)->get();
 
         $data['room_images'] = DB::table('room_gallery')->where('room_id', '=', $room_id)->get();
 
@@ -329,6 +330,7 @@ class RoomController extends Controller
             $room_data = array(
                 'room_types_id' => $room_type_id,
                 // 'hotel_id' => $request->hotel_name,
+                'name' => $request->room_name,
                 'image' => $roomFeaturedImg,
                 'name' => $request->room_name,
                 'max_adults' => $request->max_adults,
@@ -514,6 +516,8 @@ class RoomController extends Controller
         DB::table('room_bed_details')->where('room_id', '=', $room_id)->delete();
 
         $res = DB::table('room_list')->where('id', '=', $room_id)->delete();
+        DB::table('booking')->where('room_id', '=', $room_id)->delete();
+        DB::table('booking_temp')->where('room_id', '=', $room_id)->delete();
 
         if ($res) {
             return json_encode(array('status' => 'success', 'msg' => 'Room has been deleted successfully!'));

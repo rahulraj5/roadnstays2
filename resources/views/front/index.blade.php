@@ -2,9 +2,7 @@
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
 <style>
-
 </style>
-
 @endsection
 @section('current_page_js')
 <script>
@@ -13,7 +11,7 @@
 </script>
 <script type="text/javascript">
    var placeSearch, autocomplete;
-
+   
    function initAutocomplete() {
       autocomplete = new google.maps.places.Autocomplete(
          (document.getElementById('autocomplete1')), {
@@ -22,11 +20,11 @@
       autocomplete.addListener('place_changed', function() {
          fillInAddress(autocomplete, "");
       });
-
+   
    }
-
+   
    function fillInAddress(autocomplete, unique) {
-
+   
       var place = autocomplete.getPlace();
       for (var component in componentForm) {
          if (!!document.getElementById(component + unique)) {
@@ -34,7 +32,7 @@
             document.getElementById(component + unique).disabled = false;
          }
       }
-
+   
       for (var i = 0; i < place.address_components.length; i++) {
          var addressType = place.address_components[i].types[0];
          if (componentForm[addressType] && document.getElementById(addressType + unique)) {
@@ -44,7 +42,7 @@
       }
    }
    google.maps.event.addDomListener(window, "load", initAutocomplete);
-
+   
    function geolocate() {
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -63,9 +61,9 @@
 </script>
 <script>
    var today = new Date();
-
+   
    $(function() {
-
+   
       $('.space_date_range').daterangepicker({
          autoApply: true,
          autoUpdateInput: true,
@@ -78,7 +76,7 @@
       }, function(start, end, label) {
          $('#space_checkin_date').val(start.format('DD-MM-YYYY'));
          $('#space_checkout_date').val(end.format('DD-MM-YYYY'));
-
+   
          var date = $("#space_checkin_date").val();
          console.log(date);
       });
@@ -86,7 +84,7 @@
 </script>
 <script>
    var today = new Date();
-
+   
    $(function() {
       $('.hotel_date_range').daterangepicker({
          autoApply: true,
@@ -105,7 +103,7 @@
          checkSameDate(hotel_start_date, hotel_end_date);
       });
    });
-
+   
    function checkSameDate(start, end) {
       let hotel_start_date = start;
       let hotel_end_date = end;
@@ -132,7 +130,7 @@
 </script>
 <script>
    var today = new Date();
-
+   
    $(function() {
       $('.tour_date_range').daterangepicker({
          autoApply: true,
@@ -157,7 +155,7 @@
       // locality: 'long_name',
       // postal_code: 'short_name'
    };
-
+   
    function initAutocompleteloc() {
       autocompleteloc = new google.maps.places.Autocomplete(
          (document.getElementById('autocompleteloc')), {
@@ -171,9 +169,9 @@
          fillInAddressloc(autocompleteloc, "");
       });
    }
-
+   
    function fillInAddressloc(autocompleteloc, unique) {
-
+   
       var place = autocompleteloc.getPlace();
       for (var component in componentForm) {
          if (!!document.getElementById(component + unique)) {
@@ -181,7 +179,7 @@
             document.getElementById(component + unique).disabled = false;
          }
       }
-
+   
       for (var i = 0; i < place.address_components.length; i++) {
          var addressType = place.address_components[i].types[0];
          if (componentForm[addressType] && document.getElementById(addressType + unique)) {
@@ -191,7 +189,7 @@
       }
    }
    google.maps.event.addDomListener(window, "load", initAutocompleteloc);
-
+   
    function geolocate() {
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -216,7 +214,7 @@
       // locality: 'long_name',
       // postal_code: 'short_name'
    };
-
+   
    function initAutocompletespace() {
       autocompletespace = new google.maps.places.Autocomplete(
          (document.getElementById('autocomplete_space')), {
@@ -230,9 +228,9 @@
          fillInAddress(autocompletespace, "");
       });
    }
-
+   
    function fillInAddressSpace(autocompletespace, unique) {
-
+   
       var place = autocompletespace.getPlace();
       for (var component in componentForm) {
          if (!!document.getElementById(component + unique)) {
@@ -240,7 +238,7 @@
             document.getElementById(component + unique).disabled = false;
          }
       }
-
+   
       for (var i = 0; i < place.address_components.length; i++) {
          var addressType = place.address_components[i].types[0];
          if (componentForm[addressType] && document.getElementById(addressType + unique)) {
@@ -249,9 +247,9 @@
          }
       }
    }
-
+   
    google.maps.event.addDomListener(window, "load", initAutocompletespace);
-
+   
    function geolocate() {
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -270,7 +268,7 @@
 </script>
 <script type="text/javascript">
    $(document).ready(function() {
-
+   
       $("#dt1").datepicker({
          dateFormat: "dd-M-yy",
          minDate: 0,
@@ -282,7 +280,7 @@
             var dt2Date = dt2.datepicker('getDate');
             //difference in days. 86400 seconds in day, 1000 ms in second
             var dateDiff = (dt2Date - minDate) / (86400 * 1000);
-
+   
             startDate.setDate(startDate.getDate() + 30);
             if (dt2Date == null || dateDiff < 0) {
                dt2.datepicker('setDate', minDate);
@@ -301,7 +299,6 @@
       });
    });
 </script>
-
 <script>
    $(document).ready(function() {
       $('.minus').click(function() {
@@ -325,7 +322,6 @@
       });
    });
 </script>
-
 @endsection
 @section('content')
 <!-- slider -->
@@ -364,7 +360,6 @@
                                  </div>
                               </a>
                            </li>
-
                            <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
                                  <div class="select-tab">
@@ -384,7 +379,6 @@
                         </ul>
                      </div>
                      <!-- Tab panes -->
-
                      <div class="tab-content text-center">
                         <div class="tab-pane active" id="profile" role="tabpanel">
                            <div class="booking-type hotel-book1">
@@ -394,9 +388,9 @@
                                     <div class="col-md-4 filter_01 pr-0 h-hotel ">
                                        <p>CITY, LOCATION</p>
                                        <span class="hotel-searchbar"><i class="bx bx-map"></i>
-                                          <input type="location" name="location" placeholder="Location, City, Place..." class="locatin-hotel" id="autocompleteloc" required="">
-                                          <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
-                                          <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
+                                       <input type="location" name="location" placeholder="Location, City, Place..." class="locatin-hotel" id="autocompleteloc" required="">
+                                       <input type="hidden" name="hotel_latitude" id="hotel_latitude" value="22.7196">
+                                       <input type="hidden" name="hotel_longitude" id="hotel_longitude" value="75.8577">
                                        </span>
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0 reserved reserved1 hotel_date_range">
@@ -404,8 +398,7 @@
                                        <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="<?php echo date("d-m-Y"); ?>">
                                        <span class="to-date"><i class="bx bx-transfer"></i></span>
                                     </div>
-
-                                    <div class="col-md-2 filter_01 pr-0 reserved reserved2 hotel_date_range">
+                                    <div class="col-md-2 filter_01 pr-0 reserved reserved2">
                                        <p>Check_out</p>
                                        <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php echo date("d-m-Y", strtotime("+ 1 day")); ?>">
                                     </div>
@@ -413,15 +406,17 @@
                                        <p>Add Guest</p>
                                        <div class="dropdown">
                                           <button class="btn dropdown-toggle" id="btnGuestNumber" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                             <?php if (!empty($person)) {
-                                                echo $person;
+                                          <?php if (!empty($person)) {
+                                             echo $person;
                                              } else {
-                                                echo "1";
+                                             echo "1";
                                              } ?> Person
                                           </button>
                                           <input type="hidden" id="guest_number" name="person" value="1">
                                           <ul class="dropdown-menu">
-                                             <li><a class="dropdown-item" href="#"><span>Adult(12+ Years)</span>
+                                             <li>
+                                                <a class="dropdown-item" href="#">
+                                                   <span>Adult(12+ Years)</span>
                                                    <div class="number">
                                                       <button class="minus" data-quantity="minus" data-field="quantity">-</button>
                                                       <input type="text" value="1" />
@@ -446,7 +441,7 @@
                                  @csrf
                                  <div class="d-flex justify-content-center align-self-center w-100">
                                     <span class="span3 form-control-lo-event"><i class='bx bx-map'></i>
-                                       <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
+                                    <input type="location" name="event_location" placeholder="Destination" class="locatin-fil" id="autocomplete1"></span>
                                     <input type="submit" value="Find" class="btn btn-primary-event pull-right hotel-btn">
                                  </div>
                               </form>
@@ -456,42 +451,35 @@
                                        <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
                                     </div>
                                     <h3>The conference planners expo'22 </h3>
-
                                  </div>
                                  <div class="event-box">
                                     <div class="ev-img">
                                        <img src="{{ asset('resources/assets/img/art.jpg')}}">
                                     </div>
                                     <h3>Modern Art Fair </h3>
-
                                  </div>
                                  <div class="event-box">
                                     <div class="ev-img">
                                        <img src="{{ asset('resources/assets/img/bmw.png')}}">
                                     </div>
                                     <h3>BMW 3 and 6 Series Gran </h3>
-
                                  </div>
                                  <div class="event-box">
                                     <div class="ev-img">
                                        <img src="{{ asset('resources/assets/img/confrance.jpg')}}">
                                     </div>
                                     <h3>The conference planners expo'22 </h3>
-
                                  </div>
                               </div>
                            </div>
                         </div>
-
                         <div class="tab-pane" id="messages" role="tabpanel">
                            <div class="booking-type tour-book1">
-
                               <form method="GET" action="{{url('tour-list')}}">
                                  @csrf
-
-                                 <div class="col-md-6 filter_01 pr-0 h-hotel ">
-                                    <p>Destination</p>
-                                    <span class="hotel-searchbar"><i class="bx bx-map"></i>
+                                 <div class="col-md-12 filter_01 pr-0 h-hotel ">
+                                    <p>Tour City</p>
+                                    <!-- <span class="hotel-searchbar"><i class="bx bx-map"></i>
                                        @php $get_tour = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->get()->unique('country_id'); @endphp
                                        <select class="locatin-hotel" name="destination" id="destination">
                                           <option value="">Select Destination</option>
@@ -500,12 +488,15 @@
                                           <option value="{{ base64_encode($get_country->id) ?? '' }}">{{ $get_country->nicename ?? '' }}</option>
                                           @endforeach
                                        </select>
+                                       </span> -->
+                                    <span class="hotel-searchbar"><i class="bx bx-bus"></i>
+                                    <input type="location" name="destination" placeholder="Tour city..." class="locatin-hotel" id="autocompleteloc" required="">
                                     </span>
                                  </div>
-
-                                 <div class="col-md-6 filter_01 pr-0 h-hotel ">
+                                 <!-- <div class="col-md-6 filter_01 pr-0 h-hotel ">
                                     <p>Duration</p>
-                                    <span class="hotel-searchbar"><i class="bx bx-time"></i>
+                                    <span class="hotel-searchbar">
+                                       <i class="bx bx-time"></i>
                                        <select class="locatin-hotel" name="duration" id="duration">
                                           <option value=""> Select Duration </option>
                                           @php $get_tour = DB::table('tour_list')->where('status',1)->where('tour_status', 'available')->orderBy('tour_days', 'ASC')->get()->unique('tour_days'); @endphp
@@ -514,8 +505,7 @@
                                           @endforeach
                                        </select>
                                     </span>
-                                 </div>
-
+                                 </div> -->
                                  <div class="col-md-2 filter_01 pr-0">
                                     <input type="submit" value="Find" class="hotel-btn pull-right">
                                  </div>
@@ -524,52 +514,41 @@
                         </div>
                         <div class="tab-pane" id="settings" role="tabpanel">
                            <div class="booking-type space-book1">
-
                               <!-- <form> -->
                               <form method="GET" action="{{url('spaceList')}}">
                                  @csrf
                                  <!-- <input type="text" name="location" placeholder="Space name" class="span3 form-control"> -->
-
                                  <div class="col-md-6 filter_01 pr-0 h-hotel ">
                                     <p>CITY, LOCATION...</p>
                                     <span class="hotel-searchbar"><i class="bx bx-map"></i>
-                                       <input type="location" name="space_location" placeholder="Location, City, Place" class="span3 space-control w-100" id="autocomplete_space" required="" style="background: #ccc0;">
-                                       <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
-                                       <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
+                                    <input type="location" name="space_location" placeholder="Location, City, Place" class="span3 space-control w-100" id="autocomplete_space" required="" style="background: #ccc0;">
+                                    <input type="hidden" name="space_latitude" id="space_latitude" value="22.7196">
+                                    <input type="hidden" name="space_longitude" id="space_longitude" value="75.8577">
                                     </span>
                                  </div>
-
                                  <!-- <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date">
-                                 <span class="to-date"><i class='bx bx-transfer'></i></span> -->
+                                    <span class="to-date"><i class='bx bx-transfer'></i></span> -->
                                  <!-- <input type="date" name="lastname" placeholder="Date" class="span3 form-control min_date"> -->
-
                                  <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkin" id="reservation"> to  -->
                                  <!-- <input type="text" name="check_in" class="span3 form-control min_dat float-right reservation checkout" id="reservation"> -->
-
-
                                  <!-- <span class="" id="reservation">
                                     <input id="date-range200" class="span3 min_dat" value="" placeholder="Choose_a_date">
-                                 </span> -->
-
+                                    </span> -->
                                  <div class="col-md-3 filter_01 pr-0 tourdater tourdater1 reserved reserved1">
                                     <p>Check_in</p>
                                     <span class="reservation1 reservation space_date_range">
-                                       <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
+                                    <input id="space_checkin_date" class="span3 min_dat minimum_date" value="<?php echo date("d-M-y"); ?>" name="space_checkin_date" placeholder="Choose a date">
                                     </span>
                                     <span class="to-date"><i class="bx bx-transfer"></i></span>
                                  </div>
-
                                  <div class="col-md-3 tourdater tourdater2 reserved">
                                     <p>Check_out</p>
                                     <span class="reservation2 reservation space_date_range">
-                                       <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
+                                    <input id="space_checkout_date" class="span3 min_dat minimum_date" min="" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" name="space_checkout_date" placeholder="Choose a date">
                                     </span>
                                  </div>
-
-
                                  <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y"); ?>" placeholder="Select Date"> -->
                                  <!-- <input type="text" name="daterange" class="span3 form-control min_date" value="<?php echo date("d-M-y", strtotime("+ 1 day")); ?>" placeholder="Select Date"> -->
-
                                  <input type="submit" value="Find" class="btn btn-primary pull-right space-button hotel-btn">
                               </form>
                            </div>
@@ -591,7 +570,6 @@
             <h3>{{ $home_content[1]->subheading }}</h3>
          </div>
          <div class="owl-carousel testimonials-carousel">
-
             @if(count($tour_list) > 0)
             <!-- @php echo 'first' @endphp -->
             @foreach($tour_list as $tour)
@@ -606,14 +584,12 @@
                      <a href="{{ url('/tour_details') }}/{{ $tour->id }}">
                         <p> {{ $tour->tour_title }}</p>
                      </a>
-
                      <a href="#" class="date-trip"> {{date('d-m-Y',strtotime($tour->tour_start_date))}} - {{date('d-m-Y', strtotime($tour->tour_end_date))}} ({{$tour->tour_days}} Days,{{$nights}} Nights)</a>
                   </div>
                </div>
             </div>
             @endforeach
             @endif
-
             @if(count($tour_list) == 2)
             <!-- @php echo 'second' @endphp -->
             <div class="testimonial-wrap">
@@ -628,7 +604,6 @@
                </div>
             </div>
             @endif
-
             @if(count($tour_list) == 1)
             <!-- @php echo 'third' @endphp -->
             <div class="testimonial-wrap">
@@ -654,7 +629,6 @@
                </div>
             </div>
             @endif
-
             @if(count($tour_list) == 0)
             <!-- @php echo 'fourth' @endphp -->
             <div class="testimonial-wrap">
@@ -694,7 +668,6 @@
          </div>
       </div>
    </section>
-
    <section class="truely-dedicated">
       <div class="container" data-aos="fade-up">
          <div class="row">
@@ -723,7 +696,6 @@
          </div>
       </div>
    </section>
-
    <section id="featured" class="testimonials">
       <div class="container" data-aos="fade-up">
          <div class="section-title trending-city">
@@ -731,9 +703,7 @@
             <h3> {{ $home_content[3]->subheading }}</h3>
          </div>
          <div class="owl-carousel featured">
-
             @if(count($hotel_list) > 0)
-
             @foreach($hotel_list as $hotel)
             @php $country_name = DB::table('country')->where('id', $hotel->hotel_country)->value('nicename'); @endphp
             <!-- @php echo $country_name; @endphp -->
@@ -755,9 +725,7 @@
                </a>
             </div>
             @endforeach
-
             @endif
-
             @if(count($hotel_list) == 3)
             <div class="testimonial-wrap">
                <div class="testimonial-item">
@@ -777,7 +745,6 @@
                </div>
             </div>
             @endif
-
             @if(count($hotel_list) == 2)
             <div class="testimonial-wrap">
                <div class="testimonial-item">
@@ -812,7 +779,6 @@
                </div>
             </div>
             @endif
-
             @if(count($hotel_list) == 1)
             <div class="testimonial-wrap">
                <div class="testimonial-item">
@@ -862,7 +828,6 @@
                </div>
             </div>
             @endif
-
             @if(count($hotel_list) == 0)
             <div class="testimonial-wrap">
                <div class="testimonial-item">
@@ -962,7 +927,6 @@
          </div>
       </div>
    </section>
-
    <section id="religious" class="testimonials">
       <div class="container" data-aos="fade-up">
          <div class="section-title trending-city">
@@ -970,159 +934,153 @@
             <h3>{{ $home_content[4]->subheading }}</h3>
          </div>
          <div class="owl-carousel testimonials-carousel">
-
             @if(count($tour_list) > 0)
-               @foreach($tour_list as $tour)
-                  @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
-                  @php $nights = (int)$tour->tour_days-1; @endphp
-
-                  <div class="testimonial-wrap">
-                     <div class="testimonial-item ">
-                        <div class="heig-fic">
-                           <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}" class="testimonial-img" alt=""></a>
-                        </div>
-                        <div class="world-class">
-                           <a href="#" class="city-nam"><i class='bx bx-map'></i> {{ ucfirst(strtolower(trans($country_name->name))) }} </a>
-                           <h3> {{ $tour->city }} </h3>
-                           <a href="{{ url('/tour_details') }}/{{ $tour->id }}">
-                              <p> {{ $tour->tour_title }}</p>
-                           </a>
-                           <a href="#" class="date-trip">{{date('d-m-Y',strtotime($tour->tour_start_date))}} - {{date('d-m-Y', strtotime($tour->tour_end_date))}} ({{$tour->tour_days}} Days,{{$nights}} Nights)</a>
-                        </div>
-                     </div>
+            @foreach($tour_list as $tour)
+            @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
+            @php $nights = (int)$tour->tour_days-1; @endphp
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <a href="{{ url('/tour_details') }}/{{ $tour->id }}"><img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}" class="testimonial-img" alt=""></a>
                   </div>
-               @endforeach
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> {{ ucfirst(strtolower(trans($country_name->name))) }} </a>
+                     <h3> {{ $tour->city }} </h3>
+                     <a href="{{ url('/tour_details') }}/{{ $tour->id }}">
+                        <p> {{ $tour->tour_title }}</p>
+                     </a>
+                     <a href="#" class="date-trip">{{date('d-m-Y',strtotime($tour->tour_start_date))}} - {{date('d-m-Y', strtotime($tour->tour_end_date))}} ({{$tour->tour_days}} Days,{{$nights}} Nights)</a>
+                  </div>
+               </div>
+            </div>
+            @endforeach
             @endif
-
             @if(count($tour_list) == 2)
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
+            </div>
             @endif
-
             @if(count($tour_list) == 1)
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
+            </div>
             @endif
-
             @if(count($tour_list) == 0)
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item ">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g3.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
-                        <h3> Piazza Castello </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item ">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g3.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> Hvar, Croatia </a>
+                     <h3> Piazza Castello </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
-                        <h3> Jama Masjid, Delhi </h3>
-                        <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g2.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> New Delhi, India </a>
+                     <h3> Jama Masjid, Delhi </h3>
+                     <p> Islamabad, Islamabad Capital Territory, Pakistan</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
-               <div class="testimonial-wrap">
-                  <div class="testimonial-item">
-                     <div class="heig-fic">
-                        <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
-                     </div>
-                     <div class="world-class">
-                        <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
-                        <h3> Islamabad </h3>
-                        <p> Flights from Devi Ahilyabai Holkar International</p>
-                        <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
-                     </div>
+            </div>
+            <div class="testimonial-wrap">
+               <div class="testimonial-item">
+                  <div class="heig-fic">
+                     <img src="{{ asset('resources/assets/img/g1.png')}}" class="testimonial-img" alt="">
+                  </div>
+                  <div class="world-class">
+                     <a href="#" class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </a>
+                     <h3> Islamabad </h3>
+                     <p> Flights from Devi Ahilyabai Holkar International</p>
+                     <a href="#" class="date-trip"> May 21 - May 28 · Round trip</a>
                   </div>
                </div>
+            </div>
             @endif 
          </div>
       </div>
    </section>
-
    <section class="special-offer">
       <div class="container">
          <div class="row">
@@ -1133,110 +1091,51 @@
                </div>
             </div>
          </div>
-      </div> 
+      </div>
       <div class="container-fluid">
          <div class="d-flex justify-content-between bor-botm">
-            <div class="w-50">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-11 m-auto p-0">
-                        <div id="offernew" class="offer-tex ofr">
-                           <div class="container p-0" data-aos="fade-up">
-                              <div class="owl-carousel testimonials-carousel">
-                              @if(count($tour_list) > 0)
-                                 @foreach($tour_list as $tour)
-                                    @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
-                                    @php $nights = (int)$tour->tour_days-1; @endphp
-                                    <div class="testimonial-wrap">
-                                       <a href="{{ url('/tour_details') }}/{{ $tour->id }}">
-                                          <div class="testimonial-item ">
-                                             <div class="offer-grid">
-                                                <div class="offer-img">
-                                                   <img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}">
-                                                   <div class="offer-circle">
-                                                      <p>Discount {{ $tour->tour_discount ?? '' }}%</p>
-                                                   </div>
-                                                </div>
-                                                <div class="wht-text">
-                                                   <h4> {{ $tour->tour_discount ?? '' }}% OFF</h4>
-                                                   <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                                </div>
-                                                <div class="world-class-p">
-                                                   <span class="city-nam"><i class='bx bx-map'></i> {{ $tour->city }}, {{ ucfirst(strtolower(trans($country_name->name))) }} </span>
-                                                   <h3> {{ $tour->city }} </h3>
-                                                   <p> {{ $tour->tour_title }}</p>
-                                                   <div class="d-flex justify-content-between watch-time">
-                                                      <span class="date-trip"> <i class='bx bx-stopwatch'></i> {{date('d M',strtotime($tour->tour_start_date))}} - {{date('d M Y', strtotime($tour->tour_end_date))}} 
-                                                      </span>
-                                                      <span><i class='bx bx-user'></i> {{$tour->tour_max_capacity ?? ''}} People </span>
-                                                   </div>
-                                                </div>
-                                             </div>
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-md-6 m-auto p-0">
+                     <div id="offernew" class="offer-tex ofr">
+                        <div class="owl-carousel offer-carousel">
+                           @if(count($tour_list) > 0)
+                           @foreach($tour_list as $tour)
+                           @php $country_name = DB::table('country')->where('id', $tour->country_id)->first(); @endphp
+                           @php $nights = (int)$tour->tour_days-1; @endphp
+                           <div class="testimonial-wrap">
+                              <a href="{{ url('/tour_details') }}/{{ $tour->id }}">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('public/uploads/tour_gallery') }}/{{$tour->tour_feature_image}}">
+                                          <div class="offer-circle">
+                                             <p>Discount {{ $tour->tour_discount ?? '' }}%</p>
                                           </div>
-                                       </a>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> {{ $tour->tour_discount ?? '' }}% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                       <div class="world-class-p">
+                                          <span class="city-nam"><i class='bx bx-map'></i> {{ $tour->city }}, {{ ucfirst(strtolower(trans($country_name->name))) }} </span>
+                                          <h3> {{ $tour->city }} </h3>
+                                          <p> {{ $tour->tour_title }}</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <span class="date-trip"> <i class='bx bx-stopwatch'></i> {{date('d M',strtotime($tour->tour_start_date))}} - {{date('d M Y', strtotime($tour->tour_end_date))}} 
+                                             </span>
+                                             <span><i class='bx bx-user'></i> {{$tour->tour_max_capacity ?? ''}} People </span>
+                                          </div>
+                                       </div>
                                     </div>
-                                 @endforeach
-                              @endif
-
-                              <!-- @if(count($tour_list) == 0)
-                                 <div class="testimonial-wrap">
-                                    <a href="#">
-                                       <div class="testimonial-item ">
-                                          <div class="offer-grid">
-                                             <div class="offer-img">
-                                                <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                                                <div class="offer-circle">
-                                                   <p>Discount 30%</p>
-                                                </div>
-                                             </div>
-                                             <div class="wht-text">
-                                                <h4> 30% OFF</h4>
-                                                <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                             </div>
-                                             <div class="world-class-p">
-                                                <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
-                                                <h3> Islamabad </h3>
-                                                <p> Flights from Devi Ahilyabai Holkar International</p>
-                                                <div class="d-flex justify-content-between watch-time">
-                                                   <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
-                                                   </span>
-                                                   <span><i class='bx bx-user'></i> 5 People </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </a>
                                  </div>
-                                 <div class="testimonial-wrap">
-                                    <a href="#">
-                                       <div class="testimonial-item ">
-                                          <div class="offer-grid">
-                                             <div class="offer-img">
-                                                <img src="{{ asset('resources/assets/img/hotlee.jpg') }}">
-                                                <div class="offer-circle">
-                                                   <p>Discount 30%</p>
-                                                </div>
-                                             </div>
-                                             <div class="wht-text">
-                                                <h4> 30% OFF</h4>
-                                                <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                             </div>
-                                              <div class="world-class-p">
-                                                <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
-                                                <h3> Islamabad </h3>
-                                                <p> Flights from Devi Ahilyabai Holkar International</p>
-                                                <div class="d-flex justify-content-between watch-time">
-                                                   <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
-                                                   </span>
-                                                   <span><i class='bx bx-user'></i> 5 People </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </a>
-                                 </div>
-                                 <div class="testimonial-wrap">
-                                    <a href="#">
+                              </a>
+                           </div>
+                           @endforeach
+                           @endif
+                           <!-- @if(count($tour_list) == 0)
+                              <div class="testimonial-wrap">
+                                 <a href="#">
                                     <div class="testimonial-item ">
                                        <div class="offer-grid">
                                           <div class="offer-img">
@@ -1249,121 +1148,175 @@
                                              <h4> 30% OFF</h4>
                                              <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
                                           </div>
-                                        <div class="world-class-p">
+                                          <div class="world-class-p">
                                              <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
                                              <h3> Islamabad </h3>
                                              <p> Flights from Devi Ahilyabai Holkar International</p>
                                              <div class="d-flex justify-content-between watch-time">
-                                                <span class="date-trip"><i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                                <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
                                                 </span>
                                                 <span><i class='bx bx-user'></i> 5 People </span>
                                              </div>
                                           </div>
                                        </div>
                                     </div>
-                                    </a>
-                                 </div>
-                                 <div class="testimonial-wrap">
-                                    <a href="">
-                                       <div class="testimonial-item ">
-                                          <div class="offer-grid">
-                                             <div class="offer-img">
-                                                <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                                                <div class="offer-circle">
-                                                   <p>Discount 30%</p>
-                                                </div>
-                                             </div>
-                                             <div class="wht-text">
-                                                <h4> 30% OFF</h4>
-                                                <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                             </div>
-                                             <div class="world-class-p">
-                                                <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
-                                                <h3> Islamabad </h3>
-                                                <p> Flights from Devi Ahilyabai Holkar International</p>
-                                                <div class="d-flex justify-content-between watch-time">
-                                                   <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
-                                                   </span>
-                                                   <span><i class='bx bx-user'></i> 5 People </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </a>
-                                 </div>
-                                 <div class="testimonial-wrap">
-                                    <a href="#">
-                                       <div class="testimonial-item ">
-                                          <div class="offer-grid">
-                                             <div class="offer-img">
-                                                <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                                                <div class="offer-circle">
-                                                   <p>Discount 30%</p>
-                                                </div>
-                                             </div>
-                                             <div class="wht-text">
-                                                <h4> 30% OFF</h4>
-                                                <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                             </div>
-                                              <div class="world-class-p">
-                                                <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
-                                                <h3> Islamabad </h3>
-                                                <p> Flights from Devi Ahilyabai Holkar International</p>
-                                                <div class="d-flex justify-content-between watch-time">
-                                                   <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
-                                                   </span>
-                                                   <span><i class='bx bx-user'></i> 5 People </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </a>
-                                 </div>
-                                 <div class="testimonial-wrap">
-                                    <a href="#">
-                                       <div class="testimonial-item ">
-                                          <div class="offer-grid">
-                                             <div class="offer-img">
-                                                <img src="{{ asset('resources/assets/img/offer3.png')}}">
-                                                <div class="offer-circle">
-                                                   <p>Discount 30%</p>
-                                                </div>
-                                             </div>
-                                             <div class="wht-text">
-                                                <h4> 30% OFF</h4>
-                                                <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
-                                             </div>
-                                              <div class="world-class-p">
-                                                <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
-                                                <h3> Islamabad </h3>
-                                                <p> Flights from Devi Ahilyabai Holkar International</p>
-                                                <div class="d-flex justify-content-between watch-time">
-                                                   <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
-                                                   </span>
-                                                   <span><i class='bx bx-user'></i> 5 People </span>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </a>
-                                 </div> 
-                              @endif -->
+                                 </a>
                               </div>
-                           </div>
+                              <div class="testimonial-wrap">
+                                 <a href="#">
+                                    <div class="testimonial-item ">
+                                       <div class="offer-grid">
+                                          <div class="offer-img">
+                                             <img src="{{ asset('resources/assets/img/hotlee.jpg') }}">
+                                             <div class="offer-circle">
+                                                <p>Discount 30%</p>
+                                             </div>
+                                          </div>
+                                          <div class="wht-text">
+                                             <h4> 30% OFF</h4>
+                                             <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                          </div>
+                                           <div class="world-class-p">
+                                             <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
+                                             <h3> Islamabad </h3>
+                                             <p> Flights from Devi Ahilyabai Holkar International</p>
+                                             <div class="d-flex justify-content-between watch-time">
+                                                <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                                </span>
+                                                <span><i class='bx bx-user'></i> 5 People </span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </a>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <a href="#">
+                                 <div class="testimonial-item ">
+                                    <div class="offer-grid">
+                                       <div class="offer-img">
+                                          <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                          <div class="offer-circle">
+                                             <p>Discount 30%</p>
+                                          </div>
+                                       </div>
+                                       <div class="wht-text">
+                                          <h4> 30% OFF</h4>
+                                          <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                       </div>
+                                     <div class="world-class-p">
+                                          <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
+                                          <h3> Islamabad </h3>
+                                          <p> Flights from Devi Ahilyabai Holkar International</p>
+                                          <div class="d-flex justify-content-between watch-time">
+                                             <span class="date-trip"><i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                             </span>
+                                             <span><i class='bx bx-user'></i> 5 People </span>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </a>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <a href="">
+                                    <div class="testimonial-item ">
+                                       <div class="offer-grid">
+                                          <div class="offer-img">
+                                             <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                             <div class="offer-circle">
+                                                <p>Discount 30%</p>
+                                             </div>
+                                          </div>
+                                          <div class="wht-text">
+                                             <h4> 30% OFF</h4>
+                                             <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                          </div>
+                                          <div class="world-class-p">
+                                             <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
+                                             <h3> Islamabad </h3>
+                                             <p> Flights from Devi Ahilyabai Holkar International</p>
+                                             <div class="d-flex justify-content-between watch-time">
+                                                <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                                </span>
+                                                <span><i class='bx bx-user'></i> 5 People </span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </a>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <a href="#">
+                                    <div class="testimonial-item ">
+                                       <div class="offer-grid">
+                                          <div class="offer-img">
+                                             <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                             <div class="offer-circle">
+                                                <p>Discount 30%</p>
+                                             </div>
+                                          </div>
+                                          <div class="wht-text">
+                                             <h4> 30% OFF</h4>
+                                             <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                          </div>
+                                           <div class="world-class-p">
+                                             <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
+                                             <h3> Islamabad </h3>
+                                             <p> Flights from Devi Ahilyabai Holkar International</p>
+                                             <div class="d-flex justify-content-between watch-time">
+                                                <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                                </span>
+                                                <span><i class='bx bx-user'></i> 5 People </span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </a>
+                              </div>
+                              <div class="testimonial-wrap">
+                                 <a href="#">
+                                    <div class="testimonial-item ">
+                                       <div class="offer-grid">
+                                          <div class="offer-img">
+                                             <img src="{{ asset('resources/assets/img/offer3.png')}}">
+                                             <div class="offer-circle">
+                                                <p>Discount 30%</p>
+                                             </div>
+                                          </div>
+                                          <div class="wht-text">
+                                             <h4> 30% OFF</h4>
+                                             <h5> <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></h5>
+                                          </div>
+                                           <div class="world-class-p">
+                                             <span class="city-nam"><i class='bx bx-map'></i> F-7/2, Islamabad, Islamabad </span>
+                                             <h3> Islamabad </h3>
+                                             <p> Flights from Devi Ahilyabai Holkar International</p>
+                                             <div class="d-flex justify-content-between watch-time">
+                                                <span class="date-trip"> <i class='bx bx-stopwatch'></i> 12 - 20 May 
+                                                </span>
+                                                <span><i class='bx bx-user'></i> 5 People </span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </a>
+                              </div> 
+                              @endif -->
                         </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 newslatter-bg2">
+                     <div class="family-group p-5">
+                        <h2>{!! $home_content[6]->heading !!}</h2>
+                        <p>{{ $home_content[6]->subheading }}</p>
+                        <a href="#" class="offer-btn"> Read more</a>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="w-50 newslatter-bg2">
-               <div class="family-group p-5">
-                  <h2>{!! $home_content[6]->heading !!}</h2>
-                  <p>{{ $home_content[6]->subheading }}</p>
-                  <a href="#" class="offer-btn"> Read more</a>
-               </div>
-            </div>
-         </div> 
-      </div> 
+         </div>
+      </div>
    </section>
    <section>
       <div class="container">
@@ -1402,12 +1355,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 <!-- End #main -->
-
-
-<script>
-
-</script>
-
-
-
+<script></script>
 @endsection

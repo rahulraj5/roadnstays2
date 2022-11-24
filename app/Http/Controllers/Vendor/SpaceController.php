@@ -514,6 +514,8 @@ class SpaceController extends Controller
         $res = DB::table('space')->where('space_id', '=', $space_id)->delete();
     
         if ($res) {
+            DB::table('space_booking')->where('space_id', '=', $space_id)->delete();
+            DB::table('space_booking_temp')->where('space_id', '=', $space_id)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Space has been deleted successfully!'));
         } else {
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));

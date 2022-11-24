@@ -57,5 +57,9 @@ Route::post('spaceByLocation','Api\SpaceController@spaceByLocation')->middleware
 Route::post('spaceById','Api\SpaceController@spaceById')->middleware('CheckToken');
 Route::post('spaceDetails','Api\SpaceController@spaceDetails')->middleware('CheckToken');
 Route::post('change_daterange_session','Api\SpaceController@change_daterange_session')->middleware('CheckToken'); 
+Route::post('createSpaceBooking','Api\WsController@create_space_booking')->middleware('CheckToken');
+Route::post('createTourBooking','Api\WsController@create_tour_booking')->middleware('CheckToken');
+Route::post('createEventBooking','Api\WsController@create_event_booking')->middleware('CheckToken');
+Route::post('createRoomBooking','Api\WsController@create_booking_room')->middleware('CheckToken');
 });
 Route::get('changeStatus','Api\ApiLoginController@changeStatus'); 

@@ -41,7 +41,6 @@ p,
 }
 
 .hotel-about h3.pt-4 {
-    display: flex;
     padding: 0px;
     font-weight: 900;
     flex-direction: column;
@@ -1197,7 +1196,7 @@ a.ui-datepicker-next {
 }
 
 .amenities-img {
-    display: flex;
+    display: block;
 }
 
 .amenity-row h1 {
@@ -1433,6 +1432,9 @@ body {
     object-fit: cover;
     object-position: center;
 }
+.img-banner{
+    position: relative;
+}
 
 .event-sec .img-banner .bannner-text {
     background: rgb(2 2 2 / 49%);
@@ -1444,12 +1446,15 @@ body {
     font-weight: 900;
     padding: 15px 40px;
     position: absolute;
-    top: 12%;
-    left: 15%;
+    bottom: 10%;
+    right: 10%;
     color: #fff;
     text-transform: uppercase;
 }
-
+.event-sec .img-banner .bannner-text h1{
+    font-size: 36px;
+    font-weight: 900;
+}
 
 #LoginForm .mart-rom ul {
     display: flex;
@@ -5782,7 +5787,7 @@ img {
 
     .event-sec .img-banner .bannner-text {
         padding: 10px 10px;
-        top: 232px !important;
+        
     }
 
     .event-sec .img-banner .bannner-text {
@@ -5795,8 +5800,6 @@ img {
         font-weight: 900;
         padding: 15px 40px;
         position: absolute;
-        top: 5% !important;
-        left: 4% !important;
         color: #fff;
         text-transform: uppercase;
     }
@@ -8311,18 +8314,243 @@ button.contact_form_submit {
 }
 
 
-.event-sec .img-banner .bannner-text {
-    background: rgb(2 2 2 / 49%);
-    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 36px;
-    font-weight: 900;
-    padding: 15px 40px;
-    position: absolute;
-    top: 12%;
-    left: 15%;
+
+
+
+
+
+
+/* ....................................enquiry form css................................. */
+
+
+.enquiry form {
+    padding: 24px 20px;
+    border-radius: 12px;
+    border: 1px solid rgb(221, 221, 221);
+    box-shadow: 6px 2px 15px #ccc;
+    background-color: #028273;
+    color: #FFF;
+}
+#enquiry-form input {
+    height: 38px;
+}
+#enquiry-form select {
+    height: 40px;
+}
+
+
+.enquiry form h1{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .enquiry form p{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .enquiry form label{
+    display:block;
+    margin:1em 0 .2em;
+    font-size:14px;
+  }
+  /* single-line text, checkbox, and button */
+  .enquiry form input, .enquiry form select, .enquiry form textarea{
+    display:block;
+    width:100%;
+    padding:.3em;
+    font-size:14px;
+    background-color:#fbfbfb;
+    border:solid 0px #CCC;
+    resize:vertical;
+  }
+  .enquiry form textarea{
+    min-height:90px;
+  }
+  
+  
+  .enquiry form input[type=checkbox]{
+    display:inline;
+    width:auto;
+    color:red;
+  }
+  
+  .enquiry form input[type=submit]{
+    background: #126c62;
+    margin: 1em 0 0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all .3s ease-out;
+    width: auto;
+    padding: 10px 20px;
+  }
+  
+  .enquiry form input:focus,
+  .enquiry form input:hover,
+  .enquiry form select:focus,
+  .enquiry form select:hover,
+  .enquiry form textarea:focus,
+  .enquiry form textarea:hover{
+    background: #edffdb;
+  }
+  
+  /* hover and focus states */
+  .enquiry form input[type=submit]:hover,
+  .enquiry form input[type=submit]:focus{
+    background: lightgreen;
+    outline:none;
+  }
+
+.enquiry form .number p {
+    background: #126c62!important;
+    border: none;
     color: #fff;
+    width: 100%;
+    padding: 10px 5px;
+    font-weight: 600;
     text-transform: uppercase;
+    margin: 0px 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    cursor: pointer;
+}
+.enquiry form .number input{
+    font-size: 14px;
+    border-top: solid 1px #CCC;
+    border-bottom: solid 1px #CCC;
+    padding: 4px 10px;
+    text-align: center;
+}
+ .enquiry form .date-loc input{
+    font-size: 14px;
+    border-top: solid 0px #CCC;
+    border-bottom: solid 0px #CCC;
+    padding: 2px 10px;
+}
+  .count-traveller{
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .count-traveller li{
+    list-style: none;
+    width: 22%;
+  }
+  .count-traveller li span{
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .count-traveller li .number{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .enquiry form .check-bo{
+    display: flex;
+  }
+  .enquiry form .check-bo .check-y{
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
+  .enquiry form .check-bo .check-n{
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
+  .enquiry form .check-bo label{
+    margin: 0 0px 0 8px;
+  }
+  
+  .enquiry form .check-bo input{
+    width: 17px;
+    height: 17px;
+    accent-color: #126c12;
+  }
+  .enquiry form .date-loc{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .enquiry form .date-loc .location-f{
+    width: 50%;
+  }
+  .enquiry form .date-loc .Date-f {
+    width: 46%;
+}
+
+
+.enquiry form .matress-no {
+    padding-top: 15px;
+    display: none;
+}
+
+.enquiry form .tour-days .number {
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.enquiry form .matress-no .number {
+    display: flex;
+    width: 30%;
+    align-items: center;
+}
+.enquiry form .date-flex{
+    display: flex;
+}
+.enquiry form .date-flex .flex-f{
+    width: 50%;
+}
+.enquiry form .tour-days .number input {
+    font-size: 14px;
+    border-top: solid 1px #CCC;
+    border-bottom: solid 1px #CCC;
+    padding: 4px 10px;
+    text-align: center;
+}
+  @media screen and (min-width:600px) {
+    /*  make the form 2 columns */
+    .enquiry form form:after{
+      content:'';
+      display:block;
+      clear:both;
+    }
+   
+  }
+
+  #offernew{
+    margin-right: 20px;
+  }
+  .info-tours  .col-sm-12 a{
+    display: flex;
+    justify-content: end;
+    padding: 0px 10px 15px 0;
+  }
+  .infobox .contact{
+    display: flex;
+    padding: 10px 0;
+        list-style: none;
+}
+.infobox .contact li{
+    width: 50%;
+}
+.infobox .contact li i{
+    font-size: 20px;
+
+}
+.infobox .contact li h6{
+    display: flex;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
+.enquiry form {
+    margin-top: 18px !important;
+    width: 95%;
+    margin: auto;
+}
 }

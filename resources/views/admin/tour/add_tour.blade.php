@@ -206,6 +206,10 @@
           required: true,
           number: true,
         },
+        tour_child_price: {
+          required:true,
+          range:[10,100]
+        },
         tour_price_others: {
           required: true,
           number: true,
@@ -247,19 +251,25 @@
         min_hrs_percentage: {
           number: true,
           required: true,
-          range:[0,100]
+          range:[0,100],
+          max: function(element) {
+            return parseInt($('input[name="min_hrs_percentage"]').val());
+          },
         },
         max_hrs: {
           number: true,
           required: true,
+          min: function(element) {
+            return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
         },
         max_hrs_percentage: {
           number: true,
           required: true,
           range:[0,100],
-          max: function(element) {
-              return $('input[name="min_hrs_percentage"]').val();
-          }
+          min: function(element) {
+            return parseInt($('input[name="max_hrs_percentage"]').val());
+          },
         },
         online_payment_percentage: {
           number: true,
@@ -419,6 +429,29 @@
     }
   });
 </script> 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 4;
+    var addButton = $('.add_button_city');
+    var wrapper = $('.field_wrapper_city');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) { 
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][city]" placeholder="Enter pickup city" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][price]" placeholder="Enter price" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][transport]" placeholder="Enter Transport" value="" required="" /></div></div></div><span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button_city', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -439,10 +472,11 @@
       x--;
     });
   });
-</script> 
+</script>
+
 <script type="text/javascript">
   $(document).ready(function() {
-    var maxField = 10;
+    var maxField = 20;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
     var x = 0;
@@ -704,7 +738,25 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Price</label>
-                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name"  required="">
+                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter price"  required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group"> 
+                              <label>Tour Price(Children) 2-9 Years Kids % off</label>
+                              <input type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price"  required="" max="100">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Deluxe Price</label>
+                              <input type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter price"  required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Gold Price</label>
+                              <input type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter price"  required="">
                             </div>
                           </div>
                           <div class="col-md-12">
@@ -757,7 +809,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Pickup Locations</h4>
+                              <h4>Start Location</h4>
                               </p>
                             </div>
                           </div>
@@ -809,6 +861,35 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12 field_wrapper_city">
+                            <div class="form-group" id="extra_city">
+                              <label>City</label>
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][city]" placeholder="Enter pickup city" value="" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][price]" placeholder="Enter price" value="" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[0][transport]" placeholder="Enter Transport" value="" required="" />
+                                    </div>
+                                  </div>
+                                </div> 
+                                <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                              </div>
+                            </div>
+                          </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Start Date</label>
@@ -843,9 +924,18 @@
                               <label>Tour Sub Type</label>
                               <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
                                 <option value="">Select Sub Tour Type</option>
-                                <option value="standard">Standard</option>
-                                <option value="deluxe">Deluxe</option>
-                                <option value="exclusive">Exclusive</option>
+                                <option value="city tours">City Tours</option>
+                                <option value="north pakistan tours">North Pakistan Tours</option>
+                                <option value="south pakistan tour">South Pakistan Tour</option>
+                                <option value="south punjab tour">South Punjab Tour</option>
+                                <option value="kashmir tours">Kashmir Tours</option>
+                                <option value="sikh yatra"> Sikh Yatra Tours</option>
+                                <option value="swat valley tours"> Swat Valley Tours</option>
+                                <option value="hunza valley tours">Hunza Valley Tours</option>
+                                <option value="kanghan valley tours"> Kanghan Valley Tours</option>
+                                <option value="kalash valley tour">Kalash Valley Tour</option>
+                                <option value="Skardu valley tour"> Skardu Valley Tour</option>
+                                <option value="gilgit tours"> Gilgit Tours</option>
                               </select>
                             </div>
                           </div>
@@ -1077,6 +1167,27 @@
                                   <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="" placeholder="percentage">
                                 </div>
                               </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Commission</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Commission</label>
+                              <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Private Note</label>
+                              <textarea class="form-control" id="summernoteRemoved45" name="private_note" required=""></textarea>
                             </div>
                           </div>
 

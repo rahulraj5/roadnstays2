@@ -18,18 +18,6 @@
         </div>
       </div> -->
 
-      <!-- SidebarSearch Form -->
-      <!-- <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -42,7 +30,7 @@
                 Dashboard
                 <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
-            </a> 
+            </a>
           </li>
 
           <li class="nav-item">
@@ -99,6 +87,12 @@
                       <p>Room Types List</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/roomNameList') }}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Room Name List</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="nav-item">
@@ -124,18 +118,330 @@
                   </li>
                 </ul>
               </li>
+
               <li class="nav-item">
-                <a href="{{ url('/admin/booking_list') }}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Booking List
+                    <i class="right fas fa-angle-left"></i>
                   </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Room Booking List
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/rooms_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-bus"></i>
+              <p>
+                Tour Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/tourList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tour List</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Booking List
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/tourbooking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tour Booking List</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/tour_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/customtourList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Custom Tour List</p>
                 </a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-archway"></i>
+              <p>
+                Space Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/space-list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Space List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Booking List
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/spaceBookingList') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Space Booking List</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/space_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Space Category
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/space-category') }}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Category</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/space-subcategory') }}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Sub Category</p>
+                    </a>
+                  </li>
+                </ul>
+              </li> 
+            </ul>
+          </li>
+         
+          <!-- <li class="nav-item">
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Level 2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Level 2
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+            </ul>
+          </li> -->
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Events Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/events_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Events List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/eventbooking_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Events Booking</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/customer_management') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/scoutList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Scout List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/serviceProviderList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Service Provider list</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>
+                Transactions
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{{ url('/admin/transactionHistory') }}" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Transaction Histiory</p>
+                  </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                CMS
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/banner_management') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Home Page</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/showStaticData') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Static Pages</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>About Us</p>
+                  <i class="right fas fa-angle-left"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showAboutBanner') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Banner</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showAboutContent') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Content Section</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/showChooseUs') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Why Choose Us</p>
+                    </a>
+                  </li>
+                </ul>  
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('/admin/globalTime') }}" class="nav-link">
+              <i class="nav-icon fas fa-clock"></i>
+              <p>
+                Global Time
+              </p>
+            </a>
+          </li>
+          
+          <!-- <li class="nav-item">
             <a href="{{ url('/admin/scoutList') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -160,7 +466,27 @@
                 Customer List
               </p>
             </a>
-          </li>
+          </li> -->
+
+
+
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hotel"></i>
+              <p>
+                Tour Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/tourList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tour List</p>
+                </a>
+              </li>
+            </ul>
+          </li>  -->
 
         </ul>
       </nav>

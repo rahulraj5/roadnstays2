@@ -44,6 +44,24 @@ var toastMixinSuccess = Swal.mixin({
   }
 });
 
+var toastMixinSuccessRigid = Swal.mixin({
+  toast: true,
+  icon: 'success',
+  title: 'General Title',
+  // animation: false,
+  position: 'top-right',
+  showConfirmButton: false,
+  showCloseButton : true,
+  width : '24rem',
+  // padding : '1.55rem',
+  // timer: 5000,
+  // timerProgressBar: true,
+  // didOpen: (toast) => {
+  //   toast.addEventListener('mouseenter', Swal.stopTimer)
+  //   toast.addEventListener('mouseleave', Swal.resumeTimer)
+  // }
+});
+
 var toastMixinError = Swal.mixin({
   toast: true,
   icon: 'error',
@@ -232,6 +250,13 @@ function default_noti(msg) {
 
 function success_noti(msg) {
   toastMixinSuccess.fire({
+    // animation: true,
+    title: msg
+  });
+}
+
+function success_noti_rigid(msg) {
+  toastMixinSuccessRigid.fire({
     // animation: true,
     title: msg
   });

@@ -765,7 +765,20 @@
                         </ul>
                         <ul>
                             <li class="text">Payment Type</li>
-                            <li>{{ $bookingDetails->payment_type }}</li>
+                            
+                            <li>
+                                @if($bookingDetails->payment_type == 1)
+                                {{ 'Alfa Wallet' }}
+                                @elseif($bookingDetails->payment_type == 2)
+                                {{ 'Alfalah Bank Account' }}
+                                @elseif($bookingDetails->payment_type == 3)
+                                {{ 'Credit/Debit Card' }}
+                                @elseif($bookingDetails->payment_type == 4)
+                                {{ 'Other Bank Accounts' }}
+                                @else
+                                {{ 'paypal' }}  
+                                @endif
+                            </li>
                         </ul>
                         <!-- <ul>
                             <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>

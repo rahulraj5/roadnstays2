@@ -35,6 +35,7 @@ class CustomerController extends Controller
         $fname = $request->fname;
         $lname = $request->lname;
         $email = $request->email;
+        $is_verify_email = $request->user_email_verified;
         $user_country = $request->user_country;
         $user_city = $request->city;
         $address = $request->address;
@@ -75,7 +76,7 @@ class CustomerController extends Controller
             $obj->contact_number = $contact_number;
             $obj->password = bcrypt($password);
             $obj->role_id = 2;
-            $obj->is_verify_email = 1;
+            $obj->is_verify_email = $is_verify_email;
             $obj->is_verify_contact = 0;
             $obj->wallet_balance = 0;
             $obj->register_by = 'web';
@@ -111,12 +112,14 @@ class CustomerController extends Controller
     }
 
     
-    public function customer_update(Request $request){
-
+    public function customer_update(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
     	$fname = $request->input('fnameup') ;
         $lname = $request->input('lnameup') ;
         $user_id = $request->input('user_id') ;
     	$email = $request->input('emailup') ;
+    	$is_verify_email = $request->input('user_email_verifiedup') ;
         $user_country = $request->input('user_countryup') ;
         $city = $request->input('cityup') ;
         $address = $request->input('addressup') ;
@@ -127,6 +130,7 @@ class CustomerController extends Controller
         $userData->first_name = $fname;
     	$userData->last_name = $lname;
         $userData->email = $email;
+        $userData->is_verify_email = $is_verify_email;
         if($request->passwordup){
             $userData->password = bcrypt($request->passwordup);
         }

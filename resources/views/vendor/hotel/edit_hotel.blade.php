@@ -240,8 +240,15 @@
     var hotel_id = $('#hotel_id').val();
     deleteConfirmation(Id);
   });
-</script>
 
+
+</script>
+<script>
+  $('#hotel_document').on('change', function(e) {
+    var fileName = e.target.files[0].name;
+    $('#documentPreview').html(fileName);
+  });
+</script>
 <script>
   $("#parking_option1").click(function() {
     $("#parking_free_div").removeClass('d-none');
@@ -426,15 +433,40 @@
         },
         min_hrs: {
           number: true,
+          // required: true,
+          min:1,
         },
         min_hrs_percentage: {
           number: true,
+          // required: true,
+          range:[0,100],
+          // min: function(element) {
+          //   return parseInt($('input[name="max_hrs_percentage"]').val());
+          // },
+          min: function(element) {
+            var max_hrs_per = parseInt($('input[name="max_hrs_percentage"]').val());
+            if(max_hrs_per == NaN){
+            max_hrs_per = 0;
+            }else{
+            max_hrs_per = max_hrs_per;
+            }
+            return max_hrs_per;
+          },
         },
         max_hrs: {
           number: true,
+          // required: true,
+          min: function(element) {
+            return parseInt($('input[name="min_hrs"]').val()) + 1;
+          },
         },
         max_hrs_percentage: {
           number: true,
+          // required: true,
+          range:[0,100], 
+          max: function(element) {
+            return parseInt($('input[name="min_hrs_percentage"]').val());
+          },
         },
         commission: {
           number: true,
@@ -985,7 +1017,7 @@
                           <input type="file" class="custom-file-input" name="hotel_document" id="hotel_document">
                           <label class="custom-file-label" for="customFile">Choose file</label>
                           @if((!empty($hotel_info->hotel_document)))
-                          <a href="{{ url('public/uploads/hotel_document') }}/{{ $hotel_info->hotel_document }}" download>{{ $hotel_info->hotel_document }}</a>
+                          <p id="documentPreview"><a href="{{ url('public/uploads/hotel_document') }}/{{ $hotel_info->hotel_document }}" download>{{ $hotel_info->hotel_document }}</a></p>
                           @endif
                         </div>
                       </div>
@@ -998,7 +1030,7 @@
                           <!-- <option value="">Select Scouts</option> -->
                           @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                           @foreach ($scouts as $value)
-                          <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                          <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
                           @endforeach
                         </select>
                       </div>
@@ -1107,7 +1139,7 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($hotel_info->payment_mode == 1){echo 'checked';} @endphp>
+                              <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($hotel_info->payment_mode == 1){echo 'checked';}else{echo 'disabled';} @endphp>
                               <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                             </div>
                           </div>
@@ -1115,19 +1147,21 @@
                         <div class="col-sm-5">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($hotel_info->payment_mode == 2){echo 'checked';} @endphp>
+                              <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($hotel_info->payment_mode == 2){echo 'checked';}else{echo 'disabled';} @endphp>
                               <label for="payment_mode2" class="custom-control-label">Partial Payment (Like 30% Online & 70% at Desk )</label>
                             </div>
                           </div>
                         </div>
+                        <?php if($hotel_info->payment_mode == 0){ ?>
                         <div class="col-sm-5">
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($hotel_info->payment_mode == 0){echo 'checked';} @endphp>
+                              <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($hotel_info->payment_mode == 0){echo 'checked';}else{echo 'disabled';} @endphp>
                               <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                             </div>
                           </div>
                         </div>
+                    	<?php } ?>
                       </div>
                     </div>
 
@@ -1138,13 +1172,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>Online Payment Percentage</label>
-                            <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($hotel_info->online_payment_percentage) ? $hotel_info->online_payment_percentage : '')}}">
+                            <input readonly="" type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($hotel_info->online_payment_percentage) ? $hotel_info->online_payment_percentage : '')}}">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>At Desk Payment Percentage</label>
-                            <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($hotel_info->at_desk_payment_percentage) ? $hotel_info->at_desk_payment_percentage : '')}}">
+                            <input readonly="" type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($hotel_info->at_desk_payment_percentage) ? $hotel_info->at_desk_payment_percentage : '')}}">
                           </div>
                         </div>
                       </div>
@@ -1157,7 +1191,7 @@
                           <!-- checkbox -->
                           <div class="form-group">
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1" @php if($hotel_info->booking_option == 1){echo 'checked';} @endphp>
+                              <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1" @php if($hotel_info->booking_option == 1){echo 'checked';}else{echo 'disabled';} @endphp>
                               <label for="booking_option1" class="custom-control-label">Instant booking</label>
                             </div>
 
@@ -1166,9 +1200,8 @@
                         <div class="col-sm-6">
                           <!-- radio -->
                           <div class="form-group">
-
                             <div class="custom-control custom-radio">
-                              <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($hotel_info->booking_option == 2){echo 'checked';} @endphp>
+                              <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($hotel_info->booking_option == 2){echo 'checked';}else{echo 'disabled';} @endphp>
                               <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                             </div>
                           </div>
@@ -1279,7 +1312,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Cancellation Policy</label>
-                        <textarea class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($hotel_info->cancel_policy) ? $hotel_info->cancel_policy : '')}}</textarea>
+                        <textarea readonly="" class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($hotel_info->cancel_policy) ? $hotel_info->cancel_policy : '')}}</textarea>
                       </div>
                     </div>
 
@@ -1288,13 +1321,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>Min. Hrs. (# of Hours <= from check in)</label>
-                            <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($hotel_info->min_hrs) ? $hotel_info->min_hrs : '')}}" placeholder="hrs.">
+                            <input readonly="" type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($hotel_info->min_hrs) ? $hotel_info->min_hrs : '')}}" placeholder="hrs.">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>Deduction (%)</label>
-                            <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                            <input readonly="" type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '0')}}" placeholder="percentage">
                           </div>
                         </div>
                       </div>
@@ -1304,13 +1337,13 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>Max. Hrs. (# of Hours <= from check in)</label>
-                            <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($hotel_info->max_hrs) ? $hotel_info->max_hrs : '')}}" placeholder="hrs">
+                            <input readonly="" type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($hotel_info->max_hrs) ? $hotel_info->max_hrs : '')}}" placeholder="hrs">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label>Deduction (%)</label>
-                            <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '')}}" placeholder="percentage">
+                            <input readonly="" type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '0')}}" placeholder="percentage">
                           </div>
                         </div>
                       </div>
@@ -1318,20 +1351,20 @@
 
                     <!-- cancellation & policy end here -->
 
-                    <div class="col-md-12">
-                        <div class="tab-custom-content">
-                          <p class="lead mb-0">
-                          <h4>Commission</h4>
-                          </p>
-                        </div>
+                    <!-- <div class="col-md-12">
+                      <div class="tab-custom-content">
+                        <p class="lead mb-0">
+                        <h4>Commission</h4>
+                        </p>
                       </div>
+                    </div>
 
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Commission</label>
-                          <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="{{(!empty($hotel_info->commission) ? $hotel_info->commission : '')}}">
-                        </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Commission</label>
+                        <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="{{(!empty($hotel_info->commission) ? $hotel_info->commission : '')}}">
                       </div>
+                    </div> -->
 
                     <div class="col-md-12">
                       <div class="tab-custom-content">

@@ -23,6 +23,11 @@
     padding-left: 0px !important;
   }*/
 </style>
+<style>
+  .d-non{
+    display: none;
+  }
+</style>
 @endsection
 
 @section('current_page_js')
@@ -114,10 +119,12 @@
               <th>Space Name</th>
               <th>User Name</th>
               <th>User Contact Info</th>
-              <th>Space City</th>
+              <th>Check in - Check out</th>
               <th>Payment Type</th>
               <th>Payment Status</th>
               <th>Status</th>
+              <th>Refund Status</th>
+              <th>Refund Amount</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -131,10 +138,31 @@
               <td>{{ $arr->space_name }}</td>
               <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
               <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-              <td>{{ $arr->city }}</td>
-              <td>{{ $arr->payment_type }}</td>
+              <td>{{ date('d/m/y', strtotime($arr->check_in_date)) }} - {{ date('d/m/y', strtotime($arr->check_out_date)) }}</td>
+              <td>
+                @if($arr->payment_type == 0)
+                  {{ 'Offline' }}
+                @elseif($arr->payment_type == 1)
+                  {{ 'Alfa Wallet' }}
+                @elseif($arr->payment_type == 2)
+                  {{ 'Alfalah Bank Account' }}
+                @elseif($arr->payment_type == 3)
+                  {{ 'Credit/Debit Card' }}
+                @elseif($arr->payment_type == 4)
+                  {{ 'Other Bank Accounts' }}
+                @else
+                  {{ 'paypal' }}  
+                @endif
+              </td>
               <td>{{ $arr->payment_status }}</td>
               <td>{{ $arr->booking_status }}</td>
+              @if($arr->booking_status == 'canceled')
+                <td>{{ $arr->refund_status }}</td>
+                <td>{{ $arr->refund_amount }}</td>
+              @else
+                <td>Not Yet</td>
+                <td>Not Yet</td>
+              @endif
               <td class="text-right py-0 align-middle">
                 <div class="btn-group btn-group-sm">
                   <a href="{{url('/servicepro/spaceBookingView')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>

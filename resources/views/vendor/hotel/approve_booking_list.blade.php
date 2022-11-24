@@ -311,16 +311,25 @@
       rules: {
         discount: {
           required: true,
+          min:1,
+        },
+        discount_name: {
+          required: true,
         },
       },
     });
     if(form.valid() === true) { 
-      let discount = $('#discount').val();
+
+      let disc_name = $('#discount_name').val();
+      var disco_name = $("#disco_name").val(disc_name);
+      var discount_type_name = $("#discount_type_name").text(disc_name);
+
+      let discount = parseFloat($('#discount').val());
       var disco_val = $("#disco_val").val(discount);
       var discount_val = $("#discount_val").text(discount);
 
-      let total_amt = $("#total_amount").val();
-      let expense_val = $("#expense_value").val();
+      let total_amt = parseFloat($("#total_amount").val());
+      let expense_val = parseFloat($("#expense_value").val());
       if(expense_val==''){
         var expense = 0;
       }else{
@@ -342,12 +351,72 @@
 </script>
 
 <script>
+  // $('.remove_discount').on('click', function(){
+  $("body").on("click", "a.remove_discount" , function(e) {
+    $('#discount_tr').addClass('d-non');
+
+    let disc_name = '';
+    var disco_name = $("#disco_name").val(disc_name);
+
+    let discount = 0;
+    var disco_val = $("#disco_val").val(discount);
+    var discoo_val = $("#discount").val(discount);
+
+    let total_amt = parseFloat($("#total_amount").val());
+    // let expense_val = parseFloat($("#expense_value").val());
+    let expense_val = parseFloat($("#exp_value").val());
+    // if(expense_val==''){
+    //   var expense = 0;
+    // }else{
+      var expense = expense_val;
+    // }
+    
+    // if(!discount){
+    //   $("#total_amt").text(total_amt);
+    // }else{
+      let total = parseFloat(expense) + parseFloat(total_amt) - parseFloat(discount);
+      $("#total_amt").text(total);
+    // }
+  });
+</script>
+<script>
+  // $('.remove_expense').on('click', function(){
+  $("body").on("click", "a.remove_expense" , function(e) {
+    $('#expense_tr').addClass('d-non');
+    let expo_name = '';
+    let expo_val = 0;
+    $("#exp_name").val(expo_name);
+    $("#exp_value").val(expo_val);
+    $("#expense_value").val(expo_val);
+
+    let total_amt = parseFloat($("#total_amount").val());
+    // let discount = parseFloat($("#discount").val());
+    let discount = parseFloat($("#disco_val").val());
+    // if(discount==''){
+    //   var disco = 0;
+    // }else{
+      var disco = discount;
+    // }
+
+    // if(expo_val == ''){
+    //   $("#total_amt").text(total_amt);
+    // }else{
+      let total = parseFloat(expo_val) + parseFloat(total_amt) - parseFloat(disco);
+
+      //alert(total);die;
+      $("#total_amt").text(total);
+    // }
+  });
+</script>
+
+<script>
   $('.add_expense').click(function() {
     var form = $("#expense_form");
     form.validate({
       rules: {
         expense_value: {
           required: true,
+          min:1,
         },
         expense_name: {
           required: true,
@@ -356,14 +425,18 @@
     });
     if(form.valid() === true) {
       let expo_name = $('#expense_name').val();
-      let expo_val = $('#expense_value').val();
       $("#exp_name").val(expo_name);
-      $("#exp_value").val(expo_val);
       $("#expe_name").text(expo_name);
+
+      let expo_val = parseFloat($('#expense_value').val());
+      // console.log('expo_val', expo_val);
+      $("#exp_value").val(expo_val);
       $("#expe_val").text(expo_val);
 
-      let total_amt = $("#total_amount").val();
-      let discount = $("#discount").val();
+      let total_amt = parseFloat($("#total_amount").val());
+      // console.log('total_amt', total_amt);
+      let discount = parseFloat($("#discount").val());
+      // console.log('discount', discount);
       if(discount==''){
         var disco = 0;
       }else{
@@ -373,7 +446,8 @@
       if(expo_val == ''){
         $("#total_amt").text(total_amt);
       }else{
-        let total = parseFloat(expo_val) + parseFloat(total_amt) - parseFloat(disco);
+        let total = parseFloat(total_amt) + parseFloat(expo_val) - parseFloat(disco);
+        // console.log('total', total);
         $("#total_amt").text(total);
       }
 
@@ -387,6 +461,7 @@
 <script>
   $('.issue_invoice').click(function() {
     var request_id = $(this).data('id');
+    var disco_name = $('#disco_name').val();
     var disco_val = $('#disco_val').val();
     var exp_name = $('#exp_name').val();
     var exp_value = $('#exp_value').val();
@@ -400,6 +475,7 @@
         request_id: request_id,
         exp_name: exp_name,
         exp_value: exp_value,
+        disco_name: disco_name,
         disco_val: disco_val,
         _token: CSRF_TOKEN
       },
@@ -472,9 +548,9 @@
                   <div class="btn-group btn-group-sm">
                     <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
                   </div>
-                  <div class="btn-group btn-group-sm">
+                 <!--  <div class="btn-group btn-group-sm">
                     <a href="javascript:void(0)" onclick="deleteInvoiceConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Delete Booking</a>
-                  </div>
+                  </div> -->
                 @endif
                 @else {{ "Instant Booking"}}
                 @endif
@@ -519,18 +595,21 @@
                       <input type="hidden" name="total_amount" id="total_amount" value="">
                       <form id="expense_form" method="post">
                         <input type="text" name="expense_name" id="expense_name" placeholder="type expense name">
-                        <input type="text" name="expense_value" id="expense_value" placeholder="type expense value">
+                        <input type="text" name="expense_value" id="expense_value" placeholder="type expense value" value="0">
                         <input type="hidden" name="exp_name" id="exp_name">
-                        <input type="hidden" name="exp_value" id="exp_value">
+                        <input type="hidden" name="exp_value" id="exp_value" value="0">
                         <button type="button" class="btn btn-info add_expense">Add</button>
                       </form>  
                     </div>
                     <div class="col-md-12">
                       <h6>Add Discount</h6>
                       <form id="discount_form" method="post">
-                        <input type="text" name="discount" id="discount" placeholder="type discount value">
-                        <input type="hidden" name="disco_val" id="disco_val" value="">
+                        <input type="text" name="discount_name" id="discount_name" placeholder="type discount name">
+                        <input type="text" name="discount" id="discount" placeholder="type discount value" value="0">
+                        <input type="hidden" name="disco_name" id="disco_name" value="">
+                        <input type="hidden" name="disco_val" id="disco_val" value="0">
                         <button type="button" class="btn btn-info add_discount">Add</button>
+                        <!-- <button type='button' class='btn-xs btn-danger remove_discount' id='remove_discount'>X</button> -->
                       </form>
                     </div>
                   </div>

@@ -70,6 +70,37 @@
 	            	<h3><div class="main-id">Txn Status</div> <div class="botm-data"> {{$transaction_history->txn_status}}</div></h3>
 	            	<h3><div class="main-id">Txn Date</div> <div class="botm-data"> {{$transaction_history->txn_date}}</div></h3>
 	            </div> 
+             @if($transaction_history->booking_type=='Room' or $transaction_history->booking_type=='Space')
+              @if($booking_details->partial_payment_status==1)
+              <div class="first-gird">
+                <h3><div class="main-id">Online Paid Amount</div> <div class="botm-data"> {{$booking_details->online_paid_amount}}</div></h3>
+                <h3><div class="main-id">Pay at Desk Amount</div> <div class="botm-data"> {{$booking_details->remaining_amount_to_pay}}</div></h3>
+              </div>
+              @endif
+             @endif 
+             @if($transaction_history->booking_type=='Room' or $transaction_history->booking_type=='Space')
+              @if(!empty($property_details))
+              <div class="first-gird">
+                <h3><div class="main-id">Type of Payment</div> <div class="botm-data"> 
+                  @if($property_details->payment_mode == 1)
+                  {{'100% Online'}}
+                  @endif
+                  @if($property_details->payment_mode == 2)
+                  {{'Partial'}}
+                  @endif
+                  @if($property_details->payment_mode == 3)
+                  {{'At Desk'}}
+                  @endif
+                  </div>
+                </h3>
+                @if($transaction_history->booking_type=='Room' or $transaction_history->booking_type=='Space')
+                  @if(!empty($property_details->commision))
+                  <h3><div class="main-id">Commission</div> <div class="botm-data"> {{$property_details->commission}}</div></h3>
+                  @endif
+                @endif
+              </div>
+              @endif
+            @endif
             </div> 
           </div>
         </div>

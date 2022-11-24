@@ -23,6 +23,9 @@ button:hover, .hotel-book1 .hotel-btn:hover, .btn:hover, .btn-primary-event:hove
     color: #126c62;
     
 }
+.description-details .btn-rounded{
+border-radius: 0% !important;
+}
 .booking-type .row{
   display: flex;
   justify-content: center;
@@ -680,9 +683,40 @@ background-color: #bdf48b;
 
 @media (max-height: 500px) {
   #hero {
-    height: 250vh;
+    height: 140vh !important;
   }
 }
+
+@media screen and (max-width:1900px) and (min-width:1751px){
+#hero {
+    height: 80vh !important;
+  }
+}
+
+@media screen and (max-width:2500px) and (min-width:1901px){
+#hero {
+    height: 80vh !important;
+  }
+}
+
+@media screen and (max-width:3000px) and (min-width:2501px){
+#hero {
+    height: 50vh !important;
+  }
+  }
+
+  @media screen and (max-width:4500px) and (min-width:3001px){
+#hero {
+    height: 30vh !important;
+  }
+  }
+
+  @media screen and (max-width:6000px) and (min-width:4501px){
+#hero {
+    height: 30vh !important;
+  }
+  }
+
 
 /*--------------------------------------------------------------
 # Sections General
@@ -758,9 +792,7 @@ color: #126c62;
   font-size: 14px;
   font-weight: 500;
   padding: 0;
-  line-height: 1px;
   margin: 0 0 5px 0;
-  letter-spacing: 2px;
   text-transform: uppercase;
   color: #aaaaaa;
   font-family: '', sans-serif;
@@ -786,14 +818,6 @@ color: #126c62;
     font-family: '', sans-serif;
     color: #fcfcfc;
     text-align: left;
-}
-.section-title h2::after {
-  content: "";
-  width: 120px;
-  height: 1px;
-  display: inline-block;
-  background: #f38b74;
-  margin: 4px 10px;
 }
 
 .section-title p {
@@ -1393,8 +1417,8 @@ color: #191919;
 }
 .offer-tex.ofr .testimonial-item {
     box-sizing: content-box;
-    margin: 30px 8px;
-    height: 291px !important;
+    margin: 0px 8px 0px 8px;
+    
     }
     
 .offer-tex .testimonial-item {
@@ -2374,16 +2398,16 @@ margin-bottom: 2px;
 
 .newslatter-bg2 {
     background-image: url(../img/newslatter-bg2.png);
-    height: 390px;
 }
 .family-group h2 {
     color: #FFF;
     font-weight: bolder;
     font-size: 35px;
     line-height: 49px;
+    text-align: end;
 }
 .family-group h2 span{
-  color: #b1d78c;
+  color: #82d730;
 }
 .offer-btn {
     background-color: #126c62;
@@ -2396,6 +2420,9 @@ margin-bottom: 2px;
 }
 .family-group {
     padding: 95px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 .card.booking-slot{
   width: 80%;
@@ -2418,14 +2445,13 @@ margin-bottom: 2px;
 }
 
 .offer-img img {
-    width: 100%;
-    /* max-height: 136px; */
-    height: 164px;
+  height: 195px;
+  object-fit: cover;
 }
 .offer-img {
     height: 100%;
     overflow: hidden;
-    max-height: 158px;
+    
     background: #FFF;
 }
 .offer-grid .world-class-p h3 {
@@ -2462,7 +2488,7 @@ margin-bottom: 2px;
 }
 .wht-text {
     position: absolute;
-    bottom: 62px;
+    bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2479,9 +2505,9 @@ margin-bottom: 2px;
     font-size: 16px;
     position: relative;
     top: -117px;
-    left: 153%;
+    right: 200px;
     font-weight: bold;
-    color: #ffffff;
+    color: #80ff05;
 }
 .offer-btn:hover{
   background-color: #126c62;
@@ -3580,7 +3606,6 @@ color: #12a594;
 }
 .newslatter-bg2 {
    
-    height: 352px;
 }
 .text-sut h3 {
     font-size: 13px;
@@ -4511,7 +4536,7 @@ font-size: 17px;
 }
 
 /* Create a custom radio button*/
-.checkmark {
+.pakagees-type .checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -5825,7 +5850,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .hotel-book1 .hotel-btn{
   position: absolute;
-  top: 15px;
+  top: 19px;
   left: 0;
 }
 .event-book1 .hotel-btn{
@@ -5954,15 +5979,16 @@ text-align: end;
 
 .to-date {
   position: absolute;
-  top: 25px;
+  top: 15px;
   left: 124px;
   font-size: 20px;
   color: #126c62;
   z-index: 99;
 }
+
 .tourdater .to-date {
   position: absolute;
-  top: 9px;
+  top: 15px;
   left: 195px;
   font-size: 19px;
   color: #126c62;
@@ -5978,7 +6004,7 @@ box-shadow: 0 1px 12px #c1baba;
 border-radius: 100%;
 }
 .locatin-fil {
-  width: 91%;
+  width: 96%;
   border: none;
   height: 50px;
   outline: none;
@@ -8130,9 +8156,7 @@ address {
     box-shadow: 3px 14px 25px -10px #92b4d0;
     transition: background 0.5s ease 0s;
 }
-.ofr .owl-carousel .owl-item {
-    width: 12.5% !important;
-}
+
 .ofr .owl-carousel .owl-stage-outer {
     position: relative;
     overflow: hidden;
@@ -8184,8 +8208,8 @@ address {
   font-weight: 900;
   padding: 15px 40px;
   position: absolute;
-  top: 35%;
-  left: 15%;
+  bottom: 10%;
+  right: 10%;
   color: #fff;
   text-transform: uppercase;
 }
@@ -8551,6 +8575,9 @@ top: 0;
   font-size: 15px;
 }
 
+.gold-stand{
+  display: flex;
+}
 .customradio {
   display: block;
   position: relative;
@@ -8628,9 +8655,113 @@ top: 0;
   flex-wrap: wrap;
 }
 
+.pakagees-type {
+  display: block;
+  position: relative;
+  padding-left: 27px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.pakagees-type input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.pakagees-type:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.pakagees-type input:checked ~ .checkmark {
+  background-color: #126c62;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.pakagees-type input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.pakagees-type .checkmark:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+
 
 @media only screen and (max-width: 767px) and (min-width: 320px)  {
 
+.description-details .btn-rounded {
+    border-radius: 0% !important;
+    margin-left: 16px;
+}
+.gold-stand {
+    display: block;
+    /* width: 60%; */
+    flex-wrap: nowrap;
+}
+.pakeges-bar .form-check-inline {
+    width: 100%;
+    line-height: 35px;
+}
+.adult-form p {
+    line-height: 26px;
+    padding: 6px 13px !important;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.adult-form .ault-quantiy {
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+    align-items: center;
+}
+.ault-quantiy input {
+    width: 65px;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    height: 40px;
+}
+.adult-form p {
+    line-height: 26px;
+    padding: 4px;
+    width: 100%;
+    margin-top: 1px !important;
+}
 .filter-row h1 {
     margin-top: 0px !important;
     padding: 0px 5px !important;
@@ -8691,4 +8822,291 @@ top: 0;
     height: 80vh !important;
 }
 
+}
+
+@media screen and (max-width:767px) and (min-width:320px){
+
+.all-detail-rom {
+    border-bottom: 1px solid #ededed;
+    padding: 10px 17px;
+}
+
+.room-option{
+  padding: 1px 15px;
+}
+.mart-rom{
+    padding: 10px 13px;
+}
+#LoginForm .mart-rom ul li {
+  
+    font-size: 18px !important;
+}
+.check-makr span {
+    font-weight: 500;
+    font-size: 18px !important;
+}
+
+}
+
+
+/********modal css**********/
+
+.room-modall .mart-rom ul {
+    display: flex;
+    border-bottom: 1px solid #82c7bf;
+    padding: 6px 0px !important;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+}
+  
+.room-modall .mart-rom ul li {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    /* flex-wrap: wrap; */
+    font-size: 14px;
+}
+
+.room-modall .check-makr {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    padding: 0;
+}
+
+.room-modall .room-option h2 {
+    font-size: 17px;
+    color: #3e3e3e;
+    padding-top: 11px;
+    font-weight: bold;
+}
+.room-modall .cancellation-policy {
+    border: 1px solid #ccc;
+    min-height: 133px;
+    border-radius: 6px;
+    padding: 9px;
+}
+.room-modall .totalbefore h4 {
+    font-size: 16px;
+    line-height: 26px;
+    color: #126c62;
+}
+.room-modall .totalbefore {
+    margin-top: 4px;
+    border-top: 1px solid #eee;
+    padding-top: 3px;
+}
+
+.room-modall .cancellation-policy a {
+    color: #1a1a1a;
+    font-size: 16px;
+}
+
+.room-modall .cancellation-policy h5 {
+    margin-bottom: 0px;
+    font-size: 17px;
+    color: #126c62;
+}
+
+.room-modall #total_amount{
+color: #1a1a1a;
+}
+
+  /********modal css**********/
+
+  .add_button_city{
+    background: #126c62;
+    color: #FFF;
+    padding: 4px 28px;
+    border-radius: 3px;
+    margin-top: 12px;
+    float: left;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+.remove_button_it {
+    background: #f90e39;
+    color: #FFF;
+    padding: 5px 9px;
+    border-radius: 3px;
+    margin-top: 12px;
+    float: left;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+.add_button_city:hover{
+  color: #FFF;
+  background: #0e756a;
+}
+ .remove_button_it:hover{
+
+   color: #FFF;
+  background: #f90e39;
+ }
+.s-end h3{
+font-size: 15px;
+}
+
+ .pagin-botm span svg{
+
+width: 30px;
+ }
+
+.pagin-botm p{
+  display: none;
+}
+
+.pagin-botm p{
+  display: none;
+}
+.pagin-botm{
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+nav>div:nth-child(1) {
+  display: none;
+}
+.dura-tio i{
+    background: #ededed;
+    padding: 5px;
+    border-radius: 50px;
+    color: #126c62;
+}
+
+.item-card2-text h4{
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pakeges-bar .checkmark {
+    position: absolute;
+    top: 4px !important;
+  }
+ .pakeges-bar label {
+    margin-right: 32px;
+    font-size: 16px;
+}
+  .pakeges-bar .form-check-inline{
+    width: 100%;
+  }
+
+ .hotel-typ.top-baner-fit {
+    top: 163px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    /* bottom: 43px; */
+}
+
+.carousel-inner .filter_01:hover{
+  background-color: #f0f8ff00 !important;
+}
+
+/*--------------------------*/
+.qty-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-container .input-qty{
+  text-align: center;
+  padding: 6px 10px;
+  border: 1px solid #d4d4d4;
+  max-width: 80px;
+}
+.qty-container .qty-btn-minus,
+.qty-container .qty-btn-plus{
+  border: 1px solid #d4d4d4;
+  padding: 10px 13px;
+  font-size: 10px;
+  height: 38px;
+  width: 38px;
+  transition: 0.3s;
+}
+.qty-container .qty-btn-plus{
+  margin-left: -1px;
+}
+.qty-container .qty-btn-minus{
+  margin-right: -1px;
+}
+
+
+/*---------------------------*/
+.btn-cornered,
+.input-cornered{
+  border-radius: 4px;
+}
+.btn-rounded{
+  border-radius: 50%;
+}
+.input-rounded{
+  border-radius: 50px;
+}
+
+.ault-quantiy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+      margin-top: 10px;
+}
+.adult-form label {
+    margin: 0px;
+    padding: 1px 2px;
+}
+.ault-quantiy input {
+    width: 65px;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+}
+.date-flex .tour-days {
+    display: initial !important;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.tour-days{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.ault-quantiy p {
+    padding: 1px 10px;
+    background-color: #126c62;
+    color: #FFF;
+    font-size: 22px;
+    border-radius: none !important;
+    border: 1px solid #126c62;
+    cursor: pointer;
+}
+.dolt .qty label {
+    flex: 1 0 100%;
+    font-size: 16px;
+}
+.adolt p{
+
+}
+.adolt .qty input {
+ 
+  font-size: 1.3rem;
+  text-align: center;
+  border: 1px solid #575757;
+}
+.adolt .qty button {
+    color: #fff;
+    font-size: 24px;
+    background: #126c62;
+    border: none;
+    padding: 2px 12px;
+}
+.adolt .qty button.qtyminus {
+  margin-right: 0.3rem;
+}
+.adolt .qty button.qtyplus {
+  margin-left: 0.3rem;
 }

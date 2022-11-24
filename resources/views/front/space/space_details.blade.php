@@ -435,6 +435,9 @@
 <main id="main" class="main-body">
     <section class="spaced-sec" style="padding-top: 100px;">
         <div class="container">
+            <div class="col-sm-12">
+                <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
+            </div>
             <div class="row spaced-row">
                 <h4>{{$space_details->space_name}}</h4>
                 <div class="top-spac">

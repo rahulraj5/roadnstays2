@@ -108,7 +108,7 @@ class HotelController extends Controller
             // $adminhotel = new Hotel;
 
             // step 1 
-            $adminhotel->hotel_user_id = Auth::user()->id;
+            $adminhotel->hotel_user_id = $request->vendor_id;
             $adminhotel->is_admin = 1;
             $adminhotel->hotel_name = $request->hotelName;
             $adminhotel->hotel_content = $request->summernote;
@@ -139,6 +139,7 @@ class HotelController extends Controller
             $adminhotel->online_payment_percentage = $request->online_payment_percentage;
             $adminhotel->at_desk_payment_percentage = $request->at_desk_payment_percentage;
             $adminhotel->booking_option = $request->booking_option;
+            $adminhotel->request_booking_valid_hr = $request->request_booking_valid_hr;
             $adminhotel->hotel_address = $request->hotel_address;
             $adminhotel->hotel_latitude = $request->hotel_latitude;
             $adminhotel->hotel_longitude = $request->hotel_longitude;
@@ -329,7 +330,7 @@ class HotelController extends Controller
             $path = base_path() . '/public/uploads/hotel_video';
             $request->file('hotelVideo')->move($path, $hotelVideo);
         } else {
-            $hotelVideo = '';
+            $hotelVideo = $request->old_hotel_video;
         }
 
         // if($request->hasFile('hotelFeaturedImg'))
@@ -373,7 +374,7 @@ class HotelController extends Controller
             $pat2 = base_path() . '/public/uploads/hotel_document';
             $request->file('hotel_document')->move($pat2, $hotel_document);
         } else {
-            $hotel_document = '';
+            $hotel_document = $request->old_hotel_document;
         }
 
         if (!empty($hotel_id)) {
@@ -382,6 +383,7 @@ class HotelController extends Controller
                 ->where('hotel_id', $hotel_id)
 
                 ->update([
+                    'hotel_user_id' => $request->vendor_id,
                     'hotel_name' => $request->hotelName,
                     'hotel_content' => $request->summernote,
                     'property_contact_name' => $request->contact_name,
@@ -408,6 +410,7 @@ class HotelController extends Controller
                     'online_payment_percentage' => $request->online_payment_percentage,
                     'at_desk_payment_percentage' => $request->at_desk_payment_percentage,
                     'booking_option' => $request->booking_option,
+                    'request_booking_valid_hr' => $request->request_booking_valid_hr,
                     'hotel_address' => $request->hotel_address,
                     'hotel_latitude' => $request->hotel_latitude,
                     'hotel_longitude' => $request->hotel_longitude,
@@ -655,6 +658,9 @@ class HotelController extends Controller
             DB::table('hotel_extra_price')->where('hotel_id', '=', $hotel_id)->delete();
 
             DB::table('hotels')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('booking')->where('hotel_id', '=', $hotel_id)->delete();
+            DB::table('booking_temp')->where('hotel_id', '=', $hotel_id)->delete();
+
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
         } else {
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));

@@ -421,11 +421,6 @@
 
 @section('content')
 
-
-
-
-
-
 <!-- <div class="row d-flex flex-wrap p-3"> -->
 
 
@@ -484,13 +479,13 @@
                                 <!-- <div class="col-md-7 value"> 03 July 2022 16:35 PM </div> -->
 
                               </div>
-
+                              @if($bookingList->payment_type != 0)
                               <div class="row static-info">
                                 <div class="col-md-5 name"> Transaction Id: </div>
                                 <div class="col-md-7 value"> #{{ $bookingList->payment_token }}
                                 </div>
                               </div>
-
+                              @endif
                               <div class="row static-info">
                                 <div class="col-md-5 name"> Booking Status: </div>
                                 <div class="col-md-7 value">
@@ -520,17 +515,83 @@
 
                               <div class="row static-info">
 
-                                <div class="col-md-5 name"> Grand Total: </div>
+                                <div class="col-md-5 name"> Check In Date: </div>
 
-                                <div class="col-md-7 value"> {{ $bookingList->total_amount }}</div>
+                                <div class="col-md-7 value">{{ date('d M Y', strtotime($bookingList->check_in_date)) }}</div>
 
                               </div>
 
                               <div class="row static-info">
 
+                                <div class="col-md-5 name"> Check out Date : </div>
+
+                                <div class="col-md-7 value">{{ date('d M Y', strtotime($bookingList->check_out_date)) }}</div>
+
+                              </div>
+
+                              @if($bookingList->partial_payment_status == 1)
+                              <div class="row static-info">
+
+                                <div class="col-md-5 name"> Online Paid: </div>
+
+                                <div class="col-md-7 value">PKR {{ $bookingList->online_paid_amount }}</div>
+
+                              </div>
+
+                              <div class="row static-info">
+
+                                <div class="col-md-5 name"> Pay at Desk: </div>
+
+                                <div class="col-md-7 value">PKR {{ $bookingList->remaining_amount_to_pay }}</div>
+
+                              </div>
+                              @endif
+
+                              <div class="row static-info">
+
+                                <div class="col-md-5 name"> Grand Total: </div>
+
+                                <div class="col-md-7 value">PKR {{ $bookingList->total_amount }}</div>
+
+                              </div>
+
+                              @if($bookingList->booking_status == 'canceled')
+                              <div class="row static-info">
+
+                                <div class="col-md-5 name"> Refund Status: </div>
+
+                                <div class="col-md-7 value">{{ $bookingList->refund_status }}</div>
+
+                              </div>
+
+                              <div class="row static-info">
+
+                                <div class="col-md-5 name"> Refund Amount: </div>
+
+                                <div class="col-md-7 value">{{ $bookingList->refund_amount }}</div>
+
+                              </div>
+                              @endif
+
+                              <div class="row static-info">
+
                                 <div class="col-md-5 name"> Payment Information: </div>
 
-                                <div class="col-md-7 value"> {{ $bookingList->payment_type }} <span style="color:red">( {{ $bookingList->payment_status }} )</span></div>
+                                <div class="col-md-7 value">
+                                  @if($bookingList->payment_type == 0)
+                                  {{ 'Offline' }}
+                                  @elseif($bookingList->payment_type == 1)
+                                    {{ 'Alfa Wallet' }}
+                                  @elseif($bookingList->payment_type == 2)
+                                    {{ 'Alfalah Bank Account' }}
+                                  @elseif($bookingList->payment_type == 3)
+                                    {{ 'Credit/Debit Card' }}
+                                  @elseif($bookingList->payment_type == 4)
+                                    {{ 'Other Bank Accounts' }}
+                                  @else
+                                    {{ '' }}  
+                                  @endif
+                                  <span style="color:red">( {{ $bookingList->payment_status }} )</span></div>
 
                               </div>
 
@@ -874,7 +935,8 @@
                           <td>{{ $arr->space_name }}</td>
                           <td>{{ $arr->check_in_date }}</td>
                           <td>{{ $arr->check_out_date }}</td>
-                          <td id="room_price_val">${{ number_format($arr->price_per_night), 2}}</td>
+                          <!-- <td id="room_price_val">PKR {{ number_format($arr->price_per_night), 2}}</td> -->
+                          <td id="room_price_val">PKR {{ $arr->total_amount }}</td>
                         </tr>
                         <?php $i++; ?>
 
@@ -895,7 +957,8 @@
                     <!-- <img src="{{ url('/') }}/resources/dist/img/credit/visa.png" alt="Visa">
                         <img src="{{ url('/') }}/resources/dist/img/credit/mastercard.png" alt="Mastercard">
                         <img src="{{ url('/') }}/resources/dist/img/credit/american-express.png" alt="American Express"> -->
-                    <img src="{{ url('/') }}/resources/dist/img/credit/paypal2.png" alt="Paypal">
+                    <!-- <img src="{{ url('/') }}/resources/dist/img/credit/paypal2.png" alt="Paypal"> -->
+                    <img src="{{ url('/') }}/resources/dist/img/credit/alfalha.jpg" alt="Alfa" style="height: 40px; width: 50px;">
 
                     <!-- <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                           Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
@@ -909,41 +972,54 @@
 
                     <div class="table-responsive">
                       <table class="table">
-                        <tr>
-                          <th style="width:50%">Subtotal:</th>
+
+                        <!-- <tr>
+                          <th style="width:50%">Subtotal:</th> -->
                           <!-- <td><span> -->
                           <?php
                           // $subtotal = $order_details->total*$vendor_order->commission_rate/100;
                           // echo '$'.number_format($com_amount, 2); 
                           ?>
                           <!-- </span></td> -->
-                          <td id="get_room_price_val"></td>
-                        </tr>
+                          <!-- <td id="get_room_price_val"></td>
+                        </tr> -->
+
 
                         @if(!empty($bookingList->tax_percentage))
                         <tr>
                           <th>Tax (Included in Price)
                             <!-- (9.3%) -->
                           </th>
-                          <td id="room_tax_val">${{ $bookingList->tax_percentage }}</td>
+                          <td id="room_tax_val">PKR {{ $bookingList->tax_percentage }}</td>
                         </tr>
                         @endif
                         @if(!empty($bookingList->cleaning_fee))
                         <tr>
                           <th>Cleaning Fee:</th>
-                          <td id="cleaning_fee_val">${{ $bookingList->cleaning_fee }}</td>
+                          <td id="cleaning_fee_val">PKR {{ $bookingList->cleaning_fee }}</td>
                         </tr>
                         @endif
                         @if(!empty($bookingList->city_fee))
                         <tr>
                           <th>City Fee:</th>
-                          <td id="city_fee_val">${{ $bookingList->city_fee }}</td>
+                          <td id="city_fee_val">PKR {{ $bookingList->city_fee }}</td>
                         </tr>
+                        @endif
+                        
+                        @if($bookingList->partial_payment_status == 1)
+                          <tr>
+                            <th>Online Paid:</th>
+                            <td id="">PKR {{ $bookingList->online_paid_amount }}</td>
+                          </tr>
+                          <tr>
+                            <th>At Desk Pay:</th>
+                            <td id="">PKR {{ $bookingList->remaining_amount_to_pay }}</td>
+                          </tr>
                         @endif
 
                         <tr>
                           <th>Total:</th>
-                          <td>${{ $bookingList->total_amount }}</td>
+                          <td>PKR {{ $bookingList->total_amount }}</td>
                         </tr>
                       </table>
                     </div>

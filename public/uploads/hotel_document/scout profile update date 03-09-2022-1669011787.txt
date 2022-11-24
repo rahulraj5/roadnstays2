@@ -1,0 +1,56 @@
+Scout profile :
+
+---First name : keep, no change
+---Last name : Keep, no change
+---Email : Keep, no change
+---Number : change to "Mobile Number"
+---Add new field for Landline Number
+---Password : keep no change
+---Confirm Password : Keep no change
+---Address : Keep No change
+---City : Keep No change
+---Country : Keep No change
+
+
+To add following for scout  details , 
+
+Visible by Admin. (Admin can add the details)
+
+
+Contract information 
+
+---Status : value (Active/Suspended)
+
+---Designation: text value  (i.e Senior CEX/CEX/Other)
+
+if Other is selected : text field should be added to add details.
+
+---Contract Date : Date
+----NIC
+----NIC upload
+----Contract upload
+----Profile picture upload
+----Rating management
+
+Salary Information
+----Basic Salary : numeric field
+----transport Allowance : numeric field
+----Other Allowance 1 : numeric field
+----other Allowance 2 : numeric field
+----other Allowance 3 : numeric field
+----Gross Salary : numeric field
+
+Other benifits
+
+Fixed Comission
+---Hotel upload : numeric field
+---Tour upload : numeric field
+---Space upload : numeric field
+---Even upload : numeric field
+
+Performance
+---Rating  : numberic field
+---year    :
+---Remarks : memo field
+
+

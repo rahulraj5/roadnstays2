@@ -204,6 +204,10 @@
 
   <section class="price-tag about-tag">
     <div class="container">
+      
+      <div class="col-sm-12">
+          <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
+      </div>
       <div class="row event-dt">
         <div class="col-md-4 detail">
           <i class='bx bxs-calendar'></i>

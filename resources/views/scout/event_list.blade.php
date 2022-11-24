@@ -143,15 +143,6 @@
 
                     <div class="col-12">
 
-                        <div class="row">
-
-                            <div class="col-md-11"></div>
-
-                            <div class="col-md-1"><a href="{{ url('/admin/addEvent') }}"
-
-                                    class="btn btn-block btn-dark">Add</a></div>
-
-                            </div>
 
 
 
@@ -180,7 +171,7 @@
                                             
                                             <th>Address</th>
 
-                                            <th>Status</th>
+                                            
 
                                             <th>Action</th>
 
@@ -207,15 +198,12 @@
                                             <td>{{ $arr->end_date }}</td>
                                             <td>{{ $arr->end_time }}</td>
                                             <td>{{ $arr->address }}</td>
-                                            <td class="project-state"> 
-                                                <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}> 
-                                            </td>
+                                            
 
                                             <td class="text-right py-0 align-middle"> 
                                                 <div class="btn-group btn-group-sm"> 
-                                                    <a href="{{url('admin/view-event')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
-                                                    <a href="{{url('admin/edit_event')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="fas fa-trash"  alt="user" title="user"></i></a> 
+                                                    <a href="{{url('/scout/view-event')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                                                    
                                                 </div> 
                                             </td> 
                                         </tr>

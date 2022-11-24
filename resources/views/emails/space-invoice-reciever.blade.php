@@ -183,12 +183,21 @@
                         <tbody>
                            <tr>
                               <td style="padding:20px 0" width="100%">
-                                 <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">Need Help?
+                                 <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">For all bookings
                                  </p>
                                  <p style="color:#4a4a4a;font-family:Helvetica,arial,sans-serif;font-size:15px;line-height:25px;margin-top:0;padding:0">
-                                    For any questions related to the property, you can contact  Hotel directly at: <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">+124-3654287</a>
-                                    / <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">+124-3654287</a>
-                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">admin@gmail.com</a>
+                                    <a href="#" style="text-decoration:none!important; color: #126c62; font-weight: 900;" target="_blank">Phone : +92 42 32101679</a><br>
+                                    <a href="#" style="text-decoration:none!important; color: #126c62; font-weight: 900;" target="_blank">Email :Bookings@roadnstays.com</a><br>
+                                 </p>
+                              </td>
+                              <td style="padding:20px 0" width="100%">
+                                 <p style="font-family:Helvetica,arial,sans-serif;font-weight:bold;font-size:16px;color:#4a4a4a;font-weight:bold;line-height:25px;text-align:left;margin-top:15px;font-weight:bold;margin-bottom:0;display:inline-block;padding:0">Need Help
+                                 </p>
+                                 <p style="color:#4a4a4a;font-family:Helvetica,arial,sans-serif;font-size:15px;line-height:25px;margin-top:0;padding:0">
+                                    For any questions related to the property, you can contact  Hotel directly at: <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Phone : +92 42 32101679</a>
+                                    / <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Whatsapp :  +92 342 4514629</a>
+                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">Bookings@roadnstays.com</a>
+                                    or <a href="#" style="text-decoration:none!important; color: #126c62;     font-weight: 900;" target="_blank">contact@roadnstays.com</a>
                                  </p>
                                  <p style="color:#4a4a4a;font-family:Helvetica,arial,sans-serif;font-size:15px;line-height:15px;margin-top:0;padding:0">
                                     If you would like to change or upgrade your reservation, visit

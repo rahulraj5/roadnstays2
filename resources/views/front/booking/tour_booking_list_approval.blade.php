@@ -814,20 +814,20 @@
         <div class="tabs">
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1">
-            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
+            <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i>Completed({{(count($bookingList))}})</label>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
+            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming({{(count($upcomingBookingList))}})</label>
            
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-            <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
+            <label for="tab3" id="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled({{(count($cancelBookingList))}})</label>
             
 
             <!-- <input type="radio" class="tabs__radio" name="tabs-example" id="tab4"> -->
             <!-- <label for="tab4" id="tab4" class="tabs__label tab-4"> <i class='bx bxs-detail'></i>Failed</label> -->
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4" checked>
-            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i> Approval</label>
+            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i>Approval({{(count($tour_booking_request))}})</label>
             <div class="tabs__content">
                 @if (!$tour_booking_request->isEmpty())
                     @if(count($tour_booking_request))

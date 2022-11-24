@@ -86,6 +86,8 @@ Route::post('/hote_list_ajax','HomeController@hotel_list_ajax')->name('user.hote
 
 Route::get('/hote_list_ajax','HomeController@hotel_list_ajax_page')->name('user.hotel_list_ajax_page');
 
+route::post('/roombookingorderoffline','HomeController@roombookingorderoffline')->name('user.roombookingorderoffline');
+
 Route::get('/confirmBooking','HomeController@confirm_booking')->name('user.confirm_booking');
 Route::get('/allRooms','HomeController@all_rooms')->name('user.all_rooms');
 Route::post('/room_details_ajax','HomeController@room_details_ajax')->name('user.room_details_ajax');
@@ -95,9 +97,12 @@ Route::get('/event_details/{id?}','HomeController@event_details')->name('user.ev
 Route::get('/eventBooking/{name?}','HomeController@eventBooking')->name('user.eventBooking');
 Route::get('/tour','HomeController@tour')->name('user.tour');
 Route::get('/tour-list/{name?}','HomeController@tour_list')->name('user.tour-list');
+Route::get('/tour_enquiry','HomeController@tour_enquiry')->name('user.tour_enquiry');
+Route::post('/tour_list_ajax','HomeController@tour_list_ajax')->name('user.tour_list_ajax');
 Route::get('/tour_list_country/{id?}','HomeController@tour_list_country')->name('user.tour_list_country');
 Route::get('/tour_details/{id?}','HomeController@tour_details')->name('user.tour_details');
 Route::get('/tourBooking/{name?}','HomeController@tourBooking')->name('user.tourBooking');
+Route::post('submitMaketrip','HomeController@submitMaketrip')->name('user.submitMaketrip');
 Route::get('/packages','HomeController@packages')->name('user.packages');
 Route::get('/space','Home\SpaceController@space')->name('user.space');
 Route::get('/space-details/{id?}','Home\SpaceController@space_details')->name('user.space_details');
@@ -115,6 +120,7 @@ Route::get('/space-category-list/{id?}','Home\SpaceController@space_category_lis
 Route::get('/space-checkout/{name?}','Home\SpaceController@checkout')->name('user.space_checkout');
 Route::get('/space-city-wise/{id?}','Home\SpaceController@space_city_wise')->name('user.space_city_wise');
 Route::post('/bookingSpaceOrder','Home\SpaceController@spaceBookingOrder')->name('user.spaceBookingOrder');
+route::post('/spacebookingorderoffline','Home\SpaceController@spacebookingorderoffline')->name('user.spacebookingorderoffline');
 Route::get('/space-payment-successful','Home\SpaceController@space_payment_successful')->name('user.space_payment_successful');
 
 Route::get('/travel-details','HomeController@travel_details')->name('user.travel-details');
@@ -130,6 +136,12 @@ Route::get('tour-payment-successful','HomeController@tour_payment_successful')->
 Route::post('/eventBookingOrder','HomeController@eventBookingOrder')->name('user.eventBookingOrder');
 Route::get('event-payment-successful','HomeController@event_payment_successful')->name('user.event_payment_successful');
 
+// check and send reminder and delete booking request 
+Route::any('/checkEndtimeForBookingRequest','Home\SpaceController@check_endtime_for_booking_request');
+
+Route::any('/checkEndtimeForRoomBookingRequest','Home\BookingController@check_endtime_for_room_booking_request');
+
+Route::any('/checkEndtimeForTourBookingRequest','Home\BookingController@check_endtime_for_tour_booking_request');
 // Route::get('/two','HomeController@two')->name('user.two');
 // Route::get('/three','HomeController@three')->name('user.three');
 
@@ -145,27 +157,25 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     // booking 
     Route::any('user/bookingList', 'Home\BookingController@booking_list');	
     Route::any('user/bookingList-upcoming', 'Home\BookingController@booking_list_upcoming');	
-    Route::any('user/bookingList-cancel', 'Home\BookingController@booking_list_cancel');
-    Route::any('user/bookingList-approval', 'Home\BookingController@booking_list_approval');	
-
+    Route::any('user/bookingList-cancel', 'Home\BookingController@booking_list_cancel');	
     Route::any('user/spaceBookingList', 'Home\BookingController@space_booking_list');
     Route::any('user/spaceBookingList-upcoming', 'Home\BookingController@space_booking_list_upcoming');	
-    Route::any('user/spaceBookingList-cancel', 'Home\BookingController@space_booking_list_cancel');	
-    Route::any('user/spaceBookingList-approval', 'Home\BookingController@space_booking_list_approval');
-
+    Route::any('user/spaceBookingList-cancel', 'Home\BookingController@space_booking_list_cancel');		
     Route::any('user/tourBookingList', 'Home\BookingController@tour_booking_list');	
     Route::any('user/tourBookingList-upcoming', 'Home\BookingController@tour_booking_list_upcoming');	
     Route::any('user/tourBookingList-cancel', 'Home\BookingController@tour_booking_list_cancel');	
-    Route::any('user/tourBookingList-approval', 'Home\BookingController@tour_booking_list_approval');	
+
+    Route::any('user/requestBookingRoom', 'Home\BookingController@request_booking_room');   
+    Route::any('user/cancelRoomBookingRequest', 'Home\BookingController@cancel_request_booking_room');
 
     Route::any('user/requestBookingTour', 'Home\BookingController@request_booking_tour');	
     Route::any('user/cancelTourBookingRequest', 'Home\BookingController@cancel_request_booking_tour');	
-
-    Route::any('user/requestBookingSpace', 'Home\BookingController@request_booking_space');	
+    Route::any('user/requestBookingSpace', 'Home\BookingController@request_booking_space'); 
     Route::any('user/cancelSpaceBookingRequest', 'Home\BookingController@cancel_request_booking_space');
 
-    Route::any('user/requestBookingRoom', 'Home\BookingController@request_booking_room');	
-    Route::any('user/cancelRoomBookingRequest', 'Home\BookingController@cancel_request_booking_room');
+    Route::any('user/eventBookingList', 'Home\BookingController@event_booking_list');	
+    Route::get('user/eventBookingDetails/{id}', 'Home\BookingController@event_booking_detail');
+    Route::get('user/cancelledEventBookingDetails/{id}', 'Home\BookingController@canceled_event_booking_details');	
 
     Route::get('user/bookingDetails/{id}', 'Home\BookingController@booking_detail');	
     Route::post('user/cancelHotelBooking','Home\BookingController@cancel_hotel_booking');	
@@ -182,6 +192,9 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function ()
     Route::get('user/tourBookingDetails/{id}', 'Home\BookingController@tour_booking_detail');
     Route::post('user/cancelTourBooking','Home\BookingController@cancel_tour_booking');	
     Route::get('user/cancelledTourBooking/{id}', 'Home\BookingController@tour_booking_canceled');	
+    Route::any('user/bookingList-approval', 'Home\BookingController@booking_list_approval');
+    Route::any('user/spaceBookingList-approval', 'Home\BookingController@space_booking_list_approval');
+    Route::any('user/tourBookingList-approval', 'Home\BookingController@tour_booking_list_approval');
 });	
 
 // vendor route start here
@@ -203,16 +216,7 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/space-reservation-cancel-details/{id}', 'Vendor\ReservationController@space_reservation_canceled');	
 
     Route::get('servicepro/tour-reservation-details/{id}', 'Vendor\ReservationController@tour_reservation_detail');	
-    Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');
-    
-    Route::any('user/requestBookingTour', 'Home\BookingController@request_booking_tour');
-    Route::any('user/cancelTourBookingRequest', 'Home\BookingController@cancel_request_booking_tour');	
-    
-    Route::get('servicepro/roomsApproveBooking_list', 'Vendor\BookingController@room_approve_booking_list');
-    Route::any('servicepro/cancelRoomBookingRequestStatus', 'Vendor\BookingController@cancel_room_booking_request_status');
-    Route::any('servicepro/getRoomInvoiceDetails/{requestId}', 'Vendor\BookingController@getRoomInvoiceDetails')->name('getRoomInvoiceDetails');
-    Route::any('servicepro/sendRoomInvoice', 'Vendor\BookingController@sendRoomInvoice');
-    Route::any('servicepro/deleteRoomBookingRequest', 'Vendor\BookingController@delete_room_booking_request');
+    Route::get('servicepro/tour-reservation-cancel-details/{id}', 'Vendor\ReservationController@tour_reservation_canceled');	
 
     Route::get('servicepro/bookingInvoice/{id}', 'Home\BookingController@booking_invoice');
     Route::get('servicepro/spaceBookingInvoice/{id}', 'Home\BookingController@space_booking_invoice');
@@ -252,6 +256,10 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     
     Route::get('servicepro/bookingList', 'Vendor\BookingController@booking_list');
     Route::any('servicepro/viewBooking/{id}', 'Vendor\BookingController@view_booking');
+    
+    Route::any('servicepro/roomWiseBookingList/{id}', 'Vendor\BookingController@view_room_wise_booking_list');
+    Route::any('servicepro/spaceWiseBookingList/{id}', 'Vendor\SpaceController@view_space_wise_booking_list');
+    Route::any('servicepro/tourWiseBookingList/{id}', 'Vendor\TourController@view_tour_wise_booking_list');
 
     Route::any('servicepro/issueInvoiceRoom', 'Vendor\BookingController@issue_invoice_room');
     Route::any('servicepro/rejectBookingRequestRoom', 'Vendor\BookingController@reject_booking_request_room');
@@ -288,16 +296,6 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/changeSpaceStatus', 'Vendor\SpaceController@change_space_status');
     Route::post('servicepro/deleteSpace', 'Vendor\SpaceController@delete_space');
     Route::get('servicepro/edit-space/{id}', 'Vendor\SpaceController@edit_space');
-
-    Route::get('servicepro/spaceApproveBooking_list', 'Vendor\BookingController@space_approve_booking_list');
-    // Route::any('servicepro/issueInvoiceSpace', 'Vendor\SpaceController@issue_invoice_space');
-    // Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
-    // Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
-    Route::any('servicepro/cancelSpaceBookingRequestStatus', 'Vendor\BookingController@cancel_space_booking_request_status');
-    Route::any('servicepro/getSpaceInvoiceDetails/{requestId}', 'Vendor\BookingController@getSpaceInvoiceDetails')->name('getSpaceInvoiceDetails');
-    Route::any('servicepro/sendSpaceInvoice', 'Vendor\BookingController@sendSpaceInvoice');
-    Route::any('servicepro/deleteSpaceBookingRequest', 'Vendor\BookingController@delete_space_booking_request');
-
     Route::get('servicepro/stepedit-space/{id}', 'Vendor\SpaceController@step_edit_space');
     Route::any('servicepro/updateSpace', 'Vendor\SpaceController@update_space');
     Route::any('servicepro/view-space/{id}', 'Vendor\SpaceController@view_space');
@@ -310,9 +308,9 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::get('servicepro/spaceBookingList', 'Vendor\BookingController@space_booking_list');
     Route::any('servicepro/spaceBookingView/{id}', 'Vendor\BookingController@space_booking_view');
 
-    // Route::any('servicepro/issueInvoiceSpace', 'Vendor\BookingController@issue_invoice_space');
-    // Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
-    // Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
+    Route::any('servicepro/issueInvoiceSpace', 'Vendor\BookingController@issue_invoice_space');
+    Route::any('servicepro/rejectBookingRequestSpace', 'Vendor\BookingController@reject_booking_request_space');
+    Route::any('servicepro/deleteInvoiceSpace', 'Vendor\BookingController@delete_invoice_space');
 
     Route::get('servicepro/transactionHistory', 'Vendor\BookingController@transaction_history');
     Route::get('servicepro/transactionHistoryView/{id}', 'Vendor\BookingController@view_transaction_history'); 
@@ -324,6 +322,24 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::post('servicepro/updateEvent', 'Vendor\EventController@updateEvent');
     Route::any('servicepro/view-event/{id}', 'Vendor\EventController@view_event');
     Route::post('servicepro/deleteEvent', 'Vendor\EventController@delete_event');
+     Route::get('servicepro/spaceApproveBooking_list', 'Vendor\BookingController@space_approve_booking_list');
+    Route::any('servicepro/cancelSpaceBookingRequestStatus', 'Vendor\BookingController@cancel_space_booking_request_status');
+    Route::any('servicepro/getSpaceInvoiceDetails/{requestId}', 'Vendor\BookingController@getSpaceInvoiceDetails')->name('getSpaceInvoiceDetails');
+    Route::any('servicepro/sendSpaceInvoice', 'Vendor\BookingController@sendSpaceInvoice');
+    Route::any('servicepro/deleteSpaceBookingRequest', 'Vendor\BookingController@delete_space_booking_request');
+     Route::get('servicepro/roomsApproveBooking_list', 'Vendor\BookingController@room_approve_booking_list');
+    Route::any('servicepro/cancelRoomBookingRequestStatus', 'Vendor\BookingController@cancel_room_booking_request_status');
+    Route::any('servicepro/getRoomInvoiceDetails/{requestId}', 'Vendor\BookingController@getRoomInvoiceDetails')->name('getRoomInvoiceDetails');
+    Route::any('servicepro/sendRoomInvoice', 'Vendor\BookingController@sendRoomInvoice');
+    Route::any('servicepro/deleteRoomBookingRequest', 'Vendor\BookingController@delete_room_booking_request');
+    Route::any('servicepro/requestBookingTour', 'Home\BookingController@request_booking_tour');
+    Route::any('servicepro/cancelTourBookingRequest', 'Home\BookingController@cancel_request_booking_tour');  
+
+    Route::any('servicepro/requestBookingSpace', 'Home\BookingController@request_booking_space'); 
+    Route::any('servicepro/cancelSpaceBookingRequest', 'Home\BookingController@cancel_request_booking_space');
+
+    Route::any('servicepro/requestBookingRoom', 'Home\BookingController@request_booking_room');   
+    Route::any('servicepro/cancelRoomBookingRequest', 'Home\BookingController@cancel_request_booking_room');
 
 });	
 
@@ -349,13 +365,23 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/deletecustomer', 'CustomerController@deletecustomer');
 
         Route::get('/booking_list', 'Admin\BookingController@booking_list');
+        Route::get('/rooms_approval_booking_list', 'Admin\BookingController@rooms_approval_booking_list');
         Route::any('/viewBooking/{id}', 'Admin\BookingController@view_booking');
         Route::any('/bookingDetails/{id}', 'Admin\BookingController@booking_details');
         Route::get('/changeBookingStatus','Admin\BookingController@change_booking_status');
+        Route::get('/changeOfflineBookingStatus','Admin\BookingController@change_offline_booking_status');
         Route::get('/changeTourBookingStatus','Admin\BookingController@change_tour_booking_status');
+        Route::get('/changeOfflineTourBookingStatus','Admin\BookingController@change_offline_tour_booking_status');
         Route::get('/changeSpaceBookingStatus','Admin\BookingController@change_space_booking_status');
-        
+        Route::get('/changeOfflineSpaceBookingStatus','Admin\BookingController@change_offline_space_booking_status');
 
+        Route::get('/globalTime', 'Admin\BookingController@global_time');
+        Route::any('/updateGlobalTime', 'Admin\BookingController@global_time_update');
+
+        Route::any('/roomWiseBookingList/{id}', 'Admin\BookingController@view_room_wise_booking_list');
+        Route::any('/spaceWiseBookingList/{id}', 'Admin\SpaceController@view_space_wise_booking_list');
+        Route::any('/tourWiseBookingList/{id}', 'Admin\TourController@view_tour_wise_booking_list');
+        
         Route::get('/scoutList', 'ScoutController@scout_list');
         Route::get('/addScout', 'ScoutController@add_scout');
         Route::any('/submitScout', 'ScoutController@submit_scout');
@@ -405,6 +431,14 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/editRoomTypeCategory/{id}', 'Admin\RoomController@edit_room_type_category');
         Route::any('/updateRoomTypeCategory', 'Admin\RoomController@update_room_type_category');
         Route::post('/deleteRoomTypeCategory', 'Admin\RoomController@delete_room_type_category');
+
+        Route::get('/roomNameList', 'Admin\RoomController@room_name_list');
+        Route::get('/addRoomName', 'Admin\RoomController@add_Room_name');
+        Route::any('/submitRoomName', 'Admin\RoomController@submit_room_name');
+        Route::get('/editRoomName/{id}', 'Admin\RoomController@edit_room_name');
+        Route::any('/updateRoomName', 'Admin\RoomController@update_room_name');
+        Route::post('/deleteRoomName', 'Admin\RoomController@delete_room_name');
+        Route::get('/roomTypeWiseRoomNameList/{id}', 'Admin\RoomController@room_type_wise_room_name_list');
 
         Route::post('/room_name', 'Admin\RoomController@room_name');
 
@@ -484,6 +518,8 @@ Route::group(['prefix' => 'admin'], function(){
 
         // Tour start here
         Route::get('/tourList', 'Admin\TourController@tour_list');
+        Route::get('/customtourList', 'Admin\TourController@custom_tour_list');
+        Route::get('/viewCustomTour/{id}', 'Admin\TourController@view_custom_tour');
         Route::get('/addTour', 'Admin\TourController@add_tour');
         Route::any('/submitTour', 'Admin\TourController@submit_tour');
         Route::get('/viewTour/{id}', 'Admin\TourController@view_tour');
@@ -493,6 +529,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/deleteTour', 'Admin\TourController@delete_tour');
         Route::any('/deleteTourSingleImage', 'Admin\TourController@delete_tour_single_image');
         Route::get('/tourbooking_list', 'Admin\TourController@tourbooking_list');
+        Route::get('/tour_approval_booking_list', 'Admin\TourController@tour_approval_booking_list');
         Route::get('/viewtourBooking/{id}', 'Admin\TourController@view_booking');
         // Space start here
         Route::get('/space-list', 'Admin\SpaceController@space_list');
@@ -529,6 +566,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/deleteSpaceSubCategory', 'Admin\SpaceController@delete_space_subcategory');
 
         Route::get('/spaceBookingList', 'Admin\SpaceController@booking_list');
+        Route::get('/space_approval_booking_list', 'Admin\SpaceController@space_approval_booking_list');
+
+        // Route::any('/getSpaceInvoiceDetails/{requestId}', 'Admin\SpaceController@getSpaceInvoiceDetails')->name('getSpaceInvoiceDetails_admin');
+
         Route::any('/spaceViewBooking/{id}', 'Admin\SpaceController@view_booking');
         Route::any('/spaceBookingDetails/{id}', 'Admin\SpaceController@booking_details');
         Route::get('/transactionHistory', 'Admin\BookingController@transaction_history');
@@ -565,7 +606,9 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/showChooseUs', 'Admin\CmsController@showChooseUs');
         Route::get('/editChooseUs/{id}', 'Admin\CmsController@editChooseUs');
         Route::post('/updateChooseUs', 'Admin\CmsController@updateChooseUs');
-
+        
+        Route::get('/eventbooking_list', 'Admin\EventController@eventbooking_list');
+        Route::any('/view-eventbooking/{id}', 'Admin\EventController@view_eventbooking');
     });
 });
 
@@ -602,6 +645,9 @@ Route::group(['prefix' => 'scout'], function(){
         Route::get('/changeBookingStatus','Admin\BookingController@change_booking_status');
         Route::get('/changeSpaceBookingStatus','Admin\BookingController@change_space_booking_status');
         Route::get('/events_list', 'Scout\ScoutSpaceController@events_list');
+        Route::any('/view-event/{id}', 'Scout\ScoutSpaceController@view_event');
+        Route::get('/eventbooking_list', 'Scout\ScoutSpaceController@eventbooking_list');
+        Route::any('/view-eventbooking/{id}', 'Scout\ScoutSpaceController@view_eventbooking');
     });
 });
 

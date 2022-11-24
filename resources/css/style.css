@@ -231,3 +231,34 @@ a.remove_attraction_button {
 .content-header {
     padding: 3px 0.5rem !important;
 }
+
+
+.add_button_city{
+    background: #126c62;
+    color: #FFF;
+    padding: 4px 28px;
+    border-radius: 3px;
+    margin-top: 12px;
+    float: left;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+.remove_button_it {
+    background: #f90e39;
+    color: #FFF;
+    padding: 5px 9px;
+    border-radius: 3px;
+    margin-top: 12px;
+    float: left;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+.add_button_city:hover{
+  color: #FFF;
+  background: #0e756a;
+}
+ .remove_button_it:hover{
+
+   color: #FFF;
+  background: #f90e39;
+ }

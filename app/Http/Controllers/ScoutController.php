@@ -36,6 +36,7 @@ class ScoutController extends Controller
         $fname = $request->fname;
         $lname = $request->lname;
         $email = $request->email;
+        $is_verify_email = $request->user_email_verified;
         $user_country = $request->user_country;
         $user_city = $request->city;
         $address = $request->address;
@@ -98,7 +99,7 @@ class ScoutController extends Controller
             $obj->landline_number = $landline_number;
             $obj->password = bcrypt($password);
             $obj->role_id = 3;
-            $obj->is_verify_email = 1;
+            $obj->is_verify_email = $is_verify_email;
             $obj->is_verify_contact = 0; 
             $obj->profile_pic = $profile_picture;
             $obj->register_by = 'web'; 
@@ -159,6 +160,7 @@ class ScoutController extends Controller
         $lname = $request->input('lnameu') ;
         $user_id = $request->input('user_id') ;
     	$email = $request->input('emailu') ;
+    	$is_verify_email = $request->input('user_email_verifiedu');
         $user_country = $request->input('user_countryu') ;
         $city = $request->input('cityu') ;
         $address = $request->input('addressu') ;
@@ -229,12 +231,15 @@ class ScoutController extends Controller
             $contract_upload = $request->old_contract_upload;
         }
 
-
     	$userData = User::where('id', $user_id)->first();
     
         $userData->first_name = $fname;
     	$userData->last_name = $lname;
-        $userData->email = $email;
+        $userData->email = $email; 
+        $userData->is_verify_email = $is_verify_email;       
+        if($request->passwordu){
+            $userData->password = bcrypt($request->passwordu);
+        }
         $userData->user_country = $user_country;
         $userData->user_city = $city;
         $userData->address = $address;

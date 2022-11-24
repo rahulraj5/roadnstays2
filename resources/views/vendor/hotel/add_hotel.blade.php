@@ -325,15 +325,40 @@
                 },
                 min_hrs: {
                     number: true,
+                    // required: true,
+                    min:1,
                 },
                 min_hrs_percentage: {
                     number: true,
+                    // required: true,
+                    range:[0,100],
+                    // min: function(element) {
+                    //     return parseInt($('input[name="max_hrs_percentage"]').val());
+                    // },
+                    min: function(element) {
+                        var max_hrs_per = parseInt($('input[name="max_hrs_percentage"]').val());
+                        if(max_hrs_per == NaN){
+                        max_hrs_per = 0;
+                        }else{
+                        max_hrs_per = max_hrs_per;
+                        }
+                        return max_hrs_per;
+                    },
                 },
                 max_hrs: {
                     number: true,
+                    // required: true,
+                    min: function(element) {
+                        return parseInt($('input[name="min_hrs"]').val()) + 1;
+                    },
                 },
                 max_hrs_percentage: {
                     number: true,
+                    // required: true,
+                    range:[0,100], 
+                    max: function(element) {
+                        return parseInt($('input[name="min_hrs_percentage"]').val());
+                    },
                 },
                 commission: {
                 number: true,
@@ -924,7 +949,7 @@
                                                     <option value="">Select Scouts</option>
                                                     @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                                                     @foreach ($scouts as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                                    <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -1008,7 +1033,8 @@
                                     <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
                                     <div class="row">
-
+                                          <!-- check this start       -->
+                                    
                                         <div class="col-md-12">
                                             <div class="tab-custom-content">
                                                 <p class="lead mb-0">
@@ -1022,7 +1048,7 @@
                                                 <div class="col-sm-2">
                                                     <div class="form-group">
                                                         <div class="custom-control custom-radio">
-                                                            <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1">
+                                                            <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" checked>
                                                             <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                                         </div>
                                                     </div>
@@ -1030,19 +1056,19 @@
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <div class="custom-control custom-radio">
-                                                            <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
+                                                            <input disabled class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2">
                                                             <label for="payment_mode2" class="custom-control-label">Partial Payment (Like 30% Online & 70% at Desk )</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-5">
+                                                <!-- <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <div class="custom-control custom-radio">
-                                                            <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" checked>
+                                                            <input disabled class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0">
                                                             <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
@@ -1051,13 +1077,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Online Payment Percentage</label>
-                                                        <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage">
+                                                        <input readonly type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>At Desk Payment Percentage</label>
-                                                        <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage">
+                                                        <input readonly type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1070,7 +1096,7 @@
                                                     <!-- checkbox -->
                                                     <div class="form-group">
                                                         <div class="custom-control custom-radio">
-                                                            <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
+                                                            <input disabled class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1">
                                                             <label for="booking_option1" class="custom-control-label">Instant booking</label>
                                                         </div>
 
@@ -1089,6 +1115,8 @@
                                             </div>
                                         </div>
 
+                                        <!-- check this end here -->
+
                                         <!-- cancellation & policy start here -->
 
                                         <div class="col-md-12">
@@ -1102,7 +1130,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Cancellation Policy</label>
-                                                <textarea class="form-control" id="summernote2Removed" name="cancel_policy"></textarea>
+                                                <textarea class="form-control" id="summernote2Removed" name="cancel_policy" readonly=""></textarea>
                                             </div>
                                         </div>
 
@@ -1111,13 +1139,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Min. Hrs. (# of Hours <= from check in)</label>
-                                                                <input type="text" class="form-control" name="min_hrs" id="min_hrs" value="" placeholder="hrs.">
+                                                        <input readonly="" type="text" class="form-control" name="min_hrs" id="min_hrs" value="" placeholder="hrs.">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Deduction (%)</label>
-                                                        <input type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="" placeholder="percentage">
+                                                        <input readonly="" type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="0" placeholder="percentage">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1127,13 +1155,13 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Max. Hrs. (# of Hours <= from check in)</label>
-                                                                <input type="text" class="form-control" name="max_hrs" id="max_hrs" value="" placeholder="hrs">
+                                                        <input readonly="" type="text" class="form-control" name="max_hrs" id="max_hrs" value="" placeholder="hrs">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Deduction (%)</label>
-                                                        <input type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="" placeholder="percentage">
+                                                        <input readonly="" type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="0" placeholder="percentage">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1235,20 +1263,20 @@
 
                                         <!-- cancellation & policy end here -->
 
-                                        <div class="col-md-12">
+                                        <!-- <div class="col-md-12">
                                             <div class="tab-custom-content">
                                                 <p class="lead mb-0">
                                                 <h4>Commission</h4>
                                                 </p>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Commission</label>
                                                 <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission">
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-md-12">
                                             <div class="tab-custom-content">

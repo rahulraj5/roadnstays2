@@ -218,6 +218,8 @@ class EventController extends Controller
             $image_delete = DB::table('event_gallery')->where('id', '=', $value->id)->delete();
         }
         if ($event_data) {
+            $event_booking = DB::table('event_booking')->where('event_id', '=', $eventId)->delete();
+            $event_booking_temp = DB::table('event_booking_temp')->where('event_id', '=', $eventId)->delete();
             $event_delete = Events::where('id', '=', $eventId)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
         } else {

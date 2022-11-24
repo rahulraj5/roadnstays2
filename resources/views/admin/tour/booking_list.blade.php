@@ -86,7 +86,8 @@
     });
   })
 </script>
-<script>
+
+<!-- <script>
   $('select').on("change", function() {
     var booking_id = $(this).attr('data-id');
     var status = this.value;
@@ -94,6 +95,61 @@
       type: "GET",
       dataType: "json",
       url: "<?php echo url('/admin/changeTourBookingStatus'); ?>",
+      data: {
+        'status': status,
+        'booking_id': booking_id
+      },
+      success: function(data) {
+        success_noti(data.msg);
+        setTimeout(function() {
+          window.location.reload()
+        }, 1000);
+      },
+      error: function(errorData) {
+        console.log(errorData);
+        alert('Please refresh page and try again!');
+      }
+    });
+  })
+</script> -->
+
+<script>
+  $('body').on('change', '.order_status',function(){
+  // $('select').on("change", function() {
+  // $('#order_status').on("change", function() {
+    var booking_id = $(this).attr('data-id');
+    var status = this.value;
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "<?php echo url('/admin/changeTourBookingStatus'); ?>",
+      data: {
+        'status': status,
+        'booking_id': booking_id
+      },
+      success: function(data) {
+        success_noti(data.msg);
+        setTimeout(function() {
+          window.location.reload()
+        }, 1000);
+      },
+      error: function(errorData) {
+        console.log(errorData);
+        alert('Please refresh page and try again!');
+      }
+    });
+  })
+</script>
+<script>
+  $('body').on('change', '.booking_status',function(){
+  // $('select').on("change", function() {
+  // $('#booking_status').on("change", function() {
+    var booking_id = $(this).attr('data-id');
+    var status = this.value;
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "<?php echo url('/admin/changeOfflineTourBookingStatus'); ?>",
       data: {
         'status': status,
         'booking_id': booking_id
@@ -120,12 +176,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Booking List</h1>
+          <h1>Tour Booking List</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-            <li class="breadcrumb-item active">Booking List</li>
+            <li class="breadcrumb-item active">Tour Booking List</li>
           </ol>
         </div>
       </div>
@@ -151,7 +207,7 @@
                     <th>SNo.</th>
                     <th>Tour Name</th>
                     <th>User Name</th>
-                    <th>User Contact Info</th>
+                    <th>User Contact Info & Dates</th>
                     <th>Tour City</th>
                     <th>Payment Type</th>
                     <th>Payment Status</th>
@@ -168,26 +224,52 @@
                     <td>{{ $i }}</td>
                     <td>{{ $arr->tour_title }}</td>
                     <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
-                    <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
+                    <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}<br>
+                      <b>Start Date</b>- {{ date('d/m/y', strtotime($arr->tour_start_date)) }} <br> <b>End Date</b>- {{date('d/m/y', strtotime($arr->tour_end_date))}}</td>
                     <td>{{ $arr->city }}</td>
-                    <td>{{ $arr->payment_type }}</td>
+                    <td>  @if($arr->payment_type == 0)
+                          {{ 'Offline' }}
+                          @elseif($arr->payment_type == 1)
+                              {{ 'Alfa Wallet' }}
+                            @elseif($arr->payment_type == 2)
+                              {{ 'Alfalah Bank Account' }}
+                            @elseif($arr->payment_type == 3)
+                              {{ 'Credit/Debit Card' }}
+                            @elseif($arr->payment_type == 4)
+                              {{ 'Other Bank Accounts' }}
+                            @else
+                              {{ 'paypal' }}  
+                            @endif</td>
                     <td>{{ $arr->payment_status }}</td>
-                    <td>{{ $arr->booking_status }}</td>
-                    @if($arr->booking_status == 'canceled')
-                    <td>
-                      <select class="form-control" name="order_status" data-id="{{$arr->id}}">
-                        <option value="pending" {{ $arr->refund_status == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="processing" {{ $arr->refund_status == 'processing' ? 'selected' : '' }}>Processing</option>
-                        <!-- <option value="canceled" {{ $arr->refund_status == 'canceled' ? 'selected' : '' }}>Canceled</option> -->
-                        <option value="confirmed" {{ $arr->refund_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                      </select>
+                    <!-- <td>{{ $arr->booking_status }}</td> -->
+                    <td>@if($arr->booking_status == 'pending')
+                          <select class="form-control booking_status" name="booking_status" id="booking_status" data-id="{{$arr->id}}">
+                            <option value="pending" {{ $arr->booking_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="confirmed" {{ $arr->booking_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                          </select>
+                        @elseif($arr->booking_status == 'confirmed')
+                          {{ $arr->booking_status }}
+                        @else
+                          {{'Failed'}}
+                        @endif
                     </td>
+                    @if($arr->booking_status == 'canceled')
+                      <td>
+                        <select class="form-control order_status" name="order_status" id="order_status" data-id="{{$arr->id}}">
+                          <option value="pending" {{ $arr->refund_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                          <option value="processing" {{ $arr->refund_status == 'processing' ? 'selected' : '' }}>Processing</option>
+                          <!-- <option value="canceled" {{ $arr->refund_status == 'canceled' ? 'selected' : '' }}>Canceled</option> -->
+                          <option value="confirmed" {{ $arr->refund_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                        </select>
+                      </td>
+
                     @else
                     <td>Not Yet</td>
                     @endif
                     <td class="text-right py-0 align-middle">
                       <div class="btn-group btn-group-sm">
                         <a href="{{url('/admin/viewtourBooking')}}/{{$arr->id}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye"></i></a>
+                        <a href="{{url('/admin/tourWiseBookingList')}}/{{$arr->tour_id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-list-alt"></i></a>
                       </div>
                     </td>
                   </tr>

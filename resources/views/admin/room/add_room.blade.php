@@ -1245,8 +1245,8 @@
               
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Taxes in % (percentage)</label>
-                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %">
+                  <label>Taxes </label>
+                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes ">
                 </div>
               </div>
 

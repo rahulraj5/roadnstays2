@@ -310,7 +310,7 @@
                                                                 <table id="u_content_heading_20" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px;font-family:arial,helvetica,sans-serif;" align="left">
                                                                                 <h1 style="margin: 0px;  text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 14px;">
                                                                                     <strong>{{$tour_data->tour_max_capacity}}</strong>
                                                                                 </h1>
@@ -331,7 +331,7 @@
                                                                 <table id="u_content_heading_21" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px;font-family:arial,helvetica,sans-serif;" align="left">
                                                                                 <h1 style="margin: 0px;  text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 14px;">
                                                                                     <strong>PKR {{ $booking_data->total_amount }}</strong>
                                                                                 </h1>
@@ -523,6 +523,104 @@
                                         </div>
                                     </div>
                                     </div> -->
+                                        @if($booking_data->partial_payment_status == 1)
+                                            <div class="" style="padding: 0px;background-color: transparent">
+                                                <div class="u-row no-stack" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+                                                    <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                                                        <div class="u-col u-col-66p67" style="max-width: 320px;min-width: 400px;display: table-cell;vertical-align: top;">
+                                                            <div style="background-color: #ffffff;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                    <table id="u_content_heading_31" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:6px 10px 20px 270px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                                    <h1 style="margin: 0px; color: #126c62;  text-align: left; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 20px;">
+                                                                                        <strong>Online Paid</strong>
+                                                                                    </h1>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+                                                            <div style="background-color: #5ba199;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                    <table id="u_content_heading_15" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:13px 10px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                                    <h1 style="margin: 0px; color: #ffffff;  text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 16px;">
+                                                                                        <strong>{{$booking_data->online_paid_amount}}</strong>
+                                                                                    </h1>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="" style="padding: 0px;background-color: transparent">
+                                                <div class="u-row no-stack" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+                                                    <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
+                                                        <div class="u-col u-col-66p67" style="max-width: 320px;min-width: 400px;display: table-cell;vertical-align: top;">
+                                                            <div style="background-color: #ffffff;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                    <table id="u_content_heading_31" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:6px 10px 20px 270px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                                    <h1 style="margin: 0px; color: #126c62;  text-align: left; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 20px;">
+                                                                                        <strong>Pay at Desk</strong>
+                                                                                    </h1>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
+                                                            <div style="background-color: #5ba199;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                <div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+
+                                                                    <table id="u_content_heading_15" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:13px 10px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                                    <h1 style="margin: 0px; color: #ffffff;  text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 16px;">
+                                                                                        <strong>{{$booking_data->remaining_amount_to_pay}}</strong>
+                                                                                    </h1>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
 
                                         <div class="" style="padding: 0px;background-color: transparent">
                                             <div class="u-row no-stack" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
@@ -535,7 +633,7 @@
                                                                 <table id="u_content_heading_31" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 20px 270px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:6px 10px 20px 270px;font-family:arial,helvetica,sans-serif;" align="left">
                                                                                 <h1 style="margin: 0px; color: #126c62;  text-align: left; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 20px;">
                                                                                     <strong>TOTAL</strong>
                                                                                 </h1>
@@ -556,7 +654,7 @@
                                                                 <table id="u_content_heading_15" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:13px 10px;font-family:arial,helvetica,sans-serif;" align="left">
                                                                                 <h1 style="margin: 0px; color: #ffffff;  text-align: center; word-wrap: break-word; font-weight: normal; font-family: 'Montserrat',sans-serif; font-size: 16px;">
                                                                                     <strong>{{$booking_data->total_amount}}</strong>
                                                                                 </h1>
@@ -597,7 +695,7 @@
                                                                 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 40px;font-family:arial,helvetica,sans-serif;" align="left">
+                                                                            <td class="" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 10px;font-family:arial,helvetica,sans-serif;" align="left">
                                                                                 <div class="v-text-align" style="color: #ffffff;  text-align: center; word-wrap: break-word;">
                                                                                     <p style="font-size: 14px; "><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 19.6px;">+92
                                                                                             342 4514629 &nbsp;| info@roadnstays.com</span></p>

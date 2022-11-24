@@ -789,7 +789,7 @@
             <label for="tab1" id="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2" checked>
-            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
+            <label for="tab2" id="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming ({{(count($upcomingBookingList->where('check_out', '>=', Carbon\Carbon::today()->format('Y-m-d'))->where('booking_status', '!=' ,'canceled')))}})</label>
             <div class="tabs__content">
 
                 @if (!$upcomingBookingList->isEmpty())

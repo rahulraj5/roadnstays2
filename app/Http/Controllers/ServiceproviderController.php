@@ -36,6 +36,7 @@ class ServiceproviderController extends Controller
         $fname = $request->fname;
         $lname = $request->lname;
         $email = $request->email;
+    	$is_verify_email = $request->user_email_verified;
         $user_country = $request->user_country;
         $user_city = $request->city;
         $address = $request->address;
@@ -77,7 +78,7 @@ class ServiceproviderController extends Controller
         }else{
             $tour_contract_date = NULL;
         }
-        $tour_operator_terms = $request->tour_contract_terms;
+        $tour_operator_terms = $request->tour_operator_terms;
         $tour_operator_document = $request->tour_op_document;
         $tour_operator_img = $request->tour_op_img;
         $tour_operator_id_front_img = $request->tour_op_id_front_img;
@@ -118,7 +119,7 @@ class ServiceproviderController extends Controller
             $obj->contact_number = $contact_number;
             $obj->password = bcrypt($password);
             $obj->role_id = 4;
-            $obj->is_verify_email = 1;
+            $obj->is_verify_email = $is_verify_email;
             $obj->is_verify_contact = 0;
             $obj->wallet_balance = 0;
             $obj->register_by = 'web';
@@ -256,12 +257,14 @@ class ServiceproviderController extends Controller
     }
 
     
-    public function update_serv_provider(Request $request){
-
+    public function update_serv_provider(Request $request)
+    {
+        // echo "<pre>";print_r($request->all());die;
     	$fname = $request->input('fnameup') ;
         $lname = $request->input('lnameup') ;
         $user_id = $request->input('user_id') ;
     	$email = $request->input('emailup') ;
+    	$is_verify_email = $request->input('user_email_verifiedup');
         $user_country = $request->input('user_countryup') ;
         $city = $request->input('cityup') ;
         $address = $request->input('addressup') ;
@@ -276,6 +279,7 @@ class ServiceproviderController extends Controller
             $userData->password = bcrypt($request->passwordup);
         }
         $userData->email = $email;
+        $userData->is_verify_email = $is_verify_email;
         $userData->user_country = $user_country;
         $userData->user_city = $city;
         $userData->address = $address;
@@ -382,7 +386,7 @@ class ServiceproviderController extends Controller
 
 
         $vendor_data = DB::table('vendor_profile')
-                        ->where('vendor_id', $user_id)
+                        ->where('user_id', $user_id)
                         ->update(['tour_op_id_number' => $request->tour_operator_id_number,
                                 'tour_op_name' => $request->tour_operator_name,
                                 'tour_op_contact_name' => $request->tour_operator_contact_name,
@@ -409,7 +413,7 @@ class ServiceproviderController extends Controller
                                 'tour_op_jazzcash_name' => $request->tour_operator_jazzcash_name,
                                 'tour_op_notes' => $request->tour_operator_notes,
                                 'tour_contract_date' => $tour_contract_date,
-                                'tour_contract_terms' => $request->tour_contract_terms,
+                                'tour_contract_terms' => $request->tour_operator_terms,
                                 'tour_op_document' => $tour_operator_document,
                                 'tour_op_img' => $tour_operator_img,
                                 'tour_op_id_front_img' => $tour_operator_id_front_img,

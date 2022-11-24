@@ -40,7 +40,7 @@
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css">
 
-   <link href="{{ asset('resources/css/notification-custom.css') }}" rel="stylesheet" /> 
+<link href="{{ asset('resources/css/notification-custom.css') }}" rel="stylesheet" /> 
    @yield('current_page_css')
 
    <style type="text/css"> 
@@ -81,8 +81,7 @@
       margin-right: 5px;
       background-color: transparent;
       border: 1px solid transparent;
-      /* border-radius: 30px;
-      */  font-size: 14px;
+      font-size: 14px;
       padding: 11px 23px;
       line-height: 1.5;
       }
@@ -119,6 +118,15 @@
       .disshow {
       display: block;
       } 
+
+   .iti__selected-flag {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px !important;
+    padding: 0 6px 0 8px !important;
+}
    </style>
 </head>
 

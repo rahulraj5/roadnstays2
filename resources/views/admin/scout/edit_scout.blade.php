@@ -215,6 +215,21 @@
 
                   </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Verified User Status</label>
+                        <select class="form-control select2bs4" name="user_email_verifiedu"  id="user_email_verifiedu" style="width: 100%;">
+                          <option value="">Select Status</option>
+                          <option value="1" <?php if ($user_info->is_verify_email == 1) {
+                                                                                echo "selected";
+                                                                                } ?>>Verified</option>
+                          <option value="0" <?php if ($user_info->is_verify_email == 0) {
+                                                                                echo "selected";
+                                                                                } ?>>Un-verified</option>
+                        </select>
+                    </div>
+                  </div>
+
                   <!-- <div class="col-md-6">
 
                     <div class="form-group">
@@ -329,6 +344,27 @@
                       <input type="file" class="form-control" name="nic_uploadu" id="nic_upload">
                     </div>
                   </div>
+
+                  @if((!empty($user_info->nic_upload)))
+                  <div class="col-md-12">
+                    <div class="d-flex flex-wrap">
+                      <div class="image-gridiv">
+                        <img src="{{url('public/uploads/profile_img/')}}/{{$user_info->nic_upload}}">
+                      </div>
+                    </div>
+                  </div>
+                  @endif
+
+                  
+                  @if((!empty($user_info->contract_upload)))
+                  <div class="col-md-12">
+                    <div class="d-flex flex-wrap">
+                      <div class="image-gridiv">
+                        <img src="{{url('public/uploads/profile_img/')}}/{{$user_info->contract_upload}}">
+                      </div>
+                    </div>
+                  </div>
+                  @endif
 
                   <div class="col-md-6">
                     <div class="form-group">

@@ -82,7 +82,7 @@
   }
 </script>
 <script>
-  $('.toggle-class').on('change', function() {
+  $('.toggle-class-removed').on('change', function() {
     var status = $(this).prop('checked') == true ? 1 : 0; 
     var id = $(this).data('id');
     // alert(status);
@@ -90,7 +90,7 @@
     $.ajax({
       type: "GET",
       dataType: "json",
-      url: "<?php echo url('/admin/changeTourStatus'); ?>",
+      url: "<?php echo url('/servicepro/changeTourStatus'); ?>",
       data: {'status': status, 'id': id},
       success: function(data){
         success_noti(data.success);
@@ -149,6 +149,8 @@
 
                                             <th>SNo.</th>
 
+                                            <th>Service Provider</th>
+
                                             <th>Tour Name</th>
 
                                             <th>Tour Type</th>
@@ -158,6 +160,10 @@
                                             <th>Star Date</th>
 
                                             <th>End Date</th>
+
+                                            <th>Base Price</th>
+
+                                            <th>Tour Status</th>
 
                                             <th>Status</th>
 
@@ -175,9 +181,13 @@
 
                                             @foreach ($tourList as $arr)
 
+                                                @php $vendors = DB::table('users')->where('id',$arr->vendor_id)->first(); @endphp
+
                                                 <tr id="row{{ $arr->id }}">
 
                                                     <td>{{ $i }}</td>
+
+                                                    <td>{{$vendors->first_name}} {{$vendors->last_name}}</td>
 
                                                     <td>{{ $arr->tour_title }}</td>
 
@@ -189,10 +199,20 @@
 
                                                     <td>{{ $arr->tour_end_date }}</td>
 
+                                                    <td>{{ $arr->tour_price }}</td>
+
+                                                    <td>
+                                                      @if(Carbon\Carbon::today()->format('Y-m-d') <= $arr->tour_start_date)
+                                                        {{ "Available" }}
+                                                      @else
+                                                        {{ "Booked" }}  
+                                                      @endif
+                                                    </td>
+
                                                     <td class="project-state">
 
-                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->tour_status ? 'checked' : '' }}>
-
+                                                        <input  type="checkbox" class="toggle-class" data-style="slow" data-onstyle="success" data-size="small" data-on="Approved" data-off="Pending for approval" {{ $arr->status ? 'checked' : '' }} disabled>
+                                                        <!-- data-id="{{$arr->id}}" data-toggle="toggle" -->
                                                     </td>
 
                                                     <td class="text-right py-0 align-middle">
@@ -203,7 +223,7 @@
 
                                                             <a href="{{url('/servicepro/editTour')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
 
-                                                            <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash"  alt="user" title="user"></i></a>
+                                                            <!-- <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash"  alt="user" title="user"></i></a> -->
 
                                                         </div>
 

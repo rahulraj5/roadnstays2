@@ -1,0 +1,67 @@
+
+https://www.getpostman.com/collections/4ed6f8c1822237feb941
+
+Service provider profile
+
+Phone (Landline)
+--Enable the country slection
+
+
+
+Vendor Profile Details for Tour (romove this lable ~ operator_name
+---- Move the Tour Operator Name in the Tours detailing. ~ operator_contact_name
+----Move the Contact Name in Hotel, Space, Tour,Event ~ operator_contact_num
+--------Move the Contact Number in Hotel, Space, Tour,Event ~ operator_email
+--------Move the Tour Operator Email in Hotel, Space, Tour,Event ~ operator_booking_num
+-------Move the Tour Operator Booking Contact Number in Hotel, Space, Tour,Event
+
+...............
+Offfice Address : to keep
+
+Tour Operator Instagram : Rename to Instagram Url - Done
+Tour Operator Facebook : Rename to Facebook Url - Done
+Tour Operator Web Address : Rname to Website Address - Done
+Tiktok Page link : no change - Done
+youTube Url : no change - Done
+
+Tour Operator Account (Main) : change lable to "Bank Account (Main)"
+
+Bank Name : Keep no change - Done
+Account Title : Keep no change - Done
+Account number : keep no change - Done
+Branch : keep no change - Done
+
+Tour Operator Account (Other) : change lable to "Bank Account (Other)"
+
+Easypaisa Number : Keep No change - Done
+Easypaisa name : Keep no change - Done
+Jazz Cash Number : Keep No change - Done
+Jaqzz Cash Name  : Keep No change - Done
+
+Note : take to last
+
+Contract Date : No change
+ID number : No change
+Upload Document : No change
+Uploade image : No change
+upload ID Scan (front) : No change
+upload an ID scan (Back) : No change
+
+
+
+1. room - add bed multi option - Done
+2. hotel - commission
+3. cacellation in hotel single input for the day - Done
+4. service prvider details update in hotel , space, tour, event - Done
+5. prjected price - Done
+
+
+
+
+
+
+
+
+
+
+

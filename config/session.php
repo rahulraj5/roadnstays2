@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN','votivelaravel.in'),
+    'domain' => env('SESSION_DOMAIN','roadnstays.com'),
 
     /*
     |--------------------------------------------------------------------------

@@ -356,6 +356,26 @@
       // event.preventDefault();
     }
   });
+
+  
+  $("#room_type").change(function() {
+    var room_type_id = this.value;
+    $("#room_name-dropdown").html('<option value="">Select room</option>');
+    $.ajax({
+      url: "{{ url('admin/room_name') }}",
+      method: 'POST',
+      data: {
+        room_type_id: room_type_id,
+        _token: '{{csrf_token()}}'
+      },
+      dataType: 'json',
+      success: function(data) {
+        $.each(data.room_name_list, function(key, value) {
+          $("#room_name-dropdown").append('<option value="' + value.room_name + '">' + value.room_name + '</option>');
+        });
+      }
+    });
+  });
 </script>
 @endsection
 @section('content')
@@ -466,7 +486,7 @@
 
                   <label>Room type</label>
 
-                  <select class="form-control select2bs4" name="room_typeh" id="room_type" style="width: 100%;" disabled>
+                  <select class="form-control select2bs4" name="room_typeh" id="room_type" style="width: 100%;">
 
                     <option value="">Select Hotel</option>
 
@@ -490,7 +510,17 @@
 
                   <label>Room name</label>
 
-                  <input type="text" class="form-control" name="room_nameh" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
+                  <!-- <input type="text" class="form-control" name="room_nameh" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly> -->
+
+                  <select class="form-control select2bs4" name="room_nameh" id="room_name-dropdown" style="width: 100%;">
+                    <option value="">Select room</option>
+
+                    @foreach ($room_list_option as $val)
+
+                    <option value="{{ $val->room_name }}" {{ $val->room_name == $room_data->name ? 'selected' : '' }}>{{ $val->room_name }}</option>
+
+                    @endforeach
+                  </select>
 
                 </div>
 
@@ -604,8 +634,8 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Taxes in % (percentage)</label>
-                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %" value="{{$room_data->tax_percentage}}">
+                  <label>Taxes </label>
+                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes" value="{{$room_data->tax_percentage}}">
                 </div>
               </div>
 

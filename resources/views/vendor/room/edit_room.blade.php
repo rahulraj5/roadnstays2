@@ -345,7 +345,7 @@
           number: true,
         },
         room_size: {
-          required: true,
+          // required: true,
           number: true,
         },
         type_of_price: {
@@ -475,7 +475,7 @@
             <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($room_extra_option) }}">
             <input type="hidden" name="bed_details_option" id="bed_details_option" value="{{ count($bed_details_option ?? '') }}">
 
-            <input type="hidden" name="old_room_type" id="old_room_type" value="{{$room_data->room_types_id}}">
+            <!-- <input type="hidden" name="old_room_type" id="old_room_type" value="{{$room_data->room_types_id}}"> -->
 
             <div class="row">
 
@@ -515,7 +515,7 @@
 
                   <label>Room type</label>
 
-                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;" disabled>
+                  <select class="form-control select2bs4" name="room_type" id="room_type" style="width: 100%;">
 
                     <option value="">Select Hotel</option>
 
@@ -539,7 +539,17 @@
 
                   <label>Room name</label>
 
-                  <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}" readonly>
+                  <!-- <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Enter Room Name" value="{{$room_data->name}}"> -->
+                  <select class="form-control select2bs4" name="room_name" id="room_name-dropdown" style="width: 100%;">
+                    <option value="">Select Room</option>
+
+                    @foreach ($room_name_list as $cont)
+
+                    <option value="{{ $cont->room_name }}" {{ $cont->room_name == $room_data->name   ? 'selected' : '' }}>{{ $cont->room_name }}</option>
+
+                    @endforeach
+
+                  </select>
 
                 </div>
 
@@ -615,8 +625,8 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Taxes in % (included in the price)</label>
-                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %" value="{{$room_data->tax_percentage}}">
+                  <label>Taxes (included in the price)</label>
+                  <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes" value="{{$room_data->tax_percentage}}">
                 </div>
               </div>
 

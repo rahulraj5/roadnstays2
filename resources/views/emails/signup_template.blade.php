@@ -23,7 +23,7 @@
          <div style="background: #fff;padding: 15px;">
             <div style="padding:30px;border:1px solid #fff;background:#eafdfc;">
                <div style="text-align:center">
-                  <h2 style="color: #fff; margin-bottom: 0;"><a href="https://votivelaravel.in/roadNstays" class="logo mr-auto"><img src="{{url('resources/assets/img/road-logo.png')}}" alt="" class="img-fluid" style="width: 80px;"></a></h2>
+                  <h2 style="color: #fff; margin-bottom: 0;"><a href="{{ url('/') }}" class="logo mr-auto"><img src="{{url('resources/assets/img/road-logo.png')}}" alt="" class="img-fluid" style="width: 80px;"></a></h2>
                </div>
                <div style="border-bottom:2px solid #9acfc9;margin:15px auto 15px;padding:10px;display:block;overflow:hidden;max-width: 400px; text-align: center; color: #126c62;">
                   <h4 style="margin:0 0;">Hello {{$first_name}} {{$last_name}}</h4>
@@ -38,7 +38,7 @@
                   <p class="parag">Click on the button below to verify your account.</p>
                   
                   <div class="button parag">
-                     <a href="{{ url('/api/changeStatus') }}?user_id={{ $user_id }}" target="_blank" style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:Cabin, Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">
+                     <a href="{{ url('/api/changeStatus') }}?user_id={{ $user_id }}&full_url={{ $full_url }}" target="_blank" style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:Cabin, Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">
                         Click Here
                      </a>
                   </div>

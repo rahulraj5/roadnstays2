@@ -111,7 +111,7 @@ $("#userSignup_form").validate({
     phone_no: {
       required: true,
       number: true,
-      minlength: 10,
+      minlength: 9,
       maxlength: 10
     },
     spassword: {
@@ -134,9 +134,10 @@ $("#userSignup_form").validate({
         // console.log(response);
         if (response.status == 'success') {
           $("#userSignup_form")[0].reset();
-          success_noti(response.msg);
+          success_noti_rigid(response.msg);
+          $("#exampleModal-sign-up").removeClass('show');
           // setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
-          setTimeout(function(){window.location.reload()},1000);
+          // setTimeout(function(){window.location.reload()},1000);
         } else {
           error_noti(response.msg);
         }
@@ -259,7 +260,7 @@ $("#vendorSignup_form").validate({
 
       number: true,
 
-      minlength: 10,
+      minlength: 9,
 
       maxlength: 10
 
@@ -302,10 +303,12 @@ $("#vendorSignup_form").validate({
         // console.log(response);
 
         if (response.status == 'success') {
+          // commented on 28oct2022
+          // success_noti(response.msg);
+          // setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
 
-          success_noti(response.msg);
-
-          setTimeout(function(){window.location.href=site_url+"/servicepro/dashboard"},1000);
+          success_noti_rigid(response.msg);
+          $("#vendorModal-signup").removeClass('show');
 
           // setTimeout(function(){window.location.reload()},1000);
 
@@ -340,7 +343,7 @@ $("#profileUpdate_form").validate({
     },
     puphone_no: {
       required: true,
-      minlength: 10,
+      minlength: 9,
       maxlength: 10
     },
     city: {

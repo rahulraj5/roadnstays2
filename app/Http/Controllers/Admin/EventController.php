@@ -225,6 +225,8 @@ class EventController extends Controller
             $image_delete = DB::table('event_gallery')->where('id', '=', $value->id)->delete();
         }
         if ($event_data) {
+            $event_booking = DB::table('event_booking')->where('event_id', '=', $eventId)->delete();
+            $event_booking_temp = DB::table('event_booking_temp')->where('event_id', '=', $eventId)->delete();
             $event_delete = Events::where('id', '=', $eventId)->delete();
             return json_encode(array('status' => 'success', 'msg' => 'Item has been deleted successfully!'));
         } else {
@@ -250,5 +252,116 @@ class EventController extends Controller
         } else {
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
+    }
+
+    public function eventbooking_list(){
+        
+
+        $data['bookingList'] = DB::table('event_booking')
+                                ->join('events', 'events.id', '=', 'event_booking.event_id')
+                                ->join('users','events.scout_id', '=', 'users.id')
+                                ->select(
+                                    'event_booking.id',
+                                    'events.title',
+                                    'users.first_name as user_first_name',
+                                    'users.last_name as user_last_name',
+                                    'users.email as user_email',
+                                    'users.contact_number as user_contact_num',
+                                    'event_booking.payment_type',
+                                    'event_booking.payment_status',
+                                    'event_booking.booking_status')
+                                
+                                ->get();
+                               
+         
+        return view("/admin/event/event_booking_list")->with($data);
+    }
+
+    public function view_eventbooking($id){
+        $booking_id = base64_decode($id);
+
+         $data['bookingList'] = DB::table('event_booking')
+                                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                                ->join('country', 'users.user_country', '=', 'country.id')
+                                ->select('event_booking.*',
+                                    'users.user_type',
+                                    'users.id as user_first_name',
+                                    'users.last_name as user_last_name',
+                                    'users.email as user_email',
+                                    'users.contact_number as user_contact_num',
+                                    'users.role_id as user_role_id',
+                                    'users.is_verify_email as user_email_is_verify_email',
+                                    'users.is_verify_contact as user_contact_is_verify_contact',
+                                    'users.address as user_address',
+                                    'users.state_id as user_state',
+                                    'users.user_city as user_city',
+                                    'users.postal_code as user_postal_code',
+                                    'users.document_type',
+                                    'users.document_number',
+                                    'users.front_document_img',
+                                    'users.back_document_img',
+                                    'country.nicename as user_country',
+                                    'events.title',
+                                    
+                                    'events.address',
+                                    'events.vendor_id as space_vendor_id',
+                                    'events.start_date',
+                                    'events.end_date',
+                                    )
+                                // ->orderby('created_at', 'DESC')
+                                ->where('event_booking.id',$booking_id)
+                                ->first();
+
+        //print_r($data['bookingList']);die;  
+
+        // echo "<pre>";print_r($data['bookingList']);
+        $space_vendor_id = $data['bookingList']->space_vendor_id;
+        // echo "<pre>";print_r($space_vendor_id);die;
+        if($space_vendor_id == 1){
+                $data['vendor_details'] = DB::table('admins')->where('id', $space_vendor_id)->first();
+        }else{
+            $data['vendor_details'] = DB::table('users')
+            ->join('country', 'users.user_country', 'country.id')
+            ->select('users.*','country.name as vendor_country_name')
+            ->where('users.id', $space_vendor_id)->first();
+        } 
+
+        // echo "<pre>";print_r($data['vendor_details']);die;
+
+        $data['order_details'] = DB::table('event_booking')
+                        ->join('users', 'event_booking.user_id', '=', 'users.id')
+                        ->join('events', 'event_booking.event_id', '=', 'events.id')
+                        ->join('country', 'users.user_country', '=', 'country.id')
+                        ->select('event_booking.*',
+                            'users.user_type',
+                            'users.first_name as user_first_name',
+                            'users.last_name as user_last_name',
+                            'users.email as user_email',
+                            'users.contact_number as user_contact_num',
+                            'users.role_id as user_role_id',
+                            'users.is_verify_email as user_email_is_verify_email',
+                            'users.is_verify_contact as user_contact_is_verify_contact',
+
+                            'users.address as user_address',
+                            'users.state_id as user_state',
+                            'users.user_city as user_city',
+                            'users.postal_code as user_postal_code',
+                            'country.nicename as user_country',
+
+                            'events.title',
+                            'events.vendor_id as space_vendor_id',
+                            'events.address',
+                            'events.start_date',
+                            'events.end_date',
+                            'events.price'
+                            )
+                            // ->orderby('created_at', 'DESC')
+                            ->where('event_booking.id',$booking_id)
+                            ->get();             
+
+
+
+        return view("/admin/event/view_eventbooking")->with($data);                        
     }
 }

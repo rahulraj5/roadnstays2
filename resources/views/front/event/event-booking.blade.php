@@ -277,6 +277,9 @@
    <section style="padding-top: 80px; background-color: #f6f6f6;">
       <div class="container">
       <div class="row">
+         <div class="col-sm-12">
+            <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
+         </div>
       <div class="col-md-12 rew-heding">
          <h3>Review your Booking</h3>
       </div>
@@ -376,13 +379,9 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                        <label for="terms"> <input type="checkbox" name="terms" value="1">
-                                          Remember this card for future use</label>
+                                          Remember this for future use</label>
                                     </div>
                                  </div>
-                                 <!-- <div class="form-group col-md-6">
-                                    <label for="vehicle1">  <input type="checkbox" name="vehicle1" value="Bike">
-                                    Remember this card for future use</label>
-                                 </div> -->
                            </fieldset>
                            <!--     </form> -->
                            </div>

@@ -94,6 +94,97 @@ class RoomController extends Controller
             return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
         }
     }
+    
+    // room name start from here
+    public function room_name_list()
+    {
+        $data['room_name_list'] = DB::table('room_name_list')
+                                ->join('room_type_categories','room_name_list.room_type_id','room_type_categories.id')
+                                ->select('room_name_list.*', 'room_type_categories.title')
+                                ->orderby('room_name_list.created_at', 'DESC')
+                                ->get();
+        // echo "<pre>";print_r($data['room_name_list']); 
+        // die;
+        return view('admin/room/room_name_list')->with($data);
+    }
+
+    public function room_type_wise_room_name_list($id)
+    {
+        $id = base64_decode($id);
+        $data['room_name_list'] = DB::table('room_name_list')
+                                ->join('room_type_categories','room_name_list.room_type_id','room_type_categories.id')
+                                ->select('room_name_list.*', 'room_type_categories.title')
+                                ->where('room_type_id', $id)
+                                ->orderby('room_name_list.created_at', 'DESC')
+                                ->get();
+        // echo "<pre>";print_r($data['room_name_list']); 
+        // die;
+        return view('admin/room/room_name_list')->with($data);
+    }
+
+    public function add_Room_name(Request $request)
+    {
+        $data['roomTypeCategories'] = DB::table('room_type_categories')->get();
+        return view('admin/room/add_room_name')->with($data);
+    }
+
+    public function submit_room_name(Request $request)
+    {
+        $data = DB::table('room_name_list')->insert(['room_name' => trim($request->roomName),
+                                                    'room_type_id' => $request->roomTypeId,
+                                                    'status' => 1,
+                                                    'created_at' => date('Y-m-d H:i:s'),
+                                                    'updated_at' => date('Y-m-d H:i:s')
+                                                ]);
+        if ($data) {
+            return response()->json(['status' => 'success', 'msg' => 'Item Added successfully.']);
+        } else {
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+        }
+    }
+
+    public function edit_room_name(Request $request)
+    {
+    	$id = base64_decode($request->id);
+        // echo "<pre>";print_r($id);die;
+        $data['roomNameDetails'] = DB::table('room_name_list')->where('id',$id)->first();
+        $data['roomTypeCategories'] = DB::table('room_type_categories')->get();
+    	return view('admin/room/edit_room_name')->with($data);
+    }
+    
+    public function update_room_name(Request $request)
+    {
+        $id = $request->id;
+        $roomName = $request->roomName;
+        $roomTypeId = $request->roomTypeId;
+
+        $data = DB::table('room_name_list')
+                    ->where('id', $id)
+                    ->update(['room_name' => trim($roomName),
+                            'room_type_id' => $roomTypeId,
+                            'updated_at' => date('Y-m-d H:i:s')]);
+
+    	if($data){
+            return response()->json(['status' => 'success', 'msg' => 'Item Updated successfully.']);
+    	}else{
+            return response()->json(['status' => 'error', 'msg' => 'OOPs! Some internal issue occured.']);
+    	} 
+    }
+
+    public function delete_room_name(Request $request)
+    {
+        $id = $request->id;
+
+        $res = DB::table('room_name_list')->where('id', '=', $id)->delete();
+
+        if ($res) {
+            return json_encode(array('status' => 'success', 'msg' => 'Room Category has been deleted successfully!'));
+        } else {
+            return json_encode(array('status' => 'error', 'msg' => 'Some internal issue occured.'));
+        }
+    }
+
+    // room name end from here
 
     public function add_room_test()
     {
@@ -330,6 +421,7 @@ class RoomController extends Controller
         $data['room_features'] = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
         $data['room_extra_option'] = DB::table('room_extra_option')->where('room_id', $room_id)->where('status', 1)->get();
         $data['bed_details_option'] = DB::table('room_bed_details')->where('room_id', $room_id)->where('status', 1)->get();
+        $data['room_name_list'] = DB::table('room_name_list')->where('room_type_id','=', $data['room_data']->room_types_id)->where('status', '=', 1)->get();
         // echo "<pre>"; print_r($data['room_features']);die;
         return view('admin/room/edit_room')->with($data);
     }
@@ -547,7 +639,8 @@ class RoomController extends Controller
         $data['room_features'] = DB::table('room_features')->where('room_id', $room_id)->pluck('feature_id')->toArray();
         $data['room_extra_option'] = DB::table('room_extra_option')->where('room_id', $room_id)->where('status', 1)->get();
         $data['bed_details_option'] = DB::table('room_bed_details')->where('room_id', $room_id)->where('status', 1)->get();
-        // echo "<pre>"; print_r($data['room_features']);die;
+        $data['room_list_option'] = DB::table('room_name_list')->get();
+        //echo "<pre>"; print_r($data['room_list_option']);die;
         return view('admin/room/edit_hotel_room')->with($data);
     }
 
@@ -840,6 +933,8 @@ class RoomController extends Controller
         DB::table('room_bed_details')->where('room_id', '=', $room_id)->delete();
 
         $res = DB::table('room_list')->where('id', '=', $room_id)->delete();
+        DB::table('booking')->where('room_id', '=', $room_id)->delete();
+        DB::table('booking_temp')->where('room_id', '=', $room_id)->delete();
 
         if ($res) {
             return json_encode(array('status' => 'success', 'msg' => 'Room has been deleted successfully!'));

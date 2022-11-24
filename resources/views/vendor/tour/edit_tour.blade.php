@@ -271,6 +271,10 @@
           required: true,
           number: true,
         },
+        tour_child_price: {
+          required:true,
+          range:[10,100]
+        },
         stay_price: {
           required: true,
           number: true,
@@ -302,6 +306,10 @@
           email: true,
         },
         operator_booking_num: {
+          required: true,
+          number: true,
+        },
+        max: {
           required: true,
           number: true,
         },
@@ -449,6 +457,27 @@
         }
       });
     }
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 4;
+    var addButton = $('.add_button_city');
+    var wrapper = $('.field_wrapper_city');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) { 
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row mb-4"><div class="col-md-12"><div class="row"><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][city]" placeholder="Enter pickup city" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][price]" placeholder="Enter price" value="" required="" /></div><div class="col-md-4"><input type="text" class="form-control mr-2" name="locations['+x+'][transport]" placeholder="Enter transport" value="" required="" /></div></div></div><span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_button_city', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
   });
 </script>
 <script type="text/javascript">
@@ -703,6 +732,24 @@
                               <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" required="">
                             </div>
                           </div>
+                          <div class="col-md-6">
+                            <div class="form-group"> 
+                              <label>Tour Price(Children) 2-9 Years Kids</label>
+                              <input type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price" value="{{(!empty($tour_info->tour_child_price) ? $tour_info->tour_child_price : '0')}}" required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Deluxe Price</label>
+                              <input type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name" value="{{$tour_info->tour_deluxe_price}}" required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Gold Price</label>
+                              <input type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name" value="{{$tour_info->tour_gold_price}}" required="">
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
@@ -713,7 +760,7 @@
                           <div class="col-md-12">
                             <div class="tab-custom-content">
                               <p class="lead mb-0">
-                              <h4>Pickup Locations</h4>
+                              <h4>Start Locations</h4>
                               </p>
                             </div>
                           </div>
@@ -763,6 +810,48 @@
                               </select>
                             </div>
                           </div>
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12 field_wrapper_city">
+                            <div class="form-group" id="extra_city">
+                              <label>City</label>
+
+                              <?php //echo "<pre>";print_r(count($tour_pickup_locations)); ?>
+                              <?php //$i = 0; $len = count($tour_pickup_locations);  if($len < 0 ){ 
+
+                                $i = 0;?>
+                              @foreach($tour_pickup_locations as $key => $locations)
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][city]" placeholder="Enter pickup city" value="{{$locations->city}}" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][price]" placeholder="Enter price" value="{{$locations->price}}" required="" />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][transport]" placeholder="Enter transport" value="{{$locations->transport}}" required="" />
+                                    </div>
+                                  </div>
+                                </div> 
+                                 @if($i == 0) 
+                                   <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                                @else
+                                    <span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span>
+                                @endif
+                               
+                              </div>
+                               <?php $i++;?>
+                              @endforeach
+                            </div>
+                          </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Start Date</label>
@@ -793,9 +882,19 @@
                             <div class="form-group">
                               <label>Tour Sub Type</label>
                               <select class="form-control select2bs4" name="tour_sub_type" id="tour_sub_type" style="width: 100%;">
-                                <option value="standard"  @php if($tour_info->tour_sub_type == 'standard'){echo "selected";} @endphp>Standard</option>
-                                <option value="deluxe" @php if($tour_info->tour_sub_type == 'deluxe'){echo "selected";} @endphp>Deluxe</option>
-                                <option value="exclusive" @php if($tour_info->tour_sub_type == 'exclusive'){echo "selected";} @endphp>Exclusive</option>
+                                   <option value="city tours" @php if($tour_info->tour_sub_type == 'city tours'){echo "selected";} @endphp>City Tours</option>
+                                <option value="north pakistan tours" @php if($tour_info->tour_sub_type == 'north pakistan tours'){echo "selected";} @endphp>North Pakistan Tours</option>
+                                <option value="south pakistan tour" @php if($tour_info->tour_sub_type == 'south pakistan tour'){echo "selected";} @endphp>South Pakistan Tour</option>
+                                <option value="south punjab tour" @php if($tour_info->tour_sub_type == 'south punjab tour'){echo "selected";} @endphp>South Punjab Tour</option>
+                                <option value="kashmir tours" @php if($tour_info->tour_sub_type == 'south kashmir tours'){echo "selected";} @endphp>Kashmir Tours</option>
+                                <option value="sikh yatra tours" @php if($tour_info->tour_sub_type == 'sikh yatra tours'){echo "selected";} @endphp> Sikh Yatra Tours</option>
+                                <option value="swat valley tours" @php if($tour_info->tour_sub_type == 'swat valley tours'){echo "selected";} @endphp> Swat Valley Tours</option>
+                                <option value="hunza valley tours" @php if($tour_info->tour_sub_type == 'hunza valley tours'){echo "selected";} @endphp>Hunza Valley Tours</option>
+                                <option value="kanghan valley tours" @php if($tour_info->tour_sub_type == 'kanghan valley tours'){echo "selected";} @endphp> Kanghan Valley Tours</option>
+                                <option value="kalash valley tour" @php if($tour_info->tour_sub_type == 'kalash valley tour'){echo "selected";} @endphp>Kalash Valley Tour</option>
+                                <option value="skardu valley tour" @php if($tour_info->tour_sub_type == 'skardu valley tour'){echo "selected";} @endphp> Skardu Valley Tour</option>
+                                <option value="gilgit tours"  @php if($tour_info->tour_sub_type == 'gilgit tours'){echo "selected";} @endphp> Gilgit Tours</option>
+                              </select>
                               </select>
                             </div>
                           </div>
@@ -938,7 +1037,7 @@
                               <div class="col-sm-2">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($tour_info->payment_mode == 1){echo 'checked';} @endphp>
+                                    <input disabled="" class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($tour_info->payment_mode == 1){echo 'checked';} @endphp>
                                     <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                   </div>
                                 </div>
@@ -946,7 +1045,7 @@
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($tour_info->payment_mode == 2){echo 'checked';} @endphp>
+                                    <input disabled="" class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($tour_info->payment_mode == 2){echo 'checked';} @endphp>
                                     <label for="payment_mode2" class="custom-control-label">Partial Payment (30% Online & 70% at Desk )</label>
                                   </div>
                                 </div>
@@ -954,19 +1053,40 @@
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($tour_info->payment_mode == 0){echo 'checked';} @endphp>
+                                    <input disabled="" class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($tour_info->payment_mode == 0){echo 'checked';} @endphp>
                                     <label for="payment_mode3" class="custom-control-label">Pay at Tour 100%</label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+                          <div class="col-md-12">
+                            <div class="row <? if ($tour_info->payment_mode != 2) {
+                                              echo 'd-none';
+                                            } ?>" id="partial_payment_div">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Online Payment Percentage</label>
+                                  <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($tour_info->online_payment_percentage) ? $tour_info->online_payment_percentage : '')}}" disabled="">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>At Desk Payment Percentage</label>
+                                  <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($tour_info->at_desk_payment_percentage) ? $tour_info->at_desk_payment_percentage : '')}}" disabled="">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
                            <div class="col-md-12">
                             <div class="form-group">
                               <label>Cancellation and Refund</label>
-                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="">{{$tour_info->cancellation_and_refund}}</textarea>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund" required="" disabled="">{{$tour_info->cancellation_and_refund}}</textarea>
                             </div>
                           </div>
+
                           <div class="col-sm-6">
                             <label>Booking Option</label>
                             <div class="row">
@@ -974,7 +1094,7 @@
                                 <!-- checkbox -->
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1" @php if($tour_info->booking_option == 1){echo 'checked';} @endphp>
+                                    <input disabled="" class="custom-control-input" type="radio" id="booking_option1" name="booking_option" value="1" @php if($tour_info->booking_option == 1){echo 'checked';} @endphp>
                                     <label for="booking_option1" class="custom-control-label">Instant booking</label>
                                   </div>
 
@@ -985,11 +1105,18 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
+                                    <input disabled="" class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
                               </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Private Note</label>
+                              <textarea class="form-control" id="summernoteRemoved" name="private_note" required>{{$tour_info->private_note}}</textarea>
                             </div>
                           </div>
 

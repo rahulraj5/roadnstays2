@@ -233,7 +233,8 @@
           required: true,
         },
         room_size: {
-          required: true,
+          // required: true,
+          number: true,
         },
         bed_type: {
           required: true,
@@ -585,8 +586,8 @@
 
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Taxes in % (included in the price)</label>
-                        <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %">
+                        <label>Taxes (included in the price)</label>
+                        <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes">
                       </div>
                     </div>
 

@@ -727,7 +727,7 @@
                     <div class="box-1">
                         <h5>PRICING BREAKUP</h5>
                         <ul>
-                            <li class="text">Room Charges</li>
+                            <li class="text">Space Charges</li>
                             <li>PKR {{ $bookingDetails->price_per_night }}</li>
                         </ul>
                         @if(@isset($bookingDetails->tax_percentage))
@@ -748,6 +748,16 @@
                             <li>PKR {{ $bookingDetails->city_fee }}</li>
                         </ul>
                         @endif
+                        @if($bookingDetails->partial_payment_status == 1)
+                        <ul>
+                            <li class="text">Online Paid</li>
+                            <li>PKR {{ $bookingDetails->online_paid_amount }}</li>
+                        </ul>
+                        <ul>
+                            <li class="text">Pay at Desk</li>
+                            <li>PKR {{ $bookingDetails->remaining_amount_to_pay }}</li>
+                        </ul>
+                        @endif
                     </div>
 
                     <div class="box-2">
@@ -761,7 +771,20 @@
                         </ul>
                         <ul>
                             <li class="text">Payment Type</li>
-                            <li>{{ $bookingDetails->payment_type }}</li>
+                            
+                            <li>
+                                @if($bookingDetails->payment_type == 1)
+                                {{ 'Alfa Wallet' }}
+                                @elseif($bookingDetails->payment_type == 2)
+                                {{ 'Alfalah Bank Account' }}
+                                @elseif($bookingDetails->payment_type == 3)
+                                {{ 'Credit/Debit Card' }}
+                                @elseif($bookingDetails->payment_type == 4)
+                                {{ 'Other Bank Accounts' }}
+                                @else
+                                {{ 'paypal' }}  
+                                @endif
+                            </li>
                         </ul>
                         <!-- <ul>
                             <li><a style="text-decoration:none;" href="#">Download Invoice</a></li>

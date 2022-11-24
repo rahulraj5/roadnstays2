@@ -87,6 +87,12 @@
                       <p>Room Types List</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/roomNameList') }}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Room Name List</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="nav-item">
@@ -112,14 +118,36 @@
                   </li>
                 </ul>
               </li>
+
               <li class="nav-item">
-                <a href="{{ url('/admin/booking_list') }}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Booking List
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Room Booking List
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/rooms_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
               </li>
+
+              
             </ul>
           </li>
 
@@ -138,10 +166,36 @@
                   <p>Tour List</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="{{ url('/admin/tourbooking_list') }}" class="nav-link">
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tour Booking</p>
+                  <p>
+                    Booking List
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/tourbooking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tour Booking List</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/tour_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/customtourList') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Custom Tour List</p>
                 </a>
               </li>
             </ul>
@@ -162,12 +216,33 @@
                   <p>Space List</p>
                 </a>
               </li>
+
               <li class="nav-item">
-                <a href="{{ url('/admin/spaceBookingList') }}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Space Booking List</p>
+                  <p>
+                    Booking List
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/spaceBookingList') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Space Booking List</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/admin/space_approval_booking_list') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Approval Booking List
+                      </p>
+                    </a>
+                  </li>
+                </ul>
               </li>
+
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -248,6 +323,12 @@
                 <a href="{{ url('/admin/events_list') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Events List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/eventbooking_list') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Events Booking</p>
                 </a>
               </li>
             </ul>
@@ -349,6 +430,15 @@
                 </ul>  
               </li>
             </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('/admin/globalTime') }}" class="nav-link">
+              <i class="nav-icon fas fa-clock"></i>
+              <p>
+                Global Time
+              </p>
+            </a>
           </li>
           <!-- <li class="nav-item">
             <a href="{{ url('/admin/scoutList') }}" class="nav-link">

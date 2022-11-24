@@ -138,6 +138,8 @@
    .d-non {
       display: none;
    }
+
+ 
 </style>
 @endsection
 @section('current_page_js')
@@ -145,6 +147,104 @@
    $('#check_n_pay').click(function() {
       $('#invoice_n_pay').removeClass('d-non');
 
+   });
+</script>
+
+
+
+<script>
+   $(document).ready(function() {
+   $('.minus1').click(function() {
+     var $input = $(this).parent().find('input');
+     var count = parseInt($input.val()) - 1;
+     count = count < 1 ? 1 : count;
+     $input.val(count);
+     $("").val(count);
+     $("").html(count + " ");
+     $input.change();
+     return false;
+   });
+   $('.plus1').click(function() {
+     var $input = $(this).parent().find('input');
+     $input.val(parseInt($input.val()) + 1);
+     $("").val(parseInt($("").val()) + 1);
+     var count = $("").val();
+     $("").html(count.toString() + " ");
+     $input.change();
+     return false;
+   });
+   });
+
+   $("#trip_with_us").validate({
+      debug: false,
+      rules: {
+       name: {
+           required: true,
+       },
+       email: {
+         required: true,
+         email:true,
+       },
+       phone: {
+         required: true,
+         number:true,
+       },
+       reason: {
+           required: true
+       },
+       date:{
+         required: true,
+         date : true,
+       },
+       check: {
+         required: true,
+       },
+       transport: {
+         required: true,
+       },
+       departure: {
+         required: true,
+       },
+       flex_date: {
+         required: true,
+       },
+       type: {
+         required: true,
+       },
+       location: {
+         required: true,
+       },
+       message: {
+         required: true,
+       }
+      },
+      submitHandler: function (form) {
+       var site_url = $("#baseUrl").val();
+       // alert(site_url);
+       var formData = $(form).serialize();
+
+       $.ajaxSetup({
+         headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+       });
+
+       //alert(formData);die;
+       $(form).ajaxSubmit({
+         type: 'POST',
+         url: site_url + '/submitMaketrip',
+         data: formData,
+         success: function (response) {
+           if (response.status == 'success') {
+             $("#trip_with_us")[0].reset();
+             success_noti(response.msg);
+           } else {
+             error_noti(response.msg);
+           }
+
+         }
+       });
+      }
    });
 </script>
 
@@ -232,10 +332,10 @@
                   //   window.location.reload()
                   // }, 1000);
                   // setTimeout(function() {
-                  //    window.location.href = site_url + "/admin/hotelList"
+                  //    window.location.href = site_url + "/user/tourBookingList"
                   // }, 1000);
                   setTimeout(function() {
-                     window.location.reload()
+                      window.location.href = site_url + "/user/tourBookingList"
                   }, 2500);
                } else {
                   error_noti(response.msg);
@@ -451,6 +551,262 @@
          }
       }));
    });
+
+//    var basePrice = +($('#price').html()).replace(/[^0-9\.]+/g,"");
+// $(".Packages").on('click',function() {
+//   alert('Hii');die;
+//   newPrice = basePrice;
+//   $(".readers option:selected").each(function() {
+//     newPrice += +$(this).attr('data-price')
+//   });
+//   $("#price").html("$" + newPrice.toFixed(2));
+// });
+
+
+$(function(){
+    
+    $("input[type='radio']").click(function(){
+      
+       var package = $(this).attr('data-price');
+
+       $("#packagenum").html(package);  
+       $("#packagenumchild").html(package);
+
+       var expense = $("#expense").val(); 
+       var discount = $("#discount").val(); 
+       var adultval = $("#adult").val();
+       var childnum = $("#child").val();
+
+       var packages = package*adultval;
+
+        var childoff = $("#childoff").val(); 
+        var childtour_price = (package*childoff)/100;
+        var packagec1 = package*childnum;
+        var packagecd1 = childtour_price*childnum;
+
+        var packagecdfn = packagec1-packagecd1;
+
+       var location_price = $("#location_price").val(); 
+
+       var totalamount = parseInt(packages)+parseFloat(packagecdfn)+parseInt(location_price)+parseInt(expense)-parseInt(discount);
+       
+       $("#tourpriceid").html(packages); 
+
+       $("#ctour_price").val(package);
+
+       $("#tourchildprice").text(packagec1);
+
+       $("#tourchildoffprice").text(packagecd1);
+
+       $("#totalpaid").text(totalamount); 
+
+    });  
+
+ 
+  $("#myDropDown").change(function (event) {
+
+      var locationdd = $(this).val();
+      var locationprice = $("#myDropDown").find('option:selected').attr("data-lprice"); 
+
+      $("#piclocs").html(locationdd);
+      $("#locationtext").html(locationprice);
+      $("#picklocation").show();
+
+      $("#location_price").val(locationprice);
+
+      var ctour_price = $("#ctour_price").val();
+      var expense = $("#expense").val();
+      var discount = $("#discount").val();
+      var adultval = $("#adult").val();
+
+      var packages = ctour_price*adultval;
+
+      var childprice = $("#tourchildoffprice").text();
+      var tourchildbase = $("#tourchildprice").text(); 
+      if(childprice == 0){
+        var packagecdfn = 0;
+      }else{
+        var packagecdfn = tourchildbase-childprice;
+      }
+      
+
+      var totalamount = parseInt(packages)+parseInt(locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+
+
+
+      $("#tourpriceid").html(packages);  
+
+      $("#totalpaid").text(totalamount);
+
+  });
+
+
+   $("#adultplus").click(function(){ 
+      
+    var adultval = $("#adult").val();
+
+    var adultnum = parseInt(adultval)+1; 
+
+    $("#adult").val(adultnum);
+
+    $("#adultnum").text(adultnum);
+
+       var expense = $("#expense").val(); 
+       var discount = $("#discount").val();
+
+       var ctour_price = $("#ctour_price").val();
+
+       var packages = ctour_price*adultnum;
+
+       var location_price = $("#location_price").val(); 
+
+       var tourchildbase = $("#tourchildprice").text();
+       var childprice = $("#tourchildoffprice").text();
+
+       var packagecdfn = tourchildbase-childprice;
+
+       var totalamount = parseInt(packages)+parseInt(location_price)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+       
+       $("#tourpriceid").html(packages); 
+
+       $("#totalpaid").text(totalamount);
+
+    }); 
+
+    $("#adultminus").click(function(){ 
+      
+    var adultval = $("#adult").val();
+
+    if(adultval>1){
+
+    var adultnum = parseInt(adultval)-1;
+
+    $("#adult").val(adultnum);
+
+    $("#adultnum").text(adultnum);
+
+       var expense = $("#expense").val(); 
+       var discount = $("#discount").val();
+
+       var ctour_price = $("#ctour_price").val();
+
+       var packages = ctour_price*adultnum;
+
+       var location_price = $("#location_price").val(); 
+
+       var tourchildbase = $("#tourchildprice").text();
+       var childprice = $("#tourchildoffprice").text();
+
+       var packagecdfn = tourchildbase-childprice;
+
+       var totalamount = parseInt(packages)+parseInt(location_price)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+       
+       $("#tourpriceid").html(packages); 
+
+       $("#totalpaid").text(totalamount);
+
+    }
+
+    });  
+
+   /******Child plus minus****/
+   
+    $("#childplus").click(function(){ 
+      
+    var childval = $("#child").val();
+
+    var childnum = parseInt(childval)+1;
+
+    $("#child").val(childnum); 
+
+    var childoff = $("#childoff").val(); 
+
+    $("#childoffpr").text(childoff);
+
+    $("#childpack").show();
+
+   /************************/
+
+     $("#childnum").text(childnum);
+
+     var expense = $("#expense").val(); 
+     var discount = $("#discount").val();
+     var ctour_price = $("#ctour_price").val();
+
+     var childtour_price = (ctour_price*childoff)/100;
+
+     var packages = ctour_price*childnum;
+     var packages1 = childtour_price*childnum;
+
+      var packagecdfn = packages-packages1;
+
+     var location_price = $("#location_price").val(); 
+
+     var adultprice =  $("#tourpriceid").text(); 
+
+     var totalamount = parseFloat(packagecdfn)+parseFloat(location_price)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+
+     $("#packagenumchild").html(ctour_price);  
+     
+     $("#tourchildprice").html(packages); 
+     $("#tourchildoffprice").html(packages1); 
+
+     $("#totalpaid").text(totalamount);
+
+    }); 
+
+    $("#childminus").click(function(){ 
+      
+    var childval = $("#child").val();
+
+    if(childval>=1){
+
+    var childnum = parseInt(childval)-1;
+
+    $("#child").val(childnum);
+
+    if(childnum==0){
+
+    $("#childpack").hide();
+    }
+
+    var childoff = $("#childoff").val(); 
+
+    $("#childoffpr").text(childoff);
+
+
+   /**************************/
+   
+     $("#childnum").text(childnum);
+
+     var expense = $("#expense").val(); 
+     var discount = $("#discount").val();
+     var ctour_price = $("#ctour_price").val();
+     var childtour_price = (ctour_price*childoff)/100;
+     var packages = ctour_price*childnum;
+     var packages1 = childtour_price*childnum;
+
+     var packagecdfn = packages-packages1;
+
+     var location_price = $("#location_price").val(); 
+
+     var adultprice =  $("#tourpriceid").text(); 
+
+     var totalamount = parseFloat(packagecdfn)+parseFloat(location_price)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+     
+     $("#tourchildprice").html(packages);
+     $("#tourchildoffprice").html(packages1);  
+
+     $("#totalpaid").text(totalamount);
+
+  }
+
+
+    });  
+   
+        
+});
+
 </script>
 @endsection
 @section('content')
@@ -462,6 +818,9 @@
    <section style="padding-top: 80px; background-color: #f6f6f6;">
       <div class="container">
          <div class="row">
+            <div class="col-sm-12">
+               <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
+            </div>
             <div class="col-md-12 rew-heding">
                <h3>Review your Booking</h3>
             </div>
@@ -487,11 +846,35 @@
                      @else
                         @php $discount = 0 @endphp
                      @endif
+
+                     @if($tour_details->payment_mode == 2 and $tour_details->booking_option != 3)
+                        @php $total_amount = $tour_details->tour_price + $expense - $discount @endphp
+                        @php $online_payable_amount = round((($total_amount * $tour_details->online_payment_percentage)/100)) @endphp
+                        @php $at_desk_payable_amount = $total_amount - $online_payable_amount @endphp
+                     @else
+                        @php $total_amount = $tour_details->tour_price + $expense - $discount @endphp
+                        @php $online_payable_amount = $total_amount; @endphp
+                        @php $at_desk_payable_amount = 0; @endphp
+                     @endif
+
                      <input type="hidden" name="user_id" value="{{Auth::check()}}">
                      <input type="hidden" name="tour_id" value="{{$tour_details->id}}">
                      <input type="hidden" name="tour_price" value="{{$tour_details->tour_price}}">
                      <input type="hidden" name="tour_start_date" value="{!! date('Y-m-d', strtotime($tour_details->tour_start_date)) !!}">
                      <input type="hidden" name="tour_end_date" value="{!! date('Y-m-d', strtotime($tour_details->tour_end_date)) !!}">
+
+                     @if($tour_details->payment_mode == 2 and $tour_details->booking_option == 1)
+                        <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}">
+                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
+                        <input type="hidden" name="total_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="partial_payment_status" value="1">
+                     @else
+                        <input type="hidden" name="online_payable_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
+                        <input type="hidden" name="total_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="partial_payment_status" value="0">
+                     @endif
+
                      <div class="infobox">
                         <div class="revie-box">
                            <div class="page-detail">
@@ -537,6 +920,36 @@
                               <ul>
                                  <li>{{$tour_details->tour_days}} days</li>
                               </ul>
+                           </div>
+                           <div class="pakeges-bar"> 
+                              <div class="form-group">
+                                 <h5 class="mt-3">Packages </h5>
+                                <div class="gold-stand">
+                                  <label class="pakagees-type">Standard
+                                    <input type="radio" checked="checked" name="radio" data-price="{{$tour_details->tour_price}}" value="standard" class="Packages">
+                                    <span class="checkmark"></span>
+                                  </label>
+
+                                  <?php if($tour_details->tour_gold_price!=0){ ?>
+
+                                  <label class="pakagees-type">Gold
+                                    <input type="radio" name="radio" data-price="{{$tour_details->tour_gold_price}}" value="gold" class="Packages">
+                                    <span class="checkmark"></span>
+                                  </label>
+
+                                 <?php } ?>
+
+                                 <?php if($tour_details->tour_deluxe_price!=0){ ?>
+
+                                  <label class="pakagees-type">Deluxe
+                                    <input type="radio" name="radio" data-price="{{$tour_details->tour_deluxe_price}}" value="deluxe" class="Packages">
+                                    <span class="checkmark"></span>
+                                  </label>
+
+                                  <?php } ?>
+
+                                </div>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -588,6 +1001,11 @@
                                                    <label for="mobile">Upload Back Image of Document *</label>
                                                    <input type="file" class="form-control" id="back_document_img" name="back_document_img" required="">
                                                 </div>
+                                                <div class="form-group col-md-6">
+                                                   <label for="terms"> <input type="checkbox" name="terms" value="1">
+                                                      Remember this for future use
+                                                   </label>
+                                                </div>
                                              </div>
                                           </div>
                                        </fieldset>
@@ -606,19 +1024,15 @@
                                     <div class="bank-bar">
                                        <ul class="nav nav-tabs" role="tablist">
                                           <li class="nav-item">
-                                             <a class="nav-link active" data-toggle="tab" href="#home">Pay with paypal</a>
+                                             <a class="nav-link active" data-toggle="tab" href="#home">Pay with Alfalah</a>
                                           </li>
                                        </ul>
                                        <!-- Tab panes -->
                                        <div class="tab-content">
                                           <div id="home" class="container tab-pane active p-0">
                                              <br>
-                                             <img src="{{url('/resources/assets/img/banke.png')}}" class="mb-3 " style="">
-                                          </div>
-                                          <div id="menu1" class="tab-pane fade bankinfo">
-                                             <h3 class="mt-3">Important information about your booking</h3>
-                                             <p>Important: You will be redirected to your bank's website to securely complete your payment. You will have 30 minutes to pay for your booking.</p>
-                                             <!-- <a href="#" class="paynow-btn">Continue To Your Bank </a> -->
+                                             <!-- <img src="{{url('/resources/assets/img/banke.png')}}" class="mb-3 " style=""> -->
+                                             <img src="{{ url('/') }}/resources/dist/img/credit/alfalha.jpg" class="mb-3 " alt="Alfa" style="height: 35 !important; width: 40px !important;">
                                           </div>
                                        </div>
                                     </div>
@@ -701,19 +1115,15 @@
                                              <div class="bank-bar">
                                                 <ul class="nav nav-tabs" role="tablist">
                                                    <li class="nav-item">
-                                                      <a class="nav-link active" data-toggle="tab" href="#home">Pay with paypal</a>
+                                                      <a class="nav-link active" data-toggle="tab" href="#home">Pay with Alfalah</a>
                                                    </li>
                                                 </ul>
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                    <div id="home" class="container tab-pane active p-0">
                                                       <br>
-                                                      <img src="{{url('/resources/assets/img/banke.png')}}" class="mb-3 " style="">
-                                                   </div>
-                                                   <div id="menu1" class="tab-pane fade bankinfo">
-                                                      <h3 class="mt-3">Important information about your booking</h3>
-                                                      <p>Important: You will be redirected to your bank's website to securely complete your payment. You will have 30 minutes to pay for your booking.</p>
-                                                      <!-- <a href="#" class="paynow-btn">Continue To Your Bank </a> -->
+                                                      <!-- <img src="{{url('/resources/assets/img/banke.png')}}" class="mb-3 " style=""> -->
+                                                      <img src="{{ url('/') }}/resources/dist/img/credit/alfalha.jpg" class="mb-3 " alt="Alfa" style="height: 35 !important; width: 40px !important;">
                                                    </div>
                                                 </div>
                                              </div>
@@ -864,6 +1274,16 @@
                                           <td>PKR -{{$discount}}</td>
                                        </tr>
                                        @endif
+                                       @if($tour_details->payment_mode == 2)
+                                          <tr>
+                                             <td><b>Online Payable Amount </b>:</td>
+                                             <td><b>PKR {{$online_payable_amount}}</b></td>
+                                          </tr>
+                                          <tr>
+                                             <td>At Desk Payable Amount:</td>
+                                             <td>PKR {{$at_desk_payable_amount}}</td>
+                                          </tr>
+                                       @endif
                                        <tr>
                                           <td>Total:</td>
                                           <td>PKR {{$details->tour_price + $expense - $discount}}</td>
@@ -882,6 +1302,83 @@
                   <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
                </div>
             </div>
+
+            @if(!empty($details))
+            <div class="col-md-3 pl-0">
+              <div class="container" id="invoice_n_pay">
+                 <div class="row" style="margin-left: -15px;  margin-right: -15px;">
+                    <div class="col-md-12 p-0 mt-3">
+                       <div class="bankpay">
+                          <h5 class="mt-2">
+                             <i class='bx bxs-check-circle'></i>Invoice - {{$details->invoice_num ?? ''}}
+                          </h5>
+                          <table id="myTable">
+                             <tr class="header">
+                                <th style="width:40%;">Name</th>
+                                <th style="width:60%;">Status</th>
+                             </tr>
+                             <tr>
+                                <td style="font-weight:600;">Tour Name:</td>
+                                <td>{{$details->tour_title ?? ''}}</td>
+                             </tr>
+                             <!-- <tr>
+                                <td style="font-weight:600;">Period:</td>
+                                <td>{{$details->tour_start_date ?? ''}} to {{$details->tour_end_date ?? ''}}</td>
+                             </tr> -->
+                             <tr>
+                                <td style="font-weight:600;">Price:</td>
+                                <td>PKR {{$details->tour_price ?? ''}}</td>
+                             </tr>
+                             <tr>
+                                <td style="font-weight:600;">Tour Days:</td>
+                                <td>{{$details->tour_days ?? ''}}</td>
+                             </tr>
+                             <!-- <tr>
+                                <td style="font-weight:600;">Email:</td>
+                                <td>{{$details->user_email ?? ''}}</td>
+                             </tr>
+                             <tr>
+                                <td style="font-weight:600;">Phone:</td>
+                                <td>{{$details->user_contact_num ?? ''}}</td>
+                             </tr> -->
+                             <tr>
+                                <td>Cost:</td>
+                                <td>PKR {{$details->tour_price ?? ''}}</td>
+                             </tr>
+                             @if($expense!=0)
+                             <tr>
+                                <td>Extra Charges:</td>
+                                <td>PKR {{$expense}}</td>
+                             </tr>
+                             @endif
+                             @if($discount!=0)
+                             <tr>
+                                <td>Discount:</td>
+                                <td>PKR -{{$discount}}</td>
+                             </tr>
+                             @endif
+                             @if($tour_details->payment_mode == 2)
+                                <tr>
+                                   <td><b>Online Payable Amount </b>:</td>
+                                   <td><b>PKR {{$online_payable_amount}}</b></td>
+                                </tr>
+                                <tr>
+                                   <td>At Desk Payable Amount:</td>
+                                   <td>PKR {{$at_desk_payable_amount}}</td>
+                                </tr>
+                             @endif
+                             <tr>
+                                <td>Total:</td>
+                                <td>PKR {{$details->tour_price + $expense - $discount}}</td>
+                             </tr>
+                          </table>
+                          <!-- <input type="submit" name="paynow" class="paynow-btn" value="Create Order" style="background-color: green;"> -->
+                       </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+            @else
             <div class="col-md-3 pl-0">
                <div class="revie-box-boxi">
                   <div class="image-section">
@@ -894,34 +1391,94 @@
                      <li><b>End day:</b> {{ date('j F Y', strtotime($tour_details->tour_end_date)) }}</li>
                      <li>Duration: {{$tour_details->tour_days}} Days</li>
                   </ul>
+                  <label>Pickup Locations</label>
+                  <select name="pickup_location" class="form-control" id="myDropDown">
+                     <option value="" data-lprice="0">Select Location</option>
+                     <option value="{{$tour_details->city}}" data-lprice="0">{{$tour_details->city}}</option>
+                     @foreach($tour_pickup_locations as $locations)
+                     <option value="{{$locations->city}}" data-lprice="{{$locations->price}}">{{$locations->city}}</option>
+                     @endforeach
+                  </select>
+
+                  <div class="tour-days adult-form">
+                            
+                 <label>Adults:</label>
+                         <div class="number ault-quantiy">
+                          <p id="adultminus">-</p>
+                           <input type="text" name="adult" id="adult" value="1" />
+                          <p id="adultplus">+</p>
+                        </div>
+  
+                  </div>
+
+                    <div class="tour-days adult-form">
+                    
+                    
+                 <label>Child:</label>
+                         <div class="number ault-quantiy">
+                           <p id="childminus">-</p>
+                           <input type="text" name="child" id="child" value="0" />
+                           <p id="childplus">+</p>
+                        </div>
+  
+
+                  </div>
+                  <br>
                </div>
                <div class="revie-box-boxi">
                   <div class="price-bkp">
                      <h4>PRICE BREAK-UP</h4>
                   </div>
                   <div class="price-left">
-                     <h5> 1 x 1 Adults | Passenger<br> <small> Base Price</small></h5>
-                     <h6> PKR {{$tour_details->tour_price}} </h6>
+                     <h5> <span id="packagenum">{{$tour_details->tour_price}}</span> x <span id="adultnum">1</span> Adults | Passenger<br> <small> Base Price</small></h5>
+                     <input type="hidden" name="tourprice" id="tourprice" value="{{$tour_details->tour_price}}">
+                     <h6> PKR <span id="tourpriceid">{{$tour_details->tour_price}}</span> </h6>
                   </div>
-                  @if(!empty($details))
+
+                    <div class="price-left" id="childpack" style="display: none;">
+                     <h5> <span id="packagenumchild">1</span> x <span id="childnum">0</span> Child | Passenger<br> <small> Base Price (<span id="childoffpr">0</span>% off)</small></h5>
+                     <input type="hidden" name="childoff" id="childoff" value="{{$tour_details->tour_child_price}}">
+                     <h6> PKR <span id="tourchildprice">{{$tour_details->tour_price}}</span> <br>
+                     - PKR <span id="tourchildoffprice">0</span> </h6>
+                  </div>
+
+                  @if(!empty($details->expense_name))
                   <div class="price-left">
-                     <h5> {{$details->expense_name}}</h5>
+                     <h5> {{$details->expense_name}} Charges</h5>
                      <h6>PKR {{$details->expense_value}}</h6>
                   </div>
                   @endif
-                  @if(!empty($details))
+                  @if(!empty($details->discount))
                   <div class="price-left">
                      <h5> Discount</h5>
                      <h6>PKR -{{$details->discount}}</h6>
                   </div>
                   @endif
 
+                  @if($tour_details->payment_mode == 2 and $tour_details->booking_option == 1)
                   <div class="price-left">
-                     <h5> <b>Total Amount to be paid </b></h5>
-                     <h6><b>PKR {{$tour_details->tour_price + $expense - $discount}}</b></h6>
+                     <h5> <b>Online Payable Amount </b></h5>
+                     <h6>PKR {{$online_payable_amount}}</h6>
+                  </div>
+                  <div class="price-left">
+                     <h5> At Desk Payable Amount</h5>
+                     <h6>PKR {{$at_desk_payable_amount}}</h6>
+                  </div>
+                  @endif
+
+                  <div class="price-left" id="picklocation" style="display: none;"><h5><b><span>Pickup Locations (<span id="piclocs"></span>) :</span></b></h5><h6><b>PKR <span id="locationtext"></span></b></h6> </div>
+
+                  <div class="price-left">
+                     <h5> <b>Total Amount to be paid </b></h5> 
+                     <input type="hidden" name="location_price" id="location_price" value="0">
+                     <input type="hidden" name="ctour_price" id="ctour_price" value="{{$tour_details->tour_price}}">
+                     <input type="hidden" name="expense" id="expense" value="{{$expense}}">
+                     <input type="hidden" name="discount" id="discount" value="{{$discount}}">
+                     <h6><b>PKR <span id="totalpaid">{{$tour_details->tour_price + $expense - $discount}}</span></b></h6>
                   </div>
                </div>
             </div>
+            @endif
          </div>
       </div>
    </section>

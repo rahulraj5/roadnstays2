@@ -188,6 +188,7 @@
       var $this = $(this);
       var frmValues = $this.serialize();
 
+      //alert(frmValues);
       $('#loading-image').show();
 
       $.ajaxSetup({
@@ -505,7 +506,7 @@
                         <p><i class="bx bx-map"></i> {{$hotel['hotel_address']}},{{$hotel['hotel_city']}}</p>
 
                       </div>
-                      <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}&person={{base64_encode($person)}}" class="book-btn" target="_blank">View Room</a>
+                      <a href="{{url('/hotelDetails')}}?hotel_id={{base64_encode($hotel['hotel_id'])}}&check_in={{base64_encode($check_in)}}&check_out={{base64_encode($check_out)}}&person={{base64_encode($person)}}" class="book-btn">View Room</a>
 
                     </div>
 
@@ -756,9 +757,7 @@
       $('html, body').animate({
         scrollTop: scrollTo - 5
       }, 150);
-    });
-
-
+    }); 
 
   });
 

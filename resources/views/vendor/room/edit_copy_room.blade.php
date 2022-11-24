@@ -351,7 +351,7 @@ a.remove_bed_button {
         number: true,
       },
       room_size: {
-        required: true,
+        // required: true,
         number: true,
       },
       type_of_price: {
@@ -624,8 +624,8 @@ a.remove_bed_button {
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Taxes in % (included in the price)</label>
-                              <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes in %" value="{{$room_data->tax_percentage}}">
+                              <label>Taxes (included in the price)</label>
+                              <input type="text" class="form-control" name="tax_percentage" id="tax_percentage" placeholder="Enter Taxes" value="{{$room_data->tax_percentage}}">
                             </div>
                           </div>
 

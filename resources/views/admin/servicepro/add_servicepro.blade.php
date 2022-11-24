@@ -728,6 +728,17 @@
                   <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Enter Confirm Password">
                 </div>
               </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Verified User Status</label>
+                    <select class="form-control select2bs4" name="user_email_verified"  id="user_email_verified" style="width: 100%;">
+                      <!-- <option value="">Select Status</option> -->
+                      <option value="1">Verified</option>
+                      <option value="0" selected>Un-verified</option>
+                    </select>
+                </div>
+              </div>
               <div class="col-md-8">
                 <div class="form-group">
                   <label>Address</label>

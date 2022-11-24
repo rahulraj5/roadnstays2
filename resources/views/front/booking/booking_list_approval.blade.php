@@ -713,7 +713,7 @@
         document.location.href = site_url + "/user/bookingList-cancel";
     })
     $('.tab4').on('click', function() {
-        $(".bread-sec").css('background-color', '#ccc');
+        document.location.href = site_url + "/user/bookingList-approval";
     })
 </script>
 
@@ -828,7 +828,7 @@
             </div> -->
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab4" checked>
-            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i> Approval</label>
+            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i>Approval({{(count($room_booking_request))}})</label>
             <div class="tabs__content">
 
                 @if (!$room_booking_request->isEmpty())

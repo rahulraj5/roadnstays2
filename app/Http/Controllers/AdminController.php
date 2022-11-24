@@ -118,7 +118,7 @@ class AdminController extends Controller
                     $user_id = $user_obj->id;
                     $password = bcrypt($request->input('new_password'));
                     // echo "<pre>";print_r($request->input('new_password'));die; 
-                    $checkda = DB::update('update users set password = ? where id = 1',[$password]);
+                    $checkda = DB::update('update admins set password = ? where id = 1',[$password]);
                     if($checkda){
                         // echo "<pre>";print_r($checkda);die;
                     }else{

@@ -11,7 +11,7 @@
             <div style="background: #fff;padding: 15px;">
                <div style="padding:30px;border:1px solid #fff;background:#eafdfc;">
                   <div style="text-align:center">
-                     <h2 style="color: #fff; margin-bottom: 0;"><a href="https://votivelaravel.in/roadNstays" class="logo mr-auto"><img src="{{url('resources/assets/img/road-logo.png')}}" alt="" class="img-fluid" style="width: 80px;"></a></h2>
+                     <h2 style="color: #fff; margin-bottom: 0;"><a href="https://roadnstays.com/" class="logo mr-auto"><img src="{{url('resources/assets/img/road-logo.png')}}" alt="" class="img-fluid" style="width: 80px;"></a></h2>
                   </div>
                   <div style="border-bottom:2px solid #9acfc9;margin:15px auto 15px;padding:10px;display:block;overflow:hidden;max-width: 400px; text-align: center; color: #126c62;">
                      <h4 style="margin:0 0;">Hello {{$order_info->first_name}} {{$order_info->last_name}}</h4>

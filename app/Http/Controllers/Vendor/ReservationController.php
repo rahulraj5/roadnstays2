@@ -64,8 +64,36 @@ class ReservationController extends Controller
             // ->paginate(10);
 
         $data['completeBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('check_out', '<', date('Y-m-d'));  
-        $data['upcomingBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('check_out', '>=', date('Y-m-d')) ;  
+        $data['upcomingBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('check_out', '>=', date('Y-m-d'));  
         $data['cancelBookingList'] = $data['bookingList']->where('booking_status', '==' ,'canceled');
+
+        $room_booking_request = DB::table('room_booking_request')
+                    ->join('users', 'room_booking_request.user_id', '=', 'users.id')
+                    ->join('hotels', 'room_booking_request.hotel_id', '=', 'hotels.hotel_id')
+                    ->join('room_list', 'room_booking_request.room_id', '=', 'room_list.id')
+                    ->join('country', 'hotels.hotel_country', '=', 'country.id')
+                    ->join('room_type_categories', 'room_list.room_types_id', '=', 'room_type_categories.id')
+                    ->select(
+                        'room_booking_request.*',
+                        'hotels.hotel_name',
+                        'hotels.hotel_user_id',
+                        'hotels.is_admin as hotel_added_is_admin',
+                        'hotels.property_contact_name',
+                        'hotels.property_contact_num',
+                        'hotels.hotel_address',
+                        'hotels.hotel_city',
+                        'hotels.stay_price as hotelroom_min_stay_price',
+                        'hotels.checkin_time',
+                        'hotels.checkout_time',
+                        'country.nicename as hotel_country',
+                        'room_type_categories.title as room_type_name',
+                        'room_list.name as room_name',
+                    )
+                    ->where('room_booking_request.user_id', $u_id)
+                    ->orderby('room_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['room_booking_request'] = $room_booking_request;
         // echo "<pre>";print_r($data['upcomingBookingList']);die;
         return view('vendor/myreservation/booking_list')->with($data);
     }
@@ -208,6 +236,27 @@ class ReservationController extends Controller
         $data['upcomingBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('check_out_date', '>=', date('Y-m-d')) ;  
         $data['cancelBookingList'] = $data['bookingList']->where('booking_status', '==' ,'canceled');   
 
+        $space_booking_request = DB::table('space_booking_request')
+                    ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+                    ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+                    ->join('country', 'space.space_country', '=', 'country.id')
+                    ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                    ->select(
+                        'space_booking_request.*',
+                        'space.space_name',
+                        'space.space_user_id',
+                        'space.price_per_night',
+                        'space.booking_option',
+                        'space.space_address',
+                        'space.city',
+                        'space_categories.category_name',
+                        'country.nicename as space_country',
+                    )
+                    ->where('space_booking_request.user_id', $u_id)
+                    ->orderby('space_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['space_booking_request'] = $space_booking_request;
         // echo "<pre>";print_r($data['completeBookingList']);die;
         return view('vendor/myreservation/space_booking_list')->with($data);
     }
@@ -336,6 +385,28 @@ class ReservationController extends Controller
         $data['completeBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('tour_end_date', '<', date('Y-m-d'));  
         $data['upcomingBookingList'] = $data['bookingList']->where('booking_status', '!=' ,'canceled')->where('tour_end_date', '>=', date('Y-m-d')) ;  
         $data['cancelBookingList'] = $data['bookingList']->where('booking_status', '==' ,'canceled');   
+
+        $tour_booking_request = DB::table('tour_booking_request')
+                    ->join('users', 'tour_booking_request.user_id', '=', 'users.id')
+                    ->join('tour_list', 'tour_booking_request.tour_id', '=', 'tour_list.id')
+                    ->join('country', 'tour_list.country_id', '=', 'country.id')
+                    ->select(
+                        'tour_booking_request.*',
+                        'tour_list.tour_title',
+                        'tour_list.vendor_id',
+                        'tour_list.tour_code',
+                        'tour_list.tour_type',
+                        'tour_list.address',
+                        'tour_list.city',
+                        'tour_list.tour_start_date',
+                        'tour_list.tour_end_date',
+                        'country.nicename as tour_country',
+                    )
+                    ->where('tour_booking_request.user_id', $u_id)
+                    ->orderby('tour_booking_request.id', 'DESC')
+                    ->get();
+
+        $data['tour_booking_request'] = $tour_booking_request;
         return view('vendor/myreservation/tour_booking_list')->with($data);
     }
     

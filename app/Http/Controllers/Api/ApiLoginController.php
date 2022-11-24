@@ -133,6 +133,7 @@ class ApiLoginController extends APIBaseController
                 $user_referral_id = "";
             }
 
+            
 
 
             $obj = new User;
@@ -260,7 +261,7 @@ class ApiLoginController extends APIBaseController
                     //     $message->setBody($inData['body'], 'text/html');
 
                     // });
-                    $data = array('user_id' => $user_id, 'name' => "User", 'first_name' => $first_name, 'last_name' => $last_name);
+                    $data = array('user_id' => $user_id, 'name' => "User", 'first_name' => $first_name, 'last_name' => $last_name,'full_url'=>url()->current());
                     Mail::send('emails.signup_template', $data, function ($message) use ($inData) {
                         // Mail::send('emails.signup_email_template', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'], 'roadNstays');
@@ -299,10 +300,25 @@ class ApiLoginController extends APIBaseController
 
     public function changeStatus(Request $request)
     {
+        //$current_uri = request()->segments();
+       
         $user_id = $request->user_id;
+        $full_url = $request->full_url;
+        $check_out = $request->check_out;
+        $hotel_id = $request->hotel_id;
+        $person = $request->person;
+        $room_id = $request->room_id;
         $verify_status = DB::update('update users set is_verify_email = 1 where id = ?', [$user_id]);
 
-        return redirect('/');
+        if ((!empty($check_out)) && (!(empty($hotel_id))) && (!(empty($person))) && (!(empty($room_id) ))) {
+           $base_url_custom = $full_url.'&check_out='.$check_out.'&hotel_id='.$hotel_id.'&person='.$person.'&room_id='.$room_id;
+        }else{
+            $base_url_custom = $full_url;
+        }
+        
+
+        //print_r($base_url_custom);die;
+        return redirect($base_url_custom);
     }
 
 

@@ -3776,3 +3776,4 @@ Stack trace:
 [19-Sep-2022 11:34:58 UTC] PHP Notice:  date_default_timezone_set(): Timezone ID 'UTC+05:30' is invalid in /home/roadnstay/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php on line 49
 [19-Sep-2022 11:34:58 UTC] PHP Notice:  date_default_timezone_set(): Timezone ID 'UTC+05:30' is invalid in /home/roadnstay/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php on line 49
 [19-Sep-2022 11:34:58 UTC] PHP Notice:  date_default_timezone_set(): Timezone ID 'UTC+05:30' is invalid in /home/roadnstay/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php on line 49
+[17-Oct-2022 10:20:23 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\API\WsController::create_space_booking() in /home/roadnstay/public_html/app/Http/Controllers/Api/WsController.php on line 1886

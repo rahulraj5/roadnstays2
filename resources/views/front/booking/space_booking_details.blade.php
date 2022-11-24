@@ -582,8 +582,8 @@
                     if (response.status == 'success') {
                         success_noti(response.msg);
                         setTimeout(function() {
-                            window.location.reload()
-                            window.location.href = site_url + "/user/spaceBookingList-cancel";
+                            // window.location.reload()
+                            window.location.href = site_url + "/user/spaceBookingList";
                         }, 1000);
                     } else {
                         error_noti(response.msg);
@@ -690,6 +690,16 @@
                             <li>PKR {{ $bookingDetails->city_fee }}</li>
                         </ul>
                         @endif
+                        @if($bookingDetails->partial_payment_status == 1)
+                        <ul>
+                            <li class="text">Online Paid</li>
+                            <li>PKR {{ $bookingDetails->online_paid_amount }}</li>
+                        </ul>
+                        <ul>
+                            <li class="text">Pay at Desk</li>
+                            <li>PKR {{ $bookingDetails->remaining_amount_to_pay }}</li>
+                        </ul>
+                        @endif
                     </div>
 
                     <div class="box-2">
@@ -703,7 +713,18 @@
                         </ul>
                         <ul>
                             <li class="text">Payment Type</li>
-                            <li>{{ $bookingDetails->payment_type }}</li>
+                            <li>
+                                @if($bookingDetails->payment_type == 1)
+                                {{ 'Alfa Wallet' }}
+                                @elseif($bookingDetails->payment_type == 2)
+                                {{ 'Alfalah Bank Account' }}
+                                @elseif($bookingDetails->payment_type == 3)
+                                {{ 'Credit/Debit Card' }}
+                                @elseif($bookingDetails->payment_type == 4)
+                                {{ 'Other Bank Accounts' }}
+                                @else
+                                {{ 'paypal' }}  
+                                @endif</li>
                         </ul>
                         @if(($bookingDetails->check_in_date) > date('Y-m-d'))
                             <ul>
@@ -735,7 +756,7 @@
 
             <div class="user-det user-det-3">
                 <h4>Contact Information</h4>
-                <p>Hotel Staff or our service experts might connect with you on below contact details.</p>
+                <p>Space Staff or our service experts might connect with you on below contact details.</p>
                 <ul>
                     <li>
                         <i class='bx bxs-user'></i>
@@ -776,58 +797,89 @@
                     <p>Up to 24 hours before checkin, changes can be made with a {{$bookingDetails->min_hrs_percentage}}% fee and up to 48 hours before checkin, changes can be made with a {{$bookingDetails->max_hrs_percentage}}% fee.</p>
                     @endif
                     @if($bookingDetails->payment_mode == 1)
-                    <ul>
-                        <li>{{ $bookingDetails->space_name }}</li>
-                        <li>
-                            @if(!empty($bookingDetails->min_hrs))
-                                @if($remaining_hours < $bookingDetails->min_hrs)
-                                    {{ $deduction_percentage = $bookingDetails->min_hrs_percentage}}% fee   
-                                @elseif($remaining_hours > $bookingDetails->min_hrs && $remaining_hours < $bookingDetails->max_hrs)
-                                    {{ $deduction_percentage = $bookingDetails->max_hrs_percentage}}% fee   
-                                @elseif($remaining_hours > $bookingDetails->max_hrs)    
-                                    {{ $deduction_percentage = 'Free'}} 
+                        <ul>
+                            <li>{{ $bookingDetails->space_name }}</li>
+                            <li>
+                                @if(!empty($bookingDetails->min_hrs))
+                                    @if($remaining_hours < $bookingDetails->min_hrs)
+                                        {{ $deduction_percentage = $bookingDetails->min_hrs_percentage}}% fee   
+                                    @elseif($remaining_hours > $bookingDetails->min_hrs && $remaining_hours < $bookingDetails->max_hrs)
+                                        {{ $deduction_percentage = $bookingDetails->max_hrs_percentage}}% fee   
+                                    @elseif($remaining_hours > $bookingDetails->max_hrs)    
+                                        {{ $deduction_percentage = 'Free'}} 
+                                    @endif
+                                @else
+                                    @php $deduction_percentage = 'Free' @endphp  
                                 @endif
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>Total Cost</li>
+                            <li>PKR {{ $bookingDetails->total_amount }}</li>
+                        </ul>
+                        <ul>
+                            <li>Cancellation fee</li>
+                            @if($deduction_percentage == 'Free')
+                            <li>Free</li>
+                            @else
+                            <li>PKR {{ $deduction_amount = $bookingDetails->total_days*(($bookingDetails->price_per_night * $deduction_percentage)/100) }}</li>
                             @endif
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>Total Cost</li>
-                        <li>PKR {{ $bookingDetails->total_amount }}</li>
-                    </ul>
-                    <ul>
-                        <li>Cancellation fee</li>
-                        @if($deduction_percentage == 'Free')
-                        <li>Free</li>
-                        @else
-                        <li>PKR {{ $deduction_amount = $bookingDetails->total_days*(($bookingDetails->price_per_night * $deduction_percentage)/100) }}</li>
-                        @endif
-                    </ul>
-                    <ul>
-                        <li><b>Refund amount</b></li>
-                        @if($deduction_percentage == 'Free')
-                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
-                        @else
-                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount - $deduction_amount }}</b></li>
-                        @endif
-                    </ul>
+                        </ul>
+                        <ul>
+                            <li><b>Refund amount</b></li>
+                            @if($deduction_percentage == 'Free')
+                            <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                            @else
+                            <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount - $deduction_amount }}</b></li>
+                            @endif
+                        </ul>
                     @elseif($bookingDetails->payment_mode == 2)
-                    <ul>
-                        <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
-                        <li>Partial Payment</li>
-                    </ul>
-                    <ul>
-                        <li><b>Refund amount</b></li>
-                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
-                    </ul>
+                        @if(!empty($bookingDetails->min_hrs))
+                            @if($remaining_hours < $bookingDetails->min_hrs)
+                                @php $deduction_percentage = $bookingDetails->min_hrs_percentage @endphp  
+                            @elseif($remaining_hours > $bookingDetails->min_hrs && $remaining_hours < $bookingDetails->max_hrs)
+                                @php $deduction_percentage = $bookingDetails->max_hrs_percentage @endphp   
+                            @elseif($remaining_hours > $bookingDetails->max_hrs)    
+                                @php $deduction_percentage = 'Free' @endphp 
+                            @endif
+                        @else
+                            @php $deduction_percentage = 'Free' @endphp  
+                        @endif
+
+                         <!-- {{$bookingDetails->total_days}} -->
+                         <!-- {{$bookingDetails->price_per_night}} -->
+                         <!-- {{$deduction_percentage}} -->
+
+                        <ul>
+                            <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
+                            <li>{{$deduction_percentage}}%</li>
+                        </ul>
+                        <ul>
+                            <li><b>Refund amount</b></li>
+                            @if($deduction_percentage != 'Free')
+                                @php $deduction_amount = $bookingDetails->total_days*(($bookingDetails->price_per_night * $deduction_percentage)/100) @endphp
+                                @if($bookingDetails->partial_payment_status == 1)
+                                    @if($bookingDetails->online_paid_amount > $deduction_amount)
+                                        <li><b>PKR {{ $refund_amount = $bookingDetails->online_paid_amount - $deduction_amount }}</b></li>
+                                    @else
+                                        <li><b>PKR {{ $refund_amount = 0 }}</b></li>
+                                    @endif
+                                @else
+                                    <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                                @endif
+                            @else
+                                <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                            @endif    
+                        </ul>
                     @else($bookingDetails->payment_mode == 3)
-                    <ul>
-                        <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
-                        <li>Free</li>
-                    </ul>
-                    <ul>
-                        <li><b>Refund amount</b></li>
-                        <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
-                    </ul>
+                        <ul>
+                            <li>{{ $bookingDetails->total_days }} x {{ $bookingDetails->space_name }}</li>
+                            <li>Free</li>
+                        </ul>
+                        <!-- <ul>
+                            <li><b>Refund amount</b></li>
+                            <li><b>PKR {{ $refund_amount = $bookingDetails->total_amount }}</b></li>
+                        </ul> -->
                     @endif
                 </div>
                 <div class="cancelmiddle">

@@ -1376,7 +1376,7 @@ class WsController extends APIBaseController
 
        $proArray = array();
 
-       while(strlen($NVPString)){
+        while(strlen($NVPString)){
             // key
             $keypos= strpos($NVPString,'=');
             $keyval = substr($NVPString,0,$keypos);
@@ -1595,6 +1595,1166 @@ class WsController extends APIBaseController
         return $response; 
     }
     
+
+    // public function create_booking_room(Request $request)
+    // {
+        
+    //     $validator = Validator::make($request->all(), [
+
+    //         'user_id' => 'required',
+    //         'hotel_id' => 'required',
+    //         'room_id' => 'required',
+    //         'check_in' => 'required',
+    //         'check_out' => 'required',
+    //         'total_days' =>  'required',
+    //         'total_room' =>   'required',
+    //         'total_member' => 'required',
+    //         'total_amount' => 'required',
+    //         'cleaning_fee' => 'required',
+    //         'city_fee' => 'required',
+    //         'tax_percentage' => 'required',
+    //         'booking_status' => 'required',
+    //         'payment_status' => 'required',
+    //         'payment_type' => 'required',
+    //     ] );
+
+    //     if ($validator->fails()) {
+    //         return $this->sendError($validator->messages()->first(), array(), 200);
+    //     } else {
+    //         $hotelData = DB::table('hotels')->where('hotel_id', $request->hotel_id)->where('hotel_status', 1)->first();
+    //         $userData = DB::table('guestinfo')->where('payment_id', $paymentId)->where('status', 1)->first();
+    //         // echo "<pre>"; print_r($userData);die;
+    //         $vendor_id = $hotelData->hotel_user_id;
+    //         $check_guest_user = 0;
+    //         if (!empty($bookingtemp)) {
+
+    //             $uemail = $userData->email;
+    //             $ufirst_name = $userData->first_name;
+    //             $ulast_name = $userData->last_name;
+    //             $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+    //             $uemail = $userData->email;
+    //             $password = "roadnstays@123";
+    //             $password = bcrypt($password);
+    //             //curl_close($ch);
+    //             if (empty($user_id)) {
+
+    //                 $checkuser = DB::table('users')->where('email', $uemail)->first();
+                    
+    //                 if (!empty($checkuser)) {
+    //                     $user_id = $checkuser->id;
+    //                     $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+    //                 } else {
+    //                     $check_guest_user = 1;
+    //                     DB::table('users')->insert(
+    //                         [
+    //                             'first_name' =>  $ufirst_name,
+    //                             'last_name' =>  $ulast_name,
+    //                             'email' =>  $uemail,
+    //                             'user_type' => 'normal_user',
+    //                             'contact_number' =>  $uphone,
+    //                             'document_type' =>  $userData->document_type,
+    //                             'document_number' =>  $userData->document_number,
+    //                             'front_document_img' =>  $userData->front_document_img,
+    //                             'back_document_img' =>  $userData->back_document_img,
+    //                             'password' =>  $password,
+    //                             'role_id' =>  2,
+    //                             'is_verify_email' => 0,
+    //                             'register_by' =>  'web',
+    //                             'status' => 1,
+    //                             'updated_at' => date('Y-m-d H:i:s'),
+    //                             'created_at' =>  date('Y-m-d H:i:s')
+    //                         ]
+    //                     );
+
+    //                     $user_id = DB::getpdo()->lastInsertId();
+    //                 }
+    //             }
+    //         }
+    //         $checkorder = DB::table('booking')->where('payment_token', '=', $result->TransactionId)->first();
+    //         $data['payment_status'] = $result->TransactionStatus;
+    //         if($result->TransactionStatus=="Paid")
+    //         {
+    //             $booking_status = "confirmed";
+    //         }else{
+    //             $booking_status = "pending";
+    //         }
+            
+    //         if (empty($checkorder)) {
+
+    //             DB::table('booking')->insert(
+    //                 [
+    //                     'user_id' =>  $request->user_id,
+    //                     'hotel_id' => $request->hotel_id,
+    //                     'room_id' =>  $request->room_id,
+    //                     'check_in' =>  $request->check_in,
+    //                     'check_out' =>  $request->check_out,
+    //                     'total_days' =>  $request->total_days,
+    //                     'total_room' =>   $request->total_room,
+    //                     'total_member' => $request->total_member,
+    //                     'total_amount' => $request->total_amount,
+    //                     'cleaning_fee' => $request->cleaning_fee,
+    //                     'city_fee' => $request->city_fee,
+    //                     'tax_percentage' => $request->tax_percentage,
+    //                     'booking_status' => 'confirmed',
+    //                     'payment_status' => 'COD',
+    //                     'payment_type' => 'COD',
+    //                     'created_at' =>  date('Y-m-d H:i:s')
+    //                 ]
+    //             );
+
+    //             $booking_id = DB::getpdo()->lastInsertId();
+
+    //             DB::table('payment_transaction')->insert(
+    //                 [
+    //                     'booking_id' => $booking_id,
+    //                     'user_id' =>  $request->user_id,
+    //                     'vendor_id' =>  $vendor_id,
+    //                     'txn_id' => '',
+    //                     'txn_amount' =>  $request->total_amount,
+    //                     'payment_method' => 'COD',
+    //                     'booking_type' => 'Room',
+    //                     'txn_status' =>  'COD',
+    //                     'txn_date' => date('Y-m-d H:i:s'),
+    //                     'created_at' =>  date('Y-m-d H:i:s')
+    //                 ]
+    //             );
+
+    //             $check = true;
+
+    //             if ($check) {
+
+    //                 $users = User::where('id', '=', $user_id)->first();
+    //                 $data['user_info'] = $users;
+    //                 $data['booking_id'] = $booking_id;
+    //                 $data['url'] = url('/');
+    //                 $data['order_info'] =  DB::table('booking')
+    //                     ->join('users', 'users.id', '=', 'booking.user_id')
+    //                     ->join('hotels', 'hotels.hotel_id', '=', 'booking.hotel_id')
+    //                     ->join('room_list', 'room_list.id', '=', 'booking.room_id')
+    //                     ->where('booking.id', $booking_id)
+    //                     ->where('users.status', 1)
+    //                     ->select('booking.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address', 'users.user_city', 'users.postal_code', 'users.contact_number', 'room_list.name', 'room_list.id as room_id', 'room_list.price_per_night', 'room_list.tax_percentage', 'room_list.cleaning_fee', 'room_list.city_fee', 'room_list.bed_type', 'room_list.breakfast_availability', 'room_list.breakfast_price_inclusion', 'hotels.hotel_id', 'hotels.hotel_name', 'hotels.hotel_address', 'hotels.hotel_city', 'hotels.hotel_rating', 'hotels.hotel_gallery', 'hotels.property_alternate_num', 'hotels.property_contact_num', 'hotels.hotel_latitude', 'hotels.hotel_longitude')
+    //                     ->first();
+
+    //                 $update_payment_status = DB::table('room_booking_request')->where('user_id', $user_id)->where('room_id', $request->room_id)->where('hotel_id', $request->hotel_id)->update(['payment_status' => 1]);    
+
+    //                 $data['room_amenities'] = DB::table('room_amenities')
+    //                     ->join('H2_Amenities', 'room_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+    //                     ->where('room_amenities.room_id', '=', $request->room_id)
+    //                     ->select('H2_Amenities.*', 'room_amenities.amenity_id')
+    //                     ->limit(5)
+    //                     ->get();
+
+    //                 if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+    //                     $fromEmail = Helper::getFromEmail();
+    //                     $inData['from_email'] = $fromEmail;
+    //                     $inData['email'] = $users->email;
+    //                     Mail::send('emails.invoice', $data, function ($message) use ($inData) {
+    //                         $message->from($inData['from_email'], 'roadNstays');
+    //                         $message->to($inData['email']);
+    //                         $message->subject('roadNstyas - Room Booking Confirmation Mail');
+    //                     });
+    //                     if($check_guest_user === 1){
+    //                         $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+    //                         Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+    //                             $message->from($inData['from_email'], 'RoadNStays');
+    //                             $message->to($inData['email']);
+    //                             $message->subject('RoadNStays - User E-mail Verification');
+    //                         });
+    //                     }
+
+    //                     $data['url'] = url('/admin_login');
+
+    //                     $data['status'] = 'created to user';
+
+    //                     $data['booking_id'] = $booking_id;
+
+    //                     Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
+    //                         $message->from($inData['from_email'], 'roadNstyas');
+    //                         $message->to('votivephppushpendra@gmail.com');
+    //                         $message->subject('roadNstyas - New Booking Recieved Mail');
+    //                     });
+    //                 }
+    //                 $vendors = User::where('id', '=', $vendor_id)->first();
+    //                 if (!empty($vendors)) {
+    //                     if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+    //                         $data['first_name'] = $vendors->first_name;
+
+    //                         $data['status'] = 'Booking Room';
+
+    //                         $data['booking_id'] = $booking_id;
+
+    //                         $fromEmail = Helper::getFromEmail();
+    //                         $inData['from_email'] = $fromEmail;
+    //                         $inData['email'] = $vendors->email;
+    //                         Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
+    //                             $message->from($inData['from_email'], 'roadNstyas');
+    //                             $message->to($inData['email']);
+    //                             $message->subject('roadNstyas - Order assigned');
+    //                         });
+    //                     }
+    //                 }
+    //                 Session::get('total_amt');
+        
+            
+    //                 if($check_guest_user === 0){
+    //                 }else{
+    //                     $response['message'] = "Tour Detail";
+    //                     $response['status'] = 1;
+    //                     $response['data'] = array('booking_data'=>$data);
+    //                 }
+    //             } else {
+    //                     $response['message'] = "No data found";
+    //                     $response['status'] = 0;
+    //                     $response['data'] = array('tour_data'=>0);
+    //             }
+    //         }
+
+    //         return $response;
+    //     }
+        
+    // }
+
+    public function create_booking_room(Request $request)
+    {
+        
+        $validator = Validator::make($request->all(), [
+
+            'user_id' => 'required',
+            'hotel_id' => 'required'
+
+        ]); 
+        if ($validator->fails()) {
+            return $this->sendError($validator->messages()->first(), array(), 200);
+        }else{
+        
+            $user_id =  $request->user_id;
+
+            $hotelData = DB::table('hotels')->where('hotel_id', $request->hotel_id)->where('hotel_status', 1)->first();
+
+            if (!empty($hotelData)) {
+                $file = $request->file('front_document_img');
+                if(!empty($file)){
+                    $destinationPath = public_path("uploads");
+                    $file->move($destinationPath,$file->getClientOriginalName());
+                    $front_document_img =  $file->getClientOriginalName();
+                }else{
+                    $front_document_img = "";
+                }
+
+                $back_document_img = $request->file('back_document_img');
+                
+                
+                if(!empty($back_document_img)){
+                    $destinationPath_back_img = public_path("uploads");
+                    $back_document_img->move($destinationPath_back_img,$back_document_img->getClientOriginalName());
+                    $back_document_img = $back_document_img->getClientOriginalName();
+                }else{
+                    $back_document_img = "";
+                }
+
+                DB::table('guestinfo')->insert(
+                    [
+                        'user_id' =>  $hotelData->hotel_user_id,
+                        'first_name' =>  $request->first_name,
+                        'last_name' =>  $request->last_name,
+                        'email' =>  $request->email,
+                        'hotel_id'=>$hotelData->hotel_id,
+                        'mobile' =>  $request->mobile,
+                        'document_type' =>  $request->document_type,
+                        'document_number' =>  $request->document_number,
+                        'front_document_img' =>  $front_document_img,
+                        'back_document_img' =>  $back_document_img,
+                        'status' => 1,
+                        'updated_date' => date('Y-m-d H:i:s'),
+                        'created_date' =>  date('Y-m-d H:i:s')
+                    ]
+                );
+
+                $guest_user_id = DB::getpdo()->lastInsertId();
+
+                $userData = DB::table('guestinfo')->where('user_id', $hotelData->hotel_user_id)->where('status', 1)->first();
+
+                // echo "<pre>"; print_r($userData);die;
+                $vendor_id = $hotelData->hotel_user_id;
+                $check_guest_user = 0;
+                
+                $uemail = $userData->email;
+                $ufirst_name = $userData->first_name;
+                $ulast_name = $userData->last_name;
+                $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+                $uemail = $userData->email;
+                $password = "roadnstays@123";
+                $password = bcrypt($password);
+                //curl_close($ch);
+                if (empty($user_id)) {
+
+                    $checkuser = DB::table('users')->where('email', $uemail)->first();
+                    
+                    if (!empty($checkuser)) {
+                        $user_id = $checkuser->id;
+                        $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+                    } else {
+                        $check_guest_user = 1;
+                        DB::table('users')->insert(
+                            [
+                                'first_name' =>  $ufirst_name,
+                                'last_name' =>  $ulast_name,
+                                'email' =>  $uemail,
+                                'user_type' => 'normal_user',
+                                'contact_number' =>  $uphone,
+                                'document_type' =>  $userData->document_type,
+                                'document_number' =>  $userData->document_number,
+                                'front_document_img' =>  $userData->front_document_img,
+                                'back_document_img' =>  $userData->back_document_img,
+                                'password' =>  $password,
+                                'role_id' =>  2,
+                                'is_verify_email' => 0,
+                                'register_by' =>  'web',
+                                'status' => 1,
+                                'updated_at' => date('Y-m-d H:i:s'),
+                                'created_at' =>  date('Y-m-d H:i:s')
+                            ]
+                        );
+
+                        $user_id = DB::getpdo()->lastInsertId();
+                    }
+                }
+            
+            
+
+                DB::table('booking')->insert(
+                    [
+                        'user_id' =>  $user_id,
+                        'hotel_id' => $request->hotel_id,
+                        'room_id' =>  $request->room_id,
+                        'check_in' =>  $request->check_in,
+                        'check_out' =>  $request->check_out,
+                        'total_days' =>  $request->total_days,
+                        'total_room' =>   $request->total_room,
+                        'total_member' => $request->total_member,
+                        'total_amount' => $request->total_amount,
+                        'cleaning_fee' => $request->cleaning_fee,
+                        'city_fee' => $request->city_fee,
+                        'tax_percentage' => $request->tax_percentage,
+                        'booking_status' => 'confirmed',
+                        'payment_status' => 'COD',
+                        'payment_type' => 'COD',
+                        'created_at' =>  date('Y-m-d H:i:s')
+                    ]
+                );
+
+                $booking_id = DB::getpdo()->lastInsertId();
+
+                DB::table('payment_transaction')->insert(
+                    [
+                        'booking_id' => $booking_id,
+                        'user_id' =>  $request->user_id,
+                        'vendor_id' =>  $vendor_id,
+                        'txn_id' => '',
+                        'txn_amount' =>  $request->total_amount,
+                        'payment_method' => 'COD',
+                        'booking_type' => 'Room',
+                        'txn_status' =>  'COD',
+                        'txn_date' => date('Y-m-d H:i:s'),
+                        'created_at' =>  date('Y-m-d H:i:s')
+                    ]
+                );
+
+                $check = true;
+                
+                if ($check) {
+
+                    $users = User::where('id', '=', $user_id)->first();
+
+                    $data['user_info'] = $users;
+                    $data['booking_id'] = $booking_id;
+                    $data['url'] = url('/');
+                    $data['order_info'] =  DB::table('booking')
+                        ->join('users', 'users.id', '=', 'booking.user_id')
+                        ->join('hotels', 'hotels.hotel_id', '=', 'booking.hotel_id')
+                        ->join('room_list', 'room_list.id', '=', 'booking.room_id')
+                        ->where('booking.id', $booking_id)
+                        ->where('users.status', 1)
+                        ->select('booking.*', 'users.first_name', 'users.last_name', 'users.email', 'users.address', 'users.user_city', 'users.postal_code', 'users.contact_number', 'room_list.name', 'room_list.id as room_id', 'room_list.price_per_night', 'room_list.tax_percentage', 'room_list.cleaning_fee', 'room_list.city_fee', 'room_list.bed_type', 'room_list.breakfast_availability', 'room_list.breakfast_price_inclusion', 'hotels.hotel_id', 'hotels.hotel_name', 'hotels.hotel_address', 'hotels.hotel_city', 'hotels.hotel_rating', 'hotels.hotel_gallery', 'hotels.property_alternate_num', 'hotels.property_contact_num', 'hotels.hotel_latitude', 'hotels.hotel_longitude')
+                        ->first();
+
+                        
+                    $update_payment_status = DB::table('room_booking_request')->where('user_id', $user_id)->where('room_id', $request->room_id)->where('hotel_id', $request->hotel_id)->update(['payment_status' => 1]);    
+
+                    $data['room_amenities'] = DB::table('room_amenities')
+                        ->join('H2_Amenities', 'room_amenities.amenity_id', '=', 'H2_Amenities.amenity_id')
+                        ->where('room_amenities.room_id', '=', $request->room_id)
+                        ->select('H2_Amenities.*', 'room_amenities.amenity_id')
+                        ->limit(5)
+                        ->get();
+
+                    if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                        $fromEmail = Helper::getFromEmail();
+                        $inData['from_email'] = $fromEmail;
+                        $inData['email'] = $users->email;
+                        Mail::send('emails.invoice', $data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'roadNstays');
+                            $message->to($inData['email']);
+                            $message->subject('roadNstyas - Room Booking Confirmation Mail');
+                        });
+                        if($check_guest_user === 1){
+                            $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                            Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                                $message->from($inData['from_email'], 'RoadNStays');
+                                $message->to($inData['email']);
+                                $message->subject('RoadNStays - User E-mail Verification');
+                            });
+                        }
+
+                        $data['url'] = url('/admin_login');
+
+                        $data['status'] = 'created to user';
+
+                        $data['booking_id'] = $booking_id;
+
+                        Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'roadNstyas');
+                            $message->to('votivephppushpendra@gmail.com');
+                            $message->subject('roadNstyas - New Booking Recieved Mail');
+                        });
+                    }
+                    $vendors = User::where('id', '=', $vendor_id)->first();
+                    if (!empty($vendors)) {
+                        if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                            $data['first_name'] = $vendors->first_name;
+
+                            $data['status'] = 'Booking Room';
+
+                            $data['booking_id'] = $booking_id;
+
+                            $fromEmail = Helper::getFromEmail();
+                            $inData['from_email'] = $fromEmail;
+                            $inData['email'] = $vendors->email;
+                            Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
+                                $message->from($inData['from_email'], 'roadNstyas');
+                                $message->to($inData['email']);
+                                $message->subject('roadNstyas - Order assigned');
+                            });
+                        }
+                    }
+                    $response['message'] = "Booking Created Successfully";
+                    $response['status'] = 1;
+                    $response['data'] = array('booking_id'=>$booking_id);
+
+            
+                    if($check_guest_user === 0){
+                    }else{
+                        $response['message'] = "To view your booking Please! do signin into your account after verify your E-mail.";
+                        $response['status'] = 1;
+                    }
+                } else {
+                    $response['message'] = "No data found";
+                    $response['status'] = 0;
+                    $response['data'] = array('booking_id'=>0);
+                }
+            }else{
+                $response['message'] = "Hotel not found";
+                $response['status'] = 0;
+                $response['data'] = array('booking_id'=>0);      
+            } 
+            return $response;
+        }
+        
+    }
+
+    public function create_space_booking(Request $request){
+
+        
+    	$user_id =  $request->user_id; 
+        
+        $spaceData = DB::table('space')->where('space_id', $request->space_id)->where('status', 1)->first();
+        if (!empty($spaceData)) {
+       
+            $file = $request->file('front_document_img');
+            if(!empty($file)){
+                $destinationPath = public_path("uploads");
+                $file->move($destinationPath,$file->getClientOriginalName());
+                $front_document_img =  $file->getClientOriginalName();
+            }else{
+                $front_document_img = "";
+            }
+
+            $back_document_img = $request->file('back_document_img');
+            
+            
+            if(!empty($back_document_img)){
+                $destinationPath_back_img = public_path("uploads");
+                $back_document_img->move($destinationPath_back_img,$back_document_img->getClientOriginalName());
+                $back_document_img = $back_document_img->getClientOriginalName();
+            }else{
+                $back_document_img = "";
+            }
+
+            DB::table('guestinfo')->insert(
+                [
+                    'user_id' =>  $spaceData->space_user_id,
+                    'first_name' =>  $request->first_name,
+                    'last_name' =>  $request->last_name,
+                    'email' =>  $request->email,
+                    'space_id'=>$spaceData->space_id,
+                    'mobile' =>  $request->mobile,
+                    'document_type' =>  $request->document_type,
+                    'document_number' =>  $request->document_number,
+                    'front_document_img' =>  $front_document_img,
+                    'back_document_img' =>  $back_document_img,
+                    'status' => 1,
+                    'updated_date' => date('Y-m-d H:i:s'),
+                    'created_date' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $guest_user_id = DB::getpdo()->lastInsertId();
+             
+            $userData = DB::table('guestinfo')->where('id', $guest_user_id)->where('status', 1)->first();
+            $vendor_id = $spaceData->space_user_id;
+            $check_guest_user = 0;
+            
+            $uemail = $userData->email;
+            $ufirst_name = $userData->first_name;
+            $ulast_name = $userData->last_name;
+            $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
+
+            if (empty($user_id)) {
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
+                if (!empty($checkuser)) {
+
+                    $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+                } else {
+                    $check_guest_user = 1;
+                    DB::table('users')->insert(
+                        [
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
+                            'user_type' => 'normal_user',
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
+                            'password' =>  $password,
+                            'role_id' =>  2,
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
+                            'status' => 1,
+                            'updated_at' => date('Y-m-d H:i:s'),
+                            'created_at' =>  date('Y-m-d H:i:s')
+                        ]
+                    );
+
+                    $user_id = DB::getpdo()->lastInsertId();    
+                }
+            }
+            
+            DB::table('space_booking')->insert(
+                [
+                    'user_id' =>  $user_id,
+                    'space_booking_id' => Helper::generateRandomBookingId(5),
+                    'space_id' => $request->space_id,
+                    'check_in_date' =>  $request->space_start_date,
+                    'check_out_date' =>  $request->space_end_date,
+                    'total_days' =>  $request->total_days,
+                    'total_room' =>   $request->total_room,
+                    'total_member' => $request->total_member,
+                    'total_amount' =>  $request->total_amount,
+                    'booking_status' => 'confirmed',
+                    // 'payment_status' => 'successful',
+                    'payment_status' => 'COD',
+                    // 'payment_type' => $paymethod,
+                    'payment_type' => 'COD',
+                    
+                    'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $booking_id = DB::getpdo()->lastInsertId();
+            //print_r($userData);
+
+            DB::table('payment_transaction')->insert(
+                [
+                    'booking_id' => $booking_id,
+                    'user_id' =>  $user_id,
+                    'vendor_id' =>  $vendor_id,
+                    // 'txn_id' => $cartid,
+                    'txn_id' => '',
+                    'txn_amount' =>  $request->total_amount,
+                    // 'payment_method' => $paymethod,
+                    'payment_method' => 'COD',
+                    'booking_type' => 'Space',
+                    'txn_status' =>  'COD',
+                    'txn_date' => date('Y-m-d H:i:s'),
+                    'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $check = true;
+
+            if ($check) {
+                $users = User::where('id', '=', $user_id)->first();
+                $data['user_info'] = $users;
+                $data['booking_id'] = $booking_id;
+                $data['url'] = url('/');
+                $data['order_info'] =  DB::table('space_booking')
+                    ->join('users', 'users.id', '=', 'space_booking.user_id')
+                    ->join('space', 'space.space_id', '=', 'space_booking.space_id')
+                    ->join('space_categories', 'space.category_id', '=', 'space_categories.scat_id')
+                    ->where('space_booking.id', $booking_id)
+                    ->where('users.status', 1)
+                    ->select('space_booking.*', 'space.*','space_booking.id as booki_id', 'space_categories.*', 'space_booking.created_at as booking_date', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number')
+                    ->first();
+
+                $update_payment_status = DB::table('space_booking_request')->where('user_id', $user_id)->where('space_id', $request->space_id)->update(['payment_status' => 1]);    
+
+                // echo "<pre>";print_r($data['order_info']);die;
+
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $users->email;
+                    Mail::send('emails.space-invoice', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'roadNstays');
+                        $message->to($inData['email']);
+                        $message->subject('roadNstyas - Space Booking Confirmation Mail');
+                    });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
+
+                    $data['url'] = url('/admin_login');
+
+                    $data['status'] = 'created to user';
+
+                    $data['booking_id'] = $booking_id;
+
+                    Mail::send('emails.space-invoice-reciever', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'roadNstyas');
+                        $message->to('admin@gmail.com');
+                        $message->subject('roadNstays - New Booking Recieved Mail');
+                    });
+                }
+
+                // $spaceData = DB::table('space')->where('space_id', $bookingtemp->space_id)->where('status', 1)->first();
+                // echo "<pre>";print_r($spaceData);die;
+                // $vendor_id = $spaceData->space_user_id;
+
+                if ($vendor_id != 1) {
+                    $vendors = DB::table('users')->where('id', '=', $vendor_id)->first();
+                    
+                    // echo "<pre>";print_r($vendors);die;
+                    // $vendor_counts = count($vendors);
+                    if (!empty($vendors)) {
+                        if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                            $data['first_name'] = $vendors->first_name;
+
+                            $data['status'] = 'Booking Space';
+
+                            $data['booking_id'] = $booking_id;
+
+                            $fromEmail = Helper::getFromEmail();
+                            $inData['from_email'] = $fromEmail;
+                            $inData['email'] = $vendors->email;
+                            Mail::send('emails.space-invoice-reciever', $data, function ($message) use ($inData) {
+                                $message->from($inData['from_email'], 'roadNstyas');
+                                $message->to($inData['email']);
+                                $message->subject('roadNstyas - Order assigned');
+                            });
+                        }
+                    }
+                }
+                $response['message'] = "Booking Created Successfully";
+                $response['status'] = 1;
+                $response['data'] = array('booking_id'=>$booking_id);
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                }else{
+                    $response['message'] = "To view your booking Please! do signin into your account after verify your E-mail.";
+                    $response['status'] = 1;
+                    
+                }   
+                
+                
+            } else {
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('space_data'=>0);
+                
+            }
+        }else{
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('space_data'=>0);
+        }
+        return $response;
+        
+    	
+    }
+
+    public function create_tour_booking(Request $request){
+    	$user_id =  $request->user_id;
+
+        $tourData = DB::table('tour_list')->where('id', $request->tour_id)->where('tour_status', 1)->first();
+        if (!empty($tourData)) {
+            $file = $request->file('front_document_img');
+            if(!empty($file)){
+                $destinationPath = public_path("uploads");
+                $file->move($destinationPath,$file->getClientOriginalName());
+                $front_document_img =  $file->getClientOriginalName();
+            }else{
+                $front_document_img = "";
+            }
+
+            $back_document_img = $request->file('back_document_img');
+            
+            
+            if(!empty($back_document_img)){
+                $destinationPath_back_img = public_path("uploads");
+                $back_document_img->move($destinationPath_back_img,$back_document_img->getClientOriginalName());
+                $back_document_img = $back_document_img->getClientOriginalName();
+            }else{
+                $back_document_img = "";
+            }
+
+            DB::table('guestinfo')->insert(
+                [
+                    'user_id' =>  $tourData->vendor_id,
+                    'first_name' =>  $request->first_name,
+                    'last_name' =>  $request->last_name,
+                    'email' =>  $request->email,
+                    'tour_id'=>$tourData->id,
+                    'mobile' =>  $request->mobile,
+                    'document_type' =>  $request->document_type,
+                    'document_number' =>  $request->document_number,
+                    'front_document_img' =>  $front_document_img,
+                    'back_document_img' =>  $back_document_img,
+                    'status' => 1,
+                    'updated_date' => date('Y-m-d H:i:s'),
+                    'created_date' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $guest_user_id = DB::getpdo()->lastInsertId();
+            
+            $userData = DB::table('guestinfo')->where('id', $guest_user_id)->where('status', 1)->first();
+
+            $vendor_id = $tourData->vendor_id;
+            $check_guest_user = 0;
+
+            
+            $uemail = $userData->email;
+            $ufirst_name = $userData->first_name;
+            $ulast_name = $userData->last_name;
+            $password = "roadnstays@123";
+            $password = bcrypt($password);
+
+            if (empty($user_id)) {
+                $checkuser = DB::table('users')->where('email', $uemail)->first();
+
+                if (!empty($checkuser)) {
+                    $user_id = $checkuser->id;
+                    $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+                }else{
+                    $check_guest_user = 1;
+                    DB::table('users')->insert(
+                        [
+                            'first_name' =>  $ufirst_name,
+                            'last_name' =>  $ulast_name,
+                            'email' =>  $uemail,
+                            'user_type' => 'normal_user',
+                            'contact_number' =>  $uphone,
+                            'document_type' =>  $userData->document_type,
+                            'document_number' =>  $userData->document_number,
+                            'front_document_img' =>  $userData->front_document_img,
+                            'back_document_img' =>  $userData->back_document_img,
+                            'password' =>  $password,
+                            'role_id' =>  2,
+                            'is_verify_email' => 0,
+                            'register_by' =>  'web',
+                            'status' => 1,
+                            'updated_at' => date('Y-m-d H:i:s'),
+                            'created_at' =>  date('Y-m-d H:i:s')
+                        ]
+                    );
+
+                    $user_id = DB::getpdo()->lastInsertId();
+                }
+            }
+            
+            DB::table('tour_booking')->insert(
+                [
+                    'user_id' =>  $user_id,
+                    'tour_id' => $request->tour_id,
+                    'total_amount' =>  $request->total_amount,
+                    'partial_payment_status' =>  'COD',
+                    'online_paid_amount' =>  $request->online_paid_amount,
+                    'remaining_amount_to_pay' =>  $request->remaining_amount_to_pay,
+                    'booking_status' => 'confirmed',
+                    'payment_status' => 'COD',
+                    'payment_type' => 'COD',
+                    
+                    'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $booking_id = DB::getpdo()->lastInsertId();
+
+            DB::table('payment_transaction')->insert(
+                [
+                    'booking_id' => $booking_id,
+                    'user_id' =>  $user_id,
+                    'vendor_id' =>  $vendor_id,
+                    'txn_id' => '',
+                    'txn_amount' =>  $request->total_amount,
+                    'payment_method' => 'COD',
+                    'booking_type' => 'Tour',
+                    'txn_status' =>  'COD',
+                    'txn_date' => date('Y-m-d H:i:s'),
+                    'created_at' =>  date('Y-m-d H:i:s')
+                ]
+            );
+
+            $check = true;
+            if ($check) {
+                $users = User::where('id', '=', $user_id)->first();
+                $data['user_info'] = $users;
+                $data['booking_id'] = $booking_id;
+                $data['url'] = url('/');
+                $data['order_info'] =  DB::table('tour_booking')
+                    ->join('users', 'users.id', '=', 'tour_booking.user_id')
+                    ->join('tour_list', 'tour_list.id', '=', 'tour_booking.tour_id')
+                    ->where('tour_booking.id', $booking_id)
+                    ->where('users.status', 1)
+                    ->select('tour_booking.*', 'tour_list.*','tour_booking.id as booki_id', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number', 'users.alternate_num', 'users.user_company_number')
+                    ->first();
+
+                //$update_payment_status = DB::table('tour_booking_request')->where('user_id', $user_id)->where('tour_id', $bookingtemp->tour_id)->update(['payment_status' => 1]);    
+
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $users->email;
+                    Mail::send('emails.tour-invoice', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'roadNstays');
+                        $message->to($inData['email']);
+                        $message->subject('roadNstyas - Tour Booking Confirmation Mail');
+                    });
+                    if($check_guest_user === 1){
+                        $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+                        Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'RoadNStays');
+                            $message->to($inData['email']);
+                            $message->subject('RoadNStays - User E-mail Verification');
+                        });
+                    }
+
+                    $data['url'] = url('/admin_login');
+
+                    $data['status'] = 'created to user';
+
+                    $data['booking_id'] = $booking_id;
+
+                    Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'roadNstyas');
+                        $message->to('votivephppushpendra@gmail.com');
+                        $message->subject('roadNstyas - New Booking Recieved Mail');
+                    });
+                }
+
+                // $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+                // $vendor_id = $tourData->vendor_id;
+                $vendors = User::where('id', '=', $vendor_id)->get();
+                $vendor_counts = count($vendors);
+                if (!empty($vendors)) {
+                    if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                        $data['first_name'] = $vendors['0']->first_name;
+
+                        $data['status'] = 'Booking Tour';
+
+                        $data['booking_id'] = $booking_id;
+
+                        $fromEmail = Helper::getFromEmail();
+                        $inData['from_email'] = $fromEmail;
+                        $inData['email'] = $vendors['0']->email;
+                        Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
+                            $message->from($inData['from_email'], 'roadNstyas');
+                            $message->to($inData['email']);
+                            $message->subject('roadNstyas - Order assigned');
+                        });
+                    }
+                }
+                
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                }else{
+                    session::flash('message', 'To view your booking Please! do signin into your account after verify your E-mail.');
+                }  
+                
+                $response['message'] = "Booking Created Successfully";
+                $response['status'] = 1;
+                $response['data'] = array('booking_id'=>$booking_id);
+                
+                if($check_guest_user === 0){
+                    // echo "Nothing need to do";
+                }else{
+                    $response['message'] = "To view your booking Please! do signin into your account after verify your E-mail.";
+                    $response['status'] = 1;
+                    
+                }  
+                
+            } else {
+                $response['message'] = "No data found";
+                $response['status'] = 0;
+                $response['data'] = array('space_data'=>0);
+            }
+        }else{
+            $response['message'] = "No data found";
+            $response['status'] = 0;
+            $response['data'] = array('space_data'=>0);
+        }
+
+        return $response; 
+        
+    }
+
+    public function create_event_booking(Request $request){
+
+        
+        $user_id =  $request->user_id; 
+
+        $eventData = DB::table('events')->where('id', $request->event_id)->where('status', 1)->first();
+
+        $file = $request->file('front_document_img');
+        if(!empty($file)){
+            $destinationPath = public_path("uploads");
+            $file->move($destinationPath,$file->getClientOriginalName());
+            $front_document_img =  $file->getClientOriginalName();
+        }else{
+            $front_document_img = "";
+        }
+
+        $back_document_img = $request->file('back_document_img');
+        
+        
+        if(!empty($back_document_img)){
+            $destinationPath_back_img = public_path("uploads");
+            $back_document_img->move($destinationPath_back_img,$back_document_img->getClientOriginalName());
+            $back_document_img = $back_document_img->getClientOriginalName();
+        }else{
+            $back_document_img = "";
+        } 
+         
+
+        DB::table('guestinfo')->insert(
+            [
+                'user_id' =>  $eventData->vendor_id,
+                'first_name' =>  $request->first_name,
+                'last_name' =>  $request->last_name,
+                'email' =>  $request->email,
+                'event_id'=>$eventData->id,
+                'mobile' =>  $request->mobile,
+                'document_type' =>  $request->document_type,
+                'document_number' =>  $request->document_number,
+                'front_document_img' =>  $front_document_img,
+                'back_document_img' =>  $back_document_img,
+                'status' => 1,
+                'updated_date' => date('Y-m-d H:i:s'),
+                'created_date' =>  date('Y-m-d H:i:s')
+            ]
+        );
+
+        $guest_user_id = DB::getpdo()->lastInsertId();
+        
+        $userData = DB::table('guestinfo')->where('id', $guest_user_id)->where('status', 1)->first();
+        
+        $vendor_id = $eventData->vendor_id;
+        
+        
+        $check_guest_user = 0;
+
+        $uemail = $userData->email;
+        $ufirst_name = $userData->first_name;
+        $ulast_name = $userData->last_name;
+        $uphone = !empty($userData->mobile) ?  $userData->mobile : '';
+        $password = "roadnstays@123";
+        $password = bcrypt($password);
+        if (empty($user_id)) {
+            $checkuser = DB::table('users')->where('email', $uemail)->first();
+            
+            if (!empty($checkuser)) {
+
+                $user_id = $checkuser->id;
+                $user = User::where('id', $user_id)->update(['document_type' => $userData->document_type,'document_number' => $userData->document_number,'front_document_img' => $userData->front_document_img,'back_document_img' => $userData->back_document_img]);
+            }else{
+                $check_guest_user = 1;
+                DB::table('users')->insert(
+                    [
+                        'first_name' =>  $ufirst_name,
+                        'last_name' =>  $ulast_name,
+                        'email' =>  $uemail,
+                        'user_type' => 'normal_user',
+                        'contact_number' =>  $uphone,
+                        'document_type' =>  $userData->document_type,
+                        'document_number' =>  $userData->document_number,
+                        'front_document_img' =>  $userData->front_document_img,
+                        'back_document_img' =>  $userData->back_document_img,
+                        'password' =>  $password,
+                        'role_id' =>  2,
+                        'is_verify_email' => 0,
+                        'register_by' =>  'web',
+                        'status' => 1,
+                        'updated_at' => date('Y-m-d H:i:s'),
+                        'created_at' =>  date('Y-m-d H:i:s')
+                    ]
+                );
+
+                $user_id = DB::getpdo()->lastInsertId();
+            }
+        }
+        
+
+        DB::table('event_booking')->insert(
+            [
+                'user_id' =>  $user_id,
+                'event_id' => $request->event_id,
+                'total_amount' =>  $request->total_amount,
+                'booking_status' => 'confirmed',
+                'payment_status' => 'COD',
+                'payment_type' => 'COD',
+                'created_at' =>  date('Y-m-d H:i:s')
+            ]
+        );
+
+        $booking_id = DB::getpdo()->lastInsertId();
+
+        DB::table('payment_transaction')->insert(
+            [
+                'booking_id' => $booking_id,
+                'user_id' =>  $user_id,
+                'vendor_id' =>  $vendor_id,
+                'txn_id' => '',
+                'txn_amount' =>  $request->total_amount,
+                'payment_method' => 'COD',
+                'booking_type' => 'Tour',
+                'txn_status' =>  'COD',
+                'txn_date' => date('Y-m-d H:i:s'),
+                'created_at' =>  date('Y-m-d H:i:s')
+            ]
+        );
+
+        $check = true;
+
+        if ($check) {
+            $users = User::where('id', '=', $user_id)->first();
+            $data['user_info'] = $users;
+            $data['booking_id'] = $booking_id;
+            $data['url'] = url('/');
+            $data['order_info'] =  DB::table('event_booking')
+                ->join('users', 'users.id', '=', 'event_booking.user_id')
+                ->join('events', 'events.id', '=', 'event_booking.event_id')
+                ->where('event_booking.id', $booking_id)
+                ->where('users.status', 1)
+                ->select('event_booking.*', 'events.*','event_booking.id as booki_id', 'users.first_name', 'users.last_name', 'users.email', 'users.address as user_addresss', 'users.user_city', 'users.postal_code', 'users.contact_number', 'users.alternate_num', 'users.user_company_number')
+                ->first();
+
+            if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                $fromEmail = Helper::getFromEmail();
+                $inData['from_email'] = $fromEmail;
+                $inData['email'] = $users->email;
+
+                Mail::send('emails.event-invoice', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'roadNstays');
+                    $message->to($inData['email']);
+                    $message->subject('roadNstyas - Event Booking Confirmation Mail');
+                });
+                if($check_guest_user === 1){
+                    $usr_data = array('user_id'=>$users->id,'name'=>"User",'first_name'=>$users->first_name,'last_name'=>$users->last_name,'email'=>$users->email,'password'=>"roadnstays@123");
+
+                    Mail::send('emails.signup_template', $usr_data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'RoadNStays');
+                        $message->to($inData['email']);
+                        $message->subject('RoadNStays - User E-mail Verification');
+                    });
+                }
+
+                $data['url'] = url('/admin_login');
+
+                $data['status'] = 'created to user';
+
+                $data['booking_id'] = $booking_id;
+
+                Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
+                    $message->from($inData['from_email'], 'roadNstyas');
+                    $message->to('admin@gmail.com');
+                    $message->subject('roadNstyas - New Event Booking Recieved Mail');
+                });
+            }
+
+            // $tourData = DB::table('tour_list')->where('id',$bookingtemp->tour_id)->where('tour_status', 1)->first();
+            // $vendor_id = $tourData->vendor_id;
+            $vendors = User::where('id', '=', $vendor_id)->get();
+
+            //print_r($vendors);die;
+            $vendor_counts = count($vendors);
+            if (!empty($vendors)) {
+                if ($_SERVER['SERVER_NAME'] != 'localhost') {
+
+                    $data['first_name'] = $vendors['0']->first_name;
+
+                    $data['status'] = 'Booking Event';
+
+                    $data['booking_id'] = $booking_id;
+
+                    $fromEmail = Helper::getFromEmail();
+                    $inData['from_email'] = $fromEmail;
+                    $inData['email'] = $vendors['0']->email;
+                    Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
+                        $message->from($inData['from_email'], 'roadNstyas');
+                        $message->to($inData['email']);
+                        $message->subject('roadNstyas - Order assigned');
+                    });
+                }
+            }
+            $response['message'] = "Booking Created Successfully";
+            $response['status'] = 1;
+            $response['data'] = array('booking_id'=>$booking_id);
+            
+            if($check_guest_user === 0){
+                // echo "Nothing need to do";
+            }else{
+                $response['message'] = "To view your booking Please! do signin into your account after verify your E-mail.";
+                $response['status'] = 1;
+                
+            }
+        } else {
+            $response['message'] = "Booking Unsuccessful";
+            $response['status'] = 0;
+            $response['data'] = array('booking_data'=>0);
+        }
+        return $response;
+
+    }
 
 
 } 

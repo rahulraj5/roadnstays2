@@ -311,25 +311,24 @@
     }
   })
 
-  // $('#roomdetails').owlCarousel({
-  //   loop:true,
-  //   margin:0,
-  //   nav:true,
-  //   singleItem:true,
-  //   items: 1,
-  //   responsive:{
-  //       0:{
-  //           items:1
-  //       },
-  //       600:{
-  //           items:1
-  //       },
-  //       1000:{
-  //           items:1
-  //       }
-        
-  //   }
-  // })
+  $(".offer-carousel").owlCarousel({
+    autoplay: true,
+    dots: true,
+    loop: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 1
+      },
+      900: {
+        items:2
+      }
+    }
+  });
+
+  
 
   
 

@@ -700,6 +700,40 @@
         $(".bread-sec").css('background-color', '#ccc');
     })
 </script>
+
+
+<script type="text/javascript">
+   function cancelRequestBooking(id) {
+      toastDelete.fire({}).then(function(e) {
+         if (e.value === true) {
+            // alert(id);
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+               type: 'POST',
+               url: "{{url('/user/cancelSpaceBookingRequest')}}",
+               data: {
+                  id: id,
+                  _token: CSRF_TOKEN
+               },
+               dataType: 'JSON',
+               success: function(results) {
+                  // $("#row" + id).remove();
+                  // console.log(results);
+                  success_noti(results.msg);
+                  setTimeout(function() {
+                     window.location.reload()
+                  }, 1000);
+               }
+            });
+         } else {
+            e.dismiss;
+         }
+      }, function(dismiss) {
+         return false;
+      })
+   }
+</script>
+
 <!-- 
 <script>
     // $(document).ready(function() {
@@ -768,7 +802,7 @@
         <!--  -->
         <div class="tabs">
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
-            <label for="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i> Completed</label>
+            <label for="tab1" class="tabs__label"> <i class='bx bxs-receipt'></i>Completed({{(count($completeBookingList))}})</label>
             <div class="tabs__content">
 
                 @if (!$completeBookingList->isEmpty())
@@ -867,7 +901,7 @@
             </div>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-            <label for="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming</label>
+            <label for="tab2" class="tabs__label"> <i class='bx bxs-send'></i>Upcoming({{(count($upcomingBookingList))}})</label>
 
             <div class="tabs__content">
 
@@ -960,7 +994,7 @@
             </div>
 
             <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
-            <label for="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled</label>
+            <label for="tab3" class="tabs__label tab-3"> <i class='bx bx-x'></i>Cancelled({{(count($cancelBookingList))}})</label>
             <div class="tabs__content">
 
                 @if (!$cancelBookingList->isEmpty())
@@ -1048,7 +1082,123 @@
 
             </div>
 
-            
+            <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
+            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i>Approval({{(count($space_booking_request))}})</label>
+            <div class="tabs__content">
+
+                @if (!$space_booking_request->isEmpty())
+
+                    @if(count($space_booking_request) > 0)
+
+                        @foreach ($space_booking_request as $arr)
+
+                        <!-- @if($arr->check_in_date > Carbon\Carbon::today()->format('Y-m-d'))
+                            @php echo 'upcoming' @endphp
+                        @else
+                            @php echo 'past' @endphp
+                        @endif -->
+
+                        <div class="content">
+                            <div class="text-detail">
+                                <div class="icontext">
+                                    <i class='bx bxs-hotel'></i>
+                                    <div class="text">
+                                        <h3>{{ $arr->space_name }}</h3>
+                                        <p>{{ $arr->space_address }}, </p>
+                                    </div>
+                                </div>
+
+                                <ul>
+                                    <!-- <li>Booking ID - {{ $arr->id }}</li> -->
+                                    <li>@if($arr->payment_status==0) {{ "Pending" }} @else {{ "Paid" }} @endif</li>
+                                </ul>
+                                <!-- <div class="btn-detail">
+                                    <a href="{{ url('/user/spaceBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+
+                                </div> -->
+                            </div>
+
+                            <div class="row user-detail-row ">
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-calendar'></i>FROM</p>
+                                    <h6>{{ $arr->check_in_date }} <span></span></h6>
+                                    <!-- <strong>new Delhi</strong> -->
+                                </div>
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-calendar'></i>TO</p>
+                                    <h6>{{ $arr->check_out_date }} <span></span></h6>
+                                    <!-- <strong>new Delhi</strong> -->
+                                </div>
+
+                                <div class="col-md-3 user-detail">
+                                    <p><i class='bx bxs-store'></i>Space Type</p>
+                                    <h6>{{ $arr->category_name }} </h6>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row user-detail-row ">
+                                @if($arr->payment_status == 0)
+                                    @if($arr->request_status == 1 and $arr->approve_status == 1)
+                                        <div class="col-md-4 user-detail">
+                                            <a href="{{url('space-checkout')}}?space_id={{$arr->space_id}}&check_in={{date('d-m-Y',strtotime($arr->check_in_date))}}&check_out={{date('d-m-Y',strtotime($arr->check_out_date))}}"><i class='bx bx-spreadsheet'></i> Invoice Created - Check & Pay</a>
+                                        </div>
+                                    @endif    
+
+                                    <div class="col-md-4 user-detail">
+                                        <!-- <a type="button" href="#"><i class='bx bx-x-circle'></i> Cancel Booking Request</a> -->
+                                        <a  href="javascript:void(0)" type="button" onclick="cancelRequestBooking('<?php echo $arr->id; ?>');"><i class='bx bx-x-circle'></i> Cancel Booking Request</a>
+                                    </div>
+                                @else
+                                    <div class="col-md-4 user-detail">
+                                        <a href="#"><i class='bx bx-check-circle'></i> Booking Completed</a>
+                                    </div>
+                                @endif    
+                            </div>
+                        </div>
+
+                        
+
+                        @endforeach
+                        <!-- <div class="row gird-event" id="filterdata">
+                            <div class="col-md-12">
+                                <div class=""> bookingList->fragment('tab1')->links() </div>
+                            </div>
+                        </div> -->
+
+                    @else
+
+                        <div class="row upcom-row">
+                            <div class="col-md-3 upcom-img">
+                                <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                            </div>
+                            <div class="col-md-9 upcom-text">
+                                <h5>Looks empty, you've no bookings.</h5>
+                                <p>When you book a trip, you will see your itinerary here.</p>
+                                <a href="#">PLAN A TRIP</a>
+                            </div>
+                        </div>
+
+                    @endif
+
+                @else
+
+                    <div class="row upcom-row">
+                        <div class="col-md-3 upcom-img">
+                            <img src="{{ url('/resources/assets/img/booking/upcoming_booking.png') }}" alt="" width="200px">
+
+                        </div>
+                        <div class="col-md-9 upcom-text">
+                            <h5>Looks empty, you've no bookings.</h5>
+                            <p>When you book a trip, you will see your itinerary here.</p>
+                            <a href="#">PLAN A TRIP</a>
+                        </div>
+                    </div>
+
+                @endif
+            </div>
         </div>
     </div>
 

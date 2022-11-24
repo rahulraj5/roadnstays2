@@ -226,6 +226,8 @@
               <th>Payment Type</th>
               <th>Payment Status</th>
               <th>Status</th>
+              <th>Refund Status</th>
+              <th>Refund Amount</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -251,12 +253,32 @@
                   @else {{ "Instant Booking"}} 
                 @endif
               </td> -->
-              <td>{{ $arr->payment_type }}</td>
+              <td>
+                @if($arr->payment_type == 1)
+                  {{ 'Alfa Wallet' }}
+                @elseif($arr->payment_type == 2)
+                  {{ 'Alfalah Bank Account' }}
+                @elseif($arr->payment_type == 3)
+                  {{ 'Credit/Debit Card' }}
+                @elseif($arr->payment_type == 4)
+                  {{ 'Other Bank Accounts' }}
+                @else
+                  {{ 'paypal' }}  
+                @endif
+              </td>
               <td>{{ $arr->payment_status }}</td>
               <td>{{ $arr->booking_status }}</td>
+              @if($arr->booking_status == 'canceled')
+                <td>{{ $arr->refund_status }}</td>
+                <td>{{ $arr->refund_amount }}</td>
+              @else
+                <td>Not Yet</td>
+                <td>Not Yet</td>
+              @endif
               <td class="text-right py-0 align-middle">
                 <div class="btn-group btn-group-sm">
                   <a href="{{url('/servicepro/viewtourBooking')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="bx bxs-show"></i></a>
+                  <a href="{{url('/servicepro/tourWiseBookingList')}}/{{$arr->tour_id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bx-list-ol"></i></a>
                 </div>
               </td>
             </tr>
