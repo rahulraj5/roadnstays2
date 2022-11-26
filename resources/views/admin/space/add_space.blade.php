@@ -887,8 +887,7 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <!-- <div class="row d-none" id="request_booking_valid_hr_div"> -->
+              <!-- <div class="col-md-12">
                 <div class="row" id="request_booking_valid_hr_div">
                   <div class="col-sm-6">
                     <div class="form-group">
@@ -897,7 +896,7 @@
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>  -->
 
               <div class="col-md-12">
                 <div class="col-sm-6">

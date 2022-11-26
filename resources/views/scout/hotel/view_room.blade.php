@@ -38,7 +38,7 @@
       <div class="row mb-2">
 
         <div class="col-sm-6">
-          <a href="{{url('/admin/roomlist')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/scout/viewHotelRooms')}}/{{$room_data->hotel_id}}"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>View Room Details</h1>
 
         </div>

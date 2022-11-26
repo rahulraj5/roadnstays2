@@ -477,7 +477,7 @@
 
                           <div class="col-md-5 name"> Grand Total: </div>
 
-                          <div class="col-md-7 value"> {{ $bookingList->total_amount }}</div>
+                          <div class="col-md-7 value">PKR {{ $bookingList->total_amount }}</div>
 
                         </div>
 
@@ -828,7 +828,7 @@
                       <td>{{ $arr->title }}</td>
                       <td>{{ $arr->start_date }}</td>
                       <td>{{ $arr->end_date }}</td>
-                      <td>{{ $arr->price }}</td>
+                      <td>PKR {{ $arr->price }}</td>
                     </tr>
                     <?php $i++; ?>
 
@@ -849,7 +849,8 @@
                 <!-- <img src="{{ url('/') }}/resources/dist/img/credit/visa.png" alt="Visa">
                         <img src="{{ url('/') }}/resources/dist/img/credit/mastercard.png" alt="Mastercard">
                         <img src="{{ url('/') }}/resources/dist/img/credit/american-express.png" alt="American Express"> -->
-                <img src="{{ url('/') }}/resources/dist/img/credit/paypal2.png" alt="Paypal">
+                <!-- <img src="{{ url('/') }}/resources/dist/img/credit/paypal2.png" alt="Paypal"> -->
+                <img src="{{ url('/') }}/resources/dist/img/credit/alfalha.jpg" alt="Alfa" style="height: 40px; width: 50px;">
 
                 <!-- <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                           Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
@@ -878,24 +879,24 @@
                       <th>Tax (Included in Price)
                         <!-- (9.3%) -->
                       </th>
-                      <td id="room_tax_val">${{ $bookingList->tax_percentage }}</td>
+                      <td id="room_tax_val">PKR {{ $bookingList->tax_percentage }}</td>
                     </tr>
                     @endif
                     @if(!empty($bookingList->cleaning_fee))
                     <tr>
                       <th>Cleaning Fee:</th>
-                      <td id="cleaning_fee_val">${{ $bookingList->cleaning_fee }}</td>
+                      <td id="cleaning_fee_val">PKR {{ $bookingList->cleaning_fee }}</td>
                     </tr>
                     @endif
                     @if(!empty($bookingList->city_fee))
                     <tr>
                       <th>City Fee:</th>
-                      <td id="city_fee_val">${{ $bookingList->city_fee }}</td>
+                      <td id="city_fee_val">PKR {{ $bookingList->city_fee }}</td>
                     </tr>
                     @endif
                     <tr>
                       <th>Total:</th>
-                      <td>${{ $bookingList->total_amount }}</td>
+                      <td>PKR {{ $bookingList->total_amount }}</td>
                     </tr>
                   </table>
                 </div>

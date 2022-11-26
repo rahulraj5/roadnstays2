@@ -95,12 +95,12 @@
                     console.log(response);
                     if (response.status == 'success') {
                         success_noti(response.msg);
-                        // setTimeout(function() {
-                        //    window.location.href = site_url + "/admin/hotelList"
-                        // }, 1000);
                         setTimeout(function() {
-                            window.location.reload()
-                        }, 2500);
+                           window.location.href = site_url + "/user/spaceBookingList"
+                        }, 1000);
+                        // setTimeout(function() {
+                        //     window.location.reload()
+                        // }, 2500);
                     } else {
                         error_noti(response.msg);
                         // $('#request_booking').html(

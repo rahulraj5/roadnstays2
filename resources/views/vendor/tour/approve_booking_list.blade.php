@@ -343,6 +343,7 @@
       rules: {
         discount: {
           required: true,
+          min:1,
         },
         discount_name: {
           required: true,

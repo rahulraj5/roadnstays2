@@ -1399,7 +1399,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Commission</label>
-                          <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission">
+                          <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="0">
                         </div>
                       </div>
 

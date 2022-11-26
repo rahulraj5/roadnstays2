@@ -619,30 +619,23 @@ class TourController extends Controller
                 <td width='30%'><b>Phone:</b></td>
                 <td width='70%'> ".$details->user_contact_num."</td>
              </tr>
-             <tr>
-                <td>
-                    <table class='invoice-items' cellpadding='0' cellspacing='0'>
-                        <tbody>
-                            <tr>
-                                <td>Cost</td>
-                                <td class='alignright'>PKR ".$details->tour_price."</td>
-                            </tr>
-                            <tr id='discount_tr' class='d-non'>
-                                <td id='discount_type_name'></td>
-                                <td class='alignright'>PKR -<span id='discount_val'></span></td>
-                            </tr>
-                            <tr id='expense_tr' class='d-non'>
-                                <td id='expe_name'></td>
-                                <td class='alignright'>PKR <span id='expe_val'></span></td>
-                            </tr>
-                            <tr class='total'>
-                                <td class='alignright' width='80%'>Total</td>
-                                <td class='alignright'>PKR <span id='total_amt'>".$details->tour_price."</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-             </tr>";
+             
+            <tr>
+                <td>Cost</td>
+                <td class='alignright'>PKR ".$details->tour_price."</td>
+            </tr>
+            <tr id='discount_tr' class='d-non'>
+                <td width='30%'><b id='discount_type_name'></b></td>
+                <td width='70% class='alignright'>PKR -<span id='discount_val'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type='button' class='btn-xs btn-danger remove_discount'>X</a></td>
+            </tr>
+            <tr id='expense_tr' class='d-non'>
+                <td width='30%'><b id='expe_name'></b></td>
+                <td width='70%' class='alignright'>PKR <span id='expe_val'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type='button' class='btn-xs btn-danger remove_expense'>X</a></td>
+            </tr>
+            <tr class='total'>
+                <td width='30%' class='alignright' width='80%'><b>Total</b></td>
+                <td width='70%' class='alignright'>PKR <span id='total_amt'>".$details->tour_price."</span></td>
+            </tr>";
         }
         $response['html'] = $html;
         $response['total_amount'] = $details->tour_price;

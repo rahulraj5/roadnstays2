@@ -679,7 +679,7 @@
                     <div class="hotel-name">
                         <h5>{{ $bookingDetails->hotel_name }} <br> <span>{{ $bookingDetails->hotel_address }}</span></h5>
                         <div class="status">
-                            Completed
+                            {{$bookingDetails->booking_status}}
                         </div>
                     </div>
                     <div class="loc">
@@ -695,6 +695,12 @@
                             <h6><span>CHECK OUT</span>{{ date('d M, D' , strtotime($bookingDetails->check_out)) }} </h6>
                             <small>Landmark: {{ $bookingDetails->neighb_area }}</small>
                         </div>
+                    </div>
+                    <div class="loc">
+                        <p>Payment Mode</p>
+                        <p>{{ $bookingDetails->payment_status ?? 'other' }}</p>
+                        <p>Booking Status</p>
+                        <p>{{ $bookingDetails->booking_status }}</p>
                     </div>
                     <div class="deta">
                         <h5>RoadnStays & Co.</h5>
@@ -713,7 +719,7 @@
                         <h5>PRICING BREAKUP</h5>
                         <ul>
                             <li class="text">Room Charges</li>
-                            <li>PKR {{ $bookingDetails->price_per_night }}</li>
+                            <li>PKR {{ $bookingDetails->total_amount }}</li>
                         </ul>
                         @if(@isset($bookingDetails->tax_percentage))
                         <ul>
@@ -756,7 +762,20 @@
                         </ul>
                         <ul>
                             <li class="text">Payment Type</li>
-                            <li>{{ $bookingDetails->payment_type }}</li>
+                            <li>
+                                @if($bookingDetails->payment_type == 1)
+                                {{ 'Alfa Wallet' }}
+                                @elseif($bookingDetails->payment_type == 2)
+                                {{ 'Alfalah Bank Account' }}
+                                @elseif($bookingDetails->payment_type == 3)
+                                {{ 'Credit/Debit Card' }}
+                                @elseif($bookingDetails->payment_type == 4)
+                                {{ 'Other Bank Accounts' }}
+                                @else
+                                {{ 'Other' }}  
+                                @endif
+                            </li>
+                    
                         </ul>
                         @if(($bookingDetails->check_in) > date('Y-m-d'))
                             <ul>

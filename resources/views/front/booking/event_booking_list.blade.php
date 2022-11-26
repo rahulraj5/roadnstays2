@@ -777,17 +777,18 @@
                         <div class="icontext">
                             <i class='bx bxs-hotel'></i>
                             <div class="text">
-                                <h3>{{ $arr->tour_title }}</h3>
+                                <h3>{{ $arr->title }}</h3>
                                 <p>{{ $arr->address }}</p>
                             </div>
                         </div>
 
                         <ul>
-                            <li>Booking ID - {{ $arr->tour_code }}</li>
+                            <li>Booking ID - {{ $arr->id }}</li>
                             <li>{{ $arr->payment_status }}</li>
+                            <li>{{ $arr->booking_status }}</li>
                         </ul>
                         <div class="btn-detail">
-                            <a href="{{ url('/user/tourBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+                            <a href="{{ url('/user/eventBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
 
                         </div>
                     </div>
@@ -795,22 +796,22 @@
                     <div class="row user-detail-row ">
                         <div class="col-md-3 user-detail">
                             <p><i class='bx bxs-calendar'></i>START AT</p>
-                            <h6>{{ $arr->tour_start_date }} <span></span></h6>
+                            <h6>{{ $arr->start_date }} <span></span></h6>
                             <!-- <strong>new Delhi</strong> -->
                         </div>
                         <div class="col-md-3 user-detail">
                             <p><i class='bx bxs-calendar'></i>END AT</p>
-                            <h6>{{ $arr->tour_end_date }} <span></span></h6>
+                            <h6>{{ $arr->end_date }} <span></span></h6>
                             <!-- <strong>new Delhi</strong> -->
                         </div>
                         <div class="col-md-3 user-detail">
                             <p><i class='bx bxs-store'></i>Event Title</p>
-                            <h6>{{ $arr->tour_title }} </h6>
+                            <h6>{{ $arr->title }} </h6>
                             <!-- <strong>new Delhi</strong> -->
                         </div>
                         <div class="col-md-3 user-detail">
                             <p><i class='bx bxs-store'></i>Event Type</p>
-                            <h6>{{ $arr->tour_type }} </h6>
+                            <h6>{{ $arr->type }} </h6>
                             <!-- <strong>new Delhi</strong> -->
                         </div>
                     </div>
@@ -834,7 +835,7 @@
                     <div class="col-md-9 upcom-text">
                         <h5>Looks empty, you've no bookings.</h5>
                         <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                        <a href="{{ url('/events') }}">PLAN A TRIP</a>
                     </div>
                 </div>
 
@@ -850,7 +851,7 @@
                     <div class="col-md-9 upcom-text">
                         <h5>Looks empty, you've no bookings.</h5>
                         <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                        <a href="{{ url('/events') }}">PLAN A TRIP</a>
                     </div>
                 </div>
 
@@ -879,11 +880,11 @@
                             </div>
 
                             <ul>
-                                <li>Booking ID - {{ $arr->tour_code }}</li>
+                                <li>Booking ID - {{ $arr->id }}</li>
                                 <li>{{ $arr->payment_status }}</li>
                             </ul>
                             <div class="btn-detail">
-                                <a href="{{ url('/user/tourBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+                                <a href="{{ url('/user/eventBookingDetails') }}/{{ base64_encode($arr->id) }}">View Booking</a>
 
                             </div>
                         </div>
@@ -891,22 +892,22 @@
                         <div class="row user-detail-row ">
                             <div class="col-md-3 user-detail">
                                 <p><i class='bx bxs-calendar'></i>FROM</p>
-                                <h6>{{ $arr->tour_start_date }} <span></span></h6>
+                                <h6>{{ $arr->start_date }} <span></span></h6>
                                 <!-- <strong>new Delhi</strong> -->
                             </div>
                             <div class="col-md-3 user-detail">
                                 <p><i class='bx bxs-calendar'></i>TO</p>
-                                <h6>{{ $arr->tour_end_date }} <span></span></h6>
+                                <h6>{{ $arr->end_date }} <span></span></h6>
                                 <!-- <strong>new Delhi</strong> -->
                             </div>
                             <div class="col-md-3 user-detail">
                                 <p><i class='bx bxs-store'></i>Tour Name</p>
-                                <h6>{{ $arr->tour_title }} </h6>
+                                <h6>{{ $arr->title }} </h6>
                                 <!-- <strong>new Delhi</strong> -->
                             </div>
                             <div class="col-md-3 user-detail">
                                 <p><i class='bx bxs-store'></i>Tour Type</p>
-                                <h6>{{ $arr->tour_type }} </h6>
+                                <h6>{{ $arr->type }} </h6>
                                 <!-- <strong>new Delhi</strong> -->
                             </div>
                         </div>
@@ -928,7 +929,7 @@
                         <div class="col-md-9 upcom-text">
                             <h5>Looks empty, you've no upcoming bookings.</h5>
                             <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                            <a href="{{ url('/events') }}">PLAN A TRIP</a>
                         </div>
                     </div>
 
@@ -944,7 +945,7 @@
                     <div class="col-md-9 upcom-text">
                         <h5>Looks empty, you've no upcoming bookings.</h5>
                         <p>When you book a trip, you will see your itinerary here.</p>
-                        <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                        <a href="{{ url('/events') }}">PLAN A TRIP</a>
                     </div>
                 </div>
 
@@ -967,7 +968,7 @@
                     <div class="icontext">
                         <i class='bx bxs-hotel'></i>
                         <div class="text">
-                            <h3>{{ $arr->tour_title }}</h3>
+                            <h3>{{ $arr->title }}</h3>
                             <p>{{ $arr->address }}</p>
                         </div>
                     </div>
@@ -978,7 +979,7 @@
                         <li>{{ $arr->payment_status }}</li>
                     </ul>
                     <div class="btn-detail">
-                        <a href="{{ url('/user/cancelledTourBooking') }}/{{ base64_encode($arr->id) }}">View Booking</a>
+                        <a href="{{ url('/user/cancelledEventBooking') }}/{{ base64_encode($arr->id) }}">View Booking</a>
 
                     </div>
                 </div>
@@ -1019,7 +1020,7 @@
                 <div class="col-md-9 upcom-text">
                     <h5>Looks empty, you've no canceled bookings.</h5>
                     <p>When you book a trip, you will see your itinerary here.</p>
-                    <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                    <a href="{{ url('/events') }}">PLAN A TRIP</a>
                 </div>
             </div>
 
@@ -1034,7 +1035,7 @@
                 <div class="col-md-9 upcom-text">
                     <h5>Looks empty, you've no canceled bookings.</h5>
                     <p>When you book a trip, you will see your itinerary here.</p>
-                    <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                    <a href="{{ url('/events') }}">PLAN A TRIP</a>
                 </div>
             </div>
 
@@ -1042,8 +1043,8 @@
 
             </div>
 
-            <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
-            <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i>Approval({{(count($tour_booking_request))}})</label>
+            <!-- <input type="radio" class="tabs__radio" name="tabs-example" id="tab4"> -->
+            <!-- <label for="tab4" id="tab4" class="tabs__label"> <i class='bx bxs-receipt'></i>Approval({{(count($tour_booking_request))}})</label> -->
             <div class="tabs__content">
                 @if (!$tour_booking_request->isEmpty())
                     @if(count($tour_booking_request))
@@ -1053,14 +1054,14 @@
                                     <div class="icontext">
                                         <i class='bx bxs-hotel'></i>
                                         <div class="text">
-                                            <h3>{{ $arr->tour_title }}</h3>
-                                            <p>{{ $arr->address }}</p>
+                                            <h3>{{ $arr->title ?? '' }}</h3>
+                                            <p>{{ $arr->address ?? '' }}</p>
                                         </div>
                                     </div>
 
                                     <ul>
-                                        <!-- <li>Booking ID - {{ $arr->tour_code ?? "" }}</li> -->
-                                        <li>{{ $arr->payment_status }}</li>
+                                        <li>Booking ID - {{ $arr->id ?? '' }}</li>
+                                        <li>{{ $arr->payment_status ?? '' }}</li>
                                     </ul>
                                     <!-- <div class="btn-detail">
                                         <a href="">View Booking</a>
@@ -1071,22 +1072,22 @@
                                 <div class="row user-detail-row ">
                                     <div class="col-md-3 user-detail">
                                         <p><i class='bx bxs-calendar'></i>FROM</p>
-                                        <h6>{{ $arr->tour_start_date }} <span></span></h6>
+                                        <h6>{{ $arr->start_date ?? '' }} <span></span></h6>
                                         <!-- <strong>new Delhi</strong> -->
                                     </div>
                                     <div class="col-md-3 user-detail">
                                         <p><i class='bx bxs-calendar'></i>TO</p>
-                                        <h6>{{ $arr->tour_end_date }} <span></span></h6>
+                                        <h6>{{ $arr->end_date ?? '' }} <span></span></h6>
                                         <!-- <strong>new Delhi</strong> -->
                                     </div>
                                     <div class="col-md-3 user-detail">
                                         <p><i class='bx bxs-store'></i>Tour Name</p>
-                                        <h6>{{ $arr->tour_title }} </h6>
+                                        <h6>{{ $arr->title ?? '' }} </h6>
                                         <!-- <strong>new Delhi</strong> -->
                                     </div>
                                     <div class="col-md-3 user-detail">
                                         <p><i class='bx bxs-store'></i>Tour Type</p>
-                                        <h6>{{ $arr->tour_type }} </h6>
+                                        <h6>{{ $arr->type ?? '' }} </h6>
                                         <!-- <strong>new Delhi</strong> -->
                                     </div>
                                 </div>
@@ -1120,7 +1121,7 @@
                             <div class="col-md-9 upcom-text">
                                 <h5>Looks empty, you've no Approval bookings.</h5>
                                 <p>When you book a trip, you will see your itinerary here.</p>
-                                <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                                <a href="{{ url('/events') }}">PLAN A TRIP</a>
                             </div>
                         </div>
                     @endif
@@ -1133,7 +1134,7 @@
                         <div class="col-md-9 upcom-text">
                             <h5>Looks empty, you've no Approval bookings.</h5>
                             <p>When you book a trip, you will see your itinerary here.</p>
-                            <a href="{{ url('/tour') }}">PLAN A TRIP</a>
+                            <a href="{{ url('/events') }}">PLAN A TRIP</a>
                         </div>
                     </div>
                 @endif   

@@ -222,6 +222,7 @@
           success: function(data) {
             $("#remove_img_" + Id).parent('div').remove();
             success_noti(data.msg);
+            setTimeout(function() {window.location.reload()}, 1000);
           },
           error: function(errorData) {
             console.log(errorData);
@@ -864,13 +865,17 @@
                     <div class="col-md-12">
                       <div class="d-flex flex-wrap">
                         @php $hotel_gallery = DB::table('hotel_gallery')->orderby('id', 'ASC')->where('hotel_id', $hotel_info->hotel_id)->get(); @endphp
-                        @foreach($hotel_gallery as $image)
-                        <div class="image-gridiv" id="hotelGalleryPreview">
-                          <span class="pip" id="remove_img_{{$image->id}}">
-                            <img class="imageThumb" src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
-                            <br /><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
-                        </div>
-                        @endforeach
+                        @if(count($hotel_gallery) > 0)
+                          @foreach($hotel_gallery as $image)
+                          <div class="image-gridiv" id="hotelGalleryPreview">
+                            <span class="pip" id="remove_img_{{$image->id}}">
+                              <img class="imageThumb" src="{{url('public/uploads/hotel_gallery/')}}/{{$image->image}}">
+                              <br><span class="removeImage" id="@php echo $image->id; @endphp">Remove image</span></span>
+                          </div>
+                          @endforeach
+                        @else
+                          <div class="image-gridiv" id="hotelGalleryPreview"></div>
+                        @endif  
                       </div>
                     </div>
 
@@ -1030,7 +1035,7 @@
                           <!-- <option value="">Select Scouts</option> -->
                           @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                           @foreach ($scouts as $value)
-                          <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
+                          <option value="{{ $value->id }}" @php if($hotel_info->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                           @endforeach
                         </select>
                       </div>

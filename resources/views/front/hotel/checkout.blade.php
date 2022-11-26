@@ -94,12 +94,16 @@
                console.log(response);
                if (response.status == 'success') {
                   success_noti(response.msg);
-                  // setTimeout(function() {
-                  //    window.location.href = site_url + "/admin/hotelList"
-                  // }, 1000);
                   setTimeout(function() {
-                     window.location.reload()
+                     window.location.href = site_url + "/user/bookingList"
                   }, 2500);
+                  // $("#tab1").removeAttr('checked');
+                  // $("#tab1").prop('checked', false);
+                  // $('input[type=radio]').removeAttr('checked');
+                  // $("#tab4").attr( 'checked', true )
+                  // setTimeout(function() {
+                  //    window.location.reload()
+                  // }, 2500);
                } else {
                   error_noti(response.msg);
                   // $('#request_booking').html(

@@ -255,7 +255,7 @@
 
                                                     <td class="project-state">
 
-                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}>
+                                                        <input  type="checkbox" class="toggle-class" data-id="{{$arr->id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }} disabled="disabled">
 
                                                     </td>
 
@@ -265,7 +265,7 @@
 
 <!--                                                         <a href="{{url('/admin/roomPriceCalendar')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-calendar-alt" alt="calendar" title="calendar"></i></a>
  -->
-                                                            <a href="{{url('/admin/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye" alt="view" title="view"></i></a>
+                                                            <a href="{{url('/scout/viewRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-secondary" style="margin-right: 3px;"><i class="fas fa-eye" alt="view" title="view"></i></a>
 <!-- 
                                                             <a href="{{url('/admin/editHotelRoom')}}/{{base64_encode($arr->id)}}" class="btn btn-info" style="margin-right: 3px;"><i class="fas fa-pencil-alt" alt="edit" title="edit"></i></a>
 

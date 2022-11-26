@@ -263,6 +263,25 @@
               </div>
 
               <div class="col-md-12">
+                <div class="row <? if ($space_data->payment_mode != 2) {
+                                  echo 'd-none';
+                                } ?>" id="partial_payment_div">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Online Payment Percentage</label>
+                      <input readonly type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($space_data->online_payment_percentage) ? $space_data->online_payment_percentage : '')}}">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>At Desk Payment Percentage</label>
+                      <input readonly type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($space_data->at_desk_payment_percentage) ? $space_data->at_desk_payment_percentage : '')}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
                 <div class="col-sm-6">
                   <label>Booking Option</label>
                   <div class="row">
@@ -316,6 +335,75 @@
                   </div>
                 </div>
               </div>
+
+
+              <div class="col-md-12">
+                <div class="tab-custom-content">
+                  <p class="lead mb-0">
+                  <h4>Cancellation and Refund</h4>
+                  </p>
+                </div>
+              </div>
+              <!-- <label>Cancellation and Refund</label> -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Cancellation Policy</label>
+                  <textarea readonly class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($space_data->cancel_policy) ? $space_data->cancel_policy : '')}}</textarea>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Min. Hrs. (# of Hours <= from check in)</label>
+                          <input readonly type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($space_data->min_hrs) ? $space_data->min_hrs : '')}}" placeholder="hrs.">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Deduction (%)</label>
+                      <input readonly type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($space_data->min_hrs_percentage) ? $space_data->min_hrs_percentage : '0')}}" placeholder="percentage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Max. Hrs. (# of Hours <= from check in)</label>
+                          <input readonly type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($space_data->max_hrs) ? $space_data->max_hrs : '')}}" placeholder="hrs">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Deduction (%)</label>
+                      <input readonly type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($space_data->max_hrs_percentage) ? $space_data->max_hrs_percentage : '0')}}" placeholder="percentage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- cancellation & policy end here -->
+
+              <div class="col-md-12">
+                <div class="tab-custom-content">
+                  <p class="lead mb-0">
+                  <h4>Commission</h4>
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Commission</label>
+                  <input readonly type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="{{(!empty($space_data->commission) ? $space_data->commission : '')}}">
+                </div>
+              </div>
+
+
+
 
               <div class="col-md-12 mt-0">
                 <div class="tab-custom-content mt-0">
@@ -880,6 +968,43 @@
                 </div>
               </div>
 
+              <div class="col-md-12 mt-0">
+                <div class="tab-custom-content mt-0">
+                  <p class="lead mb-0">
+                  <h4>Operator Details</h4>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Operator Name</label>
+                  <input  readonly type="text" class="form-control" name="operator_name" id="operator_name" value="{{$space_data->operator_name}}" placeholder="Enter Operator Name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Operator Contact Name</label>
+                  <input  readonly type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" value="{{$space_data->operator_contact_name}}" placeholder="Enter Contact Name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Operator Contact Number</label>
+                  <input  readonly type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" value="{{$space_data->operator_contact_num}}" placeholder="Enter Contact Number">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Operator Email</label>
+                  <input  readonly type="text" class="form-control" name="operator_email" id="operator_email" value="{{$space_data->operator_email}}" placeholder="Enter Operator Email">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Operator Booking Number</label>
+                  <input  readonly type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$space_data->operator_booking_num}}" placeholder="Enter Operator Booking Number">
+                </div>
+              </div>
 
               <div class="col-12">
 

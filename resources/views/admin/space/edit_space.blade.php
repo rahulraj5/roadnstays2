@@ -792,7 +792,7 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <div class="row <? if ($space_data->booking_option != 2) {
                                   echo 'd-none';
                                 } ?>" id="request_booking_valid_hr_div">
@@ -803,7 +803,7 @@
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>  -->
 
               <div class="col-md-12">
                 <div class="col-sm-6">

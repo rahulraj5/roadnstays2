@@ -271,7 +271,7 @@ class BookingController extends Controller
         $data['remaining_hours'] = abs($checkin_timestamp - $current_timestamp)/(60*60);
 
         $data['scoutDetails'] = DB::table('users')->where('id', $data['bookingDetails']->scout_id)->first();    
-
+        // echo "<pre>";print_r($data);die;
         return view('front/booking/booking_details')->with($data);
     }
 
@@ -504,6 +504,9 @@ class BookingController extends Controller
                 'space.neighbor_area',
                 'space.scout_id',
                 'space.space_address as space_address',
+                'space.city_fee',
+                'space.cleaning_fee',
+                'space.tax_percentage',
 
                 'space.checkin_hr',
                 'space.checkout_hr',
@@ -529,7 +532,7 @@ class BookingController extends Controller
         $data['remaining_hours'] = abs($checkin_timestamp - $current_timestamp)/(60*60);    
                
         $data['scoutDetails'] = DB::table('users')->where('id', $data['bookingDetails']->scout_id)->first();    
-        
+        // echo "<pre>";print_r($data);die;
         return view('front/booking/space_booking_details')->with($data);
     }
 
@@ -579,34 +582,40 @@ class BookingController extends Controller
     public function event_booking_list(Request $request)
     {
         $u_id = Auth::user()->id;
-        $data['tourBookingList'] = DB::table('tour_booking')
-                ->join('users', 'tour_booking.user_id', '=', 'users.id')
-                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-                ->join('country', 'tour_list.country_id', '=', 'country.id')
+        $data['eventBookingList'] = DB::table('event_booking')
+                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                // ->join('country', 'events.country_id', '=', 'country.id')
                 ->select(
-                    'tour_booking.*',
-                    'tour_list.tour_title',
-                    'tour_list.vendor_id',
-                    'tour_list.tour_code',
-                    'tour_list.tour_type',
-                    'tour_list.address',
-                    'tour_list.city',
-                    'tour_list.tour_start_date',
-                    'tour_list.tour_end_date',
-                    'country.nicename as tour_country',
+                    'event_booking.*',
+                    'events.title',
+                    'events.vendor_id',
+                    'events.type',
+                    'events.address',
+                    'events.start_date',
+                    'events.start_time',
+                    'events.end_date',
+                    'events.end_time',
+
+                    'events.operator_name',
+                    'events.operator_contact_name',
+                    'events.operator_contact_num',
+                    'events.operator_email',
+                    'events.operator_booking_num',
+                    // 'country.nicename as tour_country',
                 )
-                ->where('tour_booking.user_id', $u_id)  
-                // ->where('tour_booking.booking_status', '!=' ,'canceled') 
-                // ->where('tour_list.tour_end_date', '<', date('Y-m-d'))
-                ->orderby('tour_booking.id', 'DESC')
+                ->where('event_booking.user_id', $u_id)  
+                // ->where('event_booking.booking_status', '!=' ,'canceled') 
+                // ->where('events.tour_end_date', '<', date('Y-m-d'))
+                ->orderby('event_booking.id', 'DESC')
                 ->get();
                 // ->paginate(10);
-        // echo "<pre>";print_r($data['tourBookingList']); 
-        $data['bookingList'] = $data['tourBookingList']->where('booking_status', '!=' ,'canceled')->where('tour_end_date', '<', date('Y-m-d'));  
-        // echo "<pre>";print_r($data['bookingList']); 
-        $data['upcomingBookingList'] = $data['tourBookingList']->where('booking_status', '!=' ,'canceled')->where('tour_end_date', '>=', date('Y-m-d')) ; 
+        // echo "<pre>";print_r($data['eventBookingList']);die;
+        $data['bookingList'] = $data['eventBookingList']->where('booking_status', '!=' ,'canceled')->where('end_date', '<', date('Y-m-d'));  
+        // echo "<pre>";print_r($data['bookingList']);die;
+        $data['upcomingBookingList'] = $data['eventBookingList']->where('booking_status', '!=' ,'canceled')->where('end_date', '>=', date('Y-m-d')) ; 
         // echo "<pre>";print_r($data['upcomingBookingList']);die;  
-        $data['cancelBookingList'] = $data['tourBookingList']->where('booking_status', '==' ,'canceled');   
+        $data['cancelBookingList'] = $data['eventBookingList']->where('booking_status', '==' ,'canceled');   
         // echo "<pre>";print_r($data['cancelBookingList']);die; 
 
         $tour_booking_request = DB::table('tour_booking_request')
@@ -638,12 +647,12 @@ class BookingController extends Controller
     {
         // echo "<pre>";print_r('Coming Soon');die;
         $booking_id = base64_decode($id);
-        $data['bookingDetails'] = DB::table('tour_booking')
-            ->join('users', 'tour_booking.user_id', '=', 'users.id')
-            ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
-            ->join('country', 'users.user_country', '=', 'country.id')
+        $data['bookingDetails'] = DB::table('event_booking')
+            ->join('users', 'event_booking.user_id', '=', 'users.id')
+            ->join('events', 'event_booking.event_id', '=', 'events.id')
+            // ->join('country', 'users.user_country', '=', 'country.id')
             ->select(
-                'tour_booking.*',
+                'event_booking.*',
                 'users.user_type',
                 'users.first_name as user_first_name',
                 'users.last_name as user_last_name',
@@ -656,34 +665,28 @@ class BookingController extends Controller
                 'users.state_id as user_state',
                 'users.user_city as user_city',
                 'users.postal_code as user_postal_code',
-                'country.nicename as user_country',
-                'tour_list.address',
-                'tour_list.neighb_area',
-                'tour_list.city',
-                'tour_list.scout_id',
-                'tour_list.tour_title as tour_title',
-                'tour_list.tour_price',
-                'tour_list.tour_start_day',
-                'tour_list.tour_start_date',
-                'tour_list.tour_end_date',
-                'tour_list.tour_code',
-                'tour_list.tour_locations',
-                
-                'tour_list.booking_option', 
-                'tour_list.payment_mode',
-                'tour_list.online_payment_percentage',
-                'tour_list.at_desk_payment_percentage',
-                'tour_list.cancellation_and_refund',
-                'tour_list.min_hrs',
-                'tour_list.max_hrs',
-                'tour_list.min_hrs_percentage',
-                'tour_list.max_hrs_percentage',
+                // 'country.nicename as user_country',
+                'events.title',
+                'events.vendor_id',
+                'events.type',
+                'events.address',
+                'events.start_date',
+                'events.start_time',
+                'events.end_date',
+                'events.end_time',
+                'events.scout_id',
+
+                'events.operator_name',
+                'events.operator_contact_name',
+                'events.operator_contact_num',
+                'events.operator_email',
+                'events.operator_booking_num',
             )
             // ->orderby('created_at', 'DESC')
-            ->where('tour_booking.id', $booking_id)
+            ->where('event_booking.id', $booking_id)
             ->first();   
         
-        $checkin_timestamp=strtotime($data['bookingDetails']->tour_start_date.' '.date("H:i:s",strtotime($data['bookingDetails']->created_at)));  
+        $checkin_timestamp=strtotime($data['bookingDetails']->start_date.' '.date("H:i:s",strtotime($data['bookingDetails']->created_at)));  
         $current_timestamp= strtotime(Carbon::now()->toDateTimeString());
         $data['remaining_hours'] = abs($checkin_timestamp - $current_timestamp)/(60*60);
 

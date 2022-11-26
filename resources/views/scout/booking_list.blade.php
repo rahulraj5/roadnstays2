@@ -161,11 +161,12 @@
                     <th>Hotel Name</th>
                     <th>User Name</th>
                     <th>User Contact Info</th>
-                    <th>Hotel City</th>
+                    <!-- <th>Hotel City</th> -->
                     <th>Payment Type</th>
                     <th>Payment Status</th>
                     <th>Booking Status</th>
                     <th>Refund Status</th>
+                    <th>Refund Amount</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -179,23 +180,39 @@
                     <td>{{ $arr->hotel_name }}</td>
                     <td>{{ $arr->user_first_name }} {{ $arr->user_last_name }}</td>
                     <td><b>Contact No.</b>- {{ $arr->user_contact_num }} <br> <b>Email</b>- {{$arr->user_email}}</td>
-                    <td>{{ $arr->hotel_city }}</td>
-                    <td>{{ $arr->payment_type }}</td>
+                    <!-- <td>{{ $arr->hotel_city }}</td> -->
+                    <!-- <td>{{ $arr->payment_type }}</td> -->
+                    <td>
+                      @if($arr->payment_type == 1)
+                        {{ 'Alfa Wallet' }}
+                      @elseif($arr->payment_type == 2)
+                        {{ 'Alfalah Bank Account' }}
+                      @elseif($arr->payment_type == 3)
+                        {{ 'Credit/Debit Card' }}
+                      @elseif($arr->payment_type == 4)
+                        {{ 'Other Bank Accounts' }}
+                      @else
+                        {{ 'paypal' }}  
+                      @endif
+                    </td>
                     <td>{{ $arr->payment_status }}</td>
                     <!-- <td><a href="{{url('/admin/viewHotelRooms')}}/{{$arr->hotel_id}}" class="btn btn-default btn-sm"><i class="fas fa-list"></i> View</a></td> -->
-                    <td>{{ $arr->booking_status }}</td>
-                    @if($arr->booking_status == 'canceled')
-                    <td>
-                      <select class="form-control" name="order_status" data-id="{{$arr->id}}">
-                        <option value="pending" {{ $arr->refund_status == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="processing" {{ $arr->refund_status == 'processing' ? 'selected' : '' }}>Processing</option>
-                        <!-- <option value="canceled" {{ $arr->refund_status == 'canceled' ? 'selected' : '' }}>Canceled</option> -->
-                        <option value="confirmed" {{ $arr->refund_status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                      </select>
+                    <!-- <td>{{ $arr->booking_status }}</td> -->
+                    <td>@if($arr->booking_status)
+                          {{ $arr->booking_status }}
+                        @else
+                          {{'Failed'}}
+                        @endif
                     </td>
+                    @if($arr->booking_status == 'canceled')
+                    <td>{{ $arr->refund_status }}</td>
                     @else
                     <td>Not Yet</td>
-                    
+                    @endif
+                    @if(!empty($arr->refund_amount))
+                      <td>{{ $arr->refund_amount }}</td>
+                    @else
+                      <td>Not Yet</td>
                     @endif
                     <!-- <td class="project-state">
                       <input type="checkbox" class="toggle-class" data-id="{{$arr->hotel_id}}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->booking_status ? 'checked' : '' }}>

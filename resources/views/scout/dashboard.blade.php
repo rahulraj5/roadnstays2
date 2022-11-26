@@ -1,29 +1,12 @@
 @extends('scout.layout.layout')
-
-
-
 @section('title', 'User - Profile')
-
-
-
 @section('current_page_css')
-
 @endsection
-
-
 
 @section('current_page_js')
-
 @endsection
 
-
-
-
-
 @section('content')
-
-
-
   <!-- Content Wrapper. Contains page content -->
 
   <div class="content-wrapper">
@@ -62,8 +45,6 @@
 
     <!-- /.content-header -->
 
-
-
     <!-- Main content -->
 
     <section class="content">
@@ -82,21 +63,19 @@
 
               <div class="inner">
 
-                <h3>150</h3>
+                <h3>{{$hotel_count}}</h3>
 
-
-
-                <p>New Orders</p>
+                <p>Hotels</p>
 
               </div>
 
               <div class="icon">
 
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-hotel"></i>
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/scout/hotelList') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -112,11 +91,9 @@
 
               <div class="inner">
 
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$tour_count}}<sup style="font-size: 20px"></sup></h3>
 
-
-
-                <p>Bounce Rate</p>
+                <p>Tour</p>
 
               </div>
 
@@ -126,7 +103,7 @@
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/scout/tourList') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -142,21 +119,19 @@
 
               <div class="inner">
 
-                <h3>44</h3>
+                <h3>{{$space_count}}</h3>
 
-
-
-                <p>User Registrations</p>
+                <p>Space</p>
 
               </div>
 
               <div class="icon">
 
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-archway"></i>
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/scout/spaceList') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -172,11 +147,9 @@
 
               <div class="inner">
 
-                <h3>65</h3>
+                <h3>{{$event_count}}</h3>
 
-
-
-                <p>Unique Visitors</p>
+                <p>event</p>
 
               </div>
 
@@ -186,7 +159,7 @@
 
               </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/scout/events_list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 
             </div>
 
@@ -194,6 +167,75 @@
 
           <!-- ./col -->
 
+        </div>
+
+        <!-- /.row -->
+
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-bed"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Rooms Booking</span>
+                <span class="info-box-number">
+                  {{$roomBookingCount}}
+                  <!-- <small>%</small> -->
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+              <a href="{{ url('/scout/bookingList') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1">
+                <!-- <i class="fas fa-shopping-cart"></i> -->
+                <i class="fas fa-user"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Tour Booking</span>
+                <span class="info-box-number">{{$tourBookingCount}}</span>
+              </div>
+              <!-- /.info-box-content -->
+              <a href="{{ url('/scout/tourbooking_list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1">
+                <!-- <i class="fas fa-thumbs-up"></i> -->
+                <i class="fas fa-store"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Space Booking</span>
+                <span class="info-box-number">{{$spaceBookingCount}}</span>
+              </div>
+              <!-- /.info-box-content -->
+              <a href="{{ url('/scout/spacebooking_list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Event Booking</span>
+                <span class="info-box-number">{{$eventBookingCount}}</span>
+              </div>
+              <!-- /.info-box-content -->
+              <a href="{{ url('/scout/eventbooking_list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
         </div>
 
         <!-- /.row -->

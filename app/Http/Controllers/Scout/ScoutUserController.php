@@ -57,8 +57,41 @@ class ScoutUserController extends Controller
     {
         // echo Auth::user_type();
         // echo Auth::first_name();
-        // echo Auth::user()->id;
+        $scout_id = Auth::user()->id;
         $data['page_heading_name'] = 'Dashboard';
+        $data['hotel_count'] = DB::table('hotels')->where('scout_id', $scout_id)->count();
+        // $data['room_count'] = DB::table('room_list')->where('name','!=',null)->count();
+        $data['space_count'] = DB::table('space')->where('scout_id', $scout_id)->where('space_name','!=',null)->count();
+        $data['tour_count'] = DB::table('tour_list')->where('scout_id', $scout_id)->count();
+        $data['event_count'] = DB::table('events')->where('scout_id', $scout_id)->count();
+        $data['roomBookingCount'] = DB::table('booking')
+                                ->join('users', 'booking.user_id', '=', 'users.id')
+                                ->join('hotels', 'booking.hotel_id', '=', 'hotels.hotel_id')
+                                ->select('booking.*')
+                                ->where('scout_id',$scout_id)
+                                ->count();
+
+        $data['tourBookingCount'] = DB::table('tour_booking')
+                                ->join('users', 'tour_booking.user_id', '=', 'users.id')
+                                ->join('tour_list', 'tour_booking.tour_id', '=', 'tour_list.id')
+                                ->select('tour_booking.*')
+                                ->where('scout_id',$scout_id)
+                                ->count();
+
+        $data['spaceBookingCount'] = DB::table('space_booking')
+                                ->join('users', 'space_booking.user_id', '=', 'users.id')
+                                ->join('space', 'space_booking.space_id', '=', 'space.space_id')
+                                ->select('space_booking.*')
+                                ->where('scout_id',$scout_id)
+                                ->count();
+                                
+        $data['eventBookingCount'] = DB::table('event_booking')
+                                ->join('users', 'event_booking.user_id', '=', 'users.id')
+                                ->join('events', 'event_booking.event_id', '=', 'events.id')
+                                ->select('event_booking.*')
+                                ->where('scout_id',$scout_id)
+                                ->count();
+        // echo "<pre>";print_r($data['roomBookingList']);die;  
         return view('scout.dashboard')->with($data);
 
         // if(Auth::check()){

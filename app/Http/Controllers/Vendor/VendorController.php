@@ -337,6 +337,7 @@ class VendorController extends Controller
         $data['hotel_extra_price'] = DB::table('hotel_extra_price')->where('hotel_id', $hotel_id)->where('status', 1)->get();
         $data['hotel_service_fee'] = DB::table('hotel_service_fee')->where('hotel_id', $hotel_id)->where('status', 1)->get();
         $data['hotel_attraction'] = DB::table('hotel_attraction')->where('attraction_hotel_id', $hotel_id)->where('attraction_status', 1)->get();
+        // echo "<pre>";print_r($data);die;
         return view('vendor/hotel/edit_hotel')->with($data);
     }
 

@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout')
+@extends('scout.layout.layout')
  
 @section('title', 'Edit - Tour')
  
@@ -553,7 +553,7 @@ $('#end_date').datepicker(
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <a href="{{url('/admin/tourList')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/scout/tourList')}}"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>Edit Tour</h1>
         </div>
         <div class="col-sm-6">

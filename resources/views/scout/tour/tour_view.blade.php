@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout')
+@extends('scout.layout.layout')
  
 @section('title', 'View - Tour')
  
@@ -166,47 +166,6 @@
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
-          required: true,
-        },
-        summernote: {
-          required: true,
-        },
-        checkin_time: {
-          required: true,
-        },
-        checkout_time: {
-          required: true,
-        },
-        min_day_before_book: {
-          required: true,
-          number: true,
-        },
-        min_day_stays: {
-          required: true,
-          number: true,
-        },
-        hotel_latitude: {
-          number: true,
-        },
-        hotel_longitude: {
-          number: true,
-        },
-        
-        stay_price: {
-          required: true,
-          number: true,
-        },
-        extra_price: {
-          number: true,
-        },
-        service_fee: {
-          number: true,
-        },
-        property_type: {
-          required: true,
-        },
-
       }, 
       errorElement: 'span',
       errorPlacement: function(error, element) {
@@ -271,12 +230,6 @@
     var form = $("#addTourContext_form");
     form.validate({
       rules: {
-        hotelName: {
-          required: true,
-        },
-        entertain_service2: {
-          required: true,
-        },
       },
     });
     if (form.valid() === true) {
@@ -415,7 +368,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <a href="{{url('/admin/tourList')}}"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/scout/tourList')}}"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>View Tour</h1>
         </div>
         <div class="col-sm-6">
@@ -540,6 +493,24 @@
                               <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" readonly="">
                             </div>
                           </div>
+                          <div class="col-md-6">
+                            <div class="form-group"> 
+                              <label>Tour Price(Children) 2-9 Years Kids % off</label>
+                              <input readonly type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price" value="{{(!empty($tour_info->tour_child_price) ? $tour_info->tour_child_price : '0')}}"  max="100">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Deluxe Price</label>
+                              <input readonly type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name" value="{{$tour_info->tour_deluxe_price}}" >
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Tour Gold Price</label>
+                              <input readonly type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name" value="{{$tour_info->tour_gold_price}}" >
+                            </div>
+                          </div>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Tour Description</label>
@@ -598,6 +569,65 @@
                                 <option value="{{ $cont->id }}" @php if($tour_info->country_id == $cont->id){echo "selected";} @endphp >{{ $cont->name }}</option>
                                 @endforeach
                               </select>
+                            </div>
+                          </div>
+
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Pickup Locations</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12 field_wrapper_city">
+                            <div class="form-group" id="extra_city">
+                              <label>City</label>
+
+                              <?php //echo "<pre>";print_r(count($tour_pickup_locations)); ?>
+                              <?php //$i = 0; $len = count($tour_pickup_locations);  if($len < 0 ){ 
+
+                                $i = 0;?>
+                              @foreach($tour_pickup_locations as $key => $locations)
+                              <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][city]" placeholder="Enter pickup city" value="{{$locations->city}}"  />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][price]" placeholder="Enter price" value="{{$locations->price}}"  />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input type="text" class="form-control mr-2" name="locations[{{$key}}][transport]" placeholder="Enter transport" value="{{$locations->transport}}"  />
+                                    </div>
+                                  </div>
+                                </div> 
+                                 @if($i == 0) 
+                                   <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                                @else
+                                    <span><a href="javascript:void(0);" class="remove_button_city remove_button_it">Remove</a></span>
+                                @endif
+                               
+                              </div>
+                               <?php $i++;?>
+                              @endforeach
+                            <?php //}else{?>                                   
+                             <!--  <div class="row mb-4"> 
+                                <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control mr-2" name="city[0][city]" placeholder="Enter pickup city" value=""  />
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control mr-2" name="city[0][price]" placeholder="Enter price" value=""  />
+                                    </div>
+                                  </div>
+                                </div> 
+                                <span><a href="javascript:void(0);" class="add_button_city" title="Add field">Add</a></span>
+                              </div> -->
+                            <?php //} ?>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -799,12 +829,6 @@
                               </div>
                             </div>
                           </div>
-                           <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Cancellation and Refund</label>
-                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund"  readonly="">{{$tour_info->cancellation_and_refund}}</textarea>
-                            </div>
-                          </div>
                           <div class="col-sm-6">
                             <label>Booking Option</label>
                             <div class="row">
@@ -823,13 +847,81 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input readonly="" class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp
+                                    <input readonly="" class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+
+
+
+
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Cancellation and Refund</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Cancellation and Refund</label>
+                              <textarea class="form-control" id="summernoteRemoved125" name="cancellation_and_refund"  readonly="">{{$tour_info->cancellation_and_refund}}</textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row">                              
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Min. Hrs. (# of Hours <= from check in)</label>
+                                  <input readonly type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($tour_info->min_hrs) ? $tour_info->min_hrs : '')}}" placeholder="hrs.">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Deduction (%)</label>
+                                  <input readonly type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($tour_info->min_hrs_percentage) ? $tour_info->min_hrs_percentage : '')}}" placeholder="percentage">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Max. Hrs. (# of Hours <= from check in)</label>
+                                  <input readonly type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($tour_info->max_hrs) ? $tour_info->max_hrs : '')}}" placeholder="hrs">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Deduction (%)</label>
+                                  <input readonly type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($tour_info->max_hrs_percentage) ? $tour_info->max_hrs_percentage : '0')}}" placeholder="percentage">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Commission</h4>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Commission</label>
+                              <input readonly type="text" class="form-control" name="commission" id="commission" value="{{(!empty($tour_info->commission) ? $tour_info->commission : '0')}}" placeholder="Enter Commission">
+                            </div>
+                          </div>
+
+
+
+
 
                           <div class="col-md-12">
                             <div class="form-group">

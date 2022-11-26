@@ -1,4 +1,4 @@
-@extends('admin.layouts.layout')
+@extends('scout.layout.layout')
  
 @section('title', 'Add - Tour')
  
@@ -464,7 +464,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <a href="{{url('/admin/tourList')}}" class="balc-btn"><i class="right fas fa-angle-left"></i>Back</a>
+          <a href="{{url('/scout/tourList')}}" class="balc-btn"><i class="right fas fa-angle-left"></i>Back</a>
           <h1>Add Tour</h1>
         </div>
         <div class="col-sm-6">

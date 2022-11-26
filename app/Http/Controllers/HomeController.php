@@ -1069,6 +1069,7 @@ class HomeController extends Controller
             $data['tour_data'] = DB::table('tour_itinerary')
             ->join('tour_list', 'tour_list.id', '=', 'tour_itinerary.tour_id')
             ->where('tour_itinerary.place_from', $destination)
+            ->orWhere('tour_itinerary.place_to', $destination)
             ->where('tour_list.status', '=', 1)
             ->where('tour_list.tour_status', '=', 'available')
             ->groupBy('tour_itinerary.tour_id')->paginate(10);

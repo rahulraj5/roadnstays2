@@ -192,7 +192,7 @@
 
             <div class="col-md-11"></div>
 
-            <div class="col-md-1"><a href="{{ url('/admin/add-space') }}" class="btn btn-block btn-dark">Add</a></div>
+            <!-- <div class="col-md-1"><a href="{{ url('/admin/add-space') }}" class="btn btn-block btn-dark">Add</a></div> -->
 
           </div>
 
@@ -222,7 +222,7 @@
 
                     <th>Sub Category</th>
 
-                    <th>Copy</th>
+                    <!-- <th>Copy</th> -->
 
                     <th>Status</th>
 
@@ -251,12 +251,12 @@
                     <td>{{ $arr->sub_category_name }}</td>
 
 
-                    <td>
+                    <!-- <td>
                       <a href="javascript:void(0)" onclick="copyConfirmation('<?php echo $arr->space_id; ?>');" class="btn btn-info"><i class="fas fa-copy" alt="copy" title="copy"></i></a>
-                    </td>
+                    </td> -->
                     
                     <td class="project-state">
-                      <input type="checkbox" class="toggle-class" data-id="{{ $arr->space_id }}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}>
+                      <input type="checkbox" class="toggle-class" data-id="{{ $arr->space_id }}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }} disabled="disabled">
                     </td>
 
                     <td class="text-center py-0 align-middle">

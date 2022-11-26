@@ -636,7 +636,7 @@
                     <div class="hotel-name">
                         <h5>{{ $bookingDetails->space_name }} <br> <span>{{ $bookingDetails->space_address }}</span></h5>
                         <div class="status">
-                            Completed
+                        {{$bookingDetails->booking_status}}
                         </div>
                     </div>
                     <div class="loc">
@@ -652,6 +652,12 @@
                             <h6><span>CHECK OUT</span>{{ date('d M, D' , strtotime($bookingDetails->check_out_date)) }} </h6>
                             <small>Landmark: {{ $bookingDetails->neighbor_area }}</small>
                         </div>
+                    </div>
+                    <div class="loc">
+                        <p>Payment Mode</p>
+                        <p>{{ $bookingDetails->payment_status ?? 'other'  }}</p>
+                        <p>Booking Status</p>
+                        <p>{{ $bookingDetails->booking_status }}</p>
                     </div>
                     <div class="deta">
                         <h5>RoadnStays & Co.</h5>
@@ -723,7 +729,7 @@
                                 @elseif($bookingDetails->payment_type == 4)
                                 {{ 'Other Bank Accounts' }}
                                 @else
-                                {{ 'paypal' }}  
+                                {{ 'Other' }}  
                                 @endif</li>
                         </ul>
                         @if(($bookingDetails->check_in_date) > date('Y-m-d'))
