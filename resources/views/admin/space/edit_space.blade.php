@@ -55,6 +55,28 @@
     background: #2a7b72 !important;
     color: black;
   }
+
+  
+  .remove_bedroom_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+  }
+
+  .add_bedroom_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 8px 33px;
+    border-radius: 4px;
+    font-size: 16px;
+    top: 7px;
+    left: 12px;
+    margin-left: 11px;
+  }
 </style>
 @endsection
 @section('current_page_js')
@@ -197,6 +219,29 @@
     });
   });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_bedroom_button');
+    var wrapper = $('.bedroom_field_wrapper');
+    var x = $('#bedroom_detail_count').val() - 1;
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row form-group"><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3 form-group"><div class="form-group"><select class="form-control select2bs4" name="bedroom[' + x + '][bed_type]" style="width: 100%;"><option value="">Select Bed type</option><option value="Single bed">Single bed</option><option value="Double bed">Double bed</option><option value="Bunk bed">Bunk bed</option><option value="Sofa">Sofa</option><option value="Futon Mat">Futon Mat</option><option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option></select></div></div><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][num]" placeholder="Enter Number" value="" /></div><span><a href="javascript:void(0);" class="remove_bedroom_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_bedroom_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -325,7 +370,7 @@
         },
         description: {
           required: true,
-          minlength: 200
+          // minlength: 200
           // wordCount: 50
         },
         scout_id: {
@@ -377,9 +422,9 @@
         bathroom_number: {
           number: true,
         },
-        bed_type: {
-          required: true,
-        },
+        // bed_type: {
+        //   required: true,
+        // },
         private_bathroom: {
           required: true,
         },
@@ -587,6 +632,7 @@
             <input type="hidden" name="old_space_document" id="old_space_document" value="@if(!empty($space_data->space_id)){{ $space_data->space_document }}@endif" />
             <input type="hidden" name="extra_option_count" id="extra_option_count" value="{{ count($space_extra_option) }}">
             <input type="hidden" name="custom_details_count" id="custom_details_count" value="{{ count($space_custom_details) }}">
+            <input type="hidden" name="bedroom_detail_count" id="bedroom_detail_count" value="{{ count($space_bedroom_detail) }}">
 
             <div class="row">
 
@@ -701,7 +747,21 @@
                     <option value="">Select Scouts</option>
                     @php @endphp
                     @foreach ($scouts as $value)
-                    <option value="{{ $value->id }}" {{ $value->id == $space_data->scout_id ? 'selected': '' }}>{{ $value->first_name }}</option>
+                    <option value="{{ $value->id }}" {{ $value->id == $space_data->scout_id ? 'selected': '' }}>{{ $value->first_name}} {{ $value->last_name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vendors</label>
+                  <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;">
+                    <option value="">Select Vendors</option>
+                    @php $service_providers = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->where('status',1)->get(); @endphp
+                    @foreach ($service_providers as $value)
+                    <option value="{{ $value->id }}" @php if($space_data->space_user_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -805,12 +865,11 @@
                 </div>
               </div>  -->
 
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <div class="col-sm-6">
                   <label>Reservation Change</label>
                   <div class="row">
                     <div class="col-sm-6">
-                      <!-- checkbox -->
                       <div class="form-group">
                         <div class="custom-control custom-radio">
                           <input class="custom-control-input" type="radio" id="reserv_date_change_allow1" name="reserv_date_change_allow" value="1" @php if($space_data->reserv_date_change_allow == 1){echo 'checked';} @endphp>
@@ -820,7 +879,6 @@
                       </div>
                     </div>
                     <div class="col-sm-6">
-                      <!-- radio -->
                       <div class="form-group">
                         <div class="custom-control custom-radio">
                           <input class="custom-control-input" type="radio" id="reserv_date_change_allow2" name="reserv_date_change_allow" value="0" @php if($space_data->reserv_date_change_allow == 0){echo 'checked';} @endphp>
@@ -830,7 +888,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-md-12">
                 <div class="tab-custom-content">
@@ -1211,18 +1269,92 @@
                   <input type="text" class="form-control" name="room_number" id="room_number" placeholder="Enter Rooms" value="{{ $space_data->room_number ?? '' }}">
                 </div>
               </div>
+              <!-- <div class="col-md-6">
+                <div class="form-group">
+                  <label>BedRoom type</label>
+                  <select class="form-control select2bs4" name="bed_type" id="bed_type" style="width: 100%;">
+                    <option value="">Select Bed type</option>
+                    <option value="Single bed" {{ $space_data->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
+                    <option value="Double bed" {{ $space_data->bed_type == "Double bed" ? 'selected' : '' }}>Double bed</option>
+                    <option value="Bunk bed" {{ $space_data->bed_type == "Bunk bed" ? 'selected' : '' }}>Bunk bed</option>
+                    <option value="Sofa" {{ $space_data->bed_type == "Sofa" ? 'selected' : '' }}>Sofa</option>
+                    <option value="Futon Mat" {{ $space_data->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
+                    <option value="Extra-Large double bed (Super - King size)" {{ $space_data->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
+                  </select>
+                </div>
+              </div> -->
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Bedrooms</label>
                   <input type="text" class="form-control" name="bedroom_number" id="bedroom_number" placeholder="Enter Bedrooms" value="{{ $space_data->bedroom_number ?? '' }}">
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Bathrooms</label>
-                  <input type="text" class="form-control" name="bathroom_number" id="bathroom_number" placeholder="Enter Bathrooms" value="{{ $space_data->bathroom_number ?? '' }}">
+              
+              <div class="col-md-12 bedroom_field_wrapper">
+                <div class="form-group" id="bedroom">
+                  <label>BedRoom Details</label>
+                  @if(count($space_bedroom_detail) > 0)
+                  @foreach ($space_bedroom_detail as $key=>$value)
+                  <div class="row form-group">
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[@php echo $key; @endphp][name]" placeholder="Enter Name" value="{{ $value->bedroom_name }}" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <div class="form-group">
+                        <select class="form-control select2bs4" name="bedroom[@php echo $key; @endphp][bed_type]" style="width: 100%;">
+                          <option value="">Select Bed type</option>
+                          <option value="Single bed" {{ $value->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
+                          <option value="Double bed" {{ $value->bed_type == "Double bed" ? 'selected' : '' }}>Double bed</option>
+                          <option value="Bunk bed" {{ $value->bed_type == "Bunk bed" ? 'selected' : '' }}>Bunk bed</option>
+                          <option value="Sofa" {{ $value->bed_type == "Sofa" ? 'selected' : '' }}>Sofa</option>
+                          <option value="Futon Mat" {{ $value->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
+                          <option value="Extra-Large double bed (Super - King size)" {{ $value->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[@php echo $key; @endphp][num]" placeholder="Enter Number" value="{{ $value->bed_num }}" />
+                    </div>
+                    @if($key == 0)
+                    <span><a href="javascript:void(0);" class="add_bedroom_button" title="Add field">Add</a></span>
+                    @else
+                    <span><a href="javascript:void(0);" class="remove_bedroom_button" title="Remove field">Remove</a></span>
+                    @endif
+                  </div>
+
+                  @endforeach
+
+                  @else
+
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[0][name]" placeholder="Enter Name" value="" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <div class="form-group">
+                        <select class="form-control select2bs4" name="bedroom[0][bed_type]" style="width: 100%;">
+                          <option value="">Select Bed type</option>
+                          <option value="Single bed">Single bed</option>
+                          <option value="Double bed">Double bed</option>
+                          <option value="Bunk bed">Bunk bed</option>
+                          <option value="Sofa">Sofa</option>
+                          <option value="Futon Mat">Futon Mat</option>
+                          <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[0][num]" placeholder="Enter Number" value="" />
+                    </div>
+                    <span><a href="javascript:void(0);" class="add_bedroom_button" title="Add field">Add</a></span>
+                  </div>
+
+                  @endif
+
+
                 </div>
               </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Check-in hour (*text)</label>
@@ -1245,16 +1377,8 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>BedRoom type</label>
-                  <select class="form-control select2bs4" name="bed_type" id="bed_type" style="width: 100%;">
-                    <option value="">Select Bed type</option>
-                    <option value="Single bed" {{ $space_data->bed_type == "Single bed" ? 'selected' : '' }}>Single bed</option>
-                    <option value="Double bed" {{ $space_data->bed_type == "Double bed" ? 'selected' : '' }}>Double bed</option>
-                    <option value="Bunk bed" {{ $space_data->bed_type == "Bunk bed" ? 'selected' : '' }}>Bunk bed</option>
-                    <option value="Sofa" {{ $space_data->bed_type == "Sofa" ? 'selected' : '' }}>Sofa</option>
-                    <option value="Futon Mat" {{ $space_data->bed_type == "Futon Mat" ? 'selected' : '' }}>Futon Mat</option>
-                    <option value="Extra-Large double bed (Super - King size)" {{ $space_data->bed_type == "Extra-Large double bed (Super - King size)" ? 'selected' : '' }}>Extra-Large double bed (Super - King size)</option>
-                  </select>
+                  <label>Bathrooms</label>
+                  <input type="text" class="form-control" name="bathroom_number" id="bathroom_number" placeholder="Enter Bathrooms" value="{{ $space_data->bathroom_number ?? '' }}">
                 </div>
               </div>
 

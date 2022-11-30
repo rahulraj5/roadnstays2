@@ -133,6 +133,7 @@ class HotelController extends Controller
             $adminhotel->hotel_document = $hotel_document;
             // $adminhotel->hotel_notes = $hotel_notes;
             $adminhotel->hotel_notes = $request->hotel_notes;
+            $adminhotel->private_notes = $request->private_notes;
 
             // step 2
             $adminhotel->payment_mode = $request->payment_mode;
@@ -404,6 +405,7 @@ class HotelController extends Controller
                     'hotel_document' => $hotel_document,
                     // 'hotel_notes' => $hotel_notes,
                     'hotel_notes' => $request->hotel_notes,
+                    'private_notes' => $request->private_notes,
 
                     // step 2
                     'payment_mode' => $request->payment_mode,

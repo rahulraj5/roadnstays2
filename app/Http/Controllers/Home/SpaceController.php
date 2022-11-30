@@ -160,6 +160,7 @@ class SpaceController extends Controller
         $space_id = base64_decode($id);
         $data['space_details'] = DB::table('space')->where('space_id', $space_id)->first();
         $data['country'] = DB::table('countries')->where('id', $data['space_details']->space_country)->first();
+        // echo "<pre>";print_r($data['country']);die;
         $data['category'] = DB::table('space_categories')->where('scat_id', $data['space_details']->category_id)->first();
         $data['subcategory'] = DB::table('space_sub_categories')->where('sub_cat_id', $data['space_details']->sub_category_id)->first();
         if ($data['space_details']->space_user_id == 1) {
@@ -172,6 +173,8 @@ class SpaceController extends Controller
         $data['space_gallery'] = DB::table('space_gallery')->where('space_id', $data['space_details']->space_id)->get();
         $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $data['space_details']->space_id)->get();
         $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $data['space_details']->space_id)->get();
+        
+        $data['space_bedroom_detail'] = DB::table('space_bedroom')->where('space_id', $space_id)->get();
 
         $data['space_features'] = DB::table('space_features')
             ->join('space_features_list', 'space_features.space_feature_id', 'space_features_list.space_feature_id')
@@ -190,6 +193,46 @@ class SpaceController extends Controller
                 array_push($space_booked_date, $date->format('m/d/Y')); 
             }
         }  
+
+
+        $checkRequest = 0;
+        $space_booking_request = [];
+        if(Auth::check()){
+            $data['request_data'] = DB::table('space_booking_request')->where('space_id', $space_id)->where('user_id' , Auth::id())->first();
+            // foreach($data['request_data'] as $reqData){
+            //     if($reqData->user_id ==Auth::id())
+            //     {
+                    $space_booking_request = $data['request_data'];
+                    $checkRequest = 1; 
+                // }
+            // }
+        }
+
+        if(!empty($space_booking_request))
+        {
+            $data['details'] = DB::table('space_booking_request')
+                ->join('users', 'space_booking_request.user_id', '=', 'users.id')
+                ->join('space', 'space_booking_request.space_id', '=', 'space.space_id')
+                ->select(
+                    'space_booking_request.*',
+                    'users.user_type',
+                    'users.first_name as user_first_name',
+                    'users.last_name as user_last_name',
+                    'users.email as user_email',
+                    'users.contact_number as user_contact_num',
+                    'users.role_id as user_role_id',
+                    'users.is_verify_email as user_email_is_verify_email',
+                    'users.is_verify_contact as user_contact_is_verify_contact',
+                    'space.space_name',
+                    'space.space_user_id',
+                    'space.price_per_night',
+                    'space.city',
+                    'space.booking_option'
+                )
+                ->where('space_booking_request.id', $space_booking_request->id)
+                ->first();
+        }    
+
 
         // echo "<pre>";print_r($space_booked_date);die;
         $data['space_booked_date'] = json_encode($space_booked_date);

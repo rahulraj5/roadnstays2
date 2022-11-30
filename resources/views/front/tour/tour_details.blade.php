@@ -1,6 +1,9 @@
 @extends('front.layout.layout')
 <!-- @section('title', 'User - Profile') -->
 @section('current_page_css')
+<style type="text/css">
+
+</style>
 @endsection
 @section('current_page_js')
 <script>
@@ -172,7 +175,7 @@
    </section>
    @php $country_name = DB::table('country')->where('id', $tour_details->country_id)->first(); @endphp
    <section class="info-tours ">
-      <div class="row">
+      <div class="row">    
          <div class="col-sm-12">
             <a href="javascript:history.back()"><i class="right fas fa-angle-left"></i>Back</a>
          </div>
@@ -277,7 +280,8 @@
                   </div>
                   <div id="Itinerary" class="desc-box">
                      <div class="itinerary-cont accordion-box">
-                        <h4 class="content-title"><i class='bx bx-sitemap'></i> Tour Pickup Locations</h4>
+                        <h4 class="content-title"><i class='bx bx-sitemap'></i> Tour Pickup Locations 
+                        (Additional Charges)</h4>
                         @foreach($tour_pickup_locations as $locations)
                         <div class="itinerary-cont-box accordion-item is-active" id="show-hidden-menu">
                            <span>City {{$locations->city}}</span>
@@ -324,14 +328,14 @@
                         </div>
                      </div>
                   </div>
-                  <div class="desc-box">
+                  <!-- <div class="desc-box">
                      <h4 class="content-title"><i class='bx bx-receipt'></i> Private Note</h4>
                      <div class="menu-part mt-0 about-tour" id="terms-conditions">
                         <div class="about-sec-list">
                            <ul>{{$tour_details->private_note}}</ul>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <div class="desc-box">
                      <h4 class="content-title"><i class='bx bx-receipt'></i> Terms & Conditions</h4>
                      <div class="menu-part mt-0 about-tour" id="terms-conditions">
@@ -377,153 +381,52 @@
                         </div>
                      </div>
                   </div>
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d945185.2755575953!2d75.09153876182457!3d22.273065524645048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x3962fcad1b410ddb%3A0x96ec4da356240f4!2sindore!3m2!1d22.7195687!2d75.8577258!4m5!1s0x3bd885c4bd93b163%3A0xae95ec27b40bf31d!2skhargone!3m2!1d21.833524399999998!2d75.61498929999999!5e0!3m2!1sen!2sin!4v1661252086781!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                  <div id="map" style="position: inherit; height:450px !important; width: 100% !important; overflow: inherit !important;"></div>
+                 <!--  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d945185.2755575953!2d75.09153876182457!3d22.273065524645048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x3962fcad1b410ddb%3A0x96ec4da356240f4!2sindore!3m2!1d22.7195687!2d75.8577258!4m5!1s0x3bd885c4bd93b163%3A0xae95ec27b40bf31d!2skhargone!3m2!1d21.833524399999998!2d75.61498929999999!5e0!3m2!1sen!2sin!4v1661252086781!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                   @if($tour_details->tour_max_capacity >= $tour_booked_count)
                   <a href="{{url('/tourBooking')}}?id={{$tour_details->id}}" class="btn btn-rounded btn-sm book-btn">book this now</a>
                   @endif
                </div>
             </div>
          </div>
-         @php $vendor = DB::table('users')->join('vendor_profile', 'users.id', '=', 'vendor_profile.user_id')->where('users.id', $tour_details->vendor_id)->first(); @endphp
-         <!-- <div class="col-xl-4 col-lg-4 col-md-12 enquiry form" id="enquiry-form">
-            <form method="POST" id="trip_with_us">
-               <h1>Book your Trip with Us</h1>
-               <p>Please take a moment to get in touch, we will get back to you shortly.</p>
-               <div class="column">
-                  <label for="1name">Your Name</label>
-                  <input type="text" name="name" id="1name">
-                  <label for="1email">Email Address</label>
-                  <input type="email" name="email" id="1email">
-                  <label for="1phone">Phone Number</label>
-                  <input type="tel" name="phone" id="1phone">
-                  <label for="Traveller">Travllers</label>
-                  <ul class="count-traveller">
-                     <li class="adult-count">
-                        <span>Adult</span>
-                        <div class="number">
-                           <p class="minus1" data-quantity="minus1" data-field="quantity">-</p>
-                           <input type="text" name="adult" value="0" />
-                           <p class="plus1" data-quantity="plus1" data-field="quantity">+</p>
-                        </div>
-                     </li>
-                     <li class="kids-count">
-                        <span>Child</span>
-                        <div class="number">
-                           <p class="minus1" data-quantity="minus1" data-field="quantity">-</p>
-                           <input type="text" name="child" value="0" />
-                           <p class="plus1" data-quantity="plus1" data-field="quantity">+</p>
-                        </div>
-                     </li>
-                     <li class="room-count">
-                        <span>Rooms</span>
-                        <div class="number">
-                           <p class="minus1" data-quantity="minus1" data-field="quantity">-</p>
-                           <input type="text" name="rooms" value="0" />
-                           <p class="plus1" data-quantity="plus1" data-field="quantity">+</p>
-                        </div>
-                     </li>
-                  </ul>
-                  <label>Mattress Required:</label>
-                  <div class="check-bo">
-                     <div class="check-y"> <input type="radio" id="yes" onclick="show2();" name="check" value="Yes">
-                        <label for="yes">Yes</label><br>
-                     </div>
-                     <div class="check-n"><input type="radio" id="no" name="check" value="No" onclick="show1();">
-                        <label for="check">No</label><br>
-                     </div>
-                  </div>
-                  <div class="matress-no" id="matress-number">
-                     <span>Select Quantity</span>
-                     <div class="number">
-                        <p class="minus1" data-quantity="minus1" data-field="quantity">-</p>
-                        <input type="text" name="matress_number" value="0" />
-                        <p class="plus1" data-quantity="plus1" data-field="quantity">+</p>
-                     </div>
-                  </div>
-                  <label for="transport">Select Transport</label>
-                  <select name="transport" id="transport">
-                     <option value="">Choose one</option>
-                     <option value="Bus">Bus</option>
-                     <option value="Train">Train</option>
-                     <option value="Suv Van">Suv Van</option>
-                     <option value="Car">Car</option>
-                     <option value="Mini">Mini Van</option>
-                  </select>
-               </div>
-               <div class="date-loc">
-                  <div class="Date-f">
-                     <label for="date">Select Date</label>
-                     <input type="date" name="date" id="">
-                  </div>
-                  <div class="location-f">
-                     <label for="departure">Departure City</label>
-                     <select name="departure" id="departure">
-                        <option value="">Choose One</option>
-                        <option value="Karachi">Karachi</option>
-                        <option value="Lahore">Lahore</option>
-                        <option value="Phaktoon">Phaktoon</option>
-                        <option value="Islamabad">Islamabad</option>
-                        <option value="paitlabad">paitlabad</option>
-                     </select>
-                  </div>
-               </div>
-               <div class="date-flex">
-                  <div class="tour-days">
-                     <label>Tour Duration</label>
-                     <div class="number">
-                        <p class="minus1" data-quantity="minus1" data-field="quantity">-</p>
-                        <input type="text" name="duration" id="duration" value="0" />
-                        <p class="plus1" data-quantity="plus1" data-field="quantity">+</p>
-                     </div>
-                  </div>
-                  <div class="flex-f">
-                     <label for="flex_date">Flexible date</label>
-                     <select name="flex_date" id="flex_date">
-                        <option value="">Choose One</option>
-                        <option value="5 days before">5 days before</option>
-                        <option value="2 days ago">2 days ago</option>
-                        <option value="2 days ago">after a week</option>
-                        <option value="not yet Decided">not yet Decided</option>
-                        <option value="Other">Other</option>
-                     </select>
-                  </div>
-               </div>
-               <div class="trip-type">
-                  <label for="type">Trip Type</label>
-                  <select name="type" id="type">
-                     <option value="">Choose One</option>
-                     <option value="Adventure">Adventure</option>
-                     <option value="Sightseeing">Sightseeing</option>
-                     <option value="Adventure + Sightseeing">Adventure + Sightseeing</option>
-                     <option value="Honeymoon">Honeymoon</option>
-                     <option value="School Trip">School Trip</option>
-                     <option value="Corporate Trip">Corporate Trip</option>
-                  </select>
-               </div>
-               <div class="trip-type trip-location">
-                  <label for="location">Location</label>
-                  <select name="location" id="location">
-                     <option value="">Choose One</option>
-                     <option value="Shimla">Shimla</option>
-                     <option value="Manali">Manali</option>
-                     <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-                     <option value="Laddhakh">Laddhakh</option>
-                     <option value="Kerala">Kerala</option>
-                     <option value="Madhya Pradesh">Madhya Pradesh</option>
-                     <option value="Mandu">Mandu</option>
-                  </select>
-               </div>
-               <div class="column">
-                  <label for="message">Please share further details / Preferences?</label>
-                  <textarea name="message" id="message"></textarea>
-                  <input type="submit" value="Send Message">
-               </div>
-            </form>
-         </div> -->
+         @php $vendor = DB::table('users')->join('vendor_profile', 'users.id', '=', 'vendor_profile.user_id')->where('users.id', $tour_details->vendor_id)->first(); @endphp 
       </div>
       </div>
       </div>
+
+
    </section>
+
+   <div id="sidebar" style="display: none;">
+        <div>
+          <b>Start:</b>
+          <select id="start">
+            <option value="{{$tour_itinerary[0]->place_from}}" selected="selected">{{$tour_itinerary[0]->place_from}}</option>
+          </select>
+          <br />
+          <b>Waypoints:</b> <br />
+          <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
+          <select multiple id="waypoints">
+            @foreach($tour_itinerary as $itinerary)
+            <option value="{{$itinerary->place_from}}" selected="selected">{{$itinerary->place_from}}</option>
+            @endforeach
+           <!--  <option value="bhopal" selected="selected">Bhopal</option>
+            <option value="harda">Harda</option>
+            <option value="betul" selected="selected">Betul</option>
+            <option value="chhindwara">Chhindwara</option> -->
+          </select>
+          <br />
+          <b>End:</b>
+          <select id="end">
+            <option value="{{$tour_itinerary[0]->place_from}}" selected="selected">{{$tour_itinerary[0]->place_from}}</option>
+          </select>
+          <br />
+          <input type="submit" id="submit" />
+        </div>
+        <div id="directions-panel"></div>
+      </div>
+      
 </main>
 <script>
    function show1(){
@@ -536,5 +439,79 @@
 <script></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+ <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&callback=initMap&v=weekly"
+      defer
+    ></script>
+    <script type="text/javascript">
+
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+function initMap() {
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 6,
+    center: { lat: '<?php echo $tour_details->latitude; ?>', lng: '<?php echo $tour_details->longitude; ?>' },
+  });
+
+  directionsRenderer.setMap(map);
+  //document.getElementById("submit").addEventListener("click", () => {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  //});
+}
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  const waypts = [];
+  const checkboxArray = document.getElementById("waypoints");
+
+  for (let i = 0; i < checkboxArray.length; i++) {
+    if (checkboxArray.options[i].selected) {
+      waypts.push({
+        location: checkboxArray[i].value,
+        stopover: true,
+      });
+    }
+  }
+
+
+  directionsService
+    .route({
+      origin: document.getElementById("start").value,
+      destination: document.getElementById("end").value,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+
+      const route = response.routes[0];
+      const summaryPanel = document.getElementById("directions-panel");
+
+      summaryPanel.innerHTML = "";
+
+      alert(response.routes[0]);die;
+      // For each route, display summary information.
+      for (let i = 0; i < route.legs.length; i++) {
+        const routeSegment = i + 1;
+
+        summaryPanel.innerHTML +=
+          "<b>Route Segment: " + routeSegment + "</b><br>";
+        summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+        summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+        summaryPanel.innerHTML += route.legs[i].distance.text + "<br><br>";
+      }
+    })
+    .catch((e) => window.alert("Directions request failed due to " + status));
+}
+
+window.initMap = initMap;
+
+</script>
 <!-- End #main -->
 @endsection

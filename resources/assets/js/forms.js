@@ -62,6 +62,7 @@ $("#userLogin_form").validate({
 
             }else{
 
+              $('#userLogin_form').modal('hide');
               // setTimeout(function(){window.location.href=site_url+"/user/profile"},1000);
               setTimeout(function(){window.location.reload()},1000);
 

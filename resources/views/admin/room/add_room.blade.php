@@ -840,7 +840,7 @@
           number: true,
         },
         room_size: {
-          required: true,
+          // required: true,
           number: true,
         },
         bed_type: {

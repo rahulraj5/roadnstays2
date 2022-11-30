@@ -211,7 +211,7 @@
 
                                                     <td class="project-state">
 
-                                                        <input  type="checkbox" class="toggle-class" data-style="slow" data-onstyle="success" data-size="small" data-on="Approved" data-off="Pending for approval" {{ $arr->status ? 'checked' : '' }} disabled>
+                                                        <input type="checkbox" class="toggle-class" data-style="slow" data-onstyle="success" data-size="small" data-on="Approved" data-off="Pending for approval" {{ $arr->status ? 'checked' : '' }} disabled>
                                                         <!-- data-id="{{$arr->id}}" data-toggle="toggle" -->
                                                     </td>
 
@@ -223,7 +223,7 @@
 
                                                             <a href="{{url('/servicepro/editTour')}}/{{$arr->id}}" class="btn btn-info" style="margin-right: 3px;"><i class="bx bxs-edit"></i></a>
 
-                                                            <!-- <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash"  alt="user" title="user"></i></a> -->
+                                                            <!-- <a href="javascript:void(0)" onclick="deleteConfirmation('<?php //echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;"><i class="bx bxs-trash"  alt="user" title="user"></i></a> -->
 
                                                         </div>
 

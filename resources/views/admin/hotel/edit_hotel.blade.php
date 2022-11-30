@@ -1383,6 +1383,13 @@
                             </div>
                           </div>
 
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Private Notes</label>
+                              <textarea class="form-control" id="private_notes" name="private_notes">{{(!empty($hotel_info-> private_notes) ? $hotel_info-> private_notes : '')}}</textarea>
+                            </div>
+                          </div>
+
                           <!-- <div class="col-md-6">
                               <div class="form-group">
                                 <label>Scouts ID</label>
@@ -1533,7 +1540,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-12">
+                          <!-- <div class="col-md-12">
                             <div class="row <? if ($hotel_info->booking_option != 2) {
                                               echo 'd-none';
                                             } ?>" id="request_booking_valid_hr_div">
@@ -1544,7 +1551,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div> 
+                          </div>  -->
 
                           <!-- cancellation & policy start here -->
 

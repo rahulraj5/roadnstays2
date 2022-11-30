@@ -116,14 +116,14 @@
 @endsection
 @section('content')
 <main id="main" class="tour-details-page">
-   <section class="tour-single-section pt-0" style="background-image: url('{{url('/')}}/resources/assets/img/tour3.jpg');">
+   <section class="tour-single-section pt-0" style="background-image: url('{{url('/')}}/resources/assets/img/tour3.jpg'); height: 200px;">
+    <h1 class="boktrip-us"> Book your Trip with Us !</h1> 
    </section>
    <section class="info-tours">
-      <div class="tour-title-section" style="position: inherit;">
+      <div class="tour-title-section" style="position: inherit; background: inherit;">
          <div class="container ">
-            <div class="row ">
-               <div class="col-12">
-                  <div class="col-md-6 enquiry form m-auto" id="enquiry-form">
+            <div class="row">
+                  <div class="col-md-6 enquiry form" id="enquiry-form">
                      <form method="POST" id="trip_with_us">
                         <h1>Book your Trip with Us</h1>
                         <p>Please take a moment to get in touch, we will get back to you shortly.</p>
@@ -226,7 +226,8 @@
                               </select>
                            </div>
                         </div>
-                        <div class="trip-type">
+                        <div class="row">
+                        <div class="trip-type col-md-6 pl-1">
                            <label for="type">Trip Type</label>
                            <select name="type" id="type">
                               <option value="">Choose One</option>
@@ -238,7 +239,7 @@
                               <option value="Corporate Trip">Corporate Trip</option>
                            </select>
                         </div>
-                        <div class="trip-type trip-location">
+                        <div class="trip-type trip-location col-md-6 pr-1 pl-0">
                            <label for="location">Location</label>
                            <select name="location" id="location">
                               <option value="">Choose One</option>
@@ -251,6 +252,7 @@
                               <option value="Mandu">Mandu</option>
                            </select>
                         </div>
+                      </div>
                         <div class="column">
                            <label for="message">Please share further details / Preferences?</label>
                            <textarea name="message" id="message"></textarea>
@@ -258,7 +260,14 @@
                         </div>
                      </form>
                   </div>
-               </div>
+                         <div class="col-md-6 trvnl-gn"> 
+                         <img src="https://roadnstays.com/resources/assets/img/travel-items.png" alt="" class="">
+
+                         </div>
+
+              
+
+
             </div>
          </div>
       </div>

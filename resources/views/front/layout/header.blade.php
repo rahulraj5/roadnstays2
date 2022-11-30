@@ -29,8 +29,8 @@
         <!-- <li><a href="#">Space</a></li> -->
         <li><a href="{{ url('/') }}">Hotel</a></li>
         <li><a href="{{ url('/tour-list') }}">Tour</a></li>
-        <li><a href="{{ url('/events') }}">Event</a></li>
-        <li><a href="{{ url('/space') }}">Space</a></li>
+        <!-- <li><a href="{{ url('/events') }}">Event</a></li> -->
+        <!-- <li><a href="{{ url('/space') }}">Space</a></li> -->
         <!-- <li><a href="#">Packages</a></li> -->
         <!-- <li><a href="#">Weather</a></li> -->
 
@@ -110,9 +110,9 @@
             <li class='has-submenu'><a class='prett' href='' title='Dropdown 1'><i class='bx bx-book-content'></i>Booking</a>
               <ul class='submenu'>
                 <li><a href="{{ url('/user/bookingList') }}" title="Sub Menu">Hotel Booking</a></li>
-                <li><a href="{{ url('/user/spaceBookingList') }}" title="Sub Menu">Space Booking</a></li>
+                <!-- <li><a href="{{ url('/user/spaceBookingList') }}" title="Sub Menu">Space Booking</a></li> -->
                 <li><a href="{{ url('/user/tourBookingList') }}" title="Sub Menu">Tour Booking</a></li>
-                <li><a href="{{ url('/user/eventBookingList') }}" title="Sub Menu">Event Booking</a></li>
+                <!-- <li><a href="{{ url('/user/eventBookingList') }}" title="Sub Menu">Event Booking</a></li> -->
               </ul>
             </li>
 
@@ -156,7 +156,7 @@
             <li class='has-submenu'><a class='prett' href='' title='Dropdown 1'><i class='bx bx-book-content'></i>Booking</a>
               <ul class='submenu'>
                 <li><a href="{{ url('/servicepro/hotel-reservation-list') }}" title="Sub Menu">Hotel Booking</a></li>
-                <li><a href="{{ url('/servicepro/space-reservation-list') }}" title="Sub Menu">Space Booking</a></li>
+                <!-- <li><a href="{{ url('/servicepro/space-reservation-list') }}" title="Sub Menu">Space Booking</a></li> -->
                 <li><a href="{{ url('/servicepro/tour-reservation-list') }}" title="Sub Menu">Tour Booking</a></li>
               </ul>
             </li>

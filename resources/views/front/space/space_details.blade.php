@@ -568,8 +568,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14721.698887855493!2d75.86500349999999!3d22.71244985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd166aed3e83%3A0x1e7d346e04a1b812!2sHotel%20Balwas%20International!5e0!3m2!1sen!2sin!4v1659937701338!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <?php $address = $space_details->space_address . ',' . $space_details->city . ',' . $country->name; ?>
+                            <iframe src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='<?php echo str_replace(",", "", str_replace(" ", "+", $address)); ?>'&z=14&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
 
                     </div>
@@ -617,13 +617,37 @@
                                 </select>
                             </div> -->
 
+                            
+                        @if(!empty($details))
+                            @php $expense = $details->expense_value @endphp
+                            @php $discount = $details->discount @endphp
+                        @else
+                            @php $expense = 0 @endphp
+                            @php $discount = 0 @endphp
+                        @endif
+
+
+
                         @php
                         $date1_ts = strtotime($check_in);
                         $date2_ts = strtotime($check_out);
                         $diff = $date2_ts - $date1_ts;
                         $booking_days = round($diff / 86400);
                         @endphp
-                        @php $total_amount = ($booking_days*$space_details->price_per_night)+$space_details->cleaning_fee+$space_details->city_fee+$space_details->tax_percentage; @endphp
+                        @php $total_amount = ($booking_days*$space_details->price_per_night)+$space_details->cleaning_fee+$space_details->city_fee+$space_details->tax_percentage + $expense - $discount; @endphp
+
+
+                        @php $total_amount = ($booking_days * $space_details->price_per_night) + $space_details->cleaning_fee + $space_details->city_fee + $space_details->tax_percentage + $expense - $discount @endphp
+                        @if($space_details->payment_mode == 2)
+                            @php $online_payable_amount = round((($total_amount * $space_details->online_payment_percentage)/100)) @endphp
+                            @php $at_desk_payable_amount = $total_amount - $online_payable_amount @endphp
+                        @else
+                            @php $online_payable_amount = $total_amount; @endphp
+                            @php $at_desk_payable_amount = 0; @endphp
+                        @endif
+
+
+
                         @if(!empty($check_in))
                         <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Reserve</button></a>
                         @else
@@ -638,18 +662,48 @@
                                 <li>PKR {{$space_details->price_per_night}}x{{ $booking_days }} Nights</li>
                                 <li>PKR {{$space_details->price_per_night*$booking_days }}/-</li>
                             </ul>
+                            @if($space_details->cleaning_fee > 0)
                             <ul>
                                 <li>Cleaning Fee</li>
-                                <li>{{$space_details->cleaning_fee}}</li>
+                                <li>{{$space_details->cleaning_fee}}/-</li>
                             </ul>
+                            @endif
+                            @if($space_details->city_fee > 0)
                             <ul>
                                 <li>City Fee</li>
-                                <li>{{$space_details->city_fee}}</li>
+                                <li>{{$space_details->city_fee}}/-</li>
                             </ul>
+                            @endif
+                            @if($space_details->tax_percentage > 0)
                             <ul>
                                 <li>Service tax</li>
-                                <li>{{$space_details->tax_percentage}}</li>
+                                <li>{{$space_details->tax_percentage}}/-</li>
                             </ul>
+                            @endif
+                            @if(!empty($details->expense_value))
+                            <ul>
+                                <li>{{$details->expense_name}} Charges</li>
+                                <li>PKR {{$details->expense_value}}/-</li>
+                            </ul>
+                            @endif
+                            @if(!empty($details->discount))
+                            <ul>
+                                <li>{{$details->discount_name}} Discount</li>
+                                <li>PKR -{{$details->discount}}/-</li>
+                            </ul>
+                            @endif
+
+                            @if($space_details->payment_mode == 2)
+                            <ul>
+                                <li><b>Online Payable Amount </b></li>
+                                <li><b>PKR {{$online_payable_amount}}</b>/-</li>
+                            </ul>
+                            <ul>
+                                <li>At Desk Payable Amount</li>
+                                <li>PKR {{$at_desk_payable_amount}}/-</li>
+                            </ul>
+                            @endif
+
                         </div>
                         <div class="total <?php if (empty($check_out)) {
                                                 echo "hiddenPrice";
@@ -704,6 +758,22 @@
                                 </ul>
                             </div>
                         </div> -->
+
+                        @if(count($space_bedroom_detail) > 0)
+                        <div class="about-property mt-3 p-4">
+                            <h3 class="mb-2">Sleeping Situation</h3>
+                            <p class="mt-1 w-50"><span>Total Bedrooms:</span> {{$space_details->bedroom_number}} Bedrooms</p>
+                            <div class="furnising-details">
+                                @foreach($space_bedroom_detail as $bedroom_detail)
+                                <div class="mr-2 funris-faci">
+                                    <p><b>{{ $bedroom_detail->bedroom_name}}</b> - {{ $bedroom_detail->bed_num}} {{ $bedroom_detail->bed_type}} </p>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+
+
 
                         <div class="about-property mt-3 p-4">
                             <h3 class="mb-2">About Property</h3>

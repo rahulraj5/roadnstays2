@@ -1070,8 +1070,15 @@
 
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label>Hotel Notes Policy</label>
+                            <label>Hotel Notes</label>
                             <textarea class="form-control" id="summernote1Removed" name="hotel_notes"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Private Notes</label>
+                            <textarea class="form-control" id="private_notes" name="private_notes"></textarea>
                           </div>
                         </div>
 

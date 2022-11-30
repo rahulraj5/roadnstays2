@@ -283,7 +283,7 @@
               </td>
 
               <td class="project-state">
-                <input type="checkbox" class="toggle-class" data-id="{{ $arr->space_id }}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Active" data-off="InActive" {{ $arr->status ? 'checked' : '' }}>
+                <input type="checkbox" class="toggle-class" data-id="{{ $arr->space_id }}" data-toggle="toggle" data-style="slow" data-onstyle="success" data-size="small" data-on="Approved" data-off="Pending for approval" {{ $arr->status ? 'checked' : '' }} disabled>
               </td>
 
               <td class="text-center py-0 align-middle">

@@ -143,6 +143,8 @@
 </style>
 @endsection
 @section('current_page_js')
+
+
 <script>
    $('#check_n_pay').click(function() {
       $('#invoice_n_pay').removeClass('d-non');
@@ -579,16 +581,28 @@ $(function(){
 
        var packages = package*adultval;
 
-        var childoff = $("#childoff").val(); 
-        var childtour_price = (package*childoff)/100;
-        var packagec1 = package*childnum;
-        var packagecd1 = childtour_price*childnum;
+       var childoff = $("#childoff").val(); 
+       var childtour_price = (package*childoff)/100;
+       var packagec1 = package*childnum;
+       var packagecd1 = childtour_price*childnum;
 
-        var packagecdfn = packagec1-packagecd1;
+       var packagecdfn = packagec1-packagecd1;
 
        var location_price = $("#location_price").val(); 
 
-       var totalamount = parseInt(packages)+parseFloat(packagecdfn)+parseInt(location_price)+parseInt(expense)-parseInt(discount);
+
+       var total_person = adultval+childnum;
+
+        //alert(total_person);
+      
+       var cal_locationprice = location_price*total_person;
+
+
+       //alert(location_price);
+
+       var totalamount = parseInt(packages)+parseFloat(packagecdfn)+parseInt(cal_locationprice)+parseInt(expense)-parseInt(discount);
+
+       $("#total_amount").val(totalamount);
        
        $("#tourpriceid").html(packages); 
 
@@ -608,11 +622,31 @@ $(function(){
       var locationdd = $(this).val();
       var locationprice = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
+      var adultval = $("#adult").val();
+
+      var adultnum = parseInt(adultval); 
+
+      var childval = $("#child").val();
+
+      var childnum = parseInt(childval);
+
+      var total_person = adultnum+childnum;
+
+
+      //alert(total_person);
+      
+      var cal_locationprice = locationprice*total_person;
+
+
+      //var cal_locationprice = locationprice*(adultnum+childnum);
+      //alert(cal_locationprice);
+
       $("#piclocs").html(locationdd);
-      $("#locationtext").html(locationprice);
+      $("#locationtext").html(cal_locationprice);
       $("#picklocation").show();
 
-      $("#location_price").val(locationprice);
+
+      $("#location_price").val(locationprice*adultnum);
 
       var ctour_price = $("#ctour_price").val();
       var expense = $("#expense").val();
@@ -630,10 +664,10 @@ $(function(){
       }
       
 
-      var totalamount = parseInt(packages)+parseInt(locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
 
 
-
+      $("#total_amount").val(totalamount);
       $("#tourpriceid").html(packages);  
 
       $("#totalpaid").text(totalamount);
@@ -643,33 +677,54 @@ $(function(){
 
    $("#adultplus").click(function(){ 
       
-    var adultval = $("#adult").val();
+      var adultval = $("#adult").val();
 
-    var adultnum = parseInt(adultval)+1; 
+      var adultnum = parseInt(adultval)+1; 
 
-    $("#adult").val(adultnum);
+      $("#adult").val(adultnum);
 
-    $("#adultnum").text(adultnum);
+      $("#adultnum").text(adultnum);
 
-       var expense = $("#expense").val(); 
-       var discount = $("#discount").val();
+      var expense = $("#expense").val(); 
+      var discount = $("#discount").val();
 
-       var ctour_price = $("#ctour_price").val();
+      var ctour_price = $("#ctour_price").val();
 
-       var packages = ctour_price*adultnum;
+      //$("input[name*='online_payable_amount']").val();
 
-       var location_price = $("#location_price").val(); 
+      var packages = ctour_price*adultnum;
 
-       var tourchildbase = $("#tourchildprice").text();
-       var childprice = $("#tourchildoffprice").text();
+      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
-       var packagecdfn = tourchildbase-childprice;
+      //alert(adultnum);
+      var tourchildbase = $("#tourchildprice").text();
+      var childprice = $("#tourchildoffprice").text();
 
-       var totalamount = parseInt(packages)+parseInt(location_price)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
-       
-       $("#tourpriceid").html(packages); 
+      var packagecdfn = tourchildbase-childprice;
+      
+      var childval = $("#child").val();
 
-       $("#totalpaid").text(totalamount);
+      var childnum = parseInt(childval);
+      var total_person = adultnum+childnum;
+      var cal_locationprice = location_price*total_person;
+      
+      $("#locationtext").html(cal_locationprice);
+
+      if(childprice == 0){
+      var packagecdfn = 0;
+      }else{
+        var packagecdfn = tourchildbase-childprice;
+      }
+
+       //alert(childprice);
+
+      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+
+      $("#total_amount").val(totalamount);
+     
+      $("#tourpriceid").html(packages); 
+
+      $("#totalpaid").text(totalamount);
 
     }); 
 
@@ -692,15 +747,31 @@ $(function(){
 
        var packages = ctour_price*adultnum;
 
-       var location_price = $("#location_price").val(); 
+       var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
 
        var tourchildbase = $("#tourchildprice").text();
        var childprice = $("#tourchildoffprice").text();
 
-       var packagecdfn = tourchildbase-childprice;
+      // var packagecdfn = tourchildbase-childprice;
+      var childval = $("#child").val();
 
-       var totalamount = parseInt(packages)+parseInt(location_price)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+      var childnum = parseInt(childval);
+
+      var total_person = adultnum+childnum;
+      var cal_locationprice = location_price*total_person;
+
+      $("#locationtext").html(cal_locationprice);
+
+      if(childprice == 0){
+      var packagecdfn = 0;
+      }else{
+        var packagecdfn = tourchildbase-childprice;
+      }
+      
+      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
        
+       $("#total_amount").val(totalamount);
+
        $("#tourpriceid").html(packages); 
 
        $("#totalpaid").text(totalamount);
@@ -719,41 +790,59 @@ $(function(){
 
     $("#child").val(childnum); 
 
-    var childoff = $("#childoff").val(); 
+      var childoff = $("#childoff").val(); 
 
-    $("#childoffpr").text(childoff);
+      $("#childoffpr").text(childoff);
 
-    $("#childpack").show();
+      $("#childpack").show();
 
-   /************************/
+      /************************/
 
-     $("#childnum").text(childnum);
+      $("#childnum").text(childnum);
 
-     var expense = $("#expense").val(); 
-     var discount = $("#discount").val();
-     var ctour_price = $("#ctour_price").val();
+      var expense = $("#expense").val(); 
+      var discount = $("#discount").val();
+      var ctour_price = $("#ctour_price").val();
 
-     var childtour_price = (ctour_price*childoff)/100;
+      var childtour_price = (ctour_price*childoff)/100;
 
-     var packages = ctour_price*childnum;
-     var packages1 = childtour_price*childnum;
+      var packages = ctour_price*childnum;
+      var packages1 = childtour_price*childnum;
 
       var packagecdfn = packages-packages1;
 
-     var location_price = $("#location_price").val(); 
+      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
-     var adultprice =  $("#tourpriceid").text(); 
+      //alert(location_price);
 
-     var totalamount = parseFloat(packagecdfn)+parseFloat(location_price)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+      var adultprice =  $("#tourpriceid").text(); 
 
-     $("#packagenumchild").html(ctour_price);  
-     
-     $("#tourchildprice").html(packages); 
-     $("#tourchildoffprice").html(packages1); 
+      var adultnum = $("#adult").val();
+      //var childval = parseInt(childval);
+      var adultnum = parseInt(adultnum);
+      //var childnum = parseInt(childval);
+      var total_person = childnum+adultnum;
+      //alert(total_person);
+      var cal_locationprice = location_price*total_person;
 
-     $("#totalpaid").text(totalamount);
+      $("#locationtext").html(cal_locationprice);
+
+      //alert(adultnum);
+
+
+      var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+
+      $("#total_amount").val(totalamount);
+
+      $("#packagenumchild").html(ctour_price);  
+       
+      $("#tourchildprice").html(packages); 
+      $("#tourchildoffprice").html(packages1); 
+
+      $("#totalpaid").text(totalamount);
 
     }); 
+
 
     $("#childminus").click(function(){ 
       
@@ -788,12 +877,27 @@ $(function(){
 
      var packagecdfn = packages-packages1;
 
-     var location_price = $("#location_price").val(); 
+     var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
+
+     var adultval = $("#adult").val();
+
+     var adultnum = parseInt(adultval);
+     // alert(adultnum);
+     // alert(childnum);
+     var total_person = childnum+adultnum;
+     var cal_locationprice = location_price*total_person;
+     // alert(total_person);
+     // alert(cal_locationprice);
+     // die;
+
+     $("#locationtext").html(cal_locationprice);
 
      var adultprice =  $("#tourpriceid").text(); 
 
-     var totalamount = parseFloat(packagecdfn)+parseFloat(location_price)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+     var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
      
+     $("#total_amount").val(totalamount);
+     $("#total_amount").val(totalamount);
      $("#tourchildprice").html(packages);
      $("#tourchildoffprice").html(packages1);  
 
@@ -866,12 +970,17 @@ $(function(){
                      @if($tour_details->payment_mode == 2 and $tour_details->booking_option == 1)
                         <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}">
                         <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
-                        <input type="hidden" name="total_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="total_amount" value="{{$total_amount}}" id="total_amount" >
+                        <input type="hidden" name="partial_payment_status" value="1">
+                     @elseif($tour_details->payment_mode == 2 and $tour_details->booking_option == 2)
+                     <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}">
+                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
+                        <input type="hidden" name="total_amount" value="{{$total_amount}}" id="total_amount" >
                         <input type="hidden" name="partial_payment_status" value="1">
                      @else
                         <input type="hidden" name="online_payable_amount" value="{{$total_amount}}">
                         <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
-                        <input type="hidden" name="total_amount" value="{{$total_amount}}">
+                        <input type="hidden" name="total_amount" value="{{$total_amount}}" id="total_amount">
                         <input type="hidden" name="partial_payment_status" value="0">
                      @endif
 
@@ -1222,7 +1331,7 @@ $(function(){
                      @endif
 
                      @if(!empty($details))
-                        <div class="container d-non" id="invoice_n_pay">
+                        <!-- <div class="container d-non" id="invoice_n_pay">
                            <div class="row" style="margin-left: -15px;  margin-right: -15px;">
                               <div class="col-md-12 p-0 mt-3">
                                  <div class="bankpay">
@@ -1293,14 +1402,16 @@ $(function(){
                                  </div>
                               </div>
                            </div>
-                        </div>
+                        </div> -->
                      @endif
                   </form>
-               <div class="googl_map">
+               <!-- <div class="googl_map">
+                
                   <h3>Google Map</h3>
                   <?php $address = $tour_details->address . ',' . $tour_details->city; ?>
                   <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q=<?php echo $address; ?>&output=embed"></iframe>
-               </div>
+                  
+               </div> -->
             </div>
 
             @if(!empty($details))
@@ -1464,6 +1575,15 @@ $(function(){
                      <h5> At Desk Payable Amount</h5>
                      <h6>PKR {{$at_desk_payable_amount}}</h6>
                   </div>
+                  @elseif($tour_details->payment_mode == 2 and $tour_details->booking_option == 2)
+                  <div class="price-left">
+                     <h5> <b>Online Payable Amount </b></h5>
+                     <h6>PKR {{$online_payable_amount}}</h6>
+                  </div>
+                  <div class="price-left">
+                     <h5> At Desk Payable Amount</h5>
+                     <h6>PKR {{$at_desk_payable_amount}}</h6>
+                  </div>
                   @endif
 
                   <div class="price-left" id="picklocation" style="display: none;"><h5><b><span>Pickup Locations (<span id="piclocs"></span>) :</span></b></h5><h6><b>PKR <span id="locationtext"></span></b></h6> </div>
@@ -1483,5 +1603,6 @@ $(function(){
       </div>
    </section>
 </main>
+
 <!-- End #main -->
 @endsection

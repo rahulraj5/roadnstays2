@@ -352,14 +352,14 @@
                                  </div>
                               </a>
                            </li>
-                           <li class="nav-item">
+                           <!-- <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#home" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/event.png')}}">
                                     <span> Event</span>
                                  </div>
                               </a>
-                           </li>
+                           </li> -->
                            <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
                                  <div class="select-tab">
@@ -368,14 +368,14 @@
                                  </div>
                               </a>
                            </li>
-                           <li class="nav-item">
+                           <!-- <li class="nav-item">
                               <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
                                  <div class="select-tab">
                                     <img src="{{ asset('resources/assets/img/space.png')}}">
                                     Space
                                  </div>
                               </a>
-                           </li>
+                           </li> -->
                         </ul>
                      </div>
                      <!-- Tab panes -->
@@ -719,7 +719,7 @@
                      <div class="world-class-feature">
                         <h3> {{ $hotel->hotel_name }} </h3>
                         <span class="city-nam"><i class='bx bx-map'></i> {{ $country_name }} </span>
-                        <div class="city-nam"><i class='bx bx-home-alt'></i> {{ $hotel->hotel_address }}</div>
+                        <div class="city-nam"><i class='bx bx-home-alt'></i> {{ Str::limit($hotel->hotel_address, 80) }}</div>
                      </div>
                   </div>
                </a>

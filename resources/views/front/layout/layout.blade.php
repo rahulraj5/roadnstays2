@@ -163,7 +163,7 @@
 
    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
-   <script src="{{ asset('resources/assets/vendor/jquery/jquery.min.js')}}"></script>
+   <!-- <script src="{{ asset('resources/assets/vendor/jquery/jquery.min.js')}}"></script> -->
    <script src="{{ asset('resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/jquery.easing/jquery.easing.min.js')}}"></script>
    <script src="{{ asset('resources/assets/vendor/php-email-form/validate.js')}}"></script>
@@ -198,7 +198,7 @@
    </script>
    <!-- <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6jpjQRZn8vu59ElER36Q2LaxptdAghaA=places&callback=initAutocomplete"></script> -->
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script>
+  <!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNfo0u0kFSDaxpJfkR5VsQCUHiyhTBaAI&libraries=places"></script> -->
 
    <script type="text/javascript">
       /*$(document).ready(function () {

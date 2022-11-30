@@ -71,7 +71,7 @@ class SpaceController extends Controller
             $adminspace->scout_id = $request->scout_id;
             $adminspace->payment_mode = $request->payment_mode;
             $adminspace->booking_option = $request->booking_option;
-            $adminspace->reserv_date_change_allow = $request->reserv_date_change_allow;
+            // $adminspace->reserv_date_change_allow = $request->reserv_date_change_allow;
             $adminspace->guest_number = $request->guest_number;
     
             $adminspace->city = $request->city;
@@ -102,7 +102,7 @@ class SpaceController extends Controller
             $adminspace->bedroom_number = $request->bedroom_number;
             $adminspace->bathroom_number = $request->bathroom_number;
             
-            $adminspace->bed_type = $request->bed_type;
+            // $adminspace->bed_type = $request->bed_type;
             $adminspace->private_bathroom = $request->private_bathroom;
             $adminspace->private_entrance = $request->private_entrance;
             $adminspace->optional_services = $request->optional_services;
@@ -222,7 +222,20 @@ class SpaceController extends Controller
                     );
                     $up = DB::table('space_custom_details')->insert($custom_opt);
                 }
-            }    
+            }  
+            
+            if (!empty($request->bedroom[0]['name'])) {
+                foreach ($request->bedroom as $bedroom_detail) {
+                    $bedroom_details = array(
+                        'bedroom_name' => $bedroom_detail['name'],
+                        'bed_type' => $bedroom_detail['bed_type'],
+                        'bed_num' => $bedroom_detail['num'],
+                        'space_id' => $space_id,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('space_bedroom')->insert($bedroom_details);
+                }
+            }  
     
             return response()->json(['status' => 'success', 'msg' => 'Space Added Successfully']);
         }else{
@@ -244,6 +257,7 @@ class SpaceController extends Controller
         $data['space_other_features'] = DB::table('space_features_list')->orderby('space_feature_id', 'ASC')->where('status',1)->get();
         $data['space_features'] = DB::table('space_features')->where('space_id', $space_id)->pluck('space_feature_id')->toArray();
         $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $space_id)->where('status', 1)->get();
+        $data['space_bedroom_detail'] = DB::table('space_bedroom')->where('space_id', $space_id)->get();
         $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $space_id)->where('status', 1)->get();
         // echo "<pre>"; print_r($data['space_features']);die;
         return view('vendor/space/edit_space')->with($data);
@@ -318,7 +332,7 @@ class SpaceController extends Controller
                 'scout_id' => $request->scout_id,
                 'payment_mode' => $request->payment_mode,
                 'booking_option' => $request->booking_option,
-                'reserv_date_change_allow' => $request->reserv_date_change_allow,
+                // 'reserv_date_change_allow' => $request->reserv_date_change_allow,
                 'guest_number' => $request->guest_number,
 
                 'description' => $request->description,
@@ -352,7 +366,7 @@ class SpaceController extends Controller
                 'bedroom_number' => $request->bedroom_number,
                 'bathroom_number' => $request->bathroom_number,
 
-                'bed_type' => $request->bed_type,
+                // 'bed_type' => $request->bed_type,
                 'private_bathroom' => $request->private_bathroom,
                 'private_entrance' => $request->private_entrance,
                 'optional_services' => $request->optional_services,
@@ -448,6 +462,20 @@ class SpaceController extends Controller
                     $up = DB::table('space_custom_details')->insert($custom_opt);
                 }
             }    
+            
+            if (!empty($request->bedroom[0]['name'])) {
+                DB::table('space_bedroom')->where('space_id', '=', $space_id)->delete();
+                foreach ($request->bedroom as $bedroom_detail) {
+                    $bedroom_details = array(
+                        'bedroom_name' => $bedroom_detail['name'],
+                        'bed_type' => $bedroom_detail['bed_type'],
+                        'bed_num' => $bedroom_detail['num'],
+                        'space_id' => $space_id,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                    $up = DB::table('space_bedroom')->insert($bedroom_details);
+                }
+            }
 
             return response()->json(['status' => 'success', 'msg' => 'Space update Successfully']);
         }else{
@@ -554,6 +582,7 @@ class SpaceController extends Controller
         $data['space_other_features'] = DB::table('space_features_list')->orderby('space_feature_id', 'ASC')->where('status',1)->get();
         $data['space_features'] = DB::table('space_features')->where('space_id', $space_id)->pluck('space_feature_id')->toArray();
         $data['space_extra_option'] = DB::table('space_extra_option')->where('space_id', $space_id)->where('status', 1)->get();
+        $data['space_bedroom_detail'] = DB::table('space_bedroom')->where('space_id', $space_id)->get();
         $data['space_custom_details'] = DB::table('space_custom_details')->where('space_id', $space_id)->where('status', 1)->get();
         return view('vendor/space/view_space')->with($data);
     }
@@ -612,7 +641,7 @@ class SpaceController extends Controller
                     'bedroom_number'    => $get_space_detail->bedroom_number,
                     'bathroom_number'    => $get_space_detail->bathroom_number,
 
-                    'bed_type'    => $get_space_detail->bed_type,
+                    // 'bed_type'    => $get_space_detail->bed_type,
                     'private_bathroom'    => $get_space_detail->private_bathroom,
                     'private_entrance'    => $get_space_detail->private_entrance,
                     // 'optional_services'    => $get_space_detail->optional_services,

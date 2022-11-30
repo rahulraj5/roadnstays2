@@ -813,7 +813,7 @@ $('#end_date').datepicker(
                                 <option value="">Select Vendors</option>
                                 @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
                                 @foreach ($vendors as $value)
-                                <option value="{{ $value->id }}" @php if($tour_info->vendor_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if($tour_info->vendor_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -1137,7 +1137,7 @@ $('#end_date').datepicker(
                                 <option value="">Select Scouts</option>
                                 @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
                                 @foreach ($scouts as $value)
-                                <option value="{{ $value->id }}" @php if($tour_info->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if($tour_info->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                                 @endforeach
                               </select>
                             </div>

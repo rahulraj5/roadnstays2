@@ -270,15 +270,32 @@ p.sub-txt {
 .hed-help {
     line-height: 40px;
     border: 1px solid #126c62;
-    padding: 8px 23px;
-    / margin: 0; /
-    border-radius: 11px;
-    font-size: 19px;
+    padding: 2px 23px;
+    border-radius: 10px !important;
+    font-size: 16px;
     margin-bottom: 17px;
     transition: 0.5s;
 }
+.boktrip-us {
+    text-align: center;
+    position: relative;
+    top: 75px;
+    bottom: 0;
+    color: #FFF;
+    font-size: 32px;
+    font-weight: 700;
+}
+.trvnl-gn img{
+  
+}
+.trvnl-gn{
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
 
-
+}
 
 @media screen and (max-width: 767px) {
 .t01 p {

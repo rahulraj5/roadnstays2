@@ -132,6 +132,7 @@ class VendorController extends Controller
             $adminhotel->hotel_gallery = $hotelFeaturedImg;
             $adminhotel->hotel_document = $hotel_document;
             $adminhotel->hotel_notes = $request->hotel_notes;
+            $adminhotel->private_notes = $request->private_notes;
 
             // step 2
             $adminhotel->payment_mode = $request->payment_mode;
@@ -413,6 +414,7 @@ class VendorController extends Controller
                     'hotel_gallery' => $hotelFeaturedImg,
                     'hotel_document' => $hotel_document,
                     'hotel_notes' => $request->hotel_notes,
+                    'private_notes' => $request->private_notes,
 
                     // step 2
                     'payment_mode' => $request->payment_mode,

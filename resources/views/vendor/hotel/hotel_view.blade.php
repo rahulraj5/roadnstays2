@@ -406,12 +406,19 @@
                           </div>
                         </div>
 
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Private Notes</label>
+                            <textarea class="form-control" id="private_notes" name="private_notes" disabled>{{(!empty($hotel_info-> private_notes) ? $hotel_info-> private_notes : '')}}</textarea>
+                          </div>
+                        </div>
+
                         <!-- <div class="col-md-6">
-                                                  <div class="form-group">
-                                                    <label>Scouts ID</label>
-                                                    <input type="text" class="form-control" name="scout_id" id="scout_id" placeholder="Enter Scouts ID">
-                                                  </div>
-                                                </div> -->
+                          <div class="form-group">
+                            <label>Scouts ID</label>
+                            <input type="text" class="form-control" name="scout_id" id="scout_id" placeholder="Enter Scouts ID">
+                          </div>
+                        </div> -->
 
                         <div class="col-md-12 mt-0">
                           <div class="tab-custom-content mt-0">
@@ -473,29 +480,60 @@
                       <!-- <input type="hidden" name="_token" id="csrf-token" value="{{csrf_token()}}" /> -->
 
                       <div class="row">
-                        <!--<div class="col-sm-6">
-                                                      <label>Booking Option</label>
-                                                      <div class="row">
-                                                          <div class="col-sm-6">
-                                                          <div class="form-group">
-                                                              <div class="custom-control custom-checkbox">
-                                                              <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                                              <label for="customCheckbox1" class="custom-control-label">Instant booking</label>
-                                                              </div>
-                                                              
-                                                          </div>
-                                                          </div>
-                                                          <div class="col-sm-6">
-                                                          <div class="form-group">
-                                                              
-                                                              <div class="custom-control custom-checkbox">
-                                                              <input class="custom-control-input" type="checkbox" id="customCheckbox2">
-                                                              <label for="customCheckbox2" class="custom-control-label">Approval based booking</label>
-                                                              </div>
-                                                          </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>-->
+                          <div class="col-md-12">
+                            <div class="tab-custom-content">
+                              <p class="lead mb-0">
+                              <h4>Reservation/Payment mode</h4>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <label>Reservation/Payment mode</label>
+                            <div class="row">
+                              <div class="col-sm-2">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" @php if($hotel_info->payment_mode == 1){echo 'checked';} @endphp>
+                                    <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode2" name="payment_mode" value="2" @php if($hotel_info->payment_mode == 2){echo 'checked';} @endphp>
+                                    <label for="payment_mode2" class="custom-control-label">Partial Payment (Like 30% Online & 70% at Desk )</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="form-group">
+                                  <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" @php if($hotel_info->payment_mode == 0){echo 'checked';} @endphp>
+                                    <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="row <? if ($hotel_info->payment_mode != 2) {
+                                              echo 'd-none';
+                                            } ?>" id="partial_payment_div">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>Online Payment Percentage</label>
+                                  <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($hotel_info->online_payment_percentage) ? $hotel_info->online_payment_percentage : '')}}">
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label>At Desk Payment Percentage</label>
+                                  <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($hotel_info->at_desk_payment_percentage) ? $hotel_info->at_desk_payment_percentage : '')}}">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                         <div class="col-sm-6">
                           <label>Booking Option</label>
@@ -522,6 +560,69 @@
                             </div>
                           </div>
                         </div>
+
+<div class="col-md-12">
+  <div class="tab-custom-content">
+    <p class="lead mb-0">
+    <h4>Cancellation and Refund</h4>
+    </p>
+  </div>
+</div>
+<!-- <label>Cancellation and Refund</label> -->
+<div class="col-md-12">
+  <div class="form-group">
+    <label>Cancellation Policy</label>
+    <textarea readonly class="form-control" id="summernote2Removed" name="cancel_policy">{{(!empty($hotel_info->cancel_policy) ? $hotel_info->cancel_policy : '')}}</textarea>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Min. Hrs. (# of Hours <= from check in)</label>
+            <input readonly type="text" class="form-control" name="min_hrs" id="min_hrs" value="{{(!empty($hotel_info->min_hrs) ? $hotel_info->min_hrs : '')}}" placeholder="hrs.">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Deduction (%)</label>
+        <input readonly type="text" class="form-control" name="min_hrs_percentage" id="min_hrs_percentage" value="{{(!empty($hotel_info->min_hrs_percentage) ? $hotel_info->min_hrs_percentage : '0')}}" placeholder="percentage">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Max. Hrs. (# of Hours <= from check in)</label>
+            <input readonly type="text" class="form-control" name="max_hrs" id="max_hrs" value="{{(!empty($hotel_info->max_hrs) ? $hotel_info->max_hrs : '')}}" placeholder="hrs">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Deduction (%)</label>
+        <input readonly type="text" class="form-control" name="max_hrs_percentage" id="max_hrs_percentage" value="{{(!empty($hotel_info->max_hrs_percentage) ? $hotel_info->max_hrs_percentage : '0')}}" placeholder="percentage">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="tab-custom-content">
+    <p class="lead mb-0">
+    <h4>Commission</h4>
+    </p>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="form-group">
+    <label>Commission</label>
+    <input readonly type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="{{(!empty($hotel_info->commission) ? $hotel_info->commission : '')}}">
+  </div>
+</div>
 
                         <div class="col-md-12">
                           <div class="tab-custom-content">
@@ -1161,14 +1262,12 @@
                                 </div>
                               </div>
 
-                              <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
+                              <!-- <div class="col-sm-12 <? if ($hotel_info->breakfast_availability == 0) {
                                                       echo 'd-none';
                                                     } ?>" id="breakfast_price_type_div">
                                 <div class="form-group">
-                                  <!-- <label>Select all that apply</label> -->
                                   <label>What kind of breakfast is available?</label>
                                   <select class="form-control select2bs4" multiple="multiple" name="breakfast_type[]" id="breakfast_type" style="width: 100%;">
-                                    <!-- <option value="">Select Entertainment and family services</option> -->
                                     @php $breakfast_type = DB::table('breakfast_type')->orderby('bfast_id', 'ASC')->get(); @endphp
                                     @foreach ($breakfast_type as $value)
                                     <option value="{{ $value->bfast_id }}">{{ $value->name }}</option>
@@ -1176,11 +1275,49 @@
 
                                   </select>
                                 </div>
-                              </div>
+                              </div> -->
 
                             </div>
                           </div>
 
+                        </div>
+
+                        <div class="col-md-12 mt-0">
+                          <div class="tab-custom-content mt-0">
+                            <p class="lead mb-0">
+                            <h4>Operator Details</h4>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Operator Name</label>
+                            <input readonly type="text" class="form-control" name="operator_name" id="operator_name" value="{{$hotel_info->operator_name}}" placeholder="Enter Operator Name">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Operator Contact Name</label>
+                            <input readonly type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" value="{{$hotel_info->operator_contact_name}}" placeholder="Enter Contact Name">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Operator Contact Number</label>
+                            <input readonly type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" value="{{$hotel_info->operator_contact_num}}" placeholder="Enter Contact Number">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Operator Email</label>
+                            <input readonly type="text" class="form-control" name="operator_email" id="operator_email" value="{{$hotel_info->operator_email}}" placeholder="Enter Operator Email">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Operator Booking Number</label>
+                            <input readonly type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$hotel_info->operator_booking_num}}" placeholder="Enter Operator Booking Number">
+                          </div>
                         </div>
 
                         <!-- checking for the other option added end here -->

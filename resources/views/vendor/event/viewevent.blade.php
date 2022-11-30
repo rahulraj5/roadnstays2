@@ -386,6 +386,57 @@
                       </select>
                     </div>
                   </div> 
+
+                  <div class="col-md-12 mt-0">
+                    <div class="tab-custom-content mt-0">
+                      <p class="lead mb-0">
+                      <h4>Operator Details</h4>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Operator Name</label>
+                      <input readonly type="text" class="form-control" name="operator_name" id="operator_name" value="{{$event->operator_name}}" placeholder="Enter Operator Name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Operator Contact Name</label>
+                      <input readonly type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" value="{{$event->operator_contact_name}}" placeholder="Enter Contact Name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Operator Contact Number</label>
+                      <input readonly type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" value="{{$event->operator_contact_num}}" placeholder="Enter Contact Number">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Operator Email</label>
+                      <input readonly type="text" class="form-control" name="operator_email" id="operator_email" value="{{$event->operator_email}}" placeholder="Enter Operator Email">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Operator Booking Number</label>
+                      <input readonly type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$event->operator_booking_num}}" placeholder="Enter Operator Booking Number">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Scouts</label>
+                      <select class="form-control select2bs4" name="scout_id" id="scout_id" style="width: 100%;" disabled>
+                        <option value="">Select Scouts</option>
+                        @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
+                        @foreach ($scouts as $value)
+                        <option value="{{ $value->id }}" @php if($event->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
                   
                  
                   <!-- <div class="col-12"> 

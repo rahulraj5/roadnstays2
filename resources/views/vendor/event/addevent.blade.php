@@ -466,6 +466,7 @@
                       </div>
                     </div>
 
+
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Hotels</label>
@@ -536,7 +537,7 @@
                           <option value="">Select Scouts</option>
                           @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->where('status',1)->get(); @endphp
                           @foreach ($scouts as $value)
-                          <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                          <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
                           @endforeach
                         </select>
                       </div>

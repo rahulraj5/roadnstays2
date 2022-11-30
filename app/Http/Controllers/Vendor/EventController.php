@@ -20,7 +20,7 @@ class EventController extends Controller
     {
         $data['page_heading_name'] = 'Events List';
         $vendor_id = Auth::id();
-        $data['eventList'] = Events::where('vendor_id', $vendor_id)->where('status', 1)->orderby('created_at', 'DESC')->get();
+        $data['eventList'] = Events::where('vendor_id', $vendor_id)->orderby('created_at', 'DESC')->get();
 
         return view('vendor/event/event_list')->with($data);
     }
@@ -77,7 +77,7 @@ class EventController extends Controller
 
         $adminevent->hotel_ids =  json_encode($request->hotelname);
         $adminevent->space_ids =  json_encode($request->spacename);
-        $adminevent->status    =  1;
+        $adminevent->status    =  0;
         $adminevent->save();
         $adminevent_id = $adminevent->id;
         if (!empty($_FILES["eventGallery"]["name"])) {

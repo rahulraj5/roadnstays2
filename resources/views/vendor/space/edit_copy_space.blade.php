@@ -51,6 +51,28 @@
     background: #2a7b72 !important;
     color: black;
   }
+
+    
+  .remove_bedroom_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+  }
+
+  .add_bedroom_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 8px 33px;
+    border-radius: 4px;
+    font-size: 16px;
+    top: 7px;
+    left: 12px;
+    margin-left: 11px;
+  }
 </style>
 <style>
   .card {
@@ -194,6 +216,28 @@
     });
 
     $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_bedroom_button');
+    var wrapper = $('.bedroom_field_wrapper');
+    var x = $('#bedroom_detail_count').val() - 1;
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row form-group"><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3 form-group"><div class="form-group"><select class="form-control select2bs4" name="bedroom[' + x + '][bed_type]" style="width: 100%;"><option value="">Select Bed type</option><option value="Single bed">Single bed</option><option value="Double bed">Double bed</option><option value="Bunk bed">Bunk bed</option><option value="Sofa">Sofa</option><option value="Futon Mat">Futon Mat</option><option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option></select></div></div><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][num]" placeholder="Enter Number" value="" /></div><span><a href="javascript:void(0);" class="remove_bedroom_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_bedroom_button', function(e) {
       e.preventDefault();
       $(this).parent().parent('div').remove();
       x--;

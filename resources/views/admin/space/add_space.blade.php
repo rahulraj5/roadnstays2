@@ -63,6 +63,28 @@
   .d-none {
     display: none;
   }
+
+
+  .remove_bedroom_button {
+    background: #f90e39;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    top: 7px;
+    font-size: 14px;
+  }
+
+  .add_bedroom_button {
+    background: #13544d;
+    color: #ffffff;
+    padding: 8px 33px;
+    border-radius: 4px;
+    font-size: 16px;
+    top: 7px;
+    left: 12px;
+    margin-left: 11px;
+  }
 </style>
 @endsection
 @section('current_page_js')
@@ -234,6 +256,7 @@
     format: 'LT'
   });
 </script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
@@ -249,6 +272,28 @@
     });
 
     $(wrapper).on('click', '.remove_button', function(e) {
+      e.preventDefault();
+      $(this).parent().parent('div').remove();
+      x--;
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var maxField = 10;
+    var addButton = $('.add_bedroom_button');
+    var wrapper = $('.bedroom_field_wrapper');
+    var x = 0;
+
+    $(addButton).click(function() {
+      if (x < maxField) {
+        x++;
+        $(wrapper).append('<div class="form-group"><div class="row form-group"><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][name]" placeholder="Enter Name" value="" /></div><div class="col-md-3 form-group"><div class="form-group"><select class="form-control select2bs4" name="bedroom[' + x + '][bed_type]" style="width: 100%;"><option value="">Select Bed type</option><option value="Single bed">Single bed</option><option value="Double bed">Double bed</option><option value="Bunk bed">Bunk bed</option><option value="Sofa">Sofa</option><option value="Futon Mat">Futon Mat</option><option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option></select></div></div><div class="col-md-3 form-group"><input type="text" class="form-control" name="bedroom[' + x + '][num]" placeholder="Enter Number" value="" /></div><span><a href="javascript:void(0);" class="remove_bedroom_button">Remove</a></span></div></div>');
+      }
+    });
+
+    $(wrapper).on('click', '.remove_bedroom_button', function(e) {
       e.preventDefault();
       $(this).parent().parent('div').remove();
       x--;
@@ -306,7 +351,7 @@
         },
         description: {
           required: true,
-          minlength: 200
+          // minlength: 200
           // wordCount: 50
         },
         scout_id: {
@@ -329,9 +374,11 @@
           number: true,
         },
         cleaning_fee: {
+          required: true,
           number: true,
         },
         city_fee: {
+          required: true,
           number: true,
         },
         security_deposite: {
@@ -358,9 +405,9 @@
         bathroom_number: {
           number: true,
         },
-        bed_type: {
-          required: true,
-        },
+        // bed_type: {
+        //   required: true,
+        // },
         private_bathroom: {
           required: true,
         },
@@ -798,7 +845,20 @@
                     <option value="">Select Scouts</option>
                     @php @endphp
                     @foreach ($scouts as $value)
-                    <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                    <option value="{{ $value->id }}">{{ $value->first_name}} {{ $value->last_name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vendors</label>
+                  <select class="form-control select2bs4" name="vendor_id" id="vendor_id" style="width: 100%;">
+                    <option value="">Select Vendors</option>
+                    @php $service_providers = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->where('status',1)->get(); @endphp
+                    @foreach ($service_providers as $value)
+                    <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -898,12 +958,11 @@
                 </div>
               </div>  -->
 
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <div class="col-sm-6">
                   <label>Reservation Change</label>
                   <div class="row">
                     <div class="col-sm-6">
-                      <!-- checkbox -->
                       <div class="form-group">
                         <div class="custom-control custom-radio">
                           <input class="custom-control-input" type="radio" id="reserv_date_change_allow1" name="reserv_date_change_allow" value="1">
@@ -913,9 +972,7 @@
                       </div>
                     </div>
                     <div class="col-sm-6">
-                      <!-- radio -->
                       <div class="form-group">
-
                         <div class="custom-control custom-radio">
                           <input class="custom-control-input" type="radio" id="reserv_date_change_allow2" name="reserv_date_change_allow" value="0" checked>
                           <label for="reserv_date_change_allow2" class="custom-control-label">Date Change not Allowed</label>
@@ -924,7 +981,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-md-12">
                 <div class="tab-custom-content">
@@ -987,7 +1044,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Commission</label>
-                  <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission">
+                  <input type="text" class="form-control" name="commission" id="commission" placeholder="Enter Commission" value="0">
                 </div>
               </div>
 
@@ -1056,7 +1113,7 @@
                     <div class="form-group">
                       <label>Cleaning Fee type</label>
                       <select class="form-control select2bs4" name="cleaning_fee_type" id="cleaning_fee_type" style="width: 100%;">
-                        <option value="">Select Cleaning Fee type</option>
+                        <!-- <option value="">Select Cleaning Fee type</option> -->
                         <option value="single_fee">Single fee</option>
                         <option value="per_night">Per night</option>
                         <option value="per_guest">Per guest</option>
@@ -1078,7 +1135,7 @@
                     <div class="form-group">
                       <label>City Fee type</label>
                       <select class="form-control select2bs4" name="city_fee_type" id="city_fee_type" style="width: 100%;">
-                        <option value="">Select City Fee type</option>
+                        <!-- <option value="">Select City Fee type</option> -->
                         <option value="single_fee">Single fee</option>
                         <option value="per_night">Per night</option>
                         <option value="per_guest">Per guest</option>
@@ -1246,18 +1303,56 @@
                   <input type="text" class="form-control" name="room_number" id="room_number" placeholder="Enter Rooms">
                 </div>
               </div>
+              <!-- <div class="col-md-6">
+                <div class="form-group">
+                  <label>BedRoom type</label>
+                  <select class="form-control select2bs4" name="bed_type" id="bed_type" style="width: 100%;">
+                    <option value="">Select Bed type</option>
+                    <option value="Single bed">Single bed</option>
+                    <option value="Double bed">Double bed</option>
+                    <option value="Bunk bed">Bunk bed</option>
+                    <option value="Sofa">Sofa</option>
+                    <option value="Futon Mat">Futon Mat</option>
+                    <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
+                  </select>
+                </div>
+              </div> -->
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Bedrooms</label>
                   <input type="text" class="form-control" name="bedroom_number" id="bedroom_number" placeholder="Enter Bedrooms">
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Bathrooms</label>
-                  <input type="text" class="form-control" name="bathroom_number" id="bathroom_number" placeholder="Enter Bathrooms">
+              
+              <div class="col-md-12 bedroom_field_wrapper">
+                <div class="form-group" id="bedroom">
+                  <label>BedRoom Details</label>
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[0][name]" placeholder="Enter Name" value="" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <div class="form-group">
+                      <select class="form-control select2bs4" name="bedroom[0][bed_type]" style="width: 100%;">
+                        <option value="">Select Bed type</option>
+                        <option value="Single bed">Single bed</option>
+                        <option value="Double bed">Double bed</option>
+                        <option value="Bunk bed">Bunk bed</option>
+                        <option value="Sofa">Sofa</option>
+                        <option value="Futon Mat">Futon Mat</option>
+                        <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
+                      </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="bedroom[0][num]" placeholder="Enter Number" value="" />
+                    </div>
+                    <span><a href="javascript:void(0);" class="add_bedroom_button" title="Add field">Add</a></span>
+                  </div>
                 </div>
               </div>
+
+              
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Check-in hour (*text)</label>
@@ -1278,16 +1373,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>BedRoom type</label>
-                  <select class="form-control select2bs4" name="bed_type" id="bed_type" style="width: 100%;">
-                    <option value="">Select Bed type</option>
-                    <option value="Single bed">Single bed</option>
-                    <option value="Double bed">Double bed</option>
-                    <option value="Bunk bed">Bunk bed</option>
-                    <option value="Sofa">Sofa</option>
-                    <option value="Futon Mat">Futon Mat</option>
-                    <option value="Extra-Large double bed (Super - King size)">Extra-Large double bed (Super - King size)</option>
-                  </select>
+                  <label>Bathrooms</label>
+                  <input type="text" class="form-control" name="bathroom_number" id="bathroom_number" placeholder="Enter Bathrooms">
                 </div>
               </div>
               <div class="col-md-6">

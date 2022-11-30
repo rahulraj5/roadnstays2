@@ -537,7 +537,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Select Distance</label>
-                <select class="form-control" id="mile-dropdown">
+                <select class="form-control" id="mile-dropdown" name="distance">
                   <option>Select Distance</option>
                   <option value="1"> 1 Mile</option>
                   <option value="2"> 2 Mile</option>
@@ -622,7 +622,7 @@
                   <option value="">Select Scouts</option>
                   @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
                   @foreach ($scouts as $value)
-                  <option value="{{ $value->id }}" @php if($event->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                  <option value="{{ $value->id }}" @php if($event->scout_id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                   @endforeach
                 </select>
               </div>

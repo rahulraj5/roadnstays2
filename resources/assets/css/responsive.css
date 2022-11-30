@@ -8457,11 +8457,13 @@ button.contact_form_submit {
     display: flex;
     align-items: center;
     width: 50%;
+    height: 25px;
   }
   .enquiry form .check-bo .check-n{
     display: flex;
     align-items: center;
     width: 50%;
+    height: 25px;
   }
   .enquiry form .check-bo label{
     margin: 0 0px 0 8px;
@@ -8502,6 +8504,7 @@ button.contact_form_submit {
 }
 .enquiry form .date-flex{
     display: flex;
+    justify-content: space-between;
 }
 .enquiry form .date-flex .flex-f{
     width: 50%;

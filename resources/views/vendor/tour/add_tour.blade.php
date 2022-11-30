@@ -626,7 +626,7 @@
                                 <option value="">Select Vendors</option>
                                 @php $vendors = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'service_provider')->get(); @endphp
                                 @foreach ($vendors as $value)
-                                <option value="{{ $value->id }}" @php if(Auth::user()->id == $value->id){echo "selected";} @endphp>{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}" @php if(Auth::user()->id == $value->id){echo "selected";} @endphp>{{ $value->first_name }} {{ $value->last_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -911,7 +911,7 @@
                                 <option value="">Select Scouts</option>
                                 @php $scouts = DB::table('users')->orderby('first_name', 'ASC')->where('user_type', 'scout')->get(); @endphp
                                 @foreach ($scouts as $value)
-                                <option value="{{ $value->id }}">{{ $value->first_name }}</option>
+                                <option value="{{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -937,7 +937,7 @@
                               <div class="col-sm-2">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" disabled="">
+                                    <input class="custom-control-input" type="radio" id="payment_mode1" name="payment_mode" value="1" checked>
                                     <label for="payment_mode1" class="custom-control-label">Pay now 100%</label>
                                   </div>
                                 </div>
@@ -953,7 +953,7 @@
                               <div class="col-sm-5">
                                 <div class="form-group">
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" checked disabled="">
+                                    <input class="custom-control-input" type="radio" id="payment_mode3" name="payment_mode" value="0" disabled="">
                                     <label for="payment_mode3" class="custom-control-label">Pay at Hotel 100%</label>
                                   </div>
                                 </div>
@@ -986,7 +986,7 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked disabled="">
+                                    <input class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" checked>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>

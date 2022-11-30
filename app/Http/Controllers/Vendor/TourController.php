@@ -217,6 +217,7 @@ class TourController extends Controller
         $data['tour_info'] = DB::table('tour_list')->where('id', $tour_id)->first();
         $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
         $data['tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id', $tour_id)->get();
+        $data['tour_pickup_locations'] = DB::table('tour_pickup_locations')->where('tour_id',$tour_id)->get();
         return view('vendor/tour/tour_view')->with($data);
     }
 

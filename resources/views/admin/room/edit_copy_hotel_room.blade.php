@@ -310,7 +310,7 @@
           number: true,
         },
         room_sizeh: {
-          required: true,
+          // required: true,
           number: true,
         },
         type_of_priceh: {
