@@ -145,6 +145,30 @@
 @section('current_page_js')
 
 
+<?php //echo "<pre>"; print_r($tour_details); ?>
+
+ @if(!empty($details))
+                        @php $expense = $details->expense_value @endphp
+                     @else
+                        @php $expense = 0 @endphp
+                     @endif
+
+                     @if(!empty($details))
+                        @php $discount = $details->discount @endphp
+                     @else
+                        @php $discount = 0 @endphp
+                     @endif
+
+                     @if($tour_details->payment_mode == 2 and $tour_details->booking_option != 3)
+                        @php $total_amount = $tour_details->tour_price + $expense - $discount @endphp
+                        @php $online_payable_amount = round((($total_amount * $tour_details->online_payment_percentage)/100)) @endphp
+                        @php $at_desk_payable_amount = $total_amount - $online_payable_amount @endphp
+                     @else
+                        @php $total_amount = $tour_details->tour_price + $expense - $discount @endphp
+                        @php $online_payable_amount = $total_amount; @endphp
+                        @php $at_desk_payable_amount = 0; @endphp
+                     @endif
+
 <script>
    $('#check_n_pay').click(function() {
       $('#invoice_n_pay').removeClass('d-non');
@@ -520,397 +544,430 @@
    });
 </script>
 <script type="text/javascript">
-   function readURL(input) {
-      if (input.files && input.files[0]) {
-         var reader = new FileReader();
-         reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-            $('#imagePreview').hide();
-            $('#imagePreview').fadeIn(650);
-         }
-         reader.readAsDataURL(input.files[0]);
-      }
-   }
-   $("#imageUpload").change(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+         	var reader = new FileReader();
+	        reader.onload = function(e) {
+	            $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+	            $('#imagePreview').hide();
+	            $('#imagePreview').fadeIn(650);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function() {
       readURL(this);
-   });
+    });
 </script>
 <script type="text/javascript">
-   jQuery(document).ready(function($) {
-      $(".btnrating").on('click', (function(e) {
-         var previous_value = $("#selected_rating").val();
-         var selected_value = $(this).attr("data-attr");
-         $("#selected_rating").val(selected_value);
-         $(".selected-rating").empty();
-         $(".selected-rating").html(selected_value);
-         for (i = 1; i <= selected_value; ++i) {
-            $("#rating-star-" + i).toggleClass('btn-warning');
-            $("#rating-star-" + i).toggleClass('btn-default');
-         }
-         for (ix = 1; ix <= previous_value; ++ix) {
-            $("#rating-star-" + ix).toggleClass('btn-warning');
-            $("#rating-star-" + ix).toggleClass('btn-default');
-         }
-      }));
-   });
+	jQuery(document).ready(function($) {
+	  $(".btnrating").on('click', (function(e) {
+	     var previous_value = $("#selected_rating").val();
+	     var selected_value = $(this).attr("data-attr");
+	     $("#selected_rating").val(selected_value);
+	     $(".selected-rating").empty();
+	     $(".selected-rating").html(selected_value);
+	     for (i = 1; i <= selected_value; ++i) {
+	        $("#rating-star-" + i).toggleClass('btn-warning');
+	        $("#rating-star-" + i).toggleClass('btn-default');
+	     }
+	     for (ix = 1; ix <= previous_value; ++ix) {
+	        $("#rating-star-" + ix).toggleClass('btn-warning');
+	        $("#rating-star-" + ix).toggleClass('btn-default');
+	     }
+	  }));
+	}); 
 
-//    var basePrice = +($('#price').html()).replace(/[^0-9\.]+/g,"");
-// $(".Packages").on('click',function() {
-//   alert('Hii');die;
-//   newPrice = basePrice;
-//   $(".readers option:selected").each(function() {
-//     newPrice += +$(this).attr('data-price')
-//   });
-//   $("#price").html("$" + newPrice.toFixed(2));
-// });
+	$(function(){
+	    
+	    $("input[type='radio']").click(function(){
+	      
+	       var package = $(this).attr('data-price');
 
+	       $("#packagenum").html(package);  
+	       $("#packagenumchild").html(package);
 
-$(function(){
-    
-    $("input[type='radio']").click(function(){
-      
-       var package = $(this).attr('data-price');
+	       var expense = $("#expense").val(); 
+	       var discount = $("#discount").val(); 
+	       var adultval = $("#adult").val();
+	       var childnum = $("#child").val();
 
-       $("#packagenum").html(package);  
-       $("#packagenumchild").html(package);
+	       var packages = package*adultval;
 
-       var expense = $("#expense").val(); 
-       var discount = $("#discount").val(); 
-       var adultval = $("#adult").val();
-       var childnum = $("#child").val();
+	       var childoff = $("#childoff").val(); 
+	       var childtour_price = (package*childoff)/100;
+	       var packagec1 = package*childnum;
+	       var packagecd1 = childtour_price*childnum;
 
-       var packages = package*adultval;
+	       var packagecdfn = packagec1-packagecd1;
 
-       var childoff = $("#childoff").val(); 
-       var childtour_price = (package*childoff)/100;
-       var packagec1 = package*childnum;
-       var packagecd1 = childtour_price*childnum;
+	       var location_price = $("#location_price").val(); 
 
-       var packagecdfn = packagec1-packagecd1;
 
-       var location_price = $("#location_price").val(); 
+	       var total_person = adultval+childnum;
 
+	        //alert(total_person);
+	      
+	       var cal_locationprice = location_price*total_person;
 
-       var total_person = adultval+childnum;
 
-        //alert(total_person);
-      
-       var cal_locationprice = location_price*total_person;
+	       //alert(location_price);
 
+	       var totalamount = parseInt(packages)+parseFloat(packagecdfn)+parseInt(cal_locationprice)+parseInt(expense)-parseInt(discount);
 
-       //alert(location_price);
+	       $("#total_amount").val(totalamount);
+	       
+	       $("#tourpriceid").html(packages); 
 
-       var totalamount = parseInt(packages)+parseFloat(packagecdfn)+parseInt(cal_locationprice)+parseInt(expense)-parseInt(discount);
+	       $("#ctour_price").val(package);
 
-       $("#total_amount").val(totalamount);
-       
-       $("#tourpriceid").html(packages); 
+	       $("#tourchildprice").text(packagec1);
 
-       $("#ctour_price").val(package);
+	       $("#tourchildoffprice").text(packagecd1);
 
-       $("#tourchildprice").text(packagec1);
+	       $("#totalpaid").text(totalamount); 
 
-       $("#tourchildoffprice").text(packagecd1);
+	    });   
+	 
+	    $("#myDropDown").change(function (event) {
 
-       $("#totalpaid").text(totalamount); 
+	      var locationdd = $(this).val();
+	      var locationprice = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
-    });  
+	      var adultval = $("#adult").val();
 
- 
-  $("#myDropDown").change(function (event) {
+	      var adultnum = parseInt(adultval); 
 
-      var locationdd = $(this).val();
-      var locationprice = $("#myDropDown").find('option:selected').attr("data-lprice"); 
+	      var childval = $("#child").val();
 
-      var adultval = $("#adult").val();
+	      var childnum = parseInt(childval);
 
-      var adultnum = parseInt(adultval); 
+	      var total_person = adultnum+childnum;
 
-      var childval = $("#child").val();
+	      var child_online_percentage = "<?php echo $tour_details->online_payment_percentage;?>";
+	      //alert(total_person);
 
-      var childnum = parseInt(childval);
+	      
+	      var cal_locationprice = locationprice*total_person;
 
-      var total_person = adultnum+childnum;
 
+	      //var cal_locationprice = locationprice*(adultnum+childnum);
+	      //alert(cal_locationprice);
 
-      //alert(total_person);
-      
-      var cal_locationprice = locationprice*total_person;
+	      $("#piclocs").html(locationdd);
+	      $("#locationtext").html(cal_locationprice);
+	      $("#picklocation").show();
 
 
-      //var cal_locationprice = locationprice*(adultnum+childnum);
-      //alert(cal_locationprice);
+	      $("#location_price").val(locationprice*adultnum);
 
-      $("#piclocs").html(locationdd);
-      $("#locationtext").html(cal_locationprice);
-      $("#picklocation").show();
+	      var ctour_price = $("#ctour_price").val();
+	      var expense = $("#expense").val();
+	      var discount = $("#discount").val();
+	      var adultval = $("#adult").val();
 
+	      var packages = ctour_price*adultval;
 
-      $("#location_price").val(locationprice*adultnum);
+	      var childprice = $("#tourchildoffprice").text();
+	      var tourchildbase = $("#tourchildprice").text(); 
+	      if(childprice == 0){
+	        var packagecdfn = 0;
+	      }else{
+	        var packagecdfn = tourchildbase-childprice;
+	      }
+	      
+	      var childtour_price_per = (packagecdfn*child_online_percentage)/100;
 
-      var ctour_price = $("#ctour_price").val();
-      var expense = $("#expense").val();
-      var discount = $("#discount").val();
-      var adultval = $("#adult").val();
+	      //alert(childtour_price_per);
 
-      var packages = ctour_price*adultval;
+	      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
 
-      var childprice = $("#tourchildoffprice").text();
-      var tourchildbase = $("#tourchildprice").text(); 
-      if(childprice == 0){
-        var packagecdfn = 0;
-      }else{
-        var packagecdfn = tourchildbase-childprice;
-      }
-      
 
-      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+	      $("#total_amount").val(totalamount);
+	      $("#tourpriceid").html(packages);  
 
+	      $("#totalpaid").text(totalamount);
 
-      $("#total_amount").val(totalamount);
-      $("#tourpriceid").html(packages);  
+	    });
+	 
+	    $("#adultplus").click(function(){ 
+	      
+	      var adultval = $("#adult").val();
 
-      $("#totalpaid").text(totalamount);
+	      var adultnum = parseInt(adultval)+1; 
 
-  });
+	      $("#adult").val(adultnum);
 
+	      $("#adultnum").text(adultnum);
 
-   $("#adultplus").click(function(){ 
-      
-      var adultval = $("#adult").val();
+	      var expense = $("#expense").val(); 
+	      var discount = $("#discount").val();
 
-      var adultnum = parseInt(adultval)+1; 
+	      var ctour_price = $("#ctour_price").val();
 
-      $("#adult").val(adultnum);
+	      //var online_payable_amount = $("#online_payable_amount").val();
 
-      $("#adultnum").text(adultnum);
+	      //var at_desk_payable_amount = $("#at_desk_payable_amount").val();
 
-      var expense = $("#expense").val(); 
-      var discount = $("#discount").val();
+	      var online_payable_amount  = "<?php echo $online_payable_amount; ?>";
+	      var at_desk_payable_amount = "<?php echo $at_desk_payable_amount; ?>";
+	      var child_online_percentage = "<?php echo $tour_details->online_payment_percentage;?>";
 
-      var ctour_price = $("#ctour_price").val();
+	      //$("input[name*='online_payable_amount']").val();
 
-      //$("input[name*='online_payable_amount']").val();
+	      var packages = ctour_price*adultnum;
 
-      var packages = ctour_price*adultnum;
+	      var online_payable_amount_total = online_payable_amount*adultnum;
 
-      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
+	      var at_desk_payable_amount_total = at_desk_payable_amount*adultnum;
 
-      //alert(adultnum);
-      var tourchildbase = $("#tourchildprice").text();
-      var childprice = $("#tourchildoffprice").text();
+	      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
-      var packagecdfn = tourchildbase-childprice;
-      
-      var childval = $("#child").val();
+	      //alert(adultnum);
+	      var tourchildbase = $("#tourchildprice").text();
+	      var childprice = $("#tourchildoffprice").text();
 
-      var childnum = parseInt(childval);
-      var total_person = adultnum+childnum;
-      var cal_locationprice = location_price*total_person;
-      
-      $("#locationtext").html(cal_locationprice);
+	      var packagecdfn = tourchildbase-childprice;
+	      
+	      var childval = $("#child").val();
 
-      if(childprice == 0){
-      var packagecdfn = 0;
-      }else{
-        var packagecdfn = tourchildbase-childprice;
-      }
+	      var childnum = parseInt(childval);
+	      var total_person = adultnum+childnum;
+	      var cal_locationprice = location_price*total_person;
+	      
+	      $("#locationtext").html(cal_locationprice);
 
-       //alert(childprice);
+	      if(childprice == 0){
+	      var packagecdfn = 0;
+	      }else{
+	        var packagecdfn = tourchildbase-childprice;
+	      }
 
-      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+	      var childtour_price_online = (packagecdfn*child_online_percentage)/100;
 
-      $("#total_amount").val(totalamount);
-     
-      $("#tourpriceid").html(packages); 
+	      var childtour_price_ondesk = packagecdfn-childtour_price_online;
 
-      $("#totalpaid").text(totalamount);
+	      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
 
-    }); 
+	      $("#online_payable_amount").val(online_payable_amount_total+childtour_price_online);
 
-    $("#adultminus").click(function(){ 
-      
-    var adultval = $("#adult").val();
+	      $("#at_desk_payable_amount").val(at_desk_payable_amount_total+cal_locationprice+childtour_price_ondesk);
 
-    if(adultval>1){
+	      $("#total_amount").val(totalamount);
+	     
+	      $("#tourpriceid").html(packages);
 
-    var adultnum = parseInt(adultval)-1;
+	      $("#online_amount").text(online_payable_amount_total+childtour_price_online);
 
-    $("#adult").val(adultnum);
+	      $("#desk_amount").text(at_desk_payable_amount_total+cal_locationprice+childtour_price_ondesk);
 
-    $("#adultnum").text(adultnum);
+	      $("#totalpaid").text(totalamount);
 
-       var expense = $("#expense").val(); 
-       var discount = $("#discount").val();
+	    }); 
 
-       var ctour_price = $("#ctour_price").val();
+		$("#adultminus").click(function(){ 
+			var adultval = $("#adult").val();
+			if(adultval>1){
 
-       var packages = ctour_price*adultnum;
+			    var adultnum = parseInt(adultval)-1;
 
-       var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
+			    $("#adult").val(adultnum);
 
-       var tourchildbase = $("#tourchildprice").text();
-       var childprice = $("#tourchildoffprice").text();
+			    $("#adultnum").text(adultnum);
 
-      // var packagecdfn = tourchildbase-childprice;
-      var childval = $("#child").val();
+		        var expense = $("#expense").val(); 
+		        var discount = $("#discount").val();
 
-      var childnum = parseInt(childval);
+		        var ctour_price = $("#ctour_price").val();
+		 
+		        var online_payable_amount  = "<?php echo $online_payable_amount; ?>";
+		        var at_desk_payable_amount = "<?php echo $at_desk_payable_amount; ?>";
 
-      var total_person = adultnum+childnum;
-      var cal_locationprice = location_price*total_person;
+		        var packages = ctour_price*adultnum;
 
-      $("#locationtext").html(cal_locationprice);
+		        var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
 
-      if(childprice == 0){
-      var packagecdfn = 0;
-      }else{
-        var packagecdfn = tourchildbase-childprice;
-      }
-      
-      var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
-       
-       $("#total_amount").val(totalamount);
+		        var tourchildbase = $("#tourchildprice").text();
+		       	var childprice = $("#tourchildoffprice").text();
 
-       $("#tourpriceid").html(packages); 
+			    // var packagecdfn = tourchildbase-childprice;
+			    var childval = $("#child").val();
 
-       $("#totalpaid").text(totalamount);
+			    var childnum = parseInt(childval);
 
-    }
+			    var total_person = adultnum+childnum;
+			    var cal_locationprice = location_price*total_person;
+			    var online_payable_amount_total = online_payable_amount*adultnum;
 
-    });  
+			    var at_desk_payable_amount_total = at_desk_payable_amount*adultnum;
 
-   /******Child plus minus****/
-   
-    $("#childplus").click(function(){ 
-      
-    var childval = $("#child").val();
+			    $("#locationtext").html(cal_locationprice);
 
-    var childnum = parseInt(childval)+1;
+			    if(childprice == 0){
+			      var packagecdfn = 0;
+			    }else{
+			      var packagecdfn = tourchildbase-childprice;
+			    }
+		      
+		        var totalamount = parseInt(packages)+parseInt(cal_locationprice)+parseFloat(packagecdfn)+parseInt(expense)-parseInt(discount);
+		      
+		        $("#online_payable_amount").val(online_payable_amount_total);
 
-    $("#child").val(childnum); 
+		        $("#at_desk_payable_amount").val(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
 
-      var childoff = $("#childoff").val(); 
+		        $("#total_amount").val(totalamount);
 
-      $("#childoffpr").text(childoff);
+		        $("#tourpriceid").html(packages); 
 
-      $("#childpack").show();
+		       $("#online_amount").text(online_payable_amount_total);
 
-      /************************/
+		       $("#desk_amount").text(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
 
-      $("#childnum").text(childnum);
+		       $("#totalpaid").text(totalamount); 
+		    } 
+		});  
 
-      var expense = $("#expense").val(); 
-      var discount = $("#discount").val();
-      var ctour_price = $("#ctour_price").val();
+	    /******Child plus minus****/
+	   
+	    $("#childplus").click(function(){ 
+	      
+		    var childval = $("#child").val();
 
-      var childtour_price = (ctour_price*childoff)/100;
+		    var childnum = parseInt(childval)+1;
 
-      var packages = ctour_price*childnum;
-      var packages1 = childtour_price*childnum;
+		    $("#child").val(childnum); 
 
-      var packagecdfn = packages-packages1;
+		      var childoff = $("#childoff").val(); 
 
-      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
+		      $("#childoffpr").text(childoff);
 
-      //alert(location_price);
+		      $("#childpack").show();
 
-      var adultprice =  $("#tourpriceid").text(); 
+		      /************************/
 
-      var adultnum = $("#adult").val();
-      //var childval = parseInt(childval);
-      var adultnum = parseInt(adultnum);
-      //var childnum = parseInt(childval);
-      var total_person = childnum+adultnum;
-      //alert(total_person);
-      var cal_locationprice = location_price*total_person;
+		      $("#childnum").text(childnum);
 
-      $("#locationtext").html(cal_locationprice);
+		      var expense = $("#expense").val(); 
+		      var discount = $("#discount").val();
+		      var ctour_price = $("#ctour_price").val();
+		      var online_payable_amount  = "<?php echo $online_payable_amount; ?>";
+		      var at_desk_payable_amount = "<?php echo $at_desk_payable_amount; ?>";
 
-      //alert(adultnum);
+		      var childtour_price = (ctour_price*childoff)/100;
 
+		      var packages = ctour_price*childnum;
+		      var packages1 = childtour_price*childnum;
 
-      var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+		      var packagecdfn = packages-packages1;
 
-      $("#total_amount").val(totalamount);
+		      var location_price = $("#myDropDown").find('option:selected').attr("data-lprice"); 
 
-      $("#packagenumchild").html(ctour_price);  
-       
-      $("#tourchildprice").html(packages); 
-      $("#tourchildoffprice").html(packages1); 
+		      //alert(location_price);
 
-      $("#totalpaid").text(totalamount);
+		      var adultprice =  $("#tourpriceid").text(); 
 
-    }); 
+		      var adultnum = $("#adult").val();
+		      //var childval = parseInt(childval);
+		      var adultnum = parseInt(adultnum);
+		      //var childnum = parseInt(childval);
+		      var total_person = childnum+adultnum;
+		      //alert(total_person);
+		      var cal_locationprice = location_price*total_person;
 
+		      var online_payable_amount_total = online_payable_amount*adultnum;
 
-    $("#childminus").click(function(){ 
-      
-    var childval = $("#child").val();
+		      var at_desk_payable_amount_total = at_desk_payable_amount*adultnum;
 
-    if(childval>=1){
 
-    var childnum = parseInt(childval)-1;
+		      $("#locationtext").html(cal_locationprice);
 
-    $("#child").val(childnum);
+		      //alert(adultnum);
 
-    if(childnum==0){
 
-    $("#childpack").hide();
-    }
+		      var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
 
-    var childoff = $("#childoff").val(); 
+		      $("#online_payable_amount").val(online_payable_amount_total);
+		      $("#at_desk_payable_amount").val(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
+		      $("#total_amount").val(totalamount); 
+		      $("#packagenumchild").html(ctour_price);   
+		      $("#tourchildprice").html(packages); 
+		      $("#tourchildoffprice").html(packages1);
+		      $("#online_amount").text(online_payable_amount_total);
+		      $("#desk_amount").text(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
+		      $("#totalpaid").text(totalamount);
 
-    $("#childoffpr").text(childoff);
+	    }); 
 
+		$("#childminus").click(function(){  
+		    var childval = $("#child").val(); 
+		    if(childval>=1){
 
-   /**************************/
-   
-     $("#childnum").text(childnum);
+			    var childnum = parseInt(childval)-1;
 
-     var expense = $("#expense").val(); 
-     var discount = $("#discount").val();
-     var ctour_price = $("#ctour_price").val();
-     var childtour_price = (ctour_price*childoff)/100;
-     var packages = ctour_price*childnum;
-     var packages1 = childtour_price*childnum;
+			    $("#child").val(childnum);
 
-     var packagecdfn = packages-packages1;
+			    if(childnum==0){
 
-     var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
+			    $("#childpack").hide();
+			    }
 
-     var adultval = $("#adult").val();
+			    var childoff = $("#childoff").val(); 
 
-     var adultnum = parseInt(adultval);
-     // alert(adultnum);
-     // alert(childnum);
-     var total_person = childnum+adultnum;
-     var cal_locationprice = location_price*total_person;
-     // alert(total_person);
-     // alert(cal_locationprice);
-     // die;
+			    $("#childoffpr").text(childoff);
 
-     $("#locationtext").html(cal_locationprice);
 
-     var adultprice =  $("#tourpriceid").text(); 
+			   /**************************/
+			   
+			     $("#childnum").text(childnum);
 
-     var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
-     
-     $("#total_amount").val(totalamount);
-     $("#total_amount").val(totalamount);
-     $("#tourchildprice").html(packages);
-     $("#tourchildoffprice").html(packages1);  
+			     var expense = $("#expense").val(); 
+			     var discount = $("#discount").val();
+			     var ctour_price = $("#ctour_price").val();
+			     var online_payable_amount  = "<?php echo $online_payable_amount; ?>";
+			     var at_desk_payable_amount = "<?php echo $at_desk_payable_amount; ?>";
 
-     $("#totalpaid").text(totalamount);
+			     var childtour_price = (ctour_price*childoff)/100;
+			     var packages = ctour_price*childnum;
+			     var packages1 = childtour_price*childnum;
 
-  }
 
+			     var packagecdfn = packages-packages1;
 
-    });  
-   
-        
-});
+			     var location_price = $("#myDropDown").find('option:selected').attr("data-lprice");
 
+			     var adultval = $("#adult").val();
+
+			     var adultnum = parseInt(adultval);
+			     // alert(adultnum);
+			     // alert(childnum);
+			     var total_person = childnum+adultnum;
+			     var cal_locationprice = location_price*total_person;
+			     var online_payable_amount_total = online_payable_amount*adultnum;
+
+			     var at_desk_payable_amount_total = at_desk_payable_amount*adultnum;
+			     // alert(total_person);
+			     // alert(cal_locationprice);
+			     // die;
+
+			     $("#locationtext").html(cal_locationprice);
+
+			     var adultprice =  $("#tourpriceid").text(); 
+
+			     var totalamount = parseFloat(packagecdfn)+parseFloat(cal_locationprice)+parseFloat(adultprice)+parseFloat(expense)-parseFloat(discount);
+
+			     $("#online_payable_amount").val(online_payable_amount_total);
+			     $("#at_desk_payable_amount").val(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
+			     $("#total_amount").val(totalamount);
+			     $("#total_amount").val(totalamount);
+			     $("#tourchildprice").html(packages);
+			     $("#tourchildoffprice").html(packages1);  
+			     $("#online_amount").text(online_payable_amount_total);
+			     $("#desk_amount").text(at_desk_payable_amount_total+packagecdfn+cal_locationprice);
+			     $("#totalpaid").text(totalamount); 
+		  	}
+		});  
+	   
+	});
 </script>
 @endsection
 @section('content')
@@ -968,13 +1025,13 @@ $(function(){
                      <input type="hidden" name="tour_end_date" value="{!! date('Y-m-d', strtotime($tour_details->tour_end_date)) !!}">
 
                      @if($tour_details->payment_mode == 2 and $tour_details->booking_option == 1)
-                        <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}">
-                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
+                        <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}" id="online_payable_amount">
+                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}" id="at_desk_payable_amount">
                         <input type="hidden" name="total_amount" value="{{$total_amount}}" id="total_amount" >
                         <input type="hidden" name="partial_payment_status" value="1">
                      @elseif($tour_details->payment_mode == 2 and $tour_details->booking_option == 2)
-                     <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}">
-                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}">
+                     <input type="hidden" name="online_payable_amount" value="{{$online_payable_amount}}" id="online_payable_amount">
+                        <input type="hidden" name="at_desk_payable_amount" value="{{$at_desk_payable_amount}}" id="at_desk_payable_amount">
                         <input type="hidden" name="total_amount" value="{{$total_amount}}" id="total_amount" >
                         <input type="hidden" name="partial_payment_status" value="1">
                      @else
@@ -1569,20 +1626,20 @@ $(function(){
                   @if($tour_details->payment_mode == 2 and $tour_details->booking_option == 1)
                   <div class="price-left">
                      <h5> <b>Online Payable Amount </b></h5>
-                     <h6>PKR {{$online_payable_amount}}</h6>
+                     <h6 id="online_amount">PKR {{$online_payable_amount}}</h6>
                   </div>
                   <div class="price-left">
-                     <h5> At Desk Payable Amount</h5>
-                     <h6>PKR {{$at_desk_payable_amount}}</h6>
+                     <h5><b> At Desk Payable Amount</b></h5>
+                     <h6 id="desk_amount">PKR {{$at_desk_payable_amount}}</h6>
                   </div>
                   @elseif($tour_details->payment_mode == 2 and $tour_details->booking_option == 2)
                   <div class="price-left">
                      <h5> <b>Online Payable Amount </b></h5>
-                     <h6>PKR {{$online_payable_amount}}</h6>
+                     <h6 id="online_amount">PKR {{$online_payable_amount}}</h6>
                   </div>
                   <div class="price-left">
-                     <h5> At Desk Payable Amount</h5>
-                     <h6>PKR {{$at_desk_payable_amount}}</h6>
+                     <h5><b> At Desk Payable Amount</b></h5>
+                     <h6 id="desk_amount">PKR {{$at_desk_payable_amount}}</h6>
                   </div>
                   @endif
 

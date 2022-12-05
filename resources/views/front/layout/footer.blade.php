@@ -326,7 +326,7 @@
 
                         <input id="login-remember" type="checkbox" name="remember" value="1"> By proceeding,
 
-                        you agree to roadnstays Privacy Policy, User Agreement and T&Cs
+                        you agree to roadnstays <a href="{{ url('/privacy-policy') }}">Privacy Policy</a> and <a href="{{ url('/terms_&_condition') }}">T&Cs</a> 
 
                       </label>
 
@@ -490,7 +490,7 @@
                     <div class="checkbox">
                       <label class="login-tc">
                         <input id="login-remember" type="checkbox" name="vsremember" value="1"> By proceeding,
-                        you agree to roadnstays Privacy Policy, User Agreement and T&Cs
+                        you agree to roadnstays <a href="{{ url('/privacy-policy') }}">Privacy Policy</a> and <a href="{{ url('/terms_&_condition') }}">T&Cs</a> 
                       </label>
                     </div>
                   </div>

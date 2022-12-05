@@ -207,6 +207,26 @@
     var form = $("#updateTourContext_form");
     form.validate({
       rules: {
+        "tourGallery[]": {
+          required: function(element) {
+            var galleryImg = $('#old_tour_gallery').val();
+            if(galleryImg == 0) {  
+              return true;
+            }else{  
+              return false;
+            } 
+          },
+        },
+        tourFeaturedImg: {
+          required: function(el) {
+            var featuredImg = $('#old_tour_image').val();
+            if(featuredImg != null && featuredImg != '') {  
+              return false;
+            }else{  
+              return true;
+            } 
+          },
+        },
         hotelName: {
           required: true,
         },
@@ -684,6 +704,7 @@
                         <input type="hidden" name="tour_id" id="tour_id" value="{{$tour_info->id}}" />
                         
                         <input type="hidden" name="old_tour_image" id="old_tour_image" value="@if(!empty($tour_info->id)){{ $tour_info->tour_feature_image }}@endif" />
+                        <input type="hidden" name="old_tour_gallery" id="old_tour_gallery" value="@if(!empty($tour_info->id)){{ count($tour_gallery) }}@endif" />
 
                         <input type="hidden" name="old_tour_document" id="old_tour_document" value="@if(!empty($tour_info->id)){{ $tour_info->tour_document }}@endif" />
 

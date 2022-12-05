@@ -85,7 +85,7 @@
                     <h2 style="font-family:Arial,Helvetica,sans-serif; margin-top:20px; font-size: 28px; color: #000; font-weight: 900; margin-bottom: 15px; line-height: 45px">Booking Confirmed </h2>
                     <p style="font-family:Arial,Helvetica,sans-serif;  margin:0 0 10px 0;  text-align: left; font-size: 16px; font-weight: 700; line-height: 24px;">Dear {{$order_info->first_name ?? ''}} {{$order_info->last_name ?? ''}}, <br>
                         Thank you for Choosing Roadnstays</p>
-                    <p style="text-align: left; font-family:Arial,Helvetica,sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores voluptates pariatur architecto!</p>
+                    <!-- <p style="text-align: left; font-family:Arial,Helvetica,sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores voluptates pariatur architecto!</p> -->
                 </div>
                 <!--  <div style="text-align: center;">
                     <a href="#" style="text-decoration:none; color:#000; padding-bottom:2px; display:inline-block; text-align: center;">Visit site : - Pix2arts</a>
@@ -103,10 +103,10 @@
                         </p>
                         <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->space_address ?? ''}}, {{$order_info->city ?? ''}}</p>
 
-                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num ?? ''}}</a></p>
+                        <!-- <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num ?? ''}}</a></p> -->
                         
 
-                        <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->space_latitude ?? ''}},{{$order_info->space_longitude ?? ''}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->space_longitude ?? ''}},{{$order_info->space_longitude ?? ''}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p>
+                        <!-- <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->space_latitude ?? ''}},{{$order_info->space_longitude ?? ''}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->space_longitude ?? ''}},{{$order_info->space_longitude ?? ''}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p> -->
                     </td>
                 </div>
             </div>

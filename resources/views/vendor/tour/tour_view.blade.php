@@ -95,6 +95,9 @@
     $('#summernote1').summernote()
   })
 </script>
+<script>
+  $(':radio:not(:checked)').attr('disabled', true);
+</script>
 <script> 
   document.addEventListener('DOMContentLoaded', function() {
     window.stepper = new Stepper(document.querySelector('.bs-stepper'))
@@ -517,25 +520,25 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Price</label>
-                              <input type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" readonly="">
+                              <input readonly type="text" class="form-control" name="tour_price" id="tour_price" placeholder="Enter Name" value="{{$tour_info->tour_price}}" readonly="">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group"> 
                               <label>Tour Price(Children) 2-9 Years Kids</label>
-                              <input type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price" value="{{(!empty($tour_info->tour_child_price) ? $tour_info->tour_child_price : '0')}}" required="">
+                              <input readonly type="text" class="form-control" name="tour_child_price" id="tour_child_price" placeholder="Enter price" value="{{(!empty($tour_info->tour_child_price) ? $tour_info->tour_child_price : '0')}}" required="">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Deluxe Price</label>
-                              <input type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name" value="{{$tour_info->tour_deluxe_price}}" required="">
+                              <input readonly type="text" class="form-control" name="tour_deluxe_price" id="tour_deluxe_price" placeholder="Enter Name" value="{{$tour_info->tour_deluxe_price}}" required="">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Tour Gold Price</label>
-                              <input type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name" value="{{$tour_info->tour_gold_price}}" required="">
+                              <input readonly type="text" class="form-control" name="tour_gold_price" id="tour_gold_price" placeholder="Enter Name" value="{{$tour_info->tour_gold_price}}" required="">
                             </div>
                           </div>
                           <div class="col-md-12">
@@ -555,42 +558,42 @@
                            <div class="col-md-6">
                             <div class="form-group">
                               <label>City</label>
-                              <input type="text" class="form-control" name="city" id="city" placeholder="Enter " value="{{$tour_info->city}}">
+                              <input readonly type="text" class="form-control" name="city" id="city" placeholder="Enter " value="{{$tour_info->city}}">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" class="form-control" name="address" id="address" placeholder="Enter " value="{{$tour_info->address}}" >
+                              <input readonly type="text" class="form-control" name="address" id="address" placeholder="Enter " value="{{$tour_info->address}}" >
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Latitude</label>
-                              <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter " value="{{$tour_info->latitude}}">
+                              <input readonly type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter " value="{{$tour_info->latitude}}">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
                               <label>Longitude</label>
-                              <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter " value="{{$tour_info->longitude}}">
+                              <input readonly type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter " value="{{$tour_info->longitude}}">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Neighborhood / Area</label>
-                              <input type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address" value="{{$tour_info->neighb_area}}">
+                              <input readonly type="text" class="form-control" name="neighb_area" id="neighb_area" placeholder="Enter Address" value="{{$tour_info->neighb_area}}">
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Country</label>
-                              <select class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;" required="required">
+                              <select disabled class="form-control select2bs4" name="country_id" id="country_id" style="width: 100%;">
                                 <!-- <option value="">Select Country</option> -->
                                 @foreach ($countries as $cont)
                                 <option value="{{ $cont->id }}" @php if($tour_info->country_id == $cont->id){echo "selected";} @endphp >{{ $cont->name }}</option>
@@ -946,7 +949,7 @@
                                 <div class="form-group">
 
                                   <div class="custom-control custom-radio">
-                                    <input readonly="" class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp
+                                    <input readonly="" class="custom-control-input" type="radio" id="booking_option2" name="booking_option" value="2" @php if($tour_info->booking_option == 2){echo 'checked';} @endphp>
                                     <label for="booking_option2" class="custom-control-label">Approval based booking</label>
                                   </div>
                                 </div>
@@ -957,7 +960,7 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Private Note</label>
-                              <textarea class="form-control" id="summernoteRemoved" name="private_note" required>{{$tour_info->private_note}}</textarea>
+                              <textarea class="form-control" id="summernoteRemoved" name="private_note" readonly>{{$tour_info->private_note}}</textarea>
                             </div>
                           </div>
 
@@ -1065,36 +1068,36 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Operator Name</label>
-                              <input type="text" class="form-control" name="operator_name" id="operator_name" value="{{$tour_info->operator_name}}" placeholder="Enter Operator Name">
+                              <input readonly type="text" class="form-control" name="operator_name" id="operator_name" value="{{$tour_info->operator_name}}" placeholder="Enter Operator Name">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Operator Contact Name</label>
-                              <input type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" value="{{$tour_info->operator_contact_name}}" placeholder="Enter Contact Name">
+                              <input readonly type="text" class="form-control" name="operator_contact_name" id="operator_contact_name" value="{{$tour_info->operator_contact_name}}" placeholder="Enter Contact Name">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Operator Contact Number</label>
-                              <input type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" value="{{$tour_info->operator_contact_num}}" placeholder="Enter Contact Number">
+                              <input readonly type="text" class="form-control" name="operator_contact_num" id="operator_contact_num" value="{{$tour_info->operator_contact_num}}" placeholder="Enter Contact Number">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Operator Email</label>
-                              <input type="text" class="form-control" name="operator_email" id="operator_email" value="{{$tour_info->operator_email}}" placeholder="Enter Operator Email">
+                              <input readonly type="text" class="form-control" name="operator_email" id="operator_email" value="{{$tour_info->operator_email}}" placeholder="Enter Operator Email">
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Operator Booking Number</label>
-                              <input type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$tour_info->operator_booking_num}}" placeholder="Enter Operator Booking Number">
+                              <input readonly type="text" class="form-control" name="operator_booking_num" id="operator_booking_num" value="{{$tour_info->operator_booking_num}}" placeholder="Enter Operator Booking Number">
                             </div>
                           </div>
                           <div class="col-md-12">
                             <a class="btn btn-primary btn-dark" onclick="stepper.previous()">Previous</a>
-                            <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button>
+                            <!-- <button class="btn btn-primary btn-dark button float-right" name="submit" id="step_btn1" type="button">Submit</button> -->
                           </div>
                         </div>
 

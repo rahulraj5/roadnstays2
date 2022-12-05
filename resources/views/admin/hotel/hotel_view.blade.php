@@ -752,13 +752,13 @@
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <label>Online Payment Percentage</label>
-                                  <input type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($hotel_info->online_payment_percentage) ? $hotel_info->online_payment_percentage : '')}}">
+                                  <input readonly type="text" class="form-control" name="online_payment_percentage" id="online_payment_percentage" placeholder="Enter Online Percentage" value="{{(!empty($hotel_info->online_payment_percentage) ? $hotel_info->online_payment_percentage : '')}}">
                                 </div>
                               </div>
                               <div class="col-sm-6">
                                 <div class="form-group">
                                   <label>At Desk Payment Percentage</label>
-                                  <input type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($hotel_info->at_desk_payment_percentage) ? $hotel_info->at_desk_payment_percentage : '')}}">
+                                  <input readonly type="text" class="form-control" name="at_desk_payment_percentage" id="at_desk_payment_percentage" placeholder="Enter Offline Percentage" value="{{(!empty($hotel_info->at_desk_payment_percentage) ? $hotel_info->at_desk_payment_percentage : '')}}">
                                 </div>
                               </div>
                             </div>
@@ -1314,7 +1314,7 @@
                                         <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR" value="{{(!empty($hotel_info->parking_price) ? $hotel_info->parking_price : '')}}" readonly>
                                       </div>
                                       <div class="col-md-6">
-                                        <select class="custom-select" name="payment_interval" id="payment_interval">
+                                        <select disabled class="custom-select" name="payment_interval" id="payment_interval">
                                           <option value="0" @php if($hotel_info->payment_interval == 0){echo 'checked';} @endphp>Per Hour</option>
                                           <option value="1" @php if($hotel_info->payment_interval == 1){echo 'checked';} @endphp>Per Day</option>
                                           <option value="2" @php if($hotel_info->payment_interval == 2){echo 'checked';} @endphp>Per Stay</option>

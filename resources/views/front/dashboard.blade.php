@@ -249,7 +249,7 @@
                                     <li><a href="{{ url('user/bookingList') }}"><i class='bx bxs-buildings'></i> <span> Hotel Booking </span><!--  <i class='bx bx-chevron-down'></i> --></a>
                                     </li>
 
-                                    <li><a href="{{ url('/user/spaceBookingList') }}"><i class='bx bxs-city'></i> <span> Space Booking </span></a> </li>
+                                    <!-- <li><a href="{{ url('/user/spaceBookingList') }}"><i class='bx bxs-city'></i> <span> Space Booking </span></a> </li> -->
                                     <li><a href="{{ url('/user/tourBookingList') }}"><i class='bx bxs-car'></i> <span> Tour Booking </span></a> </li>
 
 

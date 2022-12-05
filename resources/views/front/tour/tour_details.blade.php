@@ -407,19 +407,22 @@
           <br />
           <b>Waypoints:</b> <br />
           <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
+         
           <select multiple id="waypoints">
-            @foreach($tour_itinerary as $itinerary)
-            <option value="{{$itinerary->place_from}}" selected="selected">{{$itinerary->place_from}}</option>
+            @foreach($new_tour_itinerary as $nitinerary)
+            <option value="{{$nitinerary->place_from}}" selected="selected">{{$nitinerary->place_from}}</option>
             @endforeach
-           <!--  <option value="bhopal" selected="selected">Bhopal</option>
-            <option value="harda">Harda</option>
-            <option value="betul" selected="selected">Betul</option>
-            <option value="chhindwara">Chhindwara</option> -->
+            <!-- <option value="Besham" selected="selected">"Besham"</option>
+            <option value="Chilas" >"Chilas"</option>
+            <option value="Islamabad" selected="selected">"Islamabad"</option>
+            <option value="Lahore" selected="selected">"Lahore"</option>
+            <option value="Shangrila">"Shangrila"</option>
+            <option value="Skardu" selected="selected">"Skardu"</option> -->
           </select>
           <br />
           <b>End:</b>
           <select id="end">
-            <option value="{{$tour_itinerary[0]->place_from}}" selected="selected">{{$tour_itinerary[0]->place_from}}</option>
+            <option value="{{$tour_itinerary[1]->place_from}}" selected="selected">{{$tour_itinerary[1]->place_from}}</option>
           </select>
           <br />
           <input type="submit" id="submit" />
@@ -478,6 +481,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     }
   }
 
+  console.log(waypts);
 
   directionsService
     .route({
@@ -495,7 +499,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
       summaryPanel.innerHTML = "";
 
-      alert(response.routes[0]);die;
+      
       // For each route, display summary information.
       for (let i = 0; i < route.legs.length; i++) {
         const routeSegment = i + 1;

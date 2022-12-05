@@ -1131,7 +1131,7 @@
                                       <input type="text" class="form-control" name="parking_price" id="parking_price" placeholder="INR" value="{{(!empty($hotel_info->parking_price) ? $hotel_info->parking_price : '')}}" readonly>
                                     </div>
                                     <div class="col-md-6">
-                                      <select class="custom-select" name="payment_interval" id="payment_interval">
+                                      <select disabled class="custom-select" name="payment_interval" id="payment_interval">
                                         <option value="0" @php if($hotel_info->payment_interval == 0){echo 'checked';} @endphp>Per Hour</option>
                                         <option value="1" @php if($hotel_info->payment_interval == 1){echo 'checked';} @endphp>Per Day</option>
                                         <option value="2" @php if($hotel_info->payment_interval == 2){echo 'checked';} @endphp>Per Stay</option>

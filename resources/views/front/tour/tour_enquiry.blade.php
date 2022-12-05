@@ -243,13 +243,18 @@
                            <label for="location">Location</label>
                            <select name="location" id="location">
                               <option value="">Choose One</option>
-                              <option value="Shimla">Shimla</option>
-                              <option value="Manali">Manali</option>
-                              <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-                              <option value="Laddhakh">Laddhakh</option>
-                              <option value="Kerala">Kerala</option>
-                              <option value="Madhya Pradesh">Madhya Pradesh</option>
-                              <option value="Mandu">Mandu</option>
+                              <option value="City tours">City tours</option>
+                              <option value="North Pakistan Tours">North Pakistan Tours</option>
+                              <option value="South Pakistan Tour">South Pakistan Tour</option>
+                              <option value="kashmir Tours">kashmir Tours</option>
+                              <option value="Sikh Yatra Tours">Sikh Yatra Tours</option>
+                              <option value="Swat Valley Tour">Swat Valley Tour</option>
+                              <option value="Kaghan Valley Tours">Kaghan Valley Tours</option>
+                              <option value="Kalash Valley Tour">Kalash Valley Tour</option>
+                              <option value="Skardu Valley Tour">Skardu Valley Tour</option>
+                              <option value="Gilgit Tours">Gilgit Tours</option>
+                              <option value="Gwadar Tour">Gwadar Tour</option>
+                              <option value="Honeymoon Tour">Honeymoon Tour</option>
                            </select>
                         </div>
                       </div>

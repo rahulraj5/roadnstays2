@@ -285,7 +285,7 @@
                         <span class="separator01"></span>
                      </div>
 
-                      <a class="hed-help" href="{{url('/tour_enquiry')}}">Need Help! Request Customer Tour</a>
+                      <a class="hed-help" href="{{url('/tour_enquiry')}}">Need Help! Request Custom Tour</a>
 
                      </div>
 

@@ -77,7 +77,7 @@
                <p style="font-family:Arial,Helvetica,sans-serif;  margin:0 0 10px 0;  text-align: left; font-size: 16px; font-weight: 700; line-height: 24px;">Dear {{$order_info->first_name ?? ''}} {{$order_info->last_name ?? ''}}, <br>
                   Thank you for Choosing Roadnstays
                </p>
-               <p style="text-align: left; font-family:Arial,Helvetica,sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores voluptates pariatur architecto!</p>
+               <!-- <p style="text-align: left; font-family:Arial,Helvetica,sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores voluptates pariatur architecto!</p> -->
             </div>
             <!--  <div style="text-align: center;">
                   <a href="#" style="text-decoration:none; color:#000; padding-bottom:2px; display:inline-block; text-align: center;">Visit site : - Pix2arts</a>
@@ -92,9 +92,9 @@
                   <p style="color:#129212;font-size:18px;line-height:20px;margin-top:0;margin-bottom:5px;font-weight:normal; font-family:Arial,Helvetica,sans-serif;"><a style="text-decoration: none;" href="#">{{$order_info->tour_title ?? ''}}</a>
                   </p>
                   <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0;line-height:20px">{{$order_info->address ?? ''}}, {{$order_info->city ?? ''}}, India</p>
-                  <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Phone: {{$order_info->alternate_num ?? ''}}, {{$order_info->alternate_num ?? ''}}</p>
+                  <!-- <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Phone: {{$order_info->alternate_num ?? ''}}, {{$order_info->alternate_num ?? ''}}</p>
                   <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Email: <a style="text-decoration: none;" href="https://mail.google.com/mail/?view=cm&amp;tf=1" target="_blank">{{$order_info->alternate_num ?? ''}}</a></p>
-                  <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num ?? ''}}</a></p>
+                  <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">User Dashboard: <a style="text-decoration: none;" href="{{url('user/profile')}}" target="_blank">{{$order_info->property_alternate_num ?? ''}}</a></p> -->
                   <p style="font-family:Arial,Helvetica,sans-serif; font-size:14px;margin-top:7px;margin-bottom:0;margin-left:0;margin-right:0">Getting there: <a style="text-decoration: none;" href="https://maps.google.com?daddr={{$order_info->latitude ?? ''}},{{$order_info->longitude ?? ''}}" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://maps.google.com?daddr%3D{{$order_info->longitude}},{{$order_info->longitude}}&amp;source=gmail&amp;ust=1657607876278000&amp;usg=AOvVaw35ZtF9WonT9gFP-ixRdIqi">Show directions</a></p>
                </td>
             </div>

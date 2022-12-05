@@ -168,6 +168,146 @@ class TourController extends Controller
         return response()->json(['status' => 'success', 'msg' => 'Tour Added Successfully']);
     }
 
+    public function add_copy_tour(Request $request)
+	{
+        $tour_id = $request->tour_id;
+        // echo "<pre>";print_r($tour_id);die;
+        if (empty($tour_id)) {
+            return json_encode(array('status' => 'error', 'msg' => 'Please Select Tour to Copy.'));
+		} else {
+            $get_tour_detail = DB::table('tour_list')->where('id', '=', $tour_id)->first();
+            $get_tour_itinerary = DB::table('tour_itinerary')->where('tour_id', '=', $tour_id)->get();
+            $get_tour_locations = DB::table('tour_pickup_locations')->where('tour_id', '=', $tour_id)->get();
+            // echo "<pre>";print_r($get_tour_itinerary);
+            // echo "<pre>";print_r($get_tour_locations);
+            // die;
+            $get_tour_gallery = DB::table('tour_gallery')->where('tour_id', '=', $get_tour_detail->id)->get();
+            // echo count($get_tour_gallery);die;
+
+            if (!empty($get_tour_detail)) {
+                // echo "<pre>";print_r($get_tour_detail);die;
+                $getid = DB::table('tour_list')->insertGetId(array( 
+
+                    'vendor_id' => $get_tour_detail->vendor_id,
+                    'tour_title' => $get_tour_detail->tour_title." copy",
+                    'tour_status' => $get_tour_detail->tour_status,
+                    'tour_description' => $get_tour_detail->tour_description,
+                    'city' => $get_tour_detail->city,
+                    'address' => $get_tour_detail->address,
+                    'latitude' => $get_tour_detail->latitude,
+                    'longitude' => $get_tour_detail->longitude,
+                    'neighb_area' => $get_tour_detail->neighb_area,
+                    'country_id' => $get_tour_detail->country_id,
+                    'tour_start_date' => date('Y-m-d', strtotime($get_tour_detail->tour_start_date)),
+                    'tour_end_date' => date('Y-m-d', strtotime($get_tour_detail->tour_end_date)),
+                    'tour_feature_image' => $get_tour_detail->tour_feature_image,
+                    'tour_type' => $get_tour_detail->tour_type,
+                    'tour_sub_type' => $get_tour_detail->tour_sub_type,
+                    'tour_days' => $get_tour_detail->tour_days,
+                    'tour_price' => $get_tour_detail->tour_price,
+                    'tour_child_price' => $get_tour_detail->tour_child_price,
+                    'tour_deluxe_price' => $get_tour_detail->tour_deluxe_price,
+                    'tour_gold_price' => $get_tour_detail->tour_gold_price,
+                    'tour_price_others' => $get_tour_detail->tour_price_others,
+                    'tour_discount' => $get_tour_detail->tour_discount,
+                    'children_policy' => $get_tour_detail->children_policy,
+                    'tour_min_capacity' => $get_tour_detail->tour_min_capacity,
+                    'tour_max_capacity' => $get_tour_detail->tour_max_capacity,
+                    'commission' => $get_tour_detail->commission,
+                    'private_note' => $get_tour_detail->private_note,
+                    'scout_id' => $get_tour_detail->scout_id,
+                    'tour_policy' => $get_tour_detail->tour_policy,
+                    'payment_mode' => $get_tour_detail->payment_mode,
+                    'online_payment_percentage' => $get_tour_detail->online_payment_percentage,
+                    'at_desk_payment_percentage' => $get_tour_detail->at_desk_payment_percentage,
+                    'cancellation_and_refund' => $get_tour_detail->cancellation_and_refund,
+                    'min_hrs' => $get_tour_detail->min_hrs,
+                    'min_hrs_percentage' => $get_tour_detail->min_hrs_percentage,
+                    'max_hrs' => $get_tour_detail->max_hrs,
+                    'max_hrs_percentage' => $get_tour_detail->max_hrs_percentage,
+                    'booking_option' => $get_tour_detail->booking_option,
+                    'tour_locations' => $get_tour_detail->tour_locations,
+                    'tour_activities' => $get_tour_detail->tour_activities,
+                    'tour_services_includes' => $get_tour_detail->tour_services_includes,
+                    'tour_services_not_includes' => $get_tour_detail->tour_services_not_includes,
+                    'operator_name' => $get_tour_detail->operator_name,
+                    'operator_contact_name' => $get_tour_detail->operator_contact_name,
+                    'operator_contact_num' => $get_tour_detail->operator_contact_num,
+                    'operator_email' => $get_tour_detail->operator_email,
+                    'operator_booking_num' => $get_tour_detail->operator_booking_num,
+
+                    'copy_status' => 0,
+                    // 'tour_user_id' => 1,
+                    // 'is_admin' => 1,
+                    'status' => 0,
+                    'created_at'    => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ));
+
+                // echo "<pre>";print_r($getid);die;
+                if (count($get_tour_itinerary) > 0) {
+                // if (!empty($get_tour_itinerary->itinerary)) {
+                    // foreach ($get_tour_itinerary->itinerary as $itinerary) {
+                    foreach ($get_tour_itinerary as $itinerary) {
+                        // $trip_detail = json_encode($itinerary['services']);
+                        $trip_itinerary = array(
+                            'tour_id' => $getid,
+                            'title' => $itinerary->title,
+                            'place_from' => $itinerary->place_from,
+                            'place_to' => $itinerary->place_to,
+                            'hotel' => $itinerary->hotel,
+                            'transport' => $itinerary->transport,
+                            'night_stay' => $itinerary->night_stay,
+                            'trip_detail' => $itinerary->trip_detail,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        // echo "<pre>";print_r($trip_itinerary);die;
+                        $up = DB::table('tour_itinerary')->insert($trip_itinerary);
+                    }
+                }
+
+                if (count($get_tour_locations) > 0) {
+                // if (!empty($get_tour_locations->locations)) {
+                    // foreach ($get_tour_locations->locations as $locations) {
+                    foreach ($get_tour_locations as $locations) {
+                        $trip_city = array(
+                            'tour_id' => $getid,
+                            'city' => $locations->city,
+                            'price' => $locations->price,
+                            'transport' => $locations->transport,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('tour_pickup_locations')->insert($trip_city);
+                    }
+                }
+
+                if (count($get_tour_gallery) > 0) {
+                    foreach ($get_tour_gallery as $image) {
+                        $Img = array(
+                            'image' => $image->image,
+                            'tour_id' => $getid,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        );
+                        $up = DB::table('tour_gallery')->insert($Img);
+                    }
+                }
+
+                if ($getid) {
+                    return json_encode(array('status' => 'success', 'msg' => 'Tour Copied Sucessfully !', 'new_tour_id' => $getid));
+                }
+
+            } else {
+                return json_encode(array('status' => 'error', 'msg' => 'Something get wrong.'));
+            }
+        }
+	}  
+
     public function change_tour_status(Request $request)
     {
         $tour_id = $request->id;

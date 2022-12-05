@@ -304,6 +304,9 @@ Route::group(['middleware' => 'App\Http\Middleware\VendorMiddleware'], function 
     Route::any('servicepro/deleteSpaceSingleImage', 'Vendor\SpaceController@delete_space_single_image');
     Route::post('servicepro/addCopySpace','Vendor\SpaceController@add_copy_space');
     Route::get('servicepro/editCopySpace/{id}', 'Vendor\SpaceController@edit_copy_space');
+    
+    Route::post('servicepro/addCopyTour','Vendor\TourController@add_copy_tour');
+    Route::get('servicepro/editCopyTour/{id}', 'Vendor\TourController@edit_copy_tour');
 
     Route::get('servicepro/spaceBookingList', 'Vendor\BookingController@space_booking_list');
     Route::any('servicepro/spaceBookingView/{id}', 'Vendor\BookingController@space_booking_view');
@@ -548,6 +551,9 @@ Route::group(['prefix' => 'admin'], function(){
         Route::any('/deleteSpaceSingleImage', 'Admin\SpaceController@delete_space_single_image');
         Route::post('/addCopySpace','Admin\SpaceController@add_copy_space');
         Route::get('/editCopySpace/{id}', 'Admin\SpaceController@edit_copy_space');
+                    
+        Route::post('/addCopyTour','Admin\TourController@add_copy_tour');
+        Route::get('/editCopyTour/{id}', 'Admin\TourController@edit_copy_tour');
 
         Route::get('/space-category', 'Admin\SpaceController@space_category_list');
         Route::get('/add-space-category', 'Admin\SpaceController@add_space_category');

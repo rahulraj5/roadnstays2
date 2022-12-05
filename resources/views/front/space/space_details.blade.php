@@ -378,7 +378,9 @@
                         window.location.reload()
                     }, 2000);
                 } else {
-                    console.log('error');
+                    setTimeout(function() {
+                        window.location.reload()
+                    });
                 }
             }
         });
@@ -649,12 +651,19 @@
 
 
                         @if(!empty($check_in))
-                        <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Reserve</button></a>
+                        <a href="{{url('space-checkout')}}?space_id={{$space_details->space_id}}&check_in={{$check_in}}&check_out={{$check_out}}"><button>Book Now</button></a>
                         @else
                         <button type="button" class="daterange_detail_btn">Check Availability</button>
                         @endif
 
                         <!-- <p class="charge-yet">You won't be charged yet</p> -->
+                        @if(!empty($space_details->earlybird_discount))
+                        <p class="charge-yet">
+                            @if(now()->diffInDays($check_in) > $space_details->min_days_in_advance)
+                                <b class="tect-event">Pay before {{$space_details->min_days_in_advance}} days to get {{$space_details->earlybird_discount}}% Early bird discount</b>
+                            @endif
+                        </p>    
+                        @endif
                         <div class="charges <?php if (empty($check_out)) {
                                                 echo "hiddenPrice";
                                             } ?>">
@@ -695,11 +704,11 @@
 
                             @if($space_details->payment_mode == 2)
                             <ul>
-                                <li><b>Online Payable Amount </b></li>
+                                <li><b>Online Payable Amount ({{$space_details->online_payment_percentage}}%)</b></li>
                                 <li><b>PKR {{$online_payable_amount}}</b>/-</li>
                             </ul>
                             <ul>
-                                <li>At Desk Payable Amount</li>
+                                <li>At Desk Payable Amount ({{$space_details->at_desk_payment_percentage}}%)</li>
                                 <li>PKR {{$at_desk_payable_amount}}/-</li>
                             </ul>
                             @endif
@@ -716,8 +725,17 @@
 
                     </div>
                     <div class="ktext">
-                        <p><span>Lorem ipsum dolor sit</span>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, velit.</p>
+                        <p>
+                            @if($space_details->payment_mode ==1)
+                          <!-- full payment == 1 -->
+                          <p> 100% Online Payment</p>
+                          @elseif($space_details->payment_mode ==2)
+                          <!-- partial payment == 2 -->
+                          <p> Partial payment at the time of booking confirmation ({{$space_details->online_payment_percentage ?? '30'}}% online payment , {{$space_details->at_desk_payment_percentage ?? '70'}}% payment at the desk)</p>
+                          @else
+                          <!-- pay at desk == 0 -->
+                          <p> 100% Offline Payment</p>
+                          @endif</p>
                         <img src="https://cf.bstatic.com/static/img/genius-globe-with-badge_desktop/d807514761b3684aedebced9265c5548a063b7a0.png" alt="">
                     </div>
 
@@ -759,6 +777,17 @@
                             </div>
                         </div> -->
 
+
+                        <div class="about-property mt-3 p-4">
+                            <h3 class="mb-2">About Property</h3>
+                            <!-- <p class="mt-1 w-50"> -->
+                            <p class="mt-1">
+                                <!-- <span>Address:</span> 102, Kalani Nagar, Indore, M P
+                                Spacious, daily needs within reach, near airport. -->
+                                {{$space_details->description}}
+                            </p>
+                        </div>
+
                         @if(count($space_bedroom_detail) > 0)
                         <div class="about-property mt-3 p-4">
                             <h3 class="mb-2">Sleeping Situation</h3>
@@ -773,17 +802,6 @@
                         </div>
                         @endif
 
-
-
-                        <div class="about-property mt-3 p-4">
-                            <h3 class="mb-2">About Property</h3>
-                            <!-- <p class="mt-1 w-50"> -->
-                            <p class="mt-1">
-                                <!-- <span>Address:</span> 102, Kalani Nagar, Indore, M P
-                                Spacious, daily needs within reach, near airport. -->
-                                {{$space_details->description}}
-                            </p>
-                        </div>
                         @if(count($space_custom_details) > 0)
                         <div class="about-property mt-3 p-4">
                             <h3 class="mb-2">Semifurnished</h3>

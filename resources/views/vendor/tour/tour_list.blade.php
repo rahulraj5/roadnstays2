@@ -106,6 +106,45 @@
   })
 </script>
 
+<script type="text/javascript">
+  function copyConfirmation(id) {
+    toastCopy.fire({}).then(function(e) {
+      if (e.value === true) {
+        // alert(id);
+        var site_url = $("#baseUrl").val();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "{{url('/servicepro/addCopyTour')}}",
+          data: {
+            tour_id: id,
+            _token: CSRF_TOKEN
+          },
+          dataType: 'JSON',
+          success: function(results) {
+            // $("#row" + id).remove();
+            // console.log(results);
+            if (results.status == 'success') {
+              success_noti(results.msg);
+              // success_noti(results.msg+results.roomID);
+              // setTimeout(function() {window.location.reload()}, 1000);
+              setTimeout(function() {window.location.href = site_url + "/servicepro/editTour/" + results.new_tour_id}, 2000);
+              // setTimeout(function() {window.location.href = site_url + "/admin/edit-space/" + results.new_space_id}, 2000);
+            } else {
+              error_noti(results.msg);
+              // error_noti(results.msg+' '+results.roomID);
+            }
+
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function(dismiss) {
+      return false;
+    })
+  }
+</script>
 @endsection
 
 @section('content')
@@ -163,6 +202,8 @@
 
                                             <th>Base Price</th>
 
+                                            <th>Copy</th>
+
                                             <th>Tour Status</th>
 
                                             <th>Status</th>
@@ -200,6 +241,10 @@
                                                     <td>{{ $arr->tour_end_date }}</td>
 
                                                     <td>{{ $arr->tour_price }}</td>
+
+                                                    <td>
+                                                      <a href="javascript:void(0)" onclick="copyConfirmation('<?php echo $arr->id; ?>');" class="btn btn-info"><i class="bx bxs-copy" alt="copy" title="copy"></i></a>
+                                                    </td>
 
                                                     <td>
                                                       @if(Carbon\Carbon::today()->format('Y-m-d') <= $arr->tour_start_date)

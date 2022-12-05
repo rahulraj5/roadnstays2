@@ -90,6 +90,25 @@
          autoApply: true,
          autoUpdateInput: true,
          minDate: today,
+         // getValue: function()
+         // {
+         //    // console.log($(this).val());
+         //    // return $(this).val();
+         //    abcdef('sdfsda');
+         // },
+         // onSelect: function (date, daterangepicker) {
+         //    $('#date1').val(start.format('DD-MM-YYYY'));
+         //    // if (date != "") {
+         //    //    alert("Selected Date: " + date);
+         //    // }
+         // },
+         // "startDate": function(start){
+         //       $('#date1').val(start.format('DD-MM-YYYY'));
+         //    },
+         // onSelect: function(dateString, instance) {
+         //    let date = $('#date1').val(start.format('DD-MM-YYYY'));
+         //    alert("Selected Date: " + date);
+         // },
          locale: {
             format: 'DD-MM-YYYY'
          },
@@ -103,6 +122,10 @@
          checkSameDate(hotel_start_date, hotel_end_date);
       });
    });
+
+   // function abcdef(start) {
+   //    console.log(start);
+   // }
    
    function checkSameDate(start, end) {
       let hotel_start_date = start;
@@ -119,10 +142,10 @@
          dataType: 'JSON',
          success: function(response) {
             if (response.status == 'sameDateError') {
-               error_noti(response.msg);
+               // error_noti(response.msg);
                setTimeout(function() {
                   window.location.reload()
-               }, 2000);
+               });
             }
          }
       });
@@ -395,12 +418,12 @@
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0 reserved reserved1 hotel_date_range">
                                        <p>Check_in</p>
-                                       <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="<?php echo date("d-m-Y"); ?>">
+                                       <input type="text" name="check_in" id="date1" placeholder="Check-in" required="" value="<?php if(!empty(Session::get('checkin_date'))){echo date('d-m-Y', strtotime(Session::get('checkin_date')));}else{echo date("d-m-Y");} ?>">
                                        <span class="to-date"><i class="bx bx-transfer"></i></span>
                                     </div>
                                     <div class="col-md-2 filter_01 pr-0 reserved reserved2">
                                        <p>Check_out</p>
-                                       <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php echo date("d-m-Y", strtotime("+ 1 day")); ?>">
+                                       <input type="text" name="check_out" id="date2" placeholder="Check-Out" required="" value="<?php if(!empty(Session::get('checkout_date'))){echo date('d-m-Y', strtotime(Session::get('checkout_date')));}else{echo date("d-m-Y", strtotime("+ 1 day"));} ?>">
                                     </div>
                                     <div class="col-md-4 filter_01 pr-0 guest-no gus-hover">
                                        <p>Add Guest</p>
@@ -490,7 +513,7 @@
                                        </select>
                                        </span> -->
                                     <span class="hotel-searchbar"><i class="bx bx-bus"></i>
-                                    <input type="location" name="destination" placeholder="Tour city..." class="locatin-hotel" id="autocompleteloc" required="">
+                                    <input type="location" name="destination" placeholder="Tour city..." class="locatin-hotel" id="autocomplete_tour" required="">
                                     </span>
                                  </div>
                                  <!-- <div class="col-md-6 filter_01 pr-0 h-hotel ">
@@ -708,7 +731,7 @@
             @php $country_name = DB::table('country')->where('id', $hotel->hotel_country)->value('nicename'); @endphp
             <!-- @php echo $country_name; @endphp -->
             <div class="testimonial-wrap">
-               <a href="{{url('hotelDetails')}}?hotel_id={{base64_encode($hotel->hotel_id)}}">
+               <!-- <a href="{{url('hotelDetails')}}?hotel_id={{base64_encode($hotel->hotel_id)}}"> -->
                   <div class="testimonial-item">
                      <div class="imgae-rid">
                         <img src="{{ asset('public/uploads/hotel_gallery')}}/{{$hotel->hotel_gallery}}" class="testimonial-img" alt="">
@@ -722,7 +745,7 @@
                         <div class="city-nam"><i class='bx bx-home-alt'></i> {{ Str::limit($hotel->hotel_address, 80) }}</div>
                      </div>
                   </div>
-               </a>
+               <!-- </a> -->
             </div>
             @endforeach
             @endif

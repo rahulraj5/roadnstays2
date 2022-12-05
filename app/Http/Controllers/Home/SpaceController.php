@@ -249,9 +249,12 @@ class SpaceController extends Controller
         $spaceIdd = $request->spaceIdd;
         // echo "<pre>";print_r($spaceIdd);
         if($checkin_date === $checkout_date){
-            $request->session()->forget('space_check_in_date');
-            $request->session()->forget('space_check_out_date');
-            return response()->json(['status' => 'notAvailable', 'msg' => 'Chekin Date and Checkout date should not be same']);
+            // $request->session()->forget('space_check_in_date');
+            // $request->session()->forget('space_check_out_date');
+            $checkout_date2 = date('Y-m-d', strtotime('+1 days', strtotime($checkout_date)));
+            Session::put('space_check_in_date', $checkin_date);
+            Session::put('space_check_out_date', $checkout_date2);
+            return response()->json(['status' => 'nothingToDo', 'msg' => 'Chekin Date and Checkout date should not be same']);
         }else{
             $booked_space_id = DB::table('space_booking')
             ->where("space_id", $spaceIdd)
@@ -300,8 +303,11 @@ class SpaceController extends Controller
         $checkin_date = date('Y-m-d', strtotime($request->space_start_date));
         $checkout_date = date('Y-m-d', strtotime($request->space_end_date));
         if($checkin_date === $checkout_date){
-            $request->session()->forget('space_check_in_date');
-            $request->session()->forget('space_check_out_date');
+            // $request->session()->forget('space_check_in_date');
+            // $request->session()->forget('space_check_out_date');
+            $checkout_date2 = date('Y-m-d', strtotime('+1 days', strtotime($checkout_date)));
+            Session::put('space_check_in_date', $checkin_date);
+            Session::put('space_check_out_date', $checkout_date2);
             return response()->json(['status' => 'sameDateError', 'msg' => 'Chekin Date and Checkout date should not be same']);
         }
         // else{

@@ -164,6 +164,10 @@
 </script>
 
 <script>
+  $(':radio:not(:checked)').attr('disabled', true);
+</script>
+
+<script>
   $(".slide.one .button").click(function() {
     // alert('sdfsd');
     var form = $("#addTourContext_form");
@@ -307,7 +311,7 @@
   });
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
     var addServButton = $('.add_service_button');
@@ -327,9 +331,9 @@
       x--;
     });
   });
-</script>
+</script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function() {
     var maxField = 10;
     var addButton = $('.add_button');
@@ -349,7 +353,7 @@
       x--;
     });
   });
-</script>
+</script> -->
 
 <script>
   $("#parking_option1").click(function() {

@@ -570,7 +570,7 @@ class HomeController extends Controller
 
                     Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'], 'roadNstays');
-                        $message->to('votivephppushpendra@gmail.com');
+                        $message->to('contact@roadnstays.com');
                         $message->subject('roadNstays - New Event Booking Recieved Mail');
                     });
                 }
@@ -966,7 +966,7 @@ class HomeController extends Controller
 
     //                 Mail::send('emails.event-invoice-reciever', $data, function ($message) use ($inData) {
     //                     $message->from($inData['from_email'], 'roadNstays');
-    //                     $message->to('votivephppushpendra@gmail.com');
+    //                     $message->to('contact@roadnstays.com');
     //                     $message->subject('roadNstays - New Event Booking Recieved Mail');
     //                 });
     //             }
@@ -1136,6 +1136,7 @@ class HomeController extends Controller
         $data['tour_gallery'] = DB::table('tour_gallery')->where('tour_id', $tour_id)->get();
         $data['tour_booked_count'] = DB::table('tour_booking')->where('tour_id', $tour_id)->where('payment_status','Paid')->where('booking_status', '!=', 'canceled')->count();
         $data['tour_pickup_locations'] = DB::table('tour_pickup_locations')->where('tour_id', $tour_id)->get();
+        $data['new_tour_itinerary'] = DB::table('tour_itinerary')->where('tour_id', $tour_id)->where('status', 1)->groupBy('place_from')->orderby('id', 'ASC')->get();
 
         // tour_max_capacity
         // echo "<pre>";print_r($data['tour_booked_count']); die;
@@ -1706,7 +1707,7 @@ class HomeController extends Controller
 
                     Mail::send('emails.tour-invoice-reciever', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'], 'roadNstays');
-                        $message->to('votivephppushpendra@gmail.com');
+                        $message->to('contact@roadnstays.com');
                         $message->subject('roadNstays - New Booking Recieved Mail');
                     });
                 }
@@ -2077,9 +2078,12 @@ class HomeController extends Controller
         $checkin_date = date('Y-m-d', strtotime($request->hotel_start_date));
         $checkout_date = date('Y-m-d', strtotime($request->hotel_end_date));
         if($checkin_date === $checkout_date){
-            $request->session()->forget('checkin_date');
-            $request->session()->forget('checkout_date');
-            return response()->json(['status' => 'sameDateError', 'msg' => 'Chekin Date and Checkout date should not be same']);
+            // $request->session()->forget('checkin_date');
+            // $request->session()->forget('checkout_date');
+            $checkout_date2 = date('Y-m-d', strtotime('+1 days', strtotime($checkout_date)));
+            Session::put('checkin_date', $checkin_date);
+            Session::put('checkout_date', $checkout_date2);
+            return response()->json(['status' => 'sameDateError', 'msg' => 'Please Select Checkout date after Checkin date']);
         }   
     }
 
@@ -3468,7 +3472,7 @@ class HomeController extends Controller
 
                 Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
                     $message->from($inData['from_email'], 'roadNstays');
-                    $message->to('votivephppushpendra@gmail.com');
+                    $message->to('contact@roadnstays.com');
                     $message->subject('roadNstays - New Booking Recieved Mail');
                 });
             }
@@ -4141,7 +4145,7 @@ class HomeController extends Controller
 
                     Mail::send('emails.invoice-reciever', $data, function ($message) use ($inData) {
                         $message->from($inData['from_email'], 'roadNstays');
-                        $message->to('votivephppushpendra@gmail.com');
+                        $message->to('contact@roadnstays.com');
                         $message->subject('roadNstays - New Booking Recieved Mail');
                     });
                 }
@@ -4360,7 +4364,7 @@ class HomeController extends Controller
             $data['trip_data'] = $trip_data;
             Mail::send('emails.custom_tour_request', $data, function ($message) use ($inData) {
                 $message->from($inData['from_email'], 'roadNstays');
-                $message->to('votivephppushpendra@gmail.com');
+                $message->to('contact@roadnstays.com');
                 $message->subject('roadNstays - Custom Trip enquiry');
             });
         return response()->json(['status' => 'success', 'msg' => 'Make trip with us created successfully..']);

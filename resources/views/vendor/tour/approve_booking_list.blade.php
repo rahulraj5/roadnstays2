@@ -557,9 +557,9 @@
                 <div class="btn-group btn-group-sm">
                   <a href="javascript:void(0)" onclick="rejectBookingReqConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Reject Booking Request</a>
                 </div>
-                <div class="btn-group btn-group-sm">
+                <!-- <div class="btn-group btn-group-sm">
                   <a href="javascript:void(0)" onclick="deleteConfirmation('<?php echo $arr->id; ?>');" class="btn btn-danger" style="margin-right: 3px;">Delete Booking</a>
-                </div>
+                </div> -->
                 @endif
                 @else {{ "Instant Booking"}}
                 @endif
